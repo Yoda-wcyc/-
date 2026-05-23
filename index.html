@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 研究報告中心</title>
+<style>
+:root{--fs:13px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;min-height:100vh;}
+
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
+.fb{padding:4px 10px;font-size:11px;font-family:var(--fm);background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb:hover{color:var(--text);background:var(--surface2);}
+.fb.on{color:var(--accent);background:rgba(0,200,240,.15);}
+
+.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
+.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-r{text-align:right;}
+.hdr-date{font-family:var(--fb);font-size:calc(var(--fs)*1.8);font-weight:900;color:var(--accent);}
+.hdr-meta{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;}
+
+.wrap{max-width:1200px;margin:0 auto;padding:22px 40px 64px;}
+.sec{margin-bottom:0;}
+.sec-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+
+/* ── 三張卡片永遠並列 ── */
+.card-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+
+.card{background:var(--surface);padding:20px 22px;cursor:pointer;transition:background .12s;}
+.card:hover{background:var(--surface2);}
+.card.open{background:var(--surface2);}
+
+.c-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.arr{display:inline-block;transition:transform .2s;animation:breathe 1.8s ease-in-out infinite;color:var(--yellow);}
+.card.open .arr{transform:rotate(180deg);animation:none;opacity:1;color:var(--accent);}
+@keyframes breathe{0%,100%{opacity:.3}50%{opacity:1}}
+
+.c-icon{font-size:calc(var(--fs)*2.2);line-height:1;margin-bottom:9px;}
+.c-val{font-family:var(--fb);font-size:calc(var(--fs)*2.1);font-weight:900;line-height:1;color:var(--text);margin-bottom:6px;}
+.c-sub{font-size:calc(var(--fs)*.85);color:var(--dim);line-height:1.7;}
+.c-count{display:inline-block;margin-top:10px;padding:3px 10px;font-family:var(--fm);font-size:calc(var(--fs)*.82);background:rgba(0,200,240,.08);color:var(--accent);border:1px solid rgba(0,200,240,.2);border-radius:2px;}
+
+/* ── 展開區：獨立在卡片列下方 ── */
+.det-wrap{background:var(--border);}
+.det{display:none;background:var(--surface2);border-top:1px solid var(--border);animation:sd .17s ease;}
+.det.open{display:block;}
+@keyframes sd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+.report-list{list-style:none;}
+.report-item{border-bottom:1px solid var(--border);transition:background .1s;}
+.report-item:last-child{border-bottom:none;}
+.report-item:hover{background:rgba(0,200,240,.04);}
+.report-item a{display:flex;align-items:center;gap:16px;width:100%;padding:13px 22px;text-decoration:none;color:inherit;}
+.r-date{font-family:var(--fm);font-size:calc(var(--fs)*.85);color:var(--dim);white-space:nowrap;min-width:82px;}
+.r-title{font-family:var(--fb);font-size:calc(var(--fs)*.95);color:var(--text);flex:1;}
+.report-item:hover .r-title{color:var(--accent);}
+.r-tag{font-size:calc(var(--fs)*.75);letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:2px;white-space:nowrap;}
+.tag-macro{background:rgba(0,200,150,.10);color:var(--green);border:1px solid rgba(0,200,150,.25);}
+.tag-mw{background:rgba(0,200,240,.10);color:var(--accent);border:1px solid rgba(0,200,240,.25);}
+.tag-stock{background:rgba(240,192,64,.10);color:var(--yellow);border:1px solid rgba(240,192,64,.25);}
+.r-arrow{color:var(--dim);font-size:calc(var(--fs)*.85);transition:transform .15s,color .15s;}
+.report-item:hover .r-arrow{transform:translateX(3px);color:var(--accent);}
+.r-empty{padding:24px 22px;font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--dim);text-align:center;}
+
+/* ── 新增說明 ── */
+.howto{margin-top:28px;padding:16px 20px;background:rgba(240,192,64,.04);border:1px solid rgba(240,192,64,.15);border-left:3px solid var(--yellow);}
+.howto-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.35em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px;}
+.howto-step{display:flex;gap:12px;margin-bottom:9px;}
+.howto-step:last-child{margin-bottom:0;}
+.sn{font-family:var(--fm);font-size:calc(var(--fs)*.75);min-width:20px;height:20px;border-radius:50%;background:rgba(240,192,64,.15);color:var(--yellow);border:1px solid rgba(240,192,64,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.st{font-family:var(--fb);color:var(--text);line-height:1.75;font-size:calc(var(--fs)*.88);}
+.st code{font-family:var(--fm);color:var(--accent);background:rgba(0,200,240,.08);padding:1px 5px;border-radius:2px;font-size:calc(var(--fs)*.88);}
+.st em{color:var(--yellow);font-style:normal;}
+
+.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
+.ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
+
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;}
+</style>
+</head>
+<body>
+
+<div class="fc">
+  <button class="fb" id="fs-small" onclick="setFS('small')">小</button>
+  <button class="fb on" id="fs-normal" onclick="setFS('normal')">中</button>
+  <button class="fb" id="fs-large" onclick="setFS('large')">大</button>
+  <button class="fb" style="margin-left:4px;border-left:1px solid var(--border);padding-left:10px;" onclick="setTheme('dark')" id="btn-dark">深</button>
+  <button class="fb" onclick="setTheme('light')" id="btn-light">淺</button>
+</div>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-lbl">Yoda × Claude</div>
+    <div class="hdr-title">Yoda <span>研究報告</span>中心</div>
+  </div>
+  <div class="hdr-r">
+    <div class="hdr-date" id="today-date"></div>
+    <div class="hdr-meta">總體經濟 · 市場觀察 · 個股分析</div>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="sec">
+  <div class="sec-lbl">報告分類（點擊展開）</div>
+
+  <!-- 三張卡片永遠並列 -->
+  <div class="card-row">
+    <div class="card" id="cMacro" onclick="tog('macro')">
+      <div class="c-lbl">MACRO ECONOMICS <span class="arr">▼</span></div>
+      <div class="c-icon">📊</div>
+      <div class="c-val">總體經濟</div>
+      <div class="c-sub">景氣循環 · GDP · 通膨<br>就業 · 貨幣政策</div>
+      <div class="c-count" id="cnt-macro">0 篇</div>
+    </div>
+
+    <div class="card" id="cMw" onclick="tog('mw')">
+      <div class="c-lbl">MARKET WATCH <span class="arr">▼</span></div>
+      <div class="c-icon">🔭</div>
+      <div class="c-val">市場觀察</div>
+      <div class="c-sub">市場結構 · 板塊輪動<br>廣度 · 情緒 · 期權</div>
+      <div class="c-count" id="cnt-mw">0 篇</div>
+    </div>
+
+    <div class="card" id="cStock" onclick="tog('stock')">
+      <div class="c-lbl">STOCK ANALYSIS <span class="arr">▼</span></div>
+      <div class="c-icon">🏢</div>
+      <div class="c-val">個股分析</div>
+      <div class="c-sub">財報解讀 · 技術面<br>估值 · 產業競爭</div>
+      <div class="c-count" id="cnt-stock">0 篇</div>
+    </div>
+  </div>
+
+  <!-- 展開區：卡片列下方，三個 panel 獨立切換 -->
+  <div class="det-wrap">
+
+    <div class="det" id="dMacro">
+      <ul class="report-list" id="list-macro">
+        <!-- ▼▼▼ 在這裡新增總體經濟報告（最新的貼最上面）▼▼▼
+        <li class="report-item">
+          <a href="檔名.html">
+            <span class="r-date">2026-05-01</span>
+            <span class="r-title">報告標題</span>
+            <span class="r-tag tag-macro">總經</span>
+            <span class="r-arrow">→</span>
+          </a>
+        </li>
+        ▲▲▲ 複製以上七行，貼在這裡 ▲▲▲ -->
+        <li><div class="r-empty">尚無報告</div></li>
+      </ul>
+    </div>
+
+    <div class="det" id="dMw">
+      <ul class="report-list" id="list-mw">
+        <!-- ▼▼▼ 在這裡新增市場觀察報告（最新的貼最上面）▼▼▼ -->
+        <li class="report-item">
+          <a href="市場觀察_20260523.html">
+            <span class="r-date">2026-05-23</span>
+            <span class="r-title">市場觀察｜廣度短線觸發，RSP+MDY+IWM 三路翻正</span>
+            <span class="r-tag tag-mw">市場</span>
+            <span class="r-arrow">→</span>
+          </a>
+        </li>
+        <!-- ▲▲▲ 複製以上七行，貼在這裡 ▲▲▲ -->
+      </ul>
+    </div>
+
+    <div class="det" id="dStock">
+      <ul class="report-list" id="list-stock">
+        <!-- ▼▼▼ 在這裡新增個股分析報告（最新的貼最上面）▼▼▼
+        <li class="report-item">
+          <a href="檔名.html">
+            <span class="r-date">2026-05-01</span>
+            <span class="r-title">報告標題</span>
+            <span class="r-tag tag-stock">個股</span>
+            <span class="r-arrow">→</span>
+          </a>
+        </li>
+        ▲▲▲ 複製以上七行，貼在這裡 ▲▲▲ -->
+        <li><div class="r-empty">尚無報告</div></li>
+      </ul>
+    </div>
+
+  </div><!-- /det-wrap -->
+</div>
+
+<!-- 新增說明 -->
+<div class="howto">
+  <div class="howto-lbl">如何新增一篇報告</div>
+  <div class="howto-step">
+    <div class="sn">1</div>
+    <div class="st">把報告的 <code>.html</code> 檔案放進與 <code>index.html</code> <em>同一個資料夾</em>。</div>
+  </div>
+  <div class="howto-step">
+    <div class="sn">2</div>
+    <div class="st">打開 <code>index.html</code>，找到對應類別下的 <em>▼▼▼ 在這裡新增 ▼▼▼</em> 區塊。</div>
+  </div>
+  <div class="howto-step">
+    <div class="sn">3</div>
+    <div class="st">複製一組 <code>&lt;li class="report-item"&gt;...&lt;/li&gt;</code>，貼在 <em>▼▼▼</em> 下方，改掉 <code>href</code>（檔名）、日期、標題。最新的報告貼最上面。</div>
+  </div>
+  <div class="howto-step">
+    <div class="sn">4</div>
+    <div class="st">標籤顏色：總體經濟 → <code>tag-macro</code>（綠）｜市場觀察 → <code>tag-mw</code>（藍）｜個股分析 → <code>tag-stock</code>（黃）。存檔推 GitHub，篇數自動更新。</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="ftr">
+  <div class="disc">個人研究用途，不構成任何投資建議</div>
+  <div class="brand">Yoda × Claude</div>
+</div>
+
+<script>
+const KEYS = ['macro','mw','stock'];
+
+function tog(key){
+  const det = document.getElementById('d'+cap(key));
+  const card = document.getElementById('c'+cap(key));
+  const isOpen = det.classList.contains('open');
+
+  // 關閉全部
+  KEYS.forEach(k=>{
+    document.getElementById('d'+cap(k)).classList.remove('open');
+    document.getElementById('c'+cap(k)).classList.remove('open');
+  });
+
+  // 若原本關閉則打開
+  if(!isOpen){
+    det.classList.add('open');
+    card.classList.add('open');
+  }
+  updateCounts();
+}
+
+function cap(s){ return s==='mw'?'Mw': s.charAt(0).toUpperCase()+s.slice(1); }
+
+function updateCounts(){
+  KEYS.forEach(k=>{
+    const n = document.querySelectorAll('#list-'+k+' .report-item').length;
+    document.getElementById('cnt-'+k).textContent = n+' 篇';
+  });
+}
+
+function setFS(size){
+  const map={small:'11px',normal:'13px',large:'15px'};
+  document.documentElement.style.setProperty('--fs',map[size]);
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('fs-'+size).classList.add('on');
+  localStorage.setItem('yoda-fs',size);
+}
+
+function setTheme(t){
+  document.body.className=t==='light'?'light':'';
+  document.getElementById('btn-dark').classList.toggle('on',t==='dark');
+  document.getElementById('btn-light').classList.toggle('on',t==='light');
+  localStorage.setItem('yoda-theme',t);
+}
+
+(function(){
+  const d=new Date();
+  document.getElementById('today-date').textContent=
+    d.getFullYear()+' / '+String(d.getMonth()+1).padStart(2,'0')+' / '+String(d.getDate()).padStart(2,'0');
+  setFS(localStorage.getItem('yoda-fs')||'normal');
+  setTheme(localStorage.getItem('yoda-theme')||'dark');
+  updateCounts();
+})();
+</script>
+</body>
+</html>
