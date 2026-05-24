@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>六月風暴 | 魚骨因果分析 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070b14;--bg2:#0d1221;--bg3:#111827;
+  --teal:#00d4aa;--red:#ef4444;--gold:#f59e0b;
+  --green:#22c55e;--dim:#4b5563;--text:#e2e8f0;--muted:#94a3b8;
+  --mono:'IBM Plex Mono',monospace;--sans:'Noto Sans TC',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,212,170,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,170,.025) 1px,transparent 1px);
+  background-size:44px 44px;pointer-events:none;z-index:0}
+.page{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:44px 24px 90px}
+
+/* HEADER */
+header{text-align:center;margin-bottom:52px}
+.htag{font-family:var(--mono);font-size:10px;letter-spacing:.35em;color:var(--teal);text-transform:uppercase;margin-bottom:14px;opacity:.8}
+h1{font-size:42px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+h1 em{color:var(--red);font-style:normal}
+h1 span{color:var(--teal)}
+.hsub{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:18px}
+.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:4px 12px;border-radius:3px;text-transform:uppercase}
+.br{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.28)}
+.bg{background:rgba(245,158,11,.12);color:var(--gold);border:1px solid rgba(245,158,11,.28)}
+.bt{background:rgba(0,212,170,.12);color:var(--teal);border:1px solid rgba(0,212,170,.28)}
+
+/* FISHBONE WRAP */
+.fb-wrap{background:var(--bg2);border:1px solid rgba(0,212,170,.1);border-radius:14px;padding:28px 16px 16px;margin-bottom:36px;overflow:hidden}
+.fb-label{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--teal);text-transform:uppercase;text-align:center;margin-bottom:14px}
+.fb-svg{width:100%;height:auto;display:block;overflow:visible}
+
+/* bone hover */
+.bone-g{cursor:pointer;transition:opacity .18s}
+.bone-g:hover .bline{opacity:1!important;filter:drop-shadow(0 0 5px currentColor)}
+.bone-g:hover .bdot{r:7}
+.bline{transition:opacity .18s,filter .18s;stroke-linecap:round}
+.bdot{transition:r .15s}
+
+@keyframes spineFlow{0%,100%{stroke-dashoffset:0}to{stroke-dashoffset:-40}}
+@keyframes headBreath{0%,100%{opacity:.85}50%{opacity:1}}
+@keyframes tldot{0%,100%{opacity:.6}50%{opacity:1;filter:drop-shadow(0 0 6px currentColor)}}
+.head-anim{animation:headBreath 2s ease-in-out infinite}
+
+/* SECTION HEADER */
+.sec-hd{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--teal);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.sec-hd::after{content:'';flex:1;height:1px;background:rgba(0,212,170,.15)}
+
+/* BONE DETAIL CARDS */
+.bone-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px;align-items:start}
+.bcard{background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:20px;border-top:3px solid}
+.bcard.up{border-top-color:var(--gold)}
+.bcard.dn{border-top-color:var(--red)}
+.bcard-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ctag{font-size:9px;padding:2px 7px;border-radius:3px}
+.up .ctag{background:rgba(245,158,11,.12);color:var(--gold)}
+.dn .ctag{background:rgba(239,68,68,.12);color:var(--red)}
+.flist{list-style:none}
+.fitem{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12.5px;line-height:1.55;align-items:flex-start}
+.fitem:last-child{border-bottom:none}
+.fnum{font-family:var(--mono);font-size:11px;color:var(--dim);flex-shrink:0;padding-top:1px;width:16px}
+.ftxt{color:var(--muted);flex:1}
+.ftxt strong{color:var(--text)}
+.fval{font-family:var(--mono);font-size:10px;flex-shrink:0;padding-top:2px}
+.cr{color:var(--red)}.cy{color:var(--gold)}.cg{color:var(--green)}.ct{color:var(--teal)}
+
+/* TIMELINE */
+.tl-wrap{background:var(--bg2);border:1px solid rgba(0,212,170,.09);border-radius:12px;padding:28px 32px 60px;margin-bottom:36px;position:relative;overflow:visible}
+.tl-track{position:relative;height:3px;background:rgba(255,255,255,.07);margin:54px 10px 70px;border-radius:2px}
+.tl-fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--teal),var(--gold),var(--red));border-radius:2px}
+.ev{position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.ev.ab{bottom:12px}
+.ev.bl{top:12px}
+.evdot{width:13px;height:13px;border-radius:50%;border:2px solid var(--bg);flex-shrink:0;animation:tldot 2s ease-in-out infinite}
+.evdot.rh{background:var(--red);box-shadow:0 0 8px var(--red)}
+.evdot.rm{background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.evdot.rl{background:var(--teal);box-shadow:0 0 8px var(--teal)}
+.evdate{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:.04em;white-space:nowrap;margin:5px 0 2px}
+.evname{font-size:11.5px;font-weight:700;white-space:nowrap}
+.evsub{font-family:var(--mono);font-size:9px;color:var(--muted);white-space:nowrap;margin-top:2px}
+.ev.ab .evdot{order:3;margin-top:6px}
+.ev.ab .evdate{order:0}
+.ev.ab .evname{order:1}
+.ev.ab .evsub{order:2}
+.ev.ab::after{content:'';position:absolute;bottom:-12px;left:50%;width:1px;height:12px;background:rgba(255,255,255,.15)}
+.ev.bl::before{content:'';position:absolute;top:-12px;left:50%;width:1px;height:12px;background:rgba(255,255,255,.15)}
+
+/* FOMC SCENARIOS */
+.sc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
+.scrd{background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:20px;border-top:3px solid}
+.sc-head2{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.sc-dot2{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.sc-title2{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.sc-row{font-size:12.5px;color:var(--muted);line-height:1.6;padding:3px 0;display:flex;gap:6px}
+.sc-row::before{content:'·';color:var(--dim);flex-shrink:0}
+.sc-row strong{color:var(--text)}
+.sc-op{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.05)}
+.sc-op-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;margin-bottom:5px;text-transform:uppercase}
+.sc-op-txt{font-size:12px;color:var(--muted);line-height:1.65}
+.sc-op-txt strong{color:var(--text)}
+
+/* NQ OPS */
+.nq-wrap{background:var(--bg2);border:1px solid rgba(0,212,170,.18);border-radius:12px;padding:28px}
+.nq-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.nqp{background:var(--bg3);border-radius:8px;padding:18px;border-top:3px solid}
+.nqp-0{border-top-color:var(--teal)}.nqp-1{border-top-color:var(--gold)}.nqp-2{border-top-color:var(--red)}.nqp-3{border-top-color:var(--green)}
+.nqp-date{font-family:var(--mono);font-size:9.5px;color:var(--dim);margin-bottom:5px;letter-spacing:.06em}
+.nqp-title{font-size:15px;font-weight:700;margin-bottom:11px;line-height:1.3}
+.nqp-body{font-size:12px;line-height:1.75;color:var(--muted)}
+.nqp-body strong{color:var(--text)}
+.nqp-body em{color:var(--gold);font-style:normal}
+.nqp-0 .nqp-title{color:var(--teal)}
+.nqp-1 .nqp-title{color:var(--gold)}
+.nqp-2 .nqp-title{color:var(--red)}
+.nqp-3 .nqp-title{color:var(--green)}
+/* NQ detail additions */
+.nqp-sub{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);margin:12px 0 5px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)}
+.nqp-alert{font-size:11px;color:var(--red);background:rgba(239,68,68,.07);
+  border-left:2px solid rgba(239,68,68,.4);padding:8px 10px;border-radius:3px;
+  margin-top:10px;line-height:1.65}
+.nqp-alert strong{color:var(--red)}
+.nqp-tip{font-size:11px;color:var(--teal);background:rgba(0,212,170,.06);
+  border-left:2px solid rgba(0,212,170,.35);padding:8px 10px;border-radius:3px;
+  margin-top:10px;line-height:1.65}
+.nqp-tip strong{color:var(--teal)}
+.fomc-tbl{width:100%;border-collapse:collapse;margin:8px 0}
+.fomc-tbl th{font-family:var(--mono);font-size:8px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--dim);padding:5px 6px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+.fomc-tbl td{padding:6px 6px;border-bottom:1px solid rgba(255,255,255,.04);
+  font-size:10.5px;color:var(--muted);vertical-align:top;line-height:1.55}
+.fomc-tbl tr:last-child td{border-bottom:none}
+.fomc-tbl td:first-child{font-family:var(--mono);font-size:10px;white-space:nowrap}
+.fomc-tbl td strong{color:var(--text)}
+.nq-confirm{margin-top:16px;background:var(--bg3);border-radius:8px;padding:18px;border-top:3px solid var(--green)}
+.nq-confirm-title{font-size:15px;font-weight:700;color:var(--green);margin-bottom:8px}
+.nq-confirm-date{font-family:var(--mono);font-size:9.5px;color:var(--dim);margin-bottom:8px;letter-spacing:.06em}
+.nq-summary{margin-top:18px;padding:15px 20px;background:rgba(0,212,170,.05);
+  border:1px solid rgba(0,212,170,.18);border-radius:8px;
+  font-size:12.5px;line-height:1.8;text-align:center;color:var(--muted)}
+.nq-summary strong{color:var(--teal)}
+
+footer{text-align:center;padding-top:48px;font-family:var(--mono);font-size:9.5px;color:var(--dim);letter-spacing:.1em}
+
+@media(max-width:780px){
+  h1{font-size:28px}
+  .bone-grid,.sc-grid,.nq-phases{grid-template-columns:1fr}
+}
+
+/* Scroll highlight */
+.bcard{transition:box-shadow .3s}
+.bcard.lit{box-shadow:0 0 22px rgba(245,158,11,.25)}
+.bcard.lit.dn{box-shadow:0 0 22px rgba(239,68,68,.25)}
+
+/* ── CONTROLS ── */
+.controls{
+  position:fixed;top:18px;right:22px;z-index:999;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(13,18,33,.92);
+  border:1px solid rgba(0,212,170,.18);
+  border-radius:8px;padding:6px 10px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.ctrl-sep{width:1px;height:18px;background:rgba(255,255,255,.1);margin:0 2px}
+.ctrl-btn{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+  padding:4px 9px;border-radius:5px;border:1px solid rgba(255,255,255,.1);
+  background:transparent;color:#94a3b8;cursor:pointer;
+  transition:all .18s;white-space:nowrap;
+}
+.ctrl-btn:hover{border-color:rgba(0,212,170,.5);color:#00d4aa}
+.ctrl-btn.active{background:rgba(0,212,170,.15);border-color:rgba(0,212,170,.45);color:#00d4aa}
+
+/* ── LIGHT MODE ── */
+body.light{
+  --bg:#f1f5f9;--bg2:#ffffff;--bg3:#e8edf5;
+  --text:#0f172a;--muted:#475569;--dim:#94a3b8;
+}
+body.light::before{
+  background-image:
+    linear-gradient(rgba(0,100,80,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,100,80,.04) 1px,transparent 1px);
+}
+body.light .controls{
+  background:rgba(255,255,255,.95);
+  border-color:rgba(0,150,120,.2);
+}
+body.light .ctrl-btn{color:#64748b}
+body.light .ctrl-btn:hover{color:var(--teal)}
+body.light .ctrl-btn.active{background:rgba(0,150,120,.1)}
+body.light .fb-wrap,body.light .bcard,
+body.light .tl-wrap,body.light .scrd,body.light .nq-wrap,
+body.light .nqp{border-color:rgba(0,0,0,.08)!important}
+body.light footer{color:#94a3b8}
+
+/* ── USER SELECT OFF ── */
+*{-webkit-user-select:none;-moz-user-select:none;user-select:none}
+
+/* ── BREATHING ARROW ── */
+@keyframes breathArrow{
+  0%,100%{opacity:.35;filter:drop-shadow(0 0 0px transparent)}
+  50%{opacity:1;filter:drop-shadow(0 0 5px var(--teal))}
+}
+.bcard-arrow{
+  animation:breathArrow 1.8s ease-in-out infinite;
+}
+.bcard.open .bcard-arrow{
+  animation:none;
+  opacity:1;
+  color:var(--teal);
+}
+
+/* ── IPO IMPACT SECTION ── */
+.impact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
+.impact-card{background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:20px}
+.impact-card:first-child{grid-column:1/-1}
+.impact-title{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(0,212,170,.12)}
+
+/* Tesla comparison */
+.cmp-grid{display:grid;grid-template-columns:1fr 28px 1fr;gap:0;margin-bottom:12px}
+.cmp-divider{border-left:1px solid rgba(255,255,255,.08);margin:0 10px}
+.cmp-hd{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.cmp-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.03);font-size:12px}
+.cl{color:var(--muted);font-family:var(--mono);font-size:10.5px}
+.cv{color:var(--text);font-family:var(--mono);font-size:10.5px}
+.impact-note{font-family:var(--mono);font-size:10px;color:var(--dim);
+  margin-top:12px;padding:10px 12px;background:rgba(255,255,255,.03);border-radius:5px;
+  border-left:2px solid rgba(245,158,11,.3);line-height:1.6}
+
+/* Impact table */
+.impact-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.impact-tbl th{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--dim);padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left}
+.impact-tbl td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--muted)}
+.impact-tbl td:first-child{color:var(--text);font-weight:600}
+.impact-tbl td:nth-child(2){font-family:var(--mono);font-size:11px;color:var(--dim)}
+.impact-tbl td:nth-child(3){font-family:var(--mono);font-size:11px;color:var(--gold)}
+
+/* Wave list */
+.wave-list{display:flex;flex-direction:column;gap:14px}
+.wave-item{display:flex;gap:12px;align-items:flex-start}
+.wave-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.wave-body{flex:1}
+.wave-date{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;margin-bottom:4px;font-weight:600}
+.wave-desc{font-size:12px;color:var(--muted);line-height:1.65}
+.wave-desc strong{color:var(--text)}
+
+/* IPO timeline nodes in fitem */
+.ipo-tl{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:5px 0 6px;font-size:11px}
+.ipo-node{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border-radius:3px;letter-spacing:.04em}
+.ipo-node.gold{background:rgba(245,158,11,.15);color:var(--gold);border:1px solid rgba(245,158,11,.25)}
+.ipo-node.red{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.ipo-node.muted{background:rgba(255,255,255,.05);color:var(--dim);border:1px solid rgba(255,255,255,.08)}
+.ipo-arr{color:var(--dim);font-size:10px}
+.fitem em{color:var(--gold);font-style:normal;font-size:11.5px;display:block;margin-top:4px}
+
+@media(max-width:780px){
+  .impact-wrap{grid-template-columns:1fr}
+  .impact-card:first-child{grid-column:1}
+  .cmp-grid{grid-template-columns:1fr;gap:16px}
+  .cmp-divider{display:none}
+}
+
+/* ── COLLAPSIBLE CARDS ── */
+.bcard-title{
+  cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+  user-select:none;-webkit-user-select:none;
+  padding-bottom:0;margin-bottom:0;
+  transition:color .18s;
+}
+.bcard-title:hover{opacity:.85}
+.bcard-arrow{
+  margin-left:auto;flex-shrink:0;
+  font-size:11px;color:var(--dim);
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+  display:inline-block;
+}
+.bcard.open .bcard-arrow{transform:rotate(90deg)}
+.bcard-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .32s cubic-bezier(.4,0,.2,1),
+             margin-top .22s ease,
+             opacity .22s ease;
+  margin-top:0;
+  opacity:0;
+}
+.bcard.open .bcard-body{
+  max-height:1200px;
+  margin-top:14px;
+  opacity:1;
+}
+/* subtle divider appears when open */
+.bcard.open .bcard-title{
+  padding-bottom:12px;
+  margin-bottom:0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+/* hover glow on title bar */
+.bcard-title-inner{display:flex;align-items:center;gap:8px;flex:1}
+</style>
+<style id="fs-override"></style>
+</head>
+<body>
+
+<div class="controls" id="ctrl">
+  <button class="ctrl-btn" id="fs-s" onclick="setFs(18)">小</button>
+  <button class="ctrl-btn active" id="fs-m" onclick="setFs(21)">中</button>
+  <button class="ctrl-btn" id="fs-l" onclick="setFs(24)">大</button>
+  <div class="ctrl-sep"></div>
+  <button class="ctrl-btn" id="mode-d" onclick="setMode('dark')" style="color:var(--teal)">暗</button>
+  <button class="ctrl-btn" id="mode-l" onclick="setMode('light')">亮</button>
+</div>
+<div class="page">
+
+<!-- HEADER -->
+<header>
+  <div class="htag">Yoda &times; Claude</div>
+  <h1>六月 <em>風暴</em> <span>×</span> 魚骨分析</h1>
+  <div class="hsub">SpaceX IPO &nbsp;×&nbsp; FOMC + SEP點陣圖 &nbsp;×&nbsp; 四巫日　三體事件因果解構</div>
+  <div class="badges">
+    <span class="badge br">🔴 極高風險窗口 6/16–6/18</span>
+    <span class="badge bg">⚡ FOMC × 四巫日 同週</span>
+    <span class="badge bt">分析日：2026 / 05 / 22</span>
+  </div>
+</header>
+
+<!-- ══ FISHBONE ══ -->
+<div class="fb-wrap">
+  <div class="fb-label">◈ 因果魚骨圖 — 六月極端波動的四大根源</div>
+  <!-- viewBox has extra left margin for labels -->
+  <svg class="fb-svg" viewBox="-30 0 1220 430" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="glowT" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="b"/>
+        <feComposite in="SourceGraphic" in2="b" operator="over"/>
+      </filter>
+      <marker id="arr" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+        <polygon points="0,0 7,3.5 0,7" fill="#00d4aa" opacity=".8"/>
+      </marker>
+    </defs>
+
+    <!-- SPINE glow bg -->
+    <line x1="90" y1="215" x2="990" y2="215" stroke="#00d4aa" stroke-width="12" opacity=".05" stroke-linecap="round"/>
+    <!-- SPINE main -->
+    <line x1="90" y1="215" x2="975" y2="215" stroke="#00d4aa" stroke-width="2.5" opacity=".9" stroke-linecap="round" marker-end="url(#arr)"/>
+
+    <!-- FISH TAIL -->
+    <path d="M90,215 L52,178 L66,215 L52,252 Z" fill="none" stroke="#00d4aa" stroke-width="1.8" opacity=".35"/>
+    <text x="40" y="274" fill="#374151" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" letter-spacing="1">JUN 2026</text>
+
+    <!-- FISH HEAD -->
+    <ellipse cx="1040" cy="215" rx="95" ry="65" fill="rgba(239,68,68,.07)" class="head-anim"/>
+    <ellipse cx="1040" cy="215" rx="90" ry="61" fill="rgba(7,11,20,.95)" stroke="#ef4444" stroke-width="2" opacity=".95"/>
+    <text x="1040" y="197" text-anchor="middle" fill="#ef4444" font-family="IBM Plex Mono" font-size="10" font-weight="700" letter-spacing=".06em">6/18 FRI</text>
+    <text x="1040" y="216" text-anchor="middle" fill="#f1f5f9" font-family="Noto Sans TC" font-size="13" font-weight="900">四巫日</text>
+    <text x="1040" y="233" text-anchor="middle" fill="#94a3b8" font-family="Noto Sans TC" font-size="10.5">× FOMC後結算</text>
+    <text x="1040" y="249" text-anchor="middle" fill="#6b7280" font-family="IBM Plex Mono" font-size="8.5">EXTREME VOLATILITY</text>
+
+    <!-- ══ UPPER BONE 1 : 利率環境 ══ -->
+    <!-- spine(360,215) → tip(235,68) ; vec(-125,-147) -->
+    <g class="bone-g" onclick="litCard('rate')" id="bg-rate">
+      <title>利率環境</title>
+      <line x1="360" y1="215" x2="235" y2="68" stroke="#f59e0b" stroke-width="2.2" class="bline" opacity=".85"/>
+      <!-- sub-branch lines: t=0.22,0.44,0.63,0.80 → points on bone -->
+      <!-- t=.22 → (332,183) ; sub 120px left → (212,183) -->
+      <line x1="216" y1="183" x2="332" y2="183" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
+      <circle cx="332" cy="183" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
+      <text x="212" y="187" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">US10Y 4.63%（16M高）</text>
+      <!-- t=.44 → (305,150) -->
+      <line x1="195" y1="150" x2="305" y2="150" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
+      <circle cx="305" cy="150" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
+      <text x="191" y="154" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">6/10 CPI 超預期風險</text>
+      <!-- t=.63 → (281,122) -->
+      <line x1="170" y1="122" x2="281" y2="122" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
+      <circle cx="281" cy="122" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
+      <text x="166" y="126" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">升息隱含機率 50%</text>
+      <!-- t=.80 → (260,97) -->
+      <line x1="148" y1="97" x2="260" y2="97" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
+      <circle cx="260" cy="97" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
+      <text x="144" y="101" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">新主席Warsh立場未定</text>
+      <!-- category label -->
+      <text x="235" y="55" text-anchor="middle" fill="#f59e0b" font-family="Noto Sans TC" font-size="14" font-weight="700">利率環境</text>
+      <text x="235" y="70" text-anchor="middle" fill="#78350f" font-family="IBM Plex Mono" font-size="8">RATE ENVIRONMENT</text>
+      <!-- spine dot -->
+      <circle cx="360" cy="215" r="6" fill="#f59e0b" class="bdot"/>
+    </g>
+
+    <!-- ══ UPPER BONE 2 : IPO衝擊 ══ -->
+    <!-- spine(660,215) → tip(535,65) ; vec(-125,-150) -->
+    <g class="bone-g" onclick="litCard('ipo')" id="bg-ipo">
+      <title>IPO衝擊</title>
+      <line x1="660" y1="215" x2="535" y2="65" stroke="#f59e0b" stroke-width="2.2" class="bline" opacity=".85"/>
+      <line x1="516" y1="182" x2="632" y2="182" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
+      <circle cx="632" cy="182" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
+      <text x="512" y="186" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">6/12掛牌＝情緒高點賣訊</text>
+      <line x1="494" y1="149" x2="605" y2="149" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
+      <circle cx="605" cy="149" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
+      <text x="490" y="153" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">估值$1.75T 高爭議</text>
+      <line x1="471" y1="121" x2="578" y2="121" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
+      <circle cx="578" cy="121" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
+      <text x="467" y="125" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">浮動股&lt;5% 流通稀缺</text>
+      <line x1="450" y1="96" x2="554" y2="96" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
+      <circle cx="554" cy="96" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
+      <text x="446" y="100" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">$60–70B 被動換倉壓力</text>
+      <text x="535" y="52" text-anchor="middle" fill="#f59e0b" font-family="Noto Sans TC" font-size="14" font-weight="700">IPO衝擊</text>
+      <text x="535" y="67" text-anchor="middle" fill="#78350f" font-family="IBM Plex Mono" font-size="8">SPACEX IPO IMPACT</text>
+      <circle cx="660" cy="215" r="6" fill="#f59e0b" class="bdot"/>
+    </g>
+
+    <!-- ══ LOWER BONE 1 : 選擇權結構 ══ -->
+    <!-- spine(470,215) → tip(345,355) ; vec(-125,140) -->
+    <g class="bone-g" onclick="litCard('opts')" id="bg-opts">
+      <title>選擇權結構</title>
+      <line x1="470" y1="215" x2="345" y2="355" stroke="#ef4444" stroke-width="2.2" class="bline" opacity=".85"/>
+      <line x1="366" y1="246" x2="442" y2="246" stroke="#ef4444" stroke-width="1.2" opacity=".38"/>
+      <circle cx="442" cy="246" r="3.5" fill="#ef4444" opacity=".75" class="bdot"/>
+      <text x="362" y="250" text-anchor="end" fill="#dc2626" font-family="IBM Plex Mono" font-size="9.5">Max Pain $655 vs 現價$713</text>
+      <line x1="348" y1="277" x2="415" y2="277" stroke="#ef4444" stroke-width="1.2" opacity=".38"/>
+      <circle cx="415" cy="277" r="3.5" fill="#ef4444" opacity=".75" class="bdot"/>
+      <text x="344" y="281" text-anchor="end" fill="#dc2626" font-family="IBM Plex Mono" font-size="9.5">$750 Call牆壓制上行</text>
+      <line x1="330" y1="307" x2="388" y2="307" stroke="#ef4444" stroke-width="1.2" opacity=".38"/>
+      <circle cx="388" cy="307" r="3.5" fill="#ef4444" opacity=".75" class="bdot"/>
+      <text x="326" y="311" text-anchor="end" fill="#dc2626" font-family="IBM Plex Mono" font-size="9.5">P/C 0.46 保護嚴重不足</text>
+      <line x1="312" y1="336" x2="360" y2="336" stroke="#ef4444" stroke-width="1.2" opacity=".38"/>
+      <circle cx="360" cy="336" r="3.5" fill="#ef4444" opacity=".75" class="bdot"/>
+      <text x="308" y="340" text-anchor="end" fill="#dc2626" font-family="IBM Plex Mono" font-size="9.5">四巫日 MOC 強制換倉</text>
+      <text x="345" y="374" text-anchor="middle" fill="#ef4444" font-family="Noto Sans TC" font-size="14" font-weight="700">選擇權結構</text>
+      <text x="345" y="389" text-anchor="middle" fill="#7f1d1d" font-family="IBM Plex Mono" font-size="8">OPTIONS STRUCTURE</text>
+      <circle cx="470" cy="215" r="6" fill="#ef4444" class="bdot"/>
+    </g>
+
+    <!-- ══ LOWER BONE 2 : 槓桿情緒 ══ -->
+    <!-- spine(820,215) → tip(695,358) ; vec(-125,143) -->
+    <g class="bone-g" onclick="litCard('lev')" id="bg-lev">
+      <title>槓桿情緒</title>
+      <line x1="820" y1="215" x2="695" y2="358" stroke="#ef4444" stroke-width="2.2" class="bline" opacity=".85"/>
+      <line x1="716" y1="247" x2="792" y2="247" stroke="#ef4444" stroke-width="1.2" opacity=".38"/>
+      <circle cx="792" cy="247" r="3.5" fill="#ef4444" opacity=".75" class="bdot"/>
+      <text x="712" y="251" text-anchor="end" fill="#dc2626" font-family="IBM Plex Mono" font-size="9.5">SpaceX 6/12掛牌→7/3 NDX納入</text>
+      <line x1="697" y1="278" x2="765" y2="278" stroke="#ef4444" stroke-width="1.2" opacity=".38"/>
+      <circle cx="765" cy="278" r="3.5" fill="#ef4444" opacity=".75" class="bdot"/>
+      <text x="693" y="282" text-anchor="end" fill="#dc2626" font-family="IBM Plex Mono" font-size="9.5">OpenAI S-1 本週提交，Q3掛牌</text>
+      <line x1="679" y1="308" x2="738" y2="308" stroke="#ef4444" stroke-width="1.2" opacity=".38"/>
+      <circle cx="738" cy="308" r="3.5" fill="#ef4444" opacity=".75" class="bdot"/>
+      <text x="675" y="312" text-anchor="end" fill="#dc2626" font-family="IBM Plex Mono" font-size="9.5">Anthropic 估值~$350B 規劃中</text>
+      <line x1="662" y1="337" x2="712" y2="337" stroke="#ef4444" stroke-width="1.2" opacity=".38"/>
+      <circle cx="712" cy="337" r="3.5" fill="#ef4444" opacity=".75" class="bdot"/>
+      <text x="658" y="341" text-anchor="end" fill="#dc2626" font-family="IBM Plex Mono" font-size="9.5">三家合計~$2.85T 連環換倉壓力</text>
+      <text x="695" y="376" text-anchor="middle" fill="#ef4444" font-family="Noto Sans TC" font-size="14" font-weight="700">三大IPO進程</text>
+      <text x="695" y="391" text-anchor="middle" fill="#7f1d1d" font-family="IBM Plex Mono" font-size="8">THREE MEGA IPOs</text>
+      <circle cx="820" cy="215" r="6" fill="#ef4444" class="bdot"/>
+    </g>
+
+    <!-- ══ SPINE EVENT NODES ══ -->
+    <!-- CPI 6/10 -->
+    <g>
+      <circle cx="220" cy="215" r="7.5" fill="#07111e" stroke="#f59e0b" stroke-width="2"/>
+      <circle cx="220" cy="215" r="3" fill="#f59e0b"/>
+      <text x="220" y="200" text-anchor="middle" fill="#f59e0b" font-family="IBM Plex Mono" font-size="8.5" font-weight="600">6/10</text>
+      <text x="220" y="236" text-anchor="middle" fill="#94a3b8" font-family="Noto Sans TC" font-size="9.5">CPI</text>
+    </g>
+    <!-- SpaceX 6/12 -->
+    <g>
+      <circle cx="470" cy="215" r="7.5" fill="#07111e" stroke="#f59e0b" stroke-width="2"/>
+      <circle cx="470" cy="215" r="3" fill="#f59e0b"/>
+      <text x="470" y="200" text-anchor="middle" fill="#f59e0b" font-family="IBM Plex Mono" font-size="8.5" font-weight="600">6/12</text>
+      <text x="470" y="236" text-anchor="middle" fill="#94a3b8" font-family="Noto Sans TC" font-size="9.5">SPCX上市</text>
+    </g>
+    <!-- FOMC 6/17 -->
+    <g>
+      <circle cx="730" cy="215" r="9" fill="#07111e" stroke="#ef4444" stroke-width="2.5"/>
+      <circle cx="730" cy="215" r="3.5" fill="#ef4444"/>
+      <text x="730" y="198" text-anchor="middle" fill="#ef4444" font-family="IBM Plex Mono" font-size="8.5" font-weight="700">6/17</text>
+      <text x="730" y="237" text-anchor="middle" fill="#94a3b8" font-family="Noto Sans TC" font-size="9.5">FOMC決策</text>
+      <text x="730" y="249" text-anchor="middle" fill="#6b7280" font-family="IBM Plex Mono" font-size="7.5">+SEP點陣圖</text>
+    </g>
+    <!-- 四巫日 6/18 node on spine -->
+    <g>
+      <circle cx="948" cy="215" r="8" fill="#07111e" stroke="#ef4444" stroke-width="2.5"/>
+      <circle cx="948" cy="215" r="3.5" fill="#ef4444"/>
+    </g>
+
+    <!-- LEGEND -->
+    <g transform="translate(900,14)">
+      <rect x="0" y="0" width="230" height="52" rx="5" fill="rgba(7,11,20,.85)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+      <line x1="12" y1="17" x2="38" y2="17" stroke="#f59e0b" stroke-width="2"/>
+      <text x="44" y="21" fill="#94a3b8" font-family="IBM Plex Mono" font-size="9">上行骨｜利率環境 / IPO衝擊</text>
+      <line x1="12" y1="37" x2="38" y2="37" stroke="#ef4444" stroke-width="2"/>
+      <text x="44" y="41" fill="#94a3b8" font-family="IBM Plex Mono" font-size="9">下行骨｜選擇權 / 槓桿情緒</text>
+    </g>
+
+    <!-- Click hint -->
+    <text x="590" y="418" text-anchor="middle" fill="#374151" font-family="IBM Plex Mono" font-size="9" letter-spacing=".12em">▲ CLICK A BONE TO HIGHLIGHT DETAIL CARD ▲</text>
+  </svg>
+</div>
+
+<!-- ══ BONE DETAIL CARDS ══ -->
+<div class="sec-hd">◈ 四大風險骨 詳細因子</div>
+<div class="bone-grid">
+
+  <!-- CARD 1: 利率環境 -->
+  <div class="bcard up" id="card-rate">
+    <div class="bcard-title" onclick="toggleCard('card-rate')">
+      <div class="bcard-title-inner"><span style="color:var(--gold)">━</span> 利率環境 <span class="ctag">上行骨 01</span></div>
+      <span class="bcard-arrow">▶</span>
+    </div>
+    <div class="bcard-body">
+      <ul class="flist">
+        <li class="fitem"><span class="fnum">①</span><span class="ftxt"><strong>US10Y 4.63%</strong>——16個月高位，長端持續自我緊縮，折現率壓制高本益比</span><span class="fval cr">🔴</span></li>
+        <li class="fitem"><span class="fnum">②</span><span class="ftxt"><strong>6/10 CPI</strong>——FOMC前最後通膨數據。若 &gt;3.5%，升息定價從50%急跳至70%+</span><span class="fval cy">⚡待定</span></li>
+        <li class="fitem"><span class="fnum">③</span><span class="ftxt"><strong>升息隱含機率 50%</strong>——市場五五波，點陣圖是本輪最大轉捩點</span><span class="fval cy">🟡</span></li>
+        <li class="fitem"><span class="fnum">④</span><span class="ftxt"><strong>新主席 Warsh</strong>——Powell任期已結束，確認前立場與溝通風格未知</span><span class="fval cy">🟡</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CARD 2: IPO衝擊 -->
+  <div class="bcard up" id="card-ipo">
+    <div class="bcard-title" onclick="toggleCard('card-ipo')">
+      <div class="bcard-title-inner"><span style="color:var(--gold)">━</span> IPO衝擊 <span class="ctag">上行骨 02</span></div>
+      <span class="bcard-arrow">▶</span>
+    </div>
+    <div class="bcard-body">
+      <ul class="flist">
+        <li class="fitem"><span class="fnum">①</span><span class="ftxt"><strong>SPCX 6/12掛牌</strong>——低浮動（&lt;5%）× 路演熱度 = 大概率溢價跳空開盤。<em>情緒高點＝做市商報價最貴時刻，此時買入即被套在最高成本。</em>歷史類比：Arm 2023年 IPO 首日 +25%，隨後30天回落 −20%</span><span class="fval cr">🔴不追</span></li>
+        <li class="fitem"><span class="fnum">②</span><span class="ftxt"><strong>估值爭議 $1.75T</strong>——Q1 營收 $47億但淨虧損 $43億，自創立以來累計虧損 $370億。估值相當於 Nvidia 的 1/3，但 Nvidia 淨利率 55%、SpaceX 虧損中。高估值 × 虧損 = 若市場情緒反轉，下行空間極大</span><span class="fval cr">🔴高爭議</span></li>
+        <li class="fitem"><span class="fnum">③</span><span class="ftxt"><strong>NDX 納入機制（~7/3）</strong>——Nasdaq Fast Entry（5/1生效）：掛牌後第15交易日強制納入。SpaceX 預計權重 ~0.44%，觸發 NDX 生態系 <em>單日 MOC 買單 $60–70B</em>（包含 QQQ $385B × 0.44% ≈ $17億 + 全生態）。這是 NDX 史上最大單日被動換倉事件，規模是 Tesla 2020年 S&P 納入的 3–5 倍</span><span class="fval cr">🔴7/3觸發</span></li>
+        <li class="fitem"><span class="fnum">④</span><span class="ftxt"><strong>現有成分股遭比例賣出</strong>——NDX 現有 100+ 檔成分股全部按比例縮減。權重最高的受衝擊最大：NVDA（~6.5%）→ 被賣出約 $390M（QQQ層面）；AAPL、MSFT、AMZN 各遭 $200–300M 賣出。<em>這不是暴力砍倉，而是確定發生的結構性稀釋。</em></span><span class="fval cy">🟡稀釋</span></li>
+        <li class="fitem"><span class="fnum">⑤</span><span class="ftxt"><strong>解禁瀑布效應（180天內）</strong>——SpaceX 分批解禁設計：浮動股每增加 → NDX 權重按 3× 公式上調 → 追蹤基金再次被動加碼 SPCX → 再次賣出現有成分股。9/21 定期重組是第二波高峰</span><span class="fval cy">⚡滾動</span></li>
+        <li class="fitem"><span class="fnum">⑥</span><span class="ftxt"><strong>OpenAI（$750–830B）+ Anthropic（~$350B）連鎖</strong>——若 OpenAI Q3 掛牌，第二輪 NDX 換倉啟動。Anthropic 年底前若跟進，第三輪開啟。三家合計 ~$2.85T+，現有成分股在 12 個月內面臨 <em>累計 2–4% 的結構性稀釋</em>，是近 20 年 NDX 最大成分權重重組</span><span class="fval cr">🔴連環</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CARD 3: 選擇權結構 -->
+  <div class="bcard dn" id="card-opts">
+    <div class="bcard-title" onclick="toggleCard('card-opts')">
+      <div class="bcard-title-inner"><span style="color:var(--red)">━</span> 選擇權結構 <span class="ctag">下行骨 03</span></div>
+      <span class="bcard-arrow">▶</span>
+    </div>
+    <div class="bcard-body">
+      <ul class="flist">
+        <li class="fitem"><span class="fnum">①</span><span class="ftxt"><strong>Max Pain $655</strong>——QQQ現價$713，差距8.9%。四巫日結算時引力最大</span><span class="fval cr">🔴核心</span></li>
+        <li class="fitem"><span class="fnum">②</span><span class="ftxt"><strong>$750 Call牆</strong>——突破需額外強催化劑，做市商Delta對沖形成天花板</span><span class="fval cy">🟡壓制</span></li>
+        <li class="fitem"><span class="fnum">③</span><span class="ftxt"><strong>P/C Ratio 0.46</strong>——極度偏多，下行保護嚴重匱乏，不對稱下行風險</span><span class="fval cr">🔴過熱</span></li>
+        <li class="fitem"><span class="fnum">④</span><span class="ftxt"><strong>四巫日MOC</strong>——股指期/選擇權/單股期貨同到期，強制換倉集中單日</span><span class="fval cr">🔴必發</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CARD 4: 三大IPO進程 -->
+  <div class="bcard dn" id="card-lev">
+    <div class="bcard-title" onclick="toggleCard('card-lev')">
+      <div class="bcard-title-inner"><span style="color:var(--red)">━</span> 三大IPO進程 <span class="ctag">下行骨 04</span></div>
+      <span class="bcard-arrow">▶</span>
+    </div>
+    <div class="bcard-body">
+      <ul class="flist">
+        <li class="fitem"><span class="fnum">①</span>
+          <span class="ftxt">
+            <strong>SpaceX SPCX｜$1.75T｜波一</strong><br>
+            <span class="ipo-tl">
+              <span class="ipo-node gold">6/11 定價</span><span class="ipo-arr">→</span>
+              <span class="ipo-node gold">6/12 掛牌 🚀</span><span class="ipo-arr">→</span>
+              <span class="ipo-node red">7/3 NDX納入⚡</span><span class="ipo-arr">→</span>
+              <span class="ipo-node muted">9/21 重組Wave2</span><span class="ipo-arr">→</span>
+              <span class="ipo-node muted">12月 解禁高峰</span>
+            </span>
+            <em>NDX納入當日單日 MOC：$60–70B（被動生態全量）；QQQ層面 ~$17億。現有成分股按比例全面被賣出。</em>
+          </span>
+          <span class="fval cr">🔴已確定</span>
+        </li>
+        <li class="fitem"><span class="fnum">②</span>
+          <span class="ftxt">
+            <strong>OpenAI｜$750–830B｜波二</strong><br>
+            <span class="ipo-tl">
+              <span class="ipo-node gold">S-1 本週</span><span class="ipo-arr">→</span>
+              <span class="ipo-node gold">Q3 路演</span><span class="ipo-arr">→</span>
+              <span class="ipo-node red">Q3末 NDX納入⚡</span><span class="ipo-arr">→</span>
+              <span class="ipo-node muted">可能疊加9/21重組</span>
+            </span>
+            <em>若 OpenAI 9月掛牌，NDX納入時點可能與 9/21 定期重組重疊，形成「雙重換倉日」，現有成分股當天面臨雙倍稀釋壓力。被動換倉規模估計 $25–40B。</em>
+          </span>
+          <span class="fval cy">⚡即將</span>
+        </li>
+        <li class="fitem"><span class="fnum">③</span>
+          <span class="ftxt">
+            <strong>Anthropic｜~$350B｜波三</strong><br>
+            <span class="ipo-tl">
+              <span class="ipo-node muted">規劃中</span><span class="ipo-arr">→</span>
+              <span class="ipo-node muted">2026 Q4 掛牌？</span><span class="ipo-arr">→</span>
+              <span class="ipo-node muted">12月 NDX納入</span>
+            </span>
+            <em>若年底前完成，構成第三輪連環換倉。規模相對較小（$10–15B），但與聖誕節前流動性枯竭期疊加，波動放大效應不可低估。</em>
+          </span>
+          <span class="fval cy">🟡待定</span>
+        </li>
+        <li class="fitem"><span class="fnum">④</span>
+          <span class="ftxt">
+            <strong>累計衝擊總覽（12個月）</strong><br>
+            三家合計市值 ~$2.85T+｜NDX 現有成分股累計被稀釋 <em>2–4% 權重</em>｜被動換倉總量估計 $95–145B｜受創最深板塊：XLK 科技（NDX最大板塊）、SOXX/SMH 半導體（NDX佔比15–20%）｜受影響最小：XLRE、XLU（NDX佔比小）
+          </span>
+          <span class="fval cr">🔴史無前例</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ IPO MARKET IMPACT DETAIL ══ -->
+<div class="sec-hd" style="margin-top:8px">◈ IPO對現有成分股的衝擊量化</div>
+<div class="impact-wrap">
+
+  <!-- Tesla 類比 -->
+  <div class="impact-card" style="grid-column:1/-1">
+    <div class="impact-title">📊 歷史類比：Tesla 2020年 S&P 500納入 vs. SpaceX 2026年 NDX納入</div>
+    <div class="cmp-grid">
+      <div class="cmp-col">
+        <div class="cmp-hd" style="color:var(--muted)">Tesla S&P 500（2020/12）</div>
+        <div class="cmp-row"><span class="cl">估值</span><span class="cv">$6,500億</span></div>
+        <div class="cmp-row"><span class="cl">指數 AUM</span><span class="cv">~$11T</span></div>
+        <div class="cmp-row"><span class="cl">單日換倉</span><span class="cv">~$800億</span></div>
+        <div class="cmp-row"><span class="cl">納入前漲幅</span><span class="cv cy">+700%（1年）</span></div>
+        <div class="cmp-row"><span class="cl">納入當天</span><span class="cv cr">−1.5%</span></div>
+        <div class="cmp-row"><span class="cl">1個月後</span><span class="cv cg">+25% 收復</span></div>
+      </div>
+      <div class="cmp-divider"></div>
+      <div class="cmp-col">
+        <div class="cmp-hd" style="color:var(--gold)">SpaceX NDX（預計 2026/7）</div>
+        <div class="cmp-row"><span class="cl">估值</span><span class="cv cy">$1.75T（大 2.7×）</span></div>
+        <div class="cmp-row"><span class="cl">指數 AUM</span><span class="cv">~$1.4T（NDX生態）</span></div>
+        <div class="cmp-row"><span class="cl">單日換倉</span><span class="cv cr">$60–70B（估）</span></div>
+        <div class="cmp-row"><span class="cl">IPO前定價</span><span class="cv">未知，但路演熱</span></div>
+        <div class="cmp-row"><span class="cl">納入當天</span><span class="cv cr">預期拋壓集中</span></div>
+        <div class="cmp-row"><span class="cl">關鍵差異</span><span class="cv cr">公司虧損中，基本面支撐弱於Tesla</span></div>
+      </div>
+    </div>
+    <div class="impact-note">⚠ 關鍵洞察：Tesla 納入時公司已高度盈利（FY2020淨利潤 $7億）。SpaceX Q1 淨虧損 $43億。若市場情緒轉向，下行空間不對稱放大。</div>
+  </div>
+
+  <!-- 受衝擊板塊分級表 -->
+  <div class="impact-card">
+    <div class="impact-title">🎯 受衝擊板塊分級（NDX納入日）</div>
+    <table class="impact-tbl">
+      <thead><tr><th>板塊/ETF</th><th>NDX佔比</th><th>預估被賣出（QQQ層面）</th><th>衝擊等級</th></tr></thead>
+      <tbody>
+        <tr><td>XLK 科技</td><td>~29%</td><td>$4.9億</td><td><span class="badge br">🔴 最重</span></td></tr>
+        <tr><td>SOXX/SMH 半導體</td><td>~18%</td><td>$3.1億</td><td><span class="badge br">🔴 重</span></td></tr>
+        <tr><td>MAGS 七巨頭</td><td>~30%</td><td>$5.1億</td><td><span class="badge br">🔴 重</span></td></tr>
+        <tr><td>XLC 通訊</td><td>~15%</td><td>$2.6億</td><td><span class="badge bg">🟡 中</span></td></tr>
+        <tr><td>XLY 消費裁量</td><td>~5%</td><td>$0.9億</td><td><span class="badge bt">🟢 輕</span></td></tr>
+        <tr><td>其他板塊</td><td>&lt;3%</td><td>&lt;$0.5億</td><td><span class="badge bt">🟢 微</span></td></tr>
+      </tbody>
+    </table>
+    <div class="impact-note">※ 以 QQQ $385B AUM × SpaceX 預估 0.44% 權重 × 各板塊比例計算。全生態系放大約 3.7×。</div>
+  </div>
+
+  <!-- 三波換倉時間表 -->
+  <div class="impact-card">
+    <div class="impact-title">📅 三波連環換倉時間表</div>
+    <div class="wave-list">
+      <div class="wave-item">
+        <div class="wave-dot" style="background:var(--red)"></div>
+        <div class="wave-body">
+          <div class="wave-date" style="color:var(--gold)">波一｜~2026/7/3（確定）</div>
+          <div class="wave-desc">SpaceX NDX納入日。單日 MOC $60–70B。<strong>史上最大單日 NDX 換倉事件。</strong>現有 100+ 成分股全面按比例縮減。NQ 當日預計波動 ±1.5–2%，方向取決於 FOMC 後市場情緒。</div>
+        </div>
+      </div>
+      <div class="wave-item">
+        <div class="wave-dot" style="background:var(--gold)"></div>
+        <div class="wave-body">
+          <div class="wave-date" style="color:var(--gold)">波二｜~2026/9/21（高機率）</div>
+          <div class="wave-desc">OpenAI 若 Q3 掛牌，NDX 納入 + 9/21 定期重組<strong>可能同日發生</strong>（雙重換倉日）。SpaceX 解禁後浮動增加，權重二次上調，觸發第二輪被動加碼。被動換倉估計 $30–50B。</div>
+        </div>
+      </div>
+      <div class="wave-item">
+        <div class="wave-dot" style="background:var(--muted)"></div>
+        <div class="wave-body">
+          <div class="wave-date" style="color:var(--muted)">波三｜~2026/12（規劃中）</div>
+          <div class="wave-desc">Anthropic 若年底掛牌，構成第三輪。與年底流動性枯竭（聖誕節假期）疊加，波動放大。三波合計被動換倉估計 <strong>$95–145B</strong>，歷史最大規模 NDX 成分重組。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══ TIMELINE ══ -->
+<div class="sec-hd">◈ 六月事件時間軸</div>
+<div class="tl-wrap">
+  <div class="tl-track">
+    <div class="tl-fill"></div>
+
+    <!-- CPI 6/10 above -->
+    <div class="ev ab" style="left:4%">
+      <div class="evdate">6/10 TUE</div>
+      <div class="evname" style="color:var(--gold)">CPI 公布</div>
+      <div class="evsub">FOMC前最後通膨數據</div>
+      <div class="evdot rm"></div>
+    </div>
+    <!-- SPCX pricing 6/11 below -->
+    <div class="ev bl" style="left:19%">
+      <div class="evdot rm"></div>
+      <div class="evdate">6/11 WED</div>
+      <div class="evname" style="color:var(--gold)">SPCX 定價</div>
+      <div class="evsub">路演完成，最終定價日</div>
+    </div>
+    <!-- SPCX IPO 6/12 above -->
+    <div class="ev ab" style="left:34%">
+      <div class="evdate">6/12 THU</div>
+      <div class="evname" style="color:var(--gold)">SPCX 掛牌</div>
+      <div class="evsub">情緒高點 → 謹慎日</div>
+      <div class="evdot rm"></div>
+    </div>
+    <!-- Pre-FOMC 6/13 below -->
+    <div class="ev bl" style="left:47%">
+      <div class="evdot rl"></div>
+      <div class="evdate">6/13 FRI</div>
+      <div class="evname" style="color:var(--teal)">FOMC 前夕</div>
+      <div class="evsub">最後低風險減倉視窗</div>
+    </div>
+    <!-- FOMC 6/16-17 above -->
+    <div class="ev ab" style="left:65%">
+      <div class="evdate">6/16–17 MON–TUE</div>
+      <div class="evname" style="color:var(--red)">FOMC 決策</div>
+      <div class="evsub">+ SEP 點陣圖 + 記者會</div>
+      <div class="evdot rh"></div>
+    </div>
+    <!-- Quad Witching 6/18 below -->
+    <div class="ev bl" style="left:82%">
+      <div class="evdot rh" style="width:16px;height:16px;margin-top:-6px"></div>
+      <div class="evdate">6/18 FRI</div>
+      <div class="evname" style="color:var(--red)">⚡ 四巫日</div>
+      <div class="evsub">三體事件收斂結算點</div>
+    </div>
+    <!-- Post 6/22 above -->
+    <div class="ev ab" style="left:97%">
+      <div class="evdate">6/22 MON</div>
+      <div class="evname" style="color:var(--teal)">方向確認</div>
+      <div class="evsub">噪音消退後重建</div>
+      <div class="evdot rl"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOMC SCENARIOS ══ -->
+<div class="sec-hd">◈ FOMC 6/17 三種情境 × NQ 操作參考</div>
+<div class="sc-grid">
+  <!-- A 鷹派 -->
+  <div class="scrd" style="border-top-color:var(--red)">
+    <div class="sc-head2"><div class="sc-dot2" style="background:var(--red)"></div><div class="sc-title2" style="color:var(--red)">情境 A ｜ 鷹派意外</div></div>
+    <div class="sc-row">點陣圖新增升息選項 or 措辭強硬</div>
+    <div class="sc-row">US10Y 突破 <strong>4.75%</strong></div>
+    <div class="sc-row">NQ 單日 <strong>−2.5% → −4%</strong></div>
+    <div class="sc-row">QQQ 跌破 $695 Put 支撐帶</div>
+    <div class="sc-row">Max Pain 引力驟增，四巫日雙重壓力</div>
+    <div class="sc-op">
+      <div class="sc-op-label" style="color:var(--red)">▶ NQ 操作</div>
+      <div class="sc-op-txt">公告後若跌破 <strong>NQ 28,500</strong>，動能持續則建空單對沖，目標 <strong>27,500–28,000</strong>。四巫日盤中急跌視為逢低機會</div>
+    </div>
+  </div>
+  <!-- B 鴿派 -->
+  <div class="scrd" style="border-top-color:var(--green)">
+    <div class="sc-head2"><div class="sc-dot2" style="background:var(--green)"></div><div class="sc-title2" style="color:var(--green)">情境 B ｜ 鴿派</div></div>
+    <div class="sc-row">點陣圖暗示年內降息</div>
+    <div class="sc-row">US10Y 急跌，NQ 跳升</div>
+    <div class="sc-row">測試 <strong>$750 Call牆（NQ ~30,712）</strong></div>
+    <div class="sc-row">四巫日 Gamma 對沖仍壓制上行</div>
+    <div class="sc-row">做市商 Delta 賣出加劇頂部壓力</div>
+    <div class="sc-op">
+      <div class="sc-op-label" style="color:var(--green)">▶ NQ 操作</div>
+      <div class="sc-op-txt">鴿派跳升 <strong>絕不追多</strong>，$750 是真實天花板。等 <strong>6/22</strong> 四巫日結算後噪音消退再確認方向</div>
+    </div>
+  </div>
+  <!-- C 按兵不動 -->
+  <div class="scrd" style="border-top-color:var(--teal)">
+    <div class="sc-head2"><div class="sc-dot2" style="background:var(--teal)"></div><div class="sc-title2" style="color:var(--teal)">情境 C ｜ 按兵不動</div></div>
+    <div class="sc-row">利率維持 3.50–3.75%（基準情境）</div>
+    <div class="sc-row">NQ 先上後下，震盪 <strong>±1.5%</strong></div>
+    <div class="sc-row">Max Pain $655 引力主導四巫日結算</div>
+    <div class="sc-row">選擇權結算後市場尋找新方向</div>
+    <div class="sc-row">6/22 起為真正的方向確認視窗</div>
+    <div class="sc-op">
+      <div class="sc-op-label" style="color:var(--teal)">▶ NQ 操作</div>
+      <div class="sc-op-txt">持多單但停損收緊至盈虧平衡。四巫日 <strong>盤中急跌 NQ &lt;28,500</strong> 為逢低加碼窗口，停損 28,000</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NQ OPERATION ══ -->
+<div class="nq-wrap">
+  <div class="sec-hd" style="margin-bottom:0">◈ NQ 期貨三段式操作指引</div>
+  <div class="nq-phases">
+    <div class="nqp nqp-0">
+      <div class="nqp-date">現在 → 6/11（IPO前）</div>
+      <div class="nqp-title">享受熱度<br>收窄槓桿</div>
+      <div class="nqp-body">
+        這段市場仍在吃 SpaceX 路演的情緒紅利，多頭動能尚在。任務是<strong>在還有得賺的時候，主動把風險敞口縮小</strong>，而不是等風暴來了再被動應對。<br><br>
+        <div class="nqp-sub">具體動作</div>
+        把多單降至<strong>正常倉位 60%</strong>，停損上移至<strong>盈虧平衡附近</strong>（幾乎保本就跑）。<strong>截止 6/9（週五）</strong>前完成——下週 SPCX 掛牌前夕情緒開始混沌，屆時縮倉成本會更高。<br><br>
+        <div class="nqp-sub">例外條款</div>
+        <em>若市場廣度連續 3 日改善、SP_20MA% 站上 50%，代表多頭意外強健，可小幅回補至 70%。</em><br><br>
+        <div class="nqp-alert"><strong>⚠ 最常見的錯誤：</strong>覺得「現在還好好的」就不動，拖到 SPCX 掛牌後才想縮，情緒最混亂的時候反而倉位最重。</div>
+      </div>
+    </div>
+    <div class="nqp nqp-1">
+      <div class="nqp-date">6/12 → 6/17（事件核心週）</div>
+      <div class="nqp-title">觀察為主<br>準備對沖</div>
+      <div class="nqp-body">
+        同時有 SPCX 掛牌和 FOMC，任何方向都可能發生。這段的任務是<strong>保持靈活，不預設立場</strong>。<br><br>
+        <div class="nqp-sub">6/12 SPCX 掛牌 — 絕不追多</div>
+        高開是大概率事件——情緒沸騰的那一刻，正是<strong>做市商報價最貴</strong>的時刻，路演熱度已全部反映在價格裡，買進就是在最高成本上車。<br><br>
+        <div class="nqp-sub">FOMC 前（6/12–6/16）</div>
+        多單繼續降至 <strong>50% 以下</strong>。不是預測鷹派，而是「雙邊都可能時，先讓自己站在中性位置」。<strong>6/13（週五）是最後低風險減倉視窗</strong>，之後進入 FOMC 靜默期，情緒更敏感。<br><br>
+        <div class="nqp-sub">FOMC 結果（6/17）× 三種劇本</div>
+        <table class="fomc-tbl">
+          <thead><tr><th>情境</th><th>市場反應</th><th>操作動作</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span style="color:var(--red)">鷹派</span><br>升息暗示</td>
+              <td>NQ <strong>−2.5%→−4%</strong><br>破 28,500</td>
+              <td>建空單對沖<br>目標 <strong>27,500–28,000</strong></td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--green)">鴿派</span><br>暗示降息</td>
+              <td>NQ 跳升<br>測試 $750 Call牆</td>
+              <td><strong>克制，一步都不追</strong><br>等 6/22 確認</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--teal)">按兵</span><br>維持不變</td>
+              <td>先上後下<br>震盪 ±1.5%</td>
+              <td>停損收緊至<br>盈虧平衡，備戰四巫日</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="nqp-tip"><strong>鴿派特別提醒：</strong>跳升看起來誘人，但 $750 是真實 Call 牆天花板，四巫日 Gamma 擠壓還在後面——「慶祝性的漲」往往是陷阱。</div>
+      </div>
+    </div>
+    <div class="nqp nqp-2">
+      <div class="nqp-date">6/18 四巫日</div>
+      <div class="nqp-title">等待盤中<br>非理性低點</div>
+      <div class="nqp-body">
+        四巫日（股指期貨、指數期權、個股期貨、個股期權四種商品同時到期結算）是全年流動性最混亂的幾天之一。方向不明，但<strong>盤中會出現誇張的短暫下殺</strong>——這才是機會所在。<br><br>
+        <div class="nqp-sub">核心策略：開盤不做任何方向押注</div>
+        等這兩個條件<strong>同時成立</strong>再出手：<br>
+        ① NQ 盤中跌破 <strong>28,500</strong>（QQQ ≈ $695）<br>
+        ② K 棒紅柱開始縮短（賣壓在衰竭中）<br><br>
+        ✦ 觸發後：建立<strong>小倉多單，停損設 28,000</strong><br><br>
+        <div class="nqp-sub">為什麼等跌破才買？</div>
+        四巫日的下殺多半是<strong>機械性結算拋壓</strong>，不是基本面惡化。紅柱縮短代表拋壓快結束，這種低點通常在結算後快速反彈。<br><br>
+        <div class="nqp-alert"><strong>⚠ 結算後雙向風險最大：</strong>大量 Gamma 對沖部位瞬間消失，市場重新「找方向」，任何方向都可能被反轉打臉。只建小倉，絕不重押。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6/22 方向確認 -->
+  <div class="nq-confirm">
+    <div class="nq-confirm-date">6/22 開盤後（四巫日結算後）</div>
+    <div class="nq-confirm-title">✦ 真正的方向確認點 — 重建倉位</div>
+    <div class="nqp-body">
+      四巫日結算完，SpaceX 掛牌情緒噪音消退，FOMC 解讀塵埃落定。這才是根據<strong>新資訊重新建立正常倉位</strong>的時機。整個三段式操作的目標，就是帶著子彈、保住本金，活到這一刻再重新出手。<br><br>
+      此時觀察兩件事：<strong>① FOMC 後市場對利率路徑的最終定價方向</strong>　<strong>② NQ 是否站穩 28,500 以上</strong>——兩者皆確認，恢復正常倉位；若仍混沌，繼續等待。
+    </div>
+  </div>
+
+  <!-- 一句話總結 -->
+  <div class="nq-summary">
+    <strong>第一段</strong> 主動縮小暴露&nbsp;&nbsp;<strong style="color:var(--gold)">×</strong>&nbsp;&nbsp;<strong style="color:var(--gold)">第二段</strong> 保持靈活應變&nbsp;&nbsp;<strong style="color:var(--gold)">×</strong>&nbsp;&nbsp;<strong style="color:var(--red)">第三段</strong> 等非理性低點、小規模撿便宜<br>
+    <span style="color:var(--dim);font-size:11px;display:block;margin:4px 0">↓</span>
+    <strong style="color:var(--green)">6/22 之後</strong>，噪音消退，才是真正重建倉位的時機
+  </div>
+
+</div>
+
+<footer>© Yoda × Claude &nbsp;·&nbsp; 六月風暴魚骨分析 &nbsp;·&nbsp; 2026-05-22 &nbsp;·&nbsp; 僅供教育用途，不構成任何投資建議</footer>
+</div>
+
+<script>
+function toggleCard(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.classList.toggle('open');
+}
+
+function litCard(id){
+  const map={rate:'card-rate',ipo:'card-ipo',opts:'card-opts',lev:'card-lev'};
+  const el=document.getElementById(map[id]);
+  if(!el)return;
+  // 展開
+  el.classList.add('open');
+  // 高亮
+  document.querySelectorAll('.bcard').forEach(c=>c.classList.remove('lit'));
+  el.classList.add('lit');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>el.classList.remove('lit'),1800);
+}
+
+// 加上「點擊展開提示」hint
+document.addEventListener('DOMContentLoaded',()=>{
+  // 預設全部折疊，提示閃一下 title
+  document.querySelectorAll('.bcard-title').forEach(t=>{
+    t.title='點擊展開 / 收合';
+  });
+});
+
+// Bone hover
+document.querySelectorAll('.bone-g').forEach(g=>{
+  g.addEventListener('mouseenter',()=>{
+    g.querySelectorAll('.bline').forEach(l=>{
+      l.style.opacity='1';
+      l.style.filter='drop-shadow(0 0 5px currentColor)';
+    });
+    g.querySelectorAll('.bdot').forEach(d=>d.setAttribute('r','7'));
+  });
+  g.addEventListener('mouseleave',()=>{
+    g.querySelectorAll('.bline').forEach(l=>{
+      l.style.opacity='.85';
+      l.style.filter='';
+    });
+    g.querySelectorAll('.bdot').forEach(d=>{
+      const r=d.closest('#bg-rate')||d.closest('#bg-ipo')?'6':'6';
+      d.setAttribute('r',r);
+    });
+  });
+});
+</script>
+
+<script>
+// Font size
+const fsBtns={18:'fs-s',21:'fs-m',24:'fs-l'};
+function setFs(px){
+  const r=px/21;
+  const s=document.getElementById('fs-override');
+  if(s) s.textContent=`
+    .fitem{font-size:${(12.5*r).toFixed(1)}px!important}
+    .sc-row{font-size:${(12.5*r).toFixed(1)}px!important}
+    .nqp-body{font-size:${(12*r).toFixed(1)}px!important}
+    .sc-op-txt{font-size:${(12*r).toFixed(1)}px!important}
+    .wave-desc{font-size:${(12*r).toFixed(1)}px!important}
+    .cmp-row{font-size:${(12*r).toFixed(1)}px!important}
+    .impact-tbl td{font-size:${(12*r).toFixed(1)}px!important}
+    .nqp-title{font-size:${(15*r).toFixed(1)}px!important}
+    .evname{font-size:${(11.5*r).toFixed(1)}px!important}
+    .bcard-title-inner{font-size:${(12*r).toFixed(1)}px!important}
+    .impact-note{font-size:${(10*r).toFixed(1)}px!important}
+  `;
+  Object.values(fsBtns).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.remove('active');
+  });
+  const btn=document.getElementById(fsBtns[px]);
+  if(btn) btn.classList.add('active');
+}
+setFs(21);
+
+// Dark / Light
+function setMode(m){
+  document.body.classList.toggle('light', m==='light');
+  document.getElementById('mode-d').classList.toggle('active', m==='dark');
+  document.getElementById('mode-l').classList.toggle('active', m==='light');
+}
+setMode('dark');
+
+// Anti-copy / right-click
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('copy',e=>e.preventDefault());
+document.addEventListener('cut',e=>e.preventDefault());
+document.addEventListener('dragstart',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&['c','u','s','a','p'].includes(e.key.toLowerCase()))
+    e.preventDefault();
+});
+</script>
+
+</body>
+</html>
