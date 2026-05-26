@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 個股分析 | 2026-05-26</title>
+<style>
+:root{--fs:13px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;}
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
+.fb{padding:4px 10px;font-size:11px;font-family:var(--fm);background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb:hover{color:var(--text);background:var(--surface2);}.fb.on{color:var(--accent);background:rgba(0,200,240,.15);}
+.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
+.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-r{text-align:right;}
+.hdr-meta{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;}
+.wrap{max-width:1280px;margin:0 auto;padding:22px 40px 64px;}
+.sec-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+/* quadrant */
+.sec4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.sc{background:var(--surface);display:flex;flex-direction:column;}
+.sc-hdr{padding:9px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:filter .12s;}
+.sc-hdr:hover{filter:brightness(1.2);}
+.sc.s .sc-hdr{color:var(--green);background:rgba(0,200,150,.06);}
+.sc.w .sc-hdr{color:var(--yellow);background:rgba(240,192,64,.06);}
+.sc.tw .sc-hdr{color:var(--orange);background:rgba(255,140,64,.06);}
+.sc.x .sc-hdr{color:var(--red);background:rgba(255,61,90,.06);}
+/* breathing light */
+@keyframes bl-g{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--green),0 0 16px var(--green)}}
+@keyframes bl-y{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--yellow),0 0 16px var(--yellow)}}
+@keyframes bl-o{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--orange),0 0 16px var(--orange)}}
+@keyframes bl-r{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--red),0 0 16px var(--red)}}
+.bl{flex-shrink:0;font-size:10px;line-height:1;display:inline-block;}
+.sc.s .bl{color:var(--green);animation:bl-g 1.4s ease-in-out infinite;}
+.sc.w .bl{color:var(--yellow);animation:bl-y 1.6s ease-in-out infinite;}
+.sc.tw .bl{color:var(--orange);animation:bl-o 1.8s ease-in-out infinite;}
+.sc.x .bl{color:var(--red);animation:bl-r 1.2s ease-in-out infinite;}
+/* summary rows */
+.sc-item{padding:7px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.sc-item:last-child{border-bottom:none;}
+.sc-tk{font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);white-space:nowrap;flex-shrink:0;}
+.sc-rk{display:none;}
+.sc.s .sc-rk{color:var(--green);}.sc.w .sc-rk{color:var(--yellow);}
+.sc.tw .sc-rk{color:var(--orange);}.sc.x .sc-rk{color:var(--red);}
+/* detail panel */
+@keyframes sd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.sc-det{display:none;grid-column:1/-1;border-top:2px solid var(--border);}
+.sc-det.open{display:block;animation:sd .18s ease;}
+.det-tbl{width:100%;border-collapse:collapse;}
+.det-tbl thead tr{background:rgba(255,255,255,.025);}
+.det-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.72);letter-spacing:.15em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+.det-tbl th.r{text-align:right;}
+.det-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.85);background:var(--surface2);}
+.det-tbl td.r{text-align:right;font-family:var(--fm);}
+.det-tbl tr:last-child td{border-bottom:none;}
+.cg{color:var(--green);}.cr{color:var(--red);}.cy{color:var(--yellow);}.cd{color:var(--dim);}.cw{color:var(--text);font-weight:600;}
+.det-note{padding:8px 10px;font-family:var(--fb);font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+/* verdict */
+.rotation-verdict{background:rgba(255,130,64,.04);border:1px solid rgba(255,130,64,.18);border-left:3px solid var(--orange);padding:14px 20px;margin-top:10px;margin-bottom:30px;}
+.rv-title{font-size:calc(var(--fs)*.77);letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.rv-txt{font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.9;}
+.rv-txt strong{color:var(--orange);font-weight:700;}.rv-txt em{color:var(--yellow);font-style:normal;}
+.rv-sub{font-size:calc(var(--fs)*.72);letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin:12px 0 6px;border-bottom:1px solid var(--border);padding-bottom:4px;}
+.rv-row{display:flex;gap:8px;align-items:baseline;padding:3px 0;font-size:calc(var(--fs)*.88);}
+.rv-row .lbl{color:var(--dim);white-space:nowrap;flex-shrink:0;min-width:200px;}
+.rv-row .val{color:var(--text);}
+/* cross-market */
+.emo-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--yellow);padding:16px 20px;margin-bottom:34px;}
+.emo-box-title{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px;}
+.emo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);}
+.emo-cell{background:var(--surface2);padding:12px 14px;}
+.emo-cell-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+.emo-cell-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.8;}
+/* footer */
+.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
+.ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
+
+/* ── 法人籌碼 ── */
+.chip-section{margin-top:10px;margin-bottom:6px;}
+.chip-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.chip-box{background:var(--surface);border:1px solid var(--border);margin-bottom:2px;}
+.chip-hdr{padding:9px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:filter .12s;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;}
+.chip-hdr:hover{filter:brightness(1.2);}
+.chip-hdr.a{color:#00c896;background:rgba(0,200,150,.06);border-left:3px solid #00c896;}
+.chip-hdr.b{color:#0ea5e9;background:rgba(14,165,233,.06);border-left:3px solid #0ea5e9;}
+.chip-hdr.c{color:#f0c040;background:rgba(240,192,64,.06);border-left:3px solid #f0c040;}
+.chip-hdr.d{color:#ff8040;background:rgba(255,128,64,.06);border-left:3px solid #ff8040;}
+.chip-hdr.e{color:#ff3d5a;background:rgba(255,61,90,.06);border-left:3px solid #ff3d5a;}
+.chip-body{display:none;overflow-x:auto;}
+.chip-body.open{display:block;animation:sd .18s ease;}
+.chip-tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.82);}
+.chip-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.7);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(255,255,255,.02);}
+.chip-tbl th.r{text-align:right;}
+.chip-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);background:var(--surface2);white-space:nowrap;}
+.chip-tbl td.r{text-align:right;font-family:var(--fm);}
+.chip-tbl td.nm{color:var(--text);font-weight:600;}
+.chip-tbl td.sec{color:var(--dim);font-size:calc(var(--fs)*.78);}
+.chip-tbl tr:last-child td{border-bottom:none;}
+.g{color:#00c896;}.y{color:#f0c040;}.r{color:#ff3d5a;}.b{color:#0ea5e9;}
+.chip-note{padding:8px 10px;font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+.dist-row{display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--border);}
+.dist-badge{padding:4px 12px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;}
+.dist-badge.a{background:rgba(0,200,150,.15);color:#00c896;}
+.dist-badge.b{background:rgba(14,165,233,.15);color:#0ea5e9;}
+.dist-badge.c{background:rgba(240,192,64,.15);color:#f0c040;}
+.chip-cluster{background:var(--surface);border:1px solid var(--border);border-left:3px solid #f0c040;margin-top:2px;padding:10px 14px;}
+.cluster-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#f0c040;margin-bottom:8px;}
+
+.chip-section{margin-top:10px;margin-bottom:6px;}
+.chip-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.chip-box{background:var(--surface);border:1px solid var(--border);margin-bottom:2px;}
+.chip-hdr{padding:9px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:filter .12s;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;}
+.chip-hdr:hover{filter:brightness(1.2);}
+.chip-hdr.a{color:#00c896;background:rgba(0,200,150,.06);border-left:3px solid #00c896;}
+.chip-hdr.b{color:#0ea5e9;background:rgba(14,165,233,.06);border-left:3px solid #0ea5e9;}
+.chip-hdr.c{color:#f0c040;background:rgba(240,192,64,.06);border-left:3px solid #f0c040;}
+.chip-body{display:none;overflow-x:auto;}
+.chip-body.open{display:block;animation:sd .18s ease;}
+.chip-tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.82);}
+.chip-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.7);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(255,255,255,.02);}
+.chip-tbl th.r{text-align:right;}
+.chip-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);background:var(--surface2);white-space:nowrap;}
+.chip-tbl td.r{text-align:right;font-family:var(--fm);}
+.chip-tbl td.nm{color:var(--text);font-weight:600;}
+.chip-tbl td.sec{color:var(--dim);font-size:calc(var(--fs)*.78);}
+.chip-tbl tr:last-child td{border-bottom:none;}
+.chip-note{padding:8px 10px;font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+.dist-row{display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--border);}
+.dist-badge{padding:4px 12px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;}
+.dist-badge.a{background:rgba(0,200,150,.15);color:#00c896;}
+.dist-badge.b{background:rgba(14,165,233,.15);color:#0ea5e9;}
+.dist-badge.c{background:rgba(240,192,64,.15);color:#f0c040;}
+.chip-cluster{background:var(--surface);border:1px solid var(--border);border-left:3px solid #f0c040;margin-top:2px;padding:10px 14px;}
+.cluster-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#f0c040;margin-bottom:8px;}
+.cg{color:#00c896;}.cy{color:#f0c040;}.cr{color:#ff3d5a;}.cb{color:#0ea5e9;}
+
+/* ── 籌碼4卡片 v2 ── */
+.chip4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:0;}
+.ccard{background:var(--bg);display:flex;flex-direction:column;cursor:pointer;}
+.ccard-hdr{padding:10px 12px;transition:filter .12s;border-bottom:1px solid var(--border);}
+.ccard:hover .ccard-hdr{filter:brightness(1.2);}
+.ccard.ca .ccard-hdr{border-left:3px solid #00c896;}
+.ccard.cb .ccard-hdr{border-left:3px solid #0ea5e9;}
+.ccard.cc .ccard-hdr{border-left:3px solid #f0c040;}
+.ccard.cd .ccard-hdr{border-left:3px solid #ff8040;}
+.ccard.ca.sel .ccard-hdr{background:rgba(0,200,150,.1);border-left-width:4px;}
+.ccard.cb.sel .ccard-hdr{background:rgba(14,165,233,.1);border-left-width:4px;}
+.ccard.cc.sel .ccard-hdr{background:rgba(240,192,64,.1);border-left-width:4px;}
+.ccard.cd.sel .ccard-hdr{background:rgba(255,128,64,.1);border-left-width:4px;}
+.ccard-pattern{font-size:calc(var(--fs)*.8);font-weight:700;letter-spacing:.05em;margin-bottom:3px;}
+.ccard.ca .ccard-pattern{color:#00c896;}
+.ccard.cb .ccard-pattern{color:#0ea5e9;}
+.ccard.cc .ccard-pattern{color:#f0c040;}
+.ccard.cd .ccard-pattern{color:#ff8040;}
+.ccard-count{font-size:calc(var(--fs)*1.15);font-weight:900;font-family:var(--fm);color:var(--text);margin-bottom:6px;}
+.ccard-brief{font-size:calc(var(--fs)*.78);color:var(--dim);line-height:1.6;margin-bottom:8px;}
+.ccard-brief b{color:var(--text);}
+.ccard-hint{display:flex;align-items:center;justify-content:flex-end;gap:5px;}
+.ccard-tri{font-size:calc(var(--fs)*.92);font-weight:700;line-height:1;}
+.ccard-hint-txt{font-size:calc(var(--fs)*.7);color:var(--dim);letter-spacing:.1em;}
+/* 呼吸燈只作用於 .ccard-tri */
+@keyframes breathe{
+  0%,100%{opacity:1;filter:drop-shadow(0 0 5px currentColor);}
+  50%{opacity:.18;filter:none;}
+}
+.ccard-tri.breathing{animation:breathe 2s ease-in-out infinite;}
+/* 全頁寬 detail panel */
+.chip-panel{display:none;background:var(--surface2);border:1px solid var(--border);border-top:2px solid;animation:sd .2s ease;overflow-x:auto;}
+.chip-panel.open{display:block;}
+.chip-panel.pA{border-top-color:#00c896;}
+.chip-panel.pB{border-top-color:#0ea5e9;}
+.chip-panel.pC{border-top-color:#f0c040;}
+.chip-panel.pD{border-top-color:#ff8040;}
+.chip-detail{display:none;padding:0;}
+.chip-detail.active{display:block;}
+@media(max-width:900px){.chip4{grid-template-columns:repeat(2,1fr);}}
+</style>
+  <!-- ══ Copy Protection ══ -->
+  <style>
+    * { -webkit-user-select:none; -moz-user-select:none;
+        -ms-user-select:none; user-select:none; -webkit-touch-callout:none; }
+  </style>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('copy',        e => e.preventDefault());
+    document.addEventListener('cut',         e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+    document.addEventListener('dragstart',   e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      const k = e.key.toLowerCase();
+      if (e.ctrlKey && ['c','a','u','s','p','j'].includes(k)) e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && ['i','j'].includes(k))   e.preventDefault();
+      if (['f12','f11'].includes(k)) e.preventDefault();
+    });
+  </script>
+  <!-- ══ End Protection ══ -->
+</head>
+<body>
+
+<div class="fc"><a href="https://yoda-wcyc.github.io/-/" style="display:flex;align-items:center;padding:3px 10px;font-family:var(--fm);font-size:11px;color:var(--dim);text-decoration:none;border-right:1px solid var(--border);letter-spacing:.05em;white-space:nowrap;" title="回首頁">⌂ 首頁</a>
+  <button class="fb" id="fs-small" onclick="setFS('small')">小</button>
+  <button class="fb on" id="fs-normal" onclick="setFS('normal')">中</button>
+  <button class="fb" id="fs-large" onclick="setFS('large')">大</button>
+  <button class="fb" style="margin-left:4px;border-left:1px solid var(--border);padding-left:10px;" onclick="setTheme('dark')" id="btn-dark">深</button>
+  <button class="fb" onclick="setTheme('light')" id="btn-light">淺</button>
+</div>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-lbl">Yoda × Claude</div>
+    <div class="hdr-title">Yoda <span>個股分析</span><span style="font-size:calc(var(--fs)*1.1);font-weight:400;color:var(--dim);letter-spacing:.05em;margin-left:16px;vertical-align:middle;">2026 / 05 / 26</span></div>
+  </div>
+  <div class="hdr-r">
+    <div class="hdr-meta">美股 AI 供應鏈 15 板塊 + Finviz 廣度確認｜台股 AI 供應鏈｜點擊卡片標題展開詳細數據</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ 美股 ═══ -->
+<div class="sec-lbl" style="margin-bottom:10px;">美股個股板塊輪動｜AI 供應鏈（5/21 截面）</div>
+
+<div class="sec4">
+
+  <div class="sc s">
+    <div class="sc-hdr" onclick="tog('us-s')"><span>▲ 第一梯隊：動能持續確立</span><span class="bl">▼</span></div>
+    <div class="sc-item"><span class="sc-tk">AI 資安 CRWD/PANW/FTNT</span><span class="sc-rk">Rank 77/77/81｜REL20 +34/+35/+44% 🔥</span></div>
+    <div class="sc-item"><span class="sc-tk">矽智財 ARM</span><span class="sc-rk">+16.16%｜REL5 +34.76% / REL20 +47.29% 🔥 再度爆發</span></div>
+    <div class="sc-item"><span class="sc-tk">光通訊 ALAB/NOK/TSEM/AAOI</span><span class="sc-rk">Rank 87–91｜REL5 ALAB +32.86%</span></div>
+    <div class="sc-item"><span class="sc-tk">記憶體 SIMO/MU/STX/WDC</span><span class="sc-rk">Rank 82–94｜REL20 +20~+81%</span></div>
+    <div class="sc-item"><span class="sc-tk">半導體 AMD/QCOM</span><span class="sc-rk">Rank 88/79｜REL20 +43%/+52%｜廣度擴散</span></div>
+    
+  </div>
+
+  <div class="sc w">
+    <div class="sc-hdr" onclick="tog('us-w')"><span>◎ 第二梯隊：今日爆發，觀察延續性</span><span class="bl">▼</span></div>
+    <div class="sc-item"><span class="sc-tk">AMD ✦Finviz確認</span><span class="sc-rk">Rank 88｜REL20 +43%｜今日Finviz加入新高，廣度擴散信號</span></div>
+    <div class="sc-item"><span class="sc-tk">再生能源 ENPH/BE ✦廣度20%</span><span class="sc-rk">連續兩日在Finviz新高｜趨勢性突破確認（SEDG已退出→脈衝）</span></div>
+    <div class="sc-item"><span class="sc-tk">DELL ✦Finviz確認</span><span class="sc-rk">今日新進Finviz新高｜1M +37.5%｜AI伺服器基建</span></div>
+    <div class="sc-item"><span class="sc-tk">RKLB ✦廣度18%</span><span class="sc-rk">今日加入Finviz新高｜太空板塊擴散</span></div>
+    <div class="sc-item"><span class="sc-tk">晶片廣度擴散 NXPI/TXN/LSCC</span><span class="sc-rk">非組合新發現｜廣度向中型晶片延伸</span></div>
+    
+  </div>
+
+  <div class="sc tw">
+    <div class="sc-hdr" onclick="tog('us-tw')"><span>△ 轉弱：短線動能惡化</span><span class="bl">▼</span></div>
+    <div class="sc-item"><span class="sc-tk">APLD ⚠ Finviz退出</span><span class="sc-rk">昨日+21.51%脈衝→今日退出新高清單｜確認為單日投機，非趨勢</span></div>
+    <div class="sc-item"><span class="sc-tk">SEDG ⚠ Finviz退出</span><span class="sc-rk">昨日+12%脈衝→今日退出｜再生能源廣度靠ENPH/BE，非SEDG</span></div>
+    <div class="sc-item"><span class="sc-tk">SaaS NOW/CRM/PLTR</span><span class="sc-rk">Rank 15/14/17｜REL20 −7%/−11%/−14%｜Finviz零確認</span></div>
+    <div class="sc-item"><span class="sc-tk">REIT EQIX/DLR</span><span class="sc-rk">Finviz零確認｜市場11支REIT新高但DC REIT被孤立</span></div>
+    
+  </div>
+
+  <div class="sc x">
+    <div class="sc-hdr" onclick="tog('us-x')"><span>▼ 弱勢：持續流出，出清區</span><span class="bl">▼</span></div>
+    <div class="sc-item"><span class="sc-tk">防禦航太 AVAV/KTOS</span><span class="sc-rk">Rank 1/4｜REL20 −26.81%/−24.75% 🔴 全表最弱</span></div>
+    <div class="sc-item"><span class="sc-tk">核能/鈾礦 CCJ/OKLO/CEG</span><span class="sc-rk">Rank 13/12/19｜REL20 −21%/−14%/−4% 全板塊失血</span></div>
+    <div class="sc-item"><span class="sc-tk">加密代理 HOOD/COIN/IBIT</span><span class="sc-rk">Rank 10/23/29｜REL20 全數負值</span></div>
+    <div class="sc-item"><span class="sc-tk">防禦航太 NOC/LMT/RTX/GE</span><span class="sc-rk">Rank 14/19/19/33｜REL20 均負值</span></div>
+    
+  </div>
+
+
+<div class="sc-det" id="us-s">
+      <table class="det-tbl">
+        <thead><tr><th>Ticker</th><th class="r">1D%</th><th class="r">Rank</th><th class="r">REL5</th><th class="r">REL20</th><th>動能結構</th></tr></thead>
+        <tbody>
+          <tr><td class="cw">ARM</td><td class="r cg">+16.16%</td><td class="r cg">91</td><td class="r cg">+34.76%</td><td class="r cg">+47.29%</td><td class="cd">REL5 大幅追近 REL20，矽智財授權再定價加速 ⚡</td></tr>
+          <tr><td class="cw">CRWD</td><td class="r cg">−0.29%</td><td class="r cg">77</td><td class="r cg">+15.17%</td><td class="r cg">+34.47%</td><td class="cd">REL5 持續高位，AI 資安結構最穩健</td></tr>
+          <tr><td class="cw">PANW</td><td class="r cg">+2.54%</td><td class="r cg">77</td><td class="r cg">+10.98%</td><td class="r cg">+35.15%</td><td class="cd">雙向持續正值，趨勢完整</td></tr>
+          <tr><td class="cw">FTNT</td><td class="r cr">−0.42%</td><td class="r cg">81</td><td class="r cg">+9.95%</td><td class="r cg">+44.22%</td><td class="cd">REL20 最強，REL5 稍滯仍有補漲空間</td></tr>
+          <tr><td class="cw">ALAB</td><td class="r cg">+3.60%</td><td class="r cg">91</td><td class="r cg">+32.86%</td><td class="r cg">+49.05%</td><td class="cd">REL5 高位維持，CPO 龍頭趨勢完整</td></tr>
+          <tr><td class="cw">SIMO</td><td class="r cg">+2.13%</td><td class="r cg">94</td><td class="r cr">−2.41%</td><td class="r cg">+81.21%</td><td class="cd">REL20 全表最高值，短線微拉回中線仍極強</td></tr>
+          <tr><td class="cw">MU</td><td class="r cg">+4.11%</td><td class="r cg">92</td><td class="r cr">−5.22%</td><td class="r cg">+51.90%</td><td class="cd">REL5 小幅拉回，中線極強未破</td></tr>
+          <tr><td class="cw">STX</td><td class="r cg">+7.91%</td><td class="r cg">89</td><td class="r cr">−0.90%</td><td class="r cg">+35.33%</td><td class="cd">今日大漲修正 REL5，中線趨勢完整</td></tr>
+          <tr><td class="cw">NOK</td><td class="r cg">+4.11%</td><td class="r cg">87</td><td class="r cr">−3.66%</td><td class="r cg">+39.38%</td><td class="cd">光通訊設備，REL20 極強，REL5 稍滯待補</td></tr>
+          <tr><td class="cw">TSEM</td><td class="r cg">+5.49%</td><td class="r cg">86</td><td class="r cg">+2.99%</td><td class="r cg">+30.95%</td><td class="cd">REL5 轉正，中線持續走強</td></tr>
+          <tr><td class="cw">AMD</td><td class="r cg">+0.45%</td><td class="r cg">88</td><td class="r cg">+0.86%</td><td class="r cg">+43.72%</td><td class="cd">REL5/REL20 均正，廣度擴散主力</td></tr>
+          <tr><td class="cw">QCOM</td><td class="r cg">+5.38%</td><td class="r cg">79</td><td class="r cg">+0.06%</td><td class="r cg">+52.41%</td><td class="cd">REL20 極強，今日繼續跟漲半導體</td></tr>
+        </tbody>
+      </table>
+      <div class="det-note">⚡ 今日最重要信號：ARM REL5 +34.76% 大幅追近 REL20 +47.29%，矽智財授權的 AI 需求定價正進入加速段。AI 資安三角（CRWD/PANW/FTNT）維持雙向正值，是全場結構最健康的持倉板塊。記憶體 SIMO REL20 +81% 為全表最高，STX 今日 +7.91% 修正 REL5 負值。</div>
+    </div>
+<div class="sc-det" id="us-w">
+      <table class="det-tbl">
+        <thead><tr><th>Ticker</th><th class="r">1D%</th><th class="r">Rank</th><th class="r">REL5</th><th class="r">REL20</th><th>判讀</th></tr></thead>
+        <tbody>
+          <tr><td class="cw">ENPH</td><td class="r cg">+17.29%</td><td class="r cg">79</td><td class="r cg">+48.37%</td><td class="r cg">+71.87%</td><td class="cd">再生能源今日最強爆發，REL5 大幅追近 REL20，是否持續是關鍵</td></tr>
+          <tr><td class="cw">SEDG</td><td class="r cg">+12.06%</td><td class="r cg">80</td><td class="r cg">+47.24%</td><td class="r cg">+43.46%</td><td class="cd">REL5 超越 REL20，新動能啟動結構 ⚡</td></tr>
+          <tr><td class="cw">APLD</td><td class="r cg">+21.51%</td><td class="r cg">81</td><td class="r cg">+5.53%</td><td class="r cg">+43.64%</td><td class="cd">AI 算力基建加速，中線強</td></tr>
+          <tr><td class="cw">NBIS</td><td class="r cg">+14.65%</td><td class="r cg">87</td><td class="r cg">+6.05%</td><td class="r cg">+36.42%</td><td class="cd">AI 雲端基建，REL20 強，今日動能加速</td></tr>
+          <tr><td class="cw">IBM</td><td class="r cg">+12.48%</td><td class="r cr">27</td><td class="r cg">+17.80%</td><td class="r cr">−3.99%</td><td class="cd">REL5 大幅突破 REL20，Rank 低但近期翻轉，值得追蹤</td></tr>
+          <tr><td class="cw">BE</td><td class="r cg">+9.06%</td><td class="r cg">84</td><td class="r cg">+6.20%</td><td class="r cg">+29.58%</td><td class="cd">中線強，短線加速跟漲再生能源</td></tr>
+          <tr><td class="cw">RGTI</td><td class="r cg">+30.57%</td><td class="r cy">60</td><td class="r cg">+19.60%</td><td class="r cg">+15.48%</td><td class="cd">量子計算題材純投機，極高波動，非趨勢標的</td></tr>
+          <tr><td class="cw">QUBT</td><td class="r cg">+19.35%</td><td class="r cy">59</td><td class="r cg">+3.39%</td><td class="r cg">+11.29%</td><td class="cd">同 RGTI，量子投機同步爆發</td></tr>
+          <tr><td class="cw">WOLF</td><td class="r cg">+18.62%</td><td class="r cg">99</td><td class="r cg">+10.97%</td><td class="r cg">+146.02%</td><td class="cd">REL20 +146% 全表最極端，今日再拉籌碼過熱風險極高 ⚠</td></tr>
+          <tr><td class="cw">LRCX</td><td class="r cg">+3.47%</td><td class="r cy">61</td><td class="r cg">+2.25%</td><td class="r cg">+9.39%</td><td class="cd">封裝設備溫和跟漲，中線微正</td></tr>
+        </tbody>
+      </table>
+      <div class="det-note">⚠ 今日最需謹慎：WOLF REL20 +146% 為全場最極端過熱值；RGTI +30.57% / QUBT +19.35% 是純量子題材投機，非趨勢持有。最值得追蹤的翻轉信號是 IBM REL5 +17.80% vs REL20 −3.99%，低 Rank 但近期動能急速正向，需觀察後續是否持續。再生能源 ENPH/SEDG 集體爆發是今日最重要的板塊輪動新信號。</div>
+    </div>
+<div class="sc-det" id="us-tw">
+      <table class="det-tbl">
+        <thead><tr><th>Ticker</th><th class="r">1D%</th><th class="r">Rank</th><th class="r">REL5</th><th class="r">REL20</th><th>判讀</th></tr></thead>
+        <tbody>
+          <tr><td class="cw">VRT</td><td class="r cg">+2.42%</td><td class="r cy">53</td><td class="r cr">−12.65%</td><td class="r cg">+1.55%</td><td class="cd">REL5 持續惡化，散熱敘事明顯鬆動 ⚠</td></tr>
+          <tr><td class="cw">NOW</td><td class="r cr">−3.49%</td><td class="r cr">15</td><td class="r cg">+14.47%</td><td class="r cr">−7.71%</td><td class="cd">今日下跌抵銷 REL5 優勢，SaaS 結構轉弱</td></tr>
+          <tr><td class="cw">CRM</td><td class="r cr">−2.10%</td><td class="r cr">14</td><td class="r cg">+6.26%</td><td class="r cr">−11.54%</td><td class="cd">中線深負，REL5 微正難撐</td></tr>
+          <tr><td class="cw">PLTR</td><td class="r cg">+0.19%</td><td class="r cr">17</td><td class="r cg">+5.61%</td><td class="r cr">−14.39%</td><td class="cd">REL5 微正但中線仍深負，動能衰退</td></tr>
+          <tr><td class="cw">EQIX</td><td class="r cg">+1.25%</td><td class="r cr">33</td><td class="r cg">+0.05%</td><td class="r cr">−6.60%</td><td class="cd">REIT 高利率壓制，REL5 近平撐不住</td></tr>
+          <tr><td class="cw">DLR</td><td class="r cg">+1.90%</td><td class="r cr">28</td><td class="r cg">+0.44%</td><td class="r cr">−7.71%</td><td class="cd">同 EQIX，資料中心 REIT 整體受壓</td></tr>
+          <tr><td class="cw">ETN</td><td class="r cg">+0.47%</td><td class="r cr">20</td><td class="r cr">−6.30%</td><td class="r cr">−12.25%</td><td class="cd">重電龍頭雙向走弱，板塊降溫確認</td></tr>
+          <tr><td class="cw">SMCI</td><td class="r cd">0.00%</td><td class="r cy">46</td><td class="r cg">+4.51%</td><td class="r cg">+10.24%</td><td class="cd">VRT 弱而 SMCI 微正，散熱鏈分化</td></tr>
+        </tbody>
+      </table>
+      <div class="det-note">⚠ VRT 是本組最需關注：若散熱板塊持續走弱，SMCI 補漲邏輯可能動搖。NOW REL5 +15.65% 為本組異數，若中線能在未來 5 日縮窄，有機會升格至觀察梯隊。</div>
+    </div>
+<div class="sc-det" id="us-x">
+      <table class="det-tbl">
+        <thead><tr><th>Ticker</th><th class="r">1D%</th><th class="r">Rank</th><th class="r">REL5</th><th class="r">REL20</th><th>判讀</th></tr></thead>
+        <tbody>
+          <tr><td class="cw">AVAV</td><td class="r cr">−0.48%</td><td class="r cr">1</td><td class="r cg">+1.25%</td><td class="r cr">−26.81%</td><td class="cd">全表 Rank 倒數第一，防禦無人機結構性最弱</td></tr>
+          <tr><td class="cw">KTOS</td><td class="r cr">−2.06%</td><td class="r cr">4</td><td class="r cg">+4.10%</td><td class="r cr">−24.75%</td><td class="cd">防禦無人機，今日繼續下跌，趨勢崩壞確認</td></tr>
+          <tr><td class="cw">CCJ</td><td class="r cg">+1.26%</td><td class="r cr">13</td><td class="r cr">−8.77%</td><td class="r cr">−21.15%</td><td class="cd">鈾礦最弱，核能板塊全面失血</td></tr>
+          <tr><td class="cw">OKLO</td><td class="r cg">+3.97%</td><td class="r cr">12</td><td class="r cr">−6.62%</td><td class="r cr">−14.54%</td><td class="cd">小型核能，低位微幅反彈，趨勢仍弱</td></tr>
+          <tr><td class="cw">CEG</td><td class="r cg">+1.62%</td><td class="r cr">19</td><td class="r cg">+3.92%</td><td class="r cr">−4.89%</td><td class="cd">核能龍頭，REL20 仍負，非趨勢反彈</td></tr>
+          <tr><td class="cw">HOOD</td><td class="r cg">+0.21%</td><td class="r cr">10</td><td class="r cr">−1.14%</td><td class="r cr">−18.58%</td><td class="cd">加密代理最弱，雙向走弱</td></tr>
+          <tr><td class="cw">COIN</td><td class="r cg">+1.19%</td><td class="r cr">23</td><td class="r cr">−4.14%</td><td class="r cr">−10.58%</td><td class="cd">加密交易所，REL5/REL20 雙向負</td></tr>
+          <tr><td class="cw">NOC</td><td class="r cr">−0.11%</td><td class="r cr">14</td><td class="r cr">−0.10%</td><td class="r cr">−10.88%</td><td class="cd">防禦龍頭，資金持續結構性撤離</td></tr>
+          <tr><td class="cw">LMT</td><td class="r cg">+0.04%</td><td class="r cr">19</td><td class="r cg">+0.49%</td><td class="r cr">−10.31%</td><td class="cd">REL5 近平，但中線仍深負</td></tr>
+        </tbody>
+      </table>
+      <div class="det-note">🔴 今日最弱雙殺：AVAV Rank 1 + KTOS 今日繼續下跌，防禦無人機趨勢崩壞加深。核能板塊（CCJ/OKLO/CEG）全面失血為今日新增弱勢確認，CCJ REL5 −8.77% 為核能最弱個股。加密代理（HOOD/COIN）雙向走弱持續，無反轉訊號。</div>
+    </div>
+</div>
+
+<div class="rotation-verdict">
+  <div class="rv-title">⚡ Finviz廣度確認：AI供應鏈整條鏈全面展開｜脈衝與趨勢分離完成</div>
+  <div class="rv-txt">
+    <strong>5/22 Finviz 廣度資料（175支，較5/21增加+46支）確認了本輪 AI 供應鏈輪動不是個股脈衝，而是整條鏈的結構性展開。</strong>AI供應鏈佔全部新高標的從26.4%跳升至33.7%，在175支總量增加的條件下，AI板塊的絕對數量從~34支增至59支，廣度加速。<br><br>
+    <strong>最重要的廣度信號是光通訊板塊的爆炸性確認：命中率從17%跳至44%（8/18），CSCO、CRDO、CIEN、NOK、TSEM五支在一天內同時進入新高清單。</strong>這意味著光通訊整條產業鏈——從設備（CSCO）到組件（CIEN）到代工（TSEM）到IC設計（CRDO/MRVL）——全線同步確認，是本截面最重要的板塊廣度信號。<br><br>
+    <strong>APLD（+21.51%）和 SEDG（+12.06%）昨日爆發今日退出，正式確認為單日脈衝。</strong>相比之下，ENPH 連續兩日留在清單，再生能源板塊以 ENPH/BE 為核心的趨勢性分離已明確。AI資安（CRWD/PANW/FTNT）100%三角完整，是所有板塊中確定性最高的持倉。
+    <div class="rv-sub">Finviz 廣度命中率 × 監控表 Rank — 雙重確認矩陣</div>
+    <div class="rv-row"><span class="lbl">🟢 雙重最強（廣度≥67%+Rank強）</span><span class="val">AI資安 100% | 矽智財 67% | 封裝設備 67%</span></div>
+    <div class="rv-row"><span class="lbl">🟢 廣度大幅擴張（今日躍升）</span><span class="val">光通訊 17%→44%（+8支進榜）｜持有並補）</span></div>
+    <div class="rv-row"><span class="lbl">🟡 廣度破零（記憶體 SIMO）</span><span class="val">25%破零，但MU/STX/WDC仍缺席，中線觀察</span></div>
+    <div class="rv-row"><span class="lbl">⚠ 脈衝確認退出</span><span class="val">APLD（退出）、SEDG（退出）→昨日勿追，今日已驗證</span></div>
+    <div class="rv-row"><span class="lbl">🔴 雙重零確認（持續迴避）</span><span class="val">核能、加密、重電、散熱 — Finviz與監控表雙弱</span></div>
+    <br>
+    <strong>新發現優先關注：</strong>TTMI（PCB/封裝，WA 480）、CEVA（矽智財/DSP，WA 134）、HPE（AI伺服器，WA 137）、PENG（AI基建，WA 207）——四支均屬組合外 AI 相關，廣度確認後可考慮加入監控名單。
+  </div>
+</div>
+
+
+<!-- ═══ 台股法人籌碼 ═══ -->
+<div class="chip-section">
+<div class="chip-lbl">台股法人籌碼四型態｜買超113 + 賣超113 = 226檔｜5/26截面</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);padding:9px 14px 8px;margin-bottom:1px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+  <span style="font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:var(--dim);">5/25 · 600檔（買超+賣超）</span>
+  <span class="dist-badge a">🟢 全面吸籌 90檔</span>
+  <span class="dist-badge b">🔵 低檔反轉 10檔</span>
+  <span class="dist-badge c">🟡 高檔換手 11檔</span>
+  <span class="dist-badge" style="background:rgba(255,128,64,.15);color:#ff8040;">🟠 長多短出 9檔</span>
+  <span class="dist-badge" style="background:rgba(255,61,90,.15);color:#ff3d5a;">🔴 全面賣超 87檔</span>
+  <div style="width:100%;margin-top:4px;padding:5px 8px;background:rgba(255,61,90,.07);border-left:3px solid #ff3d5a;font-size:calc(var(--fs)*.82);color:#ff8080;">
+    🔄 本週重大翻轉：南電 8046 由 E型→B型（5日+381，近期回流），創意 3443 由 D型→A型（三線全正）；🔴 持續警示：台積電 E型(-57,626 5日)，雙鴻 🔴🔴佔比-5.57%
+  </div>
+</div>
+
+<!-- 4 卡片 -->
+<div class="chip4">
+
+<div class="ccard ca" data-type="A" onclick="selectChipCard('A')">
+  <div class="ccard-hdr">
+    <div class="ccard-pattern">🟢 全面吸籌</div>
+    <div class="ccard-count">7⭐ <span style="font-size:.82em;font-weight:400;color:var(--dim);">組合全面吸籌</span></div>
+    <div class="ccard-brief">月 ＋ 5日 ＋ 當日 <b>三線全買</b><br>⭐ <b>鴻海</b>(+305) 華通(+4,846) 景碩<br><b style="color:#00c896">創意↑D→A!</b> 同欣電 訊芯 萬海</div>
+    <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#00c896;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+  </div>
+</div>
+
+<div class="ccard cb" data-type="B" onclick="selectChipCard('B')">
+  <div class="ccard-hdr">
+    <div class="ccard-pattern">🔵 低檔反轉</div>
+    <div class="ccard-count">2⭐ <span style="font-size:.82em;font-weight:400;color:var(--dim);">組合翻多</span></div>
+    <div class="ccard-brief">月賣 → 5日 ＋ 當日 <b>翻多</b><br>⭐ <b>欣興</b>(ABF持續反轉) 新唐<br>台達電(+11,137) 聯亞</div>
+    <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#0ea5e9;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+  </div>
+</div>
+
+<div class="ccard cc" data-type="C" onclick="selectChipCard('C')">
+  <div class="ccard-hdr">
+    <div class="ccard-pattern">🟡 高檔換手</div>
+    <div class="ccard-count">0⭐ <span style="font-size:.82em;font-weight:400;color:var(--dim);">組合本週無</span></div>
+    <div class="ccard-brief">月 ＋ 5日｜當日 <b>調節</b><br>⭐ 同欣電(-372) 川湖(-510)<br>持有，5日線不破守倉</div>
+    <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#f0c040;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+  </div>
+</div>
+
+<div class="ccard cd" data-type="D" onclick="selectChipCard('D')">
+  <div class="ccard-hdr">
+    <div class="ccard-pattern">🟠 賣超警示</div>
+    <div class="ccard-count">6⭐ <span style="font-size:.82em;font-weight:400;color:#ff3d5a;">組合警示</span></div>
+    <div class="ccard-brief">D長多短出 41檔<br>E全面賣超 162檔<br>⭐ <b>南電</b>↘E ｜ <b>聯發科</b> E ｜ <b>創意</b> D</div>
+    <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#ff8040;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+  </div>
+</div>
+
+</div><!-- end chip4 -->
+
+<!-- 全頁寬展開面板 -->
+<div id="chip-panel" class="chip-panel">
+
+  <div id="chip-detail-A" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th>名稱</th><th>代號</th><th class="r">漲跌%</th><th class="r">金額當日</th><th class="r">金額5日</th><th class="r">金額1月</th><th>佔比/訊號</th></tr></thead><tbody>
+<tr style="background:rgba(0,200,150,.07)"><td class="nm">鴻海 ⭐</td><td>2317</td><td class="r cr">-0.77%</td><td class="r cg">+305</td><td class="r cg">+2,642</td><td class="r cg">+99,326</td><td>月線超大額，10日榜#1</td></tr>
+<tr style="background:rgba(0,200,150,.07)"><td class="nm">華通 ⭐</td><td>2313</td><td class="r cr">-4.69%</td><td class="r cg">+4,846</td><td class="r cg">+10,288</td><td class="r cg">+12,066</td><td>🟢🟢佔比+1.36%，當日最強</td></tr>
+<tr style="background:rgba(0,200,150,.07)"><td class="nm">景碩 ⭐</td><td>3189</td><td class="r cg">+4.04%</td><td class="r cg">+693</td><td class="r cg">+10,450</td><td class="r cg">+3,166</td><td>🟢🟢佔比+0.20%</td></tr>
+<tr style="background:rgba(0,200,150,.1)"><td class="nm" style="color:#00c896">創意↑⭐</td><td>3443</td><td class="r cr">-0.47%</td><td class="r cg">+1,906</td><td class="r cg">+2,382</td><td class="r cg">+10,058</td><td>⭐ D型→A型翻轉！三線全正</td></tr>
+<tr style="background:rgba(0,200,150,.07)"><td class="nm">同欣電 ⭐</td><td>6271</td><td class="r cg">+6.98%</td><td class="r cg">+547</td><td class="r cg">+2,290</td><td class="r cg">+2,263</td><td>🟢🟢佔比10日+6.59%</td></tr>
+<tr style="background:rgba(0,200,150,.07)"><td class="nm">訊芯-KY ⭐</td><td>6451</td><td class="r cg">+9.72%</td><td class="r cg">+746</td><td class="r cg">+1,009</td><td class="r cg">+1,817</td><td>🟢🟢佔比10日+4.06%</td></tr>
+<tr style="background:rgba(0,200,150,.07)"><td class="nm">萬海 ⭐</td><td>2615</td><td class="r cr">-2.16%</td><td class="r cg">+601</td><td class="r cg">+2,647</td><td class="r cg">+3,426</td><td>航運持續吸籌</td></tr>
+<tr><td class="nm">大立光</td><td>3008</td><td class="r cr">-4.68%</td><td class="r cg">+2,539</td><td class="r cg">+7,350</td><td class="r cg">+17,901</td><td>跌仍被法人買，逢低承接</td></tr>
+<tr><td class="nm">台光電</td><td>2383</td><td class="r cr">-3.91%</td><td class="r cg">+1,942</td><td class="r cg">+6,453</td><td class="r cg">+18,773</td><td>光通訊核心，月線強</td></tr>
+<tr><td class="nm">創意（同左）</td><td>3443</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td>同第4行</td></tr>
+<tr><td class="nm">國巨*</td><td>2327</td><td class="r cr">-4.34%</td><td class="r cg">+750</td><td class="r cg">+3,305</td><td class="r cg">+21,287</td><td>月線大額，逢低持續吸</td></tr>
+<tr><td class="nm">聯詠</td><td>3034</td><td class="r cg">+0.51%</td><td class="r cg">+935</td><td class="r cg">+3,563</td><td class="r cg">+11,474</td><td>Display IC，月線健康</td></tr>
+<tr><td class="nm">漢唐</td><td>2404</td><td class="r cg">+1.61%</td><td class="r cg">+579</td><td class="r cg">+7,422</td><td class="r cg">+5,989</td><td>工程服務，5日強</td></tr>
+<tr><td class="nm">台灣大</td><td>3045</td><td class="r cr">-0.90%</td><td class="r cg">+658</td><td class="r cg">+3,385</td><td class="r cg">+5,965</td><td>電信防禦，月線穩</td></tr>
+<tr><td class="nm">元太</td><td>8069</td><td class="r">0%</td><td class="r cg">+335</td><td class="r cg">+1,570</td><td class="r cg">+12,770</td><td>電子紙，月線大額</td></tr>
+<tr><td class="nm">昇陽半導體</td><td>8028</td><td class="r cr">-0.16%</td><td class="r cg">+1,518</td><td class="r cg">+2,557</td><td class="r cg">+3,284</td><td>🟢🟢佔比10日+4.63%，雙確認</td></tr>
+<tr><td class="nm">金像電</td><td>2368</td><td class="r cg">+1.40%</td><td class="r cg">+2,905</td><td class="r cg">+4,774</td><td class="r cg">+3,505</td><td>PCB，5日強</td></tr>
+<tr><td class="nm">瑞昱</td><td>2379</td><td class="r cg">+1.20%</td><td class="r cg">+935</td><td class="r cg">+3,352</td><td class="r cg">+6,135</td><td>無線IC，月線健康</td></tr>
+<tr><td class="nm">啟碁</td><td>6285</td><td class="r cg">+2.18%</td><td class="r cg">+1,448</td><td class="r cr">-132</td><td class="r cg">+7,197</td><td>衛星通訊，月線持續</td></tr>
+<tr><td class="nm">新盛力</td><td>4931</td><td class="r cr">-3.80%</td><td class="r cg">+531</td><td class="r cg">+886</td><td class="r cg">+1,054</td><td>🟢🟢佔比+3.57%雙確認</td></tr>
+</tbody></table>
+    <div class="chip-note">⭐ = 組合持股。🟢🟢 = 金額+佔比雙重確認。創意 3443 本週由 D型翻為 A型，是最重要的正面訊號。鴻海月線+99,326 為全場最大額持續建倉標的。</div>
+  </div>
+
+  
+
+  <div id="chip-detail-B" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th>名稱</th><th>代號</th><th class="r">漲跌%</th><th class="r">金額當日</th><th class="r">金額5日</th><th class="r">金額1月</th><th>佔比/訊號</th></tr></thead><tbody>
+<tr style="background:rgba(14,165,233,.1)"><td class="nm" style="color:#0ea5e9">南電↑⭐</td><td>8046</td><td class="r cg">+4.30%</td><td class="r cg">+62</td><td class="r cg">+381</td><td class="r cr">-5,981</td><td>⭐ E型→B型大翻轉！月仍負但近期回流</td></tr>
+<tr style="background:rgba(14,165,233,.07)"><td class="nm">欣興 ⭐</td><td>3037</td><td class="r cg">+9.60%漲停</td><td class="r cg">+290</td><td class="r cg">+7,409</td><td class="r cr">-16,033</td><td>連三週B型，漲停板確認翻多</td></tr>
+<tr><td class="nm">順達</td><td>3211</td><td class="r cg">+9.96%漲停</td><td class="r cg">+3,217</td><td class="r cg">+2,807</td><td class="r cr">-1,469</td><td>非組合，月空轉多最強</td></tr>
+<tr><td class="nm">聯亞</td><td>3081</td><td class="r cg">+8.03%</td><td class="r cg">+1,051</td><td class="r cg">+1,860</td><td class="r cr">-3,012</td><td>光通訊台廠，持續反轉</td></tr>
+<tr><td class="nm">兆赫</td><td>2485</td><td class="r cr">-2.74%</td><td class="r cg">+654</td><td class="r cg">+591</td><td class="r cg">+329</td><td>🟢🟢佔比+2.69%，月短皆正</td></tr>
+<tr><td class="nm">亞翔</td><td>6139</td><td class="r cg">+2.35%</td><td class="r cg">+123</td><td class="r cg">+2,649</td><td class="r cg">+603</td><td>工程服務，近期強</td></tr>
+<tr><td class="nm">環宇-KY</td><td>4991</td><td class="r cg">+3.57%</td><td class="r cg">+598</td><td class="r cg">+2,003</td><td class="r cg">+2,434</td><td>月線正，今日強</td></tr>
+<tr><td class="nm">敬鵬</td><td>2355</td><td class="r cr">-2.84%</td><td class="r cg">+718</td><td class="r cg">+1,381</td><td class="r cg">+2,490</td><td>🟢🟢佔比+2.64%，PCB翻多</td></tr>
+<tr><td class="nm">晶技</td><td>3042</td><td class="r cg">+4.91%</td><td class="r cg">+684</td><td class="r cg">+1,327</td><td class="r cg">+3,376</td><td>🟢🟢佔比+1.03%，石英元件</td></tr>
+<tr><td class="nm">兆豐金</td><td>2886</td><td class="r">—</td><td class="r cg">+186</td><td class="r cg">+4,197</td><td class="r cg">+4,390</td><td>金融股，中長線吸籌</td></tr>
+<tr><td class="nm">聖暉*</td><td>5536</td><td class="r cg">+9.06%</td><td class="r cg">+123</td><td class="r cg">+167</td><td class="r cg">+2,834</td><td>廠務工程，月線正</td></tr>
+<tr><td class="nm">新日興</td><td>3376</td><td class="r cr">-0.68%</td><td class="r cg">+564</td><td class="r cg">+2,052</td><td class="r cg">+1,307</td><td>🟢🟢佔比+1.31%，轉軸廠</td></tr>
+<tr><td class="nm">同欣電（參考）</td><td>6271</td><td class="r cg">+6.98%</td><td class="r cg">+547</td><td class="r cg">+2,290</td><td class="r cg">+2,263</td><td>同A型，佔比10日最強組合股</td></tr>
+<tr><td class="nm">矽創</td><td>8016</td><td class="r cr">-0.52%</td><td class="r cg">+34</td><td class="r cg">+600</td><td class="r cg">+1,825</td><td>MCU，佔比持續正向</td></tr>
+<tr><td class="nm">高力</td><td>8996</td><td class="r cg">+9.69%</td><td class="r cg">+467</td><td class="r cg">+964</td><td class="r cg">+1,277</td><td>散熱/再生能源，漲停</td></tr>
+<tr><td class="nm">昇達科</td><td>3491</td><td class="r cr">-0.72%</td><td class="r cg">+1,111</td><td class="r cg">+2,185</td><td class="r cg">+1,818</td><td>非組合，近期連續買超</td></tr>
+<tr><td class="nm">健鼎</td><td>3044</td><td class="r cg">+3.24%</td><td class="r cg">+103</td><td class="r cg">+248</td><td class="r cg">+915</td><td>PCB，月線正</td></tr>
+<tr><td class="nm">強茂</td><td>2481</td><td class="r cg">+9.70%</td><td class="r cg">+358</td><td class="r cr">-273</td><td class="r cg">+4,231</td><td>二極體，漲停，月線穩</td></tr>
+<tr><td class="nm">台耀</td><td>6274</td><td class="r cr">-1.25%</td><td class="r cg">+452</td><td class="r cg">+1,737</td><td class="r cg">+3,472</td><td>高頻PCB</td></tr>
+<tr><td class="nm">禾伸堂</td><td>3026</td><td class="r cg">+8.99%</td><td class="r cg">+248</td><td class="r cg">+902</td><td class="r cg">+2,923</td><td>被動元件，漲停</td></tr>
+</tbody></table>
+    <div class="chip-note">⭐ = 組合持股。南電 8046 本週重大翻轉：上週 E型全面賣超 → 本週 B型低檔反轉（5日+381/當日+62），月線雖仍負但近期籌碼已回流，是 ABF 板塊本週最重要的正面信號。欣興漲停確認月空轉多方向。</div>
+  </div>
+
+  
+
+  <div id="chip-detail-C" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th>名稱</th><th>代號</th><th class="r">漲跌%</th><th class="r">金額當日</th><th class="r">金額5日</th><th class="r">金額1月</th><th>佔比/訊號</th></tr></thead><tbody>
+<tr><td colspan="7" style="padding:12px 14px;color:var(--dim);font-size:calc(var(--fs)*.85);background:rgba(240,192,64,.04);">
+  ℹ 本週組合持股無 C型（高檔換手）。智邦 2345 本週 5日/當日轉負，已升級至 D型（長多短出）。以下為非組合 C型或近似標的：
+</td></tr>
+<tr><td class="nm">世界</td><td>5347</td><td class="r cr">-2.08%</td><td class="r cg">+257</td><td class="r cr">-5,404</td><td class="r cg">+22,169</td><td>月線大額但5日轉負，短線調節</td></tr>
+<tr><td class="nm">大成鋼</td><td>2027</td><td class="r cr">-5.59%</td><td class="r cg">+233</td><td class="r cg">+2,258</td><td class="r cg">+8,092</td><td>月/5日正，近期小回</td></tr>
+<tr><td class="nm">元大高股息</td><td>0056</td><td class="r cr">-0.06%</td><td class="r cg">+295</td><td class="r cg">+2,318</td><td class="r cg">+25,627</td><td>ETF，月線持續正向</td></tr>
+<tr><td class="nm">信錦</td><td>1582</td><td class="r cr">-2.19%</td><td class="r cg">+269</td><td class="r cg">+861</td><td class="r cg">+1,514</td><td>🟢🟢佔比10日+5.19%，持續吸</td></tr>
+<tr><td class="nm">萬海（參考）</td><td>2615</td><td class="r cr">-2.16%</td><td class="r cg">+601</td><td class="r cg">+2,647</td><td class="r cg">+3,426</td><td>同A型，航運持續</td></tr>
+<tr><td class="nm">台燿</td><td>6274</td><td class="r cr">-1.25%</td><td class="r cg">+452</td><td class="r cg">+1,737</td><td class="r cg">+3,472</td><td>高頻PCB，持續</td></tr>
+<tr><td class="nm">臻鼎-KY</td><td>4958</td><td class="r cg">+2.08%</td><td class="r cr">-521</td><td class="r cg">+7,419</td><td class="r cg">+1,828</td><td>5日強但今日調節，C型特徵</td></tr>
+<tr><td class="nm">聯電</td><td>2303</td><td class="r cg">+4.40%</td><td class="r cr">-3,018</td><td class="r cr">-5,618</td><td class="r cg">+11,062</td><td>月線正但近期轉負，觀察</td></tr>
+<tr><td class="nm">技嘉</td><td>2376</td><td class="r cr">-0.15%</td><td class="r cg">+1,185</td><td class="r cr">-299</td><td class="r cg">+7,006</td><td>AI伺服器，今日強但5日轉負</td></tr>
+<tr><td class="nm">旺矽</td><td>6223</td><td class="r cg">+0.65%</td><td class="r cg">+487</td><td class="r cr">-747</td><td class="r cg">+7,527</td><td>探針卡，月線強，5日弱</td></tr>
+<tr><td class="nm">金居</td><td>8358</td><td class="r cr">-2.20%</td><td class="r cg">+239</td><td class="r cg">+4,577</td><td class="r cg">+8,176</td><td>PCB材料，持續</td></tr>
+<tr><td class="nm">中信金</td><td>2891</td><td class="r cg">+0.52%</td><td class="r cg">+186</td><td class="r cg">+4,197</td><td class="r cg">+4,390</td><td>金融股，中線持續</td></tr>
+<tr><td class="nm">矽力*-KY</td><td>6415</td><td class="r cg">+1.94%</td><td class="r cg">+19</td><td class="r cg">+573</td><td class="r cg">+3,051</td><td>電源IC，佔比+1.03%</td></tr>
+<tr><td class="nm">益登</td><td>3048</td><td class="r cr">-0.41%</td><td class="r cr">-29</td><td class="r cg">+147</td><td class="r cg">+1,342</td><td>5日轉正，月線健康</td></tr>
+<tr><td class="nm">矽統</td><td>2363</td><td class="r cr">-2.31%</td><td class="r cg">+76</td><td class="r cg">+563</td><td class="r cg">+1,732</td><td>SoC，持續</td></tr>
+<tr><td class="nm">力旺</td><td>3529</td><td class="r cr">-6.06%</td><td class="r cg">+75</td><td class="r cg">+1,848</td><td class="r cg">+8,279</td><td>嵌入式記憶體，月線強</td></tr>
+<tr><td class="nm">致茂</td><td>2360</td><td class="r cg">+1.63%</td><td class="r cg">+228</td><td class="r cg">+692</td><td class="r cg">+3,722</td><td>量測設備</td></tr>
+<tr><td class="nm">鴻勁</td><td>7769</td><td class="r cg">+3.34%</td><td class="r cr">-1,188</td><td class="r cr">-1,002</td><td class="r cg">+21,868</td><td>月線超強，近期短調</td></tr>
+<tr><td class="nm">事欣科</td><td>4916</td><td class="r cr">-0.99%</td><td class="r cg">+187</td><td class="r cg">+740</td><td class="r cg">+919</td><td>🟢🟢佔比10日+7.24%</td></tr>
+<tr><td class="nm">穎崴</td><td>6515</td><td class="r cg">+0.62%</td><td class="r cg">+284</td><td class="r cg">+261</td><td class="r cg">+3,240</td><td>連接器，月線正</td></tr>
+</tbody></table>
+    <div class="chip-note">本週組合持股無 C型（高檔換手）。智邦 2345 已由 A型→D型（5日/當日轉負），移至賣超警示。以下為非組合參考，世界 5347 月線強(+22,169)但5日轉負(-5,404)是典型換手型態。</div>
+  </div>
+
+  
+
+  <div id="chip-detail-D" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th>名稱</th><th>代號</th><th class="r">漲跌%</th><th class="r">金額當日</th><th class="r">金額5日</th><th class="r">金額1月</th><th>佔比/訊號</th></tr></thead><tbody>
+<tr style="background:rgba(255,61,90,.1)"><td class="nm" style="color:#ff3d5a">雙鴻 ⭐</td><td>3324</td><td class="r cg">+2.97%</td><td class="r cr">-493</td><td class="r cr">-2,155</td><td class="r cr">-8,949</td><td><b style="color:#ff3d5a">🔴🔴佔比-5.57%雙重警示</b></td></tr>
+<tr style="background:rgba(255,61,90,.07)"><td class="nm">台積電 ⭐</td><td>2330</td><td class="r cr">-1.73%</td><td class="r cr">-5,909</td><td class="r cr">-57,626</td><td class="r cr">-247,427</td><td>⚠ 月線-247,427超大額賣出</td></tr>
+<tr style="background:rgba(255,61,90,.07)"><td class="nm">廣達 ⭐</td><td>2382</td><td class="r">0%</td><td class="r cr">-2,786</td><td class="r cr">-6,309</td><td class="r cr">-15,707</td><td>⚠ 繼續E型，月/5日/今日三線賣</td></tr>
+<tr style="background:rgba(255,61,90,.07)"><td class="nm">台達電 ⭐</td><td>2308</td><td class="r cg">+2.62%</td><td class="r cr">-149</td><td class="r cr">-5,688</td><td class="r cr">-25,813</td><td>⚠ 漲但法人賣，E型</td></tr>
+<tr style="background:rgba(255,128,64,.07)"><td class="nm">智邦 ⭐</td><td>2345</td><td class="r cg">+3.15%</td><td class="r cr">-674</td><td class="r cr">-904</td><td class="r cg">+15,137</td><td>⚠ 月強但D型，5日/今日轉負</td></tr>
+<tr style="background:rgba(255,128,64,.07)"><td class="nm">世芯-KY ⭐</td><td>3661</td><td class="r cr">-5.31%</td><td class="r cr">-1,078</td><td class="r cr">-1,930</td><td class="r cg">+8,065</td><td>⚠ 月正但D型，持續波段兌現</td></tr>
+<tr><td class="nm">群聯</td><td>8299</td><td class="r cg">+1.01%</td><td class="r cr">-2,459</td><td class="r cr">-18,893</td><td class="r cr">-15,655</td><td>🔴🔴佔比-3.50%，全面賣超</td></tr>
+<tr><td class="nm">日月光投控</td><td>3711</td><td class="r cr">-0.97%</td><td class="r cr">-3,526</td><td class="r cr">-7,471</td><td class="r cr">-14,745</td><td>⚠ 封測龍頭法人持續出貨</td></tr>
+<tr><td class="nm">威剛</td><td>3260</td><td class="r cg">+0.61%</td><td class="r cr">-1,312</td><td class="r cr">-3,542</td><td class="r cr">-14,921</td><td>🔴🔴佔比-2.62%，DRAM持續賣</td></tr>
+<tr><td class="nm">南亞科</td><td>2408</td><td class="r cg">+2.53%</td><td class="r cr">-2,131</td><td class="r cr">-13,926</td><td class="r cg">+21,188</td><td>⚠ 月線正但近期急賣，D型</td></tr>
+<tr><td class="nm">旺宏</td><td>2337</td><td class="r cg">+5.25%</td><td class="r cr">-1,182</td><td class="r cr">-13,240</td><td class="r cg">+408</td><td>⚠ 漲停但法人賣超，拉高出貨</td></tr>
+<tr><td class="nm">奇鋐</td><td>3017</td><td class="r cg">+5.83%</td><td class="r cr">-1,470</td><td class="r cr">-5,496</td><td class="r cr">-27,616</td><td>散熱龍頭全線賣超</td></tr>
+<tr><td class="nm">台表科</td><td>6278</td><td class="r cg">+3.57%</td><td class="r cr">-395</td><td class="r cr">-474</td><td class="r cr">-4,871</td><td>🔴🔴佔比-0.62%，雙警示</td></tr>
+<tr><td class="nm">環球晶</td><td>6488</td><td class="r cg">+9.90%漲停</td><td class="r cr">-205</td><td class="r cr">-3,233</td><td class="r cg">+8,418</td><td>⚠ 漲停但法人賣(10日-3,293)，拉高出貨</td></tr>
+<tr><td class="nm">京元電子</td><td>2449</td><td class="r cg">+6.78%</td><td class="r cr">-1,580</td><td class="r cr">-7,492</td><td class="r cr">-26,418</td><td>⚠ 漲但10日-19,063，逢高出貨拉高警示</td></tr>
+<tr><td class="nm">力積電</td><td>6770</td><td class="r cg">+4.73%</td><td class="r cr">-1,184</td><td class="r cr">-4,404</td><td class="r cr">-3,509</td><td>⚠ 記憶體代工，持續賣超</td></tr>
+<tr><td class="nm">世芯(同上)</td><td>3661</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td>同第6行</td></tr>
+<tr><td class="nm">祥碩</td><td>5269</td><td class="r cg">+0.65%</td><td class="r cr">-562</td><td class="r cr">-650</td><td class="r cr">-1,976</td><td>USB 4, E型持續</td></tr>
+<tr><td class="nm">光寶科</td><td>2301</td><td class="r cg">+5.27%</td><td class="r cr">-294</td><td class="r cr">-885</td><td class="r cg">+15,175</td><td>⚠ 月線強但近期法人出貨</td></tr>
+<tr><td class="nm">宜鼎</td><td>5289</td><td class="r cg">+0.30%</td><td class="r cr">-594</td><td class="r cr">-1,469</td><td class="r cr">-499</td><td>工業SSD，三線賣超</td></tr>
+</tbody></table>
+    <div class="chip-note">⭐ = 組合持股。🔴🔴 雙鴻 3324 是唯一金額+佔比雙重警示標的，佔比10日-5.57%是組合中最嚴重。台積電5日-57,626為全場最大額單週賣超。⚠ 環球晶/旺宏/京元電子漲停但法人仍賣，是典型「拉高出貨」警示，需謹慎追高。</div>
+  </div>
+
+  
+
+  
+
+  
+
+</div><!-- end chip-panel -->
+
+<!-- PCB/ABF 集團效應（本週回歸聚合） -->
+<div class="chip-cluster" style="margin-top:2px;">
+  <div class="cluster-lbl">📡 PCB / ABF 載板 ｜ 本週由分化→回歸同向買超</div>
+  <table class="chip-tbl">
+    <thead><tr><th>名稱</th><th>代號</th><th>型態</th><th class="r">當日</th><th class="r">5日</th><th class="r">1月</th><th class="r">vs上週</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">欣興</td><td>3037</td><td class="cb">🔵 B（漲停）</td><td class="r cg">+290</td><td class="r cg">+7,409</td><td class="r cr">-16,033</td><td>連三週B型，漲停確認 ✓</td></tr>
+      <tr><td class="nm">景碩</td><td>3189</td><td class="cg">🟢 A</td><td class="r cg">+693</td><td class="r cg">+10,450</td><td class="r cg">+3,166</td><td>持續A型 ✓</td></tr>
+      <tr><td class="nm" style="color:#0ea5e9">南電↑</td><td>8046</td><td class="cb">🔵 B（翻轉）</td><td class="r cg">+62</td><td class="r cg">+381</td><td class="r cr">-5,981</td><td><b style="color:#0ea5e9">E型→B型！最重要翻轉</b></td></tr>
+      <tr><td class="nm">華通</td><td>2313</td><td class="cg">🟢 A</td><td class="r cg">+4,846</td><td class="r cg">+10,288</td><td class="r cg">+12,066</td><td>持續A型，當日最強 ✓</td></tr>
+    </tbody>
+  </table>
+  <div class="chip-note">本週四家均為買超方向（欣興/景碩/南電/華通），ABF板塊集團效應本週由上週分化回歸聚合。南電由 E→B 是關鍵信號，但月線仍負(-5,981)，需連續觀察2週確認趨勢是否穩固。</div>
+</div>
+<div class="chip-cluster" style="margin-top:2px;">
+  <div class="cluster-lbl">📡 PCB / ABF 載板 ｜ 集團效應本週出現分化</div>
+  <table class="chip-tbl">
+    <thead><tr><th>名稱</th><th>代號</th><th>型態</th><th class="r">當日</th><th class="r">5日</th><th class="r">1月</th><th class="r">3月</th><th>警示訊號</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">華通</td><td>2313</td><td class="cg">🟢 A</td><td class="r cg">+3,122</td><td class="r cg">+12,716</td><td class="r cg">+14,494</td><td class="r cr">-8,477</td><td>A型持續，近期最強</td></tr>
+      <tr><td class="nm">欣興</td><td>3037</td><td class="cb">🔵 B</td><td class="r cg">+1,191</td><td class="r cg">+13,067</td><td class="r cr">-10,375</td><td class="r cg">+9,125</td><td>連2週B型翻多，5日力道強</td></tr>
+      <tr><td class="nm">景碩</td><td>3189</td><td class="cg">🟢 A</td><td class="r cg">+643</td><td class="r cg">+10,877</td><td class="r cg">+3,592</td><td class="r cg">+11,530</td><td>仍買，日量較上週減少</td></tr>
+      <tr><td class="nm">南電</td><td>8046</td><td class="cr">🔴 E</td><td class="r cr">-8,129</td><td class="r cr">-4,075</td><td class="r cr">-10,437</td><td class="r cg">+4,426</td><td>⚠ A→E 急轉！重大警示</td></tr>
+    </tbody>
+  </table>
+  <div class="chip-note">ABF板塊本週出現明顯分化：欣興/景碩/華通仍在買超，南電出現急轉。這是 ABF 板塊輪漲「由多轉空」的早期警示，需密切追蹤後續南電是否連續賣超。</div>
+</div>
+</div>
+
+<!-- ═══ 雙指標比對 ═══ -->
+<div class="chip-section">
+<div class="chip-lbl">雙指標交叉比對｜金額榜 vs 佔發行張數榜（同為 5/25 截面）</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);padding:8px 14px;margin-bottom:2px;font-size:calc(var(--fs)*.82);color:var(--dim);line-height:1.7;">
+  <b style="color:var(--text)">兩個指標測量維度不同，搭配使用效果最佳</b><br>
+  📌 <b>金額指標</b>（買賣超金額）→ 大型股訊號強，反映絕對資金流向<br>
+  📌 <b>佔比指標</b>（佔發行張數%）→ 中小型股更靈敏，反映籌碼集中度。雙榜同時確認 = 最高信心信號
+</div>
+
+<div class="chip-box">
+  <div class="chip-hdr a" onclick="togChip('cmp-detail')" style="color:#94a3b8;background:rgba(255,255,255,.03);border-left-color:#94a3b8;">
+    ⚖ 組合標的雙指標比對（17檔）<span class="bl">▼</span>
+  </div>
+  <div class="chip-body open" id="cmp-detail">
+    <table class="chip-tbl">
+      <thead><tr><th>名稱</th><th>代號</th><th>金額指標</th><th>佔比指標</th><th>雙向訊號（5/25更新）</th></tr></thead>
+      <tbody>
+        <tr><td class="nm">華通</td><td>2313</td><td class="cg">A 金額 +3,122</td><td class="cg">A 佔比 +1.36%</td><td><span style="color:#00c896;font-weight:700">🟢🟢 雙重買超確認</span></td></tr>
+        <tr><td class="nm">訊芯-KY</td><td>6451</td><td class="cg">A 金額 +526</td><td class="cg">A 佔比 +1.22%</td><td><span style="color:#00c896;font-weight:700">🟢🟢 雙重買超確認</span></td></tr>
+        <tr><td class="nm">景碩</td><td>3189</td><td class="cg">A 金額 +643</td><td class="cg">A 佔比 +0.20%</td><td><span style="color:#00c896;font-weight:700">🟢🟢 雙重買超確認</span></td></tr>
+        <tr><td class="nm">同欣電</td><td>6271</td><td class="cy">C 金額 -372</td><td class="cg">A 佔比 +1.08%</td><td><span style="color:#f0c040">🟡 短線調節，佔比仍正向</span></td></tr>
+        <tr><td class="nm">雙鴻</td><td>3324</td><td class="cr">E 金額 -493</td><td class="cr">E 佔比 -0.52%</td><td><span style="color:#ff3d5a;font-weight:700">🔴🔴 雙重警示</span></td></tr>
+        <tr><td class="nm">鴻海</td><td>2317</td><td class="cg">A 金額 +14,478</td><td class="cd">不在佔比榜</td><td><span style="color:#64748b">📊 大型股，金額指標為主</span></td></tr>
+        <tr><td class="nm">欣興</td><td>3037</td><td class="cb">B 金額 +1,191</td><td class="cd">不在佔比榜</td><td><span style="color:#64748b">📊 大型股，金額指標為主</span></td></tr>
+        <tr><td class="nm">智邦</td><td>2345</td><td class="cg">A 金額 +717</td><td class="cd">不在佔比榜</td><td><span style="color:#64748b">📊 大型股，金額指標為主</span></td></tr>
+        <tr><td class="nm">新唐</td><td>4919</td><td class="cb">B 金額 +648</td><td class="cd">不在佔比榜</td><td><span style="color:#64748b">📊 大型股，金額指標為主</span></td></tr>
+        <tr><td class="nm">廣運</td><td>6125</td><td class="cg">A 金額 +189</td><td class="cd">不在佔比榜</td><td><span style="color:#64748b">📊 大型股，金額指標為主</span></td></tr>
+        <tr><td class="nm">南電</td><td>8046</td><td class="cr">E 金額 -8,129</td><td class="cd">不在佔比榜</td><td><span style="color:#f97316">⚠ 大額出貨（大型股警示有效）</span></td></tr>
+        <tr><td class="nm">聯發科</td><td>2454</td><td class="cr">E 金額 -8,347</td><td class="cd">不在佔比榜</td><td><span style="color:#f97316">⚠ 大額出貨（大型股警示有效）</span></td></tr>
+        <tr><td class="nm">廣達</td><td>2382</td><td class="cr">E 金額 -2,962</td><td class="cd">不在佔比榜</td><td><span style="color:#f97316">⚠ 大額出貨（大型股警示有效）</span></td></tr>
+        <tr><td class="nm">創意</td><td>3443</td><td class="cy">D 金額 -2,618</td><td class="cd">不在佔比榜</td><td><span style="color:#f97316">⚠ 開始波段出貨</span></td></tr>
+        <tr><td class="nm">世芯</td><td>3661</td><td class="cy">D 金額 -1,105</td><td class="cd">不在佔比榜</td><td><span style="color:#64748b">📊 大型股，金額指標為主</span></td></tr>
+        <tr><td class="nm">川湖</td><td>2059</td><td class="cy">C 金額 -510</td><td class="cd">不在佔比榜</td><td><span style="color:#64748b">📊 大型股，金額指標為主</span></td></tr>
+        <tr><td class="nm">台積電</td><td>2330</td><td class="cd">F 金額混合</td><td class="cd">不在佔比榜</td><td><span style="color:#64748b">📊 超大型股，混合訊號</span></td></tr>
+      </tbody>
+    </table>
+    <div class="chip-note">🟢🟢 雙重確認 = 兩個指標均在買超榜（最高確信）｜🔴🔴 雙重警示 = 兩個指標均在賣超榜｜大型股因發行量大，不易出現在佔比榜，以金額指標為判斷基準</div>
+  </div>
+</div>
+
+<div class="chip-box" style="margin-top:1px;">
+  <div class="chip-hdr b" onclick="togChip('ratio-top')" style="color:#0ea5e9;background:rgba(14,165,233,.05);border-left-color:#0ea5e9;">
+    📡 佔比 A型強標（非組合，今日佔比 > 1%）<span class="bl">▼</span>
+  </div>
+  <div class="chip-body" id="ratio-top">
+    <table class="chip-tbl">
+      <thead><tr><th>名稱</th><th>代號</th><th class="r">當日佔比%</th><th class="r">5日%</th><th class="r">1月%</th><th class="r">3月%</th></tr></thead>
+      <tbody>
+        <tr><td class="nm">新盛力</td><td>4931</td><td class="r cg">+3.57%</td><td class="r cg">+6.12%</td><td class="r cg">+7.33%</td><td class="r cg">—</td></tr>
+        <tr><td class="nm">尼克森</td><td>3317</td><td class="r cg">+3.57%</td><td class="r cg">+3.05%</td><td class="r cg">+3.01%</td><td class="r cg">—</td></tr>
+        <tr><td class="nm">昇陽半導體</td><td>8028</td><td class="r cg">+2.71%</td><td class="r cg">+4.63%</td><td class="r cg">+5.56%</td><td class="r cg">—</td></tr>
+        <tr><td class="nm">敬鵬</td><td>2355</td><td class="r cg">+2.64%</td><td class="r cg">+5.13%</td><td class="r cg">+10.1%</td><td class="r cg">—</td></tr>
+        <tr><td class="nm">台半</td><td>5425</td><td class="r cg">+2.25%</td><td class="r cg">+4.43%</td><td class="r cg">+8.48%</td><td class="r cg">—</td></tr>
+        <tr><td class="nm">惠特</td><td>6706</td><td class="r cg">+1.98%</td><td class="r cg">+3.90%</td><td class="r cg">+9.47%</td><td class="r cg">—</td></tr>
+        <tr><td class="nm">事欣科</td><td>4916</td><td class="r cg">+1.66%</td><td class="r cg">+7.24%</td><td class="r cg">+9.12%</td><td class="r cg">—</td></tr>
+        <tr><td class="nm">信錦</td><td>1582</td><td class="r cg">+1.60%</td><td class="r cg">+5.19%</td><td class="r cg">+9.55%</td><td class="r cg">—</td></tr>
+        <tr><td class="nm">晶技</td><td>3042</td><td class="r cg">+1.03%</td><td class="r cg">+2.09%</td><td class="r cg">+6.22%</td><td class="r cg">—</td></tr>
+      </tbody>
+    </table>
+    <div class="chip-note">佔發行張數% = 法人淨買超張數 ÷ 總發行張數，比例越高代表籌碼集中度越大。敬鵬(2355)前次金額榜顯示賣超，本次佔比轉正(+2.64%)，值得追蹤是否持續。</div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ 跨市場 ═══ -->
+<div class="sec-lbl" style="margin-bottom:10px;margin-top:6px;">美台跨市場呼應關係</div>
+<div class="emo-box">
+  <div class="emo-box-title">🔗 同向確認 / 強度差異 / 台股獨立 α（5/21 截面）</div>
+  <div class="emo-grid">
+    <div class="emo-cell">
+      <div class="emo-cell-lbl">同向確認</div>
+      <div class="emo-cell-txt">
+        AMD/QCOM 強 → 聯發科/新唐同步<br>
+        ETN 弱 → 華城/士電 Rank 13–24<br>
+        AVAV/KTOS 崩跌 → 漢翔 Rank 9<br>
+        ARM +16.16% → 世芯/創意 ASIC 跟漲<br>
+        ENPH +17% → 高力 +7.51% 跟漲
+      </div>
+    </div>
+    <div class="emo-cell">
+      <div class="emo-cell-lbl">台股跟漲強度折扣</div>
+      <div class="emo-cell-txt">
+        ARM +16.16% vs 世芯-KY +0.20%<br>
+        → ASIC 設計台廠今日幅度極低<br><br>
+        ENPH +17.29% vs 高力 +7.51%<br>
+        → 再生能源台廠幅度約 43%<br><br>
+        ALAB +3.60% vs 訊芯-KY +4.61%<br>
+        → 光通訊今日台廠幅度接近甚至略優
+      </div>
+    </div>
+    <div class="emo-cell">
+      <div class="emo-cell-lbl">台股獨立 α</div>
+      <div class="emo-cell-txt">
+        同欣電 +9.95%（衛星/太空設備）<br>
+        → REL5 +23.87% 強勢突破<br>
+        → 無特定美股個股對應觸發<br><br>
+        新唐 REL5 +14.48% 超越 REL20<br>
+        → 台股半導體內部新動能<br><br>
+        ✅ 今日台股最強獨立超額報酬
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="ftr">
+  <div class="disc">本報告僅供研究參考，不構成任何投資建議。數據來源：美股 / 台股 AI 供應鏈監控表 5/21 截面 ＋ Finviz Nasdaq New High 5/22 廣度確認 ＋ 台股法人籌碼 5/26截面（買超300 + 賣超300）。</div>
+  <div class="brand">Yoda × Claude｜個股輪動 v1.1</div>
+</div>
+
+<script>
+const fsMap={small:'15px',normal:'18px',large:'21px'};
+const themes={
+  dark:{'--bg':'#080b10','--surface':'#0d1118','--surface2':'#121820','--border':'#1c2330','--text':'#b8c8d8','--dim':'#405060','--accent':'#00c8f0','--green':'#00c896','--red':'#ff3d5a','--yellow':'#f0c040','--orange':'#ff8040'},
+  light:{'--bg':'#f2f5f9','--surface':'#ffffff','--surface2':'#e8eef5','--border':'#ccd6e2','--text':'#1a2535','--dim':'#6080a0','--accent':'#0070a0','--green':'#006e4a','--red':'#c00030','--yellow':'#7a5500','--orange':'#a03800'}
+};
+function setFS(s){
+  document.documentElement.style.setProperty('--fs',fsMap[s]);
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('fs-'+s).classList.add('on');
+  const cur=document.body.classList.contains('light')?'light':'dark';
+  document.getElementById('btn-'+cur).classList.add('on');
+}
+function setTheme(t){
+  const r=document.documentElement;
+  Object.entries(themes[t]).forEach(([k,v])=>r.style.setProperty(k,v));
+  document.body.classList.toggle('light',t==='light');
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('btn-'+t).classList.add('on');
+  const fs=r.style.getPropertyValue('--fs')||'18px';
+  const fsKey=Object.entries(fsMap).find(([,v])=>v===fs)?.[0]||'normal';
+  document.getElementById('fs-'+fsKey).classList.add('on');
+}
+function tog(id){
+  const el=document.getElementById(id);
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.sc-det').forEach(d=>d.classList.remove('open'));
+  if(!isOpen) el.classList.add('open');
+}
+document.getElementById('btn-dark').classList.add('on');
+document.getElementById('fs-normal').classList.add('on');
+document.addEventListener('copy',e=>e.preventDefault());
+document.addEventListener('cut',e=>e.preventDefault());
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&['a','c','x','s','u'].includes(e.key.toLowerCase()))e.preventDefault();});
+document.addEventListener('selectstart',e=>e.preventDefault());
+document.addEventListener('dragstart',e=>e.preventDefault());
+</script>
+
+<script>
+var _selType = null;
+function selectChipCard(type){
+  var panel = document.getElementById('chip-panel');
+  var same = (_selType === type);
+  document.querySelectorAll('.ccard').forEach(function(c){
+    c.classList.remove('sel');
+    var tri = c.querySelector('.ccard-tri');
+    if(tri){ tri.textContent='▼'; tri.classList.add('breathing'); }
+    var txt = c.querySelector('.ccard-hint-txt');
+    if(txt) txt.textContent='點擊展開';
+  });
+  document.querySelectorAll('.chip-detail').forEach(function(d){ d.classList.remove('active'); });
+  panel.className='chip-panel';
+  if(same){ _selType=null; return; }
+  _selType = type;
+  var card = document.querySelector('.ccard[data-type="'+type+'"]');
+  if(card){
+    card.classList.add('sel');
+    var tri = card.querySelector('.ccard-tri');
+    if(tri){ tri.textContent='▲'; tri.classList.remove('breathing'); }
+    var txt = card.querySelector('.ccard-hint-txt');
+    if(txt) txt.textContent='點擊收合';
+  }
+  var det = document.getElementById('chip-detail-'+type);
+  if(det) det.classList.add('active');
+  panel.classList.add('open');
+  panel.classList.add({A:'pA',B:'pB',C:'pC',D:'pD'}[type]||'');
+}
+</script>
+
+<script>
+// ── 歷史籌碼數據（月頻，300檔基準）────────────────────────
+// 格式：{d:'YYYY-MM', A:吸籌檔數, B:反轉檔數, C:換手檔數, D:出貨檔數}
+// Q3 2025 起（2025-12-31 以前為參考基準）
+var CHIP_DATA = [
+  {d:'2025-07', A:112, B:43, C:72, D:48},
+  {d:'2025-08', A:120, B:50, C:66, D:38},
+  {d:'2025-09', A:132, B:56, C:60, D:30},
+  {d:'2025-10', A:145, B:62, C:55, D:22},
+  {d:'2025-11', A:155, B:66, C:48, D:18},
+  {d:'2025-12', A:150, B:63, C:52, D:24},
+  {d:'2026-01', A:148, B:61, C:54, D:26},
+  {d:'2026-02', A:158, B:67, C:47, D:17},
+  {d:'2026-03', A:168, B:71, C:41, D:12},
+  {d:'2026-04', A:175, B:71, C:38, D:8},
+  {d:'2026-05-22', A:186, B:70, C:32, D:0},
+  {d:'2026-05-25', A:196, B:61, C:50, D:41}   // ← 最新截面
+];
+
+var CHIP_COLORS = {A:'#00c896', B:'#0ea5e9', C:'#f0c040', D:'#ff8040'};
+var CHIP_LABELS = {A:'A 全面吸籌', B:'B 低檔反轉', C:'C 高檔換手', D:'D 長多短出'};
+
+function renderChipChart(){
+  var canvas = document.getElementById('chipChart');
+  if(!canvas) return;
+
+  var parent = canvas.parentElement;
+  var W = parent.clientWidth || 800;
+  var H = 260;
+  var dpr = window.devicePixelRatio||1;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  var isDark = !document.body.classList.contains('light');
+  var bg     = isDark ? '#0d1118' : '#f4f4f4';
+  var grid   = isDark ? '#1c2330' : '#e0e0e0';
+  var dim    = isDark ? '#405060' : '#aaa';
+  var txt    = isDark ? '#64748b' : '#888';
+
+  var PAD = {t:24, r:16, b:44, l:38};
+  var CW = W - PAD.l - PAD.r;
+  var CH = H - PAD.t - PAD.b;
+  var N  = CHIP_DATA.length;
+
+  // background
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,H);
+
+  // max Y
+  var maxV = 0;
+  CHIP_DATA.forEach(function(d){maxV = Math.max(maxV,d.A,d.B,d.C,d.D);});
+  var yMax = Math.ceil(maxV/50)*50;
+
+  // grid lines & Y labels
+  [0,50,100,150,200].forEach(function(v){
+    if(v>yMax) return;
+    var y = PAD.t + CH - v/yMax*CH;
+    ctx.strokeStyle = grid; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(PAD.l,y); ctx.lineTo(PAD.l+CW,y); ctx.stroke();
+    ctx.fillStyle = dim; ctx.font='10px monospace'; ctx.textAlign='right';
+    ctx.fillText(v, PAD.l-5, y+4);
+  });
+
+  // X axis line
+  ctx.strokeStyle=grid; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(PAD.l,PAD.t+CH); ctx.lineTo(PAD.l+CW,PAD.t+CH); ctx.stroke();
+
+  function px(i){ return PAD.l + i/(N-1)*CW; }
+  function py(v){ return PAD.t + CH - v/yMax*CH; }
+
+  // shade reference area (before 2026)
+  var refEnd = 0;
+  for(var i=0;i<N;i++){ if(CHIP_DATA[i].d<'2026') refEnd=i; }
+  ctx.fillStyle = isDark ? 'rgba(255,255,255,.02)' : 'rgba(0,0,0,.03)';
+  ctx.fillRect(PAD.l, PAD.t, px(refEnd)-PAD.l, CH);
+
+  // "參考" label
+  ctx.fillStyle=dim; ctx.font='9px monospace'; ctx.textAlign='center';
+  ctx.fillText('← 參考', PAD.l+(px(refEnd)-PAD.l)/2, PAD.t+10);
+  ctx.fillText('實際 →', px(refEnd)+(CW-(px(refEnd)-PAD.l))/2, PAD.t+10);
+
+  // dashed divider
+  ctx.setLineDash([3,3]); ctx.strokeStyle=dim; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(px(refEnd),PAD.t+12); ctx.lineTo(px(refEnd),PAD.t+CH); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // latest dashed marker
+  var li=N-1;
+  ctx.setLineDash([4,4]); ctx.strokeStyle=isDark?'rgba(255,255,255,.12)':'rgba(0,0,0,.1)';
+  ctx.beginPath(); ctx.moveTo(px(li),PAD.t+12); ctx.lineTo(px(li),PAD.t+CH); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // draw each series
+  ['D','C','B','A'].forEach(function(key){
+    var color = CHIP_COLORS[key];
+    ctx.strokeStyle=color; ctx.lineWidth=2.5;
+    ctx.beginPath();
+    CHIP_DATA.forEach(function(d,i){
+      if(i===0) ctx.moveTo(px(i),py(d[key]));
+      else ctx.lineTo(px(i),py(d[key]));
+    });
+    ctx.stroke();
+    // dots
+    CHIP_DATA.forEach(function(d,i){
+      var r = i===li ? 5.5 : 3;
+      ctx.fillStyle = i===li ? color : bg;
+      ctx.strokeStyle=color; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.arc(px(i),py(d[key]),r,0,Math.PI*2);
+      i===li ? ctx.fill() : (ctx.fill(),ctx.stroke());
+    });
+    // latest value label
+    ctx.fillStyle=color; ctx.font='bold 11px monospace'; ctx.textAlign='left';
+    ctx.fillText(CHIP_DATA[li][key], px(li)+8, py(CHIP_DATA[li][key])+4);
+  });
+
+  // X labels
+  ctx.fillStyle=txt; ctx.font='10px monospace'; ctx.textAlign='center';
+  CHIP_DATA.forEach(function(d,i){
+    if(i!==0 && i!==li && i%2!==0) return;
+    var lbl = d.d.length>7 ? d.d.substring(2,7) : d.d.substring(2);
+    ctx.fillText(lbl, px(i), PAD.t+CH+16);
+  });
+
+  // legend
+  var leg = document.getElementById('chip-chart-legend');
+  if(leg && !leg.dataset.init){
+    leg.dataset.init='1';
+    Object.keys(CHIP_LABELS).forEach(function(k){
+      var span=document.createElement('span');
+      span.style.display='flex'; span.style.alignItems='center'; span.style.gap='6px';
+      span.innerHTML='<span style="display:inline-block;width:18px;height:3px;background:'+CHIP_COLORS[k]+';border-radius:2px;"></span>'
+        +'<span style="color:'+CHIP_COLORS[k]+'">'+CHIP_LABELS[k]+'</span>';
+      leg.appendChild(span);
+    });
+  }
+}
+
+// ── Tooltip ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  // 呼吸燈初始化
+  document.querySelectorAll('.ccard-hint').forEach(function(h){h.classList.add('breathing');});
+  // 折線圖
+  renderChipChart();
+  var canvas=document.getElementById('chipChart');
+  var tip=document.getElementById('chip-tooltip');
+  if(!canvas||!tip) return;
+  canvas.addEventListener('mousemove',function(e){
+    var rect=canvas.getBoundingClientRect();
+    var mx=e.clientX-rect.left;
+    var W=rect.width;
+    var N=CHIP_DATA.length;
+    var PAD_L=38, PAD_R=16;
+    var CW=W-PAD_L-PAD_R;
+    var idx=Math.round((mx-PAD_L)/CW*(N-1));
+    idx=Math.max(0,Math.min(N-1,idx));
+    var d=CHIP_DATA[idx];
+    tip.style.display='block';
+    tip.innerHTML='<b style="color:var(--text)">'+d.d+'</b><br>'
+      +'<span style="color:#00c896">A吸籌 '+d.A+'</span> '
+      +'<span style="color:#0ea5e9">B反轉 '+d.B+'</span> '
+      +'<span style="color:#f0c040">C換手 '+d.C+'</span> '
+      +'<span style="color:#ff8040">D出貨 '+d.D+'</span>'
+      +'<br><span style="color:var(--dim);font-size:.9em">合計 '+(d.A+d.B+d.C+d.D)+' 檔</span>';
+    var left=Math.min(mx+12, W-160);
+    tip.style.left=left+'px';
+    tip.style.top='10px';
+  });
+  canvas.addEventListener('mouseleave',function(){tip.style.display='none';});
+  window.addEventListener('resize',function(){renderChipChart();});
+});
+</script>
+
+</body>
+</html>
