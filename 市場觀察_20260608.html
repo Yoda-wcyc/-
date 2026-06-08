@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoda 市場分析 2026-6-8</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+            height: fit-content;
+        }
+        /* 卡片一：藍色系發光 */
+        .glow-blue {
+            box-shadow: 0 0 15px rgba(77, 159, 255, 0.03);
+        }
+        .glow-blue.active {
+            box-shadow: 0 0 15px rgba(77, 159, 255, 0.15);
+            border-color: #4d9fff;
+        }
+        .bg-blue-dark { background-color: rgba(77, 159, 255, 0.1); }
+
+        /* 卡片二：綠色系邊框 */
+        .glow-mint {
+            box-shadow: 0 0 15px rgba(0, 200, 160, 0.03);
+            border-color: #30363d;
+        }
+        .glow-mint:hover {
+            border-color: #00c8a0;
+        }
+        .bg-mint-dark { background-color: rgba(0, 200, 160, 0.1); }
+
+        /* 卡片三：橘色系發光 */
+        .glow-orange {
+            box-shadow: 0 0 15px rgba(240, 165, 0, 0.03);
+        }
+        .glow-orange.active {
+            box-shadow: 0 0 15px rgba(240, 165, 0, 0.15);
+            border-color: #f0a500;
+        }
+        .bg-orange-dark { background-color: rgba(240, 165, 0, 0.1); }
+        
+        /* 內容展開摺疊動畫 */
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.2s ease;
+            opacity: 0;
+        }
+        .card.active .card-content {
+            max-height: 800px; 
+            opacity: 1;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #30363d;
+        }
+        /* 箭頭旋轉動畫 */
+        .arrow-icon {
+            transition: transform 0.3s ease;
+        }
+        .card.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        /* ══ 呼吸燈動畫效果 ══ */
+        @keyframes bluePulse {
+            0% { box-shadow: 0 0 0 0 rgba(77, 159, 255, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 8px 3px rgba(77, 159, 255, 0.2); transform: scale(1.02); }
+            100% { box-shadow: 0 0 0 0 rgba(77, 159, 255, 0.4); transform: scale(1); }
+        }
+        @keyframes orangePulse {
+            0% { box-shadow: 0 0 0 0 rgba(240, 165, 0, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 8px 3px rgba(240, 165, 0, 0.2); transform: scale(1.02); }
+            100% { box-shadow: 0 0 0 0 rgba(240, 165, 0, 0.4); transform: scale(1); }
+        }
+        @keyframes markerGlow {
+            0% { background-color: #00c8a0; box-shadow: 0 0 2px #00c8a0; }
+            50% { background-color: #5afad5; box-shadow: 0 0 10px #5afad5; }
+            100% { background-color: #00c8a0; box-shadow: 0 0 2px #00c8a0; }
+        }
+        
+        .pulse-indicator-blue {
+            animation: bluePulse 2s infinite ease-in-out;
+        }
+        .pulse-indicator-orange {
+            animation: orangePulse 2s infinite ease-in-out;
+        }
+
+        /* 呼吸燈段落記號（利用偽元素製作發光圓點） */
+        .para-marker {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .para-marker::before {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 7px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: markerGlow 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <header class="mb-6 border-b border-gray-700 pb-4">
+        <h1 class="text-2xl md:text-3xl font-bold text-white mb-1">Yoda 市場分析 2026-6-8</h1>
+    </header>
+
+    <section class="mb-8 bg-[#161b22] border border-[#30363d] rounded-lg p-5">
+        <div class="mb-6">
+            <h3 class="text-base font-bold text-white mb-3 flex items-center space-x-2">
+                <span class="w-1.5 h-4 bg-[#4d9fff] rounded-full"></span>
+                <span>分析</span>
+            </h3>
+            <div class="text-sm text-gray-300 leading-relaxed space-y-4">
+                <p class="para-marker">到底會不會繼續跌?會跌到哪裡?籌碼峰/型態學/波浪理論...各種方法都有人用，都好，我沒意見，我也會去多看看別人怎麼想的，但是我想要提醒 : 所有的方法都是預測/預期，而我想要站在更高的層次來看，當市場真的跌到這些大家預期的點位時，買賣雙方的情緒會有什麼反應?反應會有多強烈?反應有沒有被壞消息反覆測試錘鍊，成為真正的底部？</p>
+                <p class="para-marker">因此我不會死守預期的點位(估值錨點)，我不會一到這個點位就買進。除非這個點位經歷過底部訊號的試煉，確認支撐有效，底部的真實性才會顯現。也許會跌到 5 年P/E均線、10 年P/E均線、或者 5.10 年均線之間，我不知道，關鍵在於 : 當指數來到這些點位附近，是否出現底部訊號，並且反轉向上，這樣的反轉才有高度的可靠性。</p>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 my-5"></div>
+
+        <div>
+            <h3 class="text-base font-bold text-orange-400 mb-3 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <span>免責聲明</span>
+            </h3>
+            <div class="text-xs text-gray-400 leading-relaxed space-y-3">
+                <p class="para-marker">本面板所載之數據、點位及分析，純屬個人投資觀察與心得分享，絕不構成任何形式的投資買賣建議或邀約。</p>
+                <p class="para-marker">每個人對投資週期的定義與資金承受度全然不同：<strong class="text-gray-300">我的短線不是你的短線，我的長線也不是你的長線。</strong> 市場瞬息萬變，歷史數據不代表未來走勢，所有指標僅供參考，切勿以此作為交易之唯一依據。投資前請務必獨立思考、審慎評估，並衡量自身風險承受能力，<strong class="text-orange-400">投資盈虧請自行負責</strong>。</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+
+        <section class="card glow-blue cursor-pointer" onclick="toggleCard(this)">
+            <div class="flex items-start justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 rounded bg-blue-dark text-[#4d9fff]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                    </span>
+                    <div>
+                        <h2 class="text-lg font-bold text-white">估值錨點</h2>
+                        <span class="pulse-indicator-blue inline-block px-1.5 py-0.5 rounded text-[10px] font-medium bg-blue-500/20 text-[#4d9fff] border border-blue-500/40 mt-0.5">
+                            這裡才開始認真觀察 🔍
+                        </span>
+                    </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 arrow-icon flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+
+            <div class="space-y-2 bg-black/20 p-3 rounded border border-gray-800 text-xs">
+                <div>
+                    <div class="text-gray-400 mb-0.5">S&P 500 5Y均線 P/E</div>
+                    <div class="text-gray-300 font-mono font-medium">19.9x → 點位約 6,945</div>
+                </div>
+                <div class="border-l-2 border-[#4d9fff] pl-2 bg-[#4d9fff]/5 py-1">
+                    <div class="text-white font-medium mb-0.5">S&P 500 10Y均線 P/E</div>
+                    <div class="text-[#4d9fff] font-bold font-mono">18.9x → 約 6,596</div>
+                </div>
+                <div class="pt-1">
+                    <div class="text-gray-400 mb-0.5">NDX 5Y均線 P/E</div>
+                    <div class="text-gray-300 font-mono font-medium">26x → 點位約 26,780</div>
+                </div>
+                <div class="border-l-2 border-[#4d9fff] pl-2 bg-[#4d9fff]/5 py-1">
+                    <div class="text-white font-medium mb-0.5">NDX 10Y均線 P/E</div>
+                    <div class="text-[#4d9fff] font-bold font-mono">23x → 約 23,690</div>
+                </div>
+            </div>
+            
+            <div class="card-content text-xs text-gray-400 space-y-3">
+                <div>
+                    <div class="font-semibold text-white mb-1">【當前現貨參考】</div>
+                    <div class="flex justify-between text-gray-400 mb-1"><span>S&P 500 目前</span><span class="font-mono text-white">~7,380</span></div>
+                    <div class="flex justify-between text-gray-400"><span>NDX 目前</span><span class="font-mono text-white">~29,000</span></div>
+                </div>
+                <div>
+                    <div class="font-semibold text-[#4d9fff] mb-1">【核心結論】</div>
+                    <p class="text-gray-300 leading-relaxed">
+                        不是便宜就值得買。從歷史均線P/E來看，S&P 500 的 10Y 均線與 NDX 的 10Y 均線才是重大修正的強力支撐帶，也是開始認真搭配底部訊號觀察的價位。目前仍在這個區間之上，尚未到達歷史均值修正帶。
+                    </p>
+                </div>
+                <div class="pt-1.5 border-t border-gray-800/60 flex justify-between text-[11px] text-gray-500">
+                    <span>EPS基準 (Forward)</span>
+                    <span>S&P $349 / NDX $1,030</span>
+                </div>
+                <div>
+                    <div class="font-semibold text-[#4d9fff] mb-1">【對照參考】泡沫估值區間</div>
+                    <table class="w-full text-left border-collapse border border-gray-800 text-[11px]">
+                        <thead>
+                            <tr class="bg-gray-900 text-gray-300">
+                                <th class="p-1.5 border border-gray-800">泡沫級別</th>
+                                <th class="p-1.5 border border-gray-800">S&P 500</th>
+                                <th class="p-1.5 border border-gray-800">NDX</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="p-1.5 border border-gray-800">輕度泡沫</td><td class="p-1.5 border border-gray-800">22x - 24x</td><td class="p-1.5 border border-gray-800">28x - 30x</td></tr>
+                            <tr><td class="p-1.5 border border-gray-800 bg-red-950/20 text-red-400">中度擴張</td><td class="p-1.5 border border-gray-800">24x - 26x</td><td class="p-1.5 border border-gray-800">30x - 33x</td></tr>
+                            <tr><td class="p-1.5 border border-gray-800 bg-red-900/30 text-red-500 font-bold">完全泡沫</td><td class="p-1.5 border border-gray-800">&gt; 26x</td><td class="p-1.5 border border-gray-800">&gt; 33x</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="card glow-mint">
+            <div class="flex items-start justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 rounded bg-mint-dark text-[#00c8a0]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                    </span>
+                    <div>
+                        <h2 class="text-lg font-bold text-white">底部訊號清單</h2>
+                        <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium bg-mint-500/10 text-[#00c8a0] border border-mint-500/20 mt-0.5">
+                            兩個技術條件同時成立才算
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <div class="space-y-2 bg-black/20 p-3 rounded border border-gray-800 text-xs">
+                    <div class="flex items-center space-x-1.5 text-gray-300">
+                        <span class="text-[#00c8a0]">■</span> <span>技術①｜K線轉白色（多方趨勢確認）</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 text-gray-300">
+                        <span class="text-[#00c8a0]">■</span> <span>技術②｜背景由紅轉綠（兩者必須同時）</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 text-gray-400 pt-1 border-t border-gray-800/60">
+                        <span>情緒｜</span> <span>財經群組從吵架變死寂</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 text-gray-400">
+                        <span>情緒｜</span> <span>少年股神回去填復職單</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 text-[#00c8a0] font-semibold pt-1 border-t border-dashed border-gray-800">
+                        <span>確認｜</span> <span>大利空來襲，市場不破低甚至反漲</span>
+                    </div>
+                </div>
+                
+                <div class="p-2.5 rounded bg-black/40 border border-gray-800 text-xs leading-relaxed">
+                    <span class="text-[#00c8a0] font-semibold">核心觀念提醒：</span><br>
+                    技術面指標最為客觀，請耐心等待雙綠共振（K線變白且背景轉綠）。在此之前，市場出現的任何短線反彈皆需保守看待，靜待情緒與利空測試完成。
+                </div>
+            </div>
+        </section>
+
+        <section class="card glow-orange cursor-pointer" onclick="toggleCard(this)">
+            <div class="flex items-start justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 rounded bg-orange-dark text-[#f0a500]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </span>
+                    <div>
+                        <h2 class="text-lg font-bold text-white">情緒過熱觸發</h2>
+                        <span class="pulse-indicator-orange inline-block px-1.5 py-0.5 rounded text-[10px] font-medium bg-orange-500/20 text-[#f0a500] border border-orange-500/40 mt-0.5">
+                            P/C 0.36🔴🔴 歷史極端值 ⚠
+                        </span>
+                    </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 arrow-icon flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+
+            <div class="space-y-2 bg-black/20 p-3 rounded border border-gray-800 text-xs">
+                <div>
+                    <div class="text-gray-400 mb-0.5">VIX 恐慌指數</div>
+                    <div class="text-white font-mono font-medium">21.5 <span class="text-red-400 text-[11px]">(昨15.39, +6.1 大幅跳升)</span></div>
+                </div>
+                <div>
+                    <div class="text-gray-400 mb-0.5">MOVE 債市波動</div>
+                    <div class="text-gray-300 font-mono font-medium">75.19 <span class="text-gray-500 text-[11px]">(昨71.16, 債市波動升溫)</span></div>
+                </div>
+                <div>
+                    <div class="text-gray-400 mb-0.5">HY OAS 信用利差</div>
+                    <div class="text-red-400 font-mono font-medium">2.74% 🔴 <span class="text-gray-500 text-[11px]">(利差仍偏緊)</span></div>
+                </div>
+                <div class="bg-red-950/20 px-1.5 py-1 border-l-2 border-red-500">
+                    <div class="text-white font-medium mb-0.5">P/C Ratio 股權比</div>
+                    <div class="text-red-400 font-bold font-mono">0.36 🔴🔴 歷史極端 <span class="text-red-300/70 text-[11px]">(昨0.47)</span></div>
+                </div>
+                <div>
+                    <div class="text-gray-400 mb-0.5">VX Contango 價差</div>
+                    <div class="text-orange-400 font-mono font-medium">+1.10 <span class="text-gray-500 text-[11px]">(昨+2.67, 大幅收窄 ⚠)</span></div>
+                </div>
+            </div>
+            
+            <div class="card-content text-xs text-gray-400 space-y-3">
+                <div>
+                    <div class="font-semibold text-white mb-1">跌市中 Put 保護更少，異常危險</div>
+                    <p class="text-gray-300 leading-relaxed">
+                        P/C 0.36 在大跌日繼續下行，是高度異常訊號。正常大跌日投資人會搶買 Put 保護，P/C 應升高——今日反而更低，代表市場仍不認為這是系統性下跌，或在主動賣 Call。做市商 Short Put 敞口龐大，一旦繼續下行，Delta 對沖翻轉將自我強化跌勢。VIX 21.5 算恐慌，但距絕望還很遠。
+                    </p>
+                </div>
+                <div>
+                    <div class="font-semibold text-[#f0a500] mb-1">【市場原理說明】做市商伽馬（Gamma）擠壓風險</div>
+                    <p class="leading-relaxed text-gray-400 bg-black/40 p-2.5 rounded border border-gray-800">
+                        當 P/C Ratio 降至歷史極端低點時，意味著市場上充斥著大量的投機性多頭期權。一旦大盤向下實質破位，做市商為了對沖其空頭曝險，將被迫在市場上加速拋售現貨股票進行 Delta 中性對沖，這在技術上容易引發骨牌效應式的自我強化急跌。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-12 pt-4 border-t border-gray-800 text-center text-xs text-gray-500">
+        Yoda 專屬分析模組面板 ｜ 三卡並列響應式佈局
+    </footer>
+
+    <script>
+        function toggleCard(cardElement) {
+            if (cardElement.classList.contains('cursor-pointer')) {
+                cardElement.classList.toggle('active');
+            }
+        }
+    </script>
+</body>
+</html>
