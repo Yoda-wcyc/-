@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yoda 台股分析 | 2026 / 06 / 15</title>
 <style>
-:root{--fs:13px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
+:root{--fs:21px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;}
 .fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
@@ -511,7 +511,7 @@ canvas.rot{width:100%;height:96px;}
 
 <div class="chip4">
 
-<div class="ccard ca" data-type="A" onclick="selectChipCard('A')">
+<div class="ccard ca" data-type="A" onclick="selectChipCard('A')" data-id="A">
   <div class="ccard-hdr">
     <div class="ccard-pattern">✅ 全面吸籌</div>
     <div class="ccard-count">✅ 全面吸籌（15支）</div>
@@ -520,7 +520,7 @@ canvas.rot{width:100%;height:96px;}
   </div>
 </div>
 
-<div class="ccard cb" data-type="B" onclick="selectChipCard('B')">
+<div class="ccard cb" data-type="B" onclick="selectChipCard('B')" data-id="B">
   <div class="ccard-hdr">
     <div class="ccard-pattern">📈 中線續買</div>
     <div class="ccard-count">📈 短洗長持（15支）</div>
@@ -529,7 +529,7 @@ canvas.rot{width:100%;height:96px;}
   </div>
 </div>
 
-<div class="ccard cc" data-type="C" onclick="selectChipCard('C')">
+<div class="ccard cc" data-type="C" onclick="selectChipCard('C')" data-id="C">
   <div class="ccard-hdr">
     <div class="ccard-pattern">★ 雙向確認</div>
     <div class="ccard-count">★ 雙向確認</div>
@@ -538,7 +538,7 @@ canvas.rot{width:100%;height:96px;}
   </div>
 </div>
 
-<div class="ccard cd" data-type="D" onclick="selectChipCard('D')">
+<div class="ccard cd" data-type="D" onclick="selectChipCard('D')" data-id="D">
   <div class="ccard-hdr">
     <div class="ccard-pattern">⚠️ 全面賣超</div>
     <div class="ccard-count">⚠️ 全面流出（15支）</div>
@@ -710,31 +710,13 @@ canvas.rot{width:100%;height:96px;}
   </div>
 </div>
 
-<script>
-function togLT(){
-  var body=document.getElementById('lt-body');
-  var tri=document.getElementById('lt-tri');
-  if(!body) return;
-  var isOpen=body.style.display!=='none';
-  body.style.display=isOpen?'none':'block';
-  if(tri){ tri.textContent=isOpen?'▼':'▲'; tri.className='ccard-tri'+(isOpen?' breathing':''); }
-}
-</script>
+
 
 </div><!-- end report-root -->
 
 
 
-<script>
 
-function togChip(id){
-  var el=document.getElementById(id);
-  if(!el) return;
-  var open=el.classList.contains('open');
-  el.classList.toggle('open',!open);
-  el.style.display=open?'none':'block';
-}
-</script>
 
 
 
@@ -949,6 +931,148 @@ window.addEventListener('load', function() {
     const hdr = e.target.closest('.ccard-hdr, .chip-hdr, .ccard');
     if (hdr) setTimeout(injectTWSparklines, 200);
   });
+});
+</script>
+
+
+<script>
+/* ── 字體大小 ── */
+function setFS(size){
+  var map={small:'11px',normal:'13px',large:'15px'};
+  document.documentElement.style.setProperty('--fs', map[size]||'13px');
+  ['fs-small','fs-normal','fs-large'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.classList.remove('on');
+  });
+  var btn=document.getElementById('fs-'+size);
+  if(btn) btn.classList.add('on');
+}
+
+/* ── 深色/淺色主題 ── */
+function setTheme(theme){
+  var root=document.documentElement;
+  if(theme==='light'){
+    root.style.setProperty('--bg','#f7f9fc');
+    root.style.setProperty('--surface','#ffffff');
+    root.style.setProperty('--surface2','#f0f4f8');
+    root.style.setProperty('--border','#dde3ea');
+    root.style.setProperty('--text','#1a2433');
+    root.style.setProperty('--dim','#6b7f94');
+    document.body.classList.add('light');
+  } else {
+    root.style.setProperty('--bg','#080b10');
+    root.style.setProperty('--surface','#0d1118');
+    root.style.setProperty('--surface2','#121820');
+    root.style.setProperty('--border','#1c2330');
+    root.style.setProperty('--text','#b8c8d8');
+    root.style.setProperty('--dim','#405060');
+    document.body.classList.remove('light');
+  }
+  document.getElementById('btn-dark').classList.toggle('on', theme==='dark');
+  document.getElementById('btn-light').classList.toggle('on', theme==='light');
+}
+
+/* ── 卡片展開（chip） ── */
+function togChip(id){
+  var el=document.getElementById(id);
+  if(!el) return;
+  var open=el.classList.contains('open');
+  document.querySelectorAll('.chip-body').forEach(function(b){ 
+    b.classList.remove('open'); 
+    b.style.display='none'; 
+  });
+  if(!open){ el.classList.add('open'); el.style.display='block'; }
+}
+
+/* ── 初始化：確保預設開啟第一張卡 ── */
+document.addEventListener('DOMContentLoaded', function(){
+  var first = document.querySelector('.chip-body');
+  if(first && !first.classList.contains('open')){
+    first.classList.add('open');
+    first.style.display='block';
+  }
+});
+</script>
+
+
+<script>
+/* ── 字體：18/21/24px ── */
+function setFS(size){
+  var map={small:'18px', normal:'21px', large:'24px'};
+  document.documentElement.style.setProperty('--fs', map[size]||'21px');
+  ['fs-small','fs-normal','fs-large'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.classList.remove('on');
+  });
+  var btn=document.getElementById('fs-'+size);
+  if(btn) btn.classList.add('on');
+}
+
+/* ── 深淺主題 ── */
+function setTheme(t){
+  var r=document.documentElement;
+  if(t==='light'){
+    r.style.setProperty('--bg','#f7f9fc');
+    r.style.setProperty('--surface','#ffffff');
+    r.style.setProperty('--surface2','#f0f4f8');
+    r.style.setProperty('--border','#dde3ea');
+    r.style.setProperty('--text','#1a2433');
+    r.style.setProperty('--dim','#6b7f94');
+    document.body.classList.add('light');
+  } else {
+    r.style.setProperty('--bg','#080b10');
+    r.style.setProperty('--surface','#0d1118');
+    r.style.setProperty('--surface2','#121820');
+    r.style.setProperty('--border','#1c2330');
+    r.style.setProperty('--text','#b8c8d8');
+    r.style.setProperty('--dim','#405060');
+    document.body.classList.remove('light');
+  }
+  var bd=document.getElementById('btn-dark');
+  var bl=document.getElementById('btn-light');
+  if(bd) bd.classList.toggle('on', t==='dark');
+  if(bl) bl.classList.toggle('on', t==='light');
+}
+
+/* ── 台股法人四型態卡片：點擊展開，再點收起，一次只開一張 ── */
+function selectChipCard(id){
+  var panel = document.getElementById('chip-panel');
+  var det   = document.getElementById('chip-detail-'+id);
+  var card  = document.querySelector('[data-id="'+id+'"]');
+
+  // 判斷目前是否已開啟
+  var isOpen = panel && panel.style.display === 'block' && det && det.style.display === 'block';
+
+  // 先全部收起
+  if(panel) panel.style.display = 'none';
+  document.querySelectorAll('.chip-detail').forEach(function(d){ d.style.display='none'; });
+  document.querySelectorAll('.ccard').forEach(function(c){ c.classList.remove('on'); });
+
+  // 若原本是關閉的，才打開
+  if(!isOpen){
+    if(panel) panel.style.display = 'block';
+    if(det)   det.style.display   = 'block';
+    if(card)  card.classList.add('on');
+  }
+}
+/* ── chip-box togChip（買超/賣超 展開列） ── */
+function togChip(id){
+  var el=document.getElementById(id);
+  if(!el) return;
+  var isOpen=el.classList.contains('open');
+  document.querySelectorAll('.chip-body').forEach(function(b){
+    b.classList.remove('open');
+    b.style.display='none';
+  });
+  if(!isOpen){
+    el.classList.add('open');
+    el.style.display='block';
+  }
+}
+
+/* ── 初始化 ── */
+document.addEventListener('DOMContentLoaded',function(){
+  setFS('normal');
 });
 </script>
 
