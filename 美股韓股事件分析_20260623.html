@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美股韓股同步走弱事件分析 · 2026/06/22-23</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--serif:'Noto Serif TC',serif;--mono:'IBM Plex Mono',monospace;--sans:'Noto Sans TC',sans-serif}
+
+[data-theme="dark"]{
+  --bg:#080b10;--bg2:#0d1117;--bg3:#131920;--bg4:#1a2230;
+  --border:#1e2d3d;--border2:#243444;
+  --accent:#00c8a0;--accent2:#f0a500;--accent3:#4d9fff;--danger:#ff4d6d;--muted:#4a6174;
+  --text:#c8d8e8;--text2:#8fa8bc;--text3:#5a7a90;--header:#e8f2ff;
+  --ctrl-bg:rgba(13,17,23,.93);--ctrl-border:#243444;--ctrl-hover:#1a2230;
+  --ctrl-act-bg:#00c8a0;--ctrl-act-txt:#080b10;
+  --hero-grad:linear-gradient(160deg,#0a1520 0%,#080b10 60%);
+  --thead-bg:#131920;--row-hover:rgba(255,255,255,.02);
+  --note-bg:#131920;--chk-bg:#131920;
+  --sig-bg:rgba(255,77,109,.05);--sig-b:rgba(255,77,109,.22);
+  --warn-bg:rgba(255,77,109,.04);--warn-lb:#ff4d6d;
+  --nav-bg:#0d1117;--scroll-thumb:#243444;
+  --conc-bg:rgba(0,200,160,.04);--conc-b:rgba(0,200,160,.2);--conc-title:#00c8a0;
+}
+[data-theme="light"]{
+  --bg:#f4f6f8;--bg2:#ffffff;--bg3:#eef1f4;--bg4:#e4e9ee;
+  --border:#dbe2e8;--border2:#c7d1da;
+  --accent:#00866b;--accent2:#a05800;--accent3:#1f5fbf;--danger:#c92a4a;--muted:#7a8a96;
+  --text:#1c2733;--text2:#465a6a;--text3:#7e8fa0;--header:#0e1620;
+  --ctrl-bg:rgba(255,255,255,.93);--ctrl-border:#dbe2e8;--ctrl-hover:#eef1f4;
+  --ctrl-act-bg:#00866b;--ctrl-act-txt:#ffffff;
+  --hero-grad:linear-gradient(160deg,#eef3f6 0%,#f4f6f8 60%);
+  --thead-bg:#eef1f4;--row-hover:rgba(0,0,0,.02);
+  --note-bg:#eef1f4;--chk-bg:#eef1f4;
+  --sig-bg:rgba(201,42,74,.05);--sig-b:rgba(201,42,74,.18);
+  --warn-bg:rgba(201,42,74,.04);--warn-lb:#c92a4a;
+  --nav-bg:#ffffff;--scroll-thumb:#c7d1da;
+  --conc-bg:rgba(0,134,107,.05);--conc-b:rgba(0,134,107,.2);--conc-title:#00866b;
+}
+
+html[data-size="sm"]{--scale:.9}
+html[data-size="md"]{--scale:1}
+html[data-size="lg"]{--scale:1.14}
+
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:calc(14.5px*var(--scale));line-height:1.6;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+}
+
+/* ═══ CONTROLS ═══ */
+.controls{position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:50;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:9px;padding:5px;backdrop-filter:blur(8px)}
+.ctrl-group{display:flex;gap:2px}
+.ctrl-btn{font-family:var(--mono);font-size:11px;padding:5px 9px;border-radius:6px;border:none;background:transparent;color:var(--text2);cursor:pointer;transition:.15s}
+.ctrl-btn:hover{background:var(--ctrl-hover)}
+.ctrl-btn.active{background:var(--ctrl-act-bg);color:var(--ctrl-act-txt);font-weight:600}
+.ctrl-sep{width:1px;background:var(--border2);margin:2px 2px}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;width:188px;height:100vh;background:var(--nav-bg);border-right:1px solid var(--border);padding:78px 0 20px;overflow-y:auto;z-index:40}
+nav::-webkit-scrollbar{width:4px}nav::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:2px}
+nav a{display:flex;align-items:center;gap:9px;padding:9px 22px;font-size:12.5px;color:var(--text2);text-decoration:none;border-left:2px solid transparent;transition:.15s}
+nav a:hover{color:var(--text);background:var(--bg3)}
+.nav-num{font-family:var(--mono);font-size:10px;color:var(--text3);width:16px}
+
+/* ═══ LAYOUT ═══ */
+main{margin-left:188px;max-width:880px;padding:40px 48px 80px}
+
+/* ═══ HERO ═══ */
+.hero{background:var(--hero-grad);border:1px solid var(--border);border-radius:14px;padding:36px 40px;margin-bottom:32px}
+.hero-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--accent2);margin-bottom:14px}
+.hero-title{font-family:var(--serif);font-weight:700;font-size:calc(27px*var(--scale));color:var(--header);line-height:1.4;margin-bottom:12px}
+.hero-sub{font-size:calc(13.5px*var(--scale));color:var(--text2);line-height:1.7;max-width:620px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.meta-chip{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;color:var(--text2);background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:6px 13px}
+.meta-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+/* ═══ SECTION ═══ */
+.section{margin-bottom:36px}
+.sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.sec-num{font-family:var(--mono);font-size:11px;color:var(--accent2);background:rgba(240,165,0,.1);border-radius:4px;padding:2px 7px}
+[data-theme="light"] .sec-num{background:rgba(160,88,0,.1)}
+.sec-title{font-family:var(--serif);font-weight:700;font-size:calc(19px*var(--scale));color:var(--header)}
+.sec-body{font-size:calc(14px*var(--scale));color:var(--text2);line-height:1.8}
+.sec-body p{margin-bottom:10px}
+
+/* ═══ CONTEXT BOX ═══ */
+.context-box{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 9px 9px 0;padding:16px 20px}
+.context-box-title{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent3);margin-bottom:8px}
+.context-box-text{font-size:calc(13.5px*var(--scale));color:var(--text2);line-height:1.8}
+
+/* ═══ TABLE ═══ */
+table{width:100%;border-collapse:collapse;font-size:calc(12.8px*var(--scale))}
+thead th{background:var(--thead-bg);color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border2)}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+tbody tr:hover{background:var(--row-hover)}
+.td-date{font-family:var(--mono);font-size:12px;color:var(--text3);white-space:nowrap}
+.td-strong{color:var(--header);font-weight:600}
+.td-val{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--header);white-space:nowrap}
+.td-base{font-family:var(--mono);font-size:11px;color:var(--text3)}
+.td-interpret{font-size:.92em;color:var(--text2);line-height:1.6}
+.sig-ok{color:var(--accent)}.sig-warn{color:var(--accent2)}.sig-danger{color:var(--danger)}.sig-neutral{color:var(--text3)}
+.td-signal{font-family:var(--mono);font-size:11px;white-space:nowrap;font-weight:600}
+.table-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.table-note{font-size:calc(12.5px*var(--scale));color:var(--text3);margin-top:10px;display:flex;gap:8px;align-items:flex-start}
+.table-note .arrow{color:var(--accent2);font-family:var(--mono)}
+
+/* ═══ NOTE GRID ═══ */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.note-card{background:var(--note-bg);border:1px solid var(--border);border-radius:9px;padding:15px 17px}
+.note-card-label{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.note-card-label.warning{color:var(--danger)}.note-card-label.key{color:var(--accent2)}.note-card-label.calm{color:var(--accent)}
+.note-card-body{font-size:calc(13px*var(--scale));color:var(--text2);line-height:1.7}
+
+/* ═══ CHECKPOINT LIST ═══ */
+.checkpoint-list{display:flex;flex-direction:column;gap:8px}
+.checkpoint-item{display:flex;gap:12px;align-items:flex-start;padding:11px 15px;background:var(--chk-bg);border:1px solid var(--border);border-radius:7px}
+.checkpoint-marker{font-family:var(--mono);font-size:10px;color:var(--accent2);background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:4px;padding:3px 8px;white-space:nowrap;margin-top:1px}
+[data-theme="light"] .checkpoint-marker{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.2)}
+.checkpoint-text{font-size:calc(13.5px*var(--scale));color:var(--text);line-height:1.7}
+
+/* ═══ CONCLUSION BOX ═══ */
+.conclusion-box{background:var(--conc-bg);border:1px solid var(--conc-b);border-radius:10px;padding:22px 26px}
+.conclusion-box-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--conc-title);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.conclusion-box-title::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--conc-title)}
+.conclusion-box-text{font-size:calc(14.5px*var(--scale));color:var(--text);line-height:1.85}
+.conclusion-box-text strong{color:var(--conc-title);font-weight:700}
+
+/* ═══ FOOTER ═══ */
+.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-family:var(--mono);font-size:10.5px;color:var(--text3);display:flex;justify-content:space-between}
+
+@media(max-width:760px){
+  nav{display:none}
+  main{margin-left:0;padding:90px 22px 60px}
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="ctrl-group">
+    <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
+    <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+  </div>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn" onclick="setSize('sm')">小</button>
+    <button class="ctrl-btn active" onclick="setSize('md')">中</button>
+    <button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  </div>
+</div>
+
+<nav>
+  <a href="#sec-01"><span class="nav-num">01</span>事件起點</a>
+  <a href="#sec-02"><span class="nav-num">02</span>傳導路徑</a>
+  <a href="#sec-03"><span class="nav-num">03</span>韓股結構放大</a>
+  <a href="#sec-04"><span class="nav-num">04</span>台股為何抗跌</a>
+  <a href="#sec-05"><span class="nav-num">05</span>數據證據</a>
+  <a href="#sec-06"><span class="nav-num">06</span>結論</a>
+  <a href="#sec-07"><span class="nav-num">07</span>後續驗證點</a>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-tag">EVENT ANALYSIS · YODA SYSTEM</div>
+    <div class="hero-title">美股、韓股同步走弱事件<br>完整邏輯鏈條解析</div>
+    <div class="hero-sub">2026/6/22-23：AI人才出走敘事疑慮，在美股與韓股的不同脆弱點分別引爆——美股為敘事疑慮，韓股為結構性槓桿斷裂。透過四項利率與信用指標交叉驗證，排除系統性風險訊號。</div>
+    <div class="hero-meta">
+      <div class="meta-chip"><div class="meta-dot"></div>事件窗口：2026/06/19-23</div>
+      <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>美股 · 韓股 · 台股</div>
+      <div class="meta-chip"><div class="meta-dot" style="background:var(--accent3)"></div>4項風險指標交叉驗證</div>
+    </div>
+  </div>
+
+  <!-- 01 事件起點 -->
+  <div class="section" id="sec-01">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">事件起點</span></div>
+    <div class="context-box">
+      <div class="context-box-title">Trigger Event</div>
+      <div class="context-box-text">6/19（五），John Jumper（諾貝爾獎得主、AlphaFold 創造者）宣布離開 Google DeepMind，加入 Anthropic，緊接著 Noam Shazeer 離職轉投 OpenAI 之後，引發市場對 Google AI 競爭力的疑慮。</div>
+    </div>
+  </div>
+
+  <!-- 02 傳導路徑 -->
+  <div class="section" id="sec-02">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">傳導路徑</span></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:90px">日期</th><th style="width:80px">市場</th><th>反應</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-date">6/22（一）</td>
+            <td class="td-strong">美股</td>
+            <td class="td-interpret">Alphabet 跌 5%，Amazon 跌 4.8%、Meta 跌 2.3%、微軟跌 3%</td>
+          </tr>
+          <tr>
+            <td class="td-date">6/23（二）</td>
+            <td class="td-strong">韓股</td>
+            <td class="td-interpret">同一疑慮 + 半導體槓桿商品遭監管審查，觸發熔斷</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-note"><span class="arrow">→</span><span>韓股反應晚美股一天，代表情緒先發酵、再疊加在韓股自身結構弱點上引爆。</span></div>
+  </div>
+
+  <!-- 03 韓股結構性放大 -->
+  <div class="section" id="sec-03">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">韓股為何特別重——結構性放大</span></div>
+    <div class="checkpoint-list">
+      <div class="checkpoint-item">
+        <span class="checkpoint-marker">權重</span>
+        <span class="checkpoint-text">三星 + SK 海力士占 KOSPI 權重 52%，兩者跌 10% 數學上拖累指數約 4%</span>
+      </div>
+      <div class="checkpoint-item">
+        <span class="checkpoint-marker">獲利回吐</span>
+        <span class="checkpoint-text">年初至今漲 78-83%，獲利回吐壓力大</span>
+      </div>
+      <div class="checkpoint-item">
+        <span class="checkpoint-marker">個股壞消息</span>
+        <span class="checkpoint-text">SK 海力士傳產能策略轉向，個股壞消息疊加</span>
+      </div>
+    </div>
+    <div class="table-note" style="margin-top:14px"><span class="arrow">→</span><span>韓股是內生結構問題，非外部資金抽離（日圓假設被排除）。</span></div>
+  </div>
+
+  <!-- 04 台股為何抗跌 -->
+  <div class="section" id="sec-04">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">台股為何抗跌</span></div>
+    <div class="notes-grid">
+      <div class="note-card">
+        <div class="note-card-label calm">權重結構</div>
+        <div class="note-card-body">台積電權重高但分散度優於韓股雙巨頭結構</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label calm">槓桿事件</div>
+        <div class="note-card-body">無同等級槓桿商品爆倉事件</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label calm">個股消息</div>
+        <div class="note-card-body">無對應個股級壞消息</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 數據證據 -->
+  <div class="section" id="sec-05">
+    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">數據證據（排除系統性風險）</span></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>指標</th><th>數值</th><th>警示門檏</th><th>結論</th><th style="text-align:right">訊號</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">美10年期殖利率（24hr）</td>
+            <td class="td-val">走低（4.527→4.483）</td>
+            <td class="td-base">—</td>
+            <td class="td-interpret">Risk-off 避險買盤，非利率驅動下跌</td>
+            <td class="td-signal sig-neutral" style="text-align:right">參考</td>
+          </tr>
+          <tr>
+            <td class="td-strong">高收益債利差（HY OAS）</td>
+            <td class="td-val">263 bp</td>
+            <td class="td-base">危機級 &gt;800bp</td>
+            <td class="td-interpret">歷史低位，無信用壓力</td>
+            <td class="td-signal sig-ok" style="text-align:right">● 健康</td>
+          </tr>
+          <tr>
+            <td class="td-strong">VIX</td>
+            <td class="td-val">19.7</td>
+            <td class="td-base">恐慌線 30+</td>
+            <td class="td-interpret">溫和緊張，未達恐慌</td>
+            <td class="td-signal sig-warn" style="text-align:right">● 留意</td>
+          </tr>
+          <tr>
+            <td class="td-strong">SOFR-OIS Spread</td>
+            <td class="td-val">3 bp</td>
+            <td class="td-base">壓力線 20-30bp+</td>
+            <td class="td-interpret">銀行間流動性極度健康</td>
+            <td class="td-signal sig-ok" style="text-align:right">● 健康</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-note"><span class="arrow">→</span><span>四項指標交叉驗證，一致顯示無系統性風險訊號。</span></div>
+  </div>
+
+  <!-- 06 結論 -->
+  <div class="section" id="sec-06">
+    <div class="sec-head"><span class="sec-num">06</span><span class="sec-title">結論</span></div>
+    <div class="conclusion-box">
+      <div class="conclusion-box-title">Conclusion</div>
+      <div class="conclusion-box-text">這次美股 + 韓股走弱，是<strong>單一 AI 敘事疑慮事件</strong>，在不同市場的不同脆弱點分別引爆（美股：敘事疑慮；韓股：結構性槓桿斷裂），<strong>未伴隨任何信用或流動性壓力</strong>，屬於情緒性 risk-off，傾向判斷為<strong>短期噪音</strong>。</div>
+    </div>
+  </div>
+
+  <!-- 07 後續驗證點 -->
+  <div class="section" id="sec-07">
+    <div class="sec-head"><span class="sec-num">07</span><span class="sec-title">後續驗證點</span></div>
+    <div class="checkpoint-list">
+      <div class="checkpoint-item"><span class="checkpoint-marker">01</span><span class="checkpoint-text">殖利率是否在目前區間止穩</span></div>
+      <div class="checkpoint-item"><span class="checkpoint-marker">02</span><span class="checkpoint-text">領先股（Alphabet 等）是否止跌不再創低</span></div>
+      <div class="checkpoint-item"><span class="checkpoint-marker">03</span><span class="checkpoint-text">週四 PCE 公布後是否「利空不破前低」</span></div>
+      <div class="checkpoint-item"><span class="checkpoint-marker">04</span><span class="checkpoint-text">VIX 是否維持 20 以下或回落（若衝高至 25-30+ 需重新評估）</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>YODA SYSTEM · EVENT ANALYSIS</span>
+    <span>2026/06/23</span>
+  </div>
+
+</main>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&['c','a','u','s','p','v'].includes(e.key.toLowerCase())){e.preventDefault();}
+  if(e.key==='F12'){e.preventDefault();}
+});
+document.addEventListener('copy',function(e){e.preventDefault();return false;});
+document.addEventListener('cut',function(e){e.preventDefault();return false;});
+document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+
+function setSize(sz){
+  document.documentElement.setAttribute('data-size',sz);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={sm:'小',md:'中',lg:'大'}[sz]);
+  });
+  localStorage.setItem('event-report-size',sz);
+}
+function setTheme(th){
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={dark:'深',light:'淺'}[th]);
+  });
+  localStorage.setItem('event-report-theme',th);
+}
+(function(){
+  var sz=localStorage.getItem('event-report-size')||'md';
+  var th=localStorage.getItem('event-report-theme')||'dark';
+  document.documentElement.setAttribute('data-size',sz);
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){b.classList.toggle('active',b.textContent==={sm:'小',md:'中',lg:'大'}[sz])});
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){b.classList.toggle('active',b.textContent==={dark:'深',light:'淺'}[th])});
+})();
+</script>
+</body>
+</html>
