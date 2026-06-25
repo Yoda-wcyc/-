@@ -75,6 +75,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(
 .st code{font-family:var(--fm);color:var(--accent);background:rgba(0,200,240,.08);padding:1px 5px;border-radius:2px;font-size:calc(var(--fs)*.88);}
 .st em{color:var(--yellow);font-style:normal;}
 
+.sub-cta{display:inline-flex;align-items:center;gap:7px;margin-top:8px;padding:7px 16px;font-family:var(--fm);font-size:calc(var(--fs)*.88);font-weight:700;letter-spacing:.05em;color:var(--bg);background:var(--yellow);border-radius:3px;text-decoration:none;transition:opacity .15s,transform .15s;animation:subglow 1.8s ease-in-out infinite;}
+.sub-cta:hover{opacity:.88;transform:translateY(-1px);}
+.sub-cta .a{transition:transform .15s;}
+.sub-cta:hover .a{transform:translateX(2px);}
+@keyframes subglow{0%,100%{box-shadow:0 0 0 0 rgba(240,192,64,.5);}50%{box-shadow:0 0 14px 4px rgba(240,192,64,.55);}}
+
 .ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
 .ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
 .ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
@@ -100,6 +106,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
   <div class="hdr-r">
     <div class="hdr-date" id="today-date"></div>
     <div class="hdr-meta">總體經濟 · 市場觀察 · 個股分析</div>
+    <a class="sub-cta" href="subscribe.html">立即訂閱 <span class="a">→</span></a>
   </div>
 </div>
 
