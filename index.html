@@ -10,7 +10,7 @@
 body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;min-height:100vh;}
 
 .fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
-.fb{padding:4px 10px;font-size:11px;font-family:var(--fm);background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb{padding:4px 10px;font-size:calc(var(--fs)*.85);font-family:var(--fm);background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
 .fb:hover{color:var(--text);background:var(--surface2);}
 .fb.on{color:var(--accent);background:rgba(0,200,240,.15);}
 
@@ -103,10 +103,10 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
   <div>
     <div class="hdr-lbl">Yoda × Claude</div>
     <div class="hdr-title">Yoda <span>研究報告</span>中心 <span class="hdr-date-inline" id="today-date"></span></div>
+    <div class="hdr-meta">總體經濟 · 市場觀察 · 個股分析</div>
   </div>
   <div class="hdr-r">
-    <div class="hdr-meta">總體經濟 · 市場觀察 · 個股分析</div>
-    <a class="sub-cta" href="subscribe.html">立即訂閱 <span class="a">→</span></a>
+    <a class="sub-cta" href="subscribe.html" target="_blank" rel="noopener" style="display:none;">立即訂閱 <span class="a">→</span></a>
   </div>
 </div>
 
@@ -525,7 +525,7 @@ function updateCounts(){
 }
 
 function setFS(size){
-  const map={small:'11px',normal:'13px',large:'15px'};
+  const map={small:'18px',normal:'21px',large:'24px'};
   document.documentElement.style.setProperty('--fs',map[size]);
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.getElementById('fs-'+size).classList.add('on');
