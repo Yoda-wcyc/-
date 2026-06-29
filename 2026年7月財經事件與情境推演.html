@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026年7月財經事件與情境推演</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>:root{--serif:'Noto Serif TC',serif;--mono:'IBM Plex Mono',monospace;--sans:'Noto Sans TC',sans-serif;}
+[data-theme="dark"]{
+  --bg:#080b10;--bg2:#0d1117;--bg3:#131920;--bg4:#1a2230;
+  --border:#1e2d3d;--border2:#243444;
+  --accent:#00c8a0;--accent2:#f0a500;--accent3:#4d9fff;--danger:#ff4d6d;--muted:#4a6174;
+  --text:#c8d8e8;--text2:#8fa8bc;--text3:#5a7a90;--header:#e8f2ff;
+  --ctrl-bg:rgba(13,17,23,.93);--ctrl-border:#243444;--ctrl-hover:#1a2230;
+  --ctrl-act-bg:#00c8a0;--ctrl-act-txt:#080b10;
+  --hero-grad:linear-gradient(160deg,#0a1520 0%,#080b10 60%);
+  --thead-bg:#131920;--row-hover:rgba(255,255,255,.02);
+  --note-bg:#131920;--formula-bg:#131920;
+  --sig-bg:rgba(255,77,109,.05);--sig-b:rgba(255,77,109,.22);
+  --warn-bg:rgba(255,77,109,.04);--warn-lb:#ff4d6d;
+  --nav-bg:#0d1117;--scroll-thumb:#243444;
+  --badge-bg:linear-gradient(135deg,#1a2d1e,#0f1f14);--badge-b:#2a4a30;
+  --scen-hold-bg:rgba(77,159,255,.05);--scen-hold-b:rgba(77,159,255,.22);--scen-hold-c:#4d9fff;
+  --scen-hike-bg:rgba(240,165,0,.05);--scen-hike-b:rgba(240,165,0,.22);--scen-hike-c:#f0a500;
+  --scen-cut-bg:rgba(0,200,160,.05);--scen-cut-b:rgba(0,200,160,.22);--scen-cut-c:#00c8a0;
+}
+[data-theme="light"]{
+  --bg:#f2f5f9;--bg2:#ffffff;--bg3:#eaeff6;--bg4:#dde4ef;
+  --border:#cdd6e4;--border2:#b8c5d4;
+  --accent:#007a60;--accent2:#a05800;--accent3:#1a5cb8;--danger:#c0203a;--muted:#6a8098;
+  --text:#1e2d40;--text2:#3a5068;--text3:#7090a8;--header:#0a1825;
+  --ctrl-bg:rgba(255,255,255,.96);--ctrl-border:#cdd6e4;--ctrl-hover:#eaeff6;
+  --ctrl-act-bg:#007a60;--ctrl-act-txt:#ffffff;
+  --hero-grad:linear-gradient(160deg,#dde8f5 0%,#f2f5f9 60%);
+  --thead-bg:#eaeff6;--row-hover:rgba(0,0,0,.025);
+  --note-bg:#eaeff6;--formula-bg:#eaeff6;
+  --sig-bg:rgba(192,32,58,.04);--sig-b:rgba(192,32,58,.20);
+  --warn-bg:rgba(192,32,58,.04);--warn-lb:#c0203a;
+  --nav-bg:#ffffff;--scroll-thumb:#b8c5d4;
+  --badge-bg:linear-gradient(135deg,#e8f5ee,#d4eede);--badge-b:#90c8a8;
+  --scen-hold-bg:rgba(26,92,184,.05);--scen-hold-b:rgba(26,92,184,.22);--scen-hold-c:#1a5cb8;
+  --scen-hike-bg:rgba(160,88,0,.05);--scen-hike-b:rgba(160,88,0,.22);--scen-hike-c:#a05800;
+  --scen-cut-bg:rgba(0,122,96,.05);--scen-cut-b:rgba(0,122,96,.22);--scen-cut-c:#007a60;
+}
+[data-size="sm"]{--scale:0.85714}
+[data-size="md"]{--scale:1}
+[data-size="lg"]{--scale:1.14286}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:calc(21px*var(--scale));line-height:1.7;display:flex;min-height:100vh;transition:background .25s,color .25s;-webkit-user-select:none;user-select:none}
+.controls-bar{position:fixed;top:14px;right:20px;z-index:9999;display:flex;align-items:center;gap:6px;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:8px;padding:5px 8px;backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(0,0,0,.18)}
+.ctrl-group{display:flex;gap:2px}
+.ctrl-btn{font-family:var(--sans);font-size:calc(12px*var(--scale));font-weight:600;color:var(--text2);background:transparent;border:none;border-radius:5px;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.ctrl-btn:hover{background:var(--ctrl-hover);color:var(--header)}
+.ctrl-btn.active{background:var(--ctrl-act-bg);color:var(--ctrl-act-txt)}
+.ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
+nav{width:220px;min-width:220px;background:var(--nav-bg);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 0 40px;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent;transition:background .25s,border-color .25s}
+.nav-brand{padding:0 18px 22px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.nav-brand-title{font-family:var(--serif);font-size:calc(13.5px*var(--scale));font-weight:700;color:var(--header);line-height:1.4;letter-spacing:.02em}
+.nav-brand-sub{font-family:var(--mono);font-size:calc(9.5px*var(--scale));color:var(--accent);letter-spacing:.1em;margin-top:6px;text-transform:uppercase}
+.nav-section-label{font-family:var(--mono);font-size:calc(8.5px*var(--scale));letter-spacing:.16em;text-transform:uppercase;color:var(--text3);padding:12px 18px 5px}
+nav a{display:flex;align-items:center;gap:9px;padding:7px 18px;color:var(--text2);text-decoration:none;font-size:calc(12.5px*var(--scale));transition:all .14s;border-left:2px solid transparent}
+nav a:hover{color:var(--header);background:var(--bg3);border-left-color:var(--accent)}
+.nav-num{font-family:var(--mono);font-size:calc(9.5px*var(--scale));color:var(--text3);min-width:18px}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--border2);min-width:5px}
+.izy-section{margin-top:auto;padding:18px;border-top:1px solid var(--border)}
+.izy-badge{background:var(--badge-bg);border:1px solid var(--badge-b);border-radius:7px;padding:11px 13px}
+.izy-badge-label{font-family:var(--mono);font-size:calc(8.5px*var(--scale));letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.izy-badge-text{font-size:calc(11px*var(--scale));color:var(--text2);line-height:1.5}
+main{flex:1;overflow-x:hidden;padding-bottom:80px}
+.hero{background:var(--hero-grad);border-bottom:1px solid var(--border);padding:46px 48px 38px;position:relative;overflow:hidden;transition:background .25s}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,200,160,.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.hero-tag{font-family:var(--mono);font-size:calc(9.5px*var(--scale));letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:13px;display:flex;align-items:center;gap:8px}
+.hero-tag::before{content:'';width:22px;height:1px;background:var(--accent)}
+.hero-title{font-family:var(--serif);font-size:calc(32px*var(--scale));font-weight:700;color:var(--header);line-height:1.3;margin-bottom:11px;letter-spacing:-.01em}
+.hero-sub{color:var(--text2);font-size:calc(13.8px*var(--scale));max-width:620px;line-height:1.65}
+.hero-meta{margin-top:22px;display:flex;gap:20px;flex-wrap:wrap}
+.meta-chip{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text3);background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:4px 10px}
+.meta-chip-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.content-section{padding:38px 48px;border-bottom:1px solid var(--border)}
+.section-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.section-num{font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--accent);background:rgba(0,200,160,.08);border:1px solid rgba(0,200,160,.22);border-radius:4px;padding:4px 10px;white-space:nowrap;margin-top:4px}
+[data-theme="light"] .section-num{background:rgba(0,122,96,.08);border-color:rgba(0,122,96,.22)}
+.section-title{font-family:var(--serif);font-size:calc(21px*var(--scale));font-weight:700;color:var(--header);line-height:1.3}
+.section-desc{font-size:calc(11px*var(--scale));color:var(--text3);margin-top:4px;font-family:var(--mono);letter-spacing:.05em}
+.subsection{margin-bottom:30px}
+.subsection-title{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.13em;text-transform:uppercase;color:var(--accent2);margin-bottom:13px;display:flex;align-items:center;gap:10px}
+.subsection-title::after{content:'';flex:1;height:1px;background:var(--border);max-width:100px}
+.table-wrap{overflow-x:auto;border-radius:7px;border:1px solid var(--border);margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:calc(13px*var(--scale))}
+thead tr{background:var(--thead-bg);border-bottom:1px solid var(--border2)}
+thead th{padding:9px 13px;text-align:left;font-family:var(--mono);font-size:calc(9.5px*var(--scale));letter-spacing:.1em;text-transform:uppercase;color:var(--text3);font-weight:500;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--row-hover)}
+tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
+.td-name{font-weight:600;color:var(--header);white-space:nowrap}
+.td-signal{font-family:var(--mono);font-size:calc(11px*var(--scale));white-space:nowrap;font-weight:600}
+.sig-ok{color:var(--accent)}.sig-warn{color:var(--accent2)}.sig-danger{color:var(--danger)}.sig-neutral{color:var(--text3)}
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}
+.note-card{background:var(--note-bg);border:1px solid var(--border);border-radius:7px;padding:13px 15px}
+.note-card-label{font-family:var(--mono);font-size:calc(8.5px*var(--scale));letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.note-card-label.leading{color:var(--accent)}.note-card-label.lagging{color:var(--muted)}.note-card-label.warning{color:var(--danger)}.note-card-label.key{color:var(--accent2)}
+.note-card-body{font-size:calc(12.9px*var(--scale));color:var(--text2);line-height:1.6}
+.formula-block{background:var(--formula-bg);border:1px solid var(--border2);border-left:3px solid var(--accent3);border-radius:0 7px 7px 0;padding:16px 18px;margin:14px 0;font-family:var(--mono)}
+.formula-block .formula-label{font-size:calc(9px*var(--scale));color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.formula-main{font-size:calc(14px*var(--scale));color:var(--accent3);letter-spacing:.03em;line-height:1.6}
+.signal-block{background:var(--sig-bg);border:1px solid var(--sig-b);border-radius:7px;padding:15px 18px;margin:14px 0}
+.signal-block-title{font-family:var(--mono);font-size:calc(9.5px*var(--scale));letter-spacing:.12em;text-transform:uppercase;color:var(--danger);margin-bottom:7px}
+.warning-box{background:var(--warn-bg);border:1px solid var(--sig-b);border-left:3px solid var(--warn-lb);border-radius:0 7px 7px 0;padding:13px 16px;margin:10px 0}
+.warning-box-title{font-family:var(--mono);font-size:calc(9px*var(--scale));color:var(--danger);letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+.warning-box-text{font-size:calc(12.9px*var(--scale));color:var(--text2);line-height:1.7}
+.context-box{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0}
+.context-box-title{font-family:var(--mono);font-size:calc(9px*var(--scale));letter-spacing:.12em;text-transform:uppercase;color:var(--accent3);margin-bottom:8px}
+.context-box-text{font-size:calc(13.05px*var(--scale));color:var(--text2);line-height:1.7}
+.conclusion-box{background:rgba(0,200,160,.04);border:1px solid rgba(0,200,160,.2);border-radius:8px;padding:18px 22px;margin-top:16px}
+[data-theme="light"] .conclusion-box{background:rgba(0,122,96,.04);border-color:rgba(0,122,96,.2)}
+.conclusion-box-title{font-family:var(--mono);font-size:calc(9.5px*var(--scale));letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.conclusion-box-text{font-size:calc(13.8px*var(--scale));color:var(--text2);line-height:1.8}
+.conclusion-box-text ol,.conclusion-box-text ul{margin:8px 0 8px 18px}
+.checkpoint-list{display:flex;flex-direction:column;gap:7px}
+.checkpoint-item{display:flex;gap:11px;align-items:flex-start;padding:9px 13px;background:var(--note-bg);border:1px solid var(--border);border-radius:6px}
+.checkpoint-marker{font-family:var(--mono);font-size:calc(9.5px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:3px;padding:2px 7px;white-space:nowrap;margin-top:1px}
+[data-theme="light"] .checkpoint-marker{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.2)}
+.checkpoint-text{font-size:calc(13.05px*var(--scale));color:var(--text);line-height:1.6}
+.scenario-grid{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.scenario-card{border-radius:9px;border:1px solid;overflow:hidden}
+.scenario-card-hold{background:var(--scen-hold-bg);border-color:var(--scen-hold-b)}
+.scenario-card-hike{background:var(--scen-hike-bg);border-color:var(--scen-hike-b)}
+.scenario-card-cut{background:var(--scen-cut-bg);border-color:var(--scen-cut-b)}
+.scenario-header{padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.scenario-badge{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.badge-hold{background:rgba(77,159,255,.15);color:var(--scen-hold-c);border:1px solid var(--scen-hold-b)}
+.badge-hike{background:rgba(240,165,0,.15);color:var(--scen-hike-c);border:1px solid var(--scen-hike-b)}
+.badge-cut{background:rgba(0,200,160,.15);color:var(--scen-cut-c);border:1px solid var(--scen-cut-b)}
+.scenario-prob{font-family:var(--mono);font-size:calc(13px*var(--scale));font-weight:700}
+.prob-hold{color:var(--scen-hold-c)}.prob-hike{color:var(--scen-hike-c)}.prob-cut{color:var(--scen-cut-c)}
+.scenario-title{font-family:var(--serif);font-size:calc(14.5px*var(--scale));font-weight:700;color:var(--header)}
+.scenario-body{padding:4px 18px 16px;font-size:calc(13.2px*var(--scale));color:var(--text2);line-height:1.7}
+.chart-card{background:var(--note-bg);border:1px solid var(--border);border-radius:9px;padding:18px 18px 8px;margin:14px 0}
+.chart-card-title{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.1em;text-transform:uppercase;color:var(--header);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.legend-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:calc(10px*var(--scale));font-family:var(--mono);color:var(--text3)}
+.legend-dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:3px}
+@media(max-width:900px){nav{display:none}.hero,.content-section{padding:26px 18px}.scenario-body{padding:4px 14px 14px}}
+.scenario-card-risk{background:rgba(255,77,109,.05);border-color:rgba(255,77,109,.22)}
+.badge-risk{background:rgba(255,77,109,.15);color:var(--danger);border:1px solid rgba(255,77,109,.22)}
+.prob-risk{color:var(--danger)}
+</style>
+</head>
+<body>
+<div class="controls-bar">
+  <div class="ctrl-group">
+    <button class="ctrl-btn" onclick="setSize('sm')">小</button>
+    <button class="ctrl-btn active" onclick="setSize('md')">中</button>
+    <button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  </div>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
+    <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-title">2026年7月<br>財經事件與情境推演</div>
+    <div class="nav-brand-sub">▸ 超級週辨識法</div>
+  </div>
+  <div class="nav-section-label">內容章節</div>
+  <a href="#sec-method"><span class="nav-num">01</span><div class="nav-dot"></div>方法論：超級週辨識法</a>
+  <a href="#sec-calendar"><span class="nav-num">02</span><div class="nav-dot"></div>完整財經日曆</a>
+  <a href="#sec-scenario"><span class="nav-num">03</span><div class="nav-dot"></div>情境推演</a>
+  <div class="izy-section">
+    <div class="izy-badge">
+      <div class="izy-badge-label">資料來源</div>
+      <div class="izy-badge-text">富途牛牛 · BLS · BEA<br>TSMC IR · BOJ · JEC</div>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="hero">
+  <div class="hero-tag">JULY 2026 MACRO CALENDAR</div>
+  <div class="hero-title">7月財經事件時間軸<br>與情境推演</div>
+  <div class="hero-sub">把美股7月財經日曆疊在同一時間軸上，找出事件密度最高的「超級週」，針對最具殺傷力的事件組合推演情境，而非對每個數據點單獨分析。</div>
+  <div class="hero-meta">
+    <div class="meta-chip"><div class="meta-chip-dot"></div>版本：2026-06-29</div>
+    <div class="meta-chip"><div class="meta-chip-dot" style="background:var(--accent2)"></div>2個超級週 · 15個事件</div>
+    <div class="meta-chip"><div class="meta-chip-dot" style="background:var(--accent3)"></div>5個情境推演</div>
+  </div>
+</div>
+
+
+<div class="content-section" id="sec-method">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div><div class="section-title">方法論：超級週辨識法</div><div class="section-desc">METHODOLOGY · 可複製到未來月份</div></div>
+  </div>
+  <div class="formula-block">
+    <div class="formula-label">四步驟</div>
+    <div class="formula-main">
+      ① 把當月所有已知事件（數據／財報／政策會議／地緣觀察窗）列在同一時間軸<br>
+      ② 找出事件密度最高的1–2個「超級週」（連續3–5個交易日內3個以上重大事件）<br>
+      ③ 針對超級週內的事件組合，推演3–6個最具殺傷力/最高機率的情境（不做完整排列組合）<br>
+      ④ 依觸發機率與潛在幅度排序情境
+    </div>
+  </div>
+  <div class="context-box">
+    <div class="context-box-title">為什麼用「超級週」而不是逐日分析</div>
+    <div class="context-box-text">
+      20%級別的跌幅通常不是單一數據觸發，而是密集窗口內多個事件疊加放大彼此的解讀。逐日列點看不出疊加效應，超級週辨識法直接定位風險最集中的時間帶。
+    </div>
+  </div>
+</div>
+
+
+<div class="content-section" id="sec-calendar">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div><div class="section-title">2026年7月 完整財經日曆</div><div class="section-desc">七月事件 · 兩個超級週標示為紅色區塊</div></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-card-title">7月事件時間軸</div>
+    <svg viewBox="0 0 900 1100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:var(--sans)">
+<rect x="20" y="390" width="850" height="330" rx="10" fill="rgba(255,77,109,.06)"/>
+<rect x="20" y="818" width="850" height="220" rx="10" fill="rgba(255,77,109,.06)"/>
+<text x="190" y="406" font-family="var(--mono)" font-size="12" font-weight="600" fill="var(--danger)">超級週① · 數據與財報密集期</text>
+<text x="190" y="834" font-family="var(--mono)" font-size="12" font-weight="600" fill="var(--danger)">超級週② · 財報與政策共振</text>
+<line x1="160" y1="60" x2="160" y2="1038" stroke="var(--border2)" stroke-width="1"/>
+<circle cx="160" cy="88" r="4" fill="var(--text3)"/>
+<text x="135" y="92" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/1</text>
+<rect x="190" y="60" width="660" height="56" rx="8" fill="rgba(77,159,255,.10)" stroke="var(--accent3)" stroke-width="1"/>
+<text x="520" y="78" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">ADP就業人數</text>
+<text x="520" y="98" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">6月數據 · 20:15</text>
+<circle cx="160" cy="158" r="4" fill="var(--text3)"/>
+<text x="135" y="162" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/2</text>
+<rect x="190" y="130" width="660" height="56" rx="8" fill="rgba(77,159,255,.10)" stroke="var(--accent3)" stroke-width="1"/>
+<text x="520" y="148" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">非農數據 + 失業率</text>
+<text x="520" y="168" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">6月數據 · 20:30</text>
+<circle cx="160" cy="228" r="4" fill="var(--text3)"/>
+<text x="135" y="232" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/3</text>
+<rect x="190" y="200" width="660" height="56" rx="8" fill="rgba(90,122,144,.08)" stroke="var(--text3)" stroke-width="1"/>
+<text x="520" y="218" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">美股休市</text>
+<text x="520" y="238" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">獨立紀念日</text>
+<circle cx="160" cy="292" r="4" fill="var(--text3)"/>
+<text x="135" y="296" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/9</text>
+<rect x="190" y="270" width="660" height="44" rx="8" fill="rgba(240,165,0,.10)" stroke="var(--accent2)" stroke-width="1"/>
+<text x="520" y="292" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">FOMC會議紀要</text>
+<circle cx="160" cy="356" r="4" fill="var(--text3)"/>
+<text x="135" y="360" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/10</text>
+<rect x="190" y="328" width="660" height="56" rx="8" fill="rgba(90,122,144,.08)" stroke="var(--text3)" stroke-width="1"/>
+<text x="520" y="346" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">SK海力士掛牌</text>
+<text x="520" y="366" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">Nasdaq ADR計畫</text>
+<circle cx="160" cy="480" r="4" fill="var(--text3)"/>
+<text x="135" y="484" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/14</text>
+<rect x="190" y="420" width="660" height="56" rx="8" fill="rgba(240,165,0,.10)" stroke="var(--accent2)" stroke-width="1"/>
+<text x="520" y="438" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">CPI + Warsh國會聽證</text>
+<text x="520" y="458" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">6月數據 · 20:30 / 22:00</text>
+<rect x="190" y="484" width="660" height="56" rx="8" fill="rgba(0,200,160,.10)" stroke="var(--accent)" stroke-width="1"/>
+<text x="520" y="502" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">銀行財報季開跑</text>
+<text x="520" y="522" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">高盛 · 花旗 · 摩根大通 · 美銀</text>
+<circle cx="160" cy="576" r="4" fill="var(--text3)"/>
+<text x="135" y="580" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/15</text>
+<rect x="190" y="554" width="660" height="44" rx="8" fill="rgba(77,159,255,.10)" stroke="var(--accent3)" stroke-width="1"/>
+<text x="520" y="576" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">PPI</text>
+<circle cx="160" cy="666" r="4" fill="var(--text3)"/>
+<text x="135" y="670" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/16</text>
+<rect x="190" y="612" width="660" height="44" rx="8" fill="rgba(77,159,255,.10)" stroke="var(--accent3)" stroke-width="1"/>
+<text x="520" y="634" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">零售銷售月率</text>
+<rect x="190" y="664" width="660" height="56" rx="8" fill="rgba(0,200,160,.10)" stroke="var(--accent)" stroke-width="1"/>
+<text x="520" y="682" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">TSMC Q2財報法說會</text>
+<text x="520" y="702" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">14:00台北時間 · </text>
+<circle cx="160" cy="784" r="4" fill="var(--text3)"/>
+<text x="135" y="788" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/22–23</text>
+<rect x="190" y="756" width="660" height="56" rx="8" fill="rgba(90,122,144,.08)" stroke="var(--text3)" stroke-width="1"/>
+<text x="520" y="774" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">AMD Advancing AI</text>
+<text x="520" y="794" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">年度大會</text>
+<circle cx="160" cy="876" r="4" fill="var(--text3)"/>
+<text x="135" y="880" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/27–31</text>
+<rect x="190" y="848" width="660" height="56" rx="8" fill="rgba(0,200,160,.10)" stroke="var(--accent)" stroke-width="1"/>
+<text x="520" y="866" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">Big Tech財報週</text>
+<text x="520" y="886" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">MSFT·META·GOOGL·AMZN·AAPL · </text>
+<circle cx="160" cy="978" r="4" fill="var(--text3)"/>
+<text x="135" y="982" text-anchor="end" font-family="var(--mono)" font-size="13" fill="var(--text2)">7/30</text>
+<rect x="190" y="918" width="660" height="56" rx="8" fill="rgba(240,165,0,.10)" stroke="var(--accent2)" stroke-width="1"/>
+<text x="520" y="936" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">FOMC利率決議 + 記者會</text>
+<text x="520" y="956" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">02:00 / 02:30台北時間</text>
+<rect x="190" y="982" width="660" height="56" rx="8" fill="rgba(77,159,255,.10)" stroke="var(--accent3)" stroke-width="1"/>
+<text x="520" y="1000" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="var(--header)">Q2 GDP預估值 + 6月PCE</text>
+<text x="520" y="1020" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="11" fill="var(--text3)">20:30台北時間 · 同步公布</text>
+<rect x="60" y="1056" width="14" height="14" rx="3" fill="rgba(77,159,255,.10)" stroke="var(--accent3)" stroke-width="1"/>
+<text x="80" y="1067" font-size="12" fill="var(--text2)">經濟數據</text>
+<rect x="210" y="1056" width="14" height="14" rx="3" fill="rgba(0,200,160,.10)" stroke="var(--accent)" stroke-width="1"/>
+<text x="230" y="1067" font-size="12" fill="var(--text2)">企業財報</text>
+<rect x="360" y="1056" width="14" height="14" rx="3" fill="rgba(240,165,0,.10)" stroke="var(--accent2)" stroke-width="1"/>
+<text x="380" y="1067" font-size="12" fill="var(--text2)">Fed政策</text>
+<rect x="510" y="1056" width="14" height="14" rx="3" fill="rgba(90,122,144,.08)" stroke="var(--text3)" stroke-width="1"/>
+<text x="530" y="1067" font-size="12" fill="var(--text2)">其他事件</text>
+</svg>
+  </div>
+  
+</div>
+
+
+<div class="content-section" style="border-bottom:none" id="sec-scenario">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div><div class="section-title">情境推演</div><div class="section-desc">5個情境，依觸發機率與潛在幅度排序 · 非完整排列組合</div></div>
+  </div>
+  <div class="scenario-grid" style="grid-template-columns:1fr">
+    <div class="scenario-card scenario-card-cut">
+      <div class="scenario-header">
+        <span class="scenario-badge badge-cut">情境A</span>
+        <span class="scenario-prob prob-cut">基準情境</span>
+        <div class="scenario-title">金髮女孩：數據如預期、財報穩、停火撐住</div>
+      </div>
+      <div class="scenario-body">CPI/PPI如預期或略涼，TSMC與銀行財報優於預期且guidance穩，Big Tech資本支出guidance沒有再大幅上修，FOMC維持不變但語氣不過鷹，中東停火持續。財報季帶量上攻，月底前創高機率較大。</div>
+    </div>
+    <div class="scenario-card scenario-card-hike">
+      <div class="scenario-header">
+        <span class="scenario-badge badge-hike">情境B</span>
+        <span class="scenario-prob prob-hike">中度風險</span>
+        <div class="scenario-title">滯脹式修正：數據偏熱但非系統性</div>
+      </div>
+      <div class="scenario-body">CPI/PPI意外偏熱（11月基期陷阱前緣若提早顯現，或關稅傳導加速），FOMC語氣轉鷹但仍維持不變。成長股/高估值科技股承壓，價值股相對抗跌，屬正常10%以內修正，不到20%級別。<br><span style="color:var(--accent2)">若CPI/PPI轉溫和則收斂為情境A。</span></div>
+    </div>
+    <div class="scenario-card scenario-card-risk">
+      <div class="scenario-header">
+        <span class="scenario-badge badge-risk">情境C</span>
+        <span class="scenario-prob prob-risk">最高機率達標</span>
+        <div class="scenario-title">AI信用裂縫：TSMC點火，Big Tech接力</div>
+      </div>
+      <div class="scenario-body">TSMC 7/16 guidance偏保守（先點火）→ Big Tech財報週資本支出再上修但雲端營收成長不如預期，任一巨頭釋出AI ROI/利潤率警訊 → 疊加已知高槓桿基建公司（CoreWeave/Oracle）信用利差走闊 → 從估值修正質變成信用事件。TSMC與Big Tech財報剛好分別卡在兩個超級週的頭尾，有兩次機會接力點燃。</div>
+    </div>
+    <div class="scenario-card scenario-card-hike">
+      <div class="scenario-header">
+        <span class="scenario-badge badge-hike">情境D</span>
+        <span class="scenario-prob prob-hike">中度風險，通常需疊加C/D</span>
+        <div class="scenario-title">Fed政策誤判：7/30數據與決議同步爆量</div>
+      </div>
+      <div class="scenario-body">7/30當天GDP+PCE同步公布若雙雙超預期偏熱，Warsh在新聞發布會釋出比市場預期更鷹的訊號（暗示提前到9月而非等12月）。利率快速重定價，對高估值板塊衝擊最大，但屬於「單次政策動作可消化」範疇，除非同時撞上情境C才會放大成系統性問題。</div>
+    </div>
+  </div>
+</div>
+
+</main>
+<script>
+function setSize(sz){
+  document.documentElement.setAttribute('data-size',sz);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(b=>{
+    b.classList.toggle('active', b.textContent===({sm:'小',md:'中',lg:'大'})[sz]);
+  });
+  localStorage.setItem('infl-size',sz);
+}
+function setTheme(th){
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>{
+    b.classList.toggle('active', b.textContent===({dark:'深',light:'淺'})[th]);
+  });
+  localStorage.setItem('infl-theme',th);
+}
+(function(){
+  const sz=localStorage.getItem('infl-size')||'md';
+  const th=localStorage.getItem('infl-theme')||'dark';
+  document.documentElement.setAttribute('data-size',sz);
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(b=>{b.classList.toggle('active',b.textContent===({sm:'小',md:'中',lg:'大'})[sz])});
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>{b.classList.toggle('active',b.textContent===({dark:'深',light:'淺'})[th])});
+})();
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&['c','a','u','s','p','v'].includes(e.key.toLowerCase())){e.preventDefault();}
+  if(e.key==='F12'){e.preventDefault();}
+});
+document.addEventListener('copy',function(e){e.preventDefault();return false;});
+document.addEventListener('cut',function(e){e.preventDefault();return false;});
+document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+</script>
+</body>
+</html>
