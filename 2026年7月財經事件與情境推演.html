@@ -146,13 +146,18 @@ tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:3px}
 @media(max-width:900px){nav{display:none}.hero,.content-section{padding:26px 18px}.scenario-body{padding:4px 14px 14px}}
-.scenario-card-risk{background:rgba(255,77,109,.05);border-color:rgba(255,77,109,.22)}
-.badge-risk{background:rgba(255,77,109,.15);color:var(--danger);border:1px solid rgba(255,77,109,.22)}
-.prob-risk{color:var(--danger)}
+
+@keyframes fan-breathe{
+  0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}
+  50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}
+}
+.ctrl-fan{font-family:var(--mono);font-size:calc(11px*var(--scale));font-weight:700;color:#000;background:#ffd700;border:none;border-radius:3px 0 0 3px;padding:4px 9px;cursor:pointer;white-space:nowrap;animation:fan-breathe 1.8s ease-in-out infinite;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
 </style>
 </head>
 <body>
 <div class="controls-bar">
+  <a class="ctrl-fan" href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.884v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>粉專</a>
+  <div class="ctrl-sep"></div>
   <div class="ctrl-group">
     <button class="ctrl-btn" onclick="setSize('sm')">小</button>
     <button class="ctrl-btn active" onclick="setSize('md')">中</button>
@@ -191,7 +196,7 @@ tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
   <div class="hero-meta">
     <div class="meta-chip"><div class="meta-chip-dot"></div>版本：2026-06-29</div>
     <div class="meta-chip"><div class="meta-chip-dot" style="background:var(--accent2)"></div>2個超級週 · 15個事件</div>
-    <div class="meta-chip"><div class="meta-chip-dot" style="background:var(--accent3)"></div>4個情境推演</div>
+    <div class="meta-chip"><div class="meta-chip-dot" style="background:var(--accent3)"></div>5個情境推演</div>
   </div>
 </div>
 
@@ -303,7 +308,6 @@ tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
 <text x="530" y="1067" font-size="12" fill="var(--text2)">其他事件</text>
 </svg>
   </div>
-  
 </div>
 
 
@@ -339,7 +343,7 @@ tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
     </div>
     <div class="scenario-card scenario-card-hike">
       <div class="scenario-header">
-        <span class="scenario-badge badge-hike">情境D</span>
+        <span class="scenario-badge badge-hike">情境E</span>
         <span class="scenario-prob prob-hike">中度風險，通常需疊加C/D</span>
         <div class="scenario-title">Fed政策誤判：7/30數據與決議同步爆量</div>
       </div>
