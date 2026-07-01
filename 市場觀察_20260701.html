@@ -237,12 +237,30 @@ body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(
 /* ── 深/淺色 ── */
 body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
 body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
+@keyframes fan-breathe {
+  0%, 100% { background:#b8960a; box-shadow:0 0 4px 1px rgba(255,215,0,.35); color:#1a1200; }
+  50%      { background:#ffd700; box-shadow:0 0 10px 3px rgba(255,215,0,.75); color:#000; }
+}
+.ctrl-fan{
+  display:flex;align-items:center;gap:4px;
+  padding:3px 10px;
+  font-family:var(--fm);
+  font-size:calc(var(--fs)*.85);
+  color:#000;font-weight:700;
+  text-decoration:none;
+  border-right:1px solid var(--border);
+  letter-spacing:.05em;white-space:nowrap;
+  background:#ffd700;
+  border-radius:3px 0 0 3px;
+  animation:fan-breathe 1.8s ease-in-out infinite;
+}
+.ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0;}
 </style>
 </head>
 <body>
 
 <!-- ── 工具列 ── -->
-<div class="fc">
+<div class="fc"><a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" class="ctrl-fan" title="Facebook粉專"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.91h-2.33V22c4.78-.756 8.438-4.92 8.438-9.94Z"/></svg>粉專</a>
   <a href="https://yoda-wcyc.github.io/-/" style="margin-right:4px;padding-right:10px;border-right:1px solid var(--border);text-decoration:none;">
     <button class="fb" style="cursor:pointer;">⌂ 首頁</button>
   </a>
