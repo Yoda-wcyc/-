@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>行情框架最終版 · 2026/07/03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--serif:'Noto Serif TC',serif;--mono:'IBM Plex Mono',monospace;--sans:'Noto Sans TC',sans-serif}
+
+/* ═══ THEME VARIABLES ═══ */
+[data-theme="dark"]{
+  --bg:#080b10;--bg2:#0d1117;--bg3:#131920;--bg4:#1a2230;
+  --border:#1e2d3d;--border2:#243444;
+  --accent:#00c8a0;--accent2:#f0a500;--accent3:#4d9fff;--danger:#ff4d6d;--muted:#4a6174;
+  --text:#c8d8e8;--text2:#8fa8bc;--text3:#5a7a90;--header:#e8f2ff;
+  --ctrl-bg:rgba(13,17,23,.93);--ctrl-border:#243444;--ctrl-hover:#1a2230;
+  --ctrl-act-bg:#00c8a0;--ctrl-act-txt:#080b10;
+  --hero-grad:linear-gradient(160deg,#0a1520 0%,#080b10 60%);
+  --thead-bg:#131920;--row-hover:rgba(255,255,255,.02);
+  --note-bg:#131920;--chk-bg:#131920;
+  --sig-bg:rgba(255,77,109,.05);--sig-b:rgba(255,77,109,.22);
+  --warn-bg:rgba(255,77,109,.04);--warn-lb:#ff4d6d;
+  --nav-bg:#0d1117;--scroll-thumb:#243444;
+  --conc-bg:rgba(0,200,160,.04);--conc-b:rgba(0,200,160,.2);--conc-title:#00c8a0;
+  --green-bg:rgba(0,200,160,.07);--green-b:rgba(0,200,160,.25);--green-c:#00c8a0;
+  --red-bg:rgba(255,77,109,.07);--red-b:rgba(255,77,109,.25);--red-c:#ff4d6d;
+  --active-row:rgba(240,165,0,.08);
+}
+[data-theme="light"]{
+  --bg:#f4f6f8;--bg2:#ffffff;--bg3:#eef1f4;--bg4:#e4e9ee;
+  --border:#dbe2e8;--border2:#c7d1da;
+  --accent:#00866b;--accent2:#a05800;--accent3:#1f5fbf;--danger:#c92a4a;--muted:#7a8a96;
+  --text:#1c2733;--text2:#465a6a;--text3:#7e8fa0;--header:#0e1620;
+  --ctrl-bg:rgba(255,255,255,.93);--ctrl-border:#dbe2e8;--ctrl-hover:#eef1f4;
+  --ctrl-act-bg:#00866b;--ctrl-act-txt:#ffffff;
+  --hero-grad:linear-gradient(160deg,#eef3f6 0%,#f4f6f8 60%);
+  --thead-bg:#eef1f4;--row-hover:rgba(0,0,0,.02);
+  --note-bg:#eef1f4;--chk-bg:#eef1f4;
+  --sig-bg:rgba(201,42,74,.05);--sig-b:rgba(201,42,74,.18);
+  --warn-bg:rgba(201,42,74,.04);--warn-lb:#c92a4a;
+  --nav-bg:#ffffff;--scroll-thumb:#c7d1da;
+  --conc-bg:rgba(0,134,107,.05);--conc-b:rgba(0,134,107,.2);--conc-title:#00866b;
+  --green-bg:rgba(0,134,107,.08);--green-b:rgba(0,134,107,.25);--green-c:#00866b;
+  --red-bg:rgba(201,42,74,.08);--red-b:rgba(201,42,74,.25);--red-c:#c92a4a;
+  --active-row:rgba(160,88,0,.08);
+}
+
+/* ═══ SIZE SCALE — 所有字體大小皆須用 calc(Npx*var(--scale)) 寫法，禁止固定px ═══ */
+html[data-size="sm"]{--scale:.9}
+html[data-size="md"]{--scale:1}
+html[data-size="lg"]{--scale:1.14}
+
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:calc(14.5px*var(--scale));line-height:1.6;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+}
+
+/* ═══ CONTROLS ═══ */
+.controls{position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:50;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:9px;padding:5px;backdrop-filter:blur(8px)}
+.ctrl-group{display:flex;gap:2px}
+.ctrl-btn{font-family:var(--mono);font-size:calc(11px*var(--scale));padding:5px 9px;border-radius:6px;border:none;background:transparent;color:var(--text2);cursor:pointer;transition:.15s}
+.ctrl-btn:hover{background:var(--ctrl-hover)}
+.ctrl-btn.active{background:var(--ctrl-act-bg);color:var(--ctrl-act-txt);font-weight:600}
+.ctrl-sep{width:1px;background:var(--border2);margin:2px 2px}
+@keyframes fan-breathe{
+  0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}
+  50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}
+}
+.ctrl-fan{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:calc(11px*var(--scale));font-weight:700;padding:5px 11px;border:none;cursor:pointer;text-decoration:none;border-radius:3px 0 0 3px;animation:fan-breathe 1.8s ease-in-out infinite}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;width:188px;height:100vh;background:var(--nav-bg);border-right:1px solid var(--border);padding:78px 0 20px;overflow-y:auto;z-index:40}
+nav::-webkit-scrollbar{width:4px}nav::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:2px}
+nav a{display:flex;align-items:center;gap:9px;padding:9px 22px;font-size:calc(12.5px*var(--scale));color:var(--text2);text-decoration:none;border-left:2px solid transparent;transition:.15s}
+nav a:hover{color:var(--text);background:var(--bg3)}
+.nav-num{font-family:var(--mono);font-size:calc(10px*var(--scale));color:var(--text3);width:16px}
+
+/* ═══ LAYOUT ═══ */
+main{margin-left:188px;max-width:880px;padding:40px 48px 80px}
+
+/* ═══ HERO ═══ */
+.hero{background:var(--hero-grad);border:1px solid var(--border);border-radius:14px;padding:36px 40px;margin-bottom:32px}
+.hero-tag{font-family:var(--mono);font-size:calc(10.5px*var(--scale));letter-spacing:.18em;color:var(--accent2);margin-bottom:14px}
+.hero-title{font-family:var(--serif);font-weight:700;font-size:calc(27px*var(--scale));color:var(--header);line-height:1.4;margin-bottom:12px}
+.hero-sub{font-size:calc(13.5px*var(--scale));color:var(--text2);line-height:1.7;max-width:640px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.meta-chip{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text2);background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:6px 13px}
+.meta-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+/* ═══ SECTION ═══ */
+.section{margin-bottom:36px}
+.sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.sec-num{font-family:var(--mono);font-size:calc(11px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.1);border-radius:4px;padding:2px 7px}
+[data-theme="light"] .sec-num{background:rgba(160,88,0,.1)}
+.sec-title{font-family:var(--serif);font-weight:700;font-size:calc(19px*var(--scale));color:var(--header)}
+.sec-body{font-size:calc(14px*var(--scale));color:var(--text2);line-height:1.85}
+.sec-body p{margin-bottom:11px}
+.sec-body strong{color:var(--header)}
+
+/* ═══ CONTEXT BOX ═══ */
+.context-box{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 9px 9px 0;padding:16px 20px}
+.context-box-title{font-family:var(--mono);font-size:calc(9.5px*var(--scale));letter-spacing:.12em;text-transform:uppercase;color:var(--accent3);margin-bottom:8px}
+.context-box-text{font-size:calc(13.5px*var(--scale));color:var(--text2);line-height:1.8}
+
+/* ═══ TABLE ═══ */
+table{width:100%;border-collapse:collapse;font-size:calc(12.8px*var(--scale))}
+thead th{background:var(--thead-bg);color:var(--text3);font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border2)}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+tbody tr:hover{background:var(--row-hover)}
+tbody tr.active-row{background:var(--active-row)}
+.td-date{font-family:var(--mono);font-size:calc(12px*var(--scale));color:var(--text3);white-space:nowrap}
+.td-strong{color:var(--header);font-weight:600}
+.td-val{font-family:var(--mono);font-size:calc(12.5px*var(--scale));font-weight:600;color:var(--header);white-space:nowrap}
+.td-interpret{font-size:.92em;color:var(--text2);line-height:1.6}
+.sig-ok{color:var(--accent)}.sig-warn{color:var(--accent2)}.sig-danger{color:var(--danger)}.sig-neutral{color:var(--text3)}
+.td-signal{font-family:var(--mono);font-size:calc(11px*var(--scale));white-space:nowrap;font-weight:600}
+.table-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.table-note{font-size:calc(12.5px*var(--scale));color:var(--text3);margin-top:10px;display:flex;gap:8px;align-items:flex-start}
+.table-note .arrow{color:var(--accent2);font-family:var(--mono)}
+
+/* ═══ STATE BADGE（綠/紅背景判讀用）═══ */
+.bg-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:calc(11px*var(--scale));font-weight:600;border-radius:5px;padding:3px 9px;white-space:nowrap}
+.bg-green{background:var(--green-bg);border:1px solid var(--green-b);color:var(--green-c)}
+.bg-red{background:var(--red-bg);border:1px solid var(--red-b);color:var(--red-c)}
+.bg-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* ═══ NOTE GRID ═══ */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.note-card{background:var(--note-bg);border:1px solid var(--border);border-radius:9px;padding:15px 17px}
+.note-card-label{font-family:var(--mono);font-size:calc(9px*var(--scale));letter-spacing:.13em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.note-card-label.key{color:var(--accent2)}.note-card-label.calm{color:var(--accent)}.note-card-label.warn{color:var(--danger)}
+.note-card-body{font-size:calc(13px*var(--scale));color:var(--text2);line-height:1.7}
+
+/* ═══ CHECKPOINT LIST ═══ */
+.checkpoint-list{display:flex;flex-direction:column;gap:8px}
+.checkpoint-item{display:flex;gap:12px;align-items:flex-start;padding:11px 15px;background:var(--chk-bg);border:1px solid var(--border);border-radius:7px}
+.checkpoint-marker{font-family:var(--mono);font-size:calc(10px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:4px;padding:3px 8px;white-space:nowrap;margin-top:1px}
+[data-theme="light"] .checkpoint-marker{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.2)}
+.checkpoint-text{font-size:calc(13.5px*var(--scale));color:var(--text);line-height:1.7}
+
+/* ═══ TIMELINE ═══ */
+.timeline-wrap{display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:128px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--border);position:relative}
+.tl-item:last-child{border-bottom:none}
+.tl-phase{font-family:var(--mono);font-size:calc(11px*var(--scale));color:var(--text3);line-height:1.5}
+.tl-phase b{display:block;color:var(--header);font-size:calc(13.5px*var(--scale));font-family:var(--sans);margin-top:3px}
+.tl-body{font-size:calc(13.5px*var(--scale));color:var(--text2);line-height:1.75}
+.tl-tag{display:inline-block;font-family:var(--mono);font-size:calc(10px*var(--scale));border-radius:4px;padding:2px 8px;margin-left:8px;vertical-align:1px}
+.tl-tag.hold{background:rgba(77,159,255,.1);color:var(--accent3)}
+.tl-tag.sell{background:rgba(255,77,109,.08);color:var(--danger)}
+.tl-tag.new{background:rgba(0,200,160,.1);color:var(--accent)}
+
+/* ═══ CONCLUSION BOX ═══ */
+.conclusion-box{background:var(--conc-bg);border:1px solid var(--conc-b);border-radius:10px;padding:22px 26px}
+.conclusion-box-title{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.14em;text-transform:uppercase;color:var(--conc-title);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.conclusion-box-title::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--conc-title)}
+.conclusion-box-text{font-size:calc(14.5px*var(--scale));color:var(--text);line-height:1.85}
+.conclusion-box-text strong{color:var(--conc-title);font-weight:700}
+.conclusion-box-text p{margin-bottom:10px}
+.conclusion-sub{margin-top:14px;padding-top:14px;border-top:1px solid var(--conc-b)}
+
+/* ═══ FOOTER ═══ */
+.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text3);display:flex;justify-content:space-between}
+
+@media(max-width:760px){
+  nav{display:none}
+  main{margin-left:0;padding:90px 22px 60px}
+  .tl-item{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <a class="ctrl-fan" href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg> 粉專</a>
+  <div class="ctrl-group">
+    <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
+    <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+  </div>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn" onclick="setSize('sm')">小</button>
+    <button class="ctrl-btn active" onclick="setSize('md')">中</button>
+    <button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  </div>
+</div>
+
+<nav>
+  <a href="#sec-01"><span class="nav-num">01</span>核心本質</a>
+  <a href="#sec-02"><span class="nav-num">02</span>懲罰利多</a>
+  <a href="#sec-03"><span class="nav-num">03</span>非農數據</a>
+  <a href="#sec-04"><span class="nav-num">04</span>日圓風險</a>
+  <a href="#sec-05"><span class="nav-num">05</span>操作策略</a>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-tag">MARKET FRAMEWORK · YODA SYSTEM</div>
+    <div class="hero-title"><br>非農後繼續凌遲多方</div>
+    <div class="hero-sub">機構再平衡賣壓已截止、非農意外走弱、日圓尾部風險同步浮現——三條主線交織，等待「獎勵利空進場做多者」的轉折訊號。</div>
+    <div class="hero-meta">
+      <div class="meta-chip"><div class="meta-dot"></div>賣壓截止：6/30 已結束</div>
+      <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>非農 +57K（遠低於預期110K）</div>
+      <div class="meta-chip"><div class="meta-dot" style="background:var(--danger)"></div>日圓監控：USD/JPY 158-160</div>
+    </div>
+  </div>
+
+
+  <!-- 01 核心本質 -->
+  <div class="section" id="sec-01">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">這波跌的核心本質</span></div>
+    <div class="context-box">
+      <div class="context-box-title">Core Thesis</div>
+      <div class="context-box-text"><strong>機構半年再平衡（技術性，非基本面）+ 懲罰高槓桿投機者 (韓國政府調高保證金要求)</strong></div>
+    </div>
+    <div class="notes-grid" style="margin-top:14px">
+      <div class="note-card">
+        <div class="note-card-label key">規模</div>
+        <div class="note-card-body">1,650 億美元賣壓（JPMorgan 估計）</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label key">機制</div>
+        <div class="note-card-body">股票比例超標 → 機械式按權重縮減 → AI / 半導體首當其衝</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label calm">截止日</div>
+        <div class="note-card-body"><strong>6/30 已結束</strong>，7/1 起進入新資金部署期</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 懲罰利多 -->
+  <div class="section" id="sec-02">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">「懲罰進場做多者」的三個證據</span></div>
+    <div class="sec-body"><p>這是這次行情最關鍵的特徵：<strong>每一個利多出來，市場都撐不住。</strong></p></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>事件</th><th>理論上應該漲</th><th>實際結果</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">美光財報大爆發<br><span style="font-size:.88em;color:var(--text3);font-weight:400">HBM4、take-or-pay 合約</span></td>
+            <td class="td-interpret">AI 硬體需求確認，應該拉漲</td>
+            <td class="td-interpret" style="color:var(--danger)">撐不住，AI 硬體板塊繼續轉弱</td>
+          </tr>
+          <tr>
+            <td class="td-strong">PCE 符合預期<br><span style="font-size:.88em;color:var(--text3);font-weight:400">通膨溫和</span></td>
+            <td class="td-interpret">降息預期升溫，應該買科技</td>
+            <td class="td-interpret" style="color:var(--danger)">撐不住</td>
+          </tr>
+          <tr>
+            <td class="td-strong">非農 +57K<br><span style="font-size:.88em;color:var(--text3);font-weight:400">遠低於預期 110K，前兩月下修 74K</span></td>
+            <td class="td-interpret">降息預期大幅上升，應該強力反彈</td>
+            <td class="td-interpret" style="color:var(--danger)">撐不住</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-note"><span class="arrow">→</span><span>利多無法推動上漲，代表市場現在有一個更大的賣壓在壓制，而不是市場不相信這些數據。</span></div>
+  </div>
+
+  <!-- 03 非農數據 -->
+  <div class="section" id="sec-03">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">非農數據細節（今日公布）</span></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>項目</th><th>數據</th><th>解讀</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">非農就業</td>
+            <td class="td-val" style="color:var(--danger)">+57K</td>
+            <td class="td-interpret">預期 110K，大幅不及；勞動市場明顯降溫</td>
+          </tr>
+          <tr>
+            <td class="td-strong">失業率</td>
+            <td class="td-val">4.2%（略降）</td>
+            <td class="td-interpret">仍健康，不是衰退訊號</td>
+          </tr>
+          <tr>
+            <td class="td-strong">前兩月下修</td>
+            <td class="td-val" style="color:var(--danger)">合計 -74K</td>
+            <td class="td-interpret">就業市場比之前認知的更弱</td>
+          </tr>
+          <tr>
+            <td class="td-strong">時薪年增率</td>
+            <td class="td-val">+3.5%</td>
+            <td class="td-interpret">薪資壓力溫和，不增加通膨疑慮</td>
+          </tr>
+          <tr>
+            <td class="td-strong">最大拖累</td>
+            <td class="td-val">休閒餐飲 -61K</td>
+            <td class="td-interpret">世界盃季節性效應退潮</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-note"><span class="arrow">→</span><span>Fed 影響：57K 的非農大幅「弱化了升息的最強論據」，市場重新定價——降息預期上升，這是中期對科技股有利的環境。</span></div>
+  </div>
+
+  <!-- 04 日圓風險 -->
+  <div class="section" id="sec-04">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">日圓尾部風險（今日同步發生）</span></div>
+    <div class="sec-body"><p>非農公布後，USD/JPY 出現當日最大跌幅（日圓升值），立刻引發市場猜測日本當局是否趁機介入干預。</p></div>
+    <div class="notes-grid">
+      <div class="note-card">
+        <div class="note-card-label warn">現狀</div>
+        <div class="note-card-body">日圓 162，40 年新低；BOJ 已升息至 1%，但利差仍大，套息交易持續</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label warn">干預</div>
+        <div class="note-card-body">日本已花費 1.17 兆日圓干預，效果有限，改採「突襲式」策略</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label calm">自然替代</div>
+        <div class="note-card-body">非農弱 → 美元走弱 → 日圓自然升值，可能替代干預效果</div>
+      </div>
+    </div>
+    <div class="context-box" style="margin-top:14px;border-left-color:var(--danger)">
+      <div class="context-box-title" style="color:var(--danger)">尾部風險邏輯</div>
+      <div class="context-box-text">若日圓急速升值（BOJ 主動升息或市場自然反轉）→ 套息交易被迫平倉 → 借日圓買的美股部位強制清算 → <strong>2024 年 8 月重演（10 天跌 10%）</strong></div>
+    </div>
+    <div class="table-note" style="margin-top:12px"><span class="arrow" style="color:var(--danger)">⚠</span><span><strong>監控紅線：USD/JPY 158-160</strong>，若快速跌破，注意套息平倉風險。</span></div>
+  </div>
+
+  <!-- 05 操作策略 -->
+  <div class="section" id="sec-05">
+    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">操作策略：等待「獎勵利空進場做多者」</span></div>
+    <div class="sec-body">
+      <p><strong>現在的市場性格</strong>：懲罰所有進場做多者，不論利多消息多強都撐不住。</p>
+      <p><strong>真正的轉折訊號是</strong>：利空出來（或再有一個壞消息），但市場守住、不破前低——這才代表賣壓枯竭，多方可以進攻。</p>
+    </div>
+    <div class="table-wrap" style="margin-bottom:16px">
+      <table>
+        <thead><tr><th style="width:40%">條件</th><th style="text-align:center">狀態</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">再平衡賣壓結束</td>
+            <td style="text-align:center;font-size:calc(13px*var(--scale))"><span class="sig-ok">✅ 7/1 後已結束</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">非農不爆雷</td>
+            <td style="text-align:center;font-size:calc(13px*var(--scale))"><span class="sig-ok">✅ 弱但非衰退，升息預期下降為中期利多</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">均線止穩、背景轉綠</td>
+            <td style="text-align:center;font-size:calc(13px*var(--scale))"><span class="sig-warn">⏳ 待觀察</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">日圓穩定，無失控</td>
+            <td style="text-align:center;font-size:calc(13px*var(--scale))"><span class="sig-warn">⏳ 持續監控 158-160</span></td>
+          </tr>
+          <tr>
+            <td class="td-strong">7/13 財報季 FCF 不集體惡化</td>
+            <td style="text-align:center;font-size:calc(13px*var(--scale))"><span class="sig-warn">⏳ 最終裁決點</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="conclusion-box">
+      <div class="conclusion-box-title">結論</div>
+      <div class="conclusion-box-text">
+        <p>非農弱 → 升息預期下降 → 這是中期對科技股有利的環境，但「懲罰利多進場者」的賣壓如果還沒結束，短期仍會繼續撐不住，還要小心日本央行的突襲。</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="footer">
+    <span>YODA SYSTEM · EVENT ANALYSIS</span>
+    <span>2026/07/03</span>
+  </div>
+
+</main>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&['c','a','u','s','p','v'].includes(e.key.toLowerCase())){e.preventDefault();}
+  if(e.key==='F12'){e.preventDefault();}
+});
+document.addEventListener('copy',function(e){e.preventDefault();return false;});
+document.addEventListener('cut',function(e){e.preventDefault();return false;});
+document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+
+function setSize(sz){
+  document.documentElement.setAttribute('data-size',sz);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={sm:'小',md:'中',lg:'大'}[sz]);
+  });
+  localStorage.setItem('market-framework-0703-size',sz);
+}
+function setTheme(th){
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={dark:'深',light:'淺'}[th]);
+  });
+  localStorage.setItem('market-framework-0703-theme',th);
+}
+(function(){
+  var sz=localStorage.getItem('market-framework-0703-size')||'md';
+  var th=localStorage.getItem('market-framework-0703-theme')||'dark';
+  document.documentElement.setAttribute('data-size',sz);
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){b.classList.toggle('active',b.textContent==={sm:'小',md:'中',lg:'大'}[sz])});
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){b.classList.toggle('active',b.textContent==={dark:'深',light:'淺'}[th])});
+})();
+</script>
+</body>
+</html>
