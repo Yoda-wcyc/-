@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA 連環爆料事件深度核實｜Yoda 市場分析</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--serif:'Noto Serif TC',serif;--mono:'IBM Plex Mono',monospace;--sans:'Noto Sans TC',sans-serif}
+
+/* ═══ THEME VARIABLES ═══ */
+[data-theme="dark"]{
+  --bg:#080b10;--bg2:#0d1117;--bg3:#131920;--bg4:#1a2230;
+  --border:#1e2d3d;--border2:#243444;
+  --accent:#00c8a0;--accent2:#f0a500;--accent3:#4d9fff;--danger:#ff4d6d;--muted:#4a6174;
+  --text:#c8d8e8;--text2:#8fa8bc;--text3:#5a7a90;--header:#e8f2ff;
+  --ctrl-bg:rgba(13,17,23,.93);--ctrl-border:#243444;--ctrl-hover:#1a2230;
+  --ctrl-act-bg:#00c8a0;--ctrl-act-txt:#080b10;
+  --hero-grad:linear-gradient(160deg,#0a1520 0%,#080b10 60%);
+  --thead-bg:#131920;--row-hover:rgba(255,255,255,.02);
+  --note-bg:#131920;--chk-bg:#131920;
+  --sig-bg:rgba(255,77,109,.05);--sig-b:rgba(255,77,109,.22);
+  --warn-bg:rgba(255,77,109,.04);--warn-lb:#ff4d6d;
+  --nav-bg:#0d1117;--scroll-thumb:#243444;
+  --conc-bg:rgba(0,200,160,.04);--conc-b:rgba(0,200,160,.2);--conc-title:#00c8a0;
+  --green-bg:rgba(0,200,160,.07);--green-b:rgba(0,200,160,.25);--green-c:#00c8a0;
+  --red-bg:rgba(255,77,109,.07);--red-b:rgba(255,77,109,.25);--red-c:#ff4d6d;
+  --active-row:rgba(240,165,0,.08);
+}
+[data-theme="light"]{
+  --bg:#f4f6f8;--bg2:#ffffff;--bg3:#eef1f4;--bg4:#e4e9ee;
+  --border:#dbe2e8;--border2:#c7d1da;
+  --accent:#00866b;--accent2:#a05800;--accent3:#1f5fbf;--danger:#c92a4a;--muted:#7a8a96;
+  --text:#1c2733;--text2:#465a6a;--text3:#7e8fa0;--header:#0e1620;
+  --ctrl-bg:rgba(255,255,255,.93);--ctrl-border:#dbe2e8;--ctrl-hover:#eef1f4;
+  --ctrl-act-bg:#00866b;--ctrl-act-txt:#ffffff;
+  --hero-grad:linear-gradient(160deg,#eef3f6 0%,#f4f6f8 60%);
+  --thead-bg:#eef1f4;--row-hover:rgba(0,0,0,.02);
+  --note-bg:#eef1f4;--chk-bg:#eef1f4;
+  --sig-bg:rgba(201,42,74,.05);--sig-b:rgba(201,42,74,.18);
+  --warn-bg:rgba(201,42,74,.04);--warn-lb:#c92a4a;
+  --nav-bg:#ffffff;--scroll-thumb:#c7d1da;
+  --conc-bg:rgba(0,134,107,.05);--conc-b:rgba(0,134,107,.2);--conc-title:#00866b;
+  --green-bg:rgba(0,134,107,.08);--green-b:rgba(0,134,107,.25);--green-c:#00866b;
+  --red-bg:rgba(201,42,74,.08);--red-b:rgba(201,42,74,.25);--red-c:#c92a4a;
+  --active-row:rgba(160,88,0,.08);
+}
+
+/* ═══ SIZE SCALE — 所有字體大小皆須用 calc(Npx*var(--scale)) 寫法，禁止固定px ═══ */
+html[data-size="sm"]{--scale:.9}
+html[data-size="md"]{--scale:1}
+html[data-size="lg"]{--scale:1.14}
+
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:calc(14.5px*var(--scale));line-height:1.6;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+}
+
+/* ═══ CONTROLS ═══ */
+.controls{position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:50;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:9px;padding:5px;backdrop-filter:blur(8px)}
+.ctrl-group{display:flex;gap:2px}
+.ctrl-btn{font-family:var(--mono);font-size:calc(11px*var(--scale));padding:5px 9px;border-radius:6px;border:none;background:transparent;color:var(--text2);cursor:pointer;transition:.15s}
+.ctrl-btn:hover{background:var(--ctrl-hover)}
+.ctrl-btn.active{background:var(--ctrl-act-bg);color:var(--ctrl-act-txt);font-weight:600}
+.ctrl-sep{width:1px;background:var(--border2);margin:2px 2px}
+@keyframes fan-breathe{
+  0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}
+  50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}
+}
+.ctrl-fan{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:calc(11px*var(--scale));font-weight:700;padding:5px 11px;border:none;cursor:pointer;text-decoration:none;border-radius:3px 0 0 3px;animation:fan-breathe 1.8s ease-in-out infinite}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;width:188px;height:100vh;background:var(--nav-bg);border-right:1px solid var(--border);padding:78px 0 20px;overflow-y:auto;z-index:40}
+nav::-webkit-scrollbar{width:4px}nav::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:2px}
+nav a{display:flex;align-items:center;gap:9px;padding:9px 22px;font-size:calc(12.5px*var(--scale));color:var(--text2);text-decoration:none;border-left:2px solid transparent;transition:.15s}
+nav a:hover{color:var(--text);background:var(--bg3)}
+.nav-num{font-family:var(--mono);font-size:calc(10px*var(--scale));color:var(--text3);width:16px}
+
+/* ═══ LAYOUT ═══ */
+main{margin-left:188px;max-width:880px;padding:40px 48px 80px}
+
+/* ═══ HERO ═══ */
+.hero{background:var(--hero-grad);border:1px solid var(--border);border-radius:14px;padding:36px 40px;margin-bottom:32px}
+.hero-tag{font-family:var(--mono);font-size:calc(10.5px*var(--scale));letter-spacing:.18em;color:var(--accent2);margin-bottom:14px}
+.hero-title{font-family:var(--serif);font-weight:700;font-size:calc(27px*var(--scale));color:var(--header);line-height:1.4;margin-bottom:12px}
+.hero-sub{font-size:calc(13.5px*var(--scale));color:var(--text2);line-height:1.7;max-width:640px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.meta-chip{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text2);background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:6px 13px}
+.meta-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+/* ═══ SECTION ═══ */
+.section{margin-bottom:36px}
+.sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.sec-num{font-family:var(--mono);font-size:calc(11px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.1);border-radius:4px;padding:2px 7px}
+[data-theme="light"] .sec-num{background:rgba(160,88,0,.1)}
+.sec-title{font-family:var(--serif);font-weight:700;font-size:calc(19px*var(--scale));color:var(--header)}
+.sec-body{font-size:calc(14px*var(--scale));color:var(--text2);line-height:1.85}
+.sec-body p{margin-bottom:11px}
+.sec-body strong{color:var(--header)}
+
+/* ═══ CONTEXT BOX ═══ */
+.context-box{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 9px 9px 0;padding:16px 20px}
+.context-box-title{font-family:var(--mono);font-size:calc(9.5px*var(--scale));letter-spacing:.12em;text-transform:uppercase;color:var(--accent3);margin-bottom:8px}
+.context-box-text{font-size:calc(13.5px*var(--scale));color:var(--text2);line-height:1.8}
+
+/* ═══ TABLE ═══ */
+table{width:100%;border-collapse:collapse;font-size:calc(12.8px*var(--scale))}
+thead th{background:var(--thead-bg);color:var(--text3);font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border2)}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+tbody tr:hover{background:var(--row-hover)}
+tbody tr.active-row{background:var(--active-row)}
+.td-date{font-family:var(--mono);font-size:calc(12px*var(--scale));color:var(--text3);white-space:nowrap}
+.td-strong{color:var(--header);font-weight:600}
+.td-val{font-family:var(--mono);font-size:calc(12.5px*var(--scale));font-weight:600;color:var(--header);white-space:nowrap}
+.td-interpret{font-size:.92em;color:var(--text2);line-height:1.6}
+.sig-ok{color:var(--accent)}.sig-warn{color:var(--accent2)}.sig-danger{color:var(--danger)}.sig-neutral{color:var(--text3)}
+.td-signal{font-family:var(--mono);font-size:calc(11px*var(--scale));white-space:nowrap;font-weight:600}
+.table-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.table-note{font-size:calc(12.5px*var(--scale));color:var(--text3);margin-top:10px;display:flex;gap:8px;align-items:flex-start}
+.table-note .arrow{color:var(--accent2);font-family:var(--mono)}
+
+/* ═══ STATE BADGE（綠/紅背景判讀用）═══ */
+.bg-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:calc(11px*var(--scale));font-weight:600;border-radius:5px;padding:3px 9px;white-space:nowrap}
+.bg-green{background:var(--green-bg);border:1px solid var(--green-b);color:var(--green-c)}
+.bg-red{background:var(--red-bg);border:1px solid var(--red-b);color:var(--red-c)}
+.bg-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* ═══ NOTE GRID ═══ */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.note-card{background:var(--note-bg);border:1px solid var(--border);border-radius:9px;padding:15px 17px}
+.note-card-label{font-family:var(--mono);font-size:calc(9px*var(--scale));letter-spacing:.13em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.note-card-label.key{color:var(--accent2)}.note-card-label.calm{color:var(--accent)}.note-card-label.warn{color:var(--danger)}
+.note-card-body{font-size:calc(13px*var(--scale));color:var(--text2);line-height:1.7}
+
+/* ═══ CHECKPOINT LIST ═══ */
+.checkpoint-list{display:flex;flex-direction:column;gap:8px}
+.checkpoint-item{display:flex;gap:12px;align-items:flex-start;padding:11px 15px;background:var(--chk-bg);border:1px solid var(--border);border-radius:7px}
+.checkpoint-marker{font-family:var(--mono);font-size:calc(10px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:4px;padding:3px 8px;white-space:nowrap;margin-top:1px}
+[data-theme="light"] .checkpoint-marker{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.2)}
+.checkpoint-text{font-size:calc(13.5px*var(--scale));color:var(--text);line-height:1.7}
+
+/* ═══ TIMELINE ═══ */
+.timeline-wrap{display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:128px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--border);position:relative}
+.tl-item:last-child{border-bottom:none}
+.tl-phase{font-family:var(--mono);font-size:calc(11px*var(--scale));color:var(--text3);line-height:1.5}
+.tl-phase b{display:block;color:var(--header);font-size:calc(13.5px*var(--scale));font-family:var(--sans);margin-top:3px}
+.tl-body{font-size:calc(13.5px*var(--scale));color:var(--text2);line-height:1.75}
+.tl-tag{display:inline-block;font-family:var(--mono);font-size:calc(10px*var(--scale));border-radius:4px;padding:2px 8px;margin-left:8px;vertical-align:1px}
+.tl-tag.hold{background:rgba(77,159,255,.1);color:var(--accent3)}
+.tl-tag.sell{background:rgba(255,77,109,.08);color:var(--danger)}
+.tl-tag.new{background:rgba(0,200,160,.1);color:var(--accent)}
+
+/* ═══ CONCLUSION BOX ═══ */
+.conclusion-box{background:var(--conc-bg);border:1px solid var(--conc-b);border-radius:10px;padding:22px 26px}
+.conclusion-box-title{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.14em;text-transform:uppercase;color:var(--conc-title);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.conclusion-box-title::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--conc-title)}
+.conclusion-box-text{font-size:calc(14.5px*var(--scale));color:var(--text);line-height:1.85}
+.conclusion-box-text strong{color:var(--conc-title);font-weight:700}
+.conclusion-box-text p{margin-bottom:10px}
+.conclusion-sub{margin-top:14px;padding-top:14px;border-top:1px solid var(--conc-b)}
+
+/* ═══ FOOTER ═══ */
+.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text3);display:flex;justify-content:space-between}
+
+@media(max-width:760px){
+  nav{display:none}
+  main{margin-left:0;padding:90px 22px 60px}
+  .tl-item{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <a class="ctrl-fan" href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg> 粉專</a>
+  <div class="ctrl-group">
+    <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
+    <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+  </div>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn" onclick="setSize('sm')">小</button>
+    <button class="ctrl-btn active" onclick="setSize('md')">中</button>
+    <button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  </div>
+</div>
+
+<nav>
+
+  <a href="#s1"><span class="nav-num">01</span>核實速覽</a>
+  <a href="#s2"><span class="nav-num">02</span>Rubin Ultra：有機基板的物理牆</a>
+  <a href="#s3"><span class="nav-num">03</span>Kyber NVL144：製造工藝的邊界</a>
+  <a href="#s4"><span class="nav-num">04</span>競爭格局：冰與火並存</a>
+  <a href="#s5"><span class="nav-num">05</span>玻璃基板核心標的</a>
+
+</nav>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-tag">SEMIANALYSIS EVENT ANALYSIS · 2026.07.06</div>
+    <div class="hero-title">NVIDIA 連環爆料<br>事件深度核實</div>
+    <div class="hero-sub">Kyber PCB 危機 × Rubin Ultra 縮水 × 有機基板物理牆 × 玻璃基板加速論</div>
+    <div class="hero-meta">
+
+      <div class="meta-chip"><span class="meta-dot"></span>SemiAnalysis 雙彈核實</div>
+      <div class="meta-chip"><span class="meta-dot" style="background:var(--danger)"></span>Kyber NVL144 延遲 12 個月</div>
+      <div class="meta-chip"><span class="meta-dot" style="background:var(--accent2)"></span>Rubin Ultra 效能減半</div>
+      <div class="meta-chip"><span class="meta-dot" style="background:var(--accent3)"></span>玻璃基板供應鏈</div>
+
+    </div>
+  </div>
+
+
+  <div class="section" id="s1">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">核實速覽</span>
+    </div>
+    <div class="sec-body">
+      <p>SemiAnalysis 這週連發兩彈，以下三個論點全數確認，一處陳述邏輯鏈條需要補完：</p>
+    </div>
+    <div class="table-wrap" style="margin-top:16px">
+      <table>
+        <thead>
+          <tr>
+            <th>論點</th>
+            <th>來源 / 時間</th>
+            <th>核實結果</th>
+            <th>說明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">4 晶片 Rubin Ultra 取消，保留效能減半的 2 晶片版</td>
+            <td class="td-date">SemiAnalysis<br>6/30</td>
+            <td class="td-signal sig-ok">✅ 完全確認</td>
+            <td class="td-interpret">CoWoS-L 有機基板翹曲（warpage）導致良率趨近於零，TSMC 替代方案 CoPoS 量產要到 2028–2029 年，無法救援 2027 年出貨</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Kyber NVL144 延遲超過 12 個月至 2028</td>
+            <td class="td-date">SemiAnalysis<br>7/6 今日</td>
+            <td class="td-signal sig-ok">✅ 完全確認</td>
+            <td class="td-interpret">78 層 PCB midplane 製造難度超出量產能力；NVL72x2 備案已被 CSP 強力反彈後取消；NVL576 也可能延遲或限量</td>
+          </tr>
+          <tr>
+            <td class="td-strong">AMD 與 Google 迎來超越 NVIDIA 的競爭窗口</td>
+            <td class="td-date">SemiAnalysis<br>6/30 + 7/6</td>
+            <td class="td-signal sig-warn">⚠️ 確認，但需補完</td>
+            <td class="td-interpret">窗口確實存在；但 SemiAnalysis 同日也預測 NVDA H2 2026 資料中心收入超出華爾街預期 20%，完整圖像是冰與火並存</td>
+          </tr>
+          <tr class="active-row">
+            <td class="td-strong">Kyber 在有機 PCB 撞牆 → 直接拉開玻璃基板革命</td>
+            <td class="td-date">原文論述</td>
+            <td class="td-signal sig-warn">⚠️ 邏輯需補完</td>
+            <td class="td-interpret">Kyber 是製造工藝問題；Rubin Ultra 才是有機基板的物理極限。兩者共同才構成「材料體系邊界」的完整論述，缺了 Rubin Ultra 這一環，玻璃基板的急迫性就說不清楚</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Rubin Ultra：有機基板的物理牆</span>
+    </div>
+    <div class="sec-body">
+      <p>這是整個事件的根本層，時間上也發生在前（6/30）。理解這一節，Kyber 的問題和玻璃基板的急迫性才能說得通。</p>
+    </div>
+
+    <div class="context-box" style="margin:16px 0">
+      <div class="context-box-title">原始設計目標</div>
+      <div class="context-box-text">NVIDIA 原版 Rubin Ultra：四顆 near-reticle 尺寸計算晶片 + 16 個 HBM4E，封裝在單一 CoWoS-L 基板上，封裝尺寸約為光罩極限的 7.5 到 8 倍。這是現有先進封裝有史以來最大的單封裝嘗試。</div>
+    </div>
+
+    <div class="sec-body">
+      <p><strong>問題根源</strong>：CoWoS-L 使用有機基板搭配矽橋接整合多顆晶片。有機材料與矽晶片的熱膨脹係數（CTE）不一致，在製造過程的反覆加熱冷卻中，基板翹曲（warpage），計算晶片失去與基板的電氣接觸，造成良率趨近於零。這不是設計問題，是有機材料在這個尺度下的物理邊界。</p>
+      <p><strong>TSMC 的根本解法</strong>：CoPoS（Chip on Panel on Substrate），以玻璃面板取代有機基板。玻璃的 CTE 與矽接近，翹曲問題從根本消除。但 CoPoS 試產線最快 2026 年底，量產目標 2028 年底到 2029 年初，與 2027 年出貨時程完全不相容。</p>
+    </div>
+
+    <div class="notes-grid" style="margin-top:16px">
+      <div class="note-card">
+        <div class="note-card-label warn">縮水結果</div>
+        <div class="note-card-body">新版 Rubin Ultra 縮為 <strong>2 計算晶片 + 8 個 HBM4E</strong>，性能約剩一半。NVIDIA 未官方確認，但也未否認。</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label key">HBM 市場衝擊</div>
+        <div class="note-card-body">每顆 GPU 的 HBM4E 需求從 16 個砍到 8 個。SK Hynix 與三星均已針對原版 Rubin Ultra 規格加速 HBM4E 產能認證，縮水衝擊正在重新計算。</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label calm">長期方向</div>
+        <div class="note-card-body">玻璃基板（CoPoS）是根本解法，但要等 2028–2029 年量產。這將 Rubin 下一代（後 Ultra 時代）的架構重新開機。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Kyber NVL144：製造工藝的邊界</span>
+    </div>
+    <div class="sec-body">
+      <p>有了第二節的基礎，Kyber 的問題就容易理解了：同樣的「設計複雜度超出製造能力」邏輯，發生在更上一層的系統整合，而不是晶片封裝本身。</p>
+      <p><strong>核心問題</strong>：Kyber NVL144 機架的核心零件是一塊 <strong>78 層 PCB midplane</strong>（NVIDIA 內部稱為 orthogonal backplane），負責讓機架內 144 顆 GPU 以全銅 NVLink 互聯，同時處理訊號完整性、電源分配與散熱。78 層 PCB 在層間對位精度、製造良率與最終可靠性的綜合要求下，目前沒有任何 PCB 廠能在量產規模下穩定達標。</p>
+    </div>
+
+    <div class="timeline-wrap" style="margin-top:16px">
+      <div class="tl-item">
+        <div class="tl-phase">2026.03<b>GTC 展示</b></div>
+        <div class="tl-body">Jensen Huang 親自站台展示 Kyber NVL144 機架與 NVLink MidPlane，作為 2027 年 Rubin Ultra 的旗艦機架方案正式亮相。<span class="tl-tag hold">已發布</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">2026.07.06<b>今日爆料</b></div>
+        <div class="tl-body">SemiAnalysis 連發 6 條推文，確認 Kyber NVL144 因 78 層 PCB midplane 製造難度延遲超過 12 個月；NVL72x2 備案取消；NVL576 延遲或限量。<span class="tl-tag sell">延遲確認</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">2028<b>新目標時程</b></div>
+        <div class="tl-body">Kyber NVL144 修正後的出貨目標。Rubin Ultra 目前「沒有任何經過驗證的大規模擴展方案」（SemiAnalysis 原文）。<span class="tl-tag hold">待驗證</span></div>
+      </div>
+    </div>
+
+    <div class="context-box" style="margin-top:20px">
+      <div class="context-box-title">更深層的訊號</div>
+      <div class="context-box-text">Jensen Huang 在三個月前的 GTC 親自展示，三個月後爆出超過 12 個月延遲。這個時間差說明：NVIDIA 對量產難度的評估存在顯著落差，或者認為問題可以快速解決但最終沒有。NVIDIA 自 Blackwell 以來維持的「每年換代、以速度壓倒一切」策略，正在撞上現實邊界。連接性（networking）與機架整合（rack-scale integration），已成為 AI 算力競爭的新主戰場，其製造難度不亞於晶片本身。</div>
+    </div>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">競爭格局：冰與火並存</span>
+    </div>
+    <div class="sec-body">
+      <p>前兩節的問題疊加，直接影響 2027 年的競爭態勢。窗口確實存在，但完整的圖像比「NVIDIA 崩了」複雜得多。</p>
+    </div>
+
+    <div class="notes-grid" style="margin-top:16px">
+      <div class="note-card">
+        <div class="note-card-label warn">AMD 的窗口</div>
+        <div class="note-card-body">Instinct MI500（CDNA 6、TSMC N2P、HBM4E）2027 年上市。原本 Rubin Ultra 4 晶片版可以靠壓倒性性能讓 MI500 只能搶中高端；縮水到雙晶片後，差距大幅收窄，MI500 在記憶體容量與擴展頻寬上甚至可能形成局部優勢。</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label warn">Google / Amazon 的窗口</div>
+        <div class="note-card-body">自研 ASIC 出貨量 2026 年預計年增約 44%，是通用 GPU 的三倍。Amazon Trainium 搶推論，Google TPU 搶訓練。Kyber 延遲提供了更長的窗口讓這個趨勢加速，CUDA 護城河正在緩慢被侵蝕。</div>
+      </div>
+      <div class="note-card">
+        <div class="note-card-label calm">平衡面</div>
+        <div class="note-card-body">SemiAnalysis 6/30 同日也預測：NVIDIA H2 2026 資料中心收入可能超出華爾街共識 20%，HBM4 供應瓶頸已大致解除，Rubin 標準版正在全速出貨。崩的是 2027 年後的路線圖確定性，不是短期基本面。</div>
+      </div>
+    </div>
+
+    <div class="conclusion-box" style="margin-top:20px">
+      <div class="conclusion-box-title">操作含義</div>
+      <div class="conclusion-box-text">
+        <p>這次事件屬於<strong>「利空確認但基本面仍在」</strong>的結構，類似 2024 年 Blackwell 延遲後的格局。</p>
+        <p>真正的敘事轉折點，是觀察 CSP 業者是否因 Kyber 延遲而加速轉向自研 ASIC 投入——那才是護城河侵蝕從邊際走向主流的訊號。在此之前，不追空、不搶反彈，等待止跌訊號確認。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">玻璃基板美股核心標的</span>
+    </div>
+    <div class="sec-body">
+      <p>問題確立，解法方向就清晰了：有機基板正在多個層次撞牆，玻璃基板從「未來選項」升格為「迫切需求」。以下按供應鏈上中下游排列，聚焦名稱、專長與前景。</p>
+    </div>
+
+    <div class="context-box" style="margin:16px 0 20px">
+      <div class="context-box-title">上游：特殊玻璃材料</div>
+      <div class="context-box-text">材料端含金量最高、專利壁壘最深。</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>標的</th>
+            <th>專長</th>
+            <th>前景評估</th>
+            <th>主要風險</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">GLW<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Corning</span></td>
+            <td class="td-interpret">熔融溢流法，全球唯一能穩定量產原子級平整、低 CTE 半導體級玻璃的材料廠。所有玻璃基板廠的原料供應來源。</td>
+            <td class="td-interpret"><span class="sig-ok">●</span> 2026–2028 年砸 50 億美元擴產；Glass Bridge 架構押注 CPO 市場；AI 基建材料核心受益。</td>
+            <td class="td-interpret"><span class="sig-danger">●</span> 兩項核心專利 2026 年 Q4 依序到期；中國廠商市場份額已超 30%，競爭壓力被市場低估。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="context-box" style="margin:24px 0 20px">
+      <div class="context-box-title">中游：製程設備與量測</div>
+      <div class="context-box-text">傳統 PCB 廠的設備無法處理玻璃，必須引入半導體級全新設備。這是受益最廣、波動分層最明顯的一段。</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>標的</th>
+            <th>專長</th>
+            <th>前景評估</th>
+            <th>波動特性</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">AMAT<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Applied Materials</span></td>
+            <td class="td-interpret">PVD（物理氣相沉積）與金屬化製程，負責將銅填入玻璃通孔（TGV），玻璃基板量產不可跳過的設備環節。</td>
+            <td class="td-interpret"><span class="sig-ok">●</span> 現有半導體業務以外的純增量市場，與整體 AI CapEx 高度連動，能見度高。</td>
+            <td class="td-interpret"><span class="sig-ok">●</span> 穩健成長型，波動最低。</td>
+          </tr>
+          <tr>
+            <td class="td-strong">COHR<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Coherent</span></td>
+            <td class="td-interpret">超快雷射系統，在脆性玻璃上鑽出微米級 TGV 通孔的核心前段設備商，同時受益 AI 光通訊與 CPO 雙重需求。</td>
+            <td class="td-interpret"><span class="sig-ok">●</span> 玻璃基板量產若如期推進，多點共振下上行彈性最強。</td>
+            <td class="td-interpret"><span class="sig-warn">●</span> 高波動黑馬，風報比最高。</td>
+          </tr>
+          <tr>
+            <td class="td-strong">LRCX<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Lam Research</span></td>
+            <td class="td-interpret">玻璃基板表面蝕刻、TGV 填充後的化學清洗與平坦化製程設備。</td>
+            <td class="td-interpret"><span class="sig-warn">●</span> 隱性受益型，玻璃基板貢獻是現有業務以外的增量。</td>
+            <td class="td-interpret"><span class="sig-neutral">●</span> 適合已持有、等待量產驗證的投資人。</td>
+          </tr>
+          <tr>
+            <td class="td-strong">KLAC<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">KLA Corporation</span></td>
+            <td class="td-interpret">半導體量測與缺陷檢測絕對龍頭，為玻璃基板開發專用光學檢測方案，任何人量產玻璃基板都必須採購。</td>
+            <td class="td-interpret"><span class="sig-ok">●</span> 壟斷型高利潤結構，確定性最高。防禦與成長兼具。</td>
+            <td class="td-interpret"><span class="sig-ok">●</span> 波動最小，適合作為核心持倉。</td>
+          </tr>
+          <tr>
+            <td class="td-strong">ONTO<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Onto Innovation</span></td>
+            <td class="td-interpret">玻璃基板 TGV 幾何精度與層間對位量測，比 KLA 更純的玻璃基板曝險，市值較小。</td>
+            <td class="td-interpret"><span class="sig-warn">●</span> 量產驗證階段的先行觀察指標，彈性大。</td>
+            <td class="td-interpret"><span class="sig-warn">●</span> 高波動，適合能承受較大幅度震盪的投資人。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="context-box" style="margin:24px 0 20px">
+      <div class="context-box-title">下游：IDM 整合與標準制定</div>
+      <div class="context-box-text">最終將玻璃基板導入 AI 晶片並推向市場的終端角色，同時也是標準制定的競爭戰場。</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>標的</th>
+            <th>專長</th>
+            <th>前景評估</th>
+            <th>主要風險</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">INTC<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Intel</span></td>
+            <td class="td-interpret">持有 600 項以上玻璃基板相關專利；Arizona Chandler 廠已進入 HVM 支援階段，整合 EMIB 技術；策略已從自製自用轉向專利授權，有機會以標準制定者角色獲益。</td>
+            <td class="td-interpret"><span class="sig-warn">●</span> 股價歷史低位；若授權收入具體化，估值修復彈性最大；與晶圓代工業務是獨立的故事線。</td>
+            <td class="td-interpret"><span class="sig-danger">●</span> 執行風險最高，整體業務轉型仍在進行，不確定性最大。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-note" style="margin-top:12px">
+      <span class="arrow">→</span>
+      <span>短期催化劑（2026–2027 年的直接訂單拉貨）有限，主戰場仍在 2027–2028 年。越是沒有有機基板替代品，玻璃基板的導入時程就越快；NVIDIA 的挫折，反而成了整個供應鏈加速投資研發的理由。</span>
+    </div>
+  </div>
+
+
+  <div class="footer">
+    <span>YODA SYSTEM · EVENT ANALYSIS</span>
+    <span>2026 / 07 / 06</span>
+  </div>
+
+</main>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&['c','a','u','s','p','v'].includes(e.key.toLowerCase())){e.preventDefault();}
+  if(e.key==='F12'){e.preventDefault();}
+});
+document.addEventListener('copy',function(e){e.preventDefault();return false;});
+document.addEventListener('cut',function(e){e.preventDefault();return false;});
+document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+
+function setSize(sz){
+  document.documentElement.setAttribute('data-size',sz);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={sm:'小',md:'中',lg:'大'}[sz]);
+  });
+  localStorage.setItem('nvidia-kyber-report-size',sz);
+}
+function setTheme(th){
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={dark:'深',light:'淺'}[th]);
+  });
+  localStorage.setItem('nvidia-kyber-report-theme',th);
+}
+(function(){
+  var sz=localStorage.getItem('nvidia-kyber-report-size')||'md';
+  var th=localStorage.getItem('nvidia-kyber-report-theme')||'dark';
+  document.documentElement.setAttribute('data-size',sz);
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){b.classList.toggle('active',b.textContent==={sm:'小',md:'中',lg:'大'}[sz])});
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){b.classList.toggle('active',b.textContent==={dark:'深',light:'淺'}[th])});
+})();
+</script>
+</body>
+</html>
