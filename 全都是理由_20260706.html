@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>全都是理由 · 2026/07/03</title>
+<title>全都是理由 · 2026/07/06</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -421,18 +421,18 @@ function setSize(sz){
   document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){
     b.classList.toggle('active', b.textContent==={sm:'小',md:'中',lg:'大'}[sz]);
   });
-  localStorage.setItem('bull-trigger-0703-size',sz);
+  localStorage.setItem('bull-trigger-0706-size',sz);
 }
 function setTheme(th){
   document.documentElement.setAttribute('data-theme',th);
   document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){
     b.classList.toggle('active', b.textContent==={dark:'深',light:'淺'}[th]);
   });
-  localStorage.setItem('bull-trigger-0703-theme',th);
+  localStorage.setItem('bull-trigger-0706-theme',th);
 }
 (function(){
-  var sz=localStorage.getItem('bull-trigger-0703-size')||'md';
-  var th=localStorage.getItem('bull-trigger-0703-theme')||'dark';
+  var sz=localStorage.getItem('bull-trigger-0706-size')||'md';
+  var th=localStorage.getItem('bull-trigger-0706-theme')||'dark';
   document.documentElement.setAttribute('data-size',sz);
   document.documentElement.setAttribute('data-theme',th);
   document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){b.classList.toggle('active',b.textContent==={sm:'小',md:'中',lg:'大'}[sz])});
