@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 總體經濟追蹤與分析 · TEMPLATE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══ THEME VARIABLES ═══ */
+:root {
+  --serif:'Noto Serif TC',serif;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'Noto Sans TC',sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#080b10;--bg2:#0d1117;--bg3:#131920;--bg4:#1a2230;
+  --border:#1e2d3d;--border2:#243444;
+  --accent:#00c8a0;--accent2:#f0a500;--accent3:#4d9fff;--danger:#ff4d6d;--muted:#4a6174;
+  --text:#c8d8e8;--text2:#8fa8bc;--text3:#5a7a90;--header:#e8f2ff;
+  --ctrl-bg:rgba(13,17,23,.93);--ctrl-border:#243444;--ctrl-hover:#1a2230;
+  --ctrl-act-bg:#00c8a0;--ctrl-act-txt:#080b10;
+  --hero-grad:linear-gradient(160deg,#0a1520 0%,#080b10 60%);
+  --thead-bg:#131920;--row-hover:rgba(255,255,255,.02);
+  --note-bg:#131920;--chk-bg:#131920;--formula-bg:#131920;
+  --sig-bg:rgba(255,77,109,.05);--sig-b:rgba(255,77,109,.22);
+  --warn-bg:rgba(255,77,109,.04);--warn-lb:#ff4d6d;
+  --bond-bg:#131920;--bond-best:rgba(0,200,160,.06);--bond-main:rgba(77,159,255,.06);
+  --cycle-bg:#131920;
+  --izy-g1-bg:rgba(0,200,160,.05);--izy-g1-b:rgba(0,200,160,.25);
+  --izy-g2-bg:rgba(77,159,255,.05);--izy-g2-b:rgba(77,159,255,.22);
+  --izy-g3-bg:rgba(240,165,0,.05);--izy-g3-b:rgba(240,165,0,.22);
+  --izy-g4-bg:rgba(255,77,109,.05);--izy-g4-b:rgba(255,77,109,.22);
+  --nav-bg:#0d1117;--scroll-thumb:#243444;
+  --badge-bg:linear-gradient(135deg,#1a2d1e,#0f1f14);--badge-b:#2a4a30;
+  --yardeni-bg:rgba(77,159,255,.10);--yardeni-b:rgba(77,159,255,.22);--yardeni-c:#4d9fff;
+  --tag-lead-bg:rgba(0,200,160,.10);--tag-lead-c:#00c8a0;--tag-lead-b:rgba(0,200,160,.22);
+  --tag-sync-bg:rgba(240,165,0,.10);--tag-sync-c:#f0a500;--tag-sync-b:rgba(240,165,0,.22);
+  --tag-lag-bg:rgba(90,122,144,.14);--tag-lag-c:#5a7a90;--tag-lag-b:#243444;
+  --scen-hold-bg:rgba(77,159,255,.05);--scen-hold-b:rgba(77,159,255,.22);--scen-hold-c:#4d9fff;
+  --scen-hike-bg:rgba(240,165,0,.05);--scen-hike-b:rgba(240,165,0,.22);--scen-hike-c:#f0a500;
+  --scen-cut-bg:rgba(0,200,160,.05);--scen-cut-b:rgba(0,200,160,.22);--scen-cut-c:#00c8a0;
+}
+[data-theme="light"]{
+  --bg:#f2f5f9;--bg2:#ffffff;--bg3:#eaeff6;--bg4:#dde4ef;
+  --border:#cdd6e4;--border2:#b8c5d4;
+  --accent:#007a60;--accent2:#a05800;--accent3:#1a5cb8;--danger:#c0203a;--muted:#6a8098;
+  --text:#1e2d40;--text2:#3a5068;--text3:#7090a8;--header:#0a1825;
+  --ctrl-bg:rgba(255,255,255,.96);--ctrl-border:#cdd6e4;--ctrl-hover:#eaeff6;
+  --ctrl-act-bg:#007a60;--ctrl-act-txt:#ffffff;
+  --hero-grad:linear-gradient(160deg,#dde8f5 0%,#f2f5f9 60%);
+  --thead-bg:#eaeff6;--row-hover:rgba(0,0,0,.025);
+  --note-bg:#eaeff6;--chk-bg:#eaeff6;--formula-bg:#eaeff6;
+  --sig-bg:rgba(192,32,58,.04);--sig-b:rgba(192,32,58,.20);
+  --warn-bg:rgba(192,32,58,.04);--warn-lb:#c0203a;
+  --bond-bg:#eaeff6;--bond-best:rgba(0,122,96,.07);--bond-main:rgba(26,92,184,.06);
+  --cycle-bg:#eaeff6;
+  --izy-g1-bg:rgba(0,122,96,.06);--izy-g1-b:rgba(0,122,96,.25);
+  --izy-g2-bg:rgba(26,92,184,.06);--izy-g2-b:rgba(26,92,184,.22);
+  --izy-g3-bg:rgba(160,88,0,.06);--izy-g3-b:rgba(160,88,0,.22);
+  --izy-g4-bg:rgba(192,32,58,.06);--izy-g4-b:rgba(192,32,58,.22);
+  --nav-bg:#ffffff;--scroll-thumb:#b8c5d4;
+  --badge-bg:linear-gradient(135deg,#e8f5ee,#d4eede);--badge-b:#90c8a8;
+  --yardeni-bg:rgba(26,92,184,.08);--yardeni-b:rgba(26,92,184,.22);--yardeni-c:#1a5cb8;
+  --tag-lead-bg:rgba(0,122,96,.09);--tag-lead-c:#007a60;--tag-lead-b:rgba(0,122,96,.22);
+  --tag-sync-bg:rgba(160,88,0,.08);--tag-sync-c:#a05800;--tag-sync-b:rgba(160,88,0,.22);
+  --tag-lag-bg:rgba(112,144,168,.10);--tag-lag-c:#7090a8;--tag-lag-b:#b8c5d4;
+  --scen-hold-bg:rgba(26,92,184,.05);--scen-hold-b:rgba(26,92,184,.22);--scen-hold-c:#1a5cb8;
+  --scen-hike-bg:rgba(160,88,0,.05);--scen-hike-b:rgba(160,88,0,.22);--scen-hike-c:#a05800;
+  --scen-cut-bg:rgba(0,122,96,.05);--scen-cut-b:rgba(0,122,96,.22);--scen-cut-c:#007a60;
+}
+
+/* ═══ COPY / RIGHT-CLICK PROTECTION ═══ */
+body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+
+/* ═══ FONT SIZE ═══ */
+[data-size="lg"] body{font-size:27px}
+[data-size="md"] body{font-size:24px}
+[data-size="sm"] body{font-size:21px}
+[data-size="lg"] table{font-size:22px}[data-size="md"] table{font-size:19px}[data-size="sm"] table{font-size:17px}
+[data-size="lg"] .section-title{font-size:24px}[data-size="md"] .section-title{font-size:21px}[data-size="sm"] .section-title{font-size:18px}
+[data-size="lg"] .hero-title{font-size:40px}[data-size="md"] .hero-title{font-size:34px}[data-size="sm"] .hero-title{font-size:28px}
+/* 固定不隨 sm/md/lg 縮放的元素 */
+nav a{font-size:14px!important}
+.subsection-title,.td-id-inline,.izy-badge-text,.nav-brand-title{font-size:24px;color:#f0a500;font-weight:700}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;display:flex;min-height:100vh;transition:background .25s,color .25s}
+
+/* ═══ CONTROLS ═══ */
+.controls-bar{
+  position:fixed;top:14px;right:20px;z-index:9999;
+  display:flex;align-items:center;gap:6px;
+  background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:8px;
+  padding:5px 8px;backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(0,0,0,.18);
+}
+.ctrl-group{display:flex;gap:2px}
+.ctrl-btn{
+  font-family:var(--sans);font-size:12px;font-weight:600;color:var(--text2);
+  background:transparent;border:none;border-radius:5px;padding:4px 9px;
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.ctrl-btn:hover{background:var(--ctrl-hover);color:var(--header)}
+.ctrl-btn.active{background:var(--ctrl-act-bg);color:var(--ctrl-act-txt)}
+.ctrl-home{text-decoration:none;border-radius:5px;padding:4px 10px!important;font-size:12px;font-weight:600;color:var(--text2)}
+.ctrl-home:hover{background:var(--ctrl-hover);color:var(--header)}
+.ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
+
+/* ═══ NAV ═══ */
+nav{
+  width:230px;min-width:230px;background:var(--nav-bg);border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 0 40px;
+  display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent;
+  transition:background .25s,border-color .25s;
+}
+.nav-brand{padding:0 18px 22px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.nav-brand-title{font-size:24px;color:#f0a500;font-weight:700}
+.nav-brand-sub{font-family:var(--mono);font-size:9.5px;color:var(--accent);letter-spacing:.1em;margin-top:6px;text-transform:uppercase}
+.nav-section-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);padding:12px 18px 5px}
+nav a{display:flex;align-items:center;gap:9px;padding:7px 18px;color:var(--text2);text-decoration:none;font-size:12.5px;transition:all .14s;border-left:2px solid transparent}
+nav a:hover{color:var(--header);background:var(--bg3);border-left-color:var(--accent)}
+.nav-num{font-family:var(--mono);font-size:9.5px;color:var(--text3);min-width:16px}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--border2);min-width:5px}
+.izy-section{margin-top:auto;padding:18px;border-top:1px solid var(--border)}
+.izy-badge{background:var(--badge-bg);border:1px solid var(--badge-b);border-radius:7px;padding:11px 13px}
+.izy-badge-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.izy-badge-text{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* ═══ MAIN ═══ */
+main{flex:1;overflow-x:hidden;padding-bottom:80px}
+
+/* HERO */
+.hero{background:var(--hero-grad);border-bottom:1px solid var(--border);padding:46px 48px 38px;position:relative;overflow:hidden;transition:background .25s}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,200,160,.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.hero-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:13px;display:flex;align-items:center;gap:8px}
+.hero-tag::before{content:'';width:22px;height:1px;background:var(--accent)}
+.hero-title{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--header);line-height:1.2;margin-bottom:11px;letter-spacing:-.01em}
+.hero-sub{color:var(--text2);font-size:.9em;max-width:540px;line-height:1.65}
+.hero-meta{margin-top:22px;display:flex;gap:20px;flex-wrap:wrap}
+.meta-chip{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;color:var(--text3);background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:4px 10px}
+.meta-chip-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+/* CONTENT SECTIONS */
+.content-section{padding:38px 48px;border-bottom:1px solid var(--border)}
+.section-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.section-num{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:rgba(0,200,160,.08);border:1px solid rgba(0,200,160,.22);border-radius:4px;padding:4px 10px;white-space:nowrap;margin-top:4px}
+[data-theme="light"] .section-num{background:rgba(0,122,96,.08);border-color:rgba(0,122,96,.22)}
+.section-title{font-family:var(--serif);font-size:21px;font-weight:700;color:var(--header);line-height:1.3}
+.section-desc{font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--mono);letter-spacing:.05em}
+
+/* SUBSECTIONS */
+.subsection{margin-bottom:30px}
+.subsection-title{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent2);margin-bottom:13px;display:flex;align-items:center;gap:10px}
+.subsection-title::after{content:'';flex:1;height:1px;background:var(--border);max-width:100px}
+
+/* TABLES */
+.table-wrap{overflow-x:auto;border-radius:7px;border:1px solid var(--border);margin-bottom:16px}
+table{width:100%;border-collapse:collapse}
+thead tr{background:var(--thead-bg);border-bottom:1px solid var(--border2)}
+thead th{padding:9px 13px;text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);font-weight:500;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--row-hover)}
+tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
+.td-name{font-weight:500;color:var(--header);white-space:nowrap}
+.td-id{font-family:var(--mono);font-size:10.5px;color:var(--accent3);white-space:nowrap}
+.td-link a{font-family:var(--mono);font-size:10.5px;color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,200,160,.3);padding-bottom:1px;transition:border-color .14s;white-space:nowrap}
+[data-theme="light"] .td-link a{border-bottom-color:rgba(0,122,96,.3)}
+.td-link a:hover{border-bottom-color:var(--accent)}
+.td-purpose{color:var(--text2);font-size:.87em;max-width:300px}
+.combo-table tbody td:first-child{font-weight:600;color:var(--accent2);white-space:nowrap}
+.combo-table tbody td:nth-child(2){font-family:var(--mono);font-size:10.5px;color:var(--accent3)}
+
+/* SIGNAL COLUMN */
+.td-signal{font-family:var(--mono);font-size:11px;white-space:nowrap}
+.sig-ok{color:var(--accent)}
+.sig-warn{color:var(--accent2)}
+.sig-danger{color:var(--danger)}
+.sig-neutral{color:var(--text3)}
+
+/* NOTES */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}
+.note-card{background:var(--note-bg);border:1px solid var(--border);border-radius:7px;padding:13px 15px}
+.note-card-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.note-card-label.leading{color:var(--accent)}
+.note-card-label.lagging{color:var(--muted)}
+.note-card-label.warning{color:var(--danger)}
+.note-card-label.key{color:var(--accent2)}
+.note-card-body{font-size:.86em;color:var(--text2);line-height:1.6}
+
+/* TAGS */
+.tag-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.tag{font-family:var(--mono);font-size:.75em;padding:3px 8px;border-radius:3px;white-space:nowrap}
+.tag-leading{background:var(--tag-lead-bg);color:var(--tag-lead-c);border:1px solid var(--tag-lead-b)}
+.tag-sync{background:var(--tag-sync-bg);color:var(--tag-sync-c);border:1px solid var(--tag-sync-b)}
+.tag-lag{background:var(--tag-lag-bg);color:var(--tag-lag-c);border:1px solid var(--tag-lag-b)}
+
+/* FORMULA */
+.formula-block{background:var(--formula-bg);border:1px solid var(--border2);border-left:3px solid var(--accent3);border-radius:0 7px 7px 0;padding:16px 18px;margin:14px 0;font-family:var(--mono)}
+.formula-block .formula-label{font-size:9px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.formula-main{font-size:15px;color:var(--accent3);letter-spacing:.05em}
+
+/* CHECKPOINT */
+.checkpoint-list{display:flex;flex-direction:column;gap:7px}
+.checkpoint-item{display:flex;gap:11px;align-items:flex-start;padding:9px 13px;background:var(--chk-bg);border:1px solid var(--border);border-radius:6px}
+.checkpoint-marker{font-family:var(--mono);font-size:9.5px;color:var(--accent2);background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:3px;padding:2px 7px;white-space:nowrap;margin-top:1px}
+[data-theme="light"] .checkpoint-marker{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.2)}
+.checkpoint-text{font-size:.87em;color:var(--text);line-height:1.6}
+
+/* SIGNAL BLOCK */
+.signal-block{background:var(--sig-bg);border:1px solid var(--sig-b);border-radius:7px;padding:15px 18px;margin:14px 0}
+.signal-block-title{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--danger);margin-bottom:7px}
+
+/* WARNING BOX */
+.warning-box{background:var(--warn-bg);border:1px solid var(--sig-b);border-left:3px solid var(--warn-lb);border-radius:0 7px 7px 0;padding:13px 16px;margin:10px 0}
+.warning-box-title{font-family:var(--mono);font-size:9px;color:var(--danger);letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+.warning-box-text{font-size:.86em;color:var(--text2);line-height:1.7}
+
+/* YARDENI BADGE */
+.yardeni-badge{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;background:var(--yardeni-bg);color:var(--yardeni-c);border:1px solid var(--yardeni-b);border-radius:3px;padding:1px 6px;margin-left:6px}
+
+/* SCENARIO CARDS */
+.scenario-grid{display:flex;flex-direction:column;gap:16px;margin-top:16px}
+.scenario-card{border-radius:9px;border:1px solid;overflow:hidden}
+.scenario-card-hold{background:var(--scen-hold-bg);border-color:var(--scen-hold-b)}
+.scenario-card-hike{background:var(--scen-hike-bg);border-color:var(--scen-hike-b)}
+.scenario-card-cut{background:var(--scen-cut-bg);border-color:var(--scen-cut-b)}
+.scenario-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.scenario-badge{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.badge-hold{background:rgba(77,159,255,.15);color:var(--scen-hold-c);border:1px solid var(--scen-hold-b)}
+.badge-hike{background:rgba(240,165,0,.15);color:var(--scen-hike-c);border:1px solid var(--scen-hike-b)}
+.badge-cut{background:rgba(0,200,160,.15);color:var(--scen-cut-c);border:1px solid var(--scen-cut-b)}
+[data-theme="light"] .badge-hold{background:rgba(26,92,184,.10)}
+[data-theme="light"] .badge-hike{background:rgba(160,88,0,.10)}
+[data-theme="light"] .badge-cut{background:rgba(0,122,96,.10)}
+.scenario-prob{font-family:var(--mono);font-size:12px;font-weight:600}
+.prob-hold{color:var(--scen-hold-c)}
+.prob-hike{color:var(--scen-hike-c)}
+.prob-cut{color:var(--scen-cut-c)}
+.scenario-title{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--header)}
+.scenario-verdict{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:2px 10px;border-radius:20px;margin-left:auto;white-space:nowrap}
+.verdict-hold{background:rgba(77,159,255,.12);color:var(--scen-hold-c)}
+.verdict-hike{background:rgba(240,165,0,.12);color:var(--scen-hike-c)}
+.verdict-cut-good{background:rgba(0,200,160,.12);color:var(--scen-cut-c)}
+.verdict-cut-bad{background:rgba(255,77,109,.12);color:var(--danger)}
+[data-theme="light"] .verdict-hold{background:rgba(26,92,184,.08)}
+[data-theme="light"] .verdict-hike{background:rgba(160,88,0,.08)}
+[data-theme="light"] .verdict-cut-good{background:rgba(0,122,96,.08)}
+[data-theme="light"] .verdict-cut-bad{background:rgba(192,32,58,.08)}
+.scenario-body{padding:16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.scenario-col-title{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.scenario-list li{list-style:none;padding:4px 0 4px 12px;position:relative;font-size:.85em;color:var(--text2);border-bottom:1px solid var(--border)}
+.scenario-list li:last-child{border-bottom:none}
+.scenario-list li::before{content:'▸';position:absolute;left:0;font-size:8px;top:6px;color:var(--text3)}
+
+/* CONTEXT BOX */
+.context-box{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0}
+.context-box-title{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent3);margin-bottom:8px}
+.context-box-text{font-size:.87em;color:var(--text2);line-height:1.7}
+
+/* CONCLUSION BOX */
+.conclusion-box{background:rgba(0,200,160,.04);border:1px solid rgba(0,200,160,.2);border-radius:8px;padding:16px 20px;margin-top:16px}
+[data-theme="light"] .conclusion-box{background:rgba(0,122,96,.04);border-color:rgba(0,122,96,.2)}
+.conclusion-box-title{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.conclusion-box-text{font-size:.87em;color:var(--text2);line-height:1.75}
+
+/* IZY GRID */
+.izy-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:22px}
+.izy-card{border-radius:9px;padding:16px 18px;border:1px solid;position:relative;overflow:hidden}
+.izy-card::before{content:'';position:absolute;top:0;right:0;width:70px;height:70px;border-radius:50%;opacity:.06;pointer-events:none}
+.izy-card-g1{background:var(--izy-g1-bg);border-color:var(--izy-g1-b)}.izy-card-g1::before{background:var(--accent)}
+.izy-card-g2{background:var(--izy-g2-bg);border-color:var(--izy-g2-b)}.izy-card-g2::before{background:var(--accent3)}
+.izy-card-g3{background:var(--izy-g3-bg);border-color:var(--izy-g3-b)}.izy-card-g3::before{background:var(--accent2)}
+.izy-card-g4{background:var(--izy-g4-bg);border-color:var(--izy-g4-b)}.izy-card-g4::before{background:var(--danger)}
+.izy-card-num{font-family:var(--serif);font-size:28px;font-weight:700;line-height:1;margin-bottom:7px}
+.izy-card-g1 .izy-card-num{color:var(--accent)}.izy-card-g2 .izy-card-num{color:var(--accent3)}
+.izy-card-g3 .izy-card-num{color:var(--accent2)}.izy-card-g4 .izy-card-num{color:var(--danger)}
+.izy-card-risk{font-family:var(--mono);font-size:10.5px;margin-bottom:9px;color:var(--text2)}
+.izy-card-stages{font-size:.82em;color:var(--text3);line-height:1.55}
+
+/* CYCLE BLOCKS */
+.cycle-blocks{display:flex;flex-direction:column;gap:22px}
+.cycle-block{background:var(--cycle-bg);border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.cycle-block-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:13px}
+.cycle-icon{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.cycle-recovery .cycle-icon{background:rgba(0,200,160,.12)}
+.cycle-growth   .cycle-icon{background:rgba(77,159,255,.12)}
+.cycle-boom     .cycle-icon{background:rgba(240,165,0,.12)}
+[data-theme="light"] .cycle-recovery .cycle-icon{background:rgba(0,122,96,.10)}
+[data-theme="light"] .cycle-growth   .cycle-icon{background:rgba(26,92,184,.10)}
+[data-theme="light"] .cycle-boom     .cycle-icon{background:rgba(160,88,0,.10)}
+.cycle-block-title{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--header)}
+.cycle-block-sub{font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.cycle-block-body{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cycle-list-title{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:9px}
+.cycle-list li{list-style:none;padding:5px 0 5px 13px;position:relative;font-size:.84em;color:var(--text2);border-bottom:1px solid var(--border)}
+.cycle-list li:last-child{border-bottom:none}
+.cycle-list li::before{content:'▸';position:absolute;left:0;font-size:8.5px;top:7px}
+.cycle-recovery .cycle-list li::before{color:var(--accent)}
+.cycle-growth   .cycle-list li::before{color:var(--accent3)}
+.cycle-boom     .cycle-list li::before{color:var(--accent2)}
+.invest-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.invest-pill{font-family:var(--mono);font-size:10.5px;padding:3px 10px;border-radius:20px}
+.pill-buy{background:rgba(0,200,160,.12);color:var(--accent);border:1px solid rgba(0,200,160,.3)}
+.pill-sell{background:rgba(255,77,109,.10);color:var(--danger);border:1px solid rgba(255,77,109,.25)}
+.pill-hold{background:rgba(240,165,0,.10);color:var(--accent2);border:1px solid rgba(240,165,0,.25)}
+[data-theme="light"] .pill-buy{background:rgba(0,122,96,.10);border-color:rgba(0,122,96,.28)}
+[data-theme="light"] .pill-sell{background:rgba(192,32,58,.08);border-color:rgba(192,32,58,.22)}
+[data-theme="light"] .pill-hold{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.22)}
+
+/* QUICK INDEX */
+.quick-index{background:var(--cycle-bg);border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.quick-index-row{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid var(--border);align-items:start}
+.quick-index-row:last-child{border-bottom:none}
+.quick-index-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:13px 14px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-align:center;height:100%}
+.qi-leading{color:var(--accent);background:rgba(0,200,160,.05)}
+.qi-sync{color:var(--accent2);background:rgba(240,165,0,.05)}
+.qi-lag{color:var(--text3);background:rgba(90,122,144,.05)}
+[data-theme="light"] .qi-leading{background:rgba(0,122,96,.05)}
+[data-theme="light"] .qi-sync{background:rgba(160,88,0,.05)}
+.quick-index-tags{padding:11px 14px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+
+/* BOND CYCLE */
+.bond-cycle{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:7px;overflow:hidden;margin:14px 0}
+.bond-stage{background:var(--bond-bg);padding:13px 14px}
+.bond-stage-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.bond-stage-name{font-size:.87em;font-weight:600;color:var(--text);margin-bottom:3px}
+.bond-stage-desc{font-size:.78em;color:var(--text3);line-height:1.5}
+.bond-main{background:var(--bond-main)}
+.bond-best{background:var(--bond-best)}
+
+/* ADVICE */
+.advice-list{display:flex;flex-direction:column;gap:9px}
+.advice-item{display:flex;gap:13px;align-items:flex-start;padding:11px 15px;background:var(--note-bg);border:1px solid var(--border);border-radius:7px}
+.advice-num{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--border2);line-height:1;min-width:22px}
+.advice-key{font-weight:600;color:var(--accent2);font-size:.88em;margin-bottom:3px}
+.advice-text{font-size:.83em;color:var(--text2);line-height:1.6}
+
+
+/* ═══ BREATHING LIGHT ═══ */
+@keyframes breathe{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1)}}
+.breathe-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;cursor:pointer;border:none;background:transparent;padding:0;flex-shrink:0;margin-left:auto;transition:transform .2s}
+.breathe-btn.open{transform:rotate(-180deg)}
+.breathe-dot{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:9px solid;animation:breathe 2s ease-in-out infinite;display:block}
+.breathe-hold .breathe-dot{border-top-color:var(--scen-hold-c);filter:drop-shadow(0 0 3px var(--scen-hold-c))}
+.breathe-hike .breathe-dot{border-top-color:var(--scen-hike-c);filter:drop-shadow(0 0 3px var(--scen-hike-c))}
+.breathe-cut .breathe-dot{border-top-color:var(--scen-cut-c);filter:drop-shadow(0 0 3px var(--scen-cut-c))}
+.trigger-fire{color:var(--danger)!important}
+.trigger-fire .fire-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--danger);animation:breathe 1.2s ease-in-out infinite;margin-right:5px;vertical-align:middle;box-shadow:0 0 6px var(--danger)}
+
+/* ═══ HORIZONTAL SCENARIO CARDS ═══ */
+.scenario-grid-h{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+@media(max-width:1000px){.scenario-grid-h{grid-template-columns:1fr}}
+.scen-card{border-radius:10px;border:1px solid;overflow:hidden;transition:box-shadow .2s}
+.scen-card:hover{box-shadow:0 4px 22px rgba(0,0,0,.22)}
+.scen-card-hold{background:var(--scen-hold-bg);border-color:var(--scen-hold-b)}
+.scen-card-hike{background:var(--scen-hike-bg);border-color:var(--scen-hike-b)}
+.scen-card-cut{background:var(--scen-cut-bg);border-color:var(--scen-cut-b)}
+.scen-summary{padding:16px 18px;cursor:pointer;user-select:none}
+.scen-summary-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.scen-prob{font-family:var(--mono);font-size:13px;font-weight:700}
+.scen-card-title{font-family:var(--serif);font-size:13.5px;font-weight:700;color:var(--header);margin:8px 0 6px}
+.scen-card-desc{font-size:.81em;color:var(--text2);line-height:1.6}
+.scen-verdict-tag{font-family:var(--mono);font-size:9px;letter-spacing:.08em;padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:8px;display:inline-block}
+.vtag-hold{background:rgba(77,159,255,.14);color:var(--scen-hold-c)}
+.vtag-hike{background:rgba(240,165,0,.14);color:var(--scen-hike-c)}
+.vtag-cut{background:rgba(0,200,160,.14);color:var(--scen-cut-c)}
+.scen-detail{display:none;border-top:1px solid var(--border);padding:14px 18px}
+.scen-detail.open{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.scen-col-title{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:7px;margin-top:12px}
+.scen-col-title:first-child{margin-top:0}
+.scen-list-v{list-style:none;padding:0}
+.scen-list-v li{padding:4px 0 4px 13px;position:relative;font-size:.82em;color:var(--text2);border-bottom:1px solid var(--border)}
+.scen-list-v li:last-child{border-bottom:none}
+.scen-list-v li::before{content:'▸';position:absolute;left:0;font-size:8px;top:6px;color:var(--text3)}
+.scen-list-v li.trigger-fire::before{content:''}
+
+/* ═══ TABLE EXTRAS ═══ */
+.td-update{font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap}
+.td-interpret{font-size:.81em;color:var(--text2);line-height:1.55;max-width:230px}
+
+
+
+
+
+/* ═══ PHASE COLS LAYOUT ═══ */
+.phase-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:800px){.phase-cols{grid-template-columns:1fr}}
+.phase-col{display:flex;flex-direction:column;gap:12px}
+.phase-temp{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px 0 10px}
+.phase-temp-title{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);padding:0 18px 8px;border-bottom:1px solid var(--border);margin-bottom:0}
+.mfg-temp-wrap{padding-top:4px}
+/* 製造業溫度條呼吸燈（藍色） */
+@keyframes mfgTempPulse{0%,100%{box-shadow:0 0 4px 2px rgba(77,159,255,.2);opacity:.7;transform:scale(.88)}50%{box-shadow:0 0 14px 6px rgba(77,159,255,.7);opacity:1;transform:scale(1)}}
+/* 製造業波形顏色更新（藍色）*/
+.mfg-dot-pulse{animation:tempPulse 1.8s ease-in-out infinite}
+.mw-dot-mfg{background:#4d9fff;box-shadow:0 0 6px rgba(77,159,255,.5);border:2px solid #fff}
+
+/* ═══ MARKET PHASE WAVE ═══ */
+.market-wave-wrap{margin-top:22px;padding:0}
+.market-wave-title-row{display:flex;align-items:baseline;gap:16px;margin-bottom:10px;font-family:var(--mono)}
+.market-wave-title-row>span:first-child{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text2);font-weight:600}
+.market-wave-sub{font-size:12px;color:var(--text3);letter-spacing:.06em}
+.market-wave-svg{width:100%;height:auto;display:block;overflow:visible;border-radius:6px}
+.market-wave-notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media(max-width:700px){.market-wave-notes{grid-template-columns:1fr}}
+.mw-note{display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:12px 14px}
+.mw-note-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:3px;animation:tempPulse 2s ease-in-out infinite}
+.mw-dot-biz{background:#f0a500;box-shadow:0 0 6px rgba(240,165,0,.5);border:2px solid #fff}
+
+.mw-note-title{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.mw-note-biz .mw-note-title{color:#f0a500}
+.mw-note-mfg .mw-note-title{color:#00c8a0}
+.mw-note-text{font-size:.82em;color:var(--text2);line-height:1.6}
+/* 兩個呼吸燈動畫（金/綠各自頻率） */
+@keyframes bizPulse{0%,100%{opacity:.3;r:9;filter:blur(0)}50%{opacity:1;r:12;filter:blur(1px)}}
+@keyframes mfgPulse{0%,100%{opacity:.3;r:7}50%{opacity:1;r:10}}
+.biz-dot-pulse{transform-box:fill-box;transform-origin:center center;animation:svgBizPulse 2.2s ease-in-out infinite}
+.mfg-dot-pulse{transform-box:fill-box;transform-origin:center center;animation:svgMfgPulse 1.8s ease-in-out infinite}
+@keyframes svgBizPulse{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.75;transform:scale(1.8)}}
+@keyframes svgMfgPulse{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.7;transform:scale(1.9)}}
+
+/* ═══ SIN WAVE CYCLE ═══ */
+.sin-wave-wrap{width:100%;background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 0;transition:background .25s}
+.sin-wave-inner{padding:0 48px}
+.sin-wave-title{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sin-wave-title::before{content:'';width:18px;height:1px;background:var(--text3)}
+.sin-wave-svg{width:100%;height:auto;display:block;overflow:visible}
+.sin-curr-note{font-family:var(--mono);font-size:9px;color:var(--accent2);margin-top:8px}
+/* 呼吸燈（與溫度條同規格） */
+.sin-dot-outer{animation:tempPulse 2s ease-in-out infinite}
+@media(max-width:900px){.sin-wave-inner{padding:0 18px}}
+
+/* ═══ CYCLE TEMPERATURE BAR ═══ */
+.temp-bar-wrap{
+  width:100%;background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:18px 0 16px;position:sticky;top:0;z-index:900;
+  backdrop-filter:blur(12px);transition:background .25s;
+}
+.temp-bar-inner{max-width:100%;padding:0 48px}
+.temp-bar-label-row{display:flex;justify-content:space-between;margin-bottom:6px}
+.temp-bar-label{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.tbl-recovery{color:#00c8a0}.tbl-growth{color:#4d9fff}.tbl-boom{color:#f0a500}.tbl-recession{color:#ff4d6d}
+.temp-bar-track{
+  position:relative;height:14px;border-radius:8px;overflow:visible;
+  background:linear-gradient(90deg,
+    #00c8a0 0%,
+    #1ac8b0 10%,
+    #35b8c8 20%,
+    #4da8e0 28%,
+    #4d9fff 38%,
+    #78a8f0 48%,
+    #c0a040 58%,
+    #f0a500 65%,
+    #f07828 72%,
+    #e84060 82%,
+    #ff4d6d 100%
+  );
+  box-shadow:0 2px 12px rgba(0,0,0,.25);
+}
+.temp-zone-divider{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18)}
+.temp-pointer{
+  position:absolute;top:50%;transform:translate(-50%,-50%);
+  width:22px;height:22px;
+  cursor:default;z-index:10;
+}
+.temp-pointer-dot{
+  width:22px;height:22px;border-radius:50%;
+  background:#fff;border:3px solid #f0a500;
+  box-shadow:0 0 4px 2px rgba(240,165,0,.2);
+  animation:tempPulse 2s ease-in-out infinite;
+}
+@keyframes tempPulse{
+  0%,100%{box-shadow:0 0 4px 2px rgba(240,165,0,.2);opacity:.7;transform:scale(.88)}
+  50%{box-shadow:0 0 14px 6px rgba(240,165,0,.7);opacity:1;transform:scale(1)}
+}
+.temp-pointer-label{
+  position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  background:#f0a500;color:#080b10;padding:2px 8px;border-radius:3px;white-space:nowrap;
+  font-weight:700;
+}
+.temp-pointer-label::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:#f0a500;
+}
+.temp-bar-footer{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--mono);font-size:12px;color:var(--text3)}
+.temp-curr-note{font-family:var(--mono);font-size:12px;color:var(--accent2);margin-top:5px;letter-spacing:.04em}
+@media(max-width:900px){.temp-bar-inner{padding:0 18px}}
+
+
+
+/* ═══ SECTION CARD TABS ═══ */
+.sec-group{margin-bottom:16px}
+.sec-tab-bar{display:grid;gap:10px}
+.sec-tab-bar.cols-1{grid-template-columns:1fr}
+.sec-tab-bar.cols-2{grid-template-columns:repeat(2,1fr)}
+.sec-tab-bar.cols-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.sec-tab-bar.cols-2,.sec-tab-bar.cols-3{grid-template-columns:1fr}}
+.sec-tab{background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+  cursor:pointer;transition:border-color .18s,box-shadow .18s;overflow:hidden;
+  user-select:none}
+.sec-tab:hover{border-color:var(--accent3);box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.sec-tab.active{border-color:var(--accent3);
+  box-shadow:0 0 0 2px rgba(77,159,255,.2),0 2px 14px rgba(0,0,0,.18)}
+.sec-tab-header{display:flex;align-items:center;gap:10px;padding:14px 16px 10px}
+.sec-tab-num{font-family:var(--mono);font-size:12px;color:var(--text3);
+  background:var(--bg3);border:1px solid var(--border);border-radius:4px;
+  padding:3px 8px;white-space:nowrap;transition:all .18s}
+.sec-tab.active .sec-tab-num{color:var(--accent3);
+  background:rgba(77,159,255,.1);border-color:rgba(77,159,255,.3)}
+.sec-tab-title{font-family:var(--serif);font-size:15px;font-weight:700;
+  color:var(--header);flex:1}
+.sec-tab-arrow{font-size:11px;color:var(--text3);transition:transform .2s,color .18s}
+.sec-tab.active .sec-tab-arrow{transform:rotate(180deg);color:var(--accent3)}
+.sec-tab-indicators{padding:0 16px 14px;display:flex;flex-wrap:wrap;gap:5px}
+.sec-ind-chip{font-family:var(--mono);font-size:12px;background:var(--bg3);
+  color:var(--text3);border:1px solid var(--border);border-radius:3px;
+  padding:2px 7px;white-space:nowrap;transition:all .18s}
+.sec-tab.active .sec-ind-chip{color:var(--accent3);
+  background:rgba(77,159,255,.05);border-color:rgba(77,159,255,.18)}
+.sec-panel-wrap{display:none;border:1px solid rgba(77,159,255,.35);
+  border-top:none;border-radius:0 0 10px 10px;margin-top:-1px;overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,.15)}
+.sec-panel-wrap.open{display:block;animation:panelFade .2s ease}
+@keyframes panelFade{from{opacity:0;transform:translateY(-4px)}
+  to{opacity:1;transform:translateY(0)}}
+.sec-panel-wrap .content-section{border:none;border-radius:0;
+  padding:32px 40px 40px}
+
+/* ═══ SUBSECTION SUMMARY ═══ */
+.subsection-summary{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 6px 6px 0;padding:10px 14px;margin-bottom:14px;font-size:.84em;color:var(--text2);line-height:1.65}
+.subsection-summary strong{color:var(--accent2)}
+/* 來源/連結合併欄 */
+.td-id-inline{font-family:var(--mono);font-size:10px;color:var(--accent3);display:block;margin-bottom:3px}
+
+
+
+
+.phase-tab{padding:0}
+.phase-tab .phase-temp{margin:0;border:none;background:transparent;padding-top:0}
+.phase-tab-header{display:flex;align-items:center;gap:10px;padding:14px 16px 10px}
+.phase-tab-title{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--header);flex:1}
+.phase-tab .phase-temp-title{padding:0 16px 8px;border-bottom:1px solid var(--border);margin-bottom:0}
+.phase-tab .mfg-temp-wrap,.phase-tab .temp-bar-inner{padding:10px 16px 14px}
+.phase-tab:hover{border-color:var(--accent3);box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.phase-tab.active{border-color:var(--accent3);box-shadow:0 0 0 2px rgba(77,159,255,.2)}
+.phase-tab.active .sec-tab-arrow{transform:rotate(180deg);color:var(--accent3)}
+
+/* ═══ CARD CLICK HINT ═══ */
+.sec-click-hint{font-family:var(--mono);font-size:12px;color:var(--accent3);
+  text-align:center;padding:6px 0 4px;letter-spacing:.14em;
+  animation:hintBreathe 2.4s ease-in-out infinite}
+@keyframes hintBreathe{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ═══ ARROW BREATHE ═══ */
+@keyframes arrowBreathe{
+  0%,100%{opacity:.3;filter:none}
+  50%{opacity:1;filter:drop-shadow(0 0 4px var(--accent3))}
+}
+.sec-tab-arrow{animation:arrowBreathe 2s ease-in-out infinite}
+.sec-tab.active .sec-tab-arrow{animation:none;opacity:1;color:var(--accent3)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:3px}
+
+/* RESPONSIVE */
+@media(max-width:900px){nav{display:none}.hero,.content-section{padding:26px 18px}.izy-grid{grid-template-columns:1fr 1fr}.cycle-block-body{grid-template-columns:1fr}.bond-cycle{grid-template-columns:1fr 1fr}.scenario-body{grid-template-columns:1fr}}
+@media(max-width:600px){.izy-grid{grid-template-columns:1fr}.bond-cycle{grid-template-columns:1fr}.controls-bar{top:8px;right:8px}.scenario-header{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+
+<!-- CONTROLS -->
+<div class="controls-bar">
+  <a href="https://yoda-wcyc.github.io/-/" class="ctrl-btn ctrl-home" title="回首頁">⌂ 首頁</a>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn" onclick="setSize('sm')">小</button>
+    <button class="ctrl-btn active" onclick="setSize('md')">中</button>
+    <button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  </div>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
+    <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-title">Yoda 總體<br>經濟追蹤與分析</div>
+    <div class="nav-brand-sub">▸ 2026 · MAY</div>
+  </div>
+  <div class="nav-section-label">監控指標</div>
+        <a href="#" onclick="navClickSec('sec-framework');return false;"><span class="nav-num">01</span><div class="nav-dot"></div>景氣循環投資框架</a>
+  <a href="#" onclick="navClickSec('sec-rate-pressure');return false;"><span class="nav-num">02</span><div class="nav-dot"></div>利率vs企業＋消費端</a>
+  <a href="#" onclick="navClickSec('sec-valuation');return false;"><span class="nav-num">03</span><div class="nav-dot"></div>市場估值</a>
+  <a href="#" onclick="navClickSec('sec-gdp');return false;"><span class="nav-num">04</span><div class="nav-dot"></div>GDP 與宏觀</a>
+  <a href="#" onclick="navClickSec('sec-employment');return false;"><span class="nav-num">05</span><div class="nav-dot"></div>就業市場</a>
+  <a href="#" onclick="navClickSec('sec-inflation');return false;"><span class="nav-num">06</span><div class="nav-dot"></div>通貨膨脹</a>
+  <a href="#" onclick="navClickSec('sec-pmi');return false;"><span class="nav-num">07</span><div class="nav-dot"></div>PMI 景氣</a>
+  <a href="#" onclick="navClickSec('sec-earnings');return false;"><span class="nav-num">08</span><div class="nav-dot"></div>企業獲利</a>
+  <a href="#" onclick="navClickSec('sec-risk');return false;"><span class="nav-num">09</span><div class="nav-dot"></div>風險與流動性</a>
+  <a href="#" onclick="navClickSec('sec-fed');return false;"><span class="nav-num">10</span><div class="nav-dot"></div>FED 升/降息意向</a>
+
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+<div class="content-section" id="sec-market-phase">
+  <div class="section-header">
+    <div class="section-num">00</div>
+    <div>
+      <div class="section-title">市場位階總覽</div>
+      <div class="section-desc">Market Phase Overview · 景氣大循環 × 製造業週期雙重定位</div>
+    </div>
+  </div>
+
+  <div class="sec-group" id="sec-group-phase">
+<div class="sec-click-hint">▼ 點擊展開</div>
+<div class="sec-tab-bar cols-2">
+  <div class="sec-tab phase-tab" id="sec-tab-sec-phase-biz" onclick="toggleSecTab('phase','sec-phase-biz')">
+    <div class="phase-tab-header">
+      <div class="mw-note-dot mw-dot-biz"></div>
+      <span class="phase-tab-title">景氣大循環位階</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="phase-temp">
+        <div class="phase-temp-title">景氣大循環溫度條</div>
+        <div class="temp-bar-inner">
+          <div class="temp-bar-label-row">
+            <span class="temp-bar-label tbl-recovery">🌱 復甦期</span>
+            <span class="temp-bar-label tbl-growth">📈 成長期</span>
+            <span class="temp-bar-label tbl-boom">🔥 榮景期</span>
+            <span class="temp-bar-label tbl-recession">⚠ 衰退期</span>
+          </div>
+          <div class="temp-bar-track">
+            <div class="temp-zone-divider" style="left:25%"></div>
+            <div class="temp-zone-divider" style="left:50%"></div>
+            <div class="temp-zone-divider" style="left:75%"></div>
+            <div class="temp-pointer" style="left:65%">
+              <div class="temp-pointer-label">當前位置（7月更新）</div>
+              <div class="temp-pointer-dot"></div>
+            </div>
+          </div>
+          <div class="temp-bar-footer">
+            <span>景氣低谷</span><span>溫和擴張</span><span>過熱加速</span><span>衰退收縮</span>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="sec-tab phase-tab" id="sec-tab-sec-phase-mfg" onclick="toggleSecTab('phase','sec-phase-mfg')">
+    <div class="phase-tab-header">
+      <div class="mw-note-dot mw-dot-mfg"></div>
+      <span class="phase-tab-title">製造業週期位階</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="phase-temp">
+        <div class="phase-temp-title">製造業循環溫度條</div>
+        <div class="mfg-temp-wrap">
+      <div class="temp-bar-inner">
+        <div class="temp-bar-label-row">
+          <span class="temp-bar-label" style="color:var(--danger)">⬇ 衰退（去庫存）</span>
+          <span class="temp-bar-label" style="color:var(--accent)">↑ 復甦（補庫存）</span>
+          <span class="temp-bar-label" style="color:var(--accent3)">↑↑ 擴張（擴產）</span>
+          <span class="temp-bar-label" style="color:var(--accent2)">△ 過熱（錯配）</span>
+        </div>
+        <div class="temp-bar-track" style="background:linear-gradient(90deg,#ff4d6d 0%,#00c8a0 25%,#4d9fff 50%,#f0a500 100%)">
+          <div class="temp-zone-divider" style="left:25%"></div>
+          <div class="temp-zone-divider" style="left:50%"></div>
+          <div class="temp-zone-divider" style="left:75%"></div>
+          <div class="temp-pointer" style="left:67%">
+            <div class="temp-pointer-label" style="background:#4d9fff">當前位置（7月更新）</div>
+            <div class="temp-pointer-dot" style="border-color:#4d9fff;box-shadow:0 0 4px 2px rgba(77,159,255,.2);animation-name:mfgTempPulse"></div>
+          </div>
+        </div>
+        <div class="temp-bar-footer">
+          <span>庫存過高·砍CAPEX</span>
+          <span>庫存偏低·補庫存</span>
+          <span>訂單強勁·擴產線</span>
+          <span>需求降速·缺工</span>
+        </div>
+      </div>
+    </div>
+      </div>
+  </div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-phase-biz">
+<div class="content-section" id="sec-phase-biz-content">
+  <div class="section-header">
+    <div class="section-num">◆</div>
+    <div><div class="section-title">景氣大循環位階：榮景期結束前哨警示</div>
+    <div class="section-desc">Bull Market Ending Signals · 五組訊號全面監控</div></div>
+  </div>
+  <div class="subsection-summary">▸ 當前判讀：<strong>榮景期前中段（62%）</strong>——6/17 FOMC（新主席Warsh首次會議）轉鷹，但須以逐會議機率趨勢判讀：12月升息機率從4月5.4%升至6/18的36.0%，是上升趨勢但遠未到「已定價」程度；近月（7月）會議仍維持88.8%高機率不變。自建Core CPI/PCE預測模型顯示通膨「持平緩升」而非加速惡化，邏輯上不支持連續升息。ERP+0.21%近乎於零是當前最大隱患，但產能利用率75.8%、消費端三個警示均未觸發，距頂端仍有緩衝。單次升息若企業盈餘成長仍超越升息幅度、未傷及就業消費，市場可消化；真正的崩盤觸發點是連續升息導致企業債務違約與消費衰退。以下五組訊號用於判斷榮景期是否接近尾聲。</div>
+
+  
+
+  <div class="subsection">
+    <div class="subsection-title">② 利率與估值末端訊號</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">FedWatch 升息機率</td><td class="td-link"><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME FedWatch ↗</a></td><td>12月升息機率36.0%（6/18，4月時僅5.4%）；7月會議仍88.8%不變</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">機率上升趨勢明確但遠未到「已定價」程度；近月會議仍維持高機率不變，自建CPI/PCE模型顯示通膨持平緩升，不支持連續升息</td></tr>
+        <tr><td class="td-name">ERP 股票風險溢價</td><td class="td-link"><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>+0.21%</td><td class="td-interpret sig-danger">🔴 已接近</td><td class="td-purpose">近乎於零，當前最大隱患</td></tr>
+        
+        <tr><td class="td-name">2Y-10Y 利差</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">FRED T10Y2Y ↗</a></td><td>41bp</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">仍正值未倒掛，需觀察是否轉為熊陡</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">① 消費端訊號</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>數據</th><th>來源／連結</th><th>狀態</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">家庭資產減損（S&amp;P500、房價）</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/CSUSHPISA" target="_blank">FRED CSUSHPISA ↗</a></td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">S&amp;P500處歷史高位，房價穩定無崩跌訊號</td></tr>
+        <tr><td class="td-name">家庭債務激增（信貸/違約率）</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/DRCCLACBS" target="_blank">FRED DRCCLACBS ↗</a></td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">違約率2.94%從高點回落，信貸增速放緩</td></tr>
+        <tr><td class="td-name">家庭消費崩壞（零售/PCE月增率）</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/PCECC96" target="_blank">FRED PCECC96 ↗</a></td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">PCE仍+2.5% YoY正成長，無斷崖式下滑</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">③ 企業端「加溫到無以為繼」</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">單位勞動成本 ULC</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/ULCNFB" target="_blank">FRED ULCNFB ↗</a></td><td>季增2.3%/年增1.2%</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">開始加速但仍可控</td></tr>
+        <tr><td class="td-name">實質薪資（AHE-CPI）</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/CES0500000003" target="_blank">FRED ↗</a></td><td>約+0.3%</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">仍正值，購買力未被吃掉</td></tr>
+        <tr><td class="td-name">Forward EPS 修正方向</td><td class="td-link"><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>持續上修</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">2026E $321→2027E $379，趨勢向上</td></tr>
+        <tr><td class="td-name">毛利率趨勢</td><td class="td-link"><a href="https://insight.factset.com" target="_blank">FactSet ↗</a></td><td>仍高位</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">需追蹤PPI是否傳導壓縮毛利</td></tr>
+        <tr><td class="td-name">製造業 PMI</td><td class="td-link"><a href="https://www.ismworld.org" target="_blank">ISM ↗</a></td><td>54.0</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">過熱期通常PMI衝高後反轉向下，目前尚在擴張</td></tr>
+        <tr><td class="td-name">非製造業 PMI</td><td class="td-link"><a href="https://www.ismworld.org" target="_blank">ISM ↗</a></td><td>維持&gt;50</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">服務業降溫是末端訊號之一，目前穩定</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">④ 勞動市場過熱反轉</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">產能利用率</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/CAPUTLG2211S" target="_blank">FRED CAPUTLG2211S ↗</a></td><td>75.8%</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">距82-83%門檻仍差6-7%</td></tr>
+        <tr><td class="td-name">Quits Rate 自願離職率</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/JTSQUR" target="_blank">FRED JTSQUR ↗</a></td><td>2.0%（3月）</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">持平於2015低點，未見從高位驟降的反轉訊號</td></tr>
+        <tr><td class="td-name">JOLTS 職缺/失業比</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/JTSJOL" target="_blank">FRED JTSJOL ↗</a></td><td>略&gt;1.0</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">偏緊但持續降溫</td></tr>
+        <tr><td class="td-name">初領失業金</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/ICSA" target="_blank">FRED ICSA ↗</a></td><td>歷史低位</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">未見連續4週以上回升</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">⑤ 通膨訊號</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">核心 CPI</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/CPILFESL" target="_blank">FRED CPILFESL ↗</a></td><td>2.9% YoY（5月）</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">高於Fed目標，房租貢獻仍大</td></tr>
+        <tr><td class="td-name">核心 PCE</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED PCEPILFE ↗</a></td><td>3.3% YoY（4月）</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">月增已達升息壓力門檻</td></tr>
+        <tr><td class="td-name">PPI</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/PPIACO" target="_blank">FRED PPIACO ↗</a></td><td>6.0% YoY</td><td class="td-interpret sig-danger">🔴 已觸發</td><td class="td-purpose">傳導至CPI倒計時</td></tr>
+        <tr><td class="td-name">5Y5Y 遠期通膨預期</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">FRED T5YIFR ↗</a></td><td>2.23%</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">仍貼近Fed隱含目標</td></tr>
+        <tr><td class="td-name">Cleveland Fed Nowcast</td><td class="td-link"><a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting" target="_blank">Cleveland Fed ↗</a></td><td>headline 0.07%/Core 0.23%（MoM）</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">headline受油價降溫掩蓋，Core PCE仍頑固</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">⚡ 基期效應與安全／危險時間窗（詳見06卡片6-1）</div>
+      <div class="warning-box-text">
+        <strong>Core CPI</strong>：2025年11月基期極低（0.16%，全年最低）是<strong style="color:var(--danger)">2026年11月的最大危險窗</strong>——若11月實際數據僅是正常的0.2-0.3%，對比此極低基期，YoY會明顯跳升，這是數學效應而非真實惡化。2025年7-8月基期偏高（0.3%），對應2026年同期是<strong style="color:var(--accent)">安全窗</strong>，YoY會自動看起來改善但不代表真實降溫。<br><br>
+        <strong>Core PCE</strong>：2025年全年基期分布在0.2-0.4%之間，無CPI式的單月極端低點，YoY軌跡更平滑，可作為CPI的交叉驗證指標。<strong>若CPI某月YoY大幅跳升但PCE同期平穩，應優先懷疑是CPI特有的基期失真，而非真實通膨惡化；若兩者同步跳升，才需認真看待。</strong>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-phase-mfg">
+<div class="content-section" id="sec-phase-mfg-content">
+  <div class="section-header">
+    <div class="section-num">◆</div>
+    <div><div class="section-title">製造業週期位階：詳細判讀</div>
+    <div class="section-desc">Manufacturing Cycle Detail</div></div>
+  </div>
+  <div class="subsection-summary">▸ 當前判讀：<strong>擴張中段（62%）</strong>——ISM PMI 54.0、新訂單56.8強勁擴張、訂單積壓52.2%持續上升，顯示需求超過產能消化速度；但原物料庫存仍收縮（尚未開始重建）、客戶庫存仍「過低」，尚未出現過熱期的庫存回升特徵。</div>
+  <div class="subsection">
+    <div class="subsection-title">① 訂單動能訊號</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">新訂單（ISM New Orders）</td><td class="td-link"><a href="https://www.ismworld.org" target="_blank">ISM ↗</a></td><td>5月強勁擴張</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">新訂單廣泛回升，連同生產與貿易流動同步走強，反映內外需求堅實</td></tr>
+        <tr><td class="td-name">訂單積壓（Backlog of Orders）</td><td class="td-link"><a href="https://www.ismworld.org" target="_blank">ISM ↗</a></td><td>52.2%（+0.8pt）</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">較4月51.4%上升，連續處於擴張區，需求持續超過產能消化速度</td></tr>
+        <tr><td class="td-name">客戶庫存（Customer Inventories）</td><td class="td-link"><a href="https://www.ismworld.org" target="_blank">ISM ↗</a></td><td>「過低」</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">客戶庫存持續偏低，代表主動拉貨壓力仍強，尚未進入庫存回補完成階段</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">② 庫存週期訊號</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">原物料庫存</td><td class="td-link"><a href="https://www.ismworld.org" target="_blank">ISM ↗</a></td><td>收縮中</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">原物料庫存仍處收縮，尚未開始回補重建，距過熱期的庫存回升特徵還有距離</td></tr>
+        <tr><td class="td-name">庫存/銷售比（總體企業）</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/ISRATIO" target="_blank">FRED ISRATIO ↗</a></td><td>1.32（3月）</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">較去年同期1.38下降，健康偏低，無庫存過剩壓力</td></tr>
+        <tr><td class="td-name">產能利用率（製造業）</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/MCUMFN" target="_blank">FRED MCUMFN ↗</a></td><td>75.8%</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">距82-83%過熱門檻仍差6-7%，尚有擴張空間</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">背景說明</div>
+      <div class="warning-box-text">供應商交期60.6%已連續6個月放緩，但這是訂單強勁的伴隨現象（需求超過產能消化速度），代表景氣良好，不視為警示訊號。ISM物價指數82.1%仍處高位，反映成本端壓力，但非本框架追蹤重點。</div>
+    </div>
+  </div>
+</div>
+  <div class="subsection">
+    <div class="subsection-title">③ 全球科技供應鏈訊號</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>數據</th><th>來源／連結</th><th>YoY</th><th>MoM</th><th>基期效應判讀</th><th>狀態</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-name">台灣電子零組件出口</td>
+          <td class="td-link"><a href="https://en.macromicro.me/charts/122/tw-exports-industries" target="_blank">財經M平方 ↗</a></td>
+          <td>5月創單月新高</td>
+          <td>4月整體出口MoM -15.7%（3月出貨高峰回落）</td>
+          <td class="td-purpose">1月基期偏低（去年農曆年僅$38.7B），墊高1月YoY達50-56%；全年隨2025基期逐月墊高，YoY從Q4'25的24-126%收斂至4-5月的38-62%，是基期墊高而非需求轉弱</td>
+          <td class="td-interpret sig-ok">✅ 未觸發</td>
+        </tr>
+        <tr>
+          <td class="td-name">台灣資通訊出口</td>
+          <td class="td-link"><a href="https://en.macromicro.me/charts/122/tw-exports-industries" target="_blank">財經M平方 ↗</a></td>
+          <td>4月+62.3%，刷新單月次高</td>
+          <td>同上，受3月出貨高峰後MoM回落影響</td>
+          <td class="td-purpose">2025下半年基期已大幅墊高（資通訊Q4'25 YoY達126-170%），2026同期比較基期更高，YoY理應收斂</td>
+          <td class="td-interpret sig-ok">✅ 未觸發</td>
+        </tr>
+        <tr>
+          <td class="td-name">全球半導體銷售（SIA/WSTS）</td>
+          <td class="td-link"><a href="https://www.semiconductors.org/news-events/latest-news/" target="_blank">SIA ↗</a></td>
+          <td>4月+93.9%，3月+79.2%，2月+61.8%，1月+46.1%</td>
+          <td>4月MoM+11%，3月MoM+11.5%</td>
+          <td class="td-purpose"><strong>基期平穩（2025年3-4月約$55-57B，無異常低值），YoY持續加速且MoM同步強勁正成長，代表真實需求加速，非基期效應製造的假象</strong></td>
+          <td class="td-interpret sig-ok">✅ 未觸發（真實強勁）</td>
+        </tr>
+        <tr>
+          <td class="td-name">四大CSP資本支出<br>（MSFT/GOOGL/AMZN/META）</td>
+          <td class="td-link"><span class="td-id-inline">公司財報</span></td>
+          <td>2026年guidance $725B，較2025實際$410B年增77%</td>
+          <td>不適用（年度guidance非月度數據）</td>
+          <td class="td-purpose"><strong>2025本身已是歷史新高基期（非低基期），2026在此高基期上仍年增77%，代表真實加速擴張而非基期幻象</strong>；但guidance常於年中上修（如Meta從$135B上修至$145B），需追蹤Q2/Q3財報是否持續上修或反轉</td>
+          <td class="td-interpret sig-warn">⚠ 觀察中</td>
+        </tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">關鍵發現</div>
+      <div class="warning-box-text">台灣出口的高YoY%有相當部分是「基期效應」（尤其Q1農曆年錯位+2025下半年基期墊高），但全球半導體銷售和CSP資本支出兩者都建立在「並不低」的基期之上仍持續加速，這兩個才是判斷本輪AI週期是否「真實」的更乾淨訊號。</div>
+    </div>
+    <div class="warning-box">
+      <div class="warning-box-title">⚡ 基期效應與安全／危險時間窗</div>
+      <div class="warning-box-text">
+        <strong>台灣電子零組件／資通訊出口</strong>：2025年1月基期極低（農曆年僅$38.7B）→ 2026年1月是<strong style="color:var(--danger)">危險窗（YoY會虛高，易誤判為出口大爆發）</strong>；2025下半年基期已大幅墊高（資通訊Q4'25 YoY達126-170%）→ 2026下半年同期是<strong style="color:var(--accent)">安全窗（YoY會自動收斂，不代表需求真的轉弱）</strong>。<br><br>
+        <strong>全球半導體銷售</strong>：2025年3-4月基期平穩（無異常值）→ 2026年同期屬<strong>中性窗</strong>，YoY加速（46%→94%）且MoM同步強勁，是最值得信任的真實趨勢訊號，不受基期效應干擾。<br><br>
+        <strong>交叉驗證原則</strong>：若台灣出口YoY劇烈波動但半導體銷售/CSP資本支出同步平穩走升，應優先判定為台灣出口特有的基期/季節性效應，而非全球需求驟變。
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /phase-cols -->
+
+  <!-- ③ 放在一起看 -->
+  <div class="market-wave-wrap">
+    <div class="market-wave-title-row">
+      <span>放在一起看</span>
+      <span class="market-wave-sub">白線 = 景氣大循環（7-10Y）　·　藍線 = 製造業週期（2-4Y，每一個景氣階段各一個小週期）</span>
+    </div>
+    <svg class="market-wave-svg" viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <rect x="0" y="0" width="120" height="200" fill="rgba(255,77,109,.09)"/>
+      <rect x="120" y="0" width="190" height="200" fill="rgba(0,200,160,.09)"/>
+      <rect x="310" y="0" width="180" height="200" fill="rgba(77,159,255,.09)"/>
+      <rect x="490" y="0" width="190" height="200" fill="rgba(240,165,0,.09)"/>
+      <rect x="680" y="0" width="220" height="200" fill="rgba(255,77,109,.09)"/>
+      <line x1="120" y1="0" x2="120" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="310" y1="0" x2="310" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="490" y1="0" x2="490" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="680" y1="0" x2="680" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="0" y1="100" x2="900" y2="100" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4,4"/><text x="60.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#ff4d6d" font-weight="600" font-size="12">⚠ 衰退期</text>
+      <text x="215.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#00c8a0" font-weight="600" font-size="12">🌱 復甦期</text>
+      <text x="400.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#4d9fff" font-weight="600" font-size="12">📈 成長期</text>
+      <text x="585.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#f0a500" font-weight="600" font-size="12">🔥 榮景期</text>
+      <text x="790.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#ff4d6d" font-weight="600" font-size="12">⚠ 衰退期</text>
+      
+      <defs><linearGradient id="lgGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,.05)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient></defs>
+      <path d="M 0,150.8 L 2,151.3 L 4,151.7 L 6,152.2 L 8,152.6 L 10,153.0 L 12,153.4 L 14,153.8 L 16,154.2 L 18,154.6 L 20,155.0 L 22,155.4 L 24,155.8 L 26,156.2 L 28,156.5 L 30,156.9 L 32,157.2 L 34,157.6 L 36,157.9 L 38,158.2 L 40,158.6 L 42,158.9 L 44,159.2 L 46,159.5 L 48,159.8 L 50,160.1 L 52,160.3 L 54,160.6 L 56,160.9 L 58,161.1 L 60,161.4 L 62,161.6 L 64,161.8 L 66,162.0 L 68,162.3 L 70,162.5 L 72,162.7 L 74,162.8 L 76,163.0 L 78,163.2 L 80,163.4 L 82,163.5 L 84,163.7 L 86,163.8 L 88,164.0 L 90,164.1 L 92,164.2 L 94,164.3 L 96,164.4 L 98,164.5 L 100,164.6 L 102,164.7 L 104,164.7 L 106,164.8 L 108,164.9 L 110,164.9 L 112,164.9 L 114,165.0 L 116,165.0 L 118,165.0 L 120,165.0 L 122,165.0 L 124,165.0 L 126,165.0 L 128,164.9 L 130,164.9 L 132,164.9 L 134,164.8 L 136,164.7 L 138,164.7 L 140,164.6 L 142,164.5 L 144,164.4 L 146,164.3 L 148,164.2 L 150,164.1 L 152,164.0 L 154,163.8 L 156,163.7 L 158,163.5 L 160,163.4 L 162,163.2 L 164,163.0 L 166,162.8 L 168,162.7 L 170,162.5 L 172,162.3 L 174,162.0 L 176,161.8 L 178,161.6 L 180,161.4 L 182,161.1 L 184,160.9 L 186,160.6 L 188,160.3 L 190,160.1 L 192,159.8 L 194,159.5 L 196,159.2 L 198,158.9 L 200,158.6 L 202,158.2 L 204,157.9 L 206,157.6 L 208,157.2 L 210,156.9 L 212,156.5 L 214,156.2 L 216,155.8 L 218,155.4 L 220,155.0 L 222,154.6 L 224,154.2 L 226,153.8 L 228,153.4 L 230,153.0 L 232,152.6 L 234,152.2 L 236,151.7 L 238,151.3 L 240,150.8 L 242,150.4 L 244,149.9 L 246,149.4 L 248,148.9 L 250,148.5 L 252,148.0 L 254,147.5 L 256,147.0 L 258,146.5 L 260,146.0 L 262,145.4 L 264,144.9 L 266,144.4 L 268,143.9 L 270,143.3 L 272,142.8 L 274,142.2 L 276,141.7 L 278,141.1 L 280,140.5 L 282,140.0 L 284,139.4 L 286,138.8 L 288,138.2 L 290,137.6 L 292,137.0 L 294,136.4 L 296,135.8 L 298,135.2 L 300,134.6 L 302,134.0 L 304,133.3 L 306,132.7 L 308,132.1 L 310,131.4 L 312,130.8 L 314,130.2 L 316,129.5 L 318,128.9 L 320,128.2 L 322,127.5 L 324,126.9 L 326,126.2 L 328,125.5 L 330,124.9 L 332,124.2 L 334,123.5 L 336,122.8 L 338,122.2 L 340,121.5 L 342,120.8 L 344,120.1 L 346,119.4 L 348,118.7 L 350,118.0 L 352,117.3 L 354,116.6 L 356,115.9 L 358,115.2 L 360,114.5 L 362,113.8 L 364,113.0 L 366,112.3 L 368,111.6 L 370,110.9 L 372,110.2 L 374,109.4 L 376,108.7 L 378,108.0 L 380,107.3 L 382,106.6 L 384,105.8 L 386,105.1 L 388,104.4 L 390,103.6 L 392,102.9 L 394,102.2 L 396,101.5 L 398,100.7 L 400,100.0 L 402,99.3 L 404,98.5 L 406,97.8 L 408,97.1 L 410,96.4 L 412,95.6 L 414,94.9 L 416,94.2 L 418,93.4 L 420,92.7 L 422,92.0 L 424,91.3 L 426,90.6 L 428,89.8 L 430,89.1 L 432,88.4 L 434,87.7 L 436,87.0 L 438,86.2 L 440,85.5 L 442,84.8 L 444,84.1 L 446,83.4 L 448,82.7 L 450,82.0 L 452,81.3 L 454,80.6 L 456,79.9 L 458,79.2 L 460,78.5 L 462,77.8 L 464,77.2 L 466,76.5 L 468,75.8 L 470,75.1 L 472,74.5 L 474,73.8 L 476,73.1 L 478,72.5 L 480,71.8 L 482,71.1 L 484,70.5 L 486,69.8 L 488,69.2 L 490,68.6 L 492,67.9 L 494,67.3 L 496,66.7 L 498,66.0 L 500,65.4 L 502,64.8 L 504,64.2 L 506,63.6 L 508,63.0 L 510,62.4 L 512,61.8 L 514,61.2 L 516,60.6 L 518,60.0 L 520,59.5 L 522,58.9 L 524,58.3 L 526,57.8 L 528,57.2 L 530,56.7 L 532,56.1 L 534,55.6 L 536,55.1 L 538,54.6 L 540,54.0 L 542,53.5 L 544,53.0 L 546,52.5 L 548,52.0 L 550,51.5 L 552,51.1 L 554,50.6 L 556,50.1 L 558,49.6 L 560,49.2 L 562,48.7 L 564,48.3 L 566,47.8 L 568,47.4 L 570,47.0 L 572,46.6 L 574,46.2 L 576,45.8 L 578,45.4 L 580,45.0 L 582,44.6 L 584,44.2 L 586,43.8 L 588,43.5 L 590,43.1 L 592,42.8 L 594,42.4 L 596,42.1 L 598,41.8 L 600,41.4 L 602,41.1 L 604,40.8 L 606,40.5 L 608,40.2 L 610,39.9 L 612,39.7 L 614,39.4 L 616,39.1 L 618,38.9 L 620,38.6 L 622,38.4 L 624,38.2 L 626,38.0 L 628,37.7 L 630,37.5 L 632,37.3 L 634,37.2 L 636,37.0 L 638,36.8 L 640,36.6 L 642,36.5 L 644,36.3 L 646,36.2 L 648,36.0 L 650,35.9 L 652,35.8 L 654,35.7 L 656,35.6 L 658,35.5 L 660,35.4 L 662,35.3 L 664,35.3 L 666,35.2 L 668,35.1 L 670,35.1 L 672,35.1 L 674,35.0 L 676,35.0 L 678,35.0 L 680,35.0 L 682,35.0 L 684,35.0 L 686,35.0 L 688,35.1 L 690,35.1 L 692,35.1 L 694,35.2 L 696,35.3 L 698,35.3 L 700,35.4 L 702,35.5 L 704,35.6 L 706,35.7 L 708,35.8 L 710,35.9 L 712,36.0 L 714,36.2 L 716,36.3 L 718,36.5 L 720,36.6 L 722,36.8 L 724,37.0 L 726,37.2 L 728,37.3 L 730,37.5 L 732,37.7 L 734,38.0 L 736,38.2 L 738,38.4 L 740,38.6 L 742,38.9 L 744,39.1 L 746,39.4 L 748,39.7 L 750,39.9 L 752,40.2 L 754,40.5 L 756,40.8 L 758,41.1 L 760,41.4 L 762,41.8 L 764,42.1 L 766,42.4 L 768,42.8 L 770,43.1 L 772,43.5 L 774,43.8 L 776,44.2 L 778,44.6 L 780,45.0 L 782,45.4 L 784,45.8 L 786,46.2 L 788,46.6 L 790,47.0 L 792,47.4 L 794,47.8 L 796,48.3 L 798,48.7 L 800,49.2 L 802,49.6 L 804,50.1 L 806,50.6 L 808,51.1 L 810,51.5 L 812,52.0 L 814,52.5 L 816,53.0 L 818,53.5 L 820,54.0 L 822,54.6 L 824,55.1 L 826,55.6 L 828,56.1 L 830,56.7 L 832,57.2 L 834,57.8 L 836,58.3 L 838,58.9 L 840,59.5 L 842,60.0 L 844,60.6 L 846,61.2 L 848,61.8 L 850,62.4 L 852,63.0 L 854,63.6 L 856,64.2 L 858,64.8 L 860,65.4 L 862,66.0 L 864,66.7 L 866,67.3 L 868,67.9 L 870,68.6 L 872,69.2 L 874,69.8 L 876,70.5 L 878,71.1 L 880,71.8 L 882,72.5 L 884,73.1 L 886,73.8 L 888,74.5 L 890,75.1 L 892,75.8 L 894,76.5 L 896,77.2 L 898,77.8 L 900,78.5 L 900,200 L 0,200 Z" fill="url(#lgGrad)"/>
+      <path d="M 0,150.8 L 2,151.3 L 4,151.7 L 6,152.2 L 8,152.6 L 10,153.0 L 12,153.4 L 14,153.8 L 16,154.2 L 18,154.6 L 20,155.0 L 22,155.4 L 24,155.8 L 26,156.2 L 28,156.5 L 30,156.9 L 32,157.2 L 34,157.6 L 36,157.9 L 38,158.2 L 40,158.6 L 42,158.9 L 44,159.2 L 46,159.5 L 48,159.8 L 50,160.1 L 52,160.3 L 54,160.6 L 56,160.9 L 58,161.1 L 60,161.4 L 62,161.6 L 64,161.8 L 66,162.0 L 68,162.3 L 70,162.5 L 72,162.7 L 74,162.8 L 76,163.0 L 78,163.2 L 80,163.4 L 82,163.5 L 84,163.7 L 86,163.8 L 88,164.0 L 90,164.1 L 92,164.2 L 94,164.3 L 96,164.4 L 98,164.5 L 100,164.6 L 102,164.7 L 104,164.7 L 106,164.8 L 108,164.9 L 110,164.9 L 112,164.9 L 114,165.0 L 116,165.0 L 118,165.0 L 120,165.0 L 122,165.0 L 124,165.0 L 126,165.0 L 128,164.9 L 130,164.9 L 132,164.9 L 134,164.8 L 136,164.7 L 138,164.7 L 140,164.6 L 142,164.5 L 144,164.4 L 146,164.3 L 148,164.2 L 150,164.1 L 152,164.0 L 154,163.8 L 156,163.7 L 158,163.5 L 160,163.4 L 162,163.2 L 164,163.0 L 166,162.8 L 168,162.7 L 170,162.5 L 172,162.3 L 174,162.0 L 176,161.8 L 178,161.6 L 180,161.4 L 182,161.1 L 184,160.9 L 186,160.6 L 188,160.3 L 190,160.1 L 192,159.8 L 194,159.5 L 196,159.2 L 198,158.9 L 200,158.6 L 202,158.2 L 204,157.9 L 206,157.6 L 208,157.2 L 210,156.9 L 212,156.5 L 214,156.2 L 216,155.8 L 218,155.4 L 220,155.0 L 222,154.6 L 224,154.2 L 226,153.8 L 228,153.4 L 230,153.0 L 232,152.6 L 234,152.2 L 236,151.7 L 238,151.3 L 240,150.8 L 242,150.4 L 244,149.9 L 246,149.4 L 248,148.9 L 250,148.5 L 252,148.0 L 254,147.5 L 256,147.0 L 258,146.5 L 260,146.0 L 262,145.4 L 264,144.9 L 266,144.4 L 268,143.9 L 270,143.3 L 272,142.8 L 274,142.2 L 276,141.7 L 278,141.1 L 280,140.5 L 282,140.0 L 284,139.4 L 286,138.8 L 288,138.2 L 290,137.6 L 292,137.0 L 294,136.4 L 296,135.8 L 298,135.2 L 300,134.6 L 302,134.0 L 304,133.3 L 306,132.7 L 308,132.1 L 310,131.4 L 312,130.8 L 314,130.2 L 316,129.5 L 318,128.9 L 320,128.2 L 322,127.5 L 324,126.9 L 326,126.2 L 328,125.5 L 330,124.9 L 332,124.2 L 334,123.5 L 336,122.8 L 338,122.2 L 340,121.5 L 342,120.8 L 344,120.1 L 346,119.4 L 348,118.7 L 350,118.0 L 352,117.3 L 354,116.6 L 356,115.9 L 358,115.2 L 360,114.5 L 362,113.8 L 364,113.0 L 366,112.3 L 368,111.6 L 370,110.9 L 372,110.2 L 374,109.4 L 376,108.7 L 378,108.0 L 380,107.3 L 382,106.6 L 384,105.8 L 386,105.1 L 388,104.4 L 390,103.6 L 392,102.9 L 394,102.2 L 396,101.5 L 398,100.7 L 400,100.0 L 402,99.3 L 404,98.5 L 406,97.8 L 408,97.1 L 410,96.4 L 412,95.6 L 414,94.9 L 416,94.2 L 418,93.4 L 420,92.7 L 422,92.0 L 424,91.3 L 426,90.6 L 428,89.8 L 430,89.1 L 432,88.4 L 434,87.7 L 436,87.0 L 438,86.2 L 440,85.5 L 442,84.8 L 444,84.1 L 446,83.4 L 448,82.7 L 450,82.0 L 452,81.3 L 454,80.6 L 456,79.9 L 458,79.2 L 460,78.5 L 462,77.8 L 464,77.2 L 466,76.5 L 468,75.8 L 470,75.1 L 472,74.5 L 474,73.8 L 476,73.1 L 478,72.5 L 480,71.8 L 482,71.1 L 484,70.5 L 486,69.8 L 488,69.2 L 490,68.6 L 492,67.9 L 494,67.3 L 496,66.7 L 498,66.0 L 500,65.4 L 502,64.8 L 504,64.2 L 506,63.6 L 508,63.0 L 510,62.4 L 512,61.8 L 514,61.2 L 516,60.6 L 518,60.0 L 520,59.5 L 522,58.9 L 524,58.3 L 526,57.8 L 528,57.2 L 530,56.7 L 532,56.1 L 534,55.6 L 536,55.1 L 538,54.6 L 540,54.0 L 542,53.5 L 544,53.0 L 546,52.5 L 548,52.0 L 550,51.5 L 552,51.1 L 554,50.6 L 556,50.1 L 558,49.6 L 560,49.2 L 562,48.7 L 564,48.3 L 566,47.8 L 568,47.4 L 570,47.0 L 572,46.6 L 574,46.2 L 576,45.8 L 578,45.4 L 580,45.0 L 582,44.6 L 584,44.2 L 586,43.8 L 588,43.5 L 590,43.1 L 592,42.8 L 594,42.4 L 596,42.1 L 598,41.8 L 600,41.4 L 602,41.1 L 604,40.8 L 606,40.5 L 608,40.2 L 610,39.9 L 612,39.7 L 614,39.4 L 616,39.1 L 618,38.9 L 620,38.6 L 622,38.4 L 624,38.2 L 626,38.0 L 628,37.7 L 630,37.5 L 632,37.3 L 634,37.2 L 636,37.0 L 638,36.8 L 640,36.6 L 642,36.5 L 644,36.3 L 646,36.2 L 648,36.0 L 650,35.9 L 652,35.8 L 654,35.7 L 656,35.6 L 658,35.5 L 660,35.4 L 662,35.3 L 664,35.3 L 666,35.2 L 668,35.1 L 670,35.1 L 672,35.1 L 674,35.0 L 676,35.0 L 678,35.0 L 680,35.0 L 682,35.0 L 684,35.0 L 686,35.0 L 688,35.1 L 690,35.1 L 692,35.1 L 694,35.2 L 696,35.3 L 698,35.3 L 700,35.4 L 702,35.5 L 704,35.6 L 706,35.7 L 708,35.8 L 710,35.9 L 712,36.0 L 714,36.2 L 716,36.3 L 718,36.5 L 720,36.6 L 722,36.8 L 724,37.0 L 726,37.2 L 728,37.3 L 730,37.5 L 732,37.7 L 734,38.0 L 736,38.2 L 738,38.4 L 740,38.6 L 742,38.9 L 744,39.1 L 746,39.4 L 748,39.7 L 750,39.9 L 752,40.2 L 754,40.5 L 756,40.8 L 758,41.1 L 760,41.4 L 762,41.8 L 764,42.1 L 766,42.4 L 768,42.8 L 770,43.1 L 772,43.5 L 774,43.8 L 776,44.2 L 778,44.6 L 780,45.0 L 782,45.4 L 784,45.8 L 786,46.2 L 788,46.6 L 790,47.0 L 792,47.4 L 794,47.8 L 796,48.3 L 798,48.7 L 800,49.2 L 802,49.6 L 804,50.1 L 806,50.6 L 808,51.1 L 810,51.5 L 812,52.0 L 814,52.5 L 816,53.0 L 818,53.5 L 820,54.0 L 822,54.6 L 824,55.1 L 826,55.6 L 828,56.1 L 830,56.7 L 832,57.2 L 834,57.8 L 836,58.3 L 838,58.9 L 840,59.5 L 842,60.0 L 844,60.6 L 846,61.2 L 848,61.8 L 850,62.4 L 852,63.0 L 854,63.6 L 856,64.2 L 858,64.8 L 860,65.4 L 862,66.0 L 864,66.7 L 866,67.3 L 868,67.9 L 870,68.6 L 872,69.2 L 874,69.8 L 876,70.5 L 878,71.1 L 880,71.8 L 882,72.5 L 884,73.1 L 886,73.8 L 888,74.5 L 890,75.1 L 892,75.8 L 894,76.5 L 896,77.2 L 898,77.8 L 900,78.5" fill="none" stroke="#f0a500" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M 0,170.8 L 2,171.2 L 4,171.3 L 6,171.2 L 8,170.9 L 10,170.3 L 12,169.6 L 14,168.7 L 16,167.6 L 18,166.4 L 20,165.0 L 22,163.6 L 24,162.0 L 26,160.3 L 28,158.6 L 30,156.9 L 32,155.1 L 34,153.4 L 36,151.7 L 38,150.1 L 40,148.6 L 42,147.1 L 44,145.8 L 46,144.6 L 48,143.6 L 50,142.7 L 52,142.1 L 54,141.6 L 56,141.3 L 58,141.2 L 60,141.4 L 62,141.7 L 64,142.3 L 66,143.0 L 68,144.0 L 70,145.1 L 72,146.5 L 74,148.0 L 76,149.6 L 78,151.4 L 80,153.4 L 82,155.4 L 84,157.5 L 86,159.7 L 88,161.9 L 90,164.1 L 92,166.3 L 94,168.5 L 96,170.6 L 98,172.6 L 100,174.6 L 102,176.4 L 104,178.1 L 106,179.7 L 108,181.0 L 110,182.2 L 112,183.2 L 114,184.0 L 116,184.5 L 118,184.9 L 120,185.0 L 122,185.0 L 124,184.8 L 126,184.6 L 128,184.2 L 130,183.8 L 132,183.3 L 134,182.7 L 136,182.0 L 138,181.2 L 140,180.4 L 142,179.4 L 144,178.4 L 146,177.4 L 148,176.2 L 150,175.0 L 152,173.8 L 154,172.5 L 156,171.1 L 158,169.7 L 160,168.3 L 162,166.8 L 164,165.3 L 166,163.8 L 168,162.3 L 170,160.8 L 172,159.3 L 174,157.8 L 176,156.3 L 178,154.8 L 180,153.3 L 182,151.9 L 184,150.5 L 186,149.1 L 188,147.8 L 190,146.5 L 192,145.3 L 194,144.1 L 196,143.0 L 198,142.0 L 200,141.0 L 202,140.1 L 204,139.2 L 206,138.5 L 208,137.8 L 210,137.2 L 212,136.6 L 214,136.2 L 216,135.8 L 218,135.5 L 220,135.3 L 222,135.2 L 224,135.1 L 226,135.2 L 228,135.3 L 230,135.4 L 232,135.7 L 234,136.0 L 236,136.3 L 238,136.8 L 240,137.3 L 242,137.8 L 244,138.4 L 246,139.0 L 248,139.7 L 250,140.4 L 252,141.2 L 254,141.9 L 256,142.7 L 258,143.5 L 260,144.3 L 262,145.1 L 264,145.9 L 266,146.7 L 268,147.5 L 270,148.2 L 272,148.9 L 274,149.6 L 276,150.3 L 278,150.9 L 280,151.5 L 282,152.0 L 284,152.4 L 286,152.8 L 288,153.1 L 290,153.4 L 292,153.6 L 294,153.7 L 296,153.7 L 298,153.6 L 300,153.5 L 302,153.3 L 304,152.9 L 306,152.5 L 308,152.0 L 310,151.4 L 312,150.8 L 314,150.0 L 316,149.1 L 318,148.1 L 320,147.0 L 322,145.8 L 324,144.5 L 326,143.2 L 328,141.7 L 330,140.2 L 332,138.6 L 334,136.9 L 336,135.2 L 338,133.3 L 340,131.5 L 342,129.5 L 344,127.6 L 346,125.6 L 348,123.5 L 350,121.5 L 352,119.4 L 354,117.3 L 356,115.2 L 358,113.1 L 360,111.0 L 362,108.9 L 364,106.9 L 366,104.8 L 368,102.8 L 370,100.9 L 372,99.0 L 374,97.1 L 376,95.3 L 378,93.6 L 380,92.0 L 382,90.4 L 384,88.9 L 386,87.4 L 388,86.1 L 390,84.9 L 392,83.7 L 394,82.6 L 396,81.7 L 398,80.8 L 400,80.0 L 402,79.3 L 404,78.7 L 406,78.2 L 408,77.9 L 410,77.6 L 412,77.4 L 414,77.2 L 416,77.2 L 418,77.3 L 420,77.4 L 422,77.6 L 424,77.9 L 426,78.2 L 428,78.6 L 430,79.1 L 432,79.6 L 434,80.2 L 436,80.8 L 438,81.4 L 440,82.1 L 442,82.7 L 444,83.4 L 446,84.1 L 448,84.8 L 450,85.5 L 452,86.1 L 454,86.8 L 456,87.4 L 458,88.0 L 460,88.5 L 462,89.0 L 464,89.5 L 466,89.9 L 468,90.2 L 470,90.4 L 472,90.6 L 474,90.7 L 476,90.8 L 478,90.7 L 480,90.6 L 482,90.4 L 484,90.1 L 486,89.6 L 488,89.1 L 490,88.6 L 492,87.9 L 494,87.1 L 496,86.3 L 498,85.3 L 500,84.3 L 502,83.2 L 504,82.1 L 506,80.9 L 508,79.5 L 510,78.2 L 512,76.7 L 514,75.2 L 516,73.7 L 518,72.1 L 520,70.4 L 522,68.7 L 524,67.0 L 526,65.2 L 528,63.4 L 530,61.6 L 532,59.8 L 534,57.9 L 536,56.1 L 538,54.2 L 540,52.4 L 542,50.6 L 544,48.8 L 546,47.0 L 548,45.2 L 550,43.5 L 552,41.8 L 554,40.2 L 556,38.6 L 558,37.1 L 560,35.6 L 562,34.2 L 564,32.9 L 566,31.7 L 568,30.5 L 570,29.4 L 572,28.4 L 574,27.5 L 576,26.6 L 578,25.9 L 580,25.2 L 582,24.7 L 584,24.2 L 586,23.8 L 588,23.6 L 590,23.4 L 592,23.3 L 594,23.3 L 596,23.4 L 598,23.6 L 600,23.8 L 602,24.2 L 604,24.6 L 606,25.2 L 608,25.7 L 610,26.4 L 612,27.1 L 614,27.9 L 616,28.8 L 618,29.7 L 620,30.6 L 622,31.6 L 624,32.6 L 626,33.7 L 628,34.8 L 630,35.9 L 632,37.0 L 634,38.1 L 636,39.3 L 638,40.4 L 640,41.5 L 642,42.7 L 644,43.7 L 646,44.8 L 648,45.9 L 650,46.9 L 652,47.8 L 654,48.7 L 656,49.6 L 658,50.4 L 660,51.2 L 662,51.9 L 664,52.5 L 666,53.1 L 668,53.6 L 670,54.0 L 672,54.4 L 674,54.6 L 676,54.8 L 678,55.0 L 680,55.0 L 682,55.0 L 684,54.9 L 686,54.7 L 688,54.5 L 690,54.3 L 692,54.0 L 694,53.6 L 696,53.2 L 698,52.7 L 700,52.2 L 702,51.7 L 704,51.1 L 706,50.4 L 708,49.7 L 710,49.0 L 712,48.3 L 714,47.5 L 716,46.6 L 718,45.8 L 720,44.9 L 722,44.1 L 724,43.2 L 726,42.2 L 728,41.3 L 730,40.4 L 732,39.5 L 734,38.5 L 736,37.6 L 738,36.7 L 740,35.8 L 742,34.9 L 744,34.1 L 746,33.2 L 748,32.4 L 750,31.6 L 752,30.9 L 754,30.2 L 756,29.5 L 758,28.9 L 760,28.3 L 762,27.8 L 764,27.3 L 766,26.9 L 768,26.6 L 770,26.3 L 772,26.1 L 774,25.9 L 776,25.8 L 778,25.7 L 780,25.8 L 782,25.9 L 784,26.0 L 786,26.3 L 788,26.6 L 790,27.0 L 792,27.4 L 794,28.0 L 796,28.6 L 798,29.2 L 800,30.0 L 802,30.8 L 804,31.7 L 806,32.6 L 808,33.6 L 810,34.7 L 812,35.8 L 814,37.0 L 816,38.3 L 818,39.6 L 820,40.9 L 822,42.3 L 824,43.8 L 826,45.3 L 828,46.8 L 830,48.4 L 832,50.0 L 834,51.6 L 836,53.3 L 838,54.9 L 840,56.6 L 842,58.3 L 844,60.1 L 846,61.8 L 848,63.5 L 850,65.2 L 852,67.0 L 854,68.7 L 856,70.4 L 858,72.1 L 860,73.7 L 862,75.4 L 864,77.0 L 866,78.6 L 868,80.1 L 870,81.7 L 872,83.1 L 874,84.6 L 876,86.0 L 878,87.3 L 880,88.6 L 882,89.9 L 884,91.1 L 886,92.2 L 888,93.3 L 890,94.3 L 892,95.3 L 894,96.2 L 896,97.0 L 898,97.8 L 900,98.5" fill="none" stroke="#4d9fff" stroke-width="1.6" stroke-linejoin="round" opacity=".8"/>
+      
+      <g transform="translate(604,40.8)">
+        <circle class="biz-dot-pulse" r="9" fill="rgba(240,165,0,.25)"/>
+        <circle r="5" fill="#fff" stroke="#f0a500" stroke-width="2.5"/>
+        <rect x="-54" y="-36" width="108" height="18" rx="3" fill="#f0a500"/>
+        <text x="0" y="-23" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#080b10" font-weight="700" font-size="12">景氣大循環位階</text>
+        <line x1="0" y1="-18" x2="0" y2="-5" stroke="#f0a500" stroke-width="1.5"/>
+      </g>
+      <g transform="translate(545,47.9)">
+        <circle class="mfg-dot-pulse" r="7" fill="rgba(77,159,255,.25)"/>
+        <circle r="4.5" fill="#fff" stroke="#4d9fff" stroke-width="2"/>
+        <rect x="-54" y="10" width="108" height="18" rx="3" fill="#4d9fff"/>
+        <text x="0" y="23" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#080b10" font-weight="700" font-size="12">製造業週期位階</text>
+        <line x1="0" y1="5" x2="0" y2="10" stroke="#4d9fff" stroke-width="1.5"/>
+      </g>
+      <rect x="690" y="145" width="205" height="50" fill="rgba(0,0,0,.28)" rx="4"/>
+      <line x1="698" y1="159" x2="728" y2="159" stroke="#f0a500" stroke-width="2.5"/>
+      <text x="734" y="163" font-family="IBM Plex Mono,monospace"   fill="#f0a500" font-size="12">景氣大循環（7-10Y）</text>
+      <line x1="698" y1="178" x2="728" y2="178" stroke="#4d9fff" stroke-width="1.8"/>
+      <text x="734" y="182" font-family="IBM Plex Mono,monospace"   fill="#4d9fff" font-size="12">製造業週期（2-4Y）</text>
+    </svg>
+  </div>
+
+</div>
+
+<div class="sec-group" id="sec-group-r1">
+<div class="sec-click-hint">▼ 點擊展開內容</div>
+<div class="sec-tab-bar cols-3">
+  <div class="sec-tab" id="sec-tab-sec-framework" onclick="toggleSecTab('r1','sec-framework')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">01</span>
+      <span class="sec-tab-title">景氣循環投資框架</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">先行/同步/滯後指標</span><span class="sec-ind-chip">IZY四格局</span><span class="sec-ind-chip">四大循環</span><span class="sec-ind-chip">公債循環</span><span class="sec-ind-chip">操盤法則</span></div>
+  </div>
+  <div class="sec-tab" id="sec-tab-sec-rate-pressure" onclick="toggleSecTab('r1','sec-rate-pressure')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">02</span>
+      <span class="sec-tab-title">利率vs企業＋消費端</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">HY利差</span><span class="sec-ind-chip">企業負債/GDP</span><span class="sec-ind-chip">利息覆蓋率</span><span class="sec-ind-chip">信用卡利率</span><span class="sec-ind-chip">消費信貸</span><span class="sec-ind-chip">PCE</span><span class="sec-ind-chip">違約率</span></div>
+  </div>
+  <div class="sec-tab" id="sec-tab-sec-valuation" onclick="toggleSecTab('r1','sec-valuation')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">03</span>
+      <span class="sec-tab-title">市場估值</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">Forward P/E</span><span class="sec-ind-chip">PEG</span><span class="sec-ind-chip">ERP</span><span class="sec-ind-chip">指數泡沫點位</span></div>
+  </div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-framework">
+<div class="content-section" id="sec-framework">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <div><div class="section-title">景氣循環投資框架</div>
+    <div class="section-desc">Cycle Framework · 指標分類、格局定位與操盤法則</div></div>
+  </div>
+  <div class="content-section" id="sec-quickindex">
+  <div class="section-header">
+    <div class="section-num">▶</div>
+    <div class="section-title-wrap">
+      <div class="section-title">快速索引：指標先行 vs 滯後</div>
+      <div class="section-desc">Leading · Coincident · Lagging Indicators</div>
+    </div>
+  </div>
+  <div class="quick-index">
+    <div class="quick-index-row">
+      <div class="quick-index-label qi-leading">領先<br>指標</div>
+      <div class="quick-index-tags">
+        <span class="tag tag-leading">JOLTS 職位空缺</span>
+        <span class="tag tag-leading">初領失業金</span>
+        <span class="tag tag-leading">製造業建築支出</span>
+        <span class="tag tag-leading">WEI 每週指數</span>
+        <span class="tag tag-leading">ISM 新訂單</span>
+        <span class="tag tag-leading">銅金比</span>
+        <span class="tag tag-leading">油金比</span>
+        <span class="tag tag-leading">SOFR 曲線形態</span>
+        <span class="tag tag-leading">Term SOFR 12M−1M 利差</span>
+        <span class="tag tag-leading">2Y 美債殖利率</span>
+        <span class="tag tag-leading">ERP 股票風險溢價</span>
+        <span class="tag tag-leading">Forward EPS 修正趨勢</span>
+      </div>
+    </div>
+    <div class="quick-index-row">
+      <div class="quick-index-label qi-sync">同步<br>指標</div>
+      <div class="quick-index-tags">
+        <span class="tag tag-sync">實質 GDP</span>
+        <span class="tag tag-sync">PCE</span>
+        <span class="tag tag-sync">製造業聘僱</span>
+        <span class="tag tag-sync">ISM 製造業 PMI</span>
+        <span class="tag tag-sync">Forward Revenue per Share</span>
+      </div>
+    </div>
+    <div class="quick-index-row">
+      <div class="quick-index-label qi-lag">滯後<br>指標</div>
+      <div class="quick-index-tags">
+        <span class="tag tag-lag">失業率</span>
+        <span class="tag tag-lag">長期失業人口</span>
+        <span class="tag tag-lag">CPI 房租</span>
+        <span class="tag tag-lag">企業違約率</span>
+        <span class="tag tag-lag">CAPE 席勒本益比</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 景氣循環框架 ══ -->
+<div class="content-section" id="sec-cycle">
+  <div class="section-header">
+    <div class="section-num">★</div>
+    <div class="section-title-wrap">
+      <div class="section-title">景氣循環投資框架</div>
+      <div class="section-desc">Business Cycle Framework · Asset Allocation by Phase</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">四大景氣循環階段深度拆解</div>
+    <div class="cycle-blocks">
+      <div class="cycle-block cycle-recovery">
+        <div class="cycle-block-header"><div class="cycle-icon">🌱</div><div><div class="cycle-block-title">復甦期 · Recovery</div><div class="cycle-block-sub">景氣最壞已過 · 政策紅利全力作多</div></div></div>
+        <div class="cycle-block-body">
+          <div>
+            <div class="cycle-list-title">確認落底的四大現象</div>
+            <ul class="cycle-list">
+              <li>貨幣極度寬鬆：長短利率大幅下滑</li>
+              <li>財政刺激出爐：減稅、擴大政府支出</li>
+              <li>原物料價格低迷：降低生產成本</li>
+              <li>極低基期效應：數據稍好轉，年增率即噴發</li>
+            </ul>
+            <div class="cycle-list-title" style="margin-top:13px">關鍵判斷指標</div>
+            <ul class="cycle-list">
+              <li><strong>就業：</strong>初領失業金高峰即起點</li>
+              <li><strong>消費：</strong>零售銷售與耐久財支出止跌</li>
+              <li><strong>投資：</strong>私人固定資本投資走出低迷</li>
+              <li><strong>外貿：</strong>進口金額年增率回溫</li>
+            </ul>
+          </div>
+          <div>
+            <div class="cycle-list-title">投資策略</div>
+            <ul class="cycle-list">
+              <li>現金不可為王，勇敢進場股市</li>
+              <li>加碼股市、高收益債</li>
+              <li>黃金此時應賣出</li>
+              <li>無風險債券僅剩低息，避開</li>
+            </ul>
+            <div class="cycle-list-title" style="margin-top:13px">資產配置</div>
+            <div class="invest-pills">
+              <span class="invest-pill pill-buy">買進 股市</span>
+              <span class="invest-pill pill-buy">買進 高收益債</span>
+              <span class="invest-pill pill-sell">賣出 黃金</span>
+              <span class="invest-pill pill-sell">避開 美債</span>
+            </div>
+            <div class="warning-box" style="margin-top:13px;border-left-color:var(--accent)"><div class="warning-box-title" style="color:var(--accent)">操盤法則</div><div class="warning-box-text">別在復甦期恐慌。二次衰退的傳言通常只是高基期數據造成的幻象，應持續加碼。</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cycle-block cycle-growth">
+        <div class="cycle-block-header"><div class="cycle-icon">📈</div><div><div class="cycle-block-title">成長期 · Growth</div><div class="cycle-block-sub">太平盛世 · 時間最長 · 長期佈局最佳期</div></div></div>
+        <div class="cycle-block-body">
+          <div>
+            <div class="cycle-list-title">穩定增長的四大現象</div>
+            <ul class="cycle-list">
+              <li>遞延消費釋放：儲蓄率下降，消費穩定擴張</li>
+              <li>就業循環確立：廠商擴編，良性循環</li>
+              <li>投資良性擴張：企業樂觀，資本投入增加</li>
+              <li>溫和通膨：回升至健康水準，鞏固信心</li>
+            </ul>
+            <div class="warning-box" style="margin-top:13px"><div class="warning-box-title">關鍵警語</div><div class="warning-box-text">此時期風險事件多為「虛驚一場」，不應輕易撤出。本益比超越歷史均值在此階段是正常現象。</div></div>
+          </div>
+          <div>
+            <div class="cycle-list-title">投資策略</div>
+            <ul class="cycle-list">
+              <li>持續買進與持有風險資產</li>
+              <li>股市最佳標的，獲利增長支撐高估值</li>
+              <li>美債大跌期，避開無風險債券</li>
+              <li>原物料初期上揚，後期應避開</li>
+            </ul>
+            <div class="cycle-list-title" style="margin-top:13px">資產配置</div>
+            <div class="invest-pills">
+              <span class="invest-pill pill-buy">持續 股市</span>
+              <span class="invest-pill pill-sell">避開 美債</span>
+              <span class="invest-pill pill-hold">初期 原物料</span>
+            </div>
+            <div class="warning-box" style="margin-top:13px;border-left-color:var(--accent3)"><div class="warning-box-title" style="color:var(--accent3)">操盤法則</div><div class="warning-box-text">別在成長期嫌貴。企業獲利增長會消弭昂貴的本益比，此時期風險事件多為「虛驚一場」，不應輕易撤出。</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cycle-block cycle-boom">
+        <div class="cycle-block-header"><div class="cycle-icon">🔥</div><div><div class="cycle-block-title">榮景期 · Prosperity</div><div class="cycle-block-sub">景氣最後高潮 · 加速成長 · 風險意識喪失</div></div></div>
+        <div class="cycle-block-body">
+          <div>
+            <div class="cycle-list-title">榮景期的判斷指標</div>
+            <ul class="cycle-list">
+              <li>消費大於收入：透支消費成形</li>
+              <li><strong style="color:var(--accent2)">初領失業金 U 型反轉</strong>（50年最準指標）</li>
+              <li>第二次耐久財暴衝：景氣結束倒數計時</li>
+              <li>政府支出激增：稅收在高點轉向</li>
+              <li>違約率攀升：企業/個人違約數據回頭</li>
+            </ul>
+          </div>
+          <div>
+            <div class="cycle-list-title">投資策略</div>
+            <ul class="cycle-list">
+              <li>股市水位隨漲勢遞減（70%→50%→30%）</li>
+              <li><strong style="color:var(--accent2)">開始佈局長天期公債（TLT）</strong></li>
+              <li>避開高收益債（違約風險增）</li>
+              <li>原物料迎最後瘋狂，謹慎操作</li>
+            </ul>
+            <div class="cycle-list-title" style="margin-top:13px">資產配置</div>
+            <div class="invest-pills">
+              <span class="invest-pill pill-sell">減碼 股市</span>
+              <span class="invest-pill pill-buy">佈局 長債 TLT</span>
+              <span class="invest-pill pill-sell">避開 高收益債</span>
+            </div>
+            <div class="warning-box" style="margin-top:13px;border-left-color:var(--accent2)"><div class="warning-box-title" style="color:var(--accent2)">操盤法則</div><div class="warning-box-text">別在榮景期眷戀。當初領失業金 U 型反轉、利率倒掛後的末升段結束，必須嚴格執行撤退計畫。</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+      <div class="cycle-block" style="background:rgba(255,77,109,.04);border:1px solid rgba(255,77,109,.2);border-radius:9px;overflow:hidden;margin-bottom:22px">
+        <div class="cycle-block-header">
+          <div class="cycle-icon" style="background:rgba(255,77,109,.12)">⚠</div>
+          <div><div class="cycle-block-title">衰退期 · Recession</div>
+          <div class="cycle-block-sub">最艱難的時期 · 保存實力 · 等待轉機</div></div>
+        </div>
+        <div class="cycle-block-body">
+          <div>
+            <div class="cycle-list-title">衰退確立的四大現象</div>
+            <ul class="cycle-list">
+              <li>就業惡化：非農就業月增轉負，初領失業金 U 型反轉</li>
+              <li>消費緊縮：零售銷售與耐久財訂單連續下滑</li>
+              <li>企業減碼：CAPEX 急凍，庫存/銷售比飆升</li>
+              <li>金融壓力：信用利差擴大，VIX 飆升，融資條件惡化</li>
+            </ul>
+          </div>
+          <div>
+            <div class="cycle-list-title">投資策略</div>
+            <ul class="cycle-list">
+              <li>大幅減股，資金撤入現金與長天期公債</li>
+              <li>公債從最差變最佳：利率下行收益最大</li>
+              <li>黃金在此期可持有（避險需求）</li>
+              <li>等待初領失業金高峰，即下一個復甦起點</li>
+            </ul>
+            <div class="invest-pills">
+              <span class="invest-pill pill-buy">買進 長債</span>
+              <span class="invest-pill pill-buy">持有 黃金</span>
+              <span class="invest-pill pill-sell">賣出 股市</span>
+              <span class="invest-pill pill-sell">現金為王</span>
+            </div>
+            <div class="warning-box" style="margin-top:13px;border-left-color:var(--danger)"><div class="warning-box-title">操盤法則</div><div class="warning-box-text">數據先行，永遠觀察四大連動：耐久財訂單、初領失業金、零售銷售、政府稅收，提前佈局下一個復甦。</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+    <div class="subsection-title">美國長天期公債四階段規律</div>
+    <div class="bond-cycle">
+      <div class="bond-stage"><div class="bond-stage-label">第一段</div><div class="bond-stage-name">主跌段</div><div class="bond-stage-desc">成長期至榮景期，通膨與增速升溫</div></div>
+      <div class="bond-stage"><div class="bond-stage-label">第二段</div><div class="bond-stage-name">反彈段</div><div class="bond-stage-desc">榮景期中期，升息走到盡頭</div></div>
+      <div class="bond-stage bond-best"><div class="bond-stage-label">第三段 ★ 最佳買點</div><div class="bond-stage-name">再修正</div><div class="bond-stage-desc">榮景期末期，利率暫緩後最後衝刺</div></div>
+      <div class="bond-stage bond-main"><div class="bond-stage-label">第四段</div><div class="bond-stage-name">長多段</div><div class="bond-stage-desc">進入衰退期，債價大漲</div></div>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-rate-pressure">
+<div class="content-section" id="sec-rate-pressure">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">利率 vs 企業＋消費端</div>
+      <div class="section-desc">Rate Pressure Monitor · 升息是否已開始拖累企業獲利與消費者</div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">2-1 企業壓力儀表板</div>
+    <div class="subsection-summary">【小結】三項指標共同構成「利率是否開始咬人」的早期預警系統。因果鏈：企業負債高 × 利率升 → 利息支出增 → 獲利壓縮 → HY利差擴大 → 市場估值下修。目前（2026/06）HY利差 2.75%，歷史均值 3.93%，信用市場無壓力。IG企業利息覆蓋率 6.38x 健康；但Non-IG已降至 2.89x，接近歷史警戒水位。企業槓桿持平，升息效應尚在可控範圍，但需持續追蹤是否惡化。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th><th>監控目的</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-name">高收益債利差 HY OAS</td>
+          <td class="td-link"><span class="td-id-inline">BAMLH0A0HYM2</span><br><a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank">FRED ↗</a></td>
+          <td><strong>2.75%</strong>（2026/06）<br><small>歷史均值 3.93%｜歷史高點 21.82%</small></td>
+          <td class="td-interpret sig-ok">✅ 歷史低位，市場對企業違約無恐慌，信用市場平靜</td>
+          <td class="td-purpose">衡量市場對「高風險企業」違約的恐懼程度。若飆升→垃圾債企業還款困難→衰退前兆</td>
+        </tr>
+        <tr>
+          <td class="td-name">非金融企業負債佔 GDP</td>
+          <td class="td-link"><span class="td-id-inline">BCNSDODNS / GDP</span><br><a href="https://fred.stlouisfed.org/series/BCNSDODNS" target="_blank">FRED ↗</a></td>
+          <td><strong>~48.9%</strong>（Q4 2025）<br><small>企業負債 $14.2T ÷ GDP ~$29T</small></td>
+          <td class="td-interpret sig-warn">⚠ 略高於疫前水準，槓桿倍數偏高，升息放大效應仍在</td>
+          <td class="td-purpose">觀察企業整體槓桿。比率持續攀升→企業依賴舉債，升息緊縮效應被放大</td>
+        </tr>
+        <tr>
+          <td class="td-name">企業淨利息支出佔獲利比（利息覆蓋率）</td>
+          <td class="td-link"><span class="td-id-inline">ICR = EBIT / Interest</span><br><a href="https://www.spglobal.com" target="_blank">S&amp;P Global ↗</a></td>
+          <td><strong>IG：6.38x</strong>（Q1 2025）<br><strong>Non-IG：2.89x</strong><br><small>2022高峰 IG 8.97x</small></td>
+          <td class="td-interpret sig-warn">⚠ IG健康但已較高峰壓縮；Non-IG 2.89x 接近歷史警戒，利息已吃掉35%獲利</td>
+          <td class="td-purpose">直接衡量利息吃掉多少獲利。比例越高企業體質越弱，抗壓能力下降</td>
+        </tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">升息預警邏輯</div>
+      <div class="warning-box-text">若升息2碼後「淨利息支出佔獲利比」沒有明顯抬頭，代表企業營收能力足以消化。反之，若「高收益債利差」出現跳空擴張，即市場發出「這2碼已超出企業負荷」的警訊。即便持有Alphabet或NVIDIA，市場整體估值也會因風險溢價提高而遭到下修。</div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">2-2 消費端壓力儀表板</div>
+    <div class="subsection-summary">【小結】四個維度構成「升息對消費者的壓力」全景圖。傳導順序：Fed升息 → 信用卡利率拉高 → 消費者減少借貸 → 實際消費支出縮減 → 違約率上升。目前（2026/06）：信用卡利率約20-21%（歷史高位），總信貸增速明顯放緩（Jan 2026 僅+$8B），違約率 2.94% 從高點回落，顯示消費者壓力存在但尚未惡化。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>維度</th><th>來源／連結</th><th>當前數值</th><th>判讀</th><th>監控目的</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-name">① 利率傳導<br>信用卡利率</td>
+          <td class="td-link"><span class="td-id-inline">TERMCBCCALLNS</span><br><a href="https://fred.stlouisfed.org/series/TERMCBCCALLNS" target="_blank">FRED ↗</a></td>
+          <td><strong>~20–21%</strong>（2025年底估算）<br><small>H2 2022 實測：17.67%</small></td>
+          <td class="td-interpret sig-danger">🔴 歷史高位，Fed升息已完全傳導至消費者借貸成本</td>
+          <td class="td-purpose">確認 Fed 升息是否真的讓消費者借貸變貴</td>
+        </tr>
+        <tr>
+          <td class="td-name">② 槓桿意願<br>消費者信用總額</td>
+          <td class="td-link"><span class="td-id-inline">TOTALSL</span><br><a href="https://fred.stlouisfed.org/series/TOTALSL" target="_blank">FRED ↗</a></td>
+          <td><strong>$5.11T</strong>（Jan 2026）<br><small>月增 +$8B（Dec +$25B）</small></td>
+          <td class="td-interpret sig-warn">⚠ 增速明顯放緩，高利率正壓制借貸意願，消費去槓桿開始</td>
+          <td class="td-purpose">觀察消費者是否因成本高而開始減少借貸</td>
+        </tr>
+        <tr>
+          <td class="td-name">③ 實際體感<br>實質個人消費支出</td>
+          <td class="td-link"><span class="td-id-inline">PCECC96</span><br><a href="https://fred.stlouisfed.org/series/PCECC96" target="_blank">FRED ↗</a></td>
+          <td><strong>+2.5% YoY</strong>（2026 Q1 估）<br><small>三線收斂穩定擴張</small></td>
+          <td class="td-interpret sig-ok">✅ 仍正成長，消費支撐在，但需追蹤是否趨緩</td>
+          <td class="td-purpose">最關鍵結果指標：民眾口袋裡的錢真的變少花了嗎</td>
+        </tr>
+        <tr>
+          <td class="td-name">④ 違約風險<br>信用卡違約率</td>
+          <td class="td-link"><span class="td-id-inline">DRCCLACBS</span><br><a href="https://fred.stlouisfed.org/series/DRCCLACBS" target="_blank">FRED ↗</a></td>
+          <td><strong>2.94%</strong>（Q4 2025）<br><small>Q1 2025 高點 3.06%↓</small></td>
+          <td class="td-interpret sig-ok">✅ 從高點回落，違約壓力穩定，尚未出現升息導致的違約潮</td>
+          <td class="td-purpose">若飆升代表升息已導致消費者出現違約潮，風險極高</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+</div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-valuation">
+<div class="content-section" id="sec-valuation">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-title-wrap">
+      <div class="section-title">市場估值</div>
+      <div class="section-desc">Market Valuation · Liquidity Pricing</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">3-1 前瞻獲利估值</div>
+    <div class="subsection-summary">S&amp;P 500 Forward P/E 20.4x（7月最新），高於5Y均值19.9及10Y均值19.0，估值偏高但正被EPS上修消化——EPS從$349反推持續上修至~$367，Nasdaq 100 EPS更從~$750上修至~$890。這是「盈餘驅動消化」的健康型態：股價漲幅未脫離EPS成長軌道。板塊估值分歧明顯，AI/消費非必需最貴（25.3x）、能源金融最便宜（13.5x/14.7x），符合牛市中期特徵。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">S&amp;P 500 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni/FactSet</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>20.1-20.9x</td><td class="td-interpret sig-warn">⚠ 高於5Y均值19.9、10Y均值19.0，估值偏高</td></tr>
+        <tr><td class="td-name">S&amp;P 500 Forward EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>$375（年底預估）/$349（反推）</td><td class="td-interpret sig-ok">✅ 持續上修，盈餘驅動牛市核心</td></tr>
+        <tr><td class="td-name">Nasdaq 100 Forward P/E &amp; EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>~29x／$1,030</td><td class="td-interpret sig-warn">⚠ 略高於均值但有真實獲利支撐</td></tr>
+        <tr><td class="td-name">S&amp;P 500 各板塊 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span><br><a href="https://www.factset.com/earningsinsight" target="_blank">FactSet ↗</a></td><td>最高：消費非必需25.3x／最低：能源13.5x、金融14.7x</td><td class="td-interpret sig-warn">⚠ 板塊分歧明顯，AI/消費相關估值溢價最大</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">3-2 股債比較估值模型（Yardeni 完整）</div>
+    <div class="subsection-summary">盈餘收益率4.78%（=1/20.9）與10Y殖利率4.57%相近，ERP僅+0.21%——股票對債券的相對吸引力已被壓縮到近乎於零，是當前最大隱患。歷史上ERP接近零時任何殖利率上升都會直接壓縮股價，這也是元件58 ERP反推框架建議「升息1碼修正10-14%」的核心邏輯。Misery Index 8.4%（CPI 4.2%+失業率4.2%）偏高但未失控，消費者感受偏緊但未進入痛苦區。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">S&amp;P 500 盈餘收益率 Earnings Yield <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>4.78%（=1/20.9）</td><td class="td-interpret sig-warn">⚠ 與10Y殖利率4.57%相近，吸引力持平</td></tr>
+        <tr><td class="td-name">股票風險溢價 ERP / Fed Model <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>+0.21%</td><td class="td-interpret sig-danger">🔴 近乎於零，當前最大隱患</td></tr>
+        
+        <tr><td class="td-name">Misery Index <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni/FRED</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>~8.4%（CPI4.2%+失業率4.2%）</td><td class="td-interpret sig-warn">⚠ 偏高，消費者痛苦指數上升</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">3-3 當前估值綜合判讀（2026年7月）</div>
+    <div class="subsection-summary">Forward P/E 20.4x 高於長期均值但PEG 0.97 &lt;1 → 估值偏高但盈餘成長仍能支撐，屬「盈餘驅動消化中」而非「泡沫化」。S&amp;P 500 現點7,483離輕度泡沫24x（$8,808）尚有17.7%空間，中度泡沫28x（$10,276）尚有37.3%空間——空間仍在。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>估值模型</th><th>公式</th><th>當前數值</th><th>公允區間</th><th>訊號</th><th>判讀</th><th>泡沫情境點位推估（S&amp;P 500 ／ Nasdaq 100）</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-name">Forward P/E</td>
+          <td class="td-id" style="font-size:10px">股價 ÷ 12M Fwd EPS</td>
+          <td><strong style="color:var(--accent2)">20.4x</strong></td>
+          <td class="td-interpret sig-warn">—</td><td class="td-purpose"><div style="font-family:var(--mono);font-size:.78em;line-height:1.7"><strong style="color:var(--text2)">S&amp;P 500（EPS ~$367）</strong><br>當前 20.4x ▶ <strong>$7,483</strong><br>輕度泡沫 24x ▶ <strong style="color:var(--accent2)">$8,808</strong><br>中度泡沫 28x ▶ <strong style="color:var(--accent2)">$10,276</strong><br>完全泡沫 35x ▶ <strong style="color:var(--danger)">$12,845</strong><br><br><strong style="color:var(--text2)">Nasdaq 100（EPS ~$890）</strong><br>當前 ~29x ▶ <strong>~$25,833</strong><br>輕度泡沫 40x ▶ <strong style="color:var(--accent2)">$35,600</strong><br>中度泡沫 50x ▶ <strong style="color:var(--accent2)">$44,500</strong><br>完全泡沫 60x ▶ <strong style="color:var(--danger)">$53,400</strong><br><small style="color:var(--text3)">60x = 2000年3月Nasdaq100頂點水準</small></div></td></tr>
+        <tr>
+          <td class="td-name">PEG 比率</td>
+          <td class="td-id" style="font-size:10px">P/E ÷ EPS成長率<br>= 20.4 ÷ 21.0</td>
+          <td><strong style="color:var(--accent)">0.97</strong></td>
+          <td class="td-interpret sig-ok">—</td><td class="td-purpose"><div style="font-family:var(--mono);font-size:.78em;line-height:1.7"><strong style="color:var(--accent)">PEG&lt;1 = 估值尚有消化空間</strong><br>EPS成長速度（+21%）若持續：<br>S&amp;P 目標可支撐到 $8,800–$10,300<br>NDX 可支撐到 $35,600–$44,500<br><small style="color:var(--text3)">AI盈餘社會化廣度是關鍵變數</small></div></td></tr>
+      </tbody>
+    </table></div>
+    <div class="conclusion-box" style="margin-top:14px">
+      <div class="conclusion-box-title">綜合估值判讀</div>
+      <div class="conclusion-box-text">本期估值定位：<strong>盈餘驅動消化中的高估值</strong>，非泡沫化。三大訊號同時支撐此判讀：（1）Forward P/E從年初22.0x降至20.4x，是EPS上修速度超過股價漲幅的結果（見3-4）；（2）PEG 0.97 &lt;1，EPS成長仍能支撐當前估值；（3）板塊估值分歧健康（AI/消費最貴、能源金融最便宜），非全面性泡沫。最大隱患是ERP僅+0.21%——股票對債券吸引力近零，10Y殖利率若上升1碼將觸發元件58預估的10-14%修正。當前策略：<strong>估值容忍空間仍在（S&amp;P離輕度泡沫尚有17.7%），但風險/報酬比正在惡化</strong>，應開始留意ERP動向與Fed政策轉折訊號。</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">3-4 全球遠期本益比對照（2026-07-06）</div>
+    <div class="subsection-summary">Forward P/E 五市場對照 · 20年區間 × Current × Jan 1, 2026</div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:20px;margin-top:10px">
+      <svg viewBox="0 0 760 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:760px;display:block;margin:0 auto">
+        <defs>
+          <marker id="pearrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00c8a0"/>
+          </marker>
+        </defs>
+        <!-- 標題 -->
+        <text x="20" y="26" fill="var(--text)" font-family="var(--sans)" font-weight="700" style="font-size:.67em">Forward P/E by Region</text>
+        <text x="20" y="46" fill="var(--text3)" font-family="var(--sans)" style="font-size:.46em">紫色 = Current（2026-07-06） · 藍色 = Jan 1, 2026 · 灰色條 = 20年區間 · 淺灰線 = 20年均值</text>
+
+        <!-- Y軸網格 -->
+        <g font-family="var(--mono)" fill="var(--text3)" style="font-size:.42em">
+          <line x1="60" y1="80"  x2="740" y2="80"  stroke="var(--border)" stroke-dasharray="2,3"/><text x="52" y="83" text-anchor="end">24x</text>
+          <line x1="60" y1="140" x2="740" y2="140" stroke="var(--border)" stroke-dasharray="2,3"/><text x="52" y="143" text-anchor="end">20x</text>
+          <line x1="60" y1="200" x2="740" y2="200" stroke="var(--border)" stroke-dasharray="2,3"/><text x="52" y="203" text-anchor="end">16x</text>
+          <line x1="60" y1="260" x2="740" y2="260" stroke="var(--border)" stroke-dasharray="2,3"/><text x="52" y="263" text-anchor="end">12x</text>
+          <line x1="60" y1="320" x2="740" y2="320" stroke="var(--border)" stroke-dasharray="2,3"/><text x="52" y="323" text-anchor="end">8x</text>
+          <line x1="60" y1="380" x2="740" y2="380" stroke="var(--text3)" stroke-width="1"/><text x="52" y="383" text-anchor="end">P/E</text>
+        </g>
+
+        <!-- 每 4x = 60px，anchor: 24x -> y=80. y = 80 + (24-value)*15 -->
+        <!-- US: range 10.0~22.5, avg 16.5, current 20.4, jan 22.0 -->
+        <g>
+          <rect x="105" y="102.5" width="60" height="187.5" fill="#3a4046" opacity=".7" rx="2"/>
+          <line x1="103" y1="192.5" x2="167" y2="192.5" stroke="#c0c4c8" stroke-width="2"/>
+          <polygon points="135,86 145,98 135,110 125,98" fill="#4d9fff" stroke="#fff" stroke-width="1.2"/>
+          <text x="155" y="93" fill="var(--text)" font-family="var(--mono)" font-weight="700" style="font-size:.46em">22.0x</text>
+          <polygon points="135,110 145,122 135,134 125,122" fill="#8b5cf6" stroke="#fff" stroke-width="1.2"/>
+          <text x="155" y="129" fill="#c4b5fd" font-family="var(--mono)" font-weight="700" style="font-size:.46em">20.4x</text>
+          <line x1="118" y1="98" x2="118" y2="118" stroke="#00c8a0" stroke-width="1.6" marker-end="url(#pearrow)"/>
+          <text x="90" y="105" fill="#00c8a0" font-family="var(--mono)" font-weight="700" style="font-size:.42em">-1.6x</text>
+          <text x="135" y="405" fill="var(--text)" font-family="var(--sans)" font-weight="700" text-anchor="middle" style="font-size:.50em">U.S.</text>
+          <text x="135" y="420" fill="#00c8a0" font-family="var(--sans)" text-anchor="middle" font-weight="600" style="font-size:.42em">↓ 比年初便宜</text>
+          <text x="135" y="434" fill="var(--text3)" font-family="var(--mono)" text-anchor="middle" style="font-size:.38em">均值 16.5x</text>
+        </g>
+
+        <!-- Japan: range 10.5~44, avg 15.0, current 16.8, jan 16.1 -->
+        <g>
+          <rect x="235" y="80" width="60" height="185" fill="#3a4046" opacity=".7" rx="2"/>
+          <text x="265" y="76" fill="var(--text3)" font-family="var(--mono)" text-anchor="middle" style="font-size:.38em">↑ 44x</text>
+          <line x1="233" y1="215" x2="297" y2="215" stroke="#c0c4c8" stroke-width="2"/>
+          <polygon points="265,182 275,194 265,206 255,194" fill="#8b5cf6" stroke="#fff" stroke-width="1.2"/>
+          <text x="285" y="189" fill="#c4b5fd" font-family="var(--mono)" font-weight="700" style="font-size:.46em">16.8x</text>
+          <polygon points="265,192.5 275,204.5 265,216.5 255,204.5" fill="#4d9fff" stroke="#fff" stroke-width="1.2"/>
+          <text x="285" y="230" fill="var(--text)" font-family="var(--mono)" font-weight="700" style="font-size:.46em">16.1x</text>
+          <text x="265" y="405" fill="var(--text)" font-family="var(--sans)" font-weight="700" text-anchor="middle" style="font-size:.50em">Japan</text>
+          <text x="265" y="420" fill="var(--text3)" font-family="var(--sans)" text-anchor="middle" style="font-size:.42em">略高於年初</text>
+          <text x="265" y="434" fill="var(--text3)" font-family="var(--mono)" text-anchor="middle" style="font-size:.38em">均值 15.0x</text>
+        </g>
+
+        <!-- Eurozone: range 7~18, avg 14.9, current 15.3, jan 14.9 -->
+        <g>
+          <rect x="365" y="170" width="60" height="145" fill="#3a4046" opacity=".7" rx="2"/>
+          <line x1="363" y1="221.5" x2="427" y2="221.5" stroke="#c0c4c8" stroke-width="2"/>
+          <polygon points="395,204.5 405,216.5 395,228.5 385,216.5" fill="#8b5cf6" stroke="#fff" stroke-width="1.2"/>
+          <text x="415" y="211.5" fill="#c4b5fd" font-family="var(--mono)" font-weight="700" style="font-size:.46em">15.3x</text>
+          <polygon points="395,221.5 405,233.5 395,245.5 385,233.5" fill="#4d9fff" stroke="#fff" stroke-width="1.2"/>
+          <text x="415" y="240" fill="var(--text)" font-family="var(--mono)" font-weight="700" style="font-size:.46em">14.9x</text>
+          <text x="395" y="405" fill="var(--text)" font-family="var(--sans)" font-weight="700" text-anchor="middle" style="font-size:.50em">Eurozone</text>
+          <text x="395" y="420" fill="var(--text3)" font-family="var(--sans)" text-anchor="middle" style="font-size:.42em">貼近均值</text>
+          <text x="395" y="434" fill="var(--text3)" font-family="var(--mono)" text-anchor="middle" style="font-size:.38em">均值 14.9x</text>
+        </g>
+
+        <!-- Non-US: range 9~17, avg 14.0, current 14.0, jan 14.9 -->
+        <g>
+          <rect x="495" y="185" width="60" height="120" fill="#3a4046" opacity=".7" rx="2"/>
+          <line x1="493" y1="230" x2="557" y2="230" stroke="#c0c4c8" stroke-width="2"/>
+          <polygon points="525,213.5 535,225.5 525,237.5 515,225.5" fill="#4d9fff" stroke="#fff" stroke-width="1.2"/>
+          <text x="545" y="220.5" fill="var(--text)" font-family="var(--mono)" font-weight="700" style="font-size:.46em">14.9x</text>
+          <polygon points="525,230 535,242 525,254 515,242" fill="#8b5cf6" stroke="#fff" stroke-width="1.2"/>
+          <text x="545" y="249" fill="#c4b5fd" font-family="var(--mono)" font-weight="700" style="font-size:.46em">14.0x</text>
+          <text x="525" y="405" fill="var(--text)" font-family="var(--sans)" font-weight="700" text-anchor="middle" style="font-size:.50em">Non-U.S.</text>
+          <text x="525" y="420" fill="#00c8a0" font-family="var(--sans)" text-anchor="middle" font-weight="600" style="font-size:.42em">↓ 比年初便宜</text>
+          <text x="525" y="434" fill="var(--text3)" font-family="var(--mono)" text-anchor="middle" style="font-size:.38em">均值 14.0x</text>
+        </g>
+
+        <!-- EM: range 7~16, avg 12.0, current 11.7, jan 13.4 -->
+        <g>
+          <rect x="625" y="200" width="60" height="135" fill="#3a4046" opacity=".7" rx="2"/>
+          <line x1="623" y1="260" x2="687" y2="260" stroke="#c0c4c8" stroke-width="2"/>
+          <polygon points="655,238 665,250 655,262 645,250" fill="#4d9fff" stroke="#fff" stroke-width="1.2"/>
+          <text x="675" y="245" fill="var(--text)" font-family="var(--mono)" font-weight="700" style="font-size:.46em">13.4x</text>
+          <polygon points="655,262.5 665,274.5 655,286.5 645,274.5" fill="#8b5cf6" stroke="#fff" stroke-width="1.2"/>
+          <text x="675" y="281" fill="#c4b5fd" font-family="var(--mono)" font-weight="700" style="font-size:.46em">11.7x</text>
+          <text x="655" y="405" fill="var(--text)" font-family="var(--sans)" font-weight="700" text-anchor="middle" style="font-size:.50em">EM</text>
+          <text x="655" y="420" fill="#00c8a0" font-family="var(--sans)" text-anchor="middle" font-weight="600" style="font-size:.42em">↓ 明顯便宜</text>
+          <text x="655" y="434" fill="var(--text3)" font-family="var(--mono)" text-anchor="middle" style="font-size:.38em">均值 12.0x</text>
+        </g>
+
+        <!-- 五市場 Current 之間串連虛線 -->
+        <polyline points="135,122 265,194 395,216.5 525,242 655,274.5" fill="none" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="4,4" opacity=".55"/>
+
+        <text x="740" y="52" fill="var(--text3)" font-family="var(--sans)" text-anchor="end" style="font-size:.42em">Source: J.P. Morgan Asset Management, Guide to the Markets</text>
+      </svg>
+    </div>
+    <div class="warning-box" style="margin-top:14px">
+      <div class="warning-box-title">關鍵判讀：美股「盈餘驅動消化」，其他市場「估值窪地」</div>
+      <div class="warning-box-text">美股 forward P/E 為 20.4x，雖然明顯高於20年均值16.5x，但關鍵訊號是：<strong>比年初 22.0x 便宜了 1.6x</strong>。這代表過去半年美股上漲時，EPS上修速度超過股價漲幅，基本面用實質盈餘擴張消化了部分估值溢價——這是「盈餘驅動」的健康溢價，而非「純資金炒作」的虛胖（對應元件69辨識邏輯）。其他市場遠期本益比全數低於美股：日本16.8x、歐元區15.3x、Non-US 14.0x、新興市場11.7x，且Non-US與EM都比年初便宜。這是國際熱錢持續湧入非美市場的邏輯基礎：期待美股領頭羊持續帶動下，這些估值窪地能跟著擴張。</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sec-group" id="sec-group-r2">
+<div class="sec-tab-bar cols-3">
+  <div class="sec-tab" id="sec-tab-sec-gdp" onclick="toggleSecTab('r2','sec-gdp')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">04</span>
+      <span class="sec-tab-title">GDP 與宏觀</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">GDPNow</span><span class="sec-ind-chip">實質GDP</span><span class="sec-ind-chip">個人消費</span><span class="sec-ind-chip">零售銷售</span><span class="sec-ind-chip">民間投資</span><span class="sec-ind-chip">耐久財訂單</span></div>
+  </div>
+  <div class="sec-tab" id="sec-tab-sec-employment" onclick="toggleSecTab('r2','sec-employment')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">05</span>
+      <span class="sec-tab-title">就業市場</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">非農就業</span><span class="sec-ind-chip">失業率</span><span class="sec-ind-chip">平均時薪</span><span class="sec-ind-chip">ECI</span><span class="sec-ind-chip">單位勞動成本</span><span class="sec-ind-chip">JOLTS</span></div>
+  </div>
+  <div class="sec-tab" id="sec-tab-sec-inflation" onclick="toggleSecTab('r2','sec-inflation')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">06</span>
+      <span class="sec-tab-title">通貨膨脹</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">核心CPI</span><span class="sec-ind-chip">核心PCE</span><span class="sec-ind-chip">PPI</span><span class="sec-ind-chip">房租OER</span><span class="sec-ind-chip">密西根通膨預期</span></div>
+  </div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-gdp">
+<div class="content-section" id="sec-gdp">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-title-wrap">
+      <div class="section-title">GDP 與宏觀經濟</div>
+      <div class="section-desc">Gross Domestic Product · Macro Aggregates</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">4-1 GDP 總覽</div>
+    <div class="subsection-summary">Q1 2026 GDP終值+1.6%（初值2.0%下修），但即時動能已明顯回升——GDPNow Q2預估+3.0%（6/17，較6/16的2.8%上修），WEI 2.90%高於Q1實際2.57%。這反映關稅衝擊過去、內需接棒的路徑正在成形，「V型復甦」的動能雛型已出現。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">實質 GDP</td><td class="td-link"><span class="td-id-inline">BEA</span><br><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank">BEA ↗</a></td><td>Q1 2026 +1.6%（終值）</td><td class="td-interpret sig-warn">⚠ 終值不如預期（初值2.0%），因投資/消費下修</td></tr>
+        <tr><td class="td-name">GDPNow 即時預估</td><td class="td-link"><span class="td-id-inline">GDPNOW</span><br><a href="https://fred.stlouisfed.org/series/GDPNOW" target="_blank">FRED ↗</a></td><td>Q2 2026 +3.0%（6/17）</td><td class="td-interpret sig-ok">✅ Q2動能顯著回升，較6/16的2.8%上修</td></tr>
+        <tr><td class="td-name">每週經濟指數 WEI</td><td class="td-link"><span class="td-id-inline">WEI</span><br><a href="https://www.dallasfed.org/research/wei" target="_blank">Dallas Fed ↗</a></td><td>2.90%（6/6當週，13週均值2.82%）</td><td class="td-interpret sig-ok">✅ 高於Q1實際2.57%，即時動能改善</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">4-2 內需消費（佔 GDP 約 70%）</div>
+    <div class="subsection-summary">實質零售銷售+2.6%創一年新高，實質可支配所得由負轉正，儲蓄率止穩3%——三線同步印證消費是「所得驅動」的健康擴張，非透支儲蓄。詳細判讀見下方三線合判方框。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">實質個人消費支出</td><td class="td-link"><span class="td-id-inline">PCEC96</span><br><a href="https://fred.stlouisfed.org/series/PCEC96" target="_blank">FRED ↗</a></td><td>5月YoY+2.1%</td><td class="td-interpret sig-ok">✅ 年增率穩定在2%上方，需搭配下方所得與儲蓄率合判，單看此數字容易誤判為「放緩」</td></tr>
+        <tr><td class="td-name">零售銷售（名目 vs 實質）</td><td class="td-link"><span class="td-id-inline">RSXFS / RRSFS</span><br><a href="https://fred.stlouisfed.org/series/RSXFS" target="_blank">FRED名目↗</a> · <a href="https://fred.stlouisfed.org/series/RRSFS" target="_blank">FRED實質↗</a></td><td>5月YoY 名目+7.5%，實質+2.6%（創一年新高）</td><td class="td-interpret sig-ok">✅ 名目遠高於實質，代表戰爭推升的油氣價格貢獻不小，但剔除物價後「量」本身仍創一年新高，消費不是漲價的幻覺</td></tr>
+        <tr><td class="td-name">實質可支配所得</td><td class="td-link"><span class="td-id-inline">DSPIC96</span><br><a href="https://fred.stlouisfed.org/series/DSPIC96" target="_blank">FRED ↗</a></td><td>終於從負值低點回升至正成長（5月）</td><td class="td-interpret sig-ok">✅ 本期最關鍵的轉折：消費的「燃料來源」本身在改善，而非靠透支先前儲蓄硬撐</td></tr>
+        <tr><td class="td-name">儲蓄率</td><td class="td-link"><span class="td-id-inline">PSAVERT</span><br><a href="https://fred.stlouisfed.org/series/PSAVERT" target="_blank">FRED ↗</a></td><td>3.0%（5月，止穩未再下探）</td><td class="td-interpret sig-ok">✅ 止穩本身即是訊號——若消費靠提款支撐，儲蓄率理應持續破底</td></tr>
+        <tr><td class="td-name">核心 PCE 物價指數</td><td class="td-link"><span class="td-id-inline">PCEPILFE</span><br><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED ↗</a></td><td>3.3% YoY</td><td class="td-interpret sig-warn">⚠ 持續高於Fed目標，是消費動能加速下仍需留意的燃料成本</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">三線合判：PCE × 可支配所得 × 儲蓄率</div>
+      <div class="warning-box-text">單看PCE年增2.1%容易誤判為消費放緩，但三條線疊在一起看故事完全不同：可支配所得從負值觸底轉正，代表消費的「燃料箱」重新在加油，而不是像過去持續燒儲蓄；儲蓄率同步止穩在3%印證了這一點——如果消費仍是靠透支儲蓄支撐，儲蓄率理應繼續破底，而不是止穩。三線同時轉強，代表這是「所得驅動」的消費擴張，而非「借貸/提款驅動」的假性繁榮。隨未來基期走低、就業市場加快復甦，整體可支配所得可望逐步回升至2%以上水準，這代表未來幾季消費動能仍有接力空間，現在不是高點，而是重新加速的起點。</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">4-3 民間投資</div>
+    <div class="subsection-summary">Q1實質民間投資+7%，設備投資+17.2%強勁——AI CapEx投資熱潮直接推力。庫存銷售比1.32健康偏低，無過剩壓力。唯一疲弱環節是住宅：5月新屋開工117.7萬戶創2020/5以來新低（MoM-15.4%），受制於高房貸利率——這是Fed政策傳導的直接印記。製造業建築支出4月MoM-1.2%屬類別內部調整，不改整體民間投資強勢格局。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">實質民間投資總額</td><td class="td-link"><span class="td-id-inline">BEA</span><br><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank">BEA ↗</a></td><td>Q1+7%（終值）</td><td class="td-interpret sig-ok">✅ 設備投資+17.2%強勁</td></tr>
+        <tr><td class="td-name">庫存銷售比</td><td class="td-link"><span class="td-id-inline">ISRATIO</span><br><a href="https://fred.stlouisfed.org/series/ISRATIO" target="_blank">FRED ↗</a></td><td>1.32（3月）</td><td class="td-interpret sig-ok">✅ 健康偏低，無過剩庫存壓力</td></tr>
+        <tr><td class="td-name">新屋開工</td><td class="td-link"><span class="td-id-inline">Census</span><br><a href="https://www.census.gov/construction/nrc/index.html" target="_blank">Census ↗</a></td><td>5月117.7萬戶，MoM-15.4%</td><td class="td-interpret sig-danger">🔴 創2020年5月以來新低，高房貸利率壓制</td></tr>
+        <tr><td class="td-name">製造業建築支出</td><td class="td-link"><span class="td-id-inline">Census</span><br><a href="https://www.census.gov/construction/c30/c30index.html" target="_blank">Census ↗</a></td><td>4月MoM-1.2%（整體建築支出+0.4%至$2,172.4B）</td><td class="td-interpret sig-warn">⚠ 製造業類別逆勢下滑，與住宅/商用走勢分歧</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">4-4 耐久財訂單與工業生產</div>
+    <div class="subsection-summary">整體/核心耐久財訂單絕對值翻倍超越90年代末水準，但電腦電子產品訂單才剛追平1998年——30年通縮還沒走完，反駁「科技泡沫論」的最強證據。工業生產+1.67%穩定擴張，產能利用率76.17%仍在健康水位（80%以下），是「再工業化」中段而非終點。詳細長週期判讀見下方方框。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">總體耐久財新訂單</td><td class="td-link"><span class="td-id-inline">DGORDER</span><br><a href="https://fred.stlouisfed.org/series/DGORDER" target="_blank">FRED ↗</a></td><td>絕對值已翻倍遠高於90年代水準</td><td class="td-interpret sig-ok">✅「再工業化」熱潮的直接證據，圍繞AI、自動化、能源、國防、航太的新一輪產業回流</td></tr>
+        <tr><td class="td-name">核心耐久財（不含運輸）</td><td class="td-link"><span class="td-id-inline">ADXTNO</span><br><a href="https://fred.stlouisfed.org/series/ADXTNO" target="_blank">FRED ↗</a></td><td>同樣翻倍遠高於90年代水準</td><td class="td-interpret sig-ok">✅ 排除運輸業波動後仍同步走強，代表擴張具有廣度，非單一類別撐場</td></tr>
+        <tr><td class="td-name">電腦與電子產品訂單</td><td class="td-link"><span class="td-id-inline">A34SNO</span><br><a href="https://fred.stlouisfed.org/series/A34SNO" target="_blank">FRED ↗</a></td><td>絕對值才剛回到1998年左右水準</td><td class="td-interpret sig-neutral">⚠ 反直覺卻是反駁「科技泡沫論」最強證據——這一類別的「30年通縮」都還沒走完，未來兩年至少要在當前水準上再增長40%才追得上2000年水準</td></tr>
+        <tr><td class="td-name">工業生產指數</td><td class="td-link"><span class="td-id-inline">INDPRO</span><br><a href="https://fred.stlouisfed.org/series/INDPRO" target="_blank">FRED ↗</a></td><td>5月YoY+1.67%</td><td class="td-interpret sig-ok">✅ 自2025年1月起長期處於穩定擴張區間，非單月反彈</td></tr>
+        <tr><td class="td-name">產能利用率</td><td class="td-link"><span class="td-id-inline">TCU</span><br><a href="https://fred.stlouisfed.org/series/TCU" target="_blank">FRED ↗</a></td><td>76.17%（5月）</td><td class="td-interpret sig-ok">✅ 維持健康水位（80%以上才是過熱警訊），擴張仍有餘裕，非加班硬撐出來的產出</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">長週期尺度化解短週期恐慌</div>
+      <div class="warning-box-text">市場對「科技/製造業泡沫」的疑慮，往往只看短期漲幅曲線，但拉長到30年尺度會看到完全不同的圖像：整體與核心耐久財訂單「絕對值」都已翻倍超越90年代末水準，看似驚人，但電腦與電子產品訂單絕對值卻才剛追平1998年——這一類別經歷了長達30年的「通縮」，現在只是剛開始填補缺口。搭配工業生產穩定擴張、產能利用率仍在健康水位（未達過熱），三者共同指向：美國製造業正處於一個「生產力循環」的半途，而非循環終點，充其量是「中點」，還不到需要警覺見頂的階段（對應元件33 製造業週期位階）。</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">4-5 進出口</div>
+    <div class="subsection-summary">貿易逆差1058億美元創新高看似利空，實則是「進口加速（15%）快於出口加速（14.7%）」的健康型態——且進口成長的主力是資本財（+42%），民間投資的領先指標。逆差是景氣升溫訊號，不是衰退。詳細判讀見下方元件63方框。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">實質淨出口</td><td class="td-link"><span class="td-id-inline">NETEXP</span><br><a href="https://fred.stlouisfed.org/series/NETEXP" target="_blank">FRED ↗</a></td><td>—</td><td class="td-interpret sig-neutral">外需對 GDP 的貢獻度，季度資料，需搭配下方月度細項判讀</td></tr>
+        <tr><td class="td-name">商品出口</td><td class="td-link"><span class="td-id-inline">BOPGEXP</span><br><a href="https://fred.stlouisfed.org/series/BOPGEXP" target="_blank">FRED ↗</a></td><td>5月YoY+14.7%（較4月12.56%加快）</td><td class="td-interpret sig-ok">✅ 出口不是衰退，是加速——貿易逆差擴大的鍋不能算在出口頭上</td></tr>
+        <tr><td class="td-name">商品進口</td><td class="td-link"><span class="td-id-inline">BOPGIMP</span><br><a href="https://fred.stlouisfed.org/series/BOPGIMP" target="_blank">FRED ↗</a></td><td>5月YoY+15%（較4月9.13%明顯加快）</td><td class="td-interpret sig-ok">✅ 進口增速大於出口，是本月逆差擴大的真正原因，需再拆解進口內容才能判斷好壞</td></tr>
+        <tr><td class="td-name">資本財進口</td><td class="td-link"><span class="td-id-inline">AITGICS</span><br><a href="https://fred.stlouisfed.org/series/AITGICS" target="_blank">FRED ↗</a></td><td>YoY+42%（工業原料進口僅+11.7%）</td><td class="td-interpret sig-ok">✅ 進口加速的主力不是原物料，是資本財——民間投資的領先指標，未來季度投資貢獻度可望進一步加快</td></tr>
+        <tr><td class="td-name">貿易逆差</td><td class="td-link"><span class="td-id-inline">BOPGSTB</span><br><a href="https://fred.stlouisfed.org/series/BOPGSTB" target="_blank">FRED ↗</a></td><td>1058億美元（去年3月以來新高）</td><td class="td-interpret sig-warn">⚠ 表面數字最容易被誤讀為利空，需搭配上面三項一起看</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">貿易逆差健康度判讀（元件63）</div>
+      <div class="warning-box-text">逆差創新高的第一直覺是利空，但拆解成分後結論相反：造成逆差擴大的不是出口衰退（出口反而加速到14.7%），而是進口增速更快（15% vs 9.13%），且進口成長的最大貢獻項目是資本財（+42%），遠高於原物料進口的11.7%。資本財進口是重要的民間投資領先指標，通常領先未來季度的民間投資貢獻度轉強——這正是榮景期的典型特徵：由民間投資熱潮帶動經濟增長，增速會顯著較先前的景氣循環周期來得更強。目前這個週期還在半途上，自然也就不會是景氣循環的「終點」，充其量是「中點」而已。從歷史經驗來看，美國進口增速提升通常契合景氣升溫的節奏，這次的訊號結構也相符。</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">4-6 查核點</div>
+    <div class="subsection-summary">本期三大查核點結論：（1）分項貢獻——GDP由消費+投資雙輪支撐（非庫存推動），非虛假繁榮；（2）WEI 2.90% &gt; Q1實際2.57%，率先反映Q2動能上行，未見掉頭訊號；（3）耐久財訂單絕對值續創新高，Fed利率仍高但訂單未走弱，「再工業化」動能蓋過融資成本壓力。三項均通過查核，經濟基本面確認為擴張中段而非轉折點。</div>
+    <div class="checkpoint-list">
+      <div class="checkpoint-item"><div class="checkpoint-marker">分項貢獻</div><div class="checkpoint-text">若 GDP 增長主因來自「庫存增加」而非「終端消費」，視為「虛假繁榮」</div></div>
+      <div class="checkpoint-item"><div class="checkpoint-marker">WEI 先行</div><div class="checkpoint-text">WEI 比季度 GDP 快 2–3 個月反映現實，若 WEI 率先掉頭為撤退信號</div></div>
+      <div class="checkpoint-item"><div class="checkpoint-marker">耐久財 vs 利率</div><div class="checkpoint-text">若 Fed 降息但耐久財訂單持續下滑，代表衰退恐懼蓋過融資成本降低的好處</div></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-employment">
+<div class="content-section" id="sec-employment">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-title-wrap">
+      <div class="section-title">就業市場</div>
+      <div class="section-desc">Employment · Labor Market Dynamics</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">5-1 就業供需</div>
+    <div class="subsection-summary">6月勞動參與率驟降至61.5%（2021年3月新低），是失業率下降至4.2%的「假利多」主因，非真正勞動需求改善。JOLTS 4月761.8萬職缺看似回升，但需與6月弱化的初領數據交叉觀察，避免單月訊號誤導。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">JOLTS 職位空缺</td><td class="td-link"><span class="td-id-inline">JTSJOL</span><br><a href="https://fred.stlouisfed.org/series/JTSJOL" target="_blank">FRED ↗</a></td><td>761.8萬（4月，+73.1萬，創2024/11以來新高）</td><td class="td-interpret sig-warn">⚠ 職缺/失業比回升，但與初領申請數矛盾，需觀察是否一次性回升</td></tr>
+        <tr><td class="td-name">勞動參與率</td><td class="td-link"><span class="td-id-inline">CIVPART</span><br><a href="https://fred.stlouisfed.org/series/CIVPART" target="_blank">FRED ↗</a></td><td><strong>61.5%</strong>（6月，較5月61.8%驟降0.3pt，為2021年3月以來新低）</td><td class="td-interpret sig-danger">🔴 參與率崩跌是6月失業率下降的主因，非真正勞動需求改善</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">5-2 就業成本</div>
+    <div class="subsection-summary">6月時薪YoY 3.5%穩定，無加速也無失速——薪資通膨壓力已明顯緩解。單位勞動成本Q1季增1.8%仍偏高，但因非農生產力年增2.8%抵消，總體不構成通膨螺旋壓力。這是Warsh時代降通膨路徑得以延續的關鍵基礎。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">每小時薪資年增率</td><td class="td-link"><span class="td-id-inline">CES0500000003</span><br><a href="https://fred.stlouisfed.org/series/CES0500000003" target="_blank">FRED ↗</a></td><td><strong>3.5% YoY</strong>（6月，MoM+0.3%至$37.64）</td><td class="td-interpret sig-ok">✅ 薪資年增穩定在3.5%附近，未加速也未失速，不構成通膨螺旋壓力</td></tr>
+        <tr><td class="td-name">單位勞動成本</td><td class="td-link"><span class="td-id-inline">ULCNFB</span><br><a href="https://fred.stlouisfed.org/series/ULCNFB" target="_blank">FRED ↗</a></td><td>Q1季增1.8%（年增0.5%）</td><td class="td-interpret sig-warn">⚠ 季增加速，時薪增2.1%但生產力僅增0.3%</td></tr>
+        <tr><td class="td-name">非農勞動生產力</td><td class="td-link"><span class="td-id-inline">BLS</span><br><a href="https://www.bls.gov/productivity/" target="_blank">BLS ↗</a></td><td>Q1季增0.3%（年增2.8%）</td><td class="td-interpret sig-warn">⚠ 季增明顯放緩</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">5-3 就業動能</div>
+    <div class="subsection-summary">6月非農僅+57K（遠低於預期115K）、4/5月合計下修74K，過去12個月月均僅+36K——就業引擎明顯降速。失業率4.2%表面「下降」但是勞動參與率驟降造成的假利多，家庭調查就業月減50.7萬更凸顯結構弱化。初領/續領失業金雙雙緩步走高，方向轉變。就業已成為當前經濟基本面唯一明確軟斑，也是7月FED降息預期回到桌面的核心觸媒。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">非農就業</td><td class="td-link"><span class="td-id-inline">PAYEMS</span><br><a href="https://fred.stlouisfed.org/series/PAYEMS" target="_blank">FRED ↗</a></td><td><strong>+57K</strong>（6月，遠低於預期115K；4月下修31K至148K，5月下修43K至129K，兩月合計下修74K）</td><td class="td-interpret sig-danger">🔴 6月大幅miss預期，且前兩月同步下修，過去12個月平均月增僅+36K，就業引擎明顯降速</td></tr>
+        <tr><td class="td-name">失業率</td><td class="td-link"><span class="td-id-inline">UNRATE</span><br><a href="https://fred.stlouisfed.org/series/UNRATE" target="_blank">FRED ↗</a></td><td><strong>4.2%</strong>（6月，較5月4.3%降0.1pt）</td><td class="td-interpret sig-warn">⚠ 表面下降但屬「假利多」——不是就業改善，是勞動力參與率驟降0.3pt至61.5%所致（家庭調查就業人數月減50.7萬）</td></tr>
+        <tr><td class="td-name">初領失業救濟金</td><td class="td-link"><span class="td-id-inline">ICSA</span><br><a href="https://fred.stlouisfed.org/series/ICSA" target="_blank">FRED ↗</a></td><td>22.6萬（6/13週，4週均值升至22.3萬，創近期新高）</td><td class="td-interpret sig-warn">⚠ 緩步走高，方向轉變</td></tr>
+        <tr><td class="td-name">持續領取失業金</td><td class="td-link"><span class="td-id-inline">CCSA</span><br><a href="https://fred.stlouisfed.org/series/CCSA" target="_blank">FRED ↗</a></td><td>181萬（6/6週，較循環低點176.6萬回升）</td><td class="td-interpret sig-warn">⚠ 續領上升代表再就業變慢</td></tr>
+        <tr><td class="td-name">非農就業擴散指數</td><td class="td-link"><span class="td-id-inline">BLS</span><br><a href="https://www.bls.gov/news.release/empsit.htm" target="_blank">BLS ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">5-4 製造業就業</div>
+    <div class="subsection-summary">6月ISM製造業就業49.7較5月48.6改善1.1pt，收縮幅度顯著收斂並接近轉正臨界。與服務業就業47.9同時<50，形成雙輪擴張中的共同軟斑——對應7-1判讀「PMI細項循環中就業是唯一軟斑」，是勞動市場結構性變化而非循環轉折訊號。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">製造業聘僱人數</td><td class="td-link"><span class="td-id-inline">ISM Employment</span><br><a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/june/" target="_blank">ISM ↗</a></td><td><strong>49.7</strong>（6月，較5月48.6上升1.1pt，但仍<50）</td><td class="td-interpret sig-warn">⚠ 收縮幅度收斂中，接近轉正臨界，但尚未進入擴張。與服務業就業47.9同時<50，形成雙輪擴張中唯一的共同軟斑</td></tr>
+        <tr><td class="td-name">製造業建築支出</td><td class="td-link"><span class="td-id-inline">Census</span><br><a href="https://www.census.gov/construction/c30/c30index.html" target="_blank">Census ↗</a></td><td>4月MoM-1.2%</td><td class="td-interpret sig-warn">⚠ 與4-3重複指標，逆勢下滑</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">5-5 組合觀察</div>
+    <div class="subsection-summary">四組交叉觀察本期定位：（1）供需平衡組——JOLTS+勞動參與率61.5%創新低，代表Fed緊縮效果同時作用於「降空缺」與「壓參與率」，混合訊號；（2）硬著陸監控組——初領/續領同步緩升但未突破，失業率4.2%仍在4字頭區間，未進入倒數；（3）薪資通膨螺旋——時薪YoY 3.5%平穩、生產力年增2.8%抵消，螺旋未啟動；（4）調查對齊校正——6月企業調查+57K vs 家庭調查-50.7萬明顯分歧，是本期最需持續追蹤的訊號組合。</div>
+    <div class="table-wrap"><table class="combo-table">
+      <thead><tr><th>組合名稱</th><th>包含指標</th><th>邏輯</th></tr></thead>
+      <tbody>
+        <tr><td>供需平衡組</td><td>JTSJOL + CIVPART</td><td class="td-interpret sig-neutral">—</td><td class="td-purpose">判斷聯準會緊縮是否成功降低職位空缺而非推升失業率</td></tr>
+        <tr><td>硬著陸監控組</td><td>ICSA + UNRATE + U6RATE</td><td class="td-interpret sig-neutral">—</td><td class="td-purpose">監控初領人數與失業率乖離，確認硬著陸是否進入倒數</td></tr>
+        <tr><td>薪資通膨螺旋</td><td>CES05...3 + ULCNFB</td><td class="td-interpret sig-neutral">—</td><td class="td-purpose">時薪增長是否帶動單位成本上升，生產力若跟不上則通膨具韌性</td></tr>
+        <tr><td>調查對齊校正</td><td>PAYEMS vs HOUSEHOLD</td><td class="td-interpret sig-neutral">—</td><td class="td-purpose">驗證非農（企業）與失業率（家庭）是否同向，排除調查誤差</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">5-6 觀察注意事項</div>
+    <div class="notes-grid">
+      <div class="note-card"><div class="note-card-label leading">▲ 先行指標</div><div class="note-card-body">JOLTS 職位空缺、初領失業金、製造業建築支出</div></div>
+      <div class="note-card"><div class="note-card-label lagging">▼ 滯後指標</div><div class="note-card-body">失業率、長期失業人口</div></div>
+      <div class="note-card"><div class="note-card-label key">◈ 落底信號</div><div class="note-card-body">數據持續下修但市場不再恐慌大跌，為「情緒出清」的落底信號</div></div>
+      <div class="note-card"><div class="note-card-label warning">⚠ 2026年重點</div><div class="note-card-body">「製造業聘僱」與「時薪年增」共振。若薪資高企但聘僱停滯，即為「成本擠壓」模式，對企業獲利極端不利</div></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-inflation">
+<div class="content-section" id="sec-inflation">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div class="section-title-wrap">
+      <div class="section-title">通膨</div>
+      <div class="section-desc">Inflation · Price Dynamics</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">6-1 通膨基期效應推算（Core CPI／Core PCE 預測錐形圖）</div>
+    <div class="subsection-summary">【小結】用「滾動基期效應」推算未來6個月通膨走向：YoY是否改善，取決於現在MoM vs 被滾出窗口的去年同月MoM。2025年11月Core CPI基期極低（0.16%），是全年最大的「基期陷阱」——若2026年11月維持正常0.2-0.3%節奏，YoY會明顯反彈，但這是數學效應非真實惡化。Core PCE基期分布較平均，預測區間呈穩定線性擴大，沒有CPI這種單月驟張的現象，可作為交叉驗證指標。</div>
+
+    <div class="phase-cols">
+      <div class="phase-col">
+        <div class="mw-note-title" style="color:#0F6E56;font-size:12px;margin-bottom:8px">Core CPI YoY 預測錐形圖</div>
+        <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <line x1="45" y1="190.0" x2="685" y2="190.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="193.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">2.2%</text>
+      <line x1="45" y1="149.6" x2="685" y2="149.6" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="152.6" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">2.5%</text>
+      <line x1="45" y1="109.2" x2="685" y2="109.2" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="112.2" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">2.8%</text>
+      <line x1="45" y1="68.8" x2="685" y2="68.8" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="71.8" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3.1%</text>
+      <line x1="45" y1="28.5" x2="685" y2="28.5" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="31.5" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3.4%</text>
+      
+      <text x="45.0" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">1月</text>
+      <text x="103.2" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">2月</text>
+      <text x="161.4" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3月</text>
+      <text x="219.5" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">4月</text>
+      <text x="277.7" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">5月</text>
+      <text x="335.9" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">6月</text>
+      <text x="394.1" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">7月</text>
+      <text x="452.3" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">8月</text>
+      <text x="510.5" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">9月</text>
+      <text x="568.6" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">10月</text>
+      <text x="626.8" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">11月</text>
+      <text x="685.0" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">12月</text>
+      
+      
+      <polygon points="277.7,95.8 335.9,91.7 394.1,85.0 452.3,78.3 510.5,62.1 568.6,48.7 626.8,23.1 685.0,2.9 685.0,164.4 626.8,157.7 568.6,156.3 510.5,142.9 452.3,132.1 394.1,111.9 335.9,91.7 277.7,95.8" fill="rgba(15,110,86,.18)" opacity="0.7"/>
+      <polyline points="277.7,95.8 335.9,91.7 394.1,98.5 452.3,105.2 510.5,102.5 568.6,102.5 626.8,90.4 685.0,83.7" fill="none" stroke="#0F6E56" stroke-width="2" stroke-dasharray="6,4"/>
+      <polyline points="45.0,149.6 103.2,149.6 161.4,136.2 219.5,109.2 277.7,95.8" fill="none" stroke="#0F6E56" stroke-width="2.5"/>
+      <circle cx="45.0" cy="149.6" r="3" fill="#0F6E56"/><circle cx="103.2" cy="149.6" r="3" fill="#0F6E56"/><circle cx="161.4" cy="136.2" r="3" fill="#0F6E56"/><circle cx="219.5" cy="109.2" r="3" fill="#0F6E56"/><circle cx="277.7" cy="95.8" r="3" fill="#0F6E56"/>
+    </svg>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:11px;color:var(--text3);font-family:var(--mono)">
+          <span><span style="display:inline-block;width:10px;height:2px;background:#0F6E56;vertical-align:middle"></span> 實際值</span>
+          <span><span style="display:inline-block;width:10px;height:2px;background:#0F6E56;border-top:2px dashed #0F6E56;vertical-align:middle"></span> 預測中值</span>
+          <span><span style="display:inline-block;width:10px;height:10px;background:rgba(15,110,86,.18);vertical-align:middle"></span> 低/高情境</span>
+        </div>
+      </div>
+      <div class="phase-col">
+        <div class="mw-note-title" style="color:#185FA5;font-size:12px;margin-bottom:8px">Core PCE YoY 預測錐形圖</div>
+        <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <line x1="45" y1="190.0" x2="685" y2="190.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="193.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">2.8%</text>
+      <line x1="45" y1="165.0" x2="685" y2="165.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="168.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">2.9%</text>
+      <line x1="45" y1="140.0" x2="685" y2="140.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="143.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3.0%</text>
+      <line x1="45" y1="115.0" x2="685" y2="115.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="118.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3.1%</text>
+      <line x1="45" y1="90.0" x2="685" y2="90.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="93.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3.2%</text>
+      <line x1="45" y1="65.0" x2="685" y2="65.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="68.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3.3%</text>
+      <line x1="45" y1="40.0" x2="685" y2="40.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="43.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3.4%</text>
+      <line x1="45" y1="15.0" x2="685" y2="15.0" stroke="rgba(136,135,128,.12)" stroke-width="1"/>
+      <text x="37" y="18.0" text-anchor="end" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3.5%</text>
+      
+      <text x="45.0" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">1月</text>
+      <text x="103.2" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">2月</text>
+      <text x="161.4" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">3月</text>
+      <text x="219.5" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">4月</text>
+      <text x="277.7" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">5月</text>
+      <text x="335.9" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">6月</text>
+      <text x="394.1" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">7月</text>
+      <text x="452.3" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">8月</text>
+      <text x="510.5" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">9月</text>
+      <text x="568.6" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">10月</text>
+      <text x="626.8" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">11月</text>
+      <text x="685.0" y="212" text-anchor="middle" font-size="9" fill="var(--text3)" font-family="IBM Plex Mono,monospace">12月</text>
+      
+      
+      <polygon points="219.5,65.0 277.7,57.5 335.9,55.0 394.1,42.5 452.3,5.0 510.5,-20.0 568.6,-45.0 626.8,-70.0 685.0,-95.0 685.0,205.0 626.8,180.0 568.6,155.0 510.5,130.0 452.3,105.0 394.1,92.5 335.9,55.0 277.7,57.5 219.5,65.0" fill="rgba(24,95,165,.18)" opacity="0.7"/>
+      <polyline points="219.5,65.0 277.7,57.5 335.9,55.0 394.1,67.5 452.3,55.0 510.5,55.0 568.6,55.0 626.8,55.0 685.0,55.0" fill="none" stroke="#185FA5" stroke-width="2" stroke-dasharray="6,4"/>
+      <polyline points="45.0,115.0 103.2,115.0 161.4,90.0 219.5,65.0" fill="none" stroke="#185FA5" stroke-width="2.5"/>
+      <circle cx="45.0" cy="115.0" r="3" fill="#185FA5"/><circle cx="103.2" cy="115.0" r="3" fill="#185FA5"/><circle cx="161.4" cy="90.0" r="3" fill="#185FA5"/><circle cx="219.5" cy="65.0" r="3" fill="#185FA5"/>
+    </svg>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:11px;color:var(--text3);font-family:var(--mono)">
+          <span><span style="display:inline-block;width:10px;height:2px;background:#185FA5;vertical-align:middle"></span> 實際值</span>
+          <span><span style="display:inline-block;width:10px;height:2px;background:#185FA5;border-top:2px dashed #185FA5;vertical-align:middle"></span> 預測中值</span>
+          <span><span style="display:inline-block;width:10px;height:10px;background:rgba(24,95,165,.18);vertical-align:middle"></span> 低/高情境</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap"><table>
+      <thead><tr><th>月份</th><th>2025基期 Core CPI MoM</th><th>2025基期 Core PCE MoM</th><th>基期風險判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">7月</td><td>0.3%（偏高）</td><td>~0.3%（偏高）</td><td class="td-interpret sig-ok">✅ 基期較高，兩指標YoY皆有望小幅下降</td></tr>
+        <tr><td class="td-name">8月</td><td>0.3%（偏高）</td><td>0.2-0.23%（中性）</td><td class="td-interpret sig-ok">✅ CPI基期高/PCE中性，CPI改善幅度可能更明顯</td></tr>
+        <tr><td class="td-name">9月</td><td>0.23%（中性）</td><td>待確認（估0.25%）</td><td class="td-interpret sig-neutral">中性，YoY變化有限</td></tr>
+        <tr><td class="td-name">10月</td><td>數據品質存疑（停擺影響）</td><td>待確認（估0.25%）</td><td class="td-interpret sig-warn">⚠ CPI數據品質需留意修正風險</td></tr>
+        <tr><td class="td-name">11月</td><td><strong>0.16%（全年最低）</strong></td><td>待確認（估0.25%，無極端值）</td><td class="td-interpret sig-danger">🔴 CPI基期陷阱月，YoY可能明顯反彈，需排除基期效應誤判</td></tr>
+        <tr><td class="td-name">12月</td><td>0.2%（中性）</td><td>待確認（估0.25%）</td><td class="td-interpret sig-neutral">中性</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="warning-box">
+      <div class="warning-box-title">操作含義</div>
+      <div class="warning-box-text">7-8月市場可能因基期效應出現「假性樂觀」，YoY數字轉好但非真實需求降溫。11月是全年最大風險窗口：若Core CPI YoY反彈但Core PCE同期平穩，應判定為CPI特有的基期失真而非通膨真實惡化；若兩者同步上升，才是需要正視的真實通膨反彈訊號。</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">6-2 核心指標</div>
+    <div class="subsection-summary">5月CPI YoY 4.2%創3年新高，但能源貢獻超過60%——是戰爭油價衝擊而非需求驅動。核心CPI 2.9%仍溫和（僅較4月2.8%微升）、核心PCE 3.3%持續高於Fed目標但趨勢向下。Warsh偏好的Trimmed Mean PCE 2.3%已明顯回落。指標分歧凸顯Fed政策選擇的困難，見下方指標爭議判讀。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">核心 PCE 物價指數</td><td class="td-link"><span class="td-id-inline">PCEPILFE</span><br><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED ↗</a></td><td>3.3% YoY（4月），MoM+0.2%</td><td class="td-interpret sig-warn">⚠ 持續高於Fed目標</td></tr>
+        <tr><td class="td-name">消費者物價指數 CPI</td><td class="td-link"><span class="td-id-inline">CPIAUCSL</span><br><a href="https://fred.stlouisfed.org/series/CPIAUCSL" target="_blank">FRED ↗</a></td><td>4.2% YoY（5月），MoM+0.5%（能源貢獻&gt;60%）</td><td class="td-interpret sig-danger">🔴 創3年新高，能源是主因</td></tr>
+        <tr><td class="td-name">核心 CPI</td><td class="td-link"><span class="td-id-inline">CPILFESL</span><br><a href="https://fred.stlouisfed.org/series/CPILFESL" target="_blank">FRED ↗</a></td><td>2.9% YoY（5月，較4月2.8%微升），MoM+0.25%</td><td class="td-interpret sig-warn">⚠ 較4月加速，但仍是溫和節奏</td></tr>
+        <tr><td class="td-name">Trimmed Mean PCE（達拉斯版）</td><td class="td-link"><span class="td-id-inline">Dallas Fed</span><br><a href="https://www.dallasfed.org/research/pce" target="_blank">Dallas Fed ↗</a></td><td>2.3%（4月，較核心PCE 3.3%低約1個百分點）</td><td class="td-interpret sig-warn">⚠ Warsh主席偏好此指標，但達拉斯聯儲主席Logan親自警告不應過度信賴目前的低讀數，存在技術性失真風險</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">⚡ 指標選擇的爭議</div>
+      <div class="warning-box-text">Warsh在參議院聽證會表示核心PCE只是「粗略猜測」，偏好Trimmed Mean PCE（達拉斯聯儲）與中位數PCE（克里夫蘭聯儲），理由是排除單次性衝擊更能反映潛在通膨。EmployAmerica質疑轉換時機「相當巧合」——修剪平均目前恰好是最鴿派的指標之一。但<strong>達拉斯聯儲主席Logan本人</strong>警告：「不應過度信賴修剪平均的低讀數」，目前低值可能源於價格漲跌分布的技術性失真，而非真實的潛在通膨降溫。更關鍵的是：6/17鷹派會議的SEP結果（9位官員預期年內升息）與「鋪路降息」的論述方向矛盾。<strong>下次PCE數據公布是下一個驗證點。</strong></div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">6-3 房租與居住（CPI 佔比約 34%）</div>
+    <div class="subsection-summary">租金CPI 5月MoM+0.4%、OER MoM+0.3%均略加速——這是核心通膨最大貢獻項（佔核心CPI約42%），OER年增穩定在2.7-2.8%區間，代表核心通膨的結構性下限尚未突破。房租類是慢速通膨項，只要新屋開工續在低位（見4-3），供給端壓力仍會壓抑房租下行速度，這是Fed政策傳導路徑中最頑固的一環。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">租金 CPI</td><td class="td-link"><span class="td-id-inline">CUSR0000SEHA</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SEHA" target="_blank">FRED ↗</a></td><td>5月MoM+0.4%，南區YoY+2.7%（區域樣本）</td><td class="td-interpret sig-warn">⚠ 月增略加速</td></tr>
+        <tr><td class="td-name">屋主等值租金 OER</td><td class="td-link"><span class="td-id-inline">CUSR0000SEHC</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SEHC" target="_blank">FRED ↗</a></td><td>5月MoM+0.3%，南區YoY+2.8%</td><td class="td-interpret sig-warn">⚠ 核心通膨最大貢獻項，年增穩定在2.7-2.8%</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">6-4 其他細項</div>
+    <div class="subsection-summary">5月能源CPI 23.5% YoY、汽油+40.5%——是CPI創3年新高（4.2%）的絕對主因（貢獻月增60%以上）。這屬於「地緣政治外生衝擊」而非「需求驅動的通膨」，隨美伊停戰後油價回吐，此類項目YoY將在7-8月快速衰退，是通膨基期效應的順風而非逆風。二手車項目資料受限，尚待完整全國數據。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">能源 CPI</td><td class="td-link"><span class="td-id-inline">CPIENGSL</span><br><a href="https://fred.stlouisfed.org/series/CPIENGSL" target="_blank">FRED ↗</a></td><td>23.5% YoY（5月），汽油+40.5% YoY</td><td class="td-interpret sig-danger">🔴 主要由伊朗衝突推升，佔月增60%以上</td></tr>
+        <tr><td class="td-name">二手車價格 CPI</td><td class="td-link"><span class="td-id-inline">CUSR0000SETA02</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SETA02" target="_blank">FRED ↗</a></td><td>資料受限：僅有區域數據（南區+1.6%、東北區-2.5%，5月MoM）</td><td class="td-interpret sig-neutral">⚠ 區域差異大，全國統一數值未查得</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">6-5 先行指標</div>
+    <div class="subsection-summary">密西根1年通膨預期4.6%（6月，較5月4.8%略降但仍遠高於2月3.4%）——顯示消費者對通膨的心理定價尚未回到伊朗衝突前水準，是Fed政策制定者最擔心的「預期脫錨」風險前奏。但克里夫蘭Fed Nowcasting顯示6月headline僅+0.07% MoM（Core +0.23%），實際通膨動能已明顯降溫，代表預期與實際出現分歧——是Fed可以打「消費者預期滯後」牌的窗口期。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">密西根大學 1 年期通膨預期</td><td class="td-link"><span class="td-id-inline">MICH</span><br><a href="https://fred.stlouisfed.org/series/MICH" target="_blank">FRED ↗</a></td><td>4.6%（6月，較5月4.8%略降，遠高於2月3.4%）</td><td class="td-interpret sig-danger">🔴 仍顯著受伊朗衝突影響，未回到衝突前水準</td></tr>
+        <tr><td class="td-name">克里夫蘭 Fed Inflation Nowcasting</td><td class="td-link"><span class="td-id-inline">Cleveland Fed</span><br><a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting" target="_blank">Cleveland Fed ↗</a></td><td>headline 0.07%／Core 0.23%（6月MoM）</td><td class="td-interpret sig-warn">⚠ Headline受油價降溫掩蓋，Core仍頑固</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">6-6 操盤查核點</div>
+    <div class="subsection-summary">三大查核點本期定位：（1）通膨與股市——5月CPI 4.2%可能是本輪能源驅動峰值，符合「CPI見頂+一季內股市落底」規律的窗口正在打開；（2）PCE vs CPI——核心PCE 3.3%下降速度略快於核心CPI 2.9%，符合「Fed更有可能降息」的組合；（3）油金/銅金比——美伊停戰後油價回吐，原物料急跌訊號初現，市場情緒正從「戰爭通膨」轉向「戰後降息交易」。三項都指向：Q3是政策轉折的觀察窗。</div>
+    <div class="checkpoint-list">
+      <div class="checkpoint-item"><div class="checkpoint-marker">通膨 &amp; 股市</div><div class="checkpoint-text">股市通常與 CPI 數據高點同步，或在 CPI 見頂後一季內落底</div></div>
+      <div class="checkpoint-item"><div class="checkpoint-marker">PCE vs CPI</div><div class="checkpoint-text">PCE 下降快於 CPI 時，Fed 更有可能降息</div></div>
+      <div class="checkpoint-item"><div class="checkpoint-marker">油金 / 銅金比</div><div class="checkpoint-text">比率急跌代表需求萎縮，原物料漲價屬短期擾動，市場核心情緒轉向「通膨消退後的衰退」</div></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sec-group" id="sec-group-r3">
+<div class="sec-tab-bar cols-3">
+  <div class="sec-tab" id="sec-tab-sec-pmi" onclick="toggleSecTab('r3','sec-pmi')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">07</span>
+      <span class="sec-tab-title">PMI 景氣</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">ISM製造業</span><span class="sec-ind-chip">新訂單</span><span class="sec-ind-chip">積壓訂單</span><span class="sec-ind-chip">供應商交期</span><span class="sec-ind-chip">ISM服務業</span></div>
+  </div>
+  <div class="sec-tab" id="sec-tab-sec-earnings" onclick="toggleSecTab('r3','sec-earnings')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">08</span>
+      <span class="sec-tab-title">企業獲利</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">Forward EPS</span><span class="sec-ind-chip">超預期率</span><span class="sec-ind-chip">利潤率</span><span class="sec-ind-chip">勞動佔比</span><span class="sec-ind-chip">指數目標點位</span></div>
+  </div>
+  <div class="sec-tab" id="sec-tab-sec-risk" onclick="toggleSecTab('r3','sec-risk')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">09</span>
+      <span class="sec-tab-title">風險與流動性</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">VIX</span><span class="sec-ind-chip">BBB利差</span><span class="sec-ind-chip">HY利差</span><span class="sec-ind-chip">MOVE</span><span class="sec-ind-chip">DXY</span><span class="sec-ind-chip">貨幣市場規模</span></div>
+  
+  
+
+</div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-pmi">
+<div class="content-section" id="sec-pmi">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div class="section-title-wrap">
+      <div class="section-title">PMI 景氣指標</div>
+      <div class="section-desc">Purchasing Managers' Index · Business Cycle</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">7-1 PMI 細項循環位階判讀（2026年6月）</div>
+    <div class="subsection-summary">從ISM細項數據反推當前處於製造業/服務業循環的哪個位階</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>細項</th><th>6月</th><th>5月</th><th>方向</th><th>循環位階意義</th></tr></thead>
+      <tbody>
+        <tr><td colspan="5" style="background:var(--bg3);font-weight:700;color:var(--accent3);padding:8px 12px">製造業細項 · <a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/june/" target="_blank" style="color:var(--accent3);text-decoration:underline">ISM 6月報告 ↗</a></td></tr>
+        <tr><td class="td-name">新訂單</td><td>56.0</td><td>56.8</td><td class="td-interpret sig-ok">略降但仍>50</td><td>訂單擴張連6個月 → 位階仍在<strong>擴張中段</strong>，不是尾端</td></tr>
+        <tr><td class="td-name">客戶存貨</td><td><strong style="color:var(--accent)">42.3</strong></td><td>(偏低)</td><td class="td-interpret sig-ok">續深度偏低</td><td>客戶端庫存太薄 → 未來訂單有<strong>補庫存支撐</strong>，是擴張中期典型特徵</td></tr>
+        <tr><td class="td-name">自有存貨</td><td><strong style="color:var(--accent3)">51.4</strong></td><td>49.9</td><td class="td-interpret sig-ok">重回擴張 +1.5</td><td>廠商開始主動補庫存 → 對應<strong>元件60「主動補庫存」第二階段</strong></td></tr>
+        <tr><td class="td-name">供應商交貨</td><td>57.4</td><td>60.6</td><td class="td-interpret sig-ok">交貨鬆綁 -3.2</td><td>產能鬆綁，非過熱前的緊繃期，尚未進入「訂單追不上產能」的過熱訊號</td></tr>
+        <tr><td class="td-name">價格</td><td>73.0</td><td>82.1</td><td class="td-interpret sig-ok">驟降 -9.1</td><td>通膨壓力顯著鬆綁 → 對FED升息壓力減輕，呼應Warsh降通膨路徑</td></tr>
+        <tr><td class="td-name">生產</td><td>擴張中</td><td>擴張中</td><td class="td-interpret sig-ok">連8個月擴張</td><td>生產動能持續，未見週期見頂訊號</td></tr>
+        <tr><td class="td-name">就業</td><td>49.7</td><td>48.6</td><td class="td-interpret sig-warn">略回升但仍<50</td><td>唯一軟斑，與6月NFP 57K 轉冷訊號一致</td></tr>
+        <tr><td colspan="5" style="background:var(--bg3);font-weight:700;color:var(--accent2);padding:8px 12px">服務業細項（5月最新，6月數據7/6公布）· <a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/may/" target="_blank" style="color:var(--accent2);text-decoration:underline">ISM 5月報告 ↗</a></td></tr>
+        <tr><td class="td-name">商業活動</td><td>—</td><td><strong>57.7</strong></td><td class="td-interpret sig-ok">大幅加速 +1.8</td><td>服務業「量」在噴出，內需未走弱</td></tr>
+        <tr><td class="td-name">新訂單</td><td>—</td><td><strong>57.3</strong></td><td class="td-interpret sig-ok">大幅加速 +3.8</td><td>需求端動能延續</td></tr>
+        <tr><td class="td-name">存貨變動</td><td>—</td><td><strong style="color:var(--accent3)">62.5</strong></td><td class="td-interpret sig-ok">大幅補庫存 +9.4</td><td>服務業同步進入補庫存階段，與製造業結構呼應</td></tr>
+        <tr><td class="td-name">就業</td><td>—</td><td>47.9</td><td class="td-interpret sig-warn">續收縮</td><td>與製造業就業49.7同時<50 → 就業是雙輪的共同軟斑</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box" style="margin-top:14px">
+      <div class="warning-box-title">當前製造業循環位階：擴張中段，主動補庫存已啟動</div>
+      <div class="warning-box-text">6月ISM製造業PMI 53.3，雖較5月54.0略降，但連續6個月站在50上，五個直接構成PMI的子項有四項擴張（僅就業49.7偏弱），整體訊號結構明確落在<strong>元件33的「擴張中段」</strong>。三個最關鍵訊號：<br><br>
+      （1）<strong>客戶存貨續深度偏低42.3</strong>——這是典型擴張中期特徵，意味未來訂單有補庫存支撐，不是週期尾端；<br>
+      （2）<strong>自有存貨從49.9躍升至51.4重回擴張</strong>——正對應元件60「主動補庫存」第二階段，廠商開始預先備料，而非被動囤積；<br>
+      （3）<strong>價格指數從82.1驟降至73.0（-9.1）</strong>——同步反映Warsh時代的降通膨路徑，對FED升息壓力全面減輕，也解釋為何7月降息預期回到桌面。<br><br>
+      服務業5月最新數據，商業活動57.7、新訂單57.3、存貨補庫62.5，顯示服務業同樣進入主動補庫存，並未走弱。這裡最需要注意的反而是就業——製造業49.7 + 服務業47.9同時<50，就業成為當前兩輪的共同軟斑，與6月NFP轉冷57K的訊號一致（勞動力參與率跌至61.5%，為2021年3月以來新低）。這是結構性訊號，不是循環轉折。</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">7-2 PMI 製造業 vs 服務業走勢與循環判讀</div>
+    <div class="subsection-summary">2020年以來首次雙輪同步擴張 · 對應元件64「再工業化結構性轉變」訊號確立</div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:20px;margin-top:10px">
+      <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:720px;display:block;margin:0 auto">
+        <!-- 標題 -->
+        <text x="360" y="24" fill="var(--text)" font-family="var(--sans)" font-weight="700" text-anchor="middle" style="font-size:.67em">美國 ISM 製造業 PMI + 服務業 PMI</text>
+        <text x="360" y="42" fill="var(--text3)" font-family="var(--sans)" text-anchor="middle" style="font-size:.42em">近3年走勢 · 數據來源: ISM · 圖形參考 MacroMicro</text>
+
+        <!-- Y軸網格 (40~60, 每5一線) -->
+        <g font-family="var(--mono)" fill="var(--text3)" style="font-size:.38em">
+          <line x1="60" y1="70"  x2="680" y2="70"  stroke="var(--border)" stroke-dasharray="2,3"/><text x="52" y="73" text-anchor="end">60</text>
+          <line x1="60" y1="130" x2="680" y2="130" stroke="var(--border)" stroke-dasharray="2,3"/><text x="52" y="133" text-anchor="end">55</text>
+          <line x1="60" y1="190" x2="680" y2="190" stroke="#00c8a0" stroke-width="1.5" stroke-dasharray="6,4" opacity=".7"/><text x="52" y="193" text-anchor="end" fill="#00c8a0" font-weight="700">50</text>
+          <text x="685" y="188" fill="#00c8a0" font-family="var(--sans)" style="font-size:.38em">擴張</text>
+          <text x="685" y="200" fill="var(--danger)" font-family="var(--sans)" style="font-size:.38em">收縮</text>
+          <line x1="60" y1="250" x2="680" y2="250" stroke="var(--border)" stroke-dasharray="2,3"/><text x="52" y="253" text-anchor="end">45</text>
+          <line x1="60" y1="310" x2="680" y2="310" stroke="var(--text3)" stroke-width="1"/><text x="52" y="313" text-anchor="end">40</text>
+        </g>
+
+        <!-- X軸日期標籤 -->
+        <g font-family="var(--mono)" fill="var(--text3)" style="font-size:.38em">
+          <text x="80"  y="328" text-anchor="middle">2024 Q3</text>
+          <text x="230" y="328" text-anchor="middle">2025 Q1</text>
+          <text x="380" y="328" text-anchor="middle">2025 Q3</text>
+          <text x="530" y="328" text-anchor="middle">2026 Q1</text>
+          <text x="660" y="328" text-anchor="middle">2026 Q2</text>
+        </g>
+
+        <!-- 製造業 PMI 折線 (藍色) 24個月數據點 -->
+        <!-- y = 70 + (60-value)*12 → 50對應y=190 -->
+        <polyline points="60,232 85,236 110,240 135,244 160,248 185,244 210,238 235,232 260,222 285,216 310,214 335,212 360,210 385,206 410,202 435,196 460,193.6 485,192.4 510,192.4 535,190 560,183.6 585,177.6 610,166 635,160 660,166"
+          fill="none" stroke="#4d9fff" stroke-width="2.2"/>
+        <!-- 製造業最新點標記 6月 53.3 → y=70+(60-53.3)*12=150.4 -->
+        <circle cx="660" cy="150.4" r="5" fill="#4d9fff" stroke="var(--bg3)" stroke-width="2"/>
+        <text x="668" y="147" fill="#4d9fff" font-family="var(--mono)" font-weight="700" style="font-size:.42em">53.3</text>
+
+        <!-- 服務業 PMI 折線 (橘紅) 24個月數據點 -->
+        <polyline points="60,166 85,160 110,154 135,150 160,152 185,146 210,142 235,148 260,158 285,164 310,160 335,166 360,178 385,182 410,172 435,166 460,158 485,152 510,166 535,172 560,180 585,164 610,141.2 635,131.6 660,140"
+          fill="none" stroke="#ff4d6d" stroke-width="2.2"/>
+        <!-- 服務業最新點標記 5月 54.5 → y=70+(60-54.5)*12=136 -->
+        <circle cx="635" cy="136" r="5" fill="#ff4d6d" stroke="var(--bg3)" stroke-width="2"/>
+        <text x="643" y="132" fill="#ff4d6d" font-family="var(--mono)" font-weight="700" style="font-size:.42em">54.5</text>
+
+        <!-- 圖例 -->
+        <g style="font-size:.42em">
+          <rect x="200" y="52" width="12" height="3" fill="#4d9fff"/>
+          <text x="218" y="57" fill="var(--text)" font-family="var(--sans)" font-weight="600">ISM 製造業 PMI</text>
+          <rect x="360" y="52" width="12" height="3" fill="#ff4d6d"/>
+          <text x="378" y="57" fill="var(--text)" font-family="var(--sans)" font-weight="600">ISM 服務業 PMI</text>
+        </g>
+      </svg>
+      <div style="text-align:center;margin-top:10px">
+        <a href="https://www.macromicro.me/charts/152200/mei-guo-ISM-zhi-zao-ye-PMI-fu-wu-ye-PMI" target="_blank" style="color:var(--accent3);text-decoration:underline;font-family:var(--mono);font-size:.85em">看 MacroMicro 即時互動圖 ↗</a>
+      </div>
+    </div>
+    <div class="warning-box" style="margin-top:14px">
+      <div class="warning-box-title">當前 PMI 循環判讀：雙輪同步擴張，市場位階在擴張中段而非底部</div>
+      <div class="warning-box-text">當前 ISM 製造業53.3、服務業54.5，兩者同時穩定站在50上——這是<strong>2020年以來首次出現的「雙輪同步擴張」格局</strong>。更關鍵的結構訊號是：<strong>從去年第四季起，S&amp;P Global 製造業PMI已連續三個季度穩定壓過服務業PMI，即將進入第四個季度，這是這項數據編撰以來首見</strong>。正常時期服務業PMI通常穩定領先或持平於製造業，若製造業連續多季反超，代表經濟成長引擎正從「服務業帶動」切換為「製造業帶動」的結構性轉變，非單季雜訊——對應元件64「再工業化結構性轉變」訊號確立。<br><br>
+      從歷史對照看，PMI 由45往50靠攏才是股市結構性底部訊號，現在兩者皆遠高於50，代表市場位階明確不在底部，而是進入元件33的<strong>擴張中段</strong>。真正需要提高警覺的轉折訊號是：（a）製造業PMI跌破50且新訂單同步下墜，或（b）服務業PMI跌破50且商業活動指數同步走弱——兩者都是循環進入去庫存/衰退的先兆，目前皆未出現。<br><br>
+      當前唯一軟斑集中在就業（製造業49.7 + 服務業47.9），但不是循環轉折的核心訊號，而是勞動市場結構性變化（勞動力參與率創2021年3月新低）。美國經濟由製造業與服務業雙輪支撐，當前兩輪同時擴張且製造業連續6個月在擴張區、服務業連續23個月在擴張區，是「擴張延續」而非「頂部見高」的訊號組合。</div>
+    </div>
+    <div class="subsection-title" style="margin-top:20px;font-size:1em">PMI 與市場關聯的四個歷史經驗法則</div>
+    <div class="notes-grid">
+      <div class="note-card"><div class="note-card-label warning">通膨高點 = 股市低點</div><div class="note-card-body">股市多與 CPI 數據高點同步，或在一季（3 個月）內落底</div></div>
+      <div class="note-card"><div class="note-card-label leading">經濟底部 = 股市領先</div><div class="note-card-body">股市多與 GDP 底部同步，或領先 1–2 個月落底</div></div>
+      <div class="note-card"><div class="note-card-label key">PMI 角色</div><div class="note-card-body">PMI 由 45 往 50 靠攏，通常預示 1–2 個月後股市出現結構性底部</div></div>
+      <div class="note-card"><div class="note-card-label lagging">ISM vs S&amp;P Global 校正</div><div class="note-card-body">若 ISM 暴跌但 S&amp;P Global PMI 仍在 50 以上，代表僅「信心面」受損，非「實體需求」崩潰</div></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-earnings">
+<div class="content-section" id="sec-earnings">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <div class="section-title-wrap">
+      <div class="section-title">企業獲利</div>
+      <div class="section-desc">Corporate Earnings · Valuation Modeling</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">8-1 總體獲利指標</div>
+    <div class="subsection-summary">Q1 S&amp;P 500營收成長+10.3%創2022Q3以來最高，EPS超預期比例84%（5年均78%）、平均超出20.7%（5年均7.3%）——EPS超預期程度創2021Q2以來最高。這是「盈餘驅動消化估值」的直接證據：EPS上修速度超過股價漲幅，這正是3-4遠期本益比對比中「美股比年初便宜1.6x」的根本原因（對應元件69）。反駁「利潤集中巨頭」敘事的最強證據——全體企業盈利同步走高，非僅巨頭亮眼。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">企業稅後獲利</td><td class="td-link"><span class="td-id-inline">CP</span><br><a href="https://fred.stlouisfed.org/series/CP" target="_blank">FRED ↗</a></td><td>與S&amp;P500 EPS同步上升趨勢（無單一精確值）</td><td class="td-interpret sig-ok">✅ NIPA口徑獲利同步走高</td></tr>
+        <tr><td class="td-name">花旗驚奇盈餘指數 <span class="yardeni-badge">Citi</span></td><td class="td-link"><span class="td-id-inline">Citi</span></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">S&amp;P 500 Forward EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>$375（年底預估）/$349（反推）</td><td class="td-interpret sig-ok">✅ 持續上修</td></tr>
+        <tr><td class="td-name">S&amp;P 500 Forward Revenue per Share <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>Q1實際營收成長+10.3%</td><td class="td-interpret sig-ok">✅ 創2022Q3以來最高營收成長</td></tr>
+        <tr><td class="td-name">板塊前瞻 EPS &amp; 盈餘增速 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">⚠ 僅能定性：科技/工業/金融領漲</td></tr>
+        <tr><td class="td-name">Earnings Season Monitor <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span><br><a href="https://insight.factset.com" target="_blank">FactSet ↗</a></td><td>Q1實際EPS超預期84%（5年均78%），平均超出20.7%（5年均7.3%）</td><td class="td-interpret sig-ok">✅ 創2021Q2以來最高比例</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">8-2 營收、利潤率與資本回報（Yardeni 完整）</div>
+    <div class="subsection-summary">S&amp;P 500 Q1淨利潤率13.4%創2009年FactSet追蹤以來新高，Q2-Q4預估14.1%/14.6%/14.6%持續擴張——利潤率擴張是本輪多頭最堅實基石。LTEG從1月+14.3%大幅上修至4月+18.6%，STRG Q2-Q4預估+20.6%/+22.7%/+20.4%持續加速，代表AI CapEx投資已開始轉化為實質獲利。唯一警訊：6個板塊Q1利潤率QoQ下降（能源/工業領跌），需觀察是類別再平衡或普遍轉弱。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">S&amp;P 500 淨利潤率 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span><br><a href="https://insight.factset.com" target="_blank">FactSet ↗</a></td><td>13.4%（Q1，創2009年FactSet追蹤以來新高）</td><td class="td-interpret sig-ok">✅ Q2-Q4預估14.1%/14.6%/14.6%持續擴張</td></tr>
+        <tr><td class="td-name">S&amp;P 500 各板塊前瞻利潤率 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span></td><td>6個板塊Q1利潤率QoQ下降，能源(6.6%vs7.9%)、工業(11.1%vs12.3%)領跌</td><td class="td-interpret sig-warn">⚠ 部分板塊利潤率承壓</td></tr>
+        <tr><td class="td-name">S&amp;P 500 回購 &amp; 股息收益率 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">NIPA 企業利潤 vs S&amp;P 500 EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FRED/Yardeni</span></td><td>兩者同步上升趨勢</td><td class="td-interpret sig-ok">✅ 無顯著背離</td></tr>
+        <tr><td class="td-name">LTEG 長期盈餘增速預期 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span></td><td>CY2026分析師預估+14.3%（1月）→+18.6%（4月，大幅上修）</td><td class="td-interpret sig-ok">✅ 持續上修</td></tr>
+        <tr><td class="td-name">STRG / STEG 短期盈餘增速 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span></td><td>Q2-Q4 2026預估+20.6%/+22.7%/+20.4%</td><td class="td-interpret sig-ok">✅ 加速成長</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">8-3 大中小型股比較（Yardeni 完整）</div>
+    <div class="subsection-summary">Magnificent-7市值佔比33.8%（6月）雖仍高，但貢獻度較2025年50%略降至Goldman預估的46%——「AI盈利社會化」正在發生。Q1 EPS成長最大貢獻者輪動至Alphabet/Amazon/Meta，代表AI變現的獲利已擴散到超大型科技以外。這對應3-4遠期本益比五市場對照中「美股領頭+其他市場跟漲」的邏輯基礎——市場正從「巨頭獨舞」轉向「盈利擴散」，是牛市延續的健康訊號。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">S&amp;P 500/400/600 Forward EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">S&amp;P 500/400/600 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>S&amp;P 500：20.9x；中小型股未查得</td><td class="td-interpret sig-neutral">⚠ 中小型股數據未查得</td></tr>
+        <tr><td class="td-name">成長 vs 價值 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">Magnificent-7 前瞻指標 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet/JPM</span></td><td>市值佔比33.8%（6月），Q1 EPS成長最大貢獻者：Alphabet/Amazon/Meta；Goldman預估貢獻2026 EPS成長46%</td><td class="td-interpret sig-warn">⚠ 集中度風險仍高，但貢獻度較2025年50%略降</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">8-4 估值建模：指數目標價回推</div>
+    <div class="subsection-summary">用EPS $367（7月最新反推）× 5Y均值P/E 19.9x → 目標$7,303；當前S&amp;P 500 7,483略高於基準情境1.9%，代表估值處於「合理略偏高」區間而非泡沫化。若EPS續上修至Yardeni預估$375，基準目標可上探$7,463；輕度泡沫（24x）情境目標$8,808（+17.7%空間）、中度泡沫（28x）目標$10,276（+37.3%空間）——空間仍在，但需觀察EPS上修節奏是否能追上股價漲幅（見3-4分析）。</div>
+    <div class="formula-block">
+      <div class="formula-label">核心公式</div>
+      <div class="formula-main">EPS × P/E = S&amp;P 500 目標點位</div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>獲利基準 (EPS)</th><th>假設 P/E</th><th>目標點位</th><th>情境</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">$349（反推）／$375（Yardeni預估）</td><td>19.9x（5Y均值）</td><td class="td-interpret sig-neutral">$6,945／$7,463</td><td class="td-purpose">基準情境</td></tr>
+        <tr><td class="td-name">$375</td><td>24x（輕度泡沫）</td><td class="td-interpret sig-warn">$9,000</td><td class="td-purpose">樂觀情境</td></tr>
+        <tr><td class="td-name">$375</td><td>28x（中度泡沫）</td><td class="td-interpret sig-warn">$10,500</td><td class="td-purpose">牛市延伸</td></tr>
+        <tr><td class="td-name">$375</td><td>35x（完全泡沫，2000年水準）</td><td class="td-interpret sig-danger">$13,125</td><td class="td-purpose">極端情境</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  </div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-risk">
+<div class="content-section" id="sec-risk">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <div>
+      <div class="section-title">風險與流動性</div>
+      <div class="section-desc">Risk &amp; Liquidity Monitor · 金融壓力、信用市場與流動性環境</div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">9-1 美元流動性</div>
+    <div class="subsection-summary">Fed資產負債表$6.725兆，Warsh接任首週QT步調明顯放緩並啟動規模審查——這是本輪政策轉折最直接的訊號。TGA $874億在Treasury目標區間內、ON RRP接近零——資金管路運作正常，無異常抽注水。整體流動性環境「不是逆風」，Fed政策轉向鴿派時股市不會有流動性瓶頸限制估值擴張。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">Fed資產負債表</td><td class="td-link"><span class="td-id-inline">WALCL</span><br><a href="https://fred.stlouisfed.org/series/WALCL" target="_blank">FRED ↗</a></td><td>$6.725兆（6/17週，週增$13.9億，年增$48億）</td><td class="td-interpret sig-warn">⚠ Warsh接任首週，QT步調明顯放緩，已啟動資產負債表規模審查</td></tr>
+        <tr><td class="td-name">財政部現金帳戶 TGA</td><td class="td-link"><span class="td-id-inline">WTGANN</span><br><a href="https://fred.stlouisfed.org/series/WTGANN" target="_blank">FRED ↗</a></td><td>$874.1億（在Treasury目標區間$700-900億內）</td><td class="td-interpret sig-ok">✅ 處於正常範圍，無異常抽水/注水</td></tr>
+        <tr><td class="td-name">隔夜附買回 ON RRP</td><td class="td-link"><span class="td-id-inline">RRPONTSYD</span><br><a href="https://fred.stlouisfed.org/series/RRPONTSYD" target="_blank">FRED ↗</a></td><td>接近零（近零使用量）</td><td class="td-interpret sig-ok">✅ 市場資金充裕，無需大量停泊避險</td></tr>
+      </tbody>
+    </table></div>
+    <div class="context-box">
+      <div class="context-box-title">背景說明</div>
+      <div class="context-box-text">M2貨幣供給$22.80兆（4月），M1為$19.53兆，銀行信貸$19.58兆——三者搭配TGA正常、ON RRP接近零，代表「資金管路運作良好」，Fed決策更多受通膨數據而非流動性緊俏影響。</div>
+    </div>
+  </div>
+
+<div class="subsection">
+    <div class="subsection-title">9-2 金融壓力</div>
+    <div class="subsection-summary">聖路易聯邦金融壓力指數-0.18（較2月-0.49持續走低）——低於歷史均值且趨勢持續健康化，代表儘管地緣衝擊與Fed政策不確定性，市場運作壓力並未累積。這與9-1流動性充裕互為佐證，金融系統目前不是風險來源。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">聖路易聯邦金融壓力指數</td><td class="td-link"><span class="td-id-inline">STLFSI4</span><br><a href="https://fred.stlouisfed.org/series/STLFSI4" target="_blank">FRED ↗</a></td><td>-0.18（3月27日最新確認值，較2月-0.49持續走低）</td><td class="td-interpret sig-ok">✅ 低於零，市場壓力低於歷史均值，趨勢持續健康化</td></tr>
+        <tr><td class="td-name">TED 利差</td><td class="td-link"><span class="td-id-inline">TEDRATE</span><br><a href="https://fred.stlouisfed.org/series/TEDRATE" target="_blank">FRED ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">9-3 信用風險</div>
+    <div class="subsection-summary">SLOOS Q1顯示商業與工業貸款質化溫和淨緊縮，各規模企業一致——這是累積性訊號，尚未進入警戒區。信用卡/車貸標準大致不變，代表消費端信用未惡化。信用風險當前定位：連續多季溫和緊縮但尚未加速，是牛市中段的正常現象，並非泡沫破滅前的信用擴張癲狂。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">商業與工業貸款違約率</td><td class="td-link"><span class="td-id-inline">SLOOS</span><br><a href="https://www.federalreserve.gov/data/sloos" target="_blank">Fed SLOOS ↗</a></td><td>資料受限：無精確違約率，SLOOS質化顯示Q1溫和淨緊縮</td><td class="td-interpret sig-warn">⚠ 質化趨勢偏緊</td></tr>
+        <tr><td class="td-name">消費者貸款違約率</td><td class="td-link"><span class="td-id-inline">SLOOS</span><br><a href="https://www.federalreserve.gov/data/sloos" target="_blank">Fed SLOOS ↗</a></td><td>信用卡/車貸標準大致不變，其他消費貸溫和緊縮</td><td class="td-interpret sig-neutral">⚠ 中性偏緊</td></tr>
+        <tr><td class="td-name">銀行貸款緊縮比率</td><td class="td-link"><span class="td-id-inline">DRTSCILM</span><br><a href="https://fred.stlouisfed.org/series/DRTSCILM" target="_blank">FRED ↗</a></td><td>Q1溫和淨緊縮（各規模企業一致）</td><td class="td-interpret sig-warn">⚠ 連續緊縮但幅度溫和</td></tr>
+        <tr><td class="td-name">債務還本付息佔收入比</td><td class="td-link"><span class="td-id-inline">FRED</span></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">FINRA 融資餘額</td><td class="td-link"><span class="td-id-inline">FINRA</span><br><a href="https://www.finra.org/investors/learn-to-invest/advanced-investing/margin-statistics" target="_blank">FINRA ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">9-4 泡沫破滅「死亡交叉」模式</div>
+    <div class="subsection-summary">當前尚未觸發：S&amp;P 500/流通中貨幣確實處於歷史高位，但FINRA融資餘額尚未從高點顯著下滑——「兩條件同時」的觸發訊號並未出現。這正是9-4作為極端警戒指標的價值：只有當融資餘額從高峰急墜（代表槓桿被迫平倉）且指數估值同步鬆動時，才是系統性風險確認訊號。目前不在此區間。</div>
+    <div class="signal-block">
+      <div class="signal-block-title">⚠ 系統性警示公式</div>
+      <div style="font-family:var(--mono);font-size:.87em;color:var(--text);line-height:2.2">
+        S&amp;P 500 / 流通中貨幣 <span style="color:var(--danger)">身處歷史高位</span>
+        <span style="color:var(--text3)"> ＋ </span>
+        FINRA 融資餘額 / 流通中貨幣 <span style="color:var(--danger)">自高點顯著下滑</span>
+        <span style="color:var(--text3)"> ＝ </span>
+        <strong style="color:var(--danger)">泡沫破滅確定信號</strong>
+      </div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">9-5 資金三道防線（2026 年風險環境）</div>
+    <div class="subsection-summary">三道防線當前定位：（1）油價——美伊停戰後回吐，第一道防線暫時解除告急；（2）10Y殖利率4.57%仍高但已從近期高點回落，Warsh鴿派轉向可望持續壓低長端，第二道防線壓力減緩；（3）美元流動性——Fed資產負債表$6.725兆穩定、ON RRP近零、金融壓力指數-0.18，第三道防線最健康。<strong>三道防線目前皆未同步告急</strong>，系統性風險機率低，符合牛市中段的擴張延續格局。</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>防線</th><th>指標</th><th>不利信號</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name" style="color:var(--accent)">第一道</td><td>油價</td><td class="td-interpret sig-neutral">—</td><td class="td-purpose">通膨源頭，油價上漲壓縮 Fed 降息空間</td></tr>
+        <tr><td class="td-name" style="color:var(--accent2)">第二道</td><td>美債殖利率</td><td class="td-interpret sig-neutral">—</td><td class="td-purpose">定價之錨，收益率飆升壓縮估值</td></tr>
+        <tr><td class="td-name" style="color:var(--danger)">第三道</td><td>美元流動性</td><td class="td-interpret sig-neutral">—</td><td class="td-purpose">市場血液，WALCL + ON RRP 同步收縮即窒息</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning-box">
+      <div class="warning-box-title">三道防線同步告急 → 系統性風險</div>
+      <div class="warning-box-text">若 Fed 縮表（WALCL 下降）但 ON RRP 同步釋放，市場流動性可能維持平衡。若兩者同步縮減，市場面臨「窒息」。銀行惜貸比率急升通常領先企業違約率與衰退，與牛陡轉正共振則是撤退的最後通牒。</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sec-group" id="sec-group-r4">
+<div class="sec-tab-bar cols-3">
+  <div class="sec-tab" id="sec-tab-sec-fed" onclick="toggleSecTab('r4','sec-fed')">
+    <div class="sec-tab-header">
+      <span class="sec-tab-num">10</span>
+      <span class="sec-tab-title">FED 升/降息意向</span>
+      <span class="sec-tab-arrow">▼</span>
+    </div>
+    <div class="sec-tab-indicators"><span class="sec-ind-chip">Fed Funds Rate</span><span class="sec-ind-chip">SOFR</span><span class="sec-ind-chip">CME FedWatch</span><span class="sec-ind-chip">2Y殖利率</span><span class="sec-ind-chip">10Y殖利率</span></div>
+  </div>
+</div>
+<div class="sec-panel-wrap" id="sec-panel-sec-fed">
+<div class="content-section" id="sec-fed">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div class="section-title-wrap">
+      <div class="section-title">FED 升/降息意向判斷</div>
+      <div class="section-desc">Fed Rate Hike / Cut Intention · 即時政策利率意向判斷</div>
+    </div>
+  </div>
+
+  <!-- 小節一：市場意向 -->
+  <div class="subsection">
+    <div class="subsection-title">小節一：市場意向（快速定價，直接影響股市）</div>
+
+    <div class="subsection-title" style="font-size:9px;color:var(--accent3);margin-bottom:10px;margin-top:16px">SOFR 系列 — 最前置的利率路徑信號</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>判讀</th><th>用途</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-name">隔夜 SOFR</td>
+          <td class="td-link"><span class="td-id-inline">SOFR · FRED</span><br><a href="https://fred.stlouisfed.org/series/SOFR" target="_blank">FRED ↗</a></td>
+          <td class="td-interpret sig-warn">3.63%（6/16）緊貼目標區間上緣</td><td class="td-purpose">緊貼 Fed Funds 目標區間的現貨錨。若持續偏離上緣，是短端流動性壓力的最早預警</td>
+        </tr>
+        <tr>
+          <td class="td-name">SOFR 期貨曲線形態（遠近端利差）</td>
+          <td class="td-link"><span class="td-id-inline">CME SOFR Futures</span><br><a href="https://www.cmegroup.com/markets/interest-rates/secured-overnight-financing-rate.html" target="_blank">CME ↗</a></td>
+          <td class="td-interpret sig-danger">🔴 已轉正傾斜（推估）：市場已完全定價10月前升息</td><td class="td-purpose">遠端 &gt; 近端 = 升息預期；遠端 &lt; 近端 = 降息預期。曲線從倒掛轉走平 = 降息預期消除；走平轉正傾斜 = 升息定價啟動</td>
+        </tr>
+        <tr>
+          <td class="td-name" style="color:var(--accent2)">Term SOFR 利差（12M − 1M）⚡</td>
+          <td class="td-link"><span class="td-id-inline">CME Term SOFR</span><br><a href="https://www.cmegroup.com/market-data/cme-group-benchmark-administration/term-sofr.html" target="_blank">CME ↗</a></td>
+          <td class="td-interpret sig-neutral">資料受限，未查得精確值</td><td class="td-purpose"><strong>最敏感的即時指標。</strong>利差轉正代表升息定價已從期貨傳導至貸款市場，直接墊高企業與房貸浮動利率成本。被全球 2,870+ 家機構用作浮動利率貸款基準，牽動實體信貸成本最快</td>
+        </tr>
+        <tr>
+          <td class="td-name">Atlanta Fed 市場機率追蹤器</td>
+          <td class="td-link"><span class="td-id-inline">Atlanta Fed</span><br><a href="https://www.atlantafed.org/cenfis/market-probability-tracker" target="_blank">Atlanta Fed ↗</a></td>
+          <td class="td-interpret sig-neutral">資料受限，未查得精確值</td><td class="td-purpose">以 SOFR 選擇權推算未來各目標區間的完整機率分佈，比 FedWatch 更精細，可看出市場對升/降息的信心區間與尾部風險</td>
+        </tr>
+      </tbody>
+    </table></div>
+
+    <div class="subsection-title" style="font-size:9px;color:var(--accent3);margin-bottom:10px;margin-top:20px">市場定價指標</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>指標名稱</th><th>來源／連結</th><th>判讀</th><th>用途</th></tr></thead>
+      <tbody>
+        <tr><td class="td-name">CME FedWatch Tool</td><td class="td-link"><span class="td-id-inline">CME Group</span><br><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME ↗</a></td><td class="td-interpret sig-warn">⚠ 12月升息機率36.0%（6/18，4月時5.4%），趨勢上升但7月會議仍88.8%不變，遠未到「已定價」</td><td class="td-purpose">30天聯邦基金期貨隱含的升/降/不動機率，最廣泛引用的市場共識指標</td></tr>
+        <tr><td class="td-name">2 年期美債殖利率</td><td class="td-link"><span class="td-id-inline">DGS2 · FRED</span><br><a href="https://fred.stlouisfed.org/series/DGS2" target="_blank">FRED ↗</a></td><td class="td-interpret sig-warn">先前4.13%，6月最新值未查得</td><td class="td-purpose">對 Fed 路徑最敏感的市場指標，升息預期升溫時立刻跳升，比任何官方聲明都快</td></tr>
+        <tr><td class="td-name">2Y − 10Y 殖利率利差</td><td class="td-link"><span class="td-id-inline">T10Y2Y · FRED</span><br><a href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">FRED ↗</a></td><td class="td-interpret sig-warn">41bp（6/2），仍正值未倒掛</td><td class="td-purpose">倒掛加深 = 市場預期短期緊縮但長期看衰；倒掛收窄或轉正 = 升息預期重燃</td></tr>
+        <tr><td class="td-name">5 年期盈虧平衡通膨率</td><td class="td-link"><span class="td-id-inline">T5YIE · FRED</span><br><a href="https://fred.stlouisfed.org/series/T5YIE" target="_blank">FRED ↗</a></td><td class="td-interpret sig-warn">2.61%（3/13，6月待更新）</td><td class="td-purpose">TIPS 隱含通膨預期，持續走高代表市場認為通膨未被馴服，Fed 升息壓力累積</td></tr>
+        <tr><td class="td-name">10 年期實質殖利率（TIPS）</td><td class="td-link"><span class="td-id-inline">DFII10 · FRED</span><br><a href="https://fred.stlouisfed.org/series/DFII10" target="_blank">FRED ↗</a></td><td class="td-interpret sig-danger">🔴 2.19%（6/18，月增0.03，年增0.13），實質利率持續走升</td><td class="td-purpose">真實緊縮力道指標。名目利率 − 通膨預期 = 實質利率，上升即代表貨幣環境實質收緊</td></tr>
+        <tr><td class="td-name">美元指數 DXY</td><td class="td-link"><span class="td-id-inline">—</span><br><a href="https://www.investing.com/indices/usdollar" target="_blank">Investing ↗</a></td><td class="td-interpret sig-danger">🔴 100.72（6/18，創2025/5以來新高）</td><td class="td-purpose">升息預期升溫時美元走強，可交叉驗證市場定價方向</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+    <div class="context-box" style="margin-top:16px">
+      <div class="context-box-title">⚡ 市場意向 vs Fed 意向：核心差異與操盤邏輯</div>
+      <div class="context-box-text">• 市場意向看「預期」，數據公布前就已定價，股市當下反應。Fed 意向看「已實現數據」，慢半拍，但決定 Fed 真正的行動方向。兩者一致時趨勢最強；分歧時往往是情緒性超調，反而是機會。</div>
+    </div>
+    <div class="checkpoint-list" style="margin-top:10px">
+      <div class="checkpoint-item"><div class="checkpoint-marker">SOFR 曲線</div><div class="checkpoint-text">最早的警報器。形態轉換順序：倒掛（降息預期）→ 走平（維持不動）→ 正傾斜（升息定價）。每一次形態轉換都領先 FedWatch 數天至數週</div></div>
+      <div class="checkpoint-item"><div class="checkpoint-marker">Term SOFR 利差</div><div class="checkpoint-text">12M − 1M 利差轉正，代表升息預期已從期貨傳導至貸款市場，企業浮動利率債務成本開始墊高，對資本密集、高槓桿產業壓力最直接</div></div>
+      <div class="checkpoint-item"><div class="checkpoint-marker">兩者一致</div><div class="checkpoint-text">SOFR 曲線正傾斜 + 2Y 走升 + FedWatch 機率上行，且核心 PCE 持續超標、就業強勁 → 股市承壓，防守為宜</div></div>
+      <div class="checkpoint-item"><div class="checkpoint-marker">市場超調</div><div class="checkpoint-text">市場大幅定價升息但 Fed 數據仍溫和 → 情緒性超調，可能是逢低機會而非趨勢反轉</div></div>
+      <div class="checkpoint-item"><div class="checkpoint-marker">最後確認</div><div class="checkpoint-text">FedWatch 升息機率突破 50% + 2Y 突破前高 + 核心 PCE 月增率連續兩個月 ≥ 0.3% → 三者同步，升息幾乎板上釘釘</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</main>
+
+<script>
+
+
+// ── Section Card Tabs ──
+function toggleSecTab(gid, sid){
+  var tab=document.getElementById('sec-tab-'+sid);
+  var panel=document.getElementById('sec-panel-'+sid);
+  var wasActive=tab.classList.contains('active');
+  // 全域關閉所有卡片
+  document.querySelectorAll('.sec-tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.sec-panel-wrap').forEach(function(p){p.classList.remove('open')});
+  // 若原本是關閉的才打開（點擊已開的 = 收起）
+  if(!wasActive){
+    tab.classList.add('active');
+    panel.classList.add('open');
+  }
+}
+// ── Nav 點擊展開對應 section ──
+function navClickSec(sid){
+  // 找它在哪個 group
+  var tab=document.getElementById('sec-tab-'+sid);
+  if(!tab) return;
+  var group=tab.closest('.sec-group');
+  if(!group) return;
+  var gid=group.id.replace('sec-group-','');
+  toggleSecTab(gid,sid);
+  // 捲動到 group
+  setTimeout(function(){group.scrollIntoView({behavior:'smooth',block:'start'})},50);
+}
+
+// ── 右鍵 / 複製 / 選取保護 ──
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&['c','a','u','s','p','v'].includes(e.key.toLowerCase())){e.preventDefault();}
+  if(e.key==='F12'){e.preventDefault();}
+});
+document.addEventListener('copy',function(e){e.preventDefault();return false;});
+document.addEventListener('cut',function(e){e.preventDefault();return false;});
+document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+
+// ── 情境卡片展開/收合（允許同時展開） ──
+function toggleScen(summaryEl){
+  var card=summaryEl.closest('.scen-card');
+  var detail=card.querySelector('.scen-detail');
+  var btn=card.querySelector('.breathe-btn');
+  var isOpen=detail.classList.contains('open');
+  detail.classList.toggle('open');
+  if(btn){btn.classList.toggle('open',!isOpen);}
+}
+
+function setSize(sz){
+  document.documentElement.setAttribute('data-size',sz);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(b=>{
+    b.classList.toggle('active',b.textContent=={sm:'小',md:'中',lg:'大'}[sz]);
+  });
+  localStorage.setItem('macro-size',sz);
+}
+function setTheme(th){
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>{
+    b.classList.toggle('active', b.textContent=={dark:'深',light:'淺'}[th]);
+  });
+  localStorage.setItem('macro-theme',th);
+}
+(function(){
+  const sz=localStorage.getItem('macro-size')||'md';
+  const th=localStorage.getItem('macro-theme')||'dark';
+  document.documentElement.setAttribute('data-size',sz);
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(b=>{b.classList.toggle('active',b.textContent=={sm:'小',md:'中',lg:'大'}[sz])});
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>{b.classList.toggle('active',b.textContent=={dark:'深',light:'淺'}[th])});
+})();
+</script>
+</body>
+</html>
