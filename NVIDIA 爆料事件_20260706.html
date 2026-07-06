@@ -60,17 +60,16 @@ body{
 }
 
 /* ═══ CONTROLS ═══ */
-.controls{position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:50;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:9px;padding:5px;backdrop-filter:blur(8px)}
-.ctrl-group{display:flex;gap:2px}
-.ctrl-btn{font-family:var(--mono);font-size:calc(11px*var(--scale));padding:5px 9px;border-radius:6px;border:none;background:transparent;color:var(--text2);cursor:pointer;transition:.15s}
-.ctrl-btn:hover{background:var(--ctrl-hover)}
-.ctrl-btn.active{background:var(--ctrl-act-bg);color:var(--ctrl-act-txt);font-weight:600}
-.ctrl-sep{width:1px;background:var(--border2);margin:2px 2px}
+.controls{position:fixed;top:14px;right:14px;display:flex;gap:0;z-index:50;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:4px;padding:2px;backdrop-filter:blur(8px)}
+.controls a,.controls button{display:flex;align-items:center;padding:3px 10px;font-family:var(--mono);font-size:calc(11px*var(--scale));color:var(--text2);text-decoration:none;border:none;background:none;cursor:pointer;border-right:1px solid var(--border2);white-space:nowrap;transition:.15s;letter-spacing:.04em}
+.controls a:last-child,.controls button:last-child{border-right:none}
+.controls a:hover,.controls button:hover{color:var(--text)}
+.controls button.active{color:var(--accent);background:rgba(0,200,160,.12);font-weight:700}
 @keyframes fan-breathe{
   0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}
   50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}
 }
-.ctrl-fan{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:calc(11px*var(--scale));font-weight:700;padding:5px 11px;border:none;cursor:pointer;text-decoration:none;border-radius:3px 0 0 3px;animation:fan-breathe 1.8s ease-in-out infinite}
+.ctrl-fan{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:calc(11px*var(--scale));font-weight:700;padding:3px 10px;border:none;cursor:pointer;text-decoration:none;border-right:1px solid var(--border2)!important;border-radius:3px 0 0 3px;animation:fan-breathe 1.8s ease-in-out infinite;color:#1a1200}
 
 /* ═══ NAV ═══ */
 nav{position:fixed;top:0;left:0;width:188px;height:100vh;background:var(--nav-bg);border-right:1px solid var(--border);padding:78px 0 20px;overflow-y:auto;z-index:40}
@@ -177,16 +176,12 @@ tbody tr.active-row{background:var(--active-row)}
 
 <div class="controls">
   <a class="ctrl-fan" href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg> 粉專</a>
-  <div class="ctrl-group">
-    <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
-    <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
-  </div>
-  <div class="ctrl-sep"></div>
-  <div class="ctrl-group">
-    <button class="ctrl-btn" onclick="setSize('sm')">小</button>
-    <button class="ctrl-btn active" onclick="setSize('md')">中</button>
-    <button class="ctrl-btn" onclick="setSize('lg')">大</button>
-  </div>
+  <a href="https://yoda-wcyc.github.io/-/" target="_blank" title="回首頁">⌂ 首頁</a>
+  <button onclick="setSize('sm')">小</button>
+  <button class="active" onclick="setSize('md')">中</button>
+  <button onclick="setSize('lg')">大</button>
+  <button class="active" onclick="setTheme('dark')">深</button>
+  <button onclick="setTheme('light')">淺</button>
 </div>
 
 <nav>
