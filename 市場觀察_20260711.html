@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 市場觀察 | 2026-07-11</title>
+<style>
+:root{--fs:24px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;}
+
+/* ── 工具列 ── */
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
+.fb{padding:4px 10px;font-size:11px;font-family:var(--fm);background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb:hover{color:var(--text);background:var(--surface2);}.fb.on{color:var(--accent);background:rgba(0,200,240,.15);}
+
+/* ── 頁首 ── */
+.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
+.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-r{text-align:right;}
+
+/* ── 版面 ── */
+.wrap{max-width:1200px;margin:0 auto;padding:22px 40px 64px;}
+.sec{margin-bottom:34px;}
+.sec-lbl{background:linear-gradient(90deg,rgba(0,212,170,.14) 0%,transparent 100%);border-left:4px solid var(--teal,#00d4aa);padding:11px 16px;font-size:calc(var(--fs)*1.08);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--text);margin-bottom:2px;}
+
+/* ── 溫度條 ── */
+.temp-bar-wrap{margin-bottom:20px;}
+.temp-bar-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.temp-bar-name{font-family:var(--fb);font-size:calc(var(--fs)*.75);letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--dim);}
+.temp-bar-label{font-family:var(--fb);font-size:calc(var(--fs)*.82);font-weight:700;}
+.temp-bar-scale{display:flex;justify-content:space-between;margin-bottom:5px;}
+.temp-bar-scale span{font-family:var(--fb);font-size:calc(var(--fs)*.72);color:var(--dim);}
+.temp-track{position:relative;height:13px;border-radius:7px;overflow:visible;background:linear-gradient(90deg,#22c55e 0%,#84cc16 20%,#f59e0b 50%,#f97316 75%,#ef4444 100%);box-shadow:0 2px 10px rgba(0,0,0,.25);}
+.temp-track .t-div{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18);}
+.temp-needle{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:10;cursor:default;}
+.temp-bubble{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--fb);font-size:calc(var(--fs)*.72);font-weight:700;padding:2px 8px;border-radius:3px;white-space:nowrap;color:#080b10;}
+.temp-arrow{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);border:4px solid transparent;}
+.temp-dot{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid;box-shadow:0 0 10px;margin-top:4px;}
+.temp-note{font-family:var(--fb);font-size:calc(var(--fs)*.72);color:var(--dim);margin-top:6px;}
+.temp-divider{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);}
+
+/* ── 閃爍動畫 ── */
+@keyframes tempPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.6);transform:scale(.88);}50%{box-shadow:0 0 0 7px rgba(255,255,255,0);transform:scale(1.05);}}
+.temp-pulse{animation:tempPulse 1.6s ease-out infinite;}
+@keyframes breathe{0%,100%{opacity:.3;text-shadow:none}50%{opacity:1;text-shadow:0 0 10px var(--yellow),0 0 20px var(--yellow)}}
+@keyframes breathe-bull{0%,100%{opacity:.25;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--green),0 0 18px var(--green),0 0 30px rgba(0,200,150,.4)}}
+@keyframes breathe-bear{0%,100%{opacity:.25;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--red),0 0 18px var(--red),0 0 30px rgba(255,61,90,.4)}}
+@keyframes pulse{0%,100%{border-left-color:var(--red)}50%{border-left-color:rgba(255,61,90,.3)}}
+@keyframes sd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.arr,.breath{animation:breathe 1.8s ease-in-out infinite;display:inline-block;color:var(--yellow);}
+.trig-num{display:inline-block;font-weight:800;font-size:calc(var(--fs)*1.05);letter-spacing:0;}
+.trig-bull{color:var(--green);animation:breathe-bull 0.85s ease-in-out infinite;}
+.trig-bear{color:var(--red);animation:breathe-bear 0.85s ease-in-out infinite;}
+
+/* ── 卡片 Grid ── */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.card{background:var(--surface);padding:17px 19px;}
+.card.clk{cursor:pointer;transition:background .12s;}
+.card.clk:hover{background:var(--surface2);}
+.c-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;}
+.arr{transition:transform .2s;}.card.open .arr{transform:rotate(180deg);animation:none;opacity:1;text-shadow:none;color:var(--accent);}
+.c-val{font-family:var(--fb);font-size:calc(var(--fs)*2.1);font-weight:900;line-height:1;margin-bottom:4px;}
+.c-val.gr{color:var(--green);}.c-val.rd{color:var(--red);}.c-val.ye{color:var(--yellow);}.c-val.ac{color:var(--accent);}
+.c-sub{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;line-height:1.5;}
+.c-tr{font-size:calc(var(--fs)*.85);margin-top:5px;}
+.c-tr.up{color:var(--green);}.c-tr.dn{color:var(--red);}.c-tr.wn{color:var(--yellow);}.c-tr.fl{color:var(--dim);}
+.sit{display:inline-block;padding:4px 11px;font-family:var(--fb);font-size:calc(var(--fs)*1.05);font-weight:700;border-radius:3px;margin-bottom:7px;}
+.sit-ok{background:rgba(0,200,150,.12);color:var(--green);border:1px solid rgba(0,200,150,.3);}
+.sit-wn{background:rgba(240,192,64,.12);color:var(--yellow);border:1px solid rgba(240,192,64,.3);}
+.sit-bad{background:rgba(255,61,90,.12);color:var(--red);border:1px solid rgba(255,61,90,.3);}
+.badge-on{display:inline-block;padding:3px 10px;font-size:calc(var(--fs)*.85);letter-spacing:.12em;text-transform:uppercase;border-radius:2px;background:rgba(0,200,150,.12);color:var(--green);border:1px solid rgba(0,200,150,.3);}
+
+/* ── 展開區 ── */
+.det{display:none;background:var(--surface2);border-top:1px solid var(--border);padding:15px 17px;animation:sd .17s ease;grid-column:1/-1;}
+.det.open{display:block;}
+.det-sub{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;margin-top:14px;}
+.det-sub:first-child{margin-top:0;}
+.sumbox{font-size:calc(var(--fs)*.88);font-weight:700;padding:10px;border-radius:0 4px 4px 0;margin-bottom:12px;}
+.sumbox-g{background:rgba(0,212,170,.07);border-left:3px solid var(--teal,#00d4aa);}
+.sumbox-r{background:rgba(239,68,68,.07);border-left:3px solid var(--red);}
+.rate-box{background:rgba(255,61,90,.05);border:1px solid rgba(255,61,90,.2);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:12px;font-family:var(--fb);font-size:calc(var(--fs)*.92);line-height:1.8;}
+.r-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,61,90,.1);}
+.r-row:last-child{border-bottom:none;}
+.r-lbl{color:var(--dim);}.r-val{font-family:var(--fm);font-weight:600;}
+
+/* ── 情緒點矩陣 ── */
+.emo-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 2px;vertical-align:middle;}
+.emo-dot.rd{background:#ef4444;box-shadow:0 0 5px rgba(239,68,68,.5);}
+.emo-dot.ye{background:#f59e0b;box-shadow:0 0 5px rgba(245,158,11,.4);}
+.emo-dot.cg{background:#22c55e;}
+.emo-dot.off{background:rgba(255,255,255,.15);}
+.lyr-hdr{font-family:var(--fb);font-size:calc(var(--fs)*.72);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:7px 0 4px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:6px;}
+.sig-row{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:calc(var(--fs)*.85);}
+.sig-name{flex:1;color:var(--dim);}
+.sig-val{font-family:var(--fb);font-weight:700;min-width:80px;text-align:right;}
+.sig-dot{font-size:1.1em;min-width:28px;text-align:center;}
+
+/* ── 表格 ── */
+.tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.92);}
+.tbl th{padding:6px 9px;font-size:calc(var(--fs)*.77);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+.tbl th.c{text-align:center;}.tbl td{padding:6px 9px;border-bottom:1px solid var(--border);font-family:var(--fm);}
+.tbl td.c{text-align:center;}.tbl tr:last-child td{border-bottom:none;}
+.tbl tr.hl td{background:rgba(0,200,150,.07);font-weight:600;}
+.tbl tr.wr td{background:rgba(255,61,90,.04);}
+.cr{color:var(--red);}.cg{color:var(--green);}.cy{color:var(--yellow);}.cd{color:var(--dim);}.cw{color:var(--text);font-weight:600;}
+
+/* ── 板塊四象限 ── */
+.sec4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.sc{background:var(--surface);}
+.sc-hdr{padding:9px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.25em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.sc.s .sc-hdr{color:var(--green);background:rgba(0,200,150,.06);}
+.sc.w .sc-hdr{color:var(--yellow);background:rgba(240,192,64,.06);}
+.sc.tw .sc-hdr{color:var(--orange);background:rgba(255,140,64,.06);}
+.sc.x .sc-hdr{color:var(--red);background:rgba(255,61,90,.06);}
+.sc-item{padding:8px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .12s;user-select:none;}
+.sc-item:last-child{border-bottom:none;}
+.sc-item:hover{background:var(--surface2);}
+.sc-item.open{background:var(--surface2);}
+.sc-item .sc-arr{font-size:calc(var(--fs)*.8);color:var(--dim);margin-left:6px;transition:transform .2s;flex-shrink:0;}
+.sc-item.open .sc-arr{transform:rotate(180deg);color:var(--accent);}
+.sc-det{display:none;padding:9px 13px 11px;background:var(--surface2);font-size:calc(var(--fs)*.85);line-height:1.75;border-top:1px solid var(--border);border-bottom:1px solid var(--border);animation:sd .15s ease;}
+.sc-det.open{display:block;}
+/* ── REL 趨勢條 ── */
+.rel-bars{display:flex;flex-direction:column;gap:4px;margin:8px 0 6px;}
+.rel-row{display:flex;align-items:center;gap:8px;font-size:calc(var(--fs)*.78);}
+.rel-lbl{color:var(--dim);min-width:42px;flex-shrink:0;font-family:var(--fm);}
+.rel-track{flex:1;height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;position:relative;}
+.rel-fill{height:100%;border-radius:4px;transition:width .3s;}
+.rel-fill.pos{background:linear-gradient(90deg,rgba(0,200,150,.5),rgba(0,200,150,.9));}
+.rel-fill.neg{background:linear-gradient(90deg,rgba(255,61,90,.9),rgba(255,61,90,.5));margin-left:auto;}
+.rel-val{font-family:var(--fm);font-weight:600;min-width:52px;text-align:right;font-size:calc(var(--fs)*.78);}
+.rel-val.pos{color:var(--green);}.rel-val.neg{color:var(--red);}.rel-val.flat{color:var(--dim);}
+.sc-tk{font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);}
+.sc-rk{font-size:calc(var(--fs)*.82);}
+.sc.s .sc-rk{color:var(--green);}.sc.w .sc-rk{color:var(--yellow);}
+.sc.tw .sc-rk{color:var(--orange);}.sc.x .sc-rk{color:var(--red);}
+
+/* 板塊小結 */
+.rotation-verdict{background:rgba(255,61,90,.05);border:1px solid rgba(255,61,90,.2);border-left:3px solid var(--orange);padding:12px 18px;margin-top:10px;margin-bottom:34px;}
+.rv-title{font-size:calc(var(--fs)*1.08);letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.rv-txt{font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.8;}
+.rv-txt strong{color:var(--orange);}
+
+/* ── 廣度卡 ── */
+.bc{background:var(--surface);padding:14px 16px;cursor:pointer;transition:background .12s;}
+.bc:hover{background:var(--surface2);}
+.bc-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+.bc-val{font-family:var(--fb);font-size:calc(var(--fs)*2.1);font-weight:900;line-height:1;}
+.bc-tr{font-size:calc(var(--fs)*.85);margin-top:4px;}
+.bc-det{display:none;background:var(--surface2);border-top:1px solid var(--border);padding:12px 14px;animation:sd .17s ease;grid-column:1/-1;}
+.bc-det.open{display:block;}
+.bc-sum{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.15);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:10px;font-family:var(--fb);color:var(--text);font-size:calc(var(--fs)*.92);line-height:1.7;}
+
+/* 廣度總結框 */
+.breadth-verdict{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.15);padding:10px 15px;margin-bottom:34px;font-family:var(--fb);color:var(--text);font-size:calc(var(--fs)*.92);line-height:1.7;}
+
+/* ── Gamma 防線 ── */
+.pbar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 17px;margin-bottom:0;cursor:pointer;border-bottom:none;border-radius:0;}
+.pbi .pbl{font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;color:var(--dim);}
+.pbi .pbv{font-family:var(--fb);font-size:calc(var(--fs)*1.5);font-weight:900;margin-top:2px;}
+.gamma-det{display:none;background:var(--surface2);border:1px solid var(--border);border-top:none;padding:16px 18px;margin-bottom:34px;animation:sd .17s ease;}
+.gamma-det-note{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
+.gtbl{width:100%;border-collapse:collapse;margin-bottom:12px;}
+.gtbl th{padding:7px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.25em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);background:var(--surface);}
+.gtbl td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.92);background:var(--surface);}
+.gtbl tr:last-child td{border-bottom:none;}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:middle;}
+.d-r{background:var(--red);}.d-o{background:var(--orange);}.d-w{background:var(--dim);}.d-g{background:var(--green);}.d-b{background:var(--accent);}
+.gq{color:var(--text);font-weight:600;}.gn{color:var(--accent);}.go{color:var(--dim);font-size:calc(var(--fs)*.85);}
+.nq-val{color:var(--orange);font-family:var(--fm);font-weight:600;}
+.g-mech{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:12px 16px;margin-bottom:10px;}
+.g-mech.yel{border-left-color:var(--yellow);}
+.g-mech-title{font-size:calc(var(--fs)*1.08);letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.g-mech.yel .g-mech-title{color:var(--yellow);}
+.g-mech-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);font-weight:300;color:var(--text);line-height:1.8;}
+.g-mech-txt strong{font-weight:600;}.g-mech-txt em{color:var(--yellow);font-style:normal;}
+
+/* ── 完整研判 ── */
+.syn{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);padding:26px 30px;margin-bottom:30px;}
+.syn-title{font-size:calc(var(--fs)*1.08);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;border-left:4px solid var(--accent);padding-left:14px;}
+.syn-blk{margin-bottom:20px;}.syn-blk:last-child{margin-bottom:0;}
+.syn-h{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.syn-txt{font-family:var(--fb);font-size:calc(var(--fs)*1.0);font-weight:300;color:var(--text);line-height:1.85;}
+.syn-txt strong{font-weight:700;}.syn-txt em{color:var(--yellow);font-style:normal;}
+
+/* ── 預期 vs 底線 ── */
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:16px;}
+.sc-bull{background:rgba(0,200,150,.04);border:1px solid rgba(0,200,150,.2);border-top:2px solid var(--green);padding:14px 18px;}
+.sc-bear{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.2);border-top:2px solid var(--red);padding:14px 18px;}
+.sc-s-title{font-size:calc(var(--fs)*1.08);letter-spacing:.3em;text-transform:uppercase;margin-bottom:10px;}
+.sc-bull .sc-s-title{color:var(--green);}.sc-bear .sc-s-title{color:var(--red);}
+.sc-s-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.85;}
+.sc-s-txt strong{font-weight:700;}
+.sc-s-txt .trigger{color:var(--yellow);}
+.sc-s-txt .target{color:var(--accent);font-family:var(--fm);}
+.trig-cond-hdr{font-size:calc(var(--fs)*.82);letter-spacing:.15em;color:var(--dim);margin:10px 0 5px;}
+
+/* ── 輔助 ── */
+.tag{display:inline-block;padding:2px 8px;font-size:calc(var(--fs)*.77);border-radius:2px;margin:2px;font-family:var(--fm);}
+.tag-r{background:rgba(255,61,90,.12);color:var(--red);border:1px solid rgba(255,61,90,.3);}
+.tag-y{background:rgba(240,192,64,.12);color:var(--yellow);border:1px solid rgba(240,192,64,.3);}
+.tag-g{background:rgba(0,200,150,.12);color:var(--green);border:1px solid rgba(0,200,150,.3);}
+.ht{overflow-x:auto;}.ht table{min-width:900px;}
+
+/* ── 指標列表（卡片收合狀態）── */
+.irow-list{display:flex;flex-direction:column;gap:0;}
+.irow{display:flex;align-items:baseline;gap:0;padding:3px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.85);font-family:var(--fm);}
+.irow:last-child{border-bottom:none;}
+.irow-name{color:var(--dim);min-width:88px;flex-shrink:0;letter-spacing:.04em;}
+.irow-val{color:var(--text);font-weight:600;}
+.irow-val.g{color:var(--green);}
+.irow-val.r{color:var(--red);}
+.irow-val.y{color:var(--yellow);}
+.irow-val.d{color:var(--dim);}
+
+/* ── 歷史快照覆蓋標注 ── */
+.snap-override{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.3);border-left:3px solid var(--yellow);padding:11px 16px;margin-bottom:10px;}
+.snap-override-title{font-size:calc(var(--fs)*1.08);letter-spacing:.28em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;}
+.snap-row{display:flex;align-items:baseline;gap:10px;padding:4px 0;border-bottom:1px solid rgba(240,192,64,.1);font-size:calc(var(--fs)*.85);}
+.snap-row:last-child{border-bottom:none;}
+.snap-etf{font-family:var(--fm);font-weight:700;min-width:60px;color:var(--text);}
+.snap-tag{padding:2px 8px;border-radius:2px;font-size:calc(var(--fs)*.77);font-weight:700;white-space:nowrap;}
+.snap-tag-warn{background:rgba(240,192,64,.15);color:var(--yellow);}
+.snap-tag-ok{background:rgba(0,200,150,.15);color:var(--green);}
+.snap-tag-fail{background:rgba(255,61,90,.15);color:var(--red);}
+.snap-desc{color:var(--dim);font-size:calc(var(--fs)*.82);}
+
+/* ── 頁尾 ── */
+.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
+.ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
+
+/* ── 深/淺色 ── */
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
+body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
+@keyframes fan-breathe {
+  0%, 100% { background:#b8960a; box-shadow:0 0 4px 1px rgba(255,215,0,.35); color:#1a1200; }
+  50%      { background:#ffd700; box-shadow:0 0 10px 3px rgba(255,215,0,.75); color:#000; }
+}
+.ctrl-fan{
+  display:flex;align-items:center;gap:4px;
+  padding:3px 10px;
+  font-family:var(--fm);
+  font-size:11px;
+  color:#1a1200;font-weight:700;
+  text-decoration:none;
+  border-right:1px solid var(--border);
+  letter-spacing:.05em;white-space:nowrap;
+  background:#b8960a;
+  border-radius:3px 0 0 3px;
+  animation:fan-breathe 1.8s ease-in-out infinite;
+}
+.ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- ── 工具列 ── -->
+<div class="fc"><a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" class="ctrl-fan" title="Facebook粉專"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.91h-2.33V22c4.78-.756 8.438-4.92 8.438-9.94Z"/></svg>粉專</a><a href="https://yoda-wcyc.github.io/-/" style="display:flex;align-items:center;padding:3px 10px;font-family:var(--fm);font-size:11px;color:var(--dim);text-decoration:none;border-right:1px solid var(--border);letter-spacing:.05em;white-space:nowrap;" title="回首頁">⌂ 首頁</a>
+  <button class="fb" id="fs-small" onclick="setFS('small')">小</button>
+  <button class="fb on" id="fs-normal" onclick="setFS('normal')">中</button>
+  <button class="fb" id="fs-large" onclick="setFS('large')">大</button>
+  <button class="fb" style="margin-left:4px;border-left:1px solid var(--border);padding-left:10px;" onclick="setTheme('dark')" id="btn-dark">深</button>
+  <button class="fb" onclick="setTheme('light')" id="btn-light">淺</button>
+</div>
+
+<!-- ── 頁首 ── -->
+<div class="hdr">
+  <div>
+    <div class="hdr-lbl">Yoda × Claude</div>
+    <div class="hdr-title">Yoda <span>市場觀察</span>
+      <span style="font-size:calc(var(--fs)*1.1);font-weight:400;color:var(--dim);letter-spacing:.05em;margin-left:14px;vertical-align:middle;">2026-07-11</span>
+      <span style="font-size:calc(var(--fs)*1.4);font-weight:800;color:var(--accent);margin-left:22px;vertical-align:middle;border-left:2px solid var(--accent);padding-left:18px;font-family:Noto Sans TC,sans-serif;">廣度全面回升，CPI 前夕多方佔優勢</span>
+    </div>
+  </div>
+  <div class="hdr-r">
+    <div style="font-size:calc(var(--fs)*.85);color:var(--dim);">Sat — 數據為 7/10 收盤 ｜ </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ════════════════════════════════════════
+     市場概覽（四條溫度條）
+     ════════════════════════════════════════ -->
+<div style="padding:6px 0 4px;margin-bottom:2px;">
+  <div class="sec-lbl" style="margin-bottom:14px;">市場概覽</div>
+
+  <!-- 溫度條①：資金流判定（藍針） -->
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">資金流判定</span>
+      <span class="temp-bar-label" style="color:#4da8e0;">穩定</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面空方</span><span>中性</span><span>全面多方</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:56%;">
+        <div class="temp-bubble" style="background:#4da8e0;">56</div>
+        <div class="temp-arrow" style="border-top-color:#4da8e0;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#4da8e0;box-shadow:0 0 10px rgba(77,168,224,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ 油價連三日回落🟡（WTI $71.46 −0.86%）=20；US10Y 4.56%窄幅盤整未加速🟡=10；SOFR−IORB −12bp🟢=25；HY_OAS 2.70%連四日健康🟢=10；Excess Liq惡化🟡=3 → 合計56，防線壓力持續紓緩</div>
+  </div>
+
+  <!-- 溫度條②：情緒過熱觸發（琥珀針） -->
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">情緒過熱觸發</span>
+      <span class="temp-bar-label" style="color:#f59e0b;">中性偏過熱</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>極度低迷冷靜</span><span>正常情緒</span><span>極端過熱警戒</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:65%;">
+        <div class="temp-bubble" style="background:#f59e0b;">65</div>
+        <div class="temp-arrow" style="border-top-color:#f59e0b;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#f59e0b;box-shadow:0 0 10px rgba(245,158,11,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ NAAIM 84.69沿用=18｜P/C 0.39🔴（歷史極低，Call是Put的2.56倍）=2｜樂活通道中性（NQ：現價30032/上緣34000/中線27400）=12｜VXN 24.89首次跌回常態區間=15 → 合計65</div>
+  </div>
+
+  <!-- 溫度條③：Risk-on/off（青針） -->
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">Risk-on / off</span>
+      <span class="temp-bar-label" style="color:#00d4aa;">中性</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面防禦避險</span><span>中性</span><span>全面風險偏好</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:56%;">
+        <div class="temp-bubble" style="background:#00d4aa;">56</div>
+        <div class="temp-arrow" style="border-top-color:#00d4aa;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#00d4aa;box-shadow:0 0 10px rgba(0,212,170,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ SPMO+0.01%≈0=12｜SPHB−0.55%=7｜IWM−0.85%=5｜SPLV+0.02%≈0=10｜SPHD+0.33%=12 → 合計56，週五CPI前夕普遍靜止</div>
+  </div>
+
+  <!-- 溫度條④：市場廣度（紫針） -->
+  <div class="temp-bar-wrap temp-divider">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">市場廣度</span>
+      <span class="temp-bar-label" style="color:#a855f7;">健康帶（62.1%）</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面崩跌（&lt;30%）</span><span>健康區間</span><span>全面強勢（&gt;75%）</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:30%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:62.1%;">
+        <div class="temp-bubble" style="background:#a855f7;color:#fff;">62.1</div>
+        <div class="temp-arrow" style="border-top-color:#a855f7;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#a855f7;box-shadow:0 0 10px rgba(168,85,247,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ NQ20 59.2↑｜SP20 62.2↑（重回60%健康門檻✅）｜NQ50 59.2↑｜SP50 67.8↑ → 平均62.1%，重回健康帶</div>
+  </div>
+
+</div>
+<!-- /市場概覽 -->
+
+
+<!-- ════════════════════════════════════════
+     核心指標（三欄卡片，可展開）
+     ════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-lbl">核心指標（點擊展開細節）</div>
+  <div style="display:grid;gap:1px;background:var(--border);">
+    <div class="g3">
+
+      <!-- 卡①：資金流判定 -->
+      <div class="card clk" id="cSit" onclick="tog('dSit','cSit')">
+        <div class="c-lbl">資金流判定 <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">穩定</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">油價連三天退潮、US10Y 盤在 4.56% 沒有繼續衝、流動性這週越來越寬，信用市場整週都沒有異常反應。三道防線的壓力這週都在消化，第二道要正式解除還要等 CPI 說話。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">US10Y</span><span class="irow-val y">4.56%（+0.02%，窄幅盤整，不加速上行）🟡</span></div><div class="irow"><span class="irow-name">US2Y</span><span class="irow-val y">4.212%（利差+35bp）</span></div><div class="irow"><span class="irow-name">SOFR−IORB</span><span class="irow-val g">−12bp（3.53/3.65，本週連日擴大）🟢</span></div><div class="irow"><span class="irow-name">HY_OAS</span><span class="irow-val g">2.70%（連四日健康，全週零反應）🟢</span></div><div class="irow"><span class="irow-name">油價</span><span class="irow-val y">🟡 WTI $71.46（連三日回落，地緣溢價退潮確認）</span></div><div class="irow"><span class="irow-name">Excess Liq</span><span class="irow-val y">惡化中（沿用6/18）🟡</span></div></div>
+      </div>
+
+      <!-- 卡②：情緒過熱觸發 -->
+      <div class="card clk" id="cTrg" onclick="tog('dTrg','cTrg')">
+        <div class="c-lbl">情緒過熱觸發 <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">中性偏過熱</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">VIX 跌到 15.35、VXN 跌回 25 以下——這週的恐慌情緒消退了。但 P/C Ratio 0.39 值得單獨說一下：市場現在極度看多 CPI 溫和，Call 買盤是 Put 的 2.56 倍。這把雙刃劍的另一面是，如果 CPI 超出預期，Call 集中平倉的速度會很快。週一不追，隔天再說。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">VIX</span><span class="irow-val g">15.35（−3.09%，連四日下行）🟢</span></div><div class="irow"><span class="irow-name">VXN</span><span class="irow-val g">24.89（首次跌回<25自身常態區間）🟢</span></div><div class="irow"><span class="irow-name">VX1/VX2</span><span class="irow-val g">16.9/18.3 正價差+1.4（連日擴大）🟢</span></div><div class="irow"><span class="irow-name">MOVE</span><span class="irow-val g">69.54（+0.65微升，CPI前夕靜候）🟢</span></div><div class="irow"><span class="irow-name">P/C Ratio</span><span class="irow-val r">0.39🔴（歷史極低，Call是Put的2.56倍）</span></div><div class="irow"><span class="irow-name">NAAIM</span><span class="irow-val y">84.69（沿用7/1，7/8週讀數仍未更新）🟡</span></div></div>
+      </div>
+
+      <!-- 卡③：Risk-on/off -->
+      <div class="card clk" id="cRsk" onclick="tog('dRsk','cRsk')">
+        <div class="c-lbl">Risk-on / Risk-off <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">中性</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">今天所有板塊的相對強弱幾乎都貼著零，典型的事件前觀望狀態。沒有人要在 CPI 前夕押注方向，MAGS 是唯一的例外。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">SPMO 今日</span><span class="irow-val y">+0.01%（≈持平，五日+0.57%）</span></div><div class="irow"><span class="irow-name">SPHB 今日</span><span class="irow-val r">-0.55%（略落後，五日-0.28%）</span></div><div class="irow"><span class="irow-name">IWM 今日</span><span class="irow-val r">-0.85%（月線-0.41%，長線+2.01%）</span></div><div class="irow"><span class="irow-name">SPLV 今日</span><span class="irow-val y">+0.02%（≈持平）</span></div><div class="irow"><span class="irow-name">SPHD 今日</span><span class="irow-val g">+0.33%（防禦輕微回補）</span></div><div class="irow"><span class="irow-name">MAGS 今日</span><span class="irow-val g">+0.95%（五日+2.60%，月線+1.94%）</span></div></div>
+      </div>
+    </div>
+
+    <!-- 展開①：資金流細節 -->
+    <div class="det" id="dSit">
+      <div class="sumbox sumbox-g">這週防線的變化：7/7–7/8 兩道都亮紅（38分）→ 7/9 雙向反轉（51分）→ 7/10 穩定（56分）。HY_OAS 整週維持 2.67–2.70%，全程沒有異常——這就是「估值重新定價」和「系統危機」的最大差別。</div>
+      <div class="det-sub">三道防線</div>
+      <table class="tbl">
+        <thead><tr><th>防線</th><th>指標</th><th class="c">狀態</th><th>說明</th></tr></thead>
+        <tbody><tr><td><strong>第一道</strong></td><td>油價</td><td class="c cy">🟡 緩解持續</td><td>WTI −0.86% 至 $71.46，連三日回落，自 7/8 高位退潮約 −4%。地緣溢價退潮確認，危機解除</td></tr><tr><td><strong>第二道</strong></td><td>US10Y</td><td class="c cy">🟡 盤整等候CPI</td><td>4.56%（+0.02%微升），連三日維持 4.55%–4.57% 窄幅區間。「破位後盤整」型態，距收復 4.527% 前高差 29bp</td></tr><tr><td><strong>第三道</strong></td><td>流動性</td><td class="c cg">🟢 持續改善</td><td>SOFR 3.53% − IORB 3.65% = −12bp，本週連日擴大（−2→−3→−7→−12bp）</td></tr><tr><td><strong>信用利差</strong></td><td>HY_OAS</td><td class="c cg">🟢 2.70%</td><td>連四日維持健康區間，全週對宏觀壓力免疫——本週最重要的系統性穩定錨</td></tr><tr><td><strong>領先指標</strong></td><td>Excess Liquidity</td><td class="c cy">🟡 惡化中</td><td>沿用6/18，無新評論</td></tr></tbody>
+      </table>
+      <div class="det-sub">利率細項</div>
+      <div class="rate-box"><div class="r-row"><span class="r-lbl">US2Y</span><span class="r-val" style="color:var(--yellow)">4.212%</span></div><div class="r-row"><span class="r-lbl">US10Y</span><span class="r-val" style="color:var(--yellow)"><strong>4.56%（連三日窄幅盤整，等CPI定向）</strong></span></div><div class="r-row"><span class="r-lbl">前高門檻</span><span class="r-val" style="color:var(--yellow)">4.527%（距收復差29bp）</span></div><div class="r-row"><span class="r-lbl">SOFR</span><span class="r-val" style="color:var(--green)">3.53%（本週最低）</span></div><div class="r-row"><span class="r-lbl">IORB</span><span class="r-val" style="color:var(--green)">3.65%（SOFR−IORB=−12bp）</span></div><div class="r-row"><span class="r-lbl">MOVE</span><span class="r-val" style="color:var(--green)">69.54（+0.65微升，CPI前夕靜候）</span></div></div>
+    </div>
+
+    <!-- 展開②：情緒細節 -->
+    <div class="det" id="dTrg">
+      <div class="sumbox sumbox-r">P/C 0.39 在重大事件前夕有兩種歷史先例：①軋空前市場極度單邊，事後往往大漲；②過度集中後事件不如預期，Call 蜂擁平倉導致比正常更劇烈的下跌。嚴守「7/14 當日不追價，次日確認」紀律。</div>
+      <div class="lyr-hdr">🔴 結構情緒警示（中長期）</div>
+      <div class="sig-row"><span class="c cy">🟡</span><span><strong>NAAIM 84.69</strong>（沿用7/1）——主動型基金倉位全週無新確認，下週初更新後補登</span></div><div class="sig-row"><span class="c cy">🟡</span><span><strong>投機客期貨淨持倉約−15%</strong>（沿用前次）——負向極端=軋空燃料；與 P/C 0.39 的 Call 集中共同構成「如果多方對，反彈力道加倍」的結構</span></div><div class="sig-row"><span class="c cg">🟢</span><span><strong>樂活通道（NQ基準）</strong>：上緣34000（≈QQQ 822）／現價30032（≈QQQ 725.5）／中線27400（≈QQQ 662）——現價位於通道中段，距上緣+13.3%，通道空間充裕</span></div><div class="sig-row"><span class="c cy">🟡</span><span><strong>Excess Liquidity惡化中</strong>（沿用6/18）——結構性背景壓力持續</span></div>
+      <div class="lyr-hdr" style="margin-top:10px;">🟡 短期情緒警示（即時行為）</div>
+      <div class="sig-row"><span class="c cg">🟢</span><span><strong>VIX 15.35</strong>（連四日下行）——自身常態中段，恐慌完全消散</span></div><div class="sig-row"><span class="c cg">🟢</span><span><strong>VXN 24.89</strong>——首次跌回自身常態區間（<25），本週情緒修復最重要里程碑</span></div><div class="sig-row"><span class="c cg">🟢</span><span><strong>VX1 16.9 / VX2 18.3</strong>——正價差+1.4（連日擴大），期限結構最健康狀態</span></div><div class="sig-row"><span class="c cg">🟢</span><span><strong>MOVE 69.54</strong>（+0.65微升）——CPI前夕債市靜候，波動率近乎持平</span></div><div class="sig-row"><span class="c cr">🔴</span><span><strong>P/C Ratio 0.39</strong>——歷史性低位。Call買盤是Put的2.56倍，極度看多。雙面刃：CPI超預期時Call集中平倉=加倍下跌。嚴守當日不追價紀律</span></div><div class="sig-row"><span class="c cg">🟢</span><span><strong>HY_OAS 2.70%</strong>——連四日健康，Put溢價今日全面大跌，尾部保護需求消退</span></div>
+      <div style="font-size:calc(var(--fs)*.8);padding:10px;background:rgba(239,68,68,.07);border-radius:5px;border-left:3px solid var(--red);line-height:1.6;margin-top:10px;">NAAIM 沿用 7/1 的讀數，還沒有新讀數。樂活通道改用 NQ 為基準：上緣 34000（≈QQQ 822）、中線 27400（≈QQQ 662）。P/C 0.39 是本期最需要盯的數字。</div>
+    </div>
+
+    <!-- 展開③：Risk-on/off 細節 -->
+    <div class="det" id="dRsk">
+      <div class="sumbox sumbox-g">SPMO+0.01%=12｜SPHB−0.55%=7｜IWM−0.85%=5｜SPLV+0.02%=10｜SPHD+0.33%=12 → 56/100，中性。MAGS今日相對+0.95%是唯一例外，算力核心週五主動走強，是最健康的背景訊號。</div>
+      <div class="det-sub">風格因子驗證</div>
+      <table class="tbl">
+        <thead><tr><th>ETF</th><th>中文名稱</th><th class="c">Rank</th><th class="c">REL5</th><th class="c">REL20</th><th class="c">REL60</th><th>判讀</th></tr></thead>
+        <tbody><tr><td>SPMO</td><td>標普動量</td><td class="c">77</td><td class="c cg">+0.57%</td><td class="c cr">-0.22%</td><td class="c cg">+13.61%</td><td>今日相對+0.01%（≈持平）；五日+0.57%短線轉正；CPI前夕觀望，無方向性</td></tr><tr><td>SPHB</td><td>標普高Beta</td><td class="c">74</td><td class="c cr">-0.28%</td><td class="c cr">-0.34%</td><td class="c cg">+8.63%</td><td>今日相對−0.55%；五日−0.28%臨界；週五輕量格局，高Beta略落後</td></tr><tr><td>SPHQ</td><td>標普品質</td><td class="c">68</td><td class="c cr">-1.08%</td><td class="c cr">-0.39%</td><td class="c cg">+3.11%</td><td>今日相對−0.02%（≈持平）；五日−1.08%仍負，品質因子靜止</td></tr><tr><td>SPLV</td><td>標普低波動</td><td class="c">51</td><td class="c cr">-2.53%</td><td class="c cg">+0.38%</td><td class="c cr">-5.32%</td><td>今日相對+0.02%（≈持平）；月線+0.38%微幅轉正；防禦輕量回補但無趨勢</td></tr><tr><td>SPHD</td><td>標普高息低波</td><td class="c">38</td><td class="c cr">-1.90%</td><td class="c cr">-0.78%</td><td class="c cr">-2.81%</td><td>今日相對+0.33%；月線−0.78%仍負；防禦略微回補，幅度有限</td></tr></tbody>
+      </table>
+      <div class="det-sub">廣度因子（寬基指數 REL 對比）</div>
+      <table class="tbl">
+        <thead><tr><th>ETF</th><th>中文名稱</th><th class="c">Rank</th><th class="c">REL5</th><th class="c">REL20</th><th class="c">REL60</th><th>廣度層級判讀</th></tr></thead>
+        <tbody><tr><td>RSP</td><td>標普等權</td><td class="c">58</td><td class="c cr">-1.65%</td><td class="c cr">-0.16%</td><td class="c cr">-0.56%</td><td>⚠ 月線−0.16%（前日−0.25%微幅收窄）——廣度框架M±臨界；距翻正僅0.16%，CPI後最可能率先跨越</td></tr><tr><td>MDY</td><td>標普中型400</td><td class="c">37</td><td class="c cr">-1.92%</td><td class="c cr">-2.19%</td><td class="c cr">-1.96%</td><td>月線−2.19%仍深負；中型股廣度修復最慢</td></tr><tr><td>IWM</td><td>羅素2000</td><td class="c">63</td><td class="c cr">-1.90%</td><td class="c cr">-0.41%</td><td class="c cg">+2.01%</td><td>月線−0.41%（持平）；長線+2.01%L+維持；廣度框架最後支撐腿</td></tr><tr><td>IWC</td><td>微型股</td><td class="c">87</td><td class="c cr">-2.43%</td><td class="c cg">+1.85%</td><td class="c cg">+3.44%</td><td>月線+1.85%、長線+3.44%；廣度最厚緩衝腿，本週全程穩定</td></tr><tr><td>QQQ</td><td>那指100</td><td class="c">61</td><td class="c cg">+0.45%</td><td class="c cr">-1.16%</td><td class="c cg">+5.96%</td><td>三欄今日升至+−+（五日+0.45%短線轉正！月線−1.16%仍負，長線+5.96%正）</td></tr><tr><td>MAGS</td><td>Mag7巨頭</td><td class="c">62</td><td class="c cg">+2.60%</td><td class="c cg">+1.94%</td><td class="c cr">-4.15%</td><td>五日+2.60%、月線+1.94%——短中線雙正，哨兵本週最強狀態，接近升格強勢主線</td></tr></tbody>
+      </table>
+      <div class="det-sub">宏觀背景事件（今日關注）</div>
+      <table class="tbl">
+        <thead><tr><th>事件</th><th class="c">影響層級</th><th>說明</th></tr></thead>
+        <tbody><tr><td><strong>🔴 7/14（一）6月CPI【決戰】</strong></td><td class="c cr">🔴 最高優先</td><td>核心月增≤0.2%=多方劇本（廣度三條件同時達成，QQQ挑戰750–790）；>0.3%=空方劇本（P/C 0.39 Call集中平倉加劇，測試660–680）。當日不追價，等次日確認</td></tr><tr><td><strong>7/14 Warsh國會聽證（22:00）</strong></td><td class="c cr">🔴 一級</td><td>CPI同日作證，若再度釋出鷹派訊號，疊加效應可能加劇市場反應</td></tr><tr><td><strong>7/14 銀行財報季（JPM/BAC/GS/WFC/C）</strong></td><td class="c cy">🟡 一級</td><td>金融板塊月線已轉強，財報是否確認金融主線升格的關鍵催化劑</td></tr><tr><td>SK Hynix首日+13%（7/10已發生）</td><td class="c cg">🟢 正面</td><td>CEO表示記憶體短缺將延續至2030年後；強化AI記憶體需求敘事，SOXX/SMH反彈持續性支撐</td></tr><tr><td>7/15 PPI；7/16 零售銷售+TSMC法說</td><td class="c cy">🟡 前瞻</td><td>超級週①連三日數據疊加；TSMC Q2 guidance將決定AI資本開支敘事方向</td></tr><tr><td>7/27–30 Big Tech財報週+FOMC</td><td class="c cy">🟡 前瞻</td><td>超級週②；資本支出guidance是AI敘事最終裁判</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- /核心指標 -->
+
+
+<!-- ════════════════════════════════════════
+     板塊強弱對位
+     ════════════════════════════════════════ -->
+<div class="sec-lbl">板塊強弱對位（REL5 / REL20 / REL60 三欄）</div>
+<div class="sec4" style="margin-bottom:0">
+
+  <!-- 強勢欄 -->
+  <div class="sc s">
+    <div class="sc-hdr">▲ 強勢主線（短中長線同向確立）</div>
+    <div class="sc-item" onclick="togSC('s1',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🟢強勢主線</span>HACK</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank98</span><span class="sc-arr">▼</span></span></div><div id="s1" class="sc-det"><div class="chart-canvas" id="chart-s1" data-ticker="HACK"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +0.51%｜月線 +10.46%｜長線 +35.63%｜今日相對SPY -3.02%</strong><br>今天跌了，但 Rank 還在 98，月線完好。跌的是這幾天的獲利，結構沒動。週五回吐就是加碼窗口。✅ 主線持續</div></div><div class="sc-item" onclick="togSC('s2',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🟢強勢主線</span>CIBR</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank93</span><span class="sc-arr">▼</span></span></div><div id="s2" class="sc-det"><div class="chart-canvas" id="chart-s2" data-ticker="CIBR"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -0.03%｜月線 +5.17%｜長線 +34.55%｜今日相對SPY -2.95%</strong><br>今天同樣落後，短線剛剛翻微負，月線長線都還在。需要確認下週短線能不能回正。⚠ 短線留意</div></div><div class="sc-item" onclick="togSC('s3',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🟢強勢主線</span>SKYY</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank82</span><span class="sc-arr">▼</span></span></div><div id="s3" class="sc-det"><div class="chart-canvas" id="chart-s3" data-ticker="SKYY"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +2.27%｜月線 +2.14%｜長線 +15.07%｜今日相對SPY -1.90%</strong><br>今天也跌，但短線和月線都還是正的，雲端資金回流的方向沒有改變。CPI 後大盤走強的話這裡是第一個加碼的地方。</div></div><div class="sc-item" onclick="togSC('s4',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🟢強勢主線</span>XBI</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank92</span><span class="sc-arr">▼</span></span></div><div id="s4" class="sc-det"><div class="chart-canvas" id="chart-s4" data-ticker="XBI"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -2.26%｜月線 +17.48%｜長線 +8.69%｜今日相對SPY -3.63%</strong><br>今天跌最多，但月線還是全表最強。週五獲利回吐打得最重，中長線沒有受影響。</div></div><div class="sc-item" onclick="togSC('s5',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🟢強勢主線</span>XPH</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank92</span><span class="sc-arr">▼</span></span></div><div id="s5" class="sc-det"><div class="chart-canvas" id="chart-s5" data-ticker="XPH"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +0.54%｜月線 +12.18%｜長線 +11.17%｜今日相對SPY -2.73%</strong><br>月線高位健康，今天正常回吐。</div></div><div class="sc-item" onclick="togSC('s6',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🟢強勢主線</span>EWS</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank96</span><span class="sc-arr">▼</span></span></div><div id="s6" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +3.54%｜月線 +6.29%｜長線 +0.09%｜今日相對SPY +0.46%</strong><br>今天小幅走強，月線這週是亞洲最穩健的廣度腿。</div></div><div class="sc-item" onclick="togSC('s7',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🟢強勢主線</span>KIE</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank83</span><span class="sc-arr">▼</span></span></div><div id="s7" class="sc-det"><div class="chart-canvas" id="chart-s7" data-ticker="KIE"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -2.33%｜月線 +6.95%｜長線 +2.74%｜今日相對SPY -0.38%</strong><br>月線轉強，7/14 銀行財報是決定能不能繼續走的關鍵。</div></div>
+  </div>
+
+  <!-- 轉強欄 -->
+  <div class="sc w">
+    <div class="sc-hdr">◎ 轉強（短線翻正，中線待確認）</div>
+    <div class="sc-item" onclick="togSC('u1',this)"><span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">👀轉強</span>SOXX</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank67</span><span class="sc-arr">▼</span></span></div><div id="u1" class="sc-det"><div class="chart-canvas" id="chart-u1" data-ticker="SOXX"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +1.29%｜月線 -3.28%｜長線 +36.80%｜今日相對SPY -0.49%</strong><br>短線差一點就翻正（+1.29%），月線還在負值但這週持續收窄。「轉強警戒」還沒解除，短線翻正才算。SK Hynix 掛牌首日漲 13%，給這個方向加了一個說法。</div></div><div class="sc-item" onclick="togSC('u2',this)"><span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">👀轉強</span>SMH</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank73</span><span class="sc-arr">▼</span></span></div><div id="u2" class="sc-det"><div class="chart-canvas" id="chart-u2" data-ticker="SMH"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +1.80%｜月線 -2.07%｜長線 +27.03%｜今日相對SPY +0.11%</strong><br>比 SOXX 更接近翻正（短線 +1.80%），月線也在慢慢收窄。短線翻正即升格。</div></div><div class="sc-item" onclick="togSC('u3',this)"><span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">👀轉強</span>MAGS</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank62</span><span class="sc-arr">▼</span></span></div><div id="u3" class="sc-det"><div class="chart-canvas" id="chart-u3" data-ticker="MAGS"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +2.60%｜月線 +1.94%｜長線 -4.15%｜今日相對SPY +0.95%</strong><br>短線和月線都正，今天是全場唯一主動走強的板塊。巨頭的動向決定指數，這個要盯。</div></div><div class="sc-item" onclick="togSC('u4',this)"><span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">👀轉強</span>EWT</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank98</span><span class="sc-arr">▼</span></span></div><div id="u4" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -0.10%｜月線 +1.32%｜長線 +23.66%｜今日相對SPY +0.66%</strong><br>連三天穩健，今天 Rank 跟新加坡並列全表第一。</div></div><div class="sc-item" onclick="togSC('u5',this)"><span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">👀轉強</span>IPAY</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank65</span><span class="sc-arr">▼</span></span></div><div id="u5" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -1.61%｜月線 +9.53%｜長線 -5.85%｜今日相對SPY +0.36%</strong><br>月線轉強，7/14 銀行財報同樣是催化劑。</div></div>
+  </div>
+
+  <!-- 轉弱欄 -->
+  <div class="sc tw">
+    <div class="sc-hdr">△ 轉弱（REL5惡化，投機退潮）</div>
+    <div class="sc-item" onclick="togSC('t1',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">⚠轉弱</span>JETS</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank86</span><span class="sc-arr">▼</span></span></div><div id="t1" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -4.71%｜月線 +8.44%｜長線 +10.90%｜今日相對SPY -1.42%</strong><br>這週短線持續惡化，月線在消耗。DAL 財報的結果是方向的關鍵，沒有數據之前不好說。</div></div><div class="sc-item" onclick="togSC('t2',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">⚠轉弱</span>IGV</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank59</span><span class="sc-arr">▼</span></span></div><div id="t2" class="sc-det"><div class="chart-canvas" id="chart-t2" data-ticker="IGV"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -2.61%｜月線 -0.69%｜長線 +3.50%｜今日相對SPY -2.00%</strong><br>月線還是負的，今天也落後。SKYY 走強但 IGV 沒跟，軟體板塊內部有分化，不能說整體確認。</div></div><div class="sc-item" onclick="togSC('t3',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">⚠轉弱</span>CHAT</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank67</span><span class="sc-arr">▼</span></span></div><div id="t3" class="sc-det"><div class="chart-canvas" id="chart-t3" data-ticker="CHAT"></div><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +1.96%｜月線 -3.08%｜長線 +17.54%｜今日相對SPY -1.13%</strong><br>月線今天翻負，轉弱訊號升級。長線還在，但中線開始走壞。</div></div><div class="sc-item" onclick="togSC('t4',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">⚠轉弱</span>QTUM</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank60</span><span class="sc-arr">▼</span></span></div><div id="t4" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -1.72%｜月線 -5.40%｜長線 +17.32%｜今日相對SPY -1.14%</strong><br>量子主題月線−5.40%持續惡化。</div></div>
+  </div>
+
+  <!-- 弱勢欄 -->
+  <div class="sc x">
+    <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+    <div class="sc-item" onclick="togSC('x1',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴弱勢</span>DRAM</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank41</span><span class="sc-arr">▼</span></span></div><div id="x1" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +0.29%｜月線 -2.33%｜長線 -7.86%｜今日相對SPY -3.91%</strong><br>今日相對−3.91%；月線−2.33%長線−7.86%。SK Hynix強勢未帶動DRAM ETF，競爭疑慮持續。弱勢確立未解除。</div></div><div class="sc-item" onclick="togSC('x2',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴弱勢</span>XLE</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank36</span><span class="sc-arr">▼</span></span></div><div id="x2" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 +2.13%｜月線 -5.90%｜長線 -9.08%｜今日相對SPY +0.04%</strong><br>油價退潮三日，能源月線−5.90%長線−9.08%弱勢格局確認。</div></div><div class="sc-item" onclick="togSC('x3',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴弱勢</span>TLT</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank24</span><span class="sc-arr">▼</span></span></div><div id="x3" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -2.58%｜月線 -4.09%｜長線 -10.58%｜今日相對SPY -0.45%</strong><br>長債月線−4.09%長線−10.58%；CPI前夕債市靜候，無法修復。</div></div><div class="sc-item" onclick="togSC('x4',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴弱勢</span>GDX</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank15</span><span class="sc-arr">▼</span></span></div><div id="x4" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -5.06%｜月線 -5.15%｜長線 -30.61%｜今日相對SPY -0.76%</strong><br>金礦長線−30.61%；昨日反彈今日完整回吐。</div></div><div class="sc-item" onclick="togSC('x5',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴弱勢</span>MEME</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank19</span><span class="sc-arr">▼</span></span></div><div id="x5" class="sc-det"><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);"><strong style="color:var(--text)">五日 -2.44%｜月線 -20.88%｜長線 -10.56%｜今日相對SPY -1.74%</strong><br>五日−2.44%月線−20.88%；投機退潮指標持續弱勢。</div></div>
+  </div>
+</div>
+
+<!-- 歷史快照覆蓋標注（僅在觸發覆蓋規則時顯示） -->
+
+
+<!-- 板塊小結 -->
+<div class="rotation-verdict">
+  <div class="rv-title">⚡ 板塊強弱對位小結：<strong>週五主線回吐、能源退潮，廣度回升，CPI 前夕多方佔優</strong></div>
+  <div class="rv-txt">週五主線全線回吐，這沒什麼好驚訝的——隔週就是 CPI，沒人想帶著滿倉進事件。HACK/CIBR/XBI/SKYY 今天都跌，但 Rank 跟月線都沒動，跌的是這幾天的漲幅，結構還在。真正值得盯的是三個卡在門檻邊上的數字：SOXX 短線差一點就回到正值、RSP 月線差零點幾就翻正、SP20 今天重回 62.2% 已經過了健康門檻。這三個如果 CPI 之後同時到位，就是這波底部確認的完整訊號。今天唯一主動走強的是 MAGS——Mag7 巨頭逆勢漲，短線和月線都還在正值，是全場最健康的背景訊號。SK Hynix 掛牌首日漲 13%，執行長說記憶體供不應求至少到 2030 年，給 SOXX/SMH 的反彈多了一個說法。不過 DRAM ETF 今天跌了 3.91%，記憶體板塊裡頭有分化，不是全面好轉。主線今天的回吐是補的機會，不是出場訊號。SOXX/SMH 等短線翻正確認後再加碼。7/14 CPI 當天不追任何方向，隔天確認了再說。</div>
+</div>
+<!-- /板塊強弱對位 -->
+
+
+<!-- ════════════════════════════════════════
+     市場廣度（四欄，各自可展開）
+     ════════════════════════════════════════ -->
+<div class="sec-lbl">市場廣度（趨勢觀察｜點擊展開數據）</div>
+<div class="g4" style="margin-bottom:8px;background:var(--border);gap:1px;display:grid;grid-template-columns:repeat(4,1fr);">
+
+  <!-- NQ 20MA% -->
+  <div class="bc" id="bNQ20" onclick="togBC('dNQ20','bNQ20')">
+    <div class="bc-lbl">NQ 20MA 以上 % <span class="arr" id="aNQ20">▼</span></div>
+    <div class="bc-val cy">59.2%</div>
+    <div class="bc-tr cg">🔺 +0.9（前 58.3）</div>
+  </div>
+
+  <!-- SP 20MA% -->
+  <div class="bc" id="bSP20" onclick="togBC('dSP20','bSP20')">
+    <div class="bc-lbl">SP 20MA 以上 % <span class="arr" id="aSP20">▼</span></div>
+    <div class="bc-val cg">62.2%</div>
+    <div class="bc-tr cg">🔺 +3.8（前 58.4）</div>
+  </div>
+
+  <!-- NQ 50MA% -->
+  <div class="bc" id="bNQ50" onclick="togBC('dNQ50','bNQ50')">
+    <div class="bc-lbl">NQ 50MA 以上 % <span class="arr" id="aNQ50">▼</span></div>
+    <div class="bc-val cy">59.2%</div>
+    <div class="bc-tr cg">🔺 +1.9（前 57.3）</div>
+  </div>
+
+  <!-- SP 50MA% -->
+  <div class="bc" id="bSP50" onclick="togBC('dSP50','bSP50')">
+    <div class="bc-lbl">SP 50MA 以上 % <span class="arr" id="aSP50">▼</span></div>
+    <div class="bc-val cg">67.8%</div>
+    <div class="bc-tr cg">🔺 +3.8（前 64.0）</div>
+  </div>
+
+  <!-- 展開：NQ20 -->
+  <div class="bc-det" id="dNQ20">
+    <div class="bc-sum">NQ20 59.2%（🔺+0.9）——那指短線廣度持續回升，接近60%健康門檻。連三日改善，科技板塊底部修復進行中。</div>
+    <table class="tbl"><thead><tr><th>日期</th><th class="c">NQ 20MA%</th><th>狀態判讀</th></tr></thead>
+    <tbody><tr><td>07/10</td><td class="c cy">59.2%</td><td>🟡 中性</td></tr><tr><td>07/09</td><td class="c cy">58.3%</td><td>🟡 中性</td></tr><tr><td>07/08</td><td class="c cy">53.4%</td><td>🟡 中性</td></tr><tr><td>07/07</td><td class="c cy">54.4%</td><td>🟡 中性</td></tr><tr><td>07/02</td><td class="c cy">56.9%</td><td>🟡 中性</td></tr><tr><td>07/01</td><td class="c cy">54.9%</td><td>🟡 中性</td></tr><tr><td>06/30</td><td class="c cy">50.5%</td><td>🟡 中性</td></tr><tr><td>06/29</td><td class="c cy">50.5%</td><td>🟡 中性</td></tr><tr><td>06/27</td><td class="c cy">47.5%</td><td>🟡 中性</td></tr><tr><td>06/26</td><td class="c cy">44.6%</td><td>🟡 中性</td></tr></tbody></table>
+  </div>
+
+  <!-- 展開：SP20 -->
+  <div class="bc-det" id="dSP20">
+    <div class="bc-sum">SP20 62.2%（🔺+4.7）——重回60%健康門檻之上✅。廣度底部確認三條件之一今日正式達成。從7/8低點57.1%三日反彈至62.2%，修復速度超預期。</div>
+    <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 20MA%</th><th>狀態判讀</th></tr></thead>
+    <tbody><tr><td>07/10</td><td class="c cg">62.2%</td><td>🟢 健康</td></tr><tr><td>07/09</td><td class="c cy">58.4%</td><td>🟡 中性</td></tr><tr><td>07/08</td><td class="c cy">57.1%</td><td>🟡 中性</td></tr><tr><td>07/07</td><td class="c cg">66.8%</td><td>🟢 健康</td></tr><tr><td>07/02</td><td class="c cg">67.7%</td><td>🟢 健康</td></tr><tr><td>07/01</td><td class="c cg">64.1%</td><td>🟢 健康</td></tr><tr><td>06/30</td><td class="c cg">62.7%</td><td>🟢 健康</td></tr><tr><td>06/29</td><td class="c cg">64.7%</td><td>🟢 健康</td></tr><tr><td>06/27</td><td class="c cg">63.1%</td><td>🟢 健康</td></tr><tr><td>06/26</td><td class="c cg">60.2%</td><td>🟢 健康</td></tr></tbody></table>
+  </div>
+
+  <!-- 展開：NQ50 -->
+  <div class="bc-det" id="dNQ50">
+    <div class="bc-sum">NQ50 59.2%（🔺+1.9）——中期廣度連三日回升，接近60%健康帶。50日均線廣度顯示中期底部成形中。</div>
+    <table class="tbl"><thead><tr><th>日期</th><th class="c">NQ 50MA%</th><th>狀態判讀</th></tr></thead>
+    <tbody><tr><td>07/10</td><td class="c cy">59.2%</td><td>🟡 中性</td></tr><tr><td>07/09</td><td class="c cy">57.3%</td><td>🟡 中性</td></tr><tr><td>07/08</td><td class="c cy">55.3%</td><td>🟡 中性</td></tr><tr><td>07/07</td><td class="c cg">65.0%</td><td>🟢 健康</td></tr><tr><td>07/02</td><td class="c cy">55.9%</td><td>🟡 中性</td></tr><tr><td>07/01</td><td class="c cy">56.9%</td><td>🟡 中性</td></tr><tr><td>06/30</td><td class="c cy">51.5%</td><td>🟡 中性</td></tr><tr><td>06/29</td><td class="c cy">50.5%</td><td>🟡 中性</td></tr><tr><td>06/27</td><td class="c cy">49.5%</td><td>🟡 中性</td></tr><tr><td>06/26</td><td class="c cy">56.4%</td><td>🟡 中性</td></tr></tbody></table>
+  </div>
+
+  <!-- 展開：SP50 -->
+  <div class="bc-det" id="dSP50">
+    <div class="bc-sum">SP50 67.8%（🔺+3.8）——四項廣度中最強，本週全程維持健康帶且持續改善，中期廣度錨點穩固。</div>
+    <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 50MA%</th><th>狀態判讀</th></tr></thead>
+    <tbody><tr><td>07/10</td><td class="c cg">67.8%</td><td>🟢 健康</td></tr><tr><td>07/09</td><td class="c cg">64.0%</td><td>🟢 健康</td></tr><tr><td>07/08</td><td class="c cg">63.2%</td><td>🟢 健康</td></tr><tr><td>07/07</td><td class="c cg">65.2%</td><td>🟢 健康</td></tr><tr><td>07/02</td><td class="c cg">67.1%</td><td>🟢 健康</td></tr><tr><td>07/01</td><td class="c cg">63.1%</td><td>🟢 健康</td></tr><tr><td>06/30</td><td class="c cg">61.6%</td><td>🟢 健康</td></tr><tr><td>06/29</td><td class="c cg">64.9%</td><td>🟢 健康</td></tr><tr><td>06/27</td><td class="c cg">64.3%</td><td>🟢 健康</td></tr><tr><td>06/26</td><td class="c cg">62.7%</td><td>🟢 健康</td></tr></tbody></table>
+  </div>
+</div>
+
+<!-- 廣度總結 -->
+<div class="breadth-verdict"><strong>廣度指標平均值 62.1%，重回健康帶，廣度底部確認三條件達成一條。</strong>三層廣度框架：短線 <strong>S−</strong>（五日全負，改善中）｜中線 <strong>M±臨界</strong>（RSP月線−0.16%距翻正一步，IWM月線−0.41%）｜長線 <strong>L+</strong>（IWM+2.01%/IWC+3.44%）。廣度底部確認三條件：✅ SP20>60%（62.2%）｜⚠ RSP月線翻正（差0.16%）｜⚠ SOXX五日轉正（差1.29%）。7/14 CPI溫和是三條件同時完成的最可能催化劑。</div>
+<!-- /市場廣度 -->
+
+
+<!-- ════════════════════════════════════════
+     Gamma 防線
+     ════════════════════════════════════════ -->
+<div class="sec-lbl">Gamma 防線（QQQ Sep 18, 2026到期｜點擊展開完整防線圖）</div>
+
+<!-- 摘要常駐條 -->
+<div class="pbar" onclick="togGamma()">
+  <div class="pbi"><div class="pbl">QQQ 現價</div><div class="pbv ac">725.5</div></div>
+  <div class="pbi"><div class="pbl">Max Pain</div><div class="pbv cr">680</div></div>
+  <div class="pbi"><div class="pbl">距 Max Pain</div><div class="pbv cy">+6.7%（較前日+6.0%微幅擴大）</div></div>
+  <div class="pbi"><div class="pbl">⚡ Gamma Flip</div><div class="pbv ye">≈705（估）</div></div>
+  <div class="pbi"><div class="pbl">🟡 Call 牆</div><div class="pbv cy">790</div></div>
+  <div class="pbi" style="margin-left:auto"><div class="pbl">詳細</div><div class="pbv cd breath" id="gArrow" style="font-size:calc(var(--fs)*1.4);color:var(--accent)">▼</div></div>
+</div>
+
+<!-- 展開區 -->
+<div id="gammaDet" class="gamma-det">
+  <div class="gamma-det-note">換算基準：NQ≈QQQ×41.39（07/10 NQ 30032÷QQQ 725.5）。Call溢價全線大漲（790C +39.53%、800C +41.52%），配合P/C 0.39，Call買盤主導今日選擇權市場。Put溢價全線大跌，尾部保護需求消退。樂活通道（NQ基準）：現價距上緣（34000≈QQQ 822）仍有+13.3%，通道空間充裕。</div>
+  <table class="gtbl" style="margin-bottom:14px">
+    <thead>
+      <tr><th>層級</th><th>QQQ</th><th style="color:var(--orange)">NQ! 等效</th><th>判讀</th><th>OI依據</th></tr>
+    </thead>
+    <tbody><tr><td>🟡 Call牆</td><td>790</td><td>32,700</td><td>上方+8.9%，最大Call OI；今日Call全線大漲強化此壓力帶</td><td>790C 38,924（+39.53%）</td></tr><tr><td>次壓力帶</td><td>750</td><td>31,050</td><td>上方+3.4%，CPI溫和後多方短線目標</td><td>750C 16,614（+30.32%）</td></tr><tr><td>現價區間</td><td>720–730</td><td>29,800–30,220</td><td>現價725.5，脫離710 pin位後新攻防帶</td><td>710C 28,331（+22.21%）</td></tr><tr><td>Max Pain磁吸</td><td>680</td><td>28,150</td><td>連兩日維持680，現價下方−6.7%</td><td>較前三日675上移+5</td></tr><tr><td>樂活中線/Put支撐</td><td>660–680</td><td>27,320–28,150</td><td>中線≈QQQ 662+Max Pain 680雙重支撐，空方目標區</td><td>660C 23,929（−19.91%）</td></tr><tr><td>重型Put支撐</td><td>600</td><td>24,840</td><td>Put密集帶（今日溢價大跌−17.51%）</td><td>600P 57,330</td></tr><tr><td>🛡 保險底</td><td>570</td><td>23,600</td><td>全鏈最大Put OI（今日−14.99%）</td><td>570P 68,432</td></tr></tbody>
+  </table>
+  <div class="g-mech" style="margin-bottom:10px">
+    <div class="g-mech-title">做市商行為機制（多空情境）</div>
+    <div class="g-mech-txt">Call溢價全線大漲（+30~+42%）、Put溢價全線大跌（−15~−20%）——隱含波動率Skew今日大幅向Call傾斜。做市商正Gamma緩衝機制因Call OI擴大而加強，壓抑了上行和下行的波動率，解釋了今日大盤+0.43%而VIX/VXN繼續下降的原因。</div>
+  </div>
+  <div class="g-mech yel" style="margin-bottom:0">
+    <div class="g-mech-title">Max Pain 重力場機制</div>
+    <div class="g-mech-txt">P/C 0.39的結構性風險：若7/14 CPI超預期黏性，Call持有者將集中平倉，賣壓疊加正常下跌拋壓，導致比正常情況更快速的跌勢。反之CPI溫和，Call盈利推動進一步增加Call曝險，形成正向飛輪。Max Pain 680在現價下方−6.7%，CPI不如預期時是第一重力中心。</div>
+  </div>
+</div>
+<!-- /Gamma 防線 -->
+
+<div style="margin-top:48px;"></div>
+
+<!-- ════════════════════════════════════════
+     Yoda 完整研判
+     ════════════════════════════════════════ -->
+<div class="sec-lbl">Yoda 完整研判</div>
+<div class="syn">
+  <div class="syn-title">完整研判報告｜2026-07-11（Sat — 數據為 7/10 收盤）｜Yoda × Claude｜</div>
+  <div style="font-family:var(--fb);font-size:calc(var(--fs)*1.15);font-weight:800;color:var(--accent);letter-spacing:.12em;margin-bottom:18px;margin-top:-8px;">廣度全面回升，CPI 前夕多方佔優勢</div>
+
+  <!-- 核心要點 -->
+  <div class="syn-blk">
+    <div class="syn-h">一、核心要點</div>
+    <div class="syn-txt"><p style="margin:0 0 14px;">這週從 7/7 三重壓力到 7/10 多方站穩，四個交易日走完了一次崩→緩→修復的循環。信用市場（HY_OAS）整週維持在健康區間——這是整週最重要的底線，代表這不是系統危機，只是估值在重新定價。</p><p style="margin:0 0 14px;">廣度這週修了一半：SP20 今天重回 62.2%，三個底部確認條件達成一個。RSP 月線和 SOXX 短線差一步翻正，如果 CPI 數據配合，下週初三個可能同時到位。</p><p style="margin:0 0 14px;">P/C 比率 0.39 要說一下。市場現在對 CPI 溫和這件事非常有信心，Call 買盤是 Put 的 2.56 倍。問題是這把雙刃劍：CPI 真的溫和，上漲會被放大；CPI 如果超預期，Call 平倉壓力會讓跌幅比平常更快更深。規矩只有一條：7/14 當天不追任何方向，隔天確認再動。</p><p style="margin:0 0 14px;">主線今天集體回吐但月線都還在，是加碼窗口不是離場訊號。MAGS 短中線雙正，SOXX/SMH 月線翻正，短線再走一步就升格。</p><p style="margin:0;">多方目標 QQQ 750–790，空方目標 660–680，方向週一就知道了。</p></div>
+  </div>
+
+  <!-- 大盤驅動力分解｜三區塊行情矩陣 -->
+  <div class="syn-blk">
+    <div class="syn-h">二、大盤驅動力分解｜三區塊行情矩陣</div>
+    <div class="syn-txt"><p style="margin:0 0 14px;"><strong>【MAGS 驅動力】</strong>今天小幅領漲，短線和月線都還在正值。<br><strong>【RSP 廣度代理】</strong>今天微幅落後，月線差一點就翻正。SP20 今天從 57.1% 大幅回升到 62.2%，廣度在追。</p><p style="margin:0 0 14px;"><strong>【本期主線聚焦】</strong><br><em>來源①｜本週最強主線：</em><div style="padding-left:10px;font-size:calc(var(--fs)*.9);line-height:1.9;">HACK（Rank 98）今天跌了，但月線和長線都還在，短線回吐不是主線棄守，是加碼窗口。<br>CIBR（Rank 93）同樣，短線剛剛翻微負，中線長線仍正。需要觀察下週短線能不能回正。</div><em>來源②｜美股分析 07/11 A 級股：</em><div style="padding-left:10px;font-size:calc(var(--fs)*.9);line-height:1.9;"><strong style="color:var(--yellow);">本期 A 級股只有 19 支，三圈還沒開燈——AI 硬體主鏈這波還沒正式重啟，行情還在修復段，不是主升。</strong><br>板塊分布：<strong>網路安全 4 支</strong>（CRWD、FTNT、OKTA、VRNS）跟 HACK/CIBR 方向一致 ✅　<strong>生技 2 支</strong>（TXG、TLPH）跟 XBI/XPH 一致 ✅　<strong>雲端儲存</strong>（BLZE）跟 SKYY 一致 ✅</div><strong>雙來源交集：網路安全板塊</strong>（HACK/CIBR × CRWD/FTNT/OKTA/VRNS）→ 最高確信主線<br>轉弱門檻：HACK Rank 下滑 >10 且短線持續負 → 強制標注⚠</p><hr style="border:none;border-top:1px solid var(--border);margin:10px 0;"><p style="margin:0 0 6px;"><strong>【綜合行情型態】集中式行情往全面走強過渡</strong><br>MAGS 今天帶頭、廣度（SP20）同步大幅回升、主線（網路安全）雙來源確認。分歧只有幾天，正常輪動，還沒到要警戒的程度。</p><p style="margin:0;"><strong>【操作】</strong>MAGS 短中線雙正，指數的中線基礎在。廣度月線還沒完全確認，工具選 QQQ 或網路安全主線，暫時不全倉追等權中小 ETF。</p></div>
+  </div>
+
+<!-- 市場結構快照 -->
+  <div class="syn-blk">
+    <div class="syn-h">三、市場結構快照｜廣度拉鋸動態分析</div>
+    <div class="syn-txt"><p style="margin:0 0 14px;"><strong>全球：</strong>台灣（EWT）連三天穩健，今天 Rank 跟新加坡（EWS）並列全表第一；韓國（EWY）略落後，韓台有些分化。SK Hynix 首日漲 13% 幫記憶體板塊的故事加分。比特幣（IBIT）跟著漲，風險偏好沒有惡化。貴金屬（GDX/SIL）昨天的反彈今天吐掉了。</p><p style="margin:0 0 14px;"><strong>美股大盤：</strong>QQQ 今天短線轉正，月線還在負值但長線沒問題——短線轉正是這週的小里程碑。大盤（SPY +0.43%）由通訊和金融帶頭，科技今天落後，週五換防味道明顯。</p><p style="margin:0 0 14px;"><strong>風格因子：</strong>今天幾乎所有因子的相對強弱都在 ±0.6% 以內，典型的事件前觀望狀態。唯一的例外是 MAGS，巨頭在一片沉寂中主動走強，是這週收尾最清晰的訊號。防禦股有一點回補，但幅度太小，說不上是輪動重啟。</p><p style="margin:0;">廣度修復的方向確定，速度取決於 7/14 CPI。</p></div>
+  </div>
+
+  <!-- 預期 vs 底線 -->
+  <div class="syn-blk">
+    <div class="syn-h">預期 vs 底線</div>
+    <div class="scenario-grid">
+
+      <!-- 多方 -->
+      <div class="sc-bull">
+        <div class="sc-s-title">📈 預期：有利多方的條件</div>
+        <div class="sc-s-txt">
+          <strong>觸發條件（觀察以下何時成立）：</strong><br><br>
+          <span class="trig-num">①</span> <span class="trigger">7/14 CPI核心月增≤0.2%</span> ❌ 待驗（7/14）<br>→ 9月升息機率降至50%以下→10Y收復4.527%→廣度三條件同時觸發<br><br><span class="trig-num">②</span> <span class="trigger">RSP月線翻正（現差0.16%）</span> ⚠ 臨界<br>→ 廣度框架M±升格M+→三層框架全正→加碼訊號觸發<br><br><span class="trig-num">③</span> <span class="trigger">SOXX五日轉正（現+1.29%，差一步）</span> ⚠ 進行中<br>→ 輪動退出警戒解除→半導體升格強勢主線<br><br><span class="trig-num">④</span> <span class="trigger">MAGS五日月線雙正維持（當前+2.60%/+1.94%）</span> ✅ 已確認<br>→ 算力核心哨兵守住，接近升格強勢主線<br><br>→ 目標：<span class="target">QQQ 750–790（Call密集帶），樂活通道上緣≈QQQ 822為季度長線目標</span>
+        </div>
+      </div>
+
+      <!-- 空方 -->
+      <div class="sc-bear">
+        <div class="sc-s-title">📉 底線：有利空方的條件</div>
+        <div class="sc-s-txt">
+          <span class="trig-num">①</span> <span class="trigger">US10Y 還在前高 4.527% 之上（差 29bp）</span> ⚠ 持續中<br>→ 這道關卡還沒解除；CPI 若超預期就會重返 4.60%<br><br><span class="trig-num">②</span> <span class="trigger">P/C 0.39 的另一面</span> ⚠ 潛在條件<br>→ CPI 不好，這堆 Call 的平倉壓力會讓跌幅比平常快很多<br><br><span class="trig-num">③</span> <span class="trigger">7/14 CPI 核心月增 >0.3%（黏性）</span> ❌ 待驗<br>→ 殖利率重破 4.60%、廣度再惡化 → 測試 <span class="target">QQQ 660–680（Max Pain 680 + 通道中線 662）</span><br><br><span class="trig-num">④</span> <span class="trigger">RSP+IWM 月線雙負（M− 確認）</span> ❌ 未觸發<br>→ 廣度框架降格，回調性質升級<br><br><strong style="color:var(--yellow)">⚠ 共用底線：</strong><br>① US10Y >4.60% 且 VIX >20　② HY_OAS >3.2%　③ SOFR−IORB >+5bp　④ 7/14 當天不追　⑤ MAGS 短線翻負
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 多空拉鋸焦點 -->
+    <div style="background:rgba(0,200,240,.04);border:1px solid rgba(0,200,240,.2);border-radius:3px;padding:14px 16px;margin-top:16px;">
+      <div style="font-size:calc(var(--fs)*.77);letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">當前多空拉鋸焦點</div>
+      <div style="font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.85;">這週末收盤，多方的牌比較好，但 CPI 還沒出來，勝負還沒定。多方手上有：廣度回升（SP20 重回健康帶）、油價三天退潮、殖利率沒繼續衝、VXN 跌回正常、信用市場整週穩定、還有 P/C 0.39 這個如果 CPI 溫和就會加速上漲的結構。空方手上有：殖利率還在前高之上沒收回來、P/C 0.39 的另一面（CPI 不好就跌得比平常快）、RSP 月線還沒翻正。7/14 CPI 是唯一裁判。當天不追任何方向。</div>
+    </div>
+  </div>
+</div>
+<!-- /完整研判 -->
+
+</div><!-- /wrap -->
+
+<!-- ── 頁尾 ── -->
+<div class="ftr">
+  <div class="disc">本報告僅供研究參考，不構成任何投資建議。數據來源：FRED、Trading Economics、CNBC、CME、ChartExchange、TheMarketMemo。</div>
+  <div class="brand">Yoda × Claude｜Market Watch </div>
+</div>
+
+<script id="rel-history-data">
+/* ══ REL History — 由 inject script 從 Skil §7-3 動態解析注入，template 不存數據 ══ */
+/* 2026-07-03修正：此區塊必須放在主script之前，因主script載入時會立即呼叫setFS('normal')→redrawAllCharts()→drawChart()，
+   若REL_HISTORY尚未定義會拋出ReferenceError，導致主script後續的const themes={...}永遠無法執行，
+   使setTheme在被點擊時發生「Cannot access 'themes' before initialization」而完全無反應 */
+const REL_HISTORY = {"DRAM": [{"date": "06/03", "rel5": 14.28, "rel20": 40.42, "rel60": 139.6}, {"date": "06/04", "rel5": 11.46, "rel20": 46.66, "rel60": 137.88}, {"date": "06/05", "rel5": 4.67, "rel20": 37.65, "rel60": 123.0}, {"date": "06/06", "rel5": -8.82, "rel20": 6.16, "rel60": 90.59}, {"date": "06/10", "rel5": -10.33, "rel20": 17.83, "rel60": 107.81}, {"date": "06/11", "rel5": -11.85, "rel20": 10.46, "rel60": 104.2}, {"date": "06/12", "rel5": 1.67, "rel20": 22.45, "rel60": 122.77}, {"date": "06/13", "rel5": 7.08, "rel20": 31.39, "rel60": 121.01}, {"date": "06/16", "rel5": 15.32, "rel20": 41.91, "rel60": 140.84}, {"date": "06/17", "rel5": 16.31, "rel20": 39.92, "rel60": 140.45}, {"date": "06/18", "rel5": 15.31, "rel20": 31.02, "rel60": 131.15}, {"date": "06/19", "rel5": 16.87, "rel20": 40.98, "rel60": 161.26}, {"date": "06/23", "rel5": 14.96, "rel20": 34.23, "rel60": 172.99}, {"date": "06/24", "rel5": 0.21, "rel20": 16.66, "rel60": -15.69}, {"date": "06/25", "rel5": 2.28, "rel20": 2.31, "rel60": -16.02}, {"date": "06/26", "rel5": 0.9, "rel20": 2.15, "rel60": -12.91}, {"date": "06/29", "rel5": -6.39, "rel20": 2.05, "rel60": -12.99}, {"date": "06/30", "rel5": -1.59, "rel20": 1.55, "rel60": -13.33}, {"date": "07/01", "rel5": -6.6, "rel20": 1.82, "rel60": -13.18}, {"date": "07/02", "rel5": -16.02, "rel20": 1.25, "rel60": -12.98}, {"date": "07/07", "rel5": -15.33, "rel20": -1.15, "rel60": -10.04}, {"date": "07/08", "rel5": -18.09, "rel20": -1.13, "rel60": -8.64}, {"date": "07/09", "rel5": -7.53, "rel20": -3.62, "rel60": -8.24}, {"date": "07/10", "rel5": 0.29, "rel20": -2.33, "rel60": -7.86}], "SOXX": [{"date": "06/03", "rel5": 8.66, "rel20": 18.69, "rel60": 68.46}, {"date": "06/04", "rel5": 8.16, "rel20": 21.95, "rel60": 73.22}, {"date": "06/05", "rel5": -0.63, "rel20": 18.93, "rel60": 68.87}, {"date": "06/06", "rel5": -0.63, "rel20": 5.96, "rel60": 55.05}, {"date": "06/10", "rel5": -2.87, "rel20": 10.61, "rel60": 57.75}, {"date": "06/11", "rel5": -6.42, "rel20": 7.12, "rel60": 54.74}, {"date": "06/12", "rel5": -0.07, "rel20": 12.13, "rel60": 60.71}, {"date": "06/13", "rel5": 4.0, "rel20": 19.82, "rel60": 63.97}, {"date": "06/16", "rel5": 7.86, "rel20": 24.55, "rel60": 71.54}, {"date": "06/17", "rel5": 9.38, "rel20": 23.64, "rel60": 68.72}, {"date": "06/18", "rel5": 5.75, "rel20": 12.41, "rel60": 57.01}, {"date": "06/19", "rel5": 7.73, "rel20": 21.33, "rel60": 78.69}, {"date": "06/23", "rel5": 5.61, "rel20": 15.72, "rel60": 93.65}, {"date": "06/24", "rel5": -1.17, "rel20": 8.11, "rel60": 70.84}, {"date": "06/25", "rel5": 4.01, "rel20": 7.82, "rel60": 78.14}, {"date": "06/26", "rel5": 5.15, "rel20": 13.01, "rel60": 77.32}, {"date": "06/27", "rel5": -5.37, "rel20": 6.99, "rel60": 63.0}, {"date": "06/29", "rel5": -5.75, "rel20": 10.0, "rel60": 67.91}, {"date": "06/30", "rel5": -2.5, "rel20": 13.59, "rel60": 72.88}, {"date": "07/01", "rel5": -2.27, "rel20": 0.94, "rel60": 61.1}, {"date": "07/02", "rel5": -7.42, "rel20": -6.76, "rel60": 49.87}, {"date": "07/07", "rel5": -11.1, "rel20": -4.61, "rel60": 32.66}, {"date": "07/08", "rel5": -12.1, "rel20": -1.15, "rel60": 34.24}, {"date": "07/09", "rel5": -3.8, "rel20": 3.8, "rel60": 36.73}, {"date": "07/10", "rel5": 1.29, "rel20": -3.28, "rel60": 36.8}], "CHAT": [{"date": "06/03", "rel5": 9.06, "rel20": 16.9, "rel60": 45.62}, {"date": "06/04", "rel5": 6.15, "rel20": 19.38, "rel60": 49.29}, {"date": "06/05", "rel5": 3.15, "rel20": 15.96, "rel60": 44.85}, {"date": "06/06", "rel5": -4.55, "rel20": 5.95, "rel60": 34.12}, {"date": "06/10", "rel5": -6.84, "rel20": 10.97, "rel60": 33.16}, {"date": "06/11", "rel5": -9.12, "rel20": 3.51, "rel60": 26.54}, {"date": "06/12", "rel5": -5.23, "rel20": 10.22, "rel60": 32.63}, {"date": "06/13", "rel5": -0.83, "rel20": 10.22, "rel60": 32.63}, {"date": "06/16", "rel5": 3.18, "rel20": 14.88, "rel60": 39.1}, {"date": "06/17", "rel5": 5.81, "rel20": 15.05, "rel60": 39.17}, {"date": "06/18", "rel5": 5.77, "rel20": 9.64, "rel60": 32.94}, {"date": "06/19", "rel5": 9.5, "rel20": 14.78, "rel60": 50.92}, {"date": "06/23", "rel5": 6.98, "rel20": 11.33, "rel60": 58.42}, {"date": "06/24", "rel5": 0.6, "rel20": 4.59, "rel60": 44.18}, {"date": "06/25", "rel5": 2.36, "rel20": 3.99, "rel60": 46.12}, {"date": "06/26", "rel5": 1.84, "rel20": 6.4, "rel60": 45.18}, {"date": "06/27", "rel5": -6.15, "rel20": 0.04, "rel60": 34.35}, {"date": "06/29", "rel5": -7.85, "rel20": -0.79, "rel60": 37.72}, {"date": "06/30", "rel5": -5.5, "rel20": -1.73, "rel60": 40.78}, {"date": "07/01", "rel5": -4.62, "rel20": -7.78, "rel60": 32.88}, {"date": "07/02", "rel5": -8.85, "rel20": -12.35, "rel60": 24.47}, {"date": "07/07", "rel5": -9.11, "rel20": -7.56, "rel60": 16.18}, {"date": "07/08", "rel5": -8.81, "rel20": -2.51, "rel60": 17.85}, {"date": "07/09", "rel5": -2.01, "rel20": 1.82, "rel60": 17.53}, {"date": "07/10", "rel5": 1.96, "rel20": -3.08, "rel60": 17.54}], "SMH": [{"date": "06/04", "rel5": 6.39, "rel20": 15.01, "rel60": 51.11}, {"date": "06/06", "rel5": 4.29, "rel20": 12.7, "rel60": 48.01}, {"date": "06/12", "rel5": 3.3, "rel20": 13.09, "rel60": 45.23}, {"date": "06/13", "rel5": 3.3, "rel20": 13.09, "rel60": 45.23}, {"date": "06/16", "rel5": 6.07, "rel20": 16.29, "rel60": 50.17}, {"date": "06/17", "rel5": 7.08, "rel20": 16.09, "rel60": 48.43}, {"date": "06/18", "rel5": 4.47, "rel20": 7.87, "rel60": 40.14}, {"date": "06/19", "rel5": 7.06, "rel20": 15.66, "rel60": 57.51}, {"date": "06/23", "rel5": 4.75, "rel20": 11.91, "rel60": 66.72}, {"date": "06/24", "rel5": -1.06, "rel20": 5.57, "rel60": 50.52}, {"date": "06/25", "rel5": 2.75, "rel20": 5.1, "rel60": 54.7}, {"date": "06/26", "rel5": 2.97, "rel20": 9.1, "rel60": 53.2}, {"date": "06/27", "rel5": -4.94, "rel20": 5.36, "rel60": 44.78}, {"date": "06/29", "rel5": -5.07, "rel20": 7.56, "rel60": 48.1}, {"date": "06/30", "rel5": -2.27, "rel20": 9.46, "rel60": 52.31}, {"date": "07/01", "rel5": -1.92, "rel20": -0.04, "rel60": 43.51}, {"date": "07/02", "rel5": -5.88, "rel20": -5.9, "rel60": 35.13}, {"date": "07/07", "rel5": -8.9, "rel20": -3.94, "rel60": 23.05}, {"date": "07/08", "rel5": -9.41, "rel20": -0.8, "rel60": 25.11}, {"date": "07/09", "rel5": -2.85, "rel20": 2.83, "rel60": 26.21}, {"date": "07/10", "rel5": 1.8, "rel20": -2.07, "rel60": 27.03}], "CIBR": [{"date": "06/04", "rel5": 9.6, "rel20": 22.24, "rel60": 27.14}, {"date": "06/06", "rel5": 8.06, "rel20": 20.52, "rel60": 25.23}, {"date": "06/12", "rel5": -3.21, "rel20": 10.46, "rel60": 19.21}, {"date": "06/13", "rel5": -1.27, "rel20": 5.03, "rel60": 18.1}, {"date": "06/16", "rel5": 2.11, "rel20": 8.22, "rel60": 19.95}, {"date": "06/17", "rel5": -0.12, "rel20": 4.43, "rel60": 21.2}, {"date": "06/18", "rel5": -1.23, "rel20": 2.96, "rel60": 20.02}, {"date": "06/19", "rel5": -2.31, "rel20": 2.37, "rel60": 18.14}, {"date": "06/23", "rel5": -1.74, "rel20": -0.24, "rel60": 19.7}, {"date": "06/24", "rel5": 0.43, "rel20": 1.95, "rel60": 22.9}, {"date": "06/25", "rel5": 0.77, "rel20": 1.51, "rel60": 21.83}, {"date": "06/26", "rel5": 0.22, "rel20": 4.13, "rel60": 20.56}, {"date": "06/27", "rel5": 3.35, "rel20": 5.4, "rel60": 23.91}, {"date": "06/29", "rel5": 6.34, "rel20": 1.44, "rel60": 24.89}, {"date": "06/30", "rel5": 7.18, "rel20": -3.02, "rel60": 26.71}, {"date": "07/01", "rel5": 6.53, "rel20": -1.59, "rel60": 28.83}, {"date": "07/02", "rel5": 6.62, "rel20": 0.16, "rel60": 25.98}, {"date": "07/07", "rel5": 3.29, "rel20": 5.91, "rel60": 41.77}, {"date": "07/08", "rel5": 2.2, "rel20": 7.55, "rel60": 36.41}, {"date": "07/09", "rel5": 2.66, "rel20": 9.6, "rel60": 41.88}, {"date": "07/10", "rel5": -0.03, "rel20": 5.17, "rel60": 34.55}], "QTUM": [{"date": "06/04", "rel5": 4.34, "rel20": 14.48, "rel60": 38.43}, {"date": "06/06", "rel5": -3.85, "rel20": 9.42, "rel60": 31.08}, {"date": "06/12", "rel5": -1.73, "rel20": 9.15, "rel60": 31.43}, {"date": "06/13", "rel5": 1.91, "rel20": 13.2, "rel60": 32.6}, {"date": "06/16", "rel5": 4.42, "rel20": 16.18, "rel60": 36.7}, {"date": "06/17", "rel5": 6.18, "rel20": 16.62, "rel60": 36.29}, {"date": "06/18", "rel5": 4.04, "rel20": 10.35, "rel60": 31.15}, {"date": "06/19", "rel5": 4.19, "rel20": 11.94, "rel60": 40.09}, {"date": "06/23", "rel5": 1.71, "rel20": 7.12, "rel60": 47.25}, {"date": "06/24", "rel5": 0.01, "rel20": 5.24, "rel60": 39.77}, {"date": "06/25", "rel5": 0.8, "rel20": 3.11, "rel60": 40.48}, {"date": "06/26", "rel5": -0.46, "rel20": 4.54, "rel60": 36.43}, {"date": "06/27", "rel5": -4.77, "rel20": 1.45, "rel60": 31.46}, {"date": "06/29", "rel5": -4.16, "rel20": 2.71, "rel60": 33.26}, {"date": "06/30", "rel5": -3.15, "rel20": 0.77, "rel60": 33.88}, {"date": "07/01", "rel5": -3.48, "rel20": -3.16, "rel60": 31.81}, {"date": "07/02", "rel5": -4.63, "rel20": -6.35, "rel60": 27.34}, {"date": "07/07", "rel5": -6.73, "rel20": -5.14, "rel60": 19.74}, {"date": "07/08", "rel5": -7.62, "rel20": -2.61, "rel60": 19.11}, {"date": "07/09", "rel5": -3.78, "rel20": -0.59, "rel60": 19.21}, {"date": "07/10", "rel5": -1.72, "rel20": -5.4, "rel60": 17.32}], "IWM": [{"date": "06/03", "rel5": -1.43, "rel20": -2.48, "rel60": 2.25}, {"date": "06/05", "rel5": -1.45, "rel20": -1.18, "rel60": 4.36}, {"date": "06/10", "rel5": 0.09, "rel20": 0.4, "rel60": 3.42}, {"date": "06/11", "rel5": 1.36, "rel20": 1.54, "rel60": 4.42}, {"date": "06/12", "rel5": 2.01, "rel20": 3.49, "rel60": 5.46}, {"date": "06/13", "rel5": 2.77, "rel20": 5.73, "rel60": 5.21}, {"date": "06/16", "rel5": 1.59, "rel20": 6.5, "rel60": 6.13}, {"date": "06/17", "rel5": 0.96, "rel20": 5.05, "rel60": 2.87}, {"date": "06/18", "rel5": 0.12, "rel20": 3.14, "rel60": 1.75}, {"date": "06/19", "rel5": 0.57, "rel20": 4.1, "rel60": 3.7}, {"date": "06/23", "rel5": 2.58, "rel20": 3.47, "rel60": 6.66}, {"date": "06/24", "rel5": 3.05, "rel20": 3.92, "rel60": 5.79}, {"date": "06/25", "rel5": 3.86, "rel20": 4.44, "rel60": 7.8}, {"date": "06/26", "rel5": 4.01, "rel20": 5.09, "rel60": 7.62}, {"date": "06/27", "rel5": 3.81, "rel20": 6.06, "rel60": 8.89}, {"date": "06/29", "rel5": 0.72, "rel20": 4.99, "rel60": 5.99}, {"date": "06/30", "rel5": 0.44, "rel20": 5.52, "rel60": 5.73}, {"date": "07/01", "rel5": -0.31, "rel20": 4.44, "rel60": 5.43}, {"date": "07/02", "rel5": -1.27, "rel20": 4.7, "rel60": 4.68}, {"date": "07/07", "rel5": -1.84, "rel20": 3.1, "rel60": 3.31}, {"date": "07/08", "rel5": -2.14, "rel20": 1.84, "rel60": 2.07}, {"date": "07/09", "rel5": -1.49, "rel20": 1.76, "rel60": 2.37}, {"date": "07/10", "rel5": -1.9, "rel20": -0.41, "rel60": 2.01}], "SPLV": [{"date": "06/03", "rel5": -3.06, "rel20": -5.02, "rel60": -15.48}, {"date": "06/06", "rel5": 4.15, "rel20": 1.07, "rel60": -13.25}, {"date": "06/10", "rel5": 3.84, "rel20": -1.0, "rel60": -13.66}, {"date": "06/11", "rel5": 4.98, "rel20": 1.97, "rel60": -11.6}, {"date": "06/12", "rel5": 4.51, "rel20": 2.63, "rel60": -11.18}, {"date": "06/13", "rel5": 2.42, "rel20": 1.16, "rel60": -10.42}, {"date": "06/16", "rel5": 0.28, "rel20": 1.33, "rel60": -10.12}, {"date": "06/17", "rel5": -1.65, "rel20": -1.83, "rel60": -13.15}, {"date": "06/18", "rel5": -2.61, "rel20": 0.05, "rel60": -11.53}, {"date": "06/19", "rel5": -2.23, "rel20": -1.36, "rel60": -15.12}, {"date": "06/23", "rel5": 0.09, "rel20": -0.04, "rel60": -17.16}, {"date": "06/24", "rel5": 2.83, "rel20": 2.71, "rel60": -12.86}, {"date": "06/25", "rel5": 2.53, "rel20": 2.31, "rel60": -13.4}, {"date": "06/26", "rel5": 3.07, "rel20": 3.95, "rel60": -10.5}, {"date": "06/27", "rel5": 6.03, "rel20": 7.29, "rel60": -7.94}, {"date": "06/29", "rel5": 3.66, "rel20": 6.73, "rel60": -10.71}, {"date": "06/30", "rel5": 1.95, "rel20": 6.59, "rel60": -12.03}, {"date": "07/01", "rel5": -0.27, "rel20": 6.84, "rel60": -11.42}, {"date": "07/02", "rel5": 1.16, "rel20": 8.27, "rel60": -8.95}, {"date": "07/07", "rel5": 0.85, "rel20": 4.99, "rel60": -6.37}, {"date": "07/08", "rel5": 1.47, "rel20": 1.88, "rel60": -6.35}, {"date": "07/09", "rel5": -0.45, "rel20": -1.44, "rel60": -6.57}, {"date": "07/10", "rel5": -2.53, "rel20": 0.38, "rel60": -5.32}], "COPX": [{"date": "06/03", "rel5": 4.33, "rel20": 5.21, "rel60": -1.85}, {"date": "06/04", "rel5": 2.09, "rel20": 6.15, "rel60": -0.06}, {"date": "06/05", "rel5": 1.68, "rel20": 5.72, "rel60": -0.52}, {"date": "06/06", "rel5": -6.0, "rel20": -6.18, "rel60": -5.79}, {"date": "06/10", "rel5": -8.92, "rel20": -12.1, "rel60": -4.48}, {"date": "06/11", "rel5": -8.92, "rel20": -12.1, "rel60": -4.48}, {"date": "06/12", "rel5": -5.27, "rel20": -5.57, "rel60": -2.93}, {"date": "06/13", "rel5": 5.41, "rel20": 4.61, "rel60": 3.71}, {"date": "06/16", "rel5": 8.37, "rel20": 7.53, "rel60": 6.93}, {"date": "06/17", "rel5": 9.65, "rel20": 10.28, "rel60": 7.47}, {"date": "06/18", "rel5": 12.5, "rel20": 7.86, "rel60": 4.47}, {"date": "06/19", "rel5": 1.57, "rel20": 2.42, "rel60": 4.82}, {"date": "06/23", "rel5": -4.1, "rel20": -2.17, "rel60": 2.2}, {"date": "06/24", "rel5": -8.69, "rel20": -6.91, "rel60": -4.7}, {"date": "06/25", "rel5": -13.41, "rel20": -11.18, "rel60": -9.03}, {"date": "06/26", "rel5": -10.95, "rel20": -9.01, "rel60": -12.74}, {"date": "06/27", "rel5": -8.5, "rel20": -10.47, "rel60": -13.78}, {"date": "06/29", "rel5": -10.32, "rel20": -12.02, "rel60": -14.44}, {"date": "06/30", "rel5": -9.65, "rel20": -12.98, "rel60": -13.0}, {"date": "07/01", "rel5": -6.93, "rel20": -17.8, "rel60": -15.04}, {"date": "07/02", "rel5": -0.32, "rel20": -13.82, "rel60": -13.1}, {"date": "07/07", "rel5": -2.37, "rel20": -9.34, "rel60": -20.69}, {"date": "07/08", "rel5": -4.92, "rel20": -9.99, "rel60": -22.58}, {"date": "07/09", "rel5": -0.65, "rel20": -6.27, "rel60": -21.01}, {"date": "07/10", "rel5": -1.51, "rel20": -10.29, "rel60": -18.94}], "QQQ": [{"date": "06/03", "rel5": 1.52, "rel20": 4.18, "rel60": 10.95}, {"date": "06/05", "rel5": 0.35, "rel20": 3.08, "rel60": 10.33}, {"date": "06/06", "rel5": -1.87, "rel20": -0.73, "rel60": 7.55}, {"date": "06/10", "rel5": -1.35, "rel20": 1.11, "rel60": 8.49}, {"date": "06/11", "rel5": -2.61, "rel20": -0.25, "rel60": 7.55}, {"date": "06/12", "rel5": -0.62, "rel20": 1.02, "rel60": 9.11}, {"date": "06/13", "rel5": 0.39, "rel20": 1.77, "rel60": 9.5}, {"date": "06/16", "rel5": 1.89, "rel20": 4.17, "rel60": 11.31}, {"date": "06/17", "rel5": 2.7, "rel20": 3.18, "rel60": 11.84}, {"date": "06/18", "rel5": 1.78, "rel20": 1.12, "rel60": 9.93}, {"date": "06/19", "rel5": 2.06, "rel20": 3.11, "rel60": 13.32}, {"date": "06/23", "rel5": 0.57, "rel20": 1.88, "rel60": 14.39}, {"date": "06/24", "rel5": -1.26, "rel20": -0.01, "rel60": 11.16}, {"date": "06/25", "rel5": -0.36, "rel20": -0.38, "rel60": 11.26}, {"date": "06/26", "rel5": 0.05, "rel20": 0.36, "rel60": 11.21}, {"date": "06/27", "rel5": -2.23, "rel20": -0.56, "rel60": 9.66}, {"date": "06/29", "rel5": -1.42, "rel20": 0.12, "rel60": 10.79}, {"date": "06/30", "rel5": -0.53, "rel20": 0.7, "rel60": 11.8}, {"date": "07/01", "rel5": -0.05, "rel20": -0.99, "rel60": 10.05}, {"date": "07/02", "rel5": -1.3, "rel20": -2.99, "rel60": 8.09}, {"date": "07/07", "rel5": -2.93, "rel20": -2.08, "rel60": 6.05}, {"date": "07/08", "rel5": -3.21, "rel20": -0.62, "rel60": 6.59}, {"date": "07/09", "rel5": -1.07, "rel20": 0.64, "rel60": 6.81}, {"date": "07/10", "rel5": 0.45, "rel20": -1.16, "rel60": 5.96}], "GDX": [{"date": "06/12", "rel5": -7.49, "rel20": -15.88, "rel60": -22.5}, {"date": "06/13", "rel5": -7.49, "rel20": -15.88, "rel60": -22.5}, {"date": "06/16", "rel5": 6.28, "rel20": -4.34, "rel60": -12.91}, {"date": "06/17", "rel5": 7.49, "rel20": -1.1, "rel60": -13.44}, {"date": "06/18", "rel5": 14.76, "rel20": -0.21, "rel60": -13.17}, {"date": "06/19", "rel5": 4.95, "rel20": -4.59, "rel60": -15.61}, {"date": "06/23", "rel5": -3.11, "rel20": -7.15, "rel60": -22.86}, {"date": "06/24", "rel5": -6.11, "rel20": -9.98, "rel60": -25.17}, {"date": "06/25", "rel5": -12.22, "rel20": -13.41, "rel60": -29.08}, {"date": "06/26", "rel5": -9.4, "rel20": -9.28, "rel60": -30.45}, {"date": "06/27", "rel5": -4.3, "rel20": -8.28, "rel60": -31.06}, {"date": "06/29", "rel5": -6.62, "rel20": -13.39, "rel60": -32.98}, {"date": "06/30", "rel5": -7.67, "rel20": -11.4, "rel60": -32.91}, {"date": "07/01", "rel5": -5.0, "rel20": -12.92, "rel60": -33.16}, {"date": "07/02", "rel5": 3.57, "rel20": -6.48, "rel60": -30.4}, {"date": "07/07", "rel5": -0.8, "rel20": -4.85, "rel60": -33.82}, {"date": "07/08", "rel5": -2.36, "rel20": -6.37, "rel60": -34.2}, {"date": "07/09", "rel5": 0.15, "rel20": -0.95, "rel60": -33.03}, {"date": "07/10", "rel5": -5.06, "rel20": -5.15, "rel60": -30.61}], "SIL": [{"date": "06/16", "rel5": 9.36, "rel20": -2.34, "rel60": -11.37}, {"date": "06/17", "rel5": 9.36, "rel20": -2.34, "rel60": -11.37}, {"date": "06/18", "rel5": 16.73, "rel20": -1.62, "rel60": -9.73}, {"date": "06/19", "rel5": 4.65, "rel20": -6.86, "rel60": -12.59}, {"date": "06/23", "rel5": -3.08, "rel20": -8.22, "rel60": -18.36}, {"date": "06/24", "rel5": -6.87, "rel20": -11.75, "rel60": -22.4}, {"date": "06/25", "rel5": -13.03, "rel20": -14.94, "rel60": -25.58}, {"date": "06/26", "rel5": -9.41, "rel20": -10.98, "rel60": -27.33}, {"date": "06/27", "rel5": -3.96, "rel20": -10.41, "rel60": -27.17}, {"date": "06/29", "rel5": -6.36, "rel20": -15.37, "rel60": -29.44}, {"date": "06/30", "rel5": -7.07, "rel20": -13.78, "rel60": -29.1}, {"date": "07/01", "rel5": -3.37, "rel20": -14.33, "rel60": -29.24}, {"date": "07/02", "rel5": 4.55, "rel20": -7.08, "rel60": -26.59}, {"date": "07/07", "rel5": -2.04, "rel20": -4.98, "rel60": -30.87}, {"date": "07/08", "rel5": -4.26, "rel20": -5.98, "rel60": -32.55}, {"date": "07/09", "rel5": -1.3, "rel20": -0.2, "rel60": -31.28}, {"date": "07/10", "rel5": -6.17, "rel20": -5.79, "rel60": -29.62}], "QCLN": [{"date": "06/13", "rel5": -8.2, "rel20": -2.7, "rel60": 14.5}, {"date": "06/16", "rel5": 1.12, "rel20": 5.93, "rel60": 21.22}, {"date": "06/17", "rel5": 3.21, "rel20": 7.92, "rel60": 17.6}, {"date": "06/18", "rel5": 4.31, "rel20": 1.68, "rel60": 13.34}, {"date": "06/19", "rel5": 5.0, "rel20": 2.9, "rel60": 24.23}, {"date": "06/23", "rel5": 4.12, "rel20": -0.96, "rel60": 31.79}, {"date": "06/24", "rel5": -0.88, "rel20": -5.68, "rel60": 18.63}, {"date": "06/25", "rel5": 0.41, "rel20": -6.61, "rel60": 22.69}, {"date": "06/26", "rel5": 0.49, "rel20": -6.12, "rel60": 17.88}, {"date": "06/27", "rel5": -8.27, "rel20": -10.88, "rel60": 11.16}, {"date": "06/29", "rel5": -9.31, "rel20": -9.14, "rel60": 13.63}, {"date": "06/30", "rel5": -6.36, "rel20": -10.19, "rel60": 18.48}, {"date": "07/01", "rel5": -4.13, "rel20": -11.05, "rel60": 15.07}, {"date": "07/02", "rel5": -7.87, "rel20": -15.58, "rel60": 9.61}, {"date": "07/07", "rel5": -7.29, "rel20": -11.55, "rel60": 0.64}, {"date": "07/08", "rel5": -10.12, "rel20": -9.68, "rel60": 0.16}, {"date": "07/09", "rel5": -6.01, "rel20": -4.83, "rel60": 0.07}, {"date": "07/10", "rel5": -3.15, "rel20": -10.23, "rel60": -1.07}], "EWT": [{"date": "06/16", "rel5": 3.11, "rel20": 15.54, "rel60": 34.81}, {"date": "06/17", "rel5": 3.11, "rel20": 15.54, "rel60": 34.81}, {"date": "06/18", "rel5": 2.48, "rel20": 11.69, "rel60": 29.14}, {"date": "06/19", "rel5": 6.14, "rel20": 15.89, "rel60": 41.15}, {"date": "06/23", "rel5": 6.23, "rel20": 10.02, "rel60": 43.94}, {"date": "06/24", "rel5": 1.75, "rel20": 5.3, "rel60": 35.76}, {"date": "06/25", "rel5": 3.17, "rel20": 4.84, "rel60": 35.83}, {"date": "06/26", "rel5": 0.71, "rel20": 4.04, "rel60": 35.02}, {"date": "06/27", "rel5": -4.15, "rel20": 3.85, "rel60": 32.09}, {"date": "06/29", "rel5": -4.69, "rel20": 4.97, "rel60": 36.5}, {"date": "06/30", "rel5": -2.94, "rel20": 3.61, "rel60": 39.02}, {"date": "07/01", "rel5": -1.23, "rel20": 0.49, "rel60": 35.08}, {"date": "07/02", "rel5": -1.44, "rel20": -0.65, "rel60": 33.02}, {"date": "07/07", "rel5": -4.6, "rel20": 0.3, "rel60": 22.37}, {"date": "07/08", "rel5": -4.15, "rel20": 1.94, "rel60": 24.12}, {"date": "07/09", "rel5": -1.4, "rel20": 3.57, "rel60": 22.72}, {"date": "07/10", "rel5": -0.1, "rel20": 1.32, "rel60": 23.66}], "EWY": [{"date": "06/16", "rel5": 12.47, "rel20": 18.63, "rel60": 48.67}, {"date": "06/17", "rel5": 12.47, "rel20": 18.63, "rel60": 48.67}, {"date": "06/18", "rel5": 11.96, "rel20": 13.1, "rel60": 46.96}, {"date": "06/19", "rel5": 8.97, "rel20": 17.04, "rel60": 66.92}, {"date": "06/23", "rel5": 4.96, "rel20": 9.98, "rel60": 70.32}, {"date": "06/24", "rel5": -6.29, "rel20": -1.95, "rel60": 43.18}, {"date": "06/25", "rel5": -1.92, "rel20": 0.62, "rel60": 53.4}, {"date": "06/26", "rel5": 0.86, "rel20": 5.54, "rel60": 53.74}, {"date": "06/27", "rel5": -7.62, "rel20": -1.03, "rel60": 45.04}, {"date": "06/29", "rel5": -9.37, "rel20": -2.0, "rel60": 47.75}, {"date": "06/30", "rel5": -8.14, "rel20": -5.28, "rel60": 46.98}, {"date": "07/01", "rel5": -5.15, "rel20": -11.71, "rel60": 34.11}, {"date": "07/02", "rel5": -10.25, "rel20": -14.16, "rel60": 28.65}, {"date": "07/07", "rel5": -9.11, "rel20": -3.49, "rel60": 20.63}, {"date": "07/08", "rel5": -9.32, "rel20": -1.86, "rel60": 20.73}, {"date": "07/09", "rel5": -1.2, "rel20": -0.09, "rel60": 17.71}, {"date": "07/10", "rel5": 0.51, "rel20": -10.08, "rel60": 18.78}], "JETS": [{"date": "06/18", "rel5": 8.97, "rel20": 14.62, "rel60": 6.83}, {"date": "06/19", "rel5": 5.79, "rel20": 14.27, "rel60": 8.19}, {"date": "06/23", "rel5": 3.09, "rel20": 10.45, "rel60": 13.26}, {"date": "06/24", "rel5": 5.18, "rel20": 12.6, "rel60": 13.53}, {"date": "06/25", "rel5": 8.32, "rel20": 17.24, "rel60": 21.37}, {"date": "06/26", "rel5": 9.92, "rel20": 15.56, "rel60": 20.99}, {"date": "06/27", "rel5": 9.73, "rel20": 17.6, "rel60": 20.44}, {"date": "06/29", "rel5": 7.23, "rel20": 14.87, "rel60": 19.7}, {"date": "06/30", "rel5": 6.91, "rel20": 16.38, "rel60": 19.6}, {"date": "07/01", "rel5": 4.91, "rel20": 18.41, "rel60": 19.8}, {"date": "07/02", "rel5": 0.64, "rel20": 20.55, "rel60": 20.95}, {"date": "07/07", "rel5": -2.63, "rel20": 16.22, "rel60": 15.52}, {"date": "07/08", "rel5": -4.12, "rel20": 10.18, "rel60": 14.53}, {"date": "07/09", "rel5": -3.27, "rel20": 15.31, "rel60": 12.02}, {"date": "07/10", "rel5": -4.71, "rel20": 8.44, "rel60": 10.9}], "XLE": [{"date": "06/18", "rel5": -8.39, "rel20": -8.65, "rel60": -22.84}, {"date": "06/19", "rel5": -7.08, "rel20": -9.61, "rel60": -28.36}, {"date": "06/23", "rel5": -1.3, "rel20": -5.73, "rel60": -30.54}, {"date": "06/24", "rel5": 0.85, "rel20": -3.59, "rel60": -28.64}, {"date": "06/25", "rel5": -0.96, "rel20": -5.09, "rel60": -29.57}, {"date": "06/26", "rel5": -0.16, "rel20": -2.94, "rel60": -24.61}, {"date": "06/27", "rel5": 2.51, "rel20": -2.07, "rel60": -19.95}, {"date": "06/29", "rel5": -0.43, "rel20": -2.77, "rel60": -22.56}, {"date": "06/30", "rel5": -0.68, "rel20": -2.08, "rel60": -22.55}, {"date": "07/01", "rel5": -4.69, "rel20": -7.07, "rel60": -24.69}, {"date": "07/02", "rel5": -2.23, "rel20": -8.1, "rel60": -24.51}, {"date": "07/07", "rel5": 1.07, "rel20": -7.47, "rel60": -14.08}, {"date": "07/08", "rel5": 4.87, "rel20": -4.25, "rel60": -11.29}, {"date": "07/09", "rel5": 3.01, "rel20": -9.51, "rel60": -10.26}, {"date": "07/10", "rel5": 2.13, "rel20": -5.9, "rel60": -9.08}], "KWEB": [{"date": "06/18", "rel5": -5.55, "rel20": -9.19, "rel60": -25.42}, {"date": "06/19", "rel5": -6.22, "rel20": -9.19, "rel60": -26.25}, {"date": "06/23", "rel5": -4.51, "rel20": -7.28, "rel60": -27.62}, {"date": "06/24", "rel5": -5.19, "rel20": -7.9, "rel60": -27.94}, {"date": "06/25", "rel5": -3.83, "rel20": -8.55, "rel60": -28.55}, {"date": "06/26", "rel5": -6.0, "rel20": -10.46, "rel60": -29.79}, {"date": "06/27", "rel5": -2.77, "rel20": -6.81, "rel60": -26.66}, {"date": "06/29", "rel5": -2.54, "rel20": -7.04, "rel60": -26.48}, {"date": "06/30", "rel5": -3.04, "rel20": -7.62, "rel60": -26.5}, {"date": "07/01", "rel5": 0.91, "rel20": -9.51, "rel60": -23.91}, {"date": "07/02", "rel5": 1.27, "rel20": -6.94, "rel60": -23.92}, {"date": "07/07", "rel5": 4.07, "rel20": -3.48, "rel60": -21.16}, {"date": "07/08", "rel5": 8.11, "rel20": -0.33, "rel60": -16.69}, {"date": "07/09", "rel5": 4.62, "rel20": -3.47, "rel60": -18.08}, {"date": "07/10", "rel5": 4.2, "rel20": -3.05, "rel60": -18.86}], "DXYZ": [{"date": "06/18", "rel5": -24.59, "rel20": -42.73, "rel60": -21.27}, {"date": "06/19", "rel5": -29.38, "rel20": -55.46, "rel60": -22.53}, {"date": "06/23", "rel5": -2.65, "rel20": -54.55, "rel60": -17.27}, {"date": "06/24", "rel5": -2.58, "rel20": -53.74, "rel60": -21.18}, {"date": "06/25", "rel5": -7.64, "rel20": -55.15, "rel60": -20.21}, {"date": "06/26", "rel5": -12.96, "rel20": -51.3, "rel60": -20.3}, {"date": "06/27", "rel5": -6.98, "rel20": -50.03, "rel60": -25.01}, {"date": "06/29", "rel5": -2.04, "rel20": -48.05, "rel60": -20.9}, {"date": "06/30", "rel5": -0.68, "rel20": -45.89, "rel60": -21.63}, {"date": "07/01", "rel5": -7.93, "rel20": -45.61, "rel60": -24.75}, {"date": "07/02", "rel5": -4.58, "rel20": -37.31, "rel60": -21.25}, {"date": "07/07", "rel5": -7.24, "rel20": -38.59, "rel60": -22.4}, {"date": "07/08", "rel5": -3.31, "rel20": -29.49, "rel60": -25.78}, {"date": "07/09", "rel5": 10.56, "rel20": -26.94, "rel60": -16.38}, {"date": "07/10", "rel5": 10.03, "rel20": -30.83, "rel60": -14.82}], "RSP": [{"date": "06/18", "rel5": -0.7, "rel20": 2.87, "rel60": -4.22}, {"date": "06/19", "rel5": -1.12, "rel20": 2.02, "rel60": -5.88}, {"date": "06/23", "rel5": -0.15, "rel20": 1.77, "rel60": -6.34}, {"date": "06/24", "rel5": 0.94, "rel20": 2.87, "rel60": -4.85}, {"date": "06/25", "rel5": 1.43, "rel20": 3.63, "rel60": -4.16}, {"date": "06/26", "rel5": 2.22, "rel20": 4.21, "rel60": -2.58}, {"date": "06/27", "rel5": 2.54, "rel20": 4.38, "rel60": -2.03}, {"date": "06/29", "rel5": 2.1, "rel20": 4.07, "rel60": -2.65}, {"date": "06/30", "rel5": 1.19, "rel20": 3.25, "rel60": -3.61}, {"date": "07/01", "rel5": 0.5, "rel20": 3.42, "rel60": -3.13}, {"date": "07/02", "rel5": 0.58, "rel20": 3.96, "rel60": -1.91}, {"date": "07/07", "rel5": -0.12, "rel20": 2.28, "rel60": -0.85}, {"date": "07/08", "rel5": -0.08, "rel20": 0.31, "rel60": -1.92}, {"date": "07/09", "rel5": -0.76, "rel20": -0.25, "rel60": -1.31}, {"date": "07/10", "rel5": -1.65, "rel20": -0.16, "rel60": -0.56}], "MDY": [{"date": "06/18", "rel5": -0.09, "rel20": 3.27, "rel60": -2.79}, {"date": "06/19", "rel5": -0.91, "rel20": 3.33, "rel60": -3.17}, {"date": "06/23", "rel5": 1.01, "rel20": 2.7, "rel60": -1.96}, {"date": "06/24", "rel5": 1.44, "rel20": 3.11, "rel60": -1.94}, {"date": "06/25", "rel5": 1.81, "rel20": 3.78, "rel60": -0.66}, {"date": "06/26", "rel5": 2.58, "rel20": 4.93, "rel60": 0.16}, {"date": "06/27", "rel5": 3.0, "rel20": 5.76, "rel60": 0.57}, {"date": "06/29", "rel5": 1.04, "rel20": 4.59, "rel60": -0.85}, {"date": "06/30", "rel5": 1.05, "rel20": 4.98, "rel60": -0.83}, {"date": "07/01", "rel5": -0.17, "rel20": 3.41, "rel60": -1.68}, {"date": "07/02", "rel5": -1.19, "rel20": 2.45, "rel60": -2.14}, {"date": "07/07", "rel5": -2.31, "rel20": 0.61, "rel60": -3.04}, {"date": "07/08", "rel5": -2.93, "rel20": -1.16, "rel60": -3.82}, {"date": "07/09", "rel5": -1.78, "rel20": -0.89, "rel60": -2.61}, {"date": "07/10", "rel5": -1.92, "rel20": -2.19, "rel60": -1.96}], "XBI": [{"date": "06/24", "rel5": 10.61, "rel20": 12.52, "rel60": 7.25}, {"date": "06/25", "rel5": 12.9, "rel20": 14.58, "rel60": 10.02}, {"date": "06/26", "rel5": 9.65, "rel20": 14.9, "rel60": 5.77}, {"date": "06/27", "rel5": 12.79, "rel20": 17.65, "rel60": 9.62}, {"date": "06/29", "rel5": 8.99, "rel20": 17.86, "rel60": 9.77}, {"date": "06/30", "rel5": 8.17, "rel20": 19.98, "rel60": 9.53}, {"date": "07/01", "rel5": 4.81, "rel20": 24.35, "rel60": 8.37}, {"date": "07/02", "rel5": 5.61, "rel20": 24.85, "rel60": 11.55}, {"date": "07/07", "rel5": 2.61, "rel20": 26.45, "rel60": 16.55}, {"date": "07/08", "rel5": 3.17, "rel20": 22.91, "rel60": 14.77}, {"date": "07/09", "rel5": 4.14, "rel20": 23.87, "rel60": 12.8}, {"date": "07/10", "rel5": -2.26, "rel20": 17.48, "rel60": 8.69}], "SLV": [{"date": "06/25", "rel5": -16.04, "rel20": -23.42, "rel60": -34.51}, {"date": "06/26", "rel5": -12.71, "rel20": -20.28, "rel60": -36.07}, {"date": "06/27", "rel5": -8.09, "rel20": -18.67, "rel60": -33.06}, {"date": "06/29", "rel5": -10.12, "rel20": -20.86, "rel60": -32.91}, {"date": "06/30", "rel5": -9.55, "rel20": -19.43, "rel60": -32.43}, {"date": "07/01", "rel5": -5.52, "rel20": -19.38, "rel60": -32.11}, {"date": "07/02", "rel5": 4.68, "rel20": -15.65, "rel60": -29.54}, {"date": "07/07", "rel5": 2.47, "rel20": -12.71, "rel60": -31.21}, {"date": "07/08", "rel5": -1.01, "rel20": -11.61, "rel60": -31.27}, {"date": "07/09", "rel5": 0.25, "rel20": -9.73, "rel60": -33.09}, {"date": "07/10", "rel5": -3.31, "rel20": -13.63, "rel60": -32.76}], "XLV": [{"date": "06/27", "rel5": 9.7, "rel20": 9.66, "rel60": -2.72}, {"date": "06/29", "rel5": 7.57, "rel20": 9.59, "rel60": -3.5}, {"date": "06/30", "rel5": 5.41, "rel20": 8.87, "rel60": -4.87}, {"date": "07/01", "rel5": 3.18, "rel20": 10.79, "rel60": -4.11}, {"date": "07/02", "rel5": 5.2, "rel20": 12.23, "rel60": -1.26}, {"date": "07/07", "rel5": 1.4, "rel20": 6.58, "rel60": 1.58}, {"date": "07/08", "rel5": 2.48, "rel20": 3.87, "rel60": 1.04}, {"date": "07/09", "rel5": 0.85, "rel20": 2.47, "rel60": 0.72}, {"date": "07/10", "rel5": -3.14, "rel20": 2.05, "rel60": 0.99}], "XPH": [{"date": "07/01", "rel5": 1.68, "rel20": 19.09, "rel60": 7.01}, {"date": "07/02", "rel5": 2.63, "rel20": 20.5, "rel60": 10.07}, {"date": "07/07", "rel5": 4.24, "rel20": 21.17, "rel60": 14.94}, {"date": "07/08", "rel5": 4.91, "rel20": 17.93, "rel60": 13.99}, {"date": "07/09", "rel5": 6.44, "rel20": 16.41, "rel60": 14.07}, {"date": "07/10", "rel5": 0.54, "rel20": 12.18, "rel60": 11.17}], "IBB": [{"date": "07/01", "rel5": 5.09, "rel20": 17.55, "rel60": -0.57}, {"date": "07/02", "rel5": 6.23, "rel20": 18.09, "rel60": 3.16}, {"date": "07/07", "rel5": 3.54, "rel20": 17.61, "rel60": 6.99}, {"date": "07/08", "rel5": 3.42, "rel20": 14.8, "rel60": 5.38}, {"date": "07/09", "rel5": 3.0, "rel20": 15.31, "rel60": 3.98}, {"date": "07/10", "rel5": -3.23, "rel20": 10.32, "rel60": 1.27}], "IHF": [{"date": "07/01", "rel5": 5.53, "rel20": 16.14, "rel60": 19.53}, {"date": "07/02", "rel5": 5.9, "rel20": 16.23, "rel60": 15.97}, {"date": "07/07", "rel5": 3.03, "rel20": 9.07, "rel60": 20.66}, {"date": "07/08", "rel5": 3.15, "rel20": 5.97, "rel60": 18.92}, {"date": "07/09", "rel5": -0.38, "rel20": 4.87, "rel60": 19.95}, {"date": "07/10", "rel5": -2.27, "rel20": 5.16, "rel60": 20.1}], "KIE": [{"date": "07/01", "rel5": 3.0, "rel20": 15.01, "rel60": -1.23}, {"date": "07/02", "rel5": 5.73, "rel20": 19.4, "rel60": 2.05}, {"date": "07/07", "rel5": 4.01, "rel20": 12.99, "rel60": 5.18}, {"date": "07/08", "rel5": 4.43, "rel20": 10.53, "rel60": 3.06}, {"date": "07/09", "rel5": 0.85, "rel20": 5.59, "rel60": 3.43}, {"date": "07/10", "rel5": -2.33, "rel20": 6.95, "rel60": 2.74}], "KRE": [{"date": "07/01", "rel5": 2.52, "rel20": 11.37, "rel60": 1.14}, {"date": "07/02", "rel5": -0.15, "rel20": 11.77, "rel60": -0.59}, {"date": "07/07", "rel5": -0.48, "rel20": 5.55, "rel60": -1.15}, {"date": "07/08", "rel5": -1.83, "rel20": 1.81, "rel60": -2.95}, {"date": "07/09", "rel5": -2.81, "rel20": 0.58, "rel60": -0.51}, {"date": "07/10", "rel5": -1.37, "rel20": 1.36, "rel60": 0.6}], "KBE": [{"date": "07/01", "rel5": 2.14, "rel20": 11.04, "rel60": 0.8}, {"date": "07/02", "rel5": 0.1, "rel20": 11.81, "rel60": -0.39}, {"date": "07/07", "rel5": -0.11, "rel20": 5.92, "rel60": -0.64}, {"date": "07/08", "rel5": -1.31, "rel20": 2.11, "rel60": -2.6}, {"date": "07/09", "rel5": -2.33, "rel20": 1.05, "rel60": -0.4}, {"date": "07/10", "rel5": -1.18, "rel20": 1.85, "rel60": 0.66}], "SPMO": [{"date": "07/01", "rel5": -1.03, "rel20": 2.47, "rel60": 21.1}, {"date": "07/02", "rel5": -3.5, "rel20": -1.49, "rel60": 16.32}, {"date": "07/07", "rel5": -6.65, "rel20": -0.11, "rel60": 11.1}, {"date": "07/08", "rel5": -6.61, "rel20": 0.94, "rel60": 12.21}, {"date": "07/09", "rel5": -2.24, "rel20": 2.92, "rel60": 12.62}, {"date": "07/10", "rel5": 0.57, "rel20": -0.22, "rel60": 13.61}], "XLK": [{"date": "07/01", "rel5": -0.88, "rel20": -4.53, "rel60": 22.53}, {"date": "07/02", "rel5": -2.92, "rel20": -6.72, "rel60": 18.43}, {"date": "07/07", "rel5": -4.27, "rel20": -3.86, "rel60": 15.59}, {"date": "07/08", "rel5": -4.6, "rel20": -0.78, "rel60": 15.94}, {"date": "07/09", "rel5": -0.94, "rel20": 1.31, "rel60": 17.04}, {"date": "07/10", "rel5": 1.51, "rel20": -0.93, "rel60": 15.75}], "USO": [{"date": "07/01", "rel5": -8.84, "rel20": -22.95, "rel60": -38.85}, {"date": "07/02", "rel5": -3.75, "rel20": -24.93, "rel60": -37.67}, {"date": "07/07", "rel5": 0.81, "rel20": -20.56, "rel60": -22.78}, {"date": "07/08", "rel5": 5.6, "rel20": -15.67, "rel60": -21.3}, {"date": "07/09", "rel5": 4.76, "rel20": -22.45, "rel60": -20.23}, {"date": "07/10", "rel5": 3.17, "rel20": -17.96, "rel60": -19.19}], "MAGS": [{"date": "07/07", "rel5": 3.38, "rel20": -1.58, "rel60": -1.7}, {"date": "07/08", "rel5": 2.5, "rel20": -0.93, "rel60": -2.12}, {"date": "07/09", "rel5": 0.6, "rel20": 0.33, "rel60": -3.29}, {"date": "07/10", "rel5": 2.6, "rel20": 1.94, "rel60": -4.15}], "HACK": [{"date": "07/07", "rel5": 6.11, "rel20": 12.22, "rel60": 44.12}, {"date": "07/08", "rel5": 3.92, "rel20": 13.34, "rel60": 37.9}, {"date": "07/09", "rel5": 3.67, "rel20": 15.27, "rel60": 44.02}, {"date": "07/10", "rel5": 0.51, "rel20": 10.46, "rel60": 35.63}], "IGV": [{"date": "07/07", "rel5": 3.81, "rel20": -2.74, "rel60": 16.02}, {"date": "07/08", "rel5": 2.26, "rel20": -1.64, "rel60": 8.87}, {"date": "07/09", "rel5": -0.22, "rel20": -1.11, "rel60": 9.87}, {"date": "07/10", "rel5": -2.61, "rel20": -0.69, "rel60": 3.5}], "SKYY": [{"date": "07/08", "rel5": 3.37, "rel20": 0.74, "rel60": 18.25}, {"date": "07/09", "rel5": 3.27, "rel20": 2.53, "rel60": 21.54}, {"date": "07/10", "rel5": 2.27, "rel20": 2.14, "rel60": 15.07}], "XOP": [{"date": "07/08", "rel5": 5.19, "rel20": -2.39, "rel60": -12.61}, {"date": "07/09", "rel5": 2.92, "rel20": -8.7, "rel60": -10.67}, {"date": "07/10", "rel5": 1.18, "rel20": -5.29, "rel60": -11.32}]};
+</script>
+
+<script>
+/* ── 字體大小 ── */
+const fsMap={small:'21px',normal:'24px',large:'27px'};
+function setFS(s){
+  document.documentElement.style.setProperty('--fs',fsMap[s]);
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('fs-'+s).classList.add('on');
+  const cur=document.body.classList.contains('light')?'light':'dark';
+  document.getElementById('btn-'+cur).classList.add('on');
+  redrawAllCharts();
+}
+/* 初始化：確保 --fs 與視覺上顯示為 active 的「中」按鈕一致，避免首次載入時字級與按鈕狀態不同步 */
+setFS('normal');
+
+/* ── 深/淺色 ── */
+const themes={
+  dark:{'--bg':'#080b10','--surface':'#0d1118','--surface2':'#121820','--border':'#1c2330','--text':'#b8c8d8','--dim':'#405060','--accent':'#00c8f0','--green':'#00c896','--red':'#ff3d5a','--yellow':'#f0c040','--orange':'#ff8040'},
+  light:{'--bg':'#f2f5f9','--surface':'#ffffff','--surface2':'#e8eef5','--border':'#ccd6e2','--text':'#1a2535','--dim':'#6080a0','--accent':'#0070a0','--green':'#006e4a','--red':'#c00030','--yellow':'#7a5500','--orange':'#a03800'}
+};
+function setTheme(t){
+  const r=document.documentElement;
+  Object.entries(themes[t]).forEach(([k,v])=>r.style.setProperty(k,v));
+  document.body.classList.toggle('light',t==='light');
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('btn-'+t).classList.add('on');
+  const fs=r.style.getPropertyValue('--fs')||'18px';
+  const fsKey=Object.entries(fsMap).find(([,v])=>v===fs)?.[0]||'normal';
+  document.getElementById('fs-'+fsKey).classList.add('on');
+}
+
+/* ── 核心指標手風琴（互斥） ── */
+function tog(pid,cid){
+  const p=document.getElementById(pid),c=document.getElementById(cid);
+  const was=p.classList.contains('open');
+  document.querySelectorAll('.det').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.card.clk').forEach(x=>x.classList.remove('open'));
+  if(!was){p.classList.add('open');c.classList.add('open');}
+}
+
+
+/* ── REL 折線圖渲染 ── */
+function currentFsPx(){
+  const v=getComputedStyle(document.documentElement).getPropertyValue('--fs').trim();
+  const n=parseFloat(v);
+  return isNaN(n)?18:n;
+}
+function drawChart(canvasId, ticker){
+  const data = REL_HISTORY[ticker];
+  const el = document.getElementById(canvasId);
+  if(!el) return;
+  const fsPx=currentFsPx(), fsRatio=fsPx/18;
+  const axisFS=(8*fsRatio).toFixed(1), legendFS=(10*fsRatio).toFixed(1), emptyFS=(11*fsRatio).toFixed(1);
+  if(!data || data.length < 2){el.innerHTML=`<div style="color:var(--dim);font-size:${emptyFS}px;padding:6px 0;">數據累積中…</div>`;return;}
+  const W=el.clientWidth||320, H=110;
+  const pL=32,pR=8,pT=8,pB=20;
+  const cW=W-pL-pR, cH=H-pT-pB;
+  const n=data.length;
+  const allV=data.flatMap(d=>[d.rel5,d.rel20,d.rel60]);
+  let yMin=Math.min(...allV), yMax=Math.max(...allV);
+  const yPad=Math.max(Math.abs(yMax-yMin)*0.15,5);
+  yMin-=yPad; yMax+=yPad;
+  const px=(i,v)=>[pL+(n>1?i/(n-1):0.5)*cW, pT+(1-(v-yMin)/(yMax-yMin))*cH];
+  const poly=(key,col)=>{
+    const pts=data.map((d,i)=>px(i,d[key]).join(',')).join(' ');
+    return `<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>`;
+  };
+  let zeroL='';
+  if(yMin<0&&yMax>0){const[,zy]=px(0,0);zeroL=`<line x1="${pL}" y1="${zy.toFixed(1)}" x2="${pL+cW}" y2="${zy.toFixed(1)}" stroke="rgba(255,255,255,.2)" stroke-width="0.8" stroke-dasharray="3,3"/>`;}
+  let yLbls='';
+  [yMax,0,yMin].forEach(v=>{
+    if(v>=yMin&&v<=yMax){const[,yp]=px(0,v);const col=v===0?'rgba(255,255,255,.5)':'rgba(255,255,255,.3)';yLbls+=`<text x="${pL-3}" y="${(yp+3).toFixed(1)}" text-anchor="end" font-size="${axisFS}" fill="${col}">${v>=0?'+':''}${v.toFixed(0)}</text>`;}
+  });
+  let xLbls='';
+  const step=Math.max(1,Math.floor((n-1)/3));
+  for(let i=0;i<n;i+=step){const[xp]=px(i,yMin);xLbls+=`<text x="${xp.toFixed(1)}" y="${H-4}" text-anchor="middle" font-size="${axisFS}" fill="rgba(255,255,255,.3)">${data[i].date}</text>`;}
+  const last=data[n-1];
+  let marks='';
+  [['rel5','#ff6b6b'],['rel20','#ffd43b'],['rel60','#74c0fc']].forEach(([k,c])=>{const[lx,ly]=px(n-1,last[k]);marks+=`<circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="3" fill="${c}" opacity="0.9"/>`;});
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;margin:6px 0 2px;border-radius:4px;background:rgba(0,0,0,.2);">${zeroL}${poly('rel60','#74c0fc')}${poly('rel20','#ffd43b')}${poly('rel5','#ff6b6b')}${marks}${yLbls}${xLbls}</svg><div style="display:flex;gap:12px;font-size:${legendFS}px;margin-bottom:6px;opacity:.65;"><span style="color:#ff6b6b;">─ REL5</span><span style="color:#ffd43b;">─ REL20</span><span style="color:#74c0fc;">─ REL60</span></div>`;
+}
+/* 字級切換時，重繪所有已存在的折線圖（含尚未展開過的，確保下次展開時也用最新字級） */
+function redrawAllCharts(){
+  document.querySelectorAll('[id^="chart-"]').forEach(el=>{
+    const ticker=el.dataset.ticker;
+    if(ticker) drawChart(el.id, ticker);
+  });
+}
+
+/* ── 板塊項目手風琴（獨立，不互斥） ── */
+function togSC(id,el){
+  const d=document.getElementById(id);
+  d.classList.toggle('open');
+  el.classList.toggle('open');
+  const cv=d.querySelector('.chart-canvas');
+  if(cv&&d.classList.contains('open'))drawChart(cv.id,cv.dataset.ticker);
+}
+
+/* ── 廣度卡手風琴（互斥） ── */
+function togBC(did,bid){
+  const d=document.getElementById(did),b=document.getElementById(bid);
+  const was=d.classList.contains('open');
+  document.querySelectorAll('.bc-det').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('[id^="aNQ"],[id^="aSP"]').forEach(x=>{
+    x.style.transform='';x.style.animation='';
+  });
+  if(!was){
+    d.classList.add('open');
+    const arr=b.querySelector('.arr');
+    if(arr){arr.style.transform='rotate(180deg)';arr.style.animation='none';}
+  }
+}
+
+/* ── Gamma 防線展開 ── */
+function togGamma(){
+  const d=document.getElementById('gammaDet'),a=document.getElementById('gArrow');
+  const was=d.style.display!=='none'&&d.style.display!=='';
+  d.style.display=was?'none':'block';
+  a.textContent=was?'▼':'▲';
+}
+
+/* ── 初始化 ── */
+document.getElementById('btn-dark').classList.add('on');
+document.getElementById('fs-normal').classList.add('on');
+
+/* ── 防複製（五層） ── */
+document.addEventListener('copy',e=>e.preventDefault());
+document.addEventListener('cut',e=>e.preventDefault());
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&['a','c','x','s','u'].includes(e.key.toLowerCase()))e.preventDefault();});
+document.addEventListener('selectstart',e=>e.preventDefault());
+document.addEventListener('dragstart',e=>e.preventDefault());
+</script>
+<!-- 本期可證偽判斷登錄（隱藏，供覆盤用）
+① 廣度底部確認｜廣度轉折類｜信心度：高｜驗證日：2026-07-15
+   7/14 CPI後RSP月線翻正且SOXX五日>0%，廣度底部完整確認
+② US10Y CPI後方向｜殖利率方向類｜信心度：高｜驗證日：2026-07-16
+   若CPI≤0.2%，US10Y兩個交易日內回落至4.527%以下
+③ P/C極端反向風險｜事件反應類｜信心度：中｜驗證日：2026-07-14
+   若CPI>0.3%，P/C 0.39引發QQQ單日跌幅>2%（加倍效應）
+④ SOXX輪動退出警戒解除｜板塊輪動類｜信心度：中｜驗證日：2026-07-16
+   SOXX五日若7/14–7/16期間轉正並站穩，升格強勢主線
+⑤ 主線核心（HACK）持續確認｜板塊輪動類｜信心度：高｜驗證日：2026-07-14
+   HACK Rank若在下週維持>88且五日不轉負，主線地位確認持續
+-->
+
+<!-- 指令-簡報隱藏摘要（供daily-brief skill讀取，禁止在報告頁面顯示）
+日期：2026-07-11（Sat — 數據為 7/10 收盤，CPI前夕）
+標題：廣度全面回升，CPI 前夕多方佔優勢
+
+【一句話定性】
+三道防線本週全數緩解，廣度SP20重回60%健康帶，市場在CPI前夕轉為極度看多（P/C 0.39歷史低位）——多方佔優，但7/14 CPI當日不追任何方向。
+
+【核心數據】
+QQQ：725.5｜VIX：15.35｜VXN：24.89（首次回落<25）｜P/C：0.39🔴極端看多
+US10Y：4.56%（連三日盤整等CPI）｜HY_OAS：2.70%（全週健康）
+廣度：SP20 62.2%（重回健康帶）｜NQ20 59.2%｜平均62.1%
+
+【三道防線】
+第一道油價🟡（WTI $71.46，連三日回落）｜第二道US10Y🟡（4.56%，盤整待CPI）｜第三道流動性🟢（SOFR-IORB -12bp）
+
+【主線聚焦】
+最強主線：網路安全（HACK Rank98/CIBR Rank93 + CRWD/FTNT/OKTA/VRNS，雙來源確認）
+次強主線：生技（XBI月線+17%）、雲端（SKYY月線+2%）
+警示：美股分析三圈未開燈，A級股僅19支，AI硬體主鏈尚未重啟，底部修復非主升
+
+【MAGS驅動力】
+情境③→①過渡：MAGS短中線雙正（五日+2.6%），RSP月線微負，廣度SP20今日大幅擴張——集中式行情過渡全面走強
+
+【多空方向】
+多方目標：QQQ 750–790（CPI溫和），樂活上緣≈QQQ 822
+空方目標：QQQ 660–680（Max Pain 680+樂活中線662，CPI黏性）
+鐵律：7/14 CPI當日不追任何方向，次日確認後再行動
+
+【判斷登錄】
+①廣度底部確認（驗證日7/15）②US10Y CPI後方向（7/16）③P/C爆倉風險（7/14）④SOXX升格（7/16）⑤HACK主線持續（7/14）
+-->
+
+<!-- 指令-簡報隱藏摘要（供daily-brief skill讀取，禁止在報告頁面顯示）
+日期：2026-07-11
+標題：廣度全面回升，CPI 前夕多方佔優勢
+
+【一句話定性】三道防線本週全數緩解，SP20 重回健康帶，市場在 CPI 前夕轉為極度看多——多方佔優，7/14 CPI 當天不追任何方向。
+
+【核心數據】QQQ：725.5｜VIX：15.35｜VXN：24.89｜P/C：0.39（極端看多）
+US10Y：4.56%（盤整等CPI）｜HY_OAS：2.70%（全週健康）
+廣度：SP20 62.2%（重回健康帶）｜NQ20 59.2%｜平均62.1%
+
+【三道防線】第一道油價🟡（WTI $71.46，連三日回落）｜第二道US10Y🟡（4.56%，盤整待CPI）｜第三道流動性🟢（SOFR-IORB -12bp）
+
+【主線聚焦】最強主線：網路安全（HACK Rank98/CIBR Rank93 + CRWD/FTNT/OKTA/VRNS，雙來源確認）
+次強主線：生技（XBI月線+17%）、雲端（SKYY月線+2%）
+警示：美股分析三圈未開燈，A級股僅19支，底部修復非主升
+
+【MAGS驅動力】情境③→①過渡：MAGS短中線雙正，RSP月線微負，廣度SP20大幅擴張——集中式行情過渡全面走強
+
+【多空方向】多方目標：QQQ 750–790　空方目標：QQQ 660–680
+鐵律：7/14 CPI當天不追任何方向，隔天確認後再行動
+
+【判斷登錄（Step D）】
+①QQQ上漲750–790（7/14後3日，否定：CPI>0.3%）②US10Y下行收復4.527%（7/14後2日）③廣度三條件同週達成（7/14–7/18）④HACK維持強勢主線（7/18，信心度高）⑤MAGS短線維持正值（7/18）
+-->
+
+<!-- Step D 行情預測登錄（供指令-覆盤讀取，禁止在報告頁面顯示）
+登錄日：2026-07-11
+來源報告：市場觀察 2026-07-11
+
+① 預測標的：QQQ
+   預測方向：上漲，目標 750–790
+   預測時間窗：7/14 CPI後3個交易日內（至7/17）
+   信心度：中
+   主要依據：P/C 0.39極度看多、廣度SP20重回62.2%、MAGS短中線雙正、油價退潮三道防線緩解
+   否定條件：7/14 CPI核心月增>0.3%，此預測作廢，改觀察660–680
+   來源段落：多空劇本框架
+   類型：事件反應類
+   驗證日：2026-07-17
+
+② 預測標的：US10Y
+   預測方向：下行，目標回落至4.527%以下
+   預測時間窗：7/14 CPI後2個交易日內（至7/16）
+   信心度：中
+   主要依據：CPI溫和機率偏高（P/C 0.39市場共識）、油價退潮、SOFR-IORB -12bp流動性寬鬆
+   否定條件：CPI核心月增>0.3%，此預測作廢
+   來源段落：三道防線
+   類型：殖利率方向類
+   驗證日：2026-07-16
+
+③ 預測標的：廣度底部確認（SP20+RSP月線+SOXX短線三條件）
+   預測方向：三條件於7/14–7/18當週同時達成
+   預測時間窗：7/14–7/18當週
+   信心度：中
+   主要依據：SP20 62.2%已達成、RSP月線差0.16%翻正、SOXX短線差1.29%轉正，均在門檻邊緣
+   否定條件：CPI>0.3%導致廣度二次萎縮，此預測作廢
+   來源段落：廣度分析
+   類型：廣度轉折類
+   驗證日：2026-07-18
+
+④ 預測標的：HACK（網路安全）
+   預測方向：維持強勢主線，短線下週回正，月線持續正值
+   預測時間窗：7/14–7/18當週
+   信心度：高
+   主要依據：Rank 98未滑落、月線+10.46%全表最強、今日回吐屬正常週五換手、雙來源交集確認
+   否定條件：HACK Rank下滑>10且短線持續負逾3日，此預測降格
+   來源段落：主線聚焦
+   類型：板塊輪動類
+   驗證日：2026-07-18
+
+⑤ 預測標的：MAGS（Mag7巨頭）
+   預測方向：短線維持正值，月線於7/18前升格為強勢主線
+   預測時間窗：7/14–7/18當週
+   信心度：中
+   主要依據：短中線雙正（短線+2.60%、月線+1.94%）、今日唯一逆勢走強板塊
+   否定條件：MAGS短線翻負且QQQ收盤跌破710，此預測作廢
+   來源段落：板塊小結+大盤驅動力分解
+   類型：板塊輪動類
+   驗證日：2026-07-18
+-->
+</body>
+</html>
+
