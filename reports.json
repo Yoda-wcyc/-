@@ -1,0 +1,25 @@
+{
+  "updated": "2026-07-12",
+  "dashboard": {
+    "signal": "green",
+    "signal_note": "新資金週期進行中",
+    "vix": 16.4,
+    "spx": 7380,
+    "spx_anchor_5y": 6945,
+    "high_low": [167, 122],
+    "breadth_note": "廣度確認:偏多"
+  },
+  "bubble": {
+    "score": 6.2,
+    "headline": "估值偏熱,但 ROI 缺口尚未斷裂",
+    "url": "https://yoda-wcyc.github.io/-/AI泡沫評估_20260710.html"
+  },
+  "latest": {
+    "市場觀察": { "date": "2026-07-11", "file": "市場觀察_20260711.html", "summary": "占位:發下一份報告時由 skill 自動填入" },
+    "美股":     { "date": "2026-07-11", "file": "美股分析_20260711.html", "summary": "占位:發下一份報告時由 skill 自動填入" },
+    "台股":     { "date": "2026-07-10", "file": "台股分析_20260710.html", "summary": "占位:發下一份報告時由 skill 自動填入" },
+    "AI泡沫":   { "date": "2026-07-10", "file": "AI泡沫評估_20260710.html", "summary": "占位:發下一份報告時由 skill 自動填入" },
+    "總經":     { "date": "2026-07-01", "file": "總經報告-20260701.html", "summary": "占位:發下一份報告時由 skill 自動填入" },
+    "簡報":     { "date": "2026-07-11", "file": "簡報_20260711.html", "summary": "占位:發下一份報告時由 skill 自動填入" }
+  }
+}
