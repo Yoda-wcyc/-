@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 市場簡報 2026-07-13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--serif:'Noto Serif TC',serif;--mono:'IBM Plex Mono',monospace;--sans:'Noto Sans TC',sans-serif}
+
+/* ═══ THEME VARIABLES ═══ */
+[data-theme="dark"]{
+  --bg:#080b10;--bg2:#0d1117;--bg3:#131920;--bg4:#1a2230;
+  --border:#1e2d3d;--border2:#243444;
+  --accent:#00c8a0;--accent2:#f0a500;--accent3:#4d9fff;--danger:#ff4d6d;--muted:#4a6174;
+  --text:#c8d8e8;--text2:#8fa8bc;--text3:#5a7a90;--header:#e8f2ff;
+  --ctrl-bg:rgba(13,17,23,.93);--ctrl-border:#243444;--ctrl-hover:#1a2230;
+  --ctrl-act-bg:#00c8a0;--ctrl-act-txt:#080b10;
+  --hero-grad:linear-gradient(160deg,#0a1520 0%,#080b10 60%);
+  --note-bg:#131920;--scroll-thumb:#243444;
+  --conc-bg:rgba(0,200,160,.04);--conc-b:rgba(0,200,160,.2);--conc-title:#00c8a0;
+  --green-bg:rgba(0,200,160,.07);--green-b:rgba(0,200,160,.25);--green-c:#00c8a0;
+  --red-bg:rgba(255,77,109,.07);--red-b:rgba(255,77,109,.25);--red-c:#ff4d6d;
+  --yellow-bg:rgba(240,165,0,.07);--yellow-b:rgba(240,165,0,.25);--yellow-c:#f0a500;
+}
+[data-theme="light"]{
+  --bg:#f4f6f8;--bg2:#ffffff;--bg3:#eef1f4;--bg4:#e4e9ee;
+  --border:#dbe2e8;--border2:#c7d1da;
+  --accent:#00866b;--accent2:#a05800;--accent3:#1f5fbf;--danger:#c92a4a;--muted:#7a8a96;
+  --text:#1c2733;--text2:#465a6a;--text3:#7e8fa0;--header:#0e1620;
+  --ctrl-bg:rgba(255,255,255,.93);--ctrl-border:#dbe2e8;--ctrl-hover:#eef1f4;
+  --ctrl-act-bg:#00866b;--ctrl-act-txt:#ffffff;
+  --hero-grad:linear-gradient(160deg,#eef3f6 0%,#f4f6f8 60%);
+  --note-bg:#eef1f4;--scroll-thumb:#c7d1da;
+  --conc-bg:rgba(0,134,107,.05);--conc-b:rgba(0,134,107,.2);--conc-title:#00866b;
+  --green-bg:rgba(0,134,107,.08);--green-b:rgba(0,134,107,.25);--green-c:#00866b;
+  --red-bg:rgba(201,42,74,.08);--red-b:rgba(201,42,74,.25);--red-c:#c92a4a;
+  --yellow-bg:rgba(160,88,0,.08);--yellow-b:rgba(160,88,0,.25);--yellow-c:#a05800;
+}
+
+/* ═══ SIZE SCALE ═══ */
+html[data-size="sm"]{--scale:.875}
+html[data-size="md"]{--scale:1}
+html[data-size="lg"]{--scale:1.125}
+
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:calc(24px*var(--scale));line-height:1.6;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+}
+
+/* ═══ CONTROLS ═══ */
+.controls{position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:50;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:9px;padding:5px;backdrop-filter:blur(8px)}
+.ctrl-group{display:flex;gap:2px}
+.ctrl-btn{font-family:var(--mono);font-size:calc(11px*var(--scale));padding:5px 9px;border-radius:6px;border:none;background:transparent;color:var(--text2);cursor:pointer;transition:.15s;text-decoration:none;display:flex;align-items:center}
+.ctrl-btn:hover{background:var(--ctrl-hover)}
+.ctrl-btn.active{background:var(--ctrl-act-bg);color:var(--ctrl-act-txt);font-weight:600}
+.ctrl-sep{width:1px;background:var(--border2);margin:2px 2px}
+@keyframes fan-breathe{
+  0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}
+  50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}
+}
+.ctrl-fan{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:calc(11px*var(--scale));font-weight:700;padding:5px 11px;border:none;cursor:pointer;text-decoration:none;border-radius:3px 0 0 3px;animation:fan-breathe 1.8s ease-in-out infinite}
+
+/* ═══ LAYOUT ═══ */
+main{max-width:720px;margin:0 auto;padding:86px 26px 70px}
+
+/* ═══ HERO ═══ */
+.hero{background:var(--hero-grad);border:1px solid var(--border);border-radius:14px;padding:30px 32px;margin-bottom:26px}
+.hero-tag{font-family:var(--mono);font-size:calc(10.5px*var(--scale));letter-spacing:.18em;color:var(--accent2);margin-bottom:12px}
+.hero-title{font-family:var(--serif);font-weight:700;font-size:calc(27px*var(--scale));color:var(--header);line-height:1.4;margin-bottom:10px}
+.hero-date{font-family:var(--mono);font-size:calc(12px*var(--scale));color:var(--text3)}
+
+/* ═══ 市場天氣 ═══ */
+.weather{display:flex;align-items:center;gap:14px;border-radius:12px;padding:18px 22px;margin-bottom:30px;border:1px solid var(--border)}
+.weather.w-green{background:var(--green-bg);border-color:var(--green-b)}
+.weather.w-yellow{background:var(--yellow-bg);border-color:var(--yellow-b)}
+.weather.w-red{background:var(--red-bg);border-color:var(--red-b)}
+.weather-light{font-size:calc(26px*var(--scale));line-height:1}
+.weather-text{font-size:calc(17px*var(--scale));color:var(--header);font-weight:600;line-height:1.6}
+
+/* ═══ SECTION ═══ */
+.section{margin-bottom:32px}
+.sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--border)}
+.sec-num{font-family:var(--mono);font-size:calc(11px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.1);border-radius:4px;padding:2px 7px}
+[data-theme="light"] .sec-num{background:rgba(160,88,0,.1)}
+.sec-title{font-family:var(--serif);font-weight:700;font-size:calc(19px*var(--scale));color:var(--header)}
+.sec-body{font-size:calc(16px*var(--scale));color:var(--text2);line-height:1.85}
+.sec-body p{margin-bottom:11px}
+.sec-body strong{color:var(--header)}
+
+/* ═══ 今日兩件事 ═══ */
+.event-card{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 9px 9px 0;padding:16px 20px;margin-bottom:12px}
+.event-card:last-child{margin-bottom:0}
+.event-title{font-size:calc(16px*var(--scale));font-weight:700;color:var(--header);margin-bottom:7px}
+.event-body{font-size:calc(15px*var(--scale));color:var(--text2);line-height:1.8}
+
+/* ═══ 五面向速覽 ═══ */
+.facet-list{display:flex;flex-direction:column;gap:9px}
+.facet-item{display:flex;gap:13px;align-items:flex-start;padding:13px 16px;background:var(--note-bg);border:1px solid var(--border);border-radius:8px}
+.facet-label{font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:4px;padding:3px 9px;white-space:nowrap;margin-top:2px}
+[data-theme="light"] .facet-label{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.2)}
+.facet-text{font-size:calc(15px*var(--scale));color:var(--text);line-height:1.75}
+.facet-stale{font-family:var(--mono);font-size:calc(10px*var(--scale));color:var(--text3);margin-left:6px}
+
+/* ═══ 關鍵價位 ═══ */
+.key-level{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:20px 24px;text-align:center}
+.key-level-num{font-family:var(--mono);font-size:calc(30px*var(--scale));font-weight:600;color:var(--header);letter-spacing:.02em;margin-bottom:8px}
+.key-level-text{font-size:calc(15px*var(--scale));color:var(--text2);line-height:1.7}
+
+/* ═══ 未來一個月 ═══ */
+.cal-list{display:flex;flex-direction:column;gap:8px}
+.cal-item{display:flex;gap:13px;align-items:flex-start;padding:12px 15px;background:var(--note-bg);border:1px solid var(--border);border-radius:7px}
+.cal-date{font-family:var(--mono);font-size:calc(12px*var(--scale));font-weight:600;color:var(--accent3);white-space:nowrap;margin-top:2px}
+.cal-text{font-size:calc(15px*var(--scale));color:var(--text);line-height:1.7}
+.cal-text b{color:var(--header)}
+
+/* ═══ 一句底線 ═══ */
+.conclusion-box{background:var(--conc-bg);border:1px solid var(--conc-b);border-radius:10px;padding:20px 24px}
+.conclusion-box-title{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.14em;text-transform:uppercase;color:var(--conc-title);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.conclusion-box-title::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--conc-title)}
+.conclusion-box-text{font-size:calc(16px*var(--scale));color:var(--text);line-height:1.85}
+.conclusion-box-text strong{color:var(--conc-title);font-weight:700}
+
+/* ═══ 深入閱讀 ═══ */
+.reports-section{margin-bottom:20px}
+.reports-label{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.reports-grid{display:flex;flex-wrap:wrap;gap:9px}
+.report-card{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;background:var(--note-bg);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1 1 180px;min-width:160px;transition:.15s;cursor:pointer}
+.report-card:hover{border-color:var(--accent2);background:var(--bg4)}
+.report-card-info{display:flex;flex-direction:column;gap:3px}
+.report-card-name{font-size:calc(14.5px*var(--scale));font-weight:600;color:var(--header)}
+.report-card-date{font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text3)}
+.report-card-arrow{font-size:calc(15px*var(--scale));color:var(--accent2);flex-shrink:0}
+
+/* ═══ 免責聲明 / FOOTER ═══ */
+.disclaimer{margin-top:36px;padding:14px 18px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;font-size:calc(12.5px*var(--scale));color:var(--text3);line-height:1.7}
+.footer{margin-top:22px;padding-top:16px;border-top:1px solid var(--border);font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text3);display:flex;justify-content:space-between}
+
+@media(max-width:520px){
+  main{padding:80px 16px 56px}
+  .hero{padding:24px 22px}
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <a class="ctrl-fan" href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" title="Facebook粉專"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg> 粉專</a>
+  <a class="ctrl-btn" href="https://yoda-wcyc.github.io/-/" title="首頁">⌂</a>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn" onclick="setSize('sm')">小</button>
+    <button class="ctrl-btn active" onclick="setSize('md')">中</button>
+    <button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  </div>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
+    <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+  </div>
+</div>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-tag">YODA 市場簡報</div>
+    <div class="hero-title">鬆一口氣了，但別急著追</div>
+    <div class="hero-date">2026-07-13（週一）· 數據基準 7/10–7/11 Close</div>
+  </div>
+
+  <!-- 1. 市場天氣 -->
+  <div class="weather w-green">
+    <div class="weather-light">🟢</div>
+    <div class="weather-text">三道防線本週全數緩解，廣度重回健康帶——多方佔優，但 7/14 CPI 當天不追任何方向。</div>
+  </div>
+
+  <!-- 2. 今日兩件事 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">本週兩件事</span></div>
+    <div class="event-card">
+      <div class="event-title">網路安全悄悄成為最強主線</div>
+      <div class="event-body">HACK（Rank 98）和 CIBR（Rank 93）這週月線分別漲了 10% 和 5%，個股 CRWD、FTNT、OKTA、VRNS 在美股分析和市場觀察兩份報告裡同時出現——這種「雙來源確認」是系統裡最高的確信等級。不是 AI 硬體，是網路安全。資金去哪裡，比指數漲不漲更重要。</div>
+    </div>
+    <div class="event-card">
+      <div class="event-title">SK Hynix 美國掛牌，AI 記憶體缺口到 2030 以後</div>
+      <div class="event-body">7/10 SK Hynix 正式在 Nasdaq 掛牌，開盤就比發行價高 14%，是史上最大外國 IPO（$265 億）。執行長在現場說記憶體短缺不會在 2030 年前結束。這對 AI 資本支出的故事是正面確認，但短期要注意：Micron 等同業當天反而跌，市場已經把 Hynix 的份額算進去了。</div>
+    </div>
+  </div>
+
+  <!-- 3. 五面向速覽 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">五面向速覽</span></div>
+    <div class="facet-list">
+      <div class="facet-item">
+        <span class="facet-label">強勢股</span>
+        <span class="facet-text">網路安全最高確信：CRWD、FTNT、OKTA、VRNS（美股 7/11）。生技次之：RGNX、MRNA、MBX 等。AI 硬體三圈連續第四週全空，大型股漲幅仍屬反彈，尚未確認底部翻轉。台股：南電（8046）法人連續買超<span class="facet-stale">（沿用 7/09）</span></span>
+      </div>
+      <div class="facet-item">
+        <span class="facet-label">板塊輪動</span>
+        <span class="facet-text">網路安全（HACK/CIBR）為當前最強主線，三欄🟢持續。生技（XBI 月線 +17%）次強。AI 硬體仍在底部修復——7/16 ASML 和台積電法說是下一個關鍵裁決點，法說正面才算正式重啟。</span>
+      </div>
+      <div class="facet-item">
+        <span class="facet-label">結構廣度</span>
+        <span class="facet-text">廣度＝有多少股票站上 20 日均線。SP20 本週從 58% 升到 62.2%，重回健康門檻（60%）；NQ20 59.2%，接近但未過線。整體平均 62.1%，是近五週最好。美股 52W 高低比也從 0.41 回升至 1.38，底部修復趨勢確立。</span>
+      </div>
+      <div class="facet-item">
+        <span class="facet-label">AI 泡沫</span>
+        <span class="facet-text">75/100，崩盤風險區。CAPE 40.3x、巴菲特指標 236%、Mag-7 集中度 33.8% 四重警示同步亮燈。EPS 成長提供緩衝，但容錯率極低，任何負面衝擊都可能觸發 15–30% 快速修正。<span class="facet-stale">（沿用 7/01，資料過舊，僅供參考）</span></span>
+      </div>
+      <div class="facet-item">
+        <span class="facet-label">總經</span>
+        <span class="facet-text">🟡 榮景期前中段。Fed 主席 Warsh 轉鷹，12 月升息機率升至 36%，但 7 月會議仍有 88% 機率按兵不動。消費端三項警示均未觸發，距頂點仍有緩衝。核心 PCE 3.3%，仍是最大隱患。<span class="facet-stale">（沿用 7/06）</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 關鍵價位 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">關鍵價位</span></div>
+    <div class="key-level">
+      <div class="key-level-num">QQQ 750</div>
+      <div class="key-level-text">CPI 溫和（月增 ≤0.2%）才有機會挑戰這個位置；若 CPI 黏性偏高，回測 660–680 的 Max Pain 區間。7/14 CPI 出來前，不追任何方向。</div>
+    </div>
+  </div>
+
+  <!-- 5. 未來一個月 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">未來一個月看什麼</span></div>
+    <div class="cal-list">
+      <div class="cal-item">
+        <span class="cal-date">07/14</span>
+        <span class="cal-text"><b>CPI＋Warsh 國會聽證（超級週①）</b>——通膨若超預期，升息機率快速突破 50%；同日銀行財報季開跑（JPM/BAC/GS）。當日不追價，等隔天確認。</span>
+      </div>
+      <div class="cal-item">
+        <span class="cal-date">07/16</span>
+        <span class="cal-text"><b>ASML 法說＋台積電 Q2 財報</b>——AI 設備需求能見度與 CoWoS 展望，決定 AI 硬體信號流能否從底部修復升格為主升段。</span>
+      </div>
+      <div class="cal-item">
+        <span class="cal-date">07/27–30</span>
+        <span class="cal-text"><b>Big Tech 財報週＋FOMC＋Q2 GDP＋PCE（超級週②）</b>——MSFT/META/GOOGL/AMZN/AAPL 集中在這週，同時還有利率決議與 GDP 數據，是本季最重要的一週。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 一句底線 -->
+  <div class="section">
+    <div class="conclusion-box">
+      <div class="conclusion-box-title">底線</div>
+      <div class="conclusion-box-text">廣度回健康帶是真的，但 A 級股只有 19 支、AI 硬體三圈全空——這是修復，不是主升。<strong>7/14 CPI 之前，先看不追。</strong></div>
+    </div>
+  </div>
+
+  <!-- 7. 深入閱讀 -->
+  <div class="section reports-section">
+    <div class="reports-label">完整報告</div>
+    <p style="font-size:calc(13.5px*var(--scale));color:var(--text3);margin-bottom:12px;line-height:1.6">簡報只呈現今日重點摘要，完整數據、歷史走勢與深度分析請見各份正式報告。</p>
+    <div class="reports-grid">
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/市場觀察_20260711.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">市場觀察</div><div class="report-card-date">2026-07-11</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/美股分析_20260711.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">美股分析</div><div class="report-card-date">2026-07-11</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/台股分析_20260709.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">台股分析</div><div class="report-card-date">2026-07-09</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/總經_20260706.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">總經</div><div class="report-card-date">2026-07-06</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/AI泡沫評估表_20260701.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">AI 泡沫評估表</div><div class="report-card-date">2026-07-01</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 8. 免責聲明 -->
+  <div class="disclaimer">本文為市場觀察筆記，非投資建議；個股僅為篩選結果紀錄，不代表買賣推薦。</div>
+
+  <div class="footer">
+    <span>YODA SYSTEM · DAILY BRIEF</span>
+    <span>2026-07-13</span>
+  </div>
+
+</main>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&['c','a','u','s','p','v'].includes(e.key.toLowerCase())){e.preventDefault();}
+  if(e.key==='F12'){e.preventDefault();}
+});
+document.addEventListener('copy',function(e){e.preventDefault();return false;});
+document.addEventListener('cut',function(e){e.preventDefault();return false;});
+document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+
+function setSize(sz){
+  document.documentElement.setAttribute('data-size',sz);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={sm:'小',md:'中',lg:'大'}[sz]);
+  });
+  localStorage.setItem('brief-20260713-size',sz);
+}
+function setTheme(th){
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={dark:'深',light:'淺'}[th]);
+  });
+  localStorage.setItem('brief-20260713-theme',th);
+}
+(function(){
+  var sz=localStorage.getItem('brief-20260713-size')||'md';
+  var th=localStorage.getItem('brief-20260713-theme')||'dark';
+  document.documentElement.setAttribute('data-size',sz);
+  document.documentElement.setAttribute('data-theme',th);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){b.classList.toggle('active',b.textContent==={sm:'小',md:'中',lg:'大'}[sz])});
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){b.classList.toggle('active',b.textContent==={dark:'深',light:'淺'}[th])});
+})();
+</script>
+
+<!-- 指令-簡報隱藏摘要（供daily-brief skill讀取，禁止在報告頁面顯示）
+日期：2026-07-13
+標題：鬆一口氣了，但別急著追
+【一句話定性】三道防線全數緩解、廣度重回健康帶，多方佔優但 7/14 CPI 前不追價
+【核心數據】QQQ：725.5｜VIX：15.35｜US10Y：4.56%｜HY_OAS：2.70%｜SP20：62.2%
+【主線聚焦】最強：網路安全（HACK/CIBR，雙來源確認）｜次強：生技（XBI）｜AI硬體三圈全空
+【多空方向】多方目標 QQQ 750–790（CPI溫和）｜空方目標 QQQ 660–680（CPI黏性）
+【判斷登錄】①HACK主線持續（7/18）②廣度三條件同週確認（7/14–7/18）③US10Y CPI後方向（7/16）
+-->
+
+</body>
+</html>
