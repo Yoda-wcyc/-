@@ -1,167 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yoda 研究報告中心</title>
-<style>
-:root{--fs:13px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;min-height:100vh;}
-
-.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2px;}
-.fc a,.fc button{display:flex;align-items:center;padding:3px 10px;font-size:calc(var(--fs)*.85);font-family:var(--fm);color:var(--dim);text-decoration:none;border:none;background:none;cursor:pointer;border-right:1px solid var(--border);white-space:nowrap;transition:.15s;letter-spacing:.04em;}
-.fc a:last-child,.fc button:last-child{border-right:none;}
-.fc a:hover,.fc button:hover{color:var(--text);}
-.fc button.on{color:var(--accent);background:rgba(0,200,240,.12);font-weight:700;}
-@keyframes fan-breathe{0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200;}50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000;}}
-.ctrl-fan{display:flex;align-items:center;gap:5px;font-weight:700;padding:3px 10px!important;border-right:1px solid var(--border)!important;border-radius:3px 0 0 3px;animation:fan-breathe 1.8s ease-in-out infinite;color:#1a1200!important;}
-
-.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
-.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
-.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
-.hdr-title span{color:var(--accent);}
-.hdr-date-inline{font-family:var(--fm);font-size:calc(var(--fs)*1.3);font-weight:700;color:var(--accent);margin-left:14px;vertical-align:middle;}
-.hdr-r{text-align:right;}
-.hdr-date{font-family:var(--fb);font-size:calc(var(--fs)*1.8);font-weight:900;color:var(--accent);}
-.hdr-meta{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;}
-
-.wrap{max-width:1200px;margin:0 auto;padding:22px 40px 64px;}
-.sec{margin-bottom:0;}
-.sec-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
-
-/* ── 三張卡片永遠並列 ── */
-.card-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-
-.card{background:var(--surface);padding:20px 22px;cursor:pointer;transition:background .12s;}
-.card:hover{background:var(--surface2);}
-.card.open{background:var(--surface2);}
-
-.c-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
-.arr{display:inline-block;transition:transform .2s;animation:breathe 1.8s ease-in-out infinite;color:var(--yellow);}
-.card.open .arr{transform:rotate(180deg);animation:none;opacity:1;color:var(--accent);}
-@keyframes breathe{0%,100%{opacity:.3}50%{opacity:1}}
-
-.c-icon{font-size:calc(var(--fs)*2.2);line-height:1;margin-bottom:9px;}
-.c-val{font-family:var(--fb);font-size:calc(var(--fs)*2.1);font-weight:900;line-height:1;color:var(--text);margin-bottom:6px;}
-.c-sub{font-size:calc(var(--fs)*.85);color:var(--dim);line-height:1.7;}
-.c-count{display:inline-block;margin-top:10px;padding:3px 10px;font-family:var(--fm);font-size:calc(var(--fs)*.82);background:rgba(0,200,240,.08);color:var(--accent);border:1px solid rgba(0,200,240,.2);border-radius:2px;}
-
-/* ── 展開區：獨立在卡片列下方 ── */
-.det-wrap{background:var(--border);}
-.det{display:none;background:var(--surface2);border-top:1px solid var(--border);animation:sd .17s ease;}
-.det.open{display:block;}
-@keyframes sd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-
-.report-list{list-style:none;}
-.report-item{border-bottom:1px solid var(--border);transition:background .1s;}
-.report-item:last-child{border-bottom:none;}
-.report-item:hover{background:rgba(0,200,240,.04);}
-.report-item a{display:flex;align-items:center;gap:16px;width:100%;padding:13px 22px;text-decoration:none;color:inherit;}
-.r-date{font-family:var(--fm);font-size:calc(var(--fs)*.85);color:var(--dim);white-space:nowrap;min-width:82px;}
-.r-title{font-family:var(--fb);font-size:calc(var(--fs)*.95);color:var(--text);flex:1;}
-.report-item:hover .r-title{color:var(--accent);}
-.r-tag{font-size:calc(var(--fs)*.75);letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:2px;white-space:nowrap;}
-.tag-macro{background:rgba(0,200,150,.10);color:var(--green);border:1px solid rgba(0,200,150,.25);}
-.tag-mw{background:rgba(0,200,240,.10);color:var(--accent);border:1px solid rgba(0,200,240,.25);}
-.tag-stock{background:rgba(240,192,64,.10);color:var(--yellow);border:1px solid rgba(240,192,64,.25);}
-.r-arrow{color:var(--dim);font-size:calc(var(--fs)*.85);transition:transform .15s,color .15s;}
-.report-item:hover .r-arrow{transform:translateX(3px);color:var(--accent);}
-.r-empty{padding:24px 22px;font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--dim);text-align:center;}
-
-/* ── 新增說明 ── */
-.howto{margin-top:28px;padding:16px 20px;background:rgba(240,192,64,.04);border:1px solid rgba(240,192,64,.15);border-left:3px solid var(--yellow);}
-.howto-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.35em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px;}
-.howto-step{display:flex;gap:12px;margin-bottom:9px;}
-.howto-step:last-child{margin-bottom:0;}
-.sn{font-family:var(--fm);font-size:calc(var(--fs)*.75);min-width:20px;height:20px;border-radius:50%;background:rgba(240,192,64,.15);color:var(--yellow);border:1px solid rgba(240,192,64,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.st{font-family:var(--fb);color:var(--text);line-height:1.75;font-size:calc(var(--fs)*.88);}
-.st code{font-family:var(--fm);color:var(--accent);background:rgba(0,200,240,.08);padding:1px 5px;border-radius:2px;font-size:calc(var(--fs)*.88);}
-.st em{color:var(--yellow);font-style:normal;}
-
-.sub-cta{display:inline-flex;align-items:center;gap:7px;margin-top:8px;padding:8px 18px;font-family:var(--fm);font-size:calc(var(--fs)*1.15);font-weight:700;letter-spacing:.05em;color:var(--bg);background:var(--yellow);border-radius:3px;text-decoration:none;transition:opacity .15s,transform .15s;animation:subglow 1.8s ease-in-out infinite;}
-.sub-cta:hover{opacity:.88;transform:translateY(-1px);}
-.sub-cta .a{transition:transform .15s;}
-.sub-cta:hover .a{transform:translateX(2px);}
-@keyframes subglow{0%,100%{box-shadow:0 0 0 0 rgba(240,192,64,.5);}50%{box-shadow:0 0 14px 4px rgba(240,192,64,.55);}}
-
-.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
-.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
-.ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
-
-body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;}
-</style>
-</head>
-<body>
-
-<div class="fc">
-  <a class="ctrl-fan" href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" title="Facebook粉專"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg> 粉專</a>
-  <a href="https://yoda-wcyc.github.io/-/" target="_blank" title="回首頁">⌂ 首頁</a>
-  <button id="fs-small" onclick="setFS('small')">小</button>
-  <button id="fs-normal" class="on" onclick="setFS('normal')">中</button>
-  <button id="fs-large" onclick="setFS('large')">大</button>
-  <button id="btn-dark" class="on" onclick="setTheme('dark')">深</button>
-  <button id="btn-light" onclick="setTheme('light')">淺</button>
-</div>
-
-<div class="hdr">
-  <div>
-    <div class="hdr-lbl">Yoda × Claude</div>
-    <div class="hdr-title">Yoda <span>研究報告</span>中心 <span class="hdr-date-inline" id="today-date"></span></div>
-    <div class="hdr-meta">總體經濟 · 市場觀察 · 個股分析</div>
-  </div>
-  <div class="hdr-r">
-    <a class="sub-cta" href="subscribe.html" target="_blank" rel="noopener" style="display:none;">立即訂閱 <span class="a">→</span></a>
-  </div>
-</div>
-
-<div class="wrap">
-<div class="sec">
-  <div class="sec-lbl">報告分類（點擊展開）</div>
-
-  <!-- 三張卡片永遠並列 -->
-  <div class="card-row">
-    <div class="card" id="cMacro" onclick="tog('macro')">
-      <div class="c-lbl">MACRO ECONOMICS <span class="arr">▼</span></div>
-      <div class="c-icon">📊</div>
-      <div class="c-val">總體經濟</div>
-      <div class="c-sub">景氣循環 · GDP · 通膨<br>就業 · 貨幣政策</div>
-      <div class="c-count" id="cnt-macro">0 篇</div>
-    </div>
-
-    <div class="card" id="cMw" onclick="tog('mw')">
-      <div class="c-lbl">MARKET WATCH <span class="arr">▼</span></div>
-      <div class="c-icon">🔭</div>
-      <div class="c-val">市場觀察</div>
-      <div class="c-sub">市場結構 · 板塊輪動<br>廣度 · 情緒 · 期權</div>
-      <div class="c-count" id="cnt-mw">0 篇</div>
-    </div>
-
-    <div class="card" id="cStock" onclick="tog('stock')">
-      <div class="c-lbl">STOCK ANALYSIS <span class="arr">▼</span></div>
-      <div class="c-icon">🏢</div>
-      <div class="c-val">個股分析</div>
-      <div class="c-sub">財報解讀 · 技術面<br>估值 · 產業競爭</div>
-      <div class="c-count" id="cnt-stock">0 篇</div>
-    </div>
-  </div>
-
-  <!-- 展開區：卡片列下方，三個 panel 獨立切換 -->
-  <div class="det-wrap">
+<div class="det-wrap">
 
     <div class="det" id="dMacro">
       <ul class="report-list" id="list-macro">
-        <!-- ▼▼▼ 在這裡新增總體經濟報告（最新的貼最上面）▼▼▼
         <li class="report-item">
-          <a href="檔名.html">
-            <span class="r-date">2026-05-01</span>
-            <span class="r-title">報告標題</span>
-            <span class="r-tag tag-macro">總經</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        ▲▲▲ 複製以上七行，貼在這裡 ▲▲▲ -->
-         <li class="report-item">
           <a href="總經_20260706.html">
             <span class="r-date">2026-07-06</span>
             <span class="r-title">2026Q3 榮景中段 · 估值消化中的雙輪擴張</span>
@@ -169,7 +10,15 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
+          <a href="總經報告-20260701.html">
+            <span class="r-date">2026-07-01</span>
+            <span class="r-title">總經報告（新資金週期進行中）</span>
+            <span class="r-tag tag-macro">總經</span>
+            <span class="r-arrow">→</span>
+          </a>
+        </li>
+        <li class="report-item">
           <a href="AI泡沫評估表_20260701.html">
             <span class="r-date">2026-07-01</span>
             <span class="r-title">AI泡沫評估表</span>
@@ -185,26 +34,31 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-        
-        <li><div class="r-empty">尚無報告</div></li>
       </ul>
     </div>
 
     <div class="det" id="dMw">
       <ul class="report-list" id="list-mw">
-        <!-- ▼▼▼ 在這裡新增市場觀察報告（最新的貼最上面）▼▼▼ -->
         <li class="report-item">
           <a href="簡報_20260713.html">
             <span class="r-date">2026-07-13</span>
-            <span class="r-title">別急著追</span>
+            <span class="r-title">別急著追（廣度回健康帶，但屬修復非主升，CPI公布前先看不追）</span>
             <span class="r-tag tag-mw">市場</span>
             <span class="r-arrow">→</span>
           </a>
         </li>
-          <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260711.html">
             <span class="r-date">2026-07-11</span>
             <span class="r-title">廣度全面回升・P/C極端看多・CPI前夕多方佔優勢</span>
+            <span class="r-tag tag-mw">市場</span>
+            <span class="r-arrow">→</span>
+          </a>
+        </li>
+        <li class="report-item">
+          <a href="簡報_20260711.html">
+            <span class="r-date">2026-07-11</span>
+            <span class="r-title">市場簡報分析</span>
             <span class="r-tag tag-mw">市場</span>
             <span class="r-arrow">→</span>
           </a>
@@ -217,7 +71,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260709.html">
             <span class="r-date">2026-07-09</span>
             <span class="r-title">FOMC 紀要鷹派落地・油價持續夾擊・市場廣度全線萎縮</span>
@@ -233,7 +87,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260707.html">
             <span class="r-date">2026-07-07</span>
             <span class="r-title">半導體V轉反彈：風險偏好回升至中性</span>
@@ -289,7 +143,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="機構再平衡賣壓分析_20260628.html">
             <span class="r-date">2026-06-28</span>
             <span class="r-title">機構再平衡賣壓分析</span>
@@ -321,7 +175,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260623.html">
             <span class="r-date">2026-06-23</span>
             <span class="r-title">貴金屬全面確認轉弱・殖利率同步創兩週高</span>
@@ -329,7 +183,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260619.html">
             <span class="r-date">2026-06-19</span>
             <span class="r-title">鷹派衝擊一日翻篇・半導體動能加速創高</span>
@@ -345,7 +199,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260613.html">
             <span class="r-date">2026-06-13</span>
             <span class="r-title">主線DRAM強勢確認・P/C 0.15史詩級裸奔・NQ廣度54.5%修復・DXYZ −25%崩潰</span>
@@ -361,7 +215,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260610.html">
             <span class="r-date">2026-06-10</span>
             <span class="r-title">主線技術反彈・P/C 0.23歷史極端裸奔・NQ_20MA% 45.5%繼續惡化・FOMC倒數7天</span>
@@ -369,7 +223,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260608.html">
             <span class="r-date">2026-06-08</span>
             <span class="r-title">如何精確計算會跌到哪裡?</span>
@@ -385,7 +239,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260605.html">
             <span class="r-date">2026-06-05</span>
             <span class="r-title">SP廣度大翻身60.8%・NFP前夜・FOMC倒數12天</span>
@@ -393,7 +247,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260603.html">
             <span class="r-date">2026-06-03</span>
             <span class="r-title">SOXX+5.79%驅動NQ新高</span>
@@ -417,7 +271,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="市場觀察_20260529.html">
             <span class="r-date">2026-05-29</span>
             <span class="r-title">P/C 0.23 逼近極端・SP廣度悄然分歧</span>
@@ -449,9 +303,6 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-      <ul class="report-list" id="list-mw">
-        <!-- ▼▼▼ 在這裡新增市場觀察報告（最新的貼最上面）▼▼▼ -->
-         
         <li class="report-item">
           <a href="市場觀察_20260523.html">
             <span class="r-date">2026-05-23</span>
@@ -484,13 +335,11 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-        <!-- ▲▲▲ 複製以上七行，貼在這裡 ▲▲▲ -->
       </ul>
     </div>
 
     <div class="det" id="dStock">
       <ul class="report-list" id="list-stock">
-        <!-- ▼▼▼ 在這裡新增個股分析報告（最新的貼最上面）▼▼▼ -->
         <li class="report-item">
           <a href="美股分析_20260711.html">
             <span class="r-date">2026-07-11</span>
@@ -499,7 +348,23 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
+          <a href="台股分析_20260710.html">
+            <span class="r-date">2026-07-10</span>
+            <span class="r-title">台股分析報告（新數據占位）</span>
+            <span class="r-tag tag-stock">個股</span>
+            <span class="r-arrow">→</span>
+          </a>
+        </li>
+        <li class="report-item">
+          <a href="AI泡沫評估_20260710.html">
+            <span class="r-date">2026-07-10</span>
+            <span class="r-title">AI泡沫評估：估值偏熱,但 ROI 缺口尚未斷裂</span>
+            <span class="r-tag tag-stock">個股</span>
+            <span class="r-arrow">→</span>
+          </a>
+        </li>
+        <li class="report-item">
           <a href="美股分析_20260710.html">
             <span class="r-date">2026-07-10</span>
             <span class="r-title">弱市觸底試探：high 回升，生技持續領軍</span>
@@ -515,7 +380,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="美股分析_20260707.html">
             <span class="r-date">2026-07-07</span>
             <span class="r-title">AI資安爆發接棒，硬體連五日熄火</span>
@@ -523,7 +388,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="NVIDIA 爆料事件_20260706.html">
             <span class="r-date">2026-07-06</span>
             <span class="r-title">有機基板撞牆，玻璃基板能接棒 ?</span>
@@ -531,7 +396,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="台股分析_20260703.html">
             <span class="r-date">2026-07-03</span>
             <span class="r-title">板塊輪動與個股篩選</span>
@@ -547,7 +412,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="美股分析_20260702.html">
             <span class="r-date">2026-07-02</span>
             <span class="r-title">電信三強爆發、AI硬體8階段滅火</span>
@@ -555,7 +420,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="美股分析_20260701.html">
             <span class="r-date">2026-07-01</span>
             <span class="r-title">生技工業領漲，AI硬體訊號流熄火</span>
@@ -563,7 +428,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-          <li class="report-item">
+        <li class="report-item">
           <a href="美股分析_20260625.html">
             <span class="r-date">2026-06-25</span>
             <span class="r-title">生技連兩日擴張</span>
@@ -571,7 +436,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="美股分析_20260623.html">
             <span class="r-date">2026-06-23</span>
             <span class="r-title">半導體設備全面達標，記憶體傳輸雙雙轉強</span>
@@ -611,7 +476,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-         <li class="report-item">
+        <li class="report-item">
           <a href="個股分析_20260610.html">
             <span class="r-date">2026-06-10</span>
             <span class="r-title">跌勢擴散：強勢退場，醫療運輸獨撐</span>
@@ -675,76 +540,7 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
             <span class="r-arrow">→</span>
           </a>
         </li>
-        <!-- ▲▲▲ 複製以上七行，貼在這裡 ▲▲▲ -->
       </ul>
     </div>
 
-  </div><!-- /det-wrap -->
-</div>
-
-
-
-</div><!-- /wrap -->
-
-<div class="ftr">
-  <div class="disc">個人研究用途，不構成任何投資建議</div>
-  <div class="brand">Yoda × Claude</div>
-</div>
-
-<script>
-const KEYS = ['macro','mw','stock'];
-
-function tog(key){
-  const det = document.getElementById('d'+cap(key));
-  const card = document.getElementById('c'+cap(key));
-  const isOpen = det.classList.contains('open');
-
-  // 關閉全部
-  KEYS.forEach(k=>{
-    document.getElementById('d'+cap(k)).classList.remove('open');
-    document.getElementById('c'+cap(k)).classList.remove('open');
-  });
-
-  // 若原本關閉則打開
-  if(!isOpen){
-    det.classList.add('open');
-    card.classList.add('open');
-  }
-  updateCounts();
-}
-
-function cap(s){ return s==='mw'?'Mw': s.charAt(0).toUpperCase()+s.slice(1); }
-
-function updateCounts(){
-  KEYS.forEach(k=>{
-    const n = document.querySelectorAll('#list-'+k+' .report-item').length;
-    document.getElementById('cnt-'+k).textContent = n+' 篇';
-  });
-}
-
-function setFS(size){
-  const map={small:'18px',normal:'21px',large:'24px'};
-  document.documentElement.style.setProperty('--fs',map[size]);
-  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
-  document.getElementById('fs-'+size).classList.add('on');
-  localStorage.setItem('yoda-fs',size);
-}
-
-function setTheme(t){
-  document.body.className=t==='light'?'light':'';
-  document.getElementById('btn-dark').classList.toggle('on',t==='dark');
-  document.getElementById('btn-light').classList.toggle('on',t==='light');
-  localStorage.setItem('yoda-theme',t);
-}
-
-(function(){
-  const d=new Date();
-  document.getElementById('today-date').textContent=
-    d.getFullYear()+' / '+String(d.getMonth()+1).padStart(2,'0')+' / '+String(d.getDate()).padStart(2,'0');
-  setFS(localStorage.getItem('yoda-fs')||'normal');
-  setTheme(localStorage.getItem('yoda-theme')||'dark');
-  updateCounts();
-})();
-</script>
-</body>
-</html>
+  </div>```
