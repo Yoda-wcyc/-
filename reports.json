@@ -1,546 +1,446 @@
-<div class="det-wrap">
-
-    <div class="det" id="dMacro">
-      <ul class="report-list" id="list-macro">
-        <li class="report-item">
-          <a href="總經_20260706.html">
-            <span class="r-date">2026-07-06</span>
-            <span class="r-title">2026Q3 榮景中段 · 估值消化中的雙輪擴張</span>
-            <span class="r-tag tag-macro">總經</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="總經報告-20260701.html">
-            <span class="r-date">2026-07-01</span>
-            <span class="r-title">總經報告（新資金週期進行中）</span>
-            <span class="r-tag tag-macro">總經</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="AI泡沫評估表_20260701.html">
-            <span class="r-date">2026-07-01</span>
-            <span class="r-title">AI泡沫評估表</span>
-            <span class="r-tag tag-macro">總經</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="通膨基期效應與Fed政策路徑分析_20260620.html">
-            <span class="r-date">2026-06-20</span>
-            <span class="r-title">通膨基期效應與Fed政策路徑分析</span>
-            <span class="r-tag tag-macro">總經</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="det" id="dMw">
-      <ul class="report-list" id="list-mw">
-        <li class="report-item">
-          <a href="簡報_20260713.html">
-            <span class="r-date">2026-07-13</span>
-            <span class="r-title">別急著追（廣度回健康帶，但屬修復非主升，CPI公布前先看不追）</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260711.html">
-            <span class="r-date">2026-07-11</span>
-            <span class="r-title">廣度全面回升・P/C極端看多・CPI前夕多方佔優勢</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="簡報_20260711.html">
-            <span class="r-date">2026-07-11</span>
-            <span class="r-title">市場簡報分析</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260710.html">
-            <span class="r-date">2026-07-10</span>
-            <span class="r-title">多方訊號初現端倪・三道防線轉機・廣度仍待修復</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260709.html">
-            <span class="r-date">2026-07-09</span>
-            <span class="r-title">FOMC 紀要鷹派落地・油價持續夾擊・市場廣度全線萎縮</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260708.html">
-            <span class="r-date">2026-07-08</span>
-            <span class="r-title">半導體資金大撤離：設備與記憶體崩跌，資金湧向軟體、生技與金融</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260707.html">
-            <span class="r-date">2026-07-07</span>
-            <span class="r-title">半導體V轉反彈：風險偏好回升至中性</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="全都是理由_20260706.html">
-            <span class="r-date">2026-07-06</span>
-            <span class="r-title">全都是理由</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="繼續凌遲_20260703.html">
-            <span class="r-date">2026-07-03</span>
-            <span class="r-title">繼續凌遲</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260703.html">
-            <span class="r-date">2026-07-03</span>
-            <span class="r-title">半導體修正確立：REL20轉負印證，防禦股加速擴大領先</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260702.html">
-            <span class="r-date">2026-07-02</span>
-            <span class="r-title">風格輪動加速：半導體降溫、防禦性板塊補漲</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260701.html">
-            <span class="r-date">2026-07-01</span>
-            <span class="r-title">DRAM強彈終結短線分歧</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="2026年7月財經事件與情境推演.html">
-            <span class="r-date">2026-06-29</span>
-            <span class="r-title">2026年7月財經事件與情境推演</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="機構再平衡賣壓分析_20260628.html">
-            <span class="r-date">2026-06-28</span>
-            <span class="r-title">機構再平衡賣壓分析</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260626.html">
-            <span class="r-date">2026-06-26</span>
-            <span class="r-title">白銀崩跌至全表最弱・半導體REL5轉強驗證美光效應</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260625.html">
-            <span class="r-date">2026-06-25</span>
-            <span class="r-title">美光財報大爆發・記憶體週期「暫時」延續</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股韓股事件分析_20260623.html">
-            <span class="r-date">2026-06-23</span>
-            <span class="r-title">韓股熔斷事件</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260623.html">
-            <span class="r-date">2026-06-23</span>
-            <span class="r-title">貴金屬全面確認轉弱・殖利率同步創兩週高</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260619.html">
-            <span class="r-date">2026-06-19</span>
-            <span class="r-title">鷹派衝擊一日翻篇・半導體動能加速創高</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260617.html">
-            <span class="r-date">2026-06-17</span>
-            <span class="r-title">三巫日前夕・FOMC明日凌晨決策・P/C 0.93三巫日對沖・主線DRAM連四期/CHAT升格確認</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260613.html">
-            <span class="r-date">2026-06-13</span>
-            <span class="r-title">主線DRAM強勢確認・P/C 0.15史詩級裸奔・NQ廣度54.5%修復・DXYZ -25%崩潰</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260611.html">
-            <span class="r-date">2026-06-11</span>
-            <span class="r-title">CPI後市場終於買Put・P/C 0.62正常化・NQ廣度37.6%創本輪新低・VX Contango +0.36臨界・FOMC倒數6天</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260610.html">
-            <span class="r-date">2026-06-10</span>
-            <span class="r-title">主線技術反彈・P/C 0.23歷史極端裸奔・NQ_20MA% 45.5%繼續惡化・FOMC倒數7天</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260608.html">
-            <span class="r-date">2026-06-08</span>
-            <span class="r-title">如何精確計算會跌到哪裡?</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260606.html">
-            <span class="r-date">2026-06-06</span>
-            <span class="r-title">NFP衝擊｜QQQ -4.28%・NQ跌破30,000・VIX 21.5跳升・FOMC倒數11天</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260605.html">
-            <span class="r-date">2026-06-05</span>
-            <span class="r-title">SP廣度大翻身60.8%・NFP前夜・FOMC倒數12天</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260603.html">
-            <span class="r-date">2026-06-03</span>
-            <span class="r-title">SOXX+5.79%驅動NQ新高</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260602.html">
-            <span class="r-date">2026-06-02</span>
-            <span class="r-title">結構逐漸過熱，市場資金裸奔</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260530.html">
-            <span class="r-date">2026-05-30</span>
-            <span class="r-title">廣度四欄全線回落・CIBR+6.4%爆發・IWM三星失守</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260529.html">
-            <span class="r-date">2026-05-29</span>
-            <span class="r-title">P/C 0.23 逼近極端・SP廣度悄然分歧</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260528.html">
-            <span class="r-date">2026-05-28</span>
-            <span class="r-title">太空主題爆發・P/C 0.27 警戒再現</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260527.html">
-            <span class="r-date">2026-05-27</span>
-            <span class="r-title">NQ破三萬・三道防線首綠</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="六月風暴-20260524.html">
-            <span class="r-date">2026-05-24</span>
-            <span class="r-title">六月風暴</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260523.html">
-            <span class="r-date">2026-05-23</span>
-            <span class="r-title">廣度短線觸發，RSP+MDY+IWM 三路翻正</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260522.html">
-            <span class="r-date">2026-05-22</span>
-            <span class="r-title">P/C Ratio 降至 0.17 歷史極端，市場零保護裸奔警戒</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260521.html">
-            <span class="r-date">2026-05-21</span>
-            <span class="r-title">NVDA 財報引爆科技領漲，廣度改善但槓桿資金持續背離</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="市場觀察_20260520.html">
-            <span class="r-date">2026-05-20</span>
-            <span class="r-title">殖利率四重警示，US30Y 突破 18 年高；NVDA 財報前夕</span>
-            <span class="r-tag tag-mw">市場</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="det" id="dStock">
-      <ul class="report-list" id="list-stock">
-        <li class="report-item">
-          <a href="美股分析_20260711.html">
-            <span class="r-date">2026-07-11</span>
-            <span class="r-title">底部修復中，三圈未開燈</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="台股分析_20260710.html">
-            <span class="r-date">2026-07-10</span>
-            <span class="r-title">台股分析報告（新數據占位）</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="AI泡沫評估_20260710.html">
-            <span class="r-date">2026-07-10</span>
-            <span class="r-title">AI泡沫評估：估值偏熱,但 ROI 缺口尚未斷裂</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260710.html">
-            <span class="r-date">2026-07-10</span>
-            <span class="r-title">弱市觸底試探：high 回升，生技持續領軍</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="台股分析_20260709.html">
-            <span class="r-date">2026-07-09</span>
-            <span class="r-title">延續賣壓，個股分化——南電奇兵，主鏈仍空</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260707.html">
-            <span class="r-date">2026-07-07</span>
-            <span class="r-title">AI資安爆發接棒，硬體連五日熄火</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="NVIDIA 爆料事件_20260706.html">
-            <span class="r-date">2026-07-06</span>
-            <span class="r-title">有機基板撞牆，玻璃基板能接棒 ?</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="台股分析_20260703.html">
-            <span class="r-date">2026-07-03</span>
-            <span class="r-title">板塊輪動與個股篩選</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260703.html">
-            <span class="r-date">2026-07-03</span>
-            <span class="r-title">AI硬體8階段全數整理中，LITE/FN轉新低更確認熄火</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260702.html">
-            <span class="r-date">2026-07-02</span>
-            <span class="r-title">電信三強爆發、AI硬體8階段滅火</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260701.html">
-            <span class="r-date">2026-07-01</span>
-            <span class="r-title">生技工業領漲，AI硬體訊號流熄火</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260625.html">
-            <span class="r-date">2026-06-25</span>
-            <span class="r-title">生技連兩日擴張</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260623.html">
-            <span class="r-date">2026-06-23</span>
-            <span class="r-title">半導體設備全面達標，記憶體傳輸雙雙轉強</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260619.html">
-            <span class="r-date">2026-06-19</span>
-            <span class="r-title">記憶體／半導體供應鏈全面噴出</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="台股分析_20260622.html">
-            <span class="r-date">2026-06-22</span>
-            <span class="r-title">台積電回補加速確立</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="台股分析_20260615.html">
-            <span class="r-date">2026-06-15</span>
-            <span class="r-title">利基股頂住，大型股持續消化</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="美股分析_20260613.html">
-            <span class="r-date">2026-06-13</span>
-            <span class="r-title">半導體全面反攻，成長板塊回升確認</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="個股分析_20260610.html">
-            <span class="r-date">2026-06-10</span>
-            <span class="r-title">跌勢擴散：強勢退場，醫療運輸獨撐</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="個股分析_20260602.html">
-            <span class="r-date">2026-06-02</span>
-            <span class="r-title">Tab Bar終於就位，美股走勢圖全面上線</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="個股分析_20260530.html">
-            <span class="r-date">2026-05-30</span>
-            <span class="r-title">台積電翻多，記憶體接棒主升</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="個股分析_20260526.html">
-            <span class="r-date">2026-05-26</span>
-            <span class="r-title">ABF重聚，南電翻多訊號</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="個股分析_20260525.html">
-            <span class="r-date">2026-05-25</span>
-            <span class="r-title">ABF分化 α</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="個股分析_20260523.html">
-            <span class="r-date">2026-05-23</span>
-            <span class="r-title">AI 供應鏈全鏈展開 Finviz 廣度確認；台股同欣電最強 α</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="個股分析_20260522.html">
-            <span class="r-date">2026-05-22</span>
-            <span class="r-title">矽智財再點火＋再生能源新開口；台股同欣電 α 持續</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-        <li class="report-item">
-          <a href="個股分析_20260521.html">
-            <span class="r-date">2026-05-21</span>
-            <span class="r-title">AI 基礎設施再定價第二波，硬體鏈廣度擴散；台股 ASIC 引領</span>
-            <span class="r-tag tag-stock">個股</span>
-            <span class="r-arrow">→</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-  </div>```
+{
+  "updated": "2026-07-13",
+  "dashboard": {
+    "signal": "green",
+    "signal_note": "新資金週期進行中",
+    "vix": 16.4,
+    "spx": 7380,
+    "spx_anchor_5y": 6945,
+    "high_low": [
+      167,
+      122
+    ],
+    "breadth_note": "廣度確認:偏多"
+  },
+  "bubble": {
+    "score": 6.2,
+    "headline": "估值偏熱,但 ROI 缺口尚未斷裂",
+    "url": "https://yoda-wcyc.github.io/-/AI泡沫評估_20260710.html"
+  },
+  "latest": {
+    "簡報": {
+      "date": "2026-07-13",
+      "file": "簡報_20260713.html",
+      "summary": "別急著追（廣度回健康帶，但屬修復非主升，CPI公布前先看不追）"
+    },
+    "市場觀察": {
+      "date": "2026-07-11",
+      "file": "市場觀察_20260711.html",
+      "summary": "廣度全面回升・P/C極端看多・CPI前夕多方佔優勢"
+    },
+    "個股": {
+      "date": "2026-07-11",
+      "file": "美股分析_20260711.html",
+      "summary": "底部修復中，三圈未開燈"
+    },
+    "AI泡沫": {
+      "date": "2026-07-10",
+      "file": "AI泡沫評估_20260710.html",
+      "summary": "AI泡沫評估：估值偏熱,但 ROI 缺口尚未斷裂"
+    },
+    "台股": {
+      "date": "2026-07-10",
+      "file": "台股分析_20260710.html",
+      "summary": "台股分析報告（新數據占位）"
+    },
+    "總經": {
+      "date": "2026-07-06",
+      "file": "總經_20260706.html",
+      "summary": "2026Q3 榮景中段 · 估值消化中的雙輪擴張"
+    }
+  },
+  "history": [
+    {
+      "cat": "簡報",
+      "date": "2026-07-13",
+      "file": "簡報_20260713.html",
+      "summary": "別急著追（廣度回健康帶，但屬修復非主升，CPI公布前先看不追）"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-11",
+      "file": "市場觀察_20260711.html",
+      "summary": "廣度全面回升・P/C極端看多・CPI前夕多方佔優勢"
+    },
+    {
+      "cat": "簡報",
+      "date": "2026-07-11",
+      "file": "簡報_20260711.html",
+      "summary": "市場簡報分析"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-11",
+      "file": "美股分析_20260711.html",
+      "summary": "底部修復中，三圈未開燈"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-10",
+      "file": "市場觀察_20260710.html",
+      "summary": "多方訊號初現端倪・三道防線轉機・廣度仍待修復"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-10",
+      "file": "台股分析_20260710.html",
+      "summary": "台股分析報告（新數據占位）"
+    },
+    {
+      "cat": "AI泡沫",
+      "date": "2026-07-10",
+      "file": "AI泡沫評估_20260710.html",
+      "summary": "AI泡沫評估：估值偏熱,但 ROI 缺口尚未斷裂"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-10",
+      "file": "美股分析_20260710.html",
+      "summary": "弱市觸底試探：high 回升，生技持續領軍"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-09",
+      "file": "市場觀察_20260709.html",
+      "summary": "FOMC 紀要鷹派落地・油價持續夾擊・市場廣度全線萎縮"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-09",
+      "file": "台股分析_20260709.html",
+      "summary": "延續賣壓，個股分化——南電奇兵，主鏈仍空"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-08",
+      "file": "市場觀察_20260708.html",
+      "summary": "半導體資金大撤離：設備與記憶體崩跌，資金湧向軟體、生技與金融"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-07",
+      "file": "市場觀察_20260707.html",
+      "summary": "半導體V轉反彈：風險偏好回升至中性"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-07",
+      "file": "美股分析_20260707.html",
+      "summary": "AI資安爆發接棒，硬體連五日熄火"
+    },
+    {
+      "cat": "總經",
+      "date": "2026-07-06",
+      "file": "總經_20260706.html",
+      "summary": "2026Q3 榮景中段 · 估值消化中的雙輪擴張"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-06",
+      "file": "全都是理由_20260706.html",
+      "summary": "全都是理由"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-06",
+      "file": "NVIDIA 爆料事件_20260706.html",
+      "summary": "有機基板撞牆，玻璃基板能接棒 ?"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-03",
+      "file": "繼續凌遲_20260703.html",
+      "summary": "繼續凌遲"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-03",
+      "file": "市場觀察_20260703.html",
+      "summary": "半導體修正確立：REL20轉負印證，防禦股加速擴大領先"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-03",
+      "file": "台股分析_20260703.html",
+      "summary": "板塊輪動與個股篩選"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-03",
+      "file": "美股分析_20260703.html",
+      "summary": "AI硬體8階段全數整理中，LITE/FN轉新低更確認熄火"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-02",
+      "file": "市場觀察_20260702.html",
+      "summary": "風格輪動加速：半導體降溫、防禦性板塊補漲"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-02",
+      "file": "美股分析_20260702.html",
+      "summary": "電信三強爆發、AI硬體8階段滅火"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-01",
+      "file": "市場觀察_20260701.html",
+      "summary": "DRAM強彈終結短線分歧"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-07-01",
+      "file": "美股分析_20260701.html",
+      "summary": "生技工業領漲，AI硬體訊號流熄火"
+    },
+    {
+      "cat": "總經",
+      "date": "2026-07-01",
+      "file": "總經報告-20260701.html",
+      "summary": "總經報告（新資金週期進行中）"
+    },
+    {
+      "cat": "總經",
+      "date": "2026-07-01",
+      "file": "AI泡沫評估表_20260701.html",
+      "summary": "AI泡沫評估表"
+    }
+  ]
+}
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-29",
+      "file": "2026年7月財經事件與情境推演.html",
+      "summary": "2026年7月財經事件與情境推演"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-28",
+      "file": "機構再平衡賣壓分析_20260628.html",
+      "summary": "機構再平衡賣壓分析"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-26",
+      "file": "市場觀察_20260626.html",
+      "summary": "白銀崩跌至全表最弱・半導體REL5轉強驗證美光效應"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-25",
+      "file": "市場觀察_20260625.html",
+      "summary": "美光財報大爆發・記憶體週期「暫時」延續"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-06-25",
+      "file": "美股分析_20260625.html",
+      "summary": "生技連兩日擴張"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-23",
+      "file": "市場觀察_20260623.html",
+      "summary": "貴金屬全面確認轉弱・殖利率同步創兩週高"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-23",
+      "file": "美股韓股事件分析_20260623.html",
+      "summary": "韓股熔斷事件"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-06-23",
+      "file": "美股分析_20260623.html",
+      "summary": "半導體設備全面達標，記憶體傳輸雙雙轉強"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-06-22",
+      "file": "台股分析_20260622.html",
+      "summary": "台積電回補加速確立"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-19",
+      "file": "市場觀察_20260619.html",
+      "summary": "鷹派衝擊一日翻篇・半導體動能加速創高"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-06-19",
+      "file": "美股分析_20260619.html",
+      "summary": "記憶體／半導體供應鏈全面噴出"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-17",
+      "file": "市場觀察_20260617.html",
+      "summary": "三巫日前夕・FOMC明日凌晨決策・P/C 0.93三巫日對沖・主線DRAM連四期/CHAT升格確認"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-06-15",
+      "file": "台股分析_20260615.html",
+      "summary": "利基股頂住，大型股持續消化"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-13",
+      "file": "市場觀察_20260613.html",
+      "summary": "主線DRAM強勢確認・P/C 0.15史詩級裸奔・NQ廣度54.5%修復・DXYZ −25%崩潰"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-06-13",
+      "file": "美股分析_20260613.html",
+      "summary": "半導體全面反攻，成長板塊回升確認"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-11",
+      "file": "市場觀察_20260611.html",
+      "summary": "CPI後市場終於買Put・P/C 0.62正常化・NQ廣度37.6%創本輪新低・VX Contango +0.36臨界・FOMC倒數6天"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-10",
+      "file": "市場觀察_20260610.html",
+      "summary": "主線技術反彈・P/C 0.23歷史極端裸奔・NQ_20MA% 45.5%繼續惡化・FOMC倒數7天"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-06-10",
+      "file": "個股分析_20260610.html",
+      "summary": "跌勢擴散：強勢退場，醫療運輸獨撐"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-08",
+      "file": "市場觀察_20260608.html",
+      "summary": "如何精確計算會跌到哪裡?"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-06",
+      "file": "市場觀察_20260606.html",
+      "summary": "NFP衝擊｜QQQ −4.28%・NQ跌破30,000・VIX 21.5跳升・FOMC倒數11天"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-05",
+      "file": "市場觀察_20260605.html",
+      "summary": "SP廣度大翻身60.8%・NFP前夜・FOMC倒數12天"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-03",
+      "file": "市場觀察_20260603.html",
+      "summary": "SOXX+5.79%驅動NQ新高"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-06-02",
+      "file": "市場觀察_20260602.html",
+      "summary": "結構逐漸過熱，市場資金裸奔"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-06-02",
+      "file": "個股分析_20260602.html",
+      "summary": "Tab Bar終於就位，美股走勢圖全面上線"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-30",
+      "file": "市場觀察_20260530.html",
+      "summary": "廣度四欄全線回落・CIBR+6.4%爆發・IWM三星失守"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-05-30",
+      "file": "個股分析_20260530.html",
+      "summary": "台積電翻多，記憶體接棒主升"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-29",
+      "file": "市場觀察_20260529.html",
+      "summary": "P/C 0.23 逼近極端・SP廣度悄然分歧"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-28",
+      "file": "市場觀察_20260528.html",
+      "summary": "太空主題爆發・P/C 0.27 警戒再現"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-27",
+      "file": "市場觀察_20260527.html",
+      "summary": "NQ破三萬・三道防線首綠"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-05-26",
+      "file": "個股分析_20260526.html",
+      "summary": "ABF重聚，南電翻多訊號"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-05-25",
+      "file": "個股分析_20260525.html",
+      "summary": "ABF分化 α"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-24",
+      "file": "六月風暴-20260524.html",
+      "summary": "六月風暴"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-23",
+      "file": "市場觀察_20260523.html",
+      "summary": "廣度短線觸發，RSP+MDY+IWM 三路翻正"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-05-23",
+      "file": "個股分析_20260523.html",
+      "summary": "AI 供應鏈全鏈展開 Finviz 廣度確認；台股同欣電最強 α"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-22",
+      "file": "市場觀察_20260522.html",
+      "summary": "P/C Ratio 降至 0.17 歷史極端，市場零保護裸奔警戒"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-05-22",
+      "file": "個股分析_20260522.html",
+      "summary": "矽智財再點火＋再生能源新開口；台股同欣電 α 持續"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-21",
+      "file": "市場觀察_20260521.html",
+      "summary": "NVDA 財報引爆科技領漲，廣度改善但槓桿資金持續背離"
+    },
+    {
+      "cat": "個股",
+      "date": "2026-05-21",
+      "file": "個股分析_20260521.html",
+      "summary": "AI 基礎設施再定價第二波，硬體鏈廣度擴散；台股 ASIC 引領"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-05-20",
+      "file": "市場觀察_20260520.html",
+      "summary": "殖利率四重警示，US30Y 突破 18 年高；NVDA 財報前夕"
+    }
+  ]
+}
