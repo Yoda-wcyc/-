@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 市場觀察 | 2026-07-18</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   已對齊 Skill-總控-merged.md（B-2 / B-3 / E 段）
+   - 首頁連結改為 https://yoda-research-next.vercel.app/
+   - 粉專按鈕使用總控 CSS 變數
+   - 左側 NAV 結構對齊 AI泡沫評估表
+   - 陰影、圓角、元件規範逐步對齊
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --fs:24px;
+  --bg:#080b10; --surface:#0d1118; --surface2:#121820; --border:#1c2330;
+  --text:#b8c8d8; --dim:#405060;
+  --accent:#00c8f0; --green:#00c896; --red:#ff3d5a; --yellow:#f0c040; --orange:#ff8040;
+  --fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;
+  --fm:'SF Mono','Consolas','Monaco','Courier New',monospace;
+
+  /* 粉專按鈕 — 總控 B-3 唯一正本 */
+  --fan-bg:#b8960a;
+  --fan-bg-hover:#ffd700;
+  --fan-text:#1a1200;
+  --fan-text-hover:#000;
+  --fan-glow:rgba(255,215,0,.35);
+  --fan-glow-hover:rgba(255,215,0,.75);
+  /* controls-bar 對齊 Version A */
+  --ctrl-bg:rgba(13,17,24,.85);
+  --ctrl-border:rgba(255,255,255,.12);
+  --ctrl-hover:rgba(255,255,255,.06);
+  --ctrl-act-bg:var(--accent);
+  --ctrl-act-txt:#080b10;
+  /* nav 對齊 Version A */
+  --nav-bg:#0d1118;
+  --scroll-thumb:rgba(255,255,255,.18);
+  --fs-scale:1.16667;
+}
+[data-size="sm"]{--fs-scale:1}
+[data-size="md"]{--fs-scale:1.16667}
+[data-size="lg"]{--fs-scale:1.33333}
+
+/* 左側導覽 NAV（對齊 AI泡沫評估表） */
+body {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+nav{width:230px;min-width:230px;background:#1d1d1f;border-right:1px solid rgba(255,255,255,.14);position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 0 40px;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:var(--scroll-thumb,rgba(255,255,255,.22)) transparent;transition:background .25s,border-color .25s}
+
+
+/* 主內容區 */
+.main {
+  min-width: 0;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;}
+
+/* 工具列 */
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
+.fb{padding:4px 10px;font-size:11px;font-family:var(--fm);background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb:hover{color:var(--text);background:var(--surface2);}.fb.on{color:var(--accent);background:rgba(0,200,240,.15);}
+
+/* 頁首 */
+.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
+.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-r{text-align:right;}
+
+/* 版面 */
+.wrap{max-width:1200px;margin:0 auto;padding:22px 40px 64px;}
+.sec{margin-bottom:34px;}
+.sec-lbl{background:linear-gradient(90deg,rgba(0,212,170,.14) 0%,transparent 100%);border-left:4px solid var(--teal,#00d4aa);padding:11px 16px;font-size:calc(var(--fs)*1.08);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--text);margin-bottom:2px;}
+
+/* 溫度條 */
+.temp-bar-wrap{margin-bottom:20px;}
+.temp-bar-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.temp-bar-name{font-family:var(--fb);font-size:calc(var(--fs)*.75);letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--dim);}
+.temp-bar-label{font-family:var(--fb);font-size:calc(var(--fs)*.82);font-weight:700;}
+.temp-bar-scale{display:flex;justify-content:space-between;margin-bottom:5px;}
+.temp-bar-scale span{font-family:var(--fb);font-size:calc(var(--fs)*.72);color:var(--dim);}
+.temp-track{position:relative;height:13px;border-radius:7px;overflow:visible;background:linear-gradient(90deg,#22c55e 0%,#84cc16 20%,#f59e0b 50%,#f97316 75%,#ef4444 100%);box-shadow:0 2px 10px rgba(0,0,0,.25);}
+.temp-track .t-div{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18);}
+.temp-needle{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:10;cursor:default;}
+.temp-bubble{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--fb);font-size:calc(var(--fs)*.72);font-weight:700;padding:2px 8px;border-radius:3px;white-space:nowrap;color:#080b10;}
+.temp-arrow{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);border:4px solid transparent;}
+.temp-dot{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid;box-shadow:0 0 10px;margin-top:4px;}
+.temp-note{font-family:var(--fb);font-size:calc(var(--fs)*.72);color:var(--dim);margin-top:6px;}
+.temp-divider{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);}
+
+/* 動畫 */
+@keyframes tempPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.6);transform:scale(.88);}50%{box-shadow:0 0 0 7px rgba(255,255,255,0);transform:scale(1.05);}}
+.temp-pulse{animation:tempPulse 1.6s ease-out infinite;}
+@keyframes breathe{0%,100%{opacity:.3;text-shadow:none}50%{opacity:1;text-shadow:0 0 10px var(--yellow),0 0 20px var(--yellow)}}
+@keyframes breathe-bull{0%,100%{opacity:.25;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--green),0 0 18px var(--green),0 0 30px rgba(0,200,150,.4)}}
+@keyframes breathe-bear{0%,100%{opacity:.25;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--red),0 0 18px var(--red),0 0 30px rgba(255,61,90,.4)}}
+.arr,.breath{animation:breathe 1.8s ease-in-out infinite;display:inline-block;color:var(--yellow);}
+.trig-bull{color:var(--green);animation:breathe-bull 0.85s ease-in-out infinite;}
+.trig-bear{color:var(--red);animation:breathe-bear 0.85s ease-in-out infinite;}
+
+/* 卡片 */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.card{background:var(--surface);padding:17px 19px;border:1px solid var(--border);border-radius:8px;}
+.card.clk{cursor:pointer;transition:background .12s;}
+.card.clk:hover{background:var(--surface2);}
+.c-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;}
+.arr{transition:transform .2s;}.card.open .arr{transform:rotate(180deg);animation:none;opacity:1;text-shadow:none;color:var(--accent);}
+.c-val{font-family:var(--fb);font-size:calc(var(--fs)*2.1);font-weight:900;line-height:1;margin-bottom:4px;}
+.c-val.gr{color:var(--green);}.c-val.rd{color:var(--red);}.c-val.ye{color:var(--yellow);}.c-val.ac{color:var(--accent);}
+.c-sub{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;line-height:1.5;}
+.c-tr{font-size:calc(var(--fs)*.85);margin-top:5px;}
+.c-tr.up{color:var(--green);}.c-tr.dn{color:var(--red);}.c-tr.wn{color:var(--yellow);}.c-tr.fl{color:var(--dim);}
+.sit{display:inline-block;padding:4px 11px;font-family:var(--fb);font-size:calc(var(--fs)*1.05);font-weight:700;border-radius:3px;margin-bottom:7px;}
+.sit-ok{background:rgba(0,200,150,.12);color:var(--green);border:1px solid rgba(0,200,150,.3);}
+.sit-wn{background:rgba(240,192,64,.12);color:var(--yellow);border:1px solid rgba(240,192,64,.3);}
+.sit-bad{background:rgba(255,61,90,.12);color:var(--red);border:1px solid rgba(255,61,90,.3);}
+
+/* 展開區 */
+.det{display:none;background:var(--surface2);border-top:1px solid var(--border);padding:15px 17px;animation:sd .17s ease;grid-column:1/-1;}
+.det.open{display:block;}
+.det-sub{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;margin-top:14px;}
+.sumbox{font-size:calc(var(--fs)*.88);font-weight:700;padding:10px;border-radius:0 4px 4px 0;margin-bottom:12px;border-left:3px solid var(--teal,#00d4aa);}
+.sumbox-g{background:rgba(0,212,170,.07);border-left-color:var(--teal,#00d4aa);}
+.sumbox-r{background:rgba(239,68,68,.07);border-left-color:var(--red);}
+.rate-box{background:rgba(255,61,90,.05);border:1px solid rgba(255,61,90,.2);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:12px;font-family:var(--fb);font-size:calc(var(--fs)*.92);line-height:1.8;border-radius:4px;}
+
+/* 表格 */
+.tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.92);}
+.tbl th{padding:6px 9px;font-size:calc(var(--fs)*.77);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+.tbl th.c{text-align:center;}.tbl td{padding:6px 9px;border-bottom:1px solid var(--border);font-family:var(--fm);}
+.tbl td.c{text-align:center;}.tbl tr:last-child td{border-bottom:none;}
+.tbl tr.hl td{background:rgba(0,200,150,.07);font-weight:600;}
+.cr{color:var(--red);}.cg{color:var(--green);}.cy{color:var(--yellow);}.cd{color:var(--dim);}.cw{color:var(--text);font-weight:600;}
+
+/* 板塊四象限 */
+.sec4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.sc-hdr{padding:9px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.25em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.sc.s .sc-hdr{color:var(--green);background:rgba(0,200,150,.06);}
+.sc.w .sc-hdr{color:var(--yellow);background:rgba(240,192,64,.06);}
+.sc.tw .sc-hdr{color:var(--orange);background:rgba(255,140,64,.06);}
+.sc.x .sc-hdr{color:var(--red);background:rgba(255,61,90,.06);}
+.sc-item{padding:8px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .12s;}
+.sc-item:last-child{border-bottom:none;}
+.sc-item:hover{background:var(--surface2);}
+.sc-item.open{background:var(--surface2);}
+.sc-item .sc-arr{font-size:calc(var(--fs)*.8);color:var(--dim);margin-left:6px;transition:transform .2s;flex-shrink:0;}
+.sc-item.open .sc-arr{transform:rotate(180deg);color:var(--accent);}
+.sc-det{display:none;padding:9px 13px 11px;background:var(--surface2);font-size:calc(var(--fs)*.85);line-height:1.75;border-top:1px solid var(--border);border-bottom:1px solid var(--border);animation:sd .15s ease;}
+.sc-det.open{display:block;}
+
+/* Mini Chart（取代 REL 溫度條）*/
+.mini-chart-wrap{margin:8px 0 6px;}
+.mini-chart-legend{display:flex;gap:12px;font-size:calc(var(--fs)*.72);margin-bottom:4px;font-family:var(--fm);}
+.mini-chart-legend span{display:flex;align-items:center;gap:4px;}
+.mini-chart-legend .dot-r{width:8px;height:2px;background:#ff3d5a;display:inline-block;}
+.mini-chart-legend .dot-y{width:8px;height:2px;background:#f0c040;display:inline-block;}
+.mini-chart-legend .dot-b{width:8px;height:2px;background:#00c8f0;display:inline-block;}
+.mini-chart-canvas{width:100%;height:54px;display:block;border-radius:4px;background:rgba(255,255,255,.03);}
+.sc-tk{font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);}
+.sc-rk{font-size:calc(var(--fs)*.82);}
+.sc.s .sc-rk{color:var(--green);}.sc.w .sc-rk{color:var(--yellow);}
+.sc.tw .sc-rk{color:var(--orange);}.sc.x .sc-rk{color:var(--red);}
+
+/* 板塊小結 */
+.rotation-verdict{background:rgba(255,61,90,.05);border:1px solid rgba(255,61,90,.2);border-left:3px solid var(--orange);padding:12px 18px;margin-top:10px;margin-bottom:34px;border-radius:6px;}
+.rv-title{font-size:calc(var(--fs)*1.08);letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.rv-snapshot{font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.75;margin-bottom:10px;}
+.rv-snapshot strong{color:var(--yellow);}
+.rv-snapshot .snap-row{display:flex;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px solid rgba(240,192,64,.1);font-size:calc(var(--fs)*.85);}
+.rv-snapshot .snap-row:last-child{border-bottom:none;}
+.rv-snapshot .snap-etf{font-family:var(--fm);font-weight:700;min-width:60px;color:var(--text);}
+.rv-snapshot .snap-tag{padding:2px 8px;border-radius:2px;font-size:calc(var(--fs)*.77);font-weight:700;white-space:nowrap;}
+.rv-snapshot .snap-tag-warn{background:rgba(240,192,64,.15);color:var(--yellow);}
+.rv-snapshot .snap-tag-ok{background:rgba(0,200,150,.15);color:var(--green);}
+.rv-snapshot .snap-tag-fail{background:rgba(255,61,90,.15);color:var(--red);}
+.rv-snapshot .snap-desc{color:var(--dim);font-size:calc(var(--fs)*.82);}
+.rv-divider{border:none;border-top:1px solid rgba(255,128,64,.25);margin:10px 0;}
+.rv-txt{font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.8;}
+.rv-txt strong{color:var(--orange);}
+
+/* 廣度卡 */
+.bc{background:var(--surface);padding:14px 16px;cursor:pointer;transition:background .12s;border:1px solid var(--border);border-radius:8px;}
+.bc:hover{background:var(--surface2);}
+.bc-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+.bc-val{font-family:var(--fb);font-size:calc(var(--fs)*2.1);font-weight:900;line-height:1;}
+.bc-tr{font-size:calc(var(--fs)*.85);margin-top:4px;}
+.bc-det{display:none;background:var(--surface2);border-top:1px solid var(--border);padding:12px 14px;animation:sd .17s ease;grid-column:1/-1;border-radius:0 0 8px 8px;}
+.bc-det.open{display:block;}
+.bc-sum{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.15);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:10px;font-family:var(--fb);color:var(--text);font-size:calc(var(--fs)*.92);line-height:1.7;border-radius:4px;}
+
+/* 廣度總結 */
+.breadth-verdict{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.15);padding:10px 15px;margin-bottom:34px;font-family:var(--fb);color:var(--text);font-size:calc(var(--fs)*.92);line-height:1.7;border-radius:6px;}
+
+/* Gamma 防線 */
+.pbar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 17px;margin-bottom:0;cursor:pointer;border-bottom:none;border-radius:8px 8px 0 0;}
+.pbi .pbl{font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;color:var(--dim);}
+.pbi .pbv{font-family:var(--fb);font-size:calc(var(--fs)*1.5);font-weight:900;margin-top:2px;}
+.gamma-det{display:none;background:var(--surface2);border:1px solid var(--border);border-top:none;padding:16px 18px;margin-bottom:34px;animation:sd .17s ease;border-radius:0 0 8px 8px;}
+.gamma-det-note{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
+.gtbl{width:100%;border-collapse:collapse;margin-bottom:12px;}
+.gtbl th{padding:7px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.25em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);background:var(--surface);}
+.gtbl td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.92);background:var(--surface);}
+.gtbl tr:last-child td{border-bottom:none;}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:middle;}
+.d-r{background:var(--red);}.d-o{background:var(--orange);}.d-w{background:var(--dim);}.d-g{background:var(--green);}.d-b{background:var(--accent);}
+.g-mech{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:12px 16px;margin-bottom:10px;border-radius:6px;}
+.g-mech.yel{border-left-color:var(--yellow);}
+.g-mech-title{font-size:calc(var(--fs)*1.08);letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.g-mech.yel .g-mech-title{color:var(--yellow);}
+.g-mech-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);font-weight:300;color:var(--text);line-height:1.8;}
+.g-mech-txt strong{font-weight:600;}.g-mech-txt em{color:var(--yellow);font-style:normal;}
+
+/* 完整研判 */
+.syn{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);padding:26px 30px;margin-bottom:30px;border-radius:8px;}
+.syn-title{font-size:calc(var(--fs)*1.08);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;border-left:4px solid var(--accent);padding-left:14px;}
+.syn-blk{margin-bottom:20px;}.syn-blk:last-child{margin-bottom:0;}
+.syn-h{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.syn-txt{font-family:var(--fb);font-size:calc(var(--fs)*1.0);font-weight:300;color:var(--text);line-height:1.85;}
+.syn-txt strong{font-weight:700;}.syn-txt em{color:var(--yellow);font-style:normal;}
+
+/* 預期 vs 底線 */
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:16px;border-radius:8px;overflow:hidden;}
+.sc-bull{background:rgba(0,200,150,.04);border:1px solid rgba(0,200,150,.2);border-top:2px solid var(--green);padding:14px 18px;}
+.sc-bear{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.2);border-top:2px solid var(--red);padding:14px 18px;}
+.sc-s-title{font-size:calc(var(--fs)*1.08);letter-spacing:.3em;text-transform:uppercase;margin-bottom:10px;}
+.sc-bull .sc-s-title{color:var(--green);}.sc-bear .sc-s-title{color:var(--red);}
+.sc-s-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.85;}
+.sc-s-txt strong{font-weight:700;}
+.sc-s-txt .trigger{color:var(--yellow);}
+.sc-s-txt .target{color:var(--accent);font-family:var(--fm);}
+
+/* 輔助 */
+.tag{display:inline-block;padding:2px 8px;font-size:calc(var(--fs)*.77);border-radius:2px;margin:2px;font-family:var(--fm);}
+.tag-r{background:rgba(255,61,90,.12);color:var(--red);border:1px solid rgba(255,61,90,.3);}
+.tag-y{background:rgba(240,192,64,.12);color:var(--yellow);border:1px solid rgba(240,192,64,.3);}
+.tag-g{background:rgba(0,200,150,.12);color:var(--green);border:1px solid rgba(0,200,150,.3);}
+.ht{overflow-x:auto;}.ht table{min-width:900px;}
+
+/* 指標列表 */
+.irow-list{display:flex;flex-direction:column;gap:0;}
+.irow{display:flex;align-items:baseline;gap:0;padding:3px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.85);font-family:var(--fm);}
+.irow:last-child{border-bottom:none;}
+.irow-name{color:var(--dim);min-width:88px;flex-shrink:0;letter-spacing:.04em;}
+.irow-val{color:var(--text);font-weight:600;}
+.irow-val.g{color:var(--green);}
+.irow-val.r{color:var(--red);}
+.irow-val.y{color:var(--yellow);}
+.irow-val.d{color:var(--dim);}
+
+/* 歷史快照 */
+.snap-override{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.3);border-left:3px solid var(--yellow);padding:11px 16px;margin-bottom:10px;border-radius:6px;}
+.snap-override-title{font-size:calc(var(--fs)*1.08);letter-spacing:.28em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;}
+.snap-row{display:flex;align-items:baseline;gap:10px;padding:4px 0;border-bottom:1px solid rgba(240,192,64,.1);font-size:calc(var(--fs)*.85);}
+.snap-row:last-child{border-bottom:none;}
+.snap-etf{font-family:var(--fm);font-weight:700;min-width:60px;color:var(--text);}
+.snap-tag{padding:2px 8px;border-radius:2px;font-size:calc(var(--fs)*.77);font-weight:700;white-space:nowrap;}
+.snap-tag-warn{background:rgba(240,192,64,.15);color:var(--yellow);}
+.snap-tag-ok{background:rgba(0,200,150,.15);color:var(--green);}
+.snap-tag-fail{background:rgba(255,61,90,.15);color:var(--red);}
+.snap-desc{color:var(--dim);font-size:calc(var(--fs)*.82);}
+
+/* 未來一個月事件 */
+.ev-list{display:flex;flex-direction:column;gap:1px;margin-bottom:16px;}
+.ev-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.ev-item-hdr{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;transition:background .12s;}
+.ev-item-hdr:hover{background:var(--surface2);}
+.ev-date{font-family:var(--fm);font-size:calc(var(--fs)*.82);color:var(--dim);min-width:72px;flex-shrink:0;}
+.ev-grade{font-size:calc(var(--fs)*.82);flex-shrink:0;}
+.ev-name{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);flex:1;}
+.ev-arr{font-size:calc(var(--fs)*.8);color:var(--dim);transition:transform .2s;flex-shrink:0;}
+.ev-item.open .ev-arr{transform:rotate(180deg);color:var(--accent);}
+.ev-det{display:none;padding:10px 14px 12px 98px;background:var(--surface2);border-top:1px solid var(--border);font-family:var(--fb);font-size:calc(var(--fs)*.88);line-height:1.75;}
+.ev-det.open{display:block;}
+.ev-det .ev-bull{color:var(--green);margin-bottom:4px;}
+.ev-det .ev-bear{color:var(--red);margin-bottom:4px;}
+.ev-det .ev-rule{color:var(--yellow);font-size:calc(var(--fs)*.82);margin-top:6px;border-top:1px solid var(--border);padding-top:6px;}
+.ev-note{background:rgba(0,200,240,.04);border:1px solid rgba(0,200,240,.15);border-left:3px solid var(--accent);padding:12px 16px;border-radius:6px;font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.8;}
+
+/* 頁尾 */
+.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
+.ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
+
+/* 深/淺色 */
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;;--nav-light-bg:#ffffff}
+body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
+
+/* 粉專按鈕（總控 B-3） */
+@keyframes fan-breathe {
+  0%,100% { background:var(--fan-bg); box-shadow:0 0 4px 1px var(--fan-glow); color:var(--fan-text); }
+  50%      { background:var(--fan-bg-hover); box-shadow:0 0 10px 3px var(--fan-glow-hover); color:var(--fan-text-hover); }
+}
+/* ══ Controls Bar - 藍色選中版 (文字維持灰色) ══ */
+
+.controls-bar {
+  position: fixed;
+  top: 14px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 8px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, .18);
+}
+
+.ctrl-group { display: flex; gap: 2px; }
+.ctrl-sep { width: 1px; height: 18px; background: var(--border); }
+
+/* 一般按鈕 */
+.ctrl-btn {
+  font-family: var(--fm);
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  color: #a1a1a6; /* 預設灰色 */
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.ctrl-btn:hover { background: var(--surface2); color: #f5f5f7; }
+
+/* 選中狀態 (active) - 背景藍色，文字維持灰色 */
+.ctrl-btn.active { 
+  background: var(--accent); /* 藍色背景 */
+  color: #a1a1a6;           /* 文字仍為灰色 */
+  font-weight: 600; 
+}
+
+/* 首頁按鈕 (維持金色呼吸) */
+.ctrl-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: var(--fm);
+  color: var(--fan-text);
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--fan-bg);
+  border-radius: 9999px;
+  animation: fan-breathe 1.8s ease-in-out infinite;
+  white-space: nowrap;
+  margin-left: 1px;
+  transition: all 0.15s ease;
+}
+.ctrl-home:hover {
+  background: var(--fan-bg-hover);
+  color: var(--fan-text-hover);
+  box-shadow: 0 0 10px 3px var(--fan-glow-hover);
+  animation: none;
+}
+
+/* 粉專按鈕（低調版） */
+.ctrl-fan {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: var(--fm);
+  color: #e8f2ff;
+  text-decoration: none;
+  background: #1a3a5c;
+  border: 1px solid #2a4a6c;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.ctrl-fan svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+.ctrl-fan:hover {
+  background: #2a4a6c;
+  border-color: #3a5a7c;
+  transform: scale(1.02);
+}
+/* NAV - 強制對齊 AI泡沫評估表 */
+.nav-brand{padding:0 18px 22px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.nav-brand-title{font-family:var(--fb);font-size:calc(24px * var(--fs-scale))!important;color:#ff9f0a!important;font-weight:600;line-height:1.2}
+.nav-brand-sub{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:#2997ff;letter-spacing:.1em;margin-top:6px;text-transform:uppercase}
+.nav-section-label{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:#6e6e73;padding:12px 18px 5px}
+nav a{display:flex;align-items:center;gap:9px;padding:7px 18px;color:#a1a1a6;text-decoration:none;font-size:calc(12.5px * var(--fs-scale));transition:all .14s;border-left:2px solid transparent}
+nav a:hover{color:var(--text);background:var(--surface2);border-left-color:var(--accent)}
+.nav-num{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:#6e6e73;min-width:16px}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--border);min-width:5px}
+/* ── Bible section-header (2026-07-16) ── */
+.content-section{padding:38px 48px;border-bottom:1px solid var(--border)}
+.section-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.section-num{font-family:var(--mono,var(--fm));font-size:calc(10.5px * var(--fs-scale,1));color:var(--accent);background:rgba(48,209,88,.08);border:1px solid rgba(48,209,88,.22);border-radius:4px;padding:4px 10px;white-space:nowrap;margin-top:4px}
+.section-title{font-family:var(--fb);font-size:calc(21px * var(--fs-scale,1));font-weight:600;color:var(--header,var(--text));line-height:1.3;letter-spacing:-.01em}
+.section-desc{font-family:var(--mono,var(--fm));font-size:calc(11px * var(--fs-scale,1));color:var(--text3,var(--dim));margin-top:4px;letter-spacing:.05em}
+.izy-section{margin-top:auto;padding:18px;border-top:1px solid var(--border)}
+.izy-badge{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:11px 13px}
+.izy-badge-label{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.izy-badge-text{font-size:calc(11px * var(--fs-scale));color:var(--dim);line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- NAV - 修正重複項目 -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-title">Yoda 市場<br>觀察</div>
+    <div class="nav-brand-sub">▸ 2026 · JULY</div>
+  </div>
+  <div class="nav-section-label">市場觀察</div>
+  <a href="#sec-overview"><span class="nav-num">01</span><div class="nav-dot"></div>市場概覽</a>
+  <a href="#sec-core"><span class="nav-num">02</span><div class="nav-dot"></div>核心指標</a>
+  <a href="#sec-rotation"><span class="nav-num">03</span><div class="nav-dot"></div>板塊強弱對位</a>
+  <a href="#sec-breadth"><span class="nav-num">04</span><div class="nav-dot"></div>市場廣度</a>
+  <a href="#sec-gamma"><span class="nav-num">05</span><div class="nav-dot"></div>Gamma 防線</a>
+  <a href="#sec-events"><span class="nav-num">06</span><div class="nav-dot"></div>未來一個月事件</a>
+  <a href="#sec-judgment"><span class="nav-num">07</span><div class="nav-dot"></div>Yoda 完整研判</a>
+  <div class="izy-section">
+    <div class="izy-badge">
+      <div class="izy-badge-label">Yoda Research</div>
+      <div class="izy-badge-text">市場觀察報告<br>每週三次更新</div>
+    </div>
+  </div>
+</nav>
+
+<!-- 主內容 -->
+<div class="main">
+
+<!-- CONTROLS - 標準版 -->
+<div class="fc">
+  <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" class="ctrl-fan" title="Facebook粉專">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>粉專
+  </a>
+  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Research">Yoda Research</a>
+
+  <button class="fb" id="fs-small" onclick="setSize('sm')">小</button>
+  <button class="fb on" id="fs-normal" onclick="setSize('md')">中</button>
+  <button class="fb" id="fs-large" onclick="setSize('lg')">大</button>
+  <button class="fb" style="margin-left:4px;border-left:1px solid var(--border);padding-left:10px;" onclick="setTheme('dark')" id="btn-dark">深</button>
+  <button class="fb" onclick="setTheme('light')" id="btn-light">淺</button>
+</div>
+
+<div class="wrap">
+
+<!-- 市場概覽 -->
+<div id="sec-overview">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">01</div>
+  <div>
+    <div class="section-title">市場概覽</div>
+    <div class="section-desc">MARKET OVERVIEW</div>
+  </div>
+</div>
+
+  <!-- 四條溫度條 -->
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">資金流判定</span>
+      <span class="temp-bar-label" style="color:#4da8e0;">⚠ 警戒</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面空方</span><span>中性</span><span>全面多方</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:40%;">
+        <div class="temp-bubble" style="background:#4da8e0;">40</div>
+        <div class="temp-arrow" style="border-top-color:#4da8e0;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#4da8e0;box-shadow:0 0 10px rgba(77,168,224,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ USO 今日 +3.91%（Rank100），WTI 暴衝，美伊衝突升溫；Excess Liquidity 惡化持續；US10Y 延用 4.57%</div>
+  </div>
+
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">情緒過熱觸發</span>
+      <span class="temp-bar-label" style="color:#f59e0b;">⚡ 矛盾分裂</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>極度低迷冷靜</span><span>正常情緒</span><span>極端過熱警戒</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:55%;">
+        <div class="temp-bubble" style="background:#f59e0b;">55</div>
+        <div class="temp-arrow" style="border-top-color:#f59e0b;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#f59e0b;box-shadow:0 0 10px rgba(245,158,11,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ P/C 0.31（極低裸奔）vs VIX 18.76 往 20 走、VXN 29——恐慌指標上升但大量 Call 買盤，情緒兩極分裂</div>
+  </div>
+
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">Risk-on / off</span>
+      <span class="temp-bar-label" style="color:#00d4aa;">🔴 防禦</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面防禦避險</span><span>中性</span><span>全面風險偏好</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:30%;">
+        <div class="temp-bubble" style="background:#00d4aa;">30</div>
+        <div class="temp-arrow" style="border-top-color:#00d4aa;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#00d4aa;box-shadow:0 0 10px rgba(0,212,170,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ 五大風格因子全落後 SPY；RSP/MDY/IWM 同步負；唯能源與保險逆市，非防禦輪動而是賣壓全面擴散</div>
+  </div>
+
+  <div class="temp-bar-wrap temp-divider">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">市場廣度</span>
+      <span class="temp-bar-label" style="color:#a855f7;">🟡 惡化中</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面崩跌（&lt;30%）</span><span>健康區間</span><span>全面強勢（&gt;75%）</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:30%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:53%;">
+        <div class="temp-bubble" style="background:#a855f7;color:#fff;">52.5%</div>
+        <div class="temp-arrow" style="border-top-color:#a855f7;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#a855f7;box-shadow:0 0 10px rgba(168,85,247,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ NQ20 44.7%🔴 / SP20 58.1%🟡 / NQ50 43.7%🔴 / SP50 63.6%🟢。NQ 廣度雙項跌破 50%，科技廣度正式進入弱勢區</div>
+  </div>
+</div>
+</div><!-- /content-section -->
+<!-- /市場概覽 -->
+
+
+<!-- 核心指標 -->
+<div id="sec-core" class="sec">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">02</div>
+  <div>
+    <div class="section-title">核心指標</div>
+    <div class="section-desc">CORE INDICATORS</div>
+  </div>
+</div>
+  <div style="display:grid;gap:1px;background:var(--border);">
+    <div class="g3">
+
+      <div class="card clk" id="cSit" onclick="tog('dSit','cSit')">
+        <div class="c-lbl">資金流判定 <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">⚠ 警戒（BAR1=40）</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">油價今天從「觀察項」升格為「主動警報」——USO +3.91%、短線 +14.83%，美伊衝突直接定價進 WTI。第一道防線正式轉🔴，通膨二次壓力的來源找到了。SOFR−IORB −3bp 即時流動性正常，但領先指標 Excess Liquidity 持續惡化，中長期壓力未解。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">US2Y</span><span class="irow-val y">4.16%（延用）</span></div>
+<div class="irow"><span class="irow-name">US10Y</span><span class="irow-val r">4.57%（延用）</span></div>
+<div class="irow"><span class="irow-name">10Y−2Y</span><span class="irow-val g">+41bp</span></div>
+<div class="irow"><span class="irow-name">SOFR</span><span class="irow-val">3.62%</span></div>
+<div class="irow"><span class="irow-name">IORB</span><span class="irow-val">3.65%</span></div>
+<div class="irow"><span class="irow-name">HY_OAS</span><span class="irow-val g">2.71%</span></div>
+<div class="irow"><span class="irow-name">Fed 上限</span><span class="irow-val">3.75%（FOMC 7/28–29）</span></div></div>
+      </div>
+
+      <div class="card clk" id="cTrg" onclick="tog('dTrg','cTrg')">
+        <div class="c-lbl">情緒過熱觸發 <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">⚡ 矛盾分裂（BAR2=55）</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">P/C 0.31 極度樂觀 vs VIX 18.76 往 20 走、VXN 29 往 30 走——選擇權市場有兩批人同時在做截然不同的事：一批在避險，一批在賭反彈。這種情緒分裂通常出現在行情轉折前夕，方向很快就會給答案。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">VIX</span><span class="irow-val y">18.76（↑逼近 20）</span></div>
+<div class="irow"><span class="irow-name">VXN</span><span class="irow-val r">29.03（↑逼近 30）</span></div>
+<div class="irow"><span class="irow-name">MOVE</span><span class="irow-val y">70.877</span></div>
+<div class="irow"><span class="irow-name">P/C Ratio</span><span class="irow-val r">0.31（極低）</span></div>
+<div class="irow"><span class="irow-name">VX1</span><span class="irow-val">19.2</span></div>
+<div class="irow"><span class="irow-name">VX2</span><span class="irow-val">19.9</span></div>
+<div class="irow"><span class="irow-name">VX1/VX2</span><span class="irow-val g">正價差 +0.7</span></div></div>
+      </div>
+
+      <div class="card clk" id="cRsk" onclick="tog('dRsk','cRsk')">
+        <div class="c-lbl">Risk-on / Risk-off <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">🔴 防禦（BAR3=30）</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">五大風格因子今日全落後 SPY，連 SPLV 低波動也跑輸——這不是防禦輪動，是賣壓全面擴散。唯一例外是能源與保險，但那是油價事件和醫療防禦，不是系統性風險偏好改善。行情型態7/17說的廣度修復，今天一天就全吐回來，重回觀察模式。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">SPMO</span><span class="irow-val r">今日 −0.96%（短線 −4.88%）</span></div>
+<div class="irow"><span class="irow-name">SPHB</span><span class="irow-val r">今日 −1.39%</span></div>
+<div class="irow"><span class="irow-name">SPHQ</span><span class="irow-val r">今日 −0.93%</span></div>
+<div class="irow"><span class="irow-name">SPLV</span><span class="irow-val r">今日 −0.48%（跑輸 SPY）</span></div>
+<div class="irow"><span class="irow-name">SPHD</span><span class="irow-val r">今日 −0.58%</span></div></div>
+      </div>
+    </div>
+
+    <div class="det" id="dSit">
+      <div class="sumbox sumbox-g">三道防線：第一道油價🔴（USO +3.91%，WTI 暴衝）/ 第二道 US10Y🟡 4.57%（延用，未破 4.62%）/ 第三道流動性🟢（SOFR−IORB −3bp）。Excess Liquidity 惡化持續，中長期壓力。</div>
+      <div class="det-sub">三道防線</div>
+      <table class="tbl">
+        <thead><tr><th>防線</th><th>指標</th><th class="c">狀態</th><th>說明</th></tr></thead>
+        <tbody><tr><td><strong>第一道</strong></td><td>油價</td><td class="c cr">🔴 主動警報</td><td>USO 今日 +3.91%、短線 +14.83%、Rank100 全表最強。美伊衝突直接定價，WTI 繼續上衝，通膨壓力源頭正式升為警報</td></tr>
+<tr><td><strong>第二道</strong></td><td>US10Y</td><td class="c cy">🟡 方向待確認</td><td>4.57%（今日延用 7/17 數據），油價暴衝理論上推升通膨預期，但 MOVE 70.877 仍可控，債市反應相對克制</td></tr>
+<tr><td><strong>第三道</strong></td><td>流動性</td><td class="c cg">🟢 正常</td><td>SOFR 3.62% − IORB 3.65% = −3bp，貨幣市場無壓力</td></tr>
+<tr><td><strong>領先指標</strong></td><td>Excess Liquidity</td><td class="c cr">🔴 惡化持續</td><td>美元強＋油價暴衝雙重施壓，超額流動性收縮方向未變，科技股失去弱美元順風持續</td></tr></tbody>
+      </table>
+      <div class="det-sub">利率細項</div>
+      <div class="rate-box"><div class="r-row"><span class="r-lbl">US2Y</span><span class="r-val" style="color:var(--yellow)">4.16%（延用）</span></div>
+<div class="r-row"><span class="r-lbl">US10Y</span><span class="r-val" style="color:var(--red)"><strong>4.57%（延用）</strong></span></div>
+<div class="r-row"><span class="r-lbl">10Y−2Y</span><span class="r-val" style="color:var(--green)">+41bp（正斜率）</span></div>
+<div class="r-row"><span class="r-lbl">SOFR</span><span class="r-val">3.62%</span></div>
+<div class="r-row"><span class="r-lbl">IORB</span><span class="r-val">3.65%</span></div>
+<div class="r-row"><span class="r-lbl">HY_OAS</span><span class="r-val" style="color:var(--green)">2.71%</span></div>
+<div class="r-row"><span class="r-lbl">Fed 上限</span><span class="r-val">3.75%（FOMC 7/28–29）</span></div></div>
+    </div>
+
+    <div class="det" id="dTrg">
+      <div class="sumbox sumbox-r">VIX 18.76 往 20 走，VXN 29 往 30 走，MOVE 70.877 微升。P/C 0.31 顯示大量 Call 買盤——恐慌指標上升但投機買 Call 同時發生，兩者背離強烈，是轉折前常見狀態。</div>
+      <div class="lyr-hdr">🔴 結構情緒警示（中長期）</div>
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🟡</span><div><strong>NAAIM 延用 77.34</strong>（本週三更新）——高持倉基數，若本週讀數下滑，結合廣度惡化形成確認訊號</div></div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🟡</span><div><strong>樂活通道 ^NDX</strong>（無新讀數，沿用 05/31）——QQQ 已從 719 跌至 695，位置從通道上緣往下移動中</div></div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🟡</span><div><strong>投機客期貨淨持倉</strong>（COT 7/7）——S&P 500 空單從 −194K 回補至 −35.4K，軋空燃料已釋放，正向反彈動能有限</div></div>
+      <div class="lyr-hdr" style="margin-top:10px;">🟡 短期情緒警示（即時行為）</div>
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🔴</span><div><strong>P/C Ratio 0.31</strong>（極度裸奔）——VIX 往 20 走的同時大量買 Call，情緒指標與波動率指標嚴重背離。兩天內 0.42→1.47→0.31，大幅擺盪代表多空雙方同時重押，方向尚未確立</div></div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🔴</span><div><strong>VXN 29.03</strong>（往 30 走）——NDX 科技恐慌持續累積，SOXX 繼續深跌是主因；VXN 突破 30 是觀察門檻</div></div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">⚠️</span><div><strong>VIX 18.76</strong>（逼近 20 關口）——從 7/15 的 15.66 連續上升，20 是心理關口；突破後做市商風控行為改變，波動率可能加速放大</div></div>
+      <div style="font-size:calc(var(--fs)*.8);padding:10px;background:rgba(239,68,68,.07);border-radius:5px;border-left:3px solid var(--red);line-height:1.6;margin-top:10px;">本期 TQQQ/SPXL 槓桿 ETF 成交量數據缺失，投機溫度計三標的加權分數無法完整計算。P/C 0.31 的 Call 堆積若配合 QQQ 收復 700，理論上存在軋空反彈動能，但需要週一開盤確認。</div>
+    </div>
+
+    <div class="det" id="dRsk">
+      <div class="sumbox sumbox-g">觀察模式（廣度修復訊號被今日打破）——MAGS −1.78%（弱），RSP −0.79%（弱），SP20 從 64.6% 跌回 58.1%。廣度切換需至少三個交易日確認，今天只過一天就反轉。</div>
+      <div class="det-sub">風格因子驗證</div>
+      <table class="tbl">
+        <thead><tr><th>ETF</th><th>中文名稱</th><th class="c">Rank</th><th class="c">REL5</th><th class="c">REL20</th><th class="c">REL60</th><th>判讀</th></tr></thead>
+        <tbody><tr><td>SPMO</td><td>動能</td><td class="c">Rank0</td><td class="c cr">今日 −0.96%</td><td class="c cr">−9.55%</td><td class="c cg">+6.94%</td><td>動能因子繼續被壓制，短線 −4.88%</td></tr>
+<tr><td>SPHB</td><td>高 Beta</td><td class="c">Rank2</td><td class="c cr">今日 −1.39%</td><td class="c cr">−8.63%</td><td class="c cg">+0.77%</td><td>高 Beta 大幅落後，風險偏好低</td></tr>
+<tr><td>SPHQ</td><td>品質</td><td class="c">Rank12</td><td class="c cr">今日 −0.93%</td><td class="c cr">−4.66%</td><td class="c cg">+1.29%</td><td>品質因子同步跌，無方向</td></tr>
+<tr><td>SPLV</td><td>低波動</td><td class="c">Rank83</td><td class="c cr">今日 −0.48%</td><td class="c cg">+5.22%</td><td class="c cg">+0.16%</td><td>防禦因子也跑輸，不是防禦輪動</td></tr>
+<tr><td>SPHD</td><td>高息低波</td><td class="c">Rank88</td><td class="c cr">今日 −0.58%</td><td class="c cg">+6.31%</td><td class="c cg">+2.75%</td><td>中線仍強，今日回吐</td></tr></tbody>
+      </table>
+      <div class="det-sub">廣度因子（寬基指數 REL 對比）</div>
+      <table class="tbl">
+        <thead><tr><th>ETF</th><th>中文名稱</th><th class="c">Rank</th><th class="c">REL5</th><th class="c">REL20</th><th class="c">REL60</th><th>廣度層級判讀</th></tr></thead>
+        <tbody><tr><td>RSP</td><td>S&P500等權</td><td class="c">Rank67</td><td class="c cr">−0.79%</td><td class="c cg">+2.09%</td><td class="c cg">+0.88%</td><td>短線賣壓再起【S−】</td></tr>
+<tr><td>MDY</td><td>中型股</td><td class="c">Rank50</td><td class="c cr">−0.61%</td><td class="c cg">+0.14%</td><td class="c cr">−0.64%</td><td>中線邊緣偏弱</td></tr>
+<tr><td>IWM</td><td>小型股</td><td class="c">Rank40</td><td class="c cr">−0.52%</td><td class="c cr">−0.06%（邊緣轉負）</td><td class="c cg">+1.84%</td><td>中線快轉負【M→±】</td></tr>
+<tr><td>IWC</td><td>微型股</td><td class="c">Rank52</td><td class="c cr">−0.46%</td><td class="c cg">+0.20%</td><td class="c cg">+1.32%</td><td>長線仍正【L±】但收窄</td></tr></tbody>
+      </table>
+      <div class="det-sub">宏觀背景事件（今日關注）</div>
+      <table class="tbl">
+        <thead><tr><th>事件</th><th class="c">影響層級</th><th>說明</th></tr></thead>
+        <tbody><tr><td>TSMC Q2（7/16 已發生）</td><td class="c cg">✅</td><td>創紀錄但利多出盡，EWT 台灣今日再 −2.83%，繼續消化</td></tr>
+<tr><td>美伊衝突（持續）</td><td class="c cr">🔴</td><td>週末若升級，週一跳空風險；若緩和，油價回落可能是科技喘息窗口</td></tr>
+<tr><td>AMD AI 大會（7/22–23）</td><td class="c cy">🟡</td><td>半導體/AI 主線能否重新取得敘事權的觀察窗</td></tr>
+<tr><td>Big Tech 財報週（7/27–30）</td><td class="c cr">🔴</td><td>本月最重要事件；TSMC「好財報壞反應」是否在 MSFT/GOOGL 複製是關鍵</td></tr>
+<tr><td>FOMC（7/28–29）</td><td class="c cr">🔴</td><td>按兵不動機率高，但油價通膨二次壓力若在會前發酵，鷹派語氣風險上升</td></tr>
+<tr><td>Q2 GDP + 6月 PCE（7/30）</td><td class="c cr">🔴</td><td>同日雙彈，歷史高過度反應日，不追價</td></tr>
+<tr><td>7月 NFP（8/7）</td><td class="c cy">🟡</td><td>就業若強勁，升息預期捲土重來</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div><!-- /content-section -->
+<!-- /核心指標 -->
+
+
+<!-- 板塊強弱對位 -->
+<div id="sec-rotation">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">03</div>
+  <div>
+    <div class="section-title">板塊強弱對位</div>
+    <div class="section-desc">SECTOR ROTATION</div>
+  </div>
+</div>
+  <div class="sec4" style="margin-bottom:0">
+
+    <div class="sc s">
+      <div class="sc-hdr">▲ 強勢（三欄同向確立）</div>
+      <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">🔥主線</span>HACK</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank100</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="0.37" data-r20="16.13" data-r60="32.56"></canvas>
+  </div>
+  <div>三欄全正，今日 +0.85% 逆市上漲，是全表唯一正向的科技板塊。科技全面下跌背景下仍守住，主線地位強化而非削弱。</div>
+</div>
+<div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">🔥續強</span>XPH 製藥</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank99</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="-0.98" data-r20="12.81" data-r60="13.91"></canvas>
+  </div>
+  <div>今日逆市 +1.90%，中線長線雙強。醫療主線持續，UnitedHealth 強財報帶動整個族群。短線轉負但中長線結構最硬。</div>
+</div>
+<div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">🔥續強</span>IHF 醫療服務</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank94</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="-0.08" data-r20="8.78" data-r60="17.06"></canvas>
+  </div>
+  <div>三欄全正，中線長線是全表醫療最強子板。今日 +0.41% 逆市，避險屬性持穩。</div>
+</div>
+<div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">黑馬</span>XOP 油氣</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank83</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="7.84" data-r20="11.43" data-r60="-3.37"></canvas>
+  </div>
+  <div>今日 +2.25%，短線中線強勁。美伊衝突事件驅動，長線仍負——這是油價買盤，不是系統性輪動。週末衝突走向決定下週延續性。</div>
+</div>
+<div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">黑馬</span>KIE 保險</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="2.29" data-r20="10.68" data-r60="6.28"></canvas>
+  </div>
+  <div>今日逆市 +1.10%，三欄全正。金融子板中今天表現最好的，銀行 KRE/KBE 回吐、保險 KIE 反而走強，金融內部輪動中。</div>
+</div>
+    </div>
+
+    <div class="sc w">
+      <div class="sc-hdr">◎ 轉強觀察（REL5翻正，REL20待確認）</div>
+      <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">👀左側</span>DBA 農業</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank85</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="1.59" data-r20="5.01" data-r60="-1.89"></canvas>
+  </div>
+  <div>通膨預期升溫帶動農產品，短線中線轉正，長線仍負。油價暴衝帶來的通膨連動效應，若持續可觀察是否形成系統性輪動。</div>
+</div>
+<div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">👀左側</span>DVY 高息股</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank94</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="3.47" data-r20="6.03" data-r60="2.05"></canvas>
+  </div>
+  <div>短線中線長線三欄全正，廣度萎縮日的最後守門員。防禦屬性在 VIX 往 20 走的環境下持續被青睞。</div>
+</div>
+    </div>
+
+    <div class="sc tw">
+      <div class="sc-hdr">△ 轉弱（REL5惡化，投機退潮）</div>
+      <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🟡觀察</span>CIBR</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank96</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="-0.90" data-r20="9.71" data-r60="29.52"></canvas>
+  </div>
+  <div>短線轉負，從主線降為觀察。今日 +0.51% 勉強正，但短線已破。中長線結構仍強，等短線回收再升回主線梯隊。</div>
+</div>
+<div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">⚠轉弱</span>IYT 運輸</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank84</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="2.29" data-r20="6.74" data-r60="6.70"></canvas>
+  </div>
+  <div>今日 −0.89%，油價上漲對運輸業是成本壓力，JETS 航空 −2.53% 是拖累主因。中長線結構仍好，但能源成本若持續上升，短線壓力會加大。</div>
+</div>
+    </div>
+
+    <div class="sc x">
+      <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+      <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴退出</span>SOXX 半導體</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk cr">Rank5↓↓</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="-9.18" data-r20="-17.94" data-r60="16.34"></canvas>
+  </div>
+  <div>Rank 從 7/17 的 17 再跌至今日 5，接近全表最弱。短線中線雙負深化，長線仍正但已成唯一支撐。弱勢確立，不參與。</div>
+</div>
+<div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴弱勢</span>GDX 黃金礦業</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk cr">Rank15</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="-4.77" data-r20="-13.10" data-r60="-29.02"></canvas>
+  </div>
+  <div>貴金屬礦業複合體系統性弱勢（GDX/SIL/URA/REMX），三欄全負，長線 −29% 結構已破壞，連續多週未變。</div>
+</div>
+<div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
+  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴弱勢</span>MEME</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk cr">Rank0</span><span class="sc-arr">▼</span></span>
+</div>
+<div class="sc-det">
+  <div class="mini-chart-wrap">
+    <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
+    <canvas class="mini-chart-canvas" data-r5="-16.83" data-r20="-32.81" data-r60="-26.54"></canvas>
+  </div>
+  <div>Rank0 全表墊底，投機情緒完全退出。三欄全負且幅度極大，不碰。</div>
+</div>
+    </div>
+  </div>
+
+  <div class="rotation-verdict">
+    <div class="rv-title">⚡ 板塊強弱對位小結：<strong>觀察模式：能源事件驅動、HACK 獨撐、廣度修復訊號一天吐回</strong></div>
+    <div class="rv-snapshot"><div class="snap-row"><span class="snap-etf">HACK</span><span class="snap-tag snap-tag-ok">🟢 主線強化</span><span class="snap-desc">逆市 +0.85%，全表唯一正向科技，Rank100 穩守，主線地位本週最強確認</span></div>
+<div class="snap-row"><span class="snap-etf">CIBR</span><span class="snap-tag snap-tag-warn">🟡 短線轉負</span><span class="snap-desc">短線轉負降為觀察，中長線結構仍強，等短線回收</span></div>
+<div class="snap-row"><span class="snap-etf">SOXX</span><span class="snap-tag snap-tag-fail">🔴 弱勢深化</span><span class="snap-desc">Rank 從 17→5，短線中線雙負加速，已脫離主線範疇</span></div>
+<div class="snap-row"><span class="snap-etf">XOP</span><span class="snap-tag snap-tag-warn">🟡 事件驅動</span><span class="snap-desc">美伊衝突帶動短線中線強勁，長線仍負，純事件買盤，週末衝突走向決定去留</span></div>
+<div class="snap-row"><span class="snap-etf">KIE</span><span class="snap-tag snap-tag-ok">🟢 三欄全正</span><span class="snap-desc">保險子板今日逆市 +1.10%，金融板塊內部保險比銀行更強</span></div></div>
+    <div class="rv-divider"></div>
+    <div class="rv-txt">今天能源成了唯一有方向的多頭板塊，但那是油價事件，不是系統性輪動。醫療韌性強，保險逆市，網路安全一枝獨秀。7/17 說廣度切換了，今天 SP20 從 64.6% 跌回 58.1%，一天就打回原形。市場現在沒有一個強到足以撐行情的主線，只有一群各自偏強的防禦板塊，和一個事件驅動的能源板塊。這種沒有主線的狀態，最安全的操作就是守紀律等 Big Tech 財報週給答案。</div>
+  </div>
+</div>
+</div><!-- /content-section -->
+<!-- /板塊強弱對位 -->
+
+
+<!-- 市場廣度 -->
+<div id="sec-breadth">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">04</div>
+  <div>
+    <div class="section-title">市場廣度</div>
+    <div class="section-desc">MARKET BREADTH</div>
+  </div>
+</div>
+  <div class="g4" style="margin-bottom:8px;background:var(--border);gap:1px;display:grid;grid-template-columns:repeat(4,1fr);">
+
+    <div class="bc" id="bNQ20" onclick="togBC('dNQ20','bNQ20')">
+      <div class="bc-lbl">NQ 20MA 以上 % <span class="arr" id="aNQ20">▼</span></div>
+      <div class="bc-val bc-val cr">44.7%</div>
+      <div class="bc-tr bc-tr cr">🔻 較 7/17 −4.8%</div>
+    </div>
+
+    <div class="bc" id="bSP20" onclick="togBC('dSP20','bSP20')">
+      <div class="bc-lbl">SP 20MA 以上 % <span class="arr" id="aSP20">▼</span></div>
+      <div class="bc-val bc-val cy">58.1%</div>
+      <div class="bc-tr bc-tr cr">🔻 較 7/17 −6.5%</div>
+    </div>
+
+    <div class="bc" id="bNQ50" onclick="togBC('dNQ50','bNQ50')">
+      <div class="bc-lbl">NQ 50MA 以上 % <span class="arr" id="aNQ50">▼</span></div>
+      <div class="bc-val bc-val cr">43.7%</div>
+      <div class="bc-tr bc-tr cr">🔻 較 7/17 −7.8%</div>
+    </div>
+
+    <div class="bc" id="bSP50" onclick="togBC('dSP50','bSP50')">
+      <div class="bc-lbl">SP 50MA 以上 % <span class="arr" id="aSP50">▼</span></div>
+      <div class="bc-val bc-val cg">63.6%</div>
+      <div class="bc-tr bc-tr cy">🔻 較 7/17 −3.6%</div>
+    </div>
+
+    <div class="bc-det" id="dNQ20">
+      <div class="bc-sum">NQ20 從 7/17 的 49.5% 跌至 44.7%，跌破 50% 中性門檻，NDX 廣度正式進入弱勢區。</div>
+      <table class="tbl"><thead><tr><th>日期</th><th class="c">NQ 20MA%</th><th>狀態判讀</th></tr></thead>
+      <tbody><tr><td>07/02</td><td class="c cg">56.9%</td><td>🟢 近期高點</td></tr>
+<tr><td>07/15</td><td class="c cy">48.5%</td><td>🟡 回落</td></tr>
+<tr><td>07/17</td><td class="c cy">49.5%</td><td>🟡 短暫回升</td></tr>
+<tr><td>07/18</td><td class="c cr"><strong>44.7%</strong></td><td>🔴 ↓ 跌破 50%</td></tr></tbody></table>
+    </div>
+
+    <div class="bc-det" id="dSP20">
+      <div class="bc-sum">SP20 從 7/17 的 64.6% 跌回 58.1%，廣度修復訊號一天吐回，行情切換仍未確認。</div>
+      <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 20MA%</th><th>狀態判讀</th></tr></thead>
+      <tbody><tr><td>07/02</td><td class="c cg">67.7%</td><td>🟢 近期高點</td></tr>
+<tr><td>07/15</td><td class="c cy">51.9%</td><td>🟡 快速收縮</td></tr>
+<tr><td>07/17</td><td class="c cg">64.6%</td><td>🟢 單日大幅修復</td></tr>
+<tr><td>07/18</td><td class="c cy"><strong>58.1%</strong></td><td>🟡 ↓ 修復吐回</td></tr></tbody></table>
+    </div>
+
+    <div class="bc-det" id="dNQ50">
+      <div class="bc-sum">NQ50 從 51.5% 跌至 43.7%，跌破 50%，NQ 中期廣度惡化確認。</div>
+      <table class="tbl"><thead><tr><th>日期</th><th class="c">NQ 50MA%</th><th>狀態判讀</th></tr></thead>
+      <tbody><tr><td>07/02</td><td class="c cg">55.9%</td><td>🟢 健康</td></tr>
+<tr><td>07/15</td><td class="c cy">50.5%</td><td>🟡 邊緣</td></tr>
+<tr><td>07/17</td><td class="c cy">51.5%</td><td>🟡 短暫回升</td></tr>
+<tr><td>07/18</td><td class="c cr"><strong>43.7%</strong></td><td>🔴 ↓ 跌破 50%</td></tr></tbody></table>
+    </div>
+
+    <div class="bc-det" id="dSP50">
+      <div class="bc-sum">SP50 63.6% 仍在健康區，是四項中唯一守住的，但也從 67.2% 回落。</div>
+      <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 50MA%</th><th>狀態判讀</th></tr></thead>
+      <tbody><tr><td>07/02</td><td class="c cg">67.1%</td><td>🟢 近期高點</td></tr>
+<tr><td>07/15</td><td class="c cg">61.8%</td><td>🟢 健康</td></tr>
+<tr><td>07/17</td><td class="c cg">67.2%</td><td>🟢 回升</td></tr>
+<tr><td>07/18</td><td class="c cg"><strong>63.6%</strong></td><td>🟢 仍健康但🔻</td></tr></tbody></table>
+    </div>
+  </div>
+
+  <div class="breadth-verdict"><strong>廣度框架：S−（短線賣壓擴散）/ M→±（中線邊緣，IWM 中線 −0.06% 快轉負）/ L±（長線緩衝仍在但持續收窄）</strong>——NQ 廣度兩項（NQ20/NQ50）雙雙跌破 50%，科技廣度正式進入弱勢區。SP20 廣度修復訊號一天吐回，行情切換論需要重新等待確認。</div>
+</div>
+</div><!-- /content-section -->
+<!-- /市場廣度 -->
+
+
+<!-- Gamma 防線 -->
+<div id="sec-gamma">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">05</div>
+  <div>
+    <div class="section-title">Gamma 防線</div>
+    <div class="section-desc">GAMMA DEFENSE</div>
+  </div>
+</div>
+
+  <div class="pbar" onclick="togGamma()">
+    <div class="pbi"><div class="pbl">QQQ 現價</div><div class="pbv ac">695</div></div>
+    <div class="pbi"><div class="pbl">Max Pain</div><div class="pbv cr">$680</div></div>
+    <div class="pbi"><div class="pbl">距 Max Pain</div><div class="pbv cy">+15（+2.2%）</div></div>
+    <div class="pbi"><div class="pbl">⚡ Gamma Flip</div><div class="pbv ye">~$700（已跌破）</div></div>
+    <div class="pbi"><div class="pbl">🟡 Call 牆</div><div class="pbv cy">$790–$805</div></div>
+    <div class="pbi" style="margin-left:auto"><div class="pbl">詳細</div><div class="pbv cd breath" id="gArrow" style="font-size:calc(var(--fs)*1.4);color:var(--accent)">▼</div></div>
+  </div>
+
+  <div id="gammaDet" class="gamma-det">
+    <div class="gamma-det-note">到期日：Sep 18, 2026 ｜ 數據來源：ChartExchange ｜ QQQ 695（NQ 28,773）｜ ⚠ 已跌破 700 Gamma Flip</div>
+    <table class="gtbl" style="margin-bottom:14px">
+      <thead>
+        <tr><th>層級</th><th>QQQ</th><th style="color:var(--orange)">NQ! 等效</th><th>判讀</th><th>OI依據</th></tr>
+      </thead>
+      <tbody><tr><td><span class="dot d-r"></span>Call 牆</td><td>$790–$805</td><td>~31,100–31,700</td><td>距現價 +13.7%，遠在天邊；800C OI 36,491、790C OI 38,893</td><td>Call OI 最大群</td></tr>
+<tr><td><span class="dot d-o"></span>近價 Call</td><td>$660C</td><td>~26,000</td><td>OI 23,988，近價最大 Call 阻力；現價 +5% 附近</td><td>660C OI</td></tr>
+<tr><td><span class="dot d-b"></span>Max Pain</td><td>$680</td><td>~26,700</td><td>現價高於 Max Pain +2.2%，引力明顯增強（上週 +5.8%）</td><td>Sep 18 Max Pain</td></tr>
+<tr><td><span class="dot d-r"></span>⚠ Gamma Flip</td><td>$700（已跌破）</td><td>~27,500</td><td>700P OI 64,135 最大近價 Put；現價已跌破，做市商轉 Net Short Delta，機械性加速賣出啟動</td><td>700P OI</td></tr>
+<tr><td><span class="dot d-g"></span>第一支撐</td><td>$660P</td><td>~25,900</td><td>OI 42,434，破 700 後第一加速目標，距現價 −5.0%</td><td>660P OI</td></tr>
+<tr><td><span class="dot d-w"></span>深度保險</td><td>$600P</td><td>~23,500</td><td>OI 56,070，深度機構保險層，距現價 −13.7%</td><td>600P OI</td></tr></tbody>
+    </table>
+    <div class="g-mech" style="margin-bottom:10px">
+      <div class="g-mech-title">做市商行為機制（多空情境）</div>
+      <div class="g-mech-txt"><strong>⚠ Gamma Flip 已觸發（7/18 收盤確認）。</strong>QQQ 695 跌破 700，做市商由 Net Long Delta 轉為 Net Short Delta，每跌一分需賣出更多對沖，形成機械性加速下跌結構。下一個密集支撐 660P（OI 42,434），距現價 −5.0%。收復 700 是多方劇本的最低條件——站回去後做市商對沖方向反轉，形成助漲。</div>
+    </div>
+    <div class="g-mech yel" style="margin-bottom:0">
+      <div class="g-mech-title">Max Pain 重力場機制</div>
+      <div class="g-mech-txt">Max Pain $680（現價 +2.2%）引力從上週的 +5.8% 大幅收窄，Sep 18 到期合約引力開始有感。若 QQQ 本週繼續下壓，Max Pain 引力在接近到期日時會進一步增強，680–700 作為收斂目標。P/C 0.31 顯示大量 Call 堆積——若 QQQ 週一收復 700，Call OI 的 Gamma 會形成反向助漲力量（軋空燃料），這是目前多方唯一的結構性支撐。</div>
+    </div>
+  </div>
+</div>
+<!-- /Gamma 防線 -->
+
+<div style="margin-top:48px;"></div>
+</div><!-- /content-section -->
+
+<!-- 未來一個月事件 -->
+<div id="sec-events">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">06</div>
+  <div>
+    <div class="section-title">未來一個月事件</div>
+    <div class="section-desc">UPCOMING EVENTS · 30-DAY CALENDAR</div>
+  </div>
+</div>
+
+  <div class="ev-list"><div class="ev-item">
+  <div class="ev-item-hdr" onclick="togEv('ev01')">
+    <span class="ev-date">7/21（週一）</span><span class="ev-grade">🟡</span>
+    <span class="ev-name">美伊局勢週末發展</span><span class="ev-arr">▼</span>
+  </div>
+  <div class="ev-det" id="ev01">
+    <div class="ev-bull">📈 多方條件：衝突緩和 → 油價回落 → 科技估值喘息，QQQ 收復 700 軋空反彈</div>
+    <div class="ev-bear">📉 空方條件：衝突升級 → WTI 突破 $90 → 週一跳空低開直接看 660</div>
+    <div class="ev-rule">⚠ 操作紀律：週一開盤前不押方向，等開盤確認再行動</div>
+  </div>
+</div>
+<div class="ev-item">
+  <div class="ev-item-hdr" onclick="togEv('ev02')">
+    <span class="ev-date">7/22–23</span><span class="ev-grade">🟡</span>
+    <span class="ev-name">AMD Advancing AI 年度大會</span><span class="ev-arr">▼</span>
+  </div>
+  <div class="ev-det" id="ev02">
+    <div class="ev-bull">📈 多方條件：AMD 展示新晶片路線圖，市場重新相信 AI 資本週期 → 半導體敘事修復，SOXX 短線反彈</div>
+    <div class="ev-bear">📉 空方條件：AI 大會無驚喜，TSMC 利多出盡情緒持續 → 半導體繼續承壓</div>
+    <div class="ev-rule">⚠ 操作紀律：大會期間可觀察 SOXX 短線反應，不提前押注</div>
+  </div>
+</div>
+<div class="ev-item">
+  <div class="ev-item-hdr" onclick="togEv('ev03')">
+    <span class="ev-date">7/27–30</span><span class="ev-grade">🔴</span>
+    <span class="ev-name">Big Tech 財報週（MSFT/META/GOOGL/AMZN/AAPL）</span><span class="ev-arr">▼</span>
+  </div>
+  <div class="ev-det" id="ev03">
+    <div class="ev-bull">📈 多方條件：財報優於預期且市場反應正面（不重演 TSMC 模式）→ AI 資本週期確認，QQQ 看 730–740</div>
+    <div class="ev-bear">📉 空方條件：好財報壞反應複製 TSMC → 系統性對 AI 重新定價，QQQ 破 660 看 600</div>
+    <div class="ev-rule">⚠ 操作紀律：每個財報日當天不追價，等隔日確認；財報週不加碼</div>
+  </div>
+</div>
+<div class="ev-item">
+  <div class="ev-item-hdr" onclick="togEv('ev04')">
+    <span class="ev-date">7/28–29</span><span class="ev-grade">🔴</span>
+    <span class="ev-name">FOMC 利率決議</span><span class="ev-arr">▼</span>
+  </div>
+  <div class="ev-det" id="ev04">
+    <div class="ev-bull">📈 多方條件：按兵不動且語氣偏中性 → 降息預期維持，科技估值壓力不加重</div>
+    <div class="ev-bear">📉 空方條件：油價通膨壓力發酵，Warsh 鷹派語氣超預期 → US10Y 衝破 4.62%，多方劇本失效</div>
+    <div class="ev-rule">⚠ 操作紀律：決議當天不追價，等隔日確認方向</div>
+  </div>
+</div>
+<div class="ev-item">
+  <div class="ev-item-hdr" onclick="togEv('ev05')">
+    <span class="ev-date">7/30</span><span class="ev-grade">🔴</span>
+    <span class="ev-name">Q2 GDP + 6月 PCE（同日雙彈）</span><span class="ev-arr">▼</span>
+  </div>
+  <div class="ev-det" id="ev05">
+    <div class="ev-bull">📈 多方條件：GDP 穩健 + PCE 溫和 → 軟著陸敘事強化，市場風險偏好回升</div>
+    <div class="ev-bear">📉 空方條件：GDP 偏熱或 PCE 偏高 → 通膨黏性確認，升息預期捲土重來</div>
+    <div class="ev-rule">⚠ 操作紀律：歷史上同日雙彈最易過度反應，當天不追價，這是本月最需要克制的一天</div>
+  </div>
+</div>
+<div class="ev-item">
+  <div class="ev-item-hdr" onclick="togEv('ev06')">
+    <span class="ev-date">8/7</span><span class="ev-grade">🔴</span>
+    <span class="ev-name">7月 NFP 非農就業</span><span class="ev-arr">▼</span>
+  </div>
+  <div class="ev-det" id="ev06">
+    <div class="ev-bull">📈 多方條件：就業偏軟 → 鴿派窗口打開，降息預期重燃</div>
+    <div class="ev-bear">📉 空方條件：就業強勁 → 升息預期捲土重來，科技繼續承壓</div>
+    <div class="ev-rule">⚠ 操作紀律：非農當天等數字出來再說，不預設方向</div>
+  </div>
+</div></div>
+
+  <div class="ev-note">下週最緊的功課是美伊局勢跟 QQQ 能不能站回 700，這兩件事週一就會給答案。之後的 AMD 大會（7/22–23）是半導體能不能找回敘事的觀察窗。真正的大關是 7/27–30 這個超級週——Big Tech 財報＋FOMC＋GDP＋PCE 全擠在四個交易日，任何一個超出預期都可能放大其他的反應。現在 QQQ 已跌破 700 Gamma Flip，進入超級週的起點很低，要特別小心財報當天的追價衝動——TSMC 已示範過好財報可以是賣點。</div>
+</div>
+</div><!-- /未來一個月事件 -->
+
+<!-- Yoda 完整研判 -->
+<div id="sec-judgment">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">07</div>
+  <div>
+    <div class="section-title">Yoda 完整研判</div>
+    <div class="section-desc">FULL JUDGMENT</div>
+  </div>
+</div>
+  <div class="syn">
+    <div class="syn-title">完整研判｜2026-07-18（Fri Close）｜v1</div>
+    <div style="font-family:var(--fb);font-size:calc(var(--fs)*1.15);font-weight:800;color:var(--accent);letter-spacing:.12em;margin-bottom:18px;margin-top:-8px;">能源接棒、廣度縮水——油價拿走了科技的票</div>
+
+    <div class="syn-blk">
+      <div class="syn-h">一、核心要點</div>
+      <div class="syn-txt"><p style="margin:0 0 14px;"><strong>📌 利率與宏觀：</strong>油價今天從觀察項升格為主動警報，USO 短線 +14.83%，美伊衝突直接定價進 WTI。這件事的重要性在於：它讓通膨二次壓力有了具體的來源，而這個來源跟 AI 需求或企業獲利無關，純粹是地緣政治。FOMC 前若 WTI 持續高位，Warsh 的語氣可能比市場預期更硬。</p>
+<p style="margin:0 0 14px;"><strong>📌 板塊與輪動：</strong>HACK 今日逆市 +0.85%，是全表唯一正向的科技板塊，主線地位本週強化而非削弱。SOXX 短線中線雙負深化，Rank 跌至 5，半導體這條線已經不在討論範圍內。醫療、保險、高息股提供防禦緩衝，能源是事件驅動買盤，不是趨勢輪動。</p>
+<p style="margin:0 0 14px;"><strong>📌 結構與廣度：</strong>7/17 廣度修復的訊號，今天一天就全吐回來——SP20 從 64.6% 跌回 58.1%，NQ20 跌破 50% 進入弱勢區，NQ50 同步跌破 50%。廣度切換需要至少三天，今天是第二天就反轉，行情型態不明，重回觀察模式。</p>
+<p style="margin:0;"><strong>📌 選擇權與風險：</strong>QQQ 695 跌破 700 Gamma Flip，做市商加速賣出結構已啟動。660P（OI 42,434）是下一個支撐，距現價 −5%。同時 P/C 0.31 顯示大量 Call 買盤堆積——若週一能收復 700，這些 Call OI 就是軋空燃料。這是一個雙向都有引爆點的局面，週末美伊局勢是最大的不可控變數。</p></div>
+    </div>
+
+    <div class="syn-blk">
+      <div class="syn-h">二、大盤驅動力分解｜MAGS × 廣度 × 主線聚焦</div>
+      <div class="syn-txt"><p style="margin:0 0 14px;"><strong>【MAGS 驅動力】</strong>今日 −1.78%，短線 +1.34% 尚正但快到邊界，中線 +2.71% 偏弱，長線 −3.80%。連續兩日下跌，若下週一再跌，五日翻負最優先規則啟動，大盤短線必然承壓。</p>
+<p style="margin:0 0 14px;"><strong>【RSP 廣度代理】</strong>今日 −0.79%（負），SP20 從 64.6% 跌回 58.1%。廣度修復訊號一天吐回，切換論重新進入觀察模式。廣度指標這週劇烈震盪（51.9→64.6→58.1），說明市場還沒找到方向。</p>
+<p style="margin:0 0 14px;"><strong>【本期主線聚焦】</strong>HACK 今日逆市 +0.85%，Rank100，全表唯一正向科技，主線地位強化。CIBR 短線轉負降為觀察，等短線回收。SOXX Rank 跌至 5，正式脫離主線範疇。能源 XLE/XOP 是事件驅動型黑馬，不算系統性主線。</p>
+<p style="margin:0;"><strong>【綜合行情型態】</strong>觀察模式——MAGS 弱、RSP 弱、主線剩 HACK 一條腿，廣度切換訊號一天打回。沒有主線的狀態下最安全的做法是守紀律，不預設方向，等 Big Tech 財報週給出答案。</p></div>
+    </div>
+
+    <div class="syn-blk">
+      <div class="syn-h">三、市場結構快照｜廣度拉鋸動態分析</div>
+      <div class="syn-txt"><p style="margin:0 0 14px;"><strong>第一層・全球：</strong>EWT 台灣今日再跌 −2.83%，短線中線雙負，TSMC 利多出盡繼續消化；EWS 新加坡（Rank95）小幅回吐但中長線全正，避風港屬性維持；EWY 韓國 −0.50%，短線 −10.90% 仍在底部；INDA 印度 +2.04%、EIDO 印尼 +2.05%，非 AI 鏈新興市場有資金流入跡象。</p>
+<p style="margin:0 0 14px;"><strong>第二層・美股結構：</strong>觀察模式——MAGS −1.78%（弱）、RSP −0.79%（弱）、廣度修復訊號一天吐回。SPY −0.99%、QQQ −1.50%、IWM −0.52%，今日無板塊系統性強勢，能源與保險是唯二逆市板塊。</p>
+<p style="margin:0;"><strong>第三層・風格因子：</strong>SPMO/SPHB/SPHQ/SPLV/SPHD 五因子全落後 SPY（BAR3=30 防禦）。連低波動 SPLV 也跑輸，說明今日賣壓全面擴散而非有方向的防禦輪動。廣度三層：S−（短線賣壓）/ M→±（IWM 中線剛翻負）/ L±（長線緩衝收窄）。</p></div>
+    </div>
+
+    <div class="syn-blk">
+      <div class="syn-h">預期 vs 底線</div>
+      <div class="scenario-grid">
+
+        <div class="sc-bull">
+          <div class="sc-s-title">📈 預期：有利多方的條件</div>
+          <div class="sc-s-txt">
+            <strong>觸發條件（觀察以下何時成立）：</strong><br><br>
+            <span class="trig-num trig-bull">①</span> <span class="trigger">週末美伊衝突緩和，週一 QQQ 收復 700</span> ❌ 待觀察（週末不可控）<br>
+→ 收復 700 後做市商轉 Net Long Delta，P/C 0.31 的 Call OI 形成軋空燃料，反彈看 710–720<br><br>
+<span class="trig-num">②</span> <span class="trigger">AMD AI 大會（7/22–23）帶動 AI 敘事重燃</span> ❌ 待觸發<br>
+→ 半導體若從 AMD 大會找回信心，SOXX Rank 有機會從 5 反彈，CIBR 短線回收<br><br>
+<span class="trig-num">③</span> <span class="trigger">Big Tech 財報週優於預期且市場反應正面</span> ❌ 待觸發（7/27–30）<br>
+→ 不重演 TSMC「好財報壞反應」模式，AI 資本週期重新被定價為利多<br>
+目標：QQQ 730–740，HACK/CIBR 主線再確認
+          </div>
+        </div>
+
+        <div class="sc-bear">
+          <div class="sc-s-title">📉 底線：有利空方的條件</div>
+          <div class="sc-s-txt">
+            <span class="trig-num trig-bear">①</span> <span class="trigger">週末美伊衝突升級，WTI 突破 $90</span><br>
+→ 通膨壓力二次壓頂，US10Y 衝破 4.62%，科技估值再承壓<br>
+→ QQQ 週一跳空低開直接看 660<br><br>
+<span class="trig-num">②</span> <span class="trigger">MAGS 五日翻負（週一再跌即觸發）</span> ⚠ 警戒中<br>
+→ 最優先規則啟動，大盤短線必然承壓；當前短線 +1.34% 邊緣<br><br>
+<span class="trig-num">③</span> <span class="trigger">Big Tech 財報週複製 TSMC「好財報壞反應」</span> ❌ 待觸發<br>
+→ 市場系統性對 AI 資本支出重新定價，QQQ 破 660 後看 600P（OI 56,070）<br>
+目標：QQQ 660（−4.7%），破則看 600（−13.7%）<br><br>
+<span class="trig-num">④</span> <span class="trigger">HY_OAS 突破 3.2%（目前 2.71%）</span> ❌ 未觸發<br>
+→ 信用市場異常，系統性風險浮現，全部劇本暫停重評
+          </div>
+        </div>
+
+      </div>
+
+      <div style="background:rgba(0,200,240,.04);border:1px solid rgba(0,200,240,.2);border-radius:3px;padding:14px 16px;margin-top:16px;">
+        <div style="font-size:calc(var(--fs)*.77);letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">當前多空拉鋸焦點</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.85;">這週的核心問題變了——不再是「TSMC 財報定向」，而是「QQQ 700 能不能守住」。已跌破 Gamma Flip，做市商加速賣出結構啟動；同時 P/C 0.31 的 Call 堆積代表大量賭反彈的資金在等。週一開盤是關鍵：收復 700 就有軋空反彈，守不回去就直接看 660。週末美伊局勢是唯一決定週一基調的變數，無法預測，不預設方向。MAGS 五日翻負是最優先規則，週一一開盤就確認。</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /完整研判 -->
+
+</div>
+</div><!-- /content-section --><!-- /wrap -->
+
+<!-- 頁尾 -->
+<div class="ftr">
+  <div class="disc">本報告僅供研究參考，不構成任何投資建議。數據來源：FRED、Trading Economics、CNBC、CME、ChartExchange、TheMarketMemo。</div>
+  <div class="brand">Yoda Research｜Market Watch v1</div>
+</div>
+
+<script>
+/* 字級 */
+const fsMap={small:'21px',normal:'24px',large:'27px'};
+function setFS(s){
+  document.documentElement.style.setProperty('--fs',fsMap[s]);
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('fs-'+s).classList.add('on');
+}
+setFS('normal');
+
+/* 深/淺色 */
+const themes={
+  dark:{'--bg':'#080b10','--surface':'#0d1118','--surface2':'#121820','--border':'#1c2330','--text':'#b8c8d8','--dim':'#405060','--accent':'#00c8f0','--green':'#00c896','--red':'#ff3d5a','--yellow':'#f0c040','--orange':'#ff8040'},
+  light:{'--bg':'#f2f5f9','--surface':'#ffffff','--surface2':'#e8eef5','--border':'#ccd6e2','--text':'#1a2535','--dim':'#6080a0','--accent':'#0070a0','--green':'#006e4a','--red':'#c00030','--yellow':'#7a5500','--orange':'#a03800'}
+};
+function setTheme(t){
+  const r=document.documentElement;
+  Object.entries(themes[t]).forEach(([k,v])=>r.style.setProperty(k,v));
+  document.body.classList.toggle('light',t==='light');
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('btn-'+t).classList.add('on');
+  const fs=r.style.getPropertyValue('--fs')||'18px';
+  const fsKey=Object.entries(fsMap).find(([,v])=>v===fs)?.[0]||'normal';
+  document.getElementById('fs-'+fsKey).classList.add('on');
+}
+
+/* 手風琴 */
+function tog(pid,cid){
+  const p=document.getElementById(pid),c=document.getElementById(cid);
+  const was=p.classList.contains('open');
+  document.querySelectorAll('.det').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.card.clk').forEach(x=>x.classList.remove('open'));
+  if(!was){p.classList.add('open');c.classList.add('open');}
+}
+
+function togBC(did,bid){
+  const d=document.getElementById(did),b=document.getElementById(bid);
+  const was=d.classList.contains('open');
+  document.querySelectorAll('.bc-det').forEach(x=>x.classList.remove('open'));
+  if(!was){
+    d.classList.add('open');
+    const arr=b.querySelector('.arr');
+    if(arr) arr.style.transform='rotate(180deg)';
+  }
+}
+
+function togGamma(){
+  const d=document.getElementById('gammaDet'),a=document.getElementById('gArrow');
+  const was=d.style.display!=='none'&&d.style.display!=='';
+  d.style.display=was?'none':'block';
+  a.textContent=was?'▼':'▲';
+}
+
+/* 初始化 */
+document.getElementById('btn-dark').classList.add('on');
+document.getElementById('fs-normal').classList.add('on');
+
+/* Mini Chart 折線圖 */
+function drawMiniChart(canvas, r5, r20, r60){
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width=canvas.offsetWidth*2;
+  const H=canvas.height=54*2;
+  ctx.scale(2,2);
+  const w=canvas.offsetWidth,h=54;
+  ctx.clearRect(0,0,w,h);
+  // 背景格線
+  ctx.strokeStyle='rgba(255,255,255,.05)';
+  ctx.lineWidth=1;
+  [h*0.25,h*0.5,h*0.75].forEach(y=>{ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();});
+  // 零線
+  ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
+  // 數據 → 座標（以 ±30% 為範圍上下限）
+  const scale=v=>h/2-Math.max(-1,Math.min(1,v/30))*(h/2-4);
+  const pts=[[w*0.18,scale(r60)],[w*0.5,scale(r20)],[w*0.82,scale(r5)]];
+  // 繪線
+  const lines=[[pts[0],pts[1],pts[2]]];
+  const colors=['#ff3d5a','#f0c040','#00c8f0'];
+  // REL60→REL20→REL5 各一條從左到右
+  [[r60,'#00c8f0'],[r20,'#f0c040'],[r5,'#ff3d5a']].forEach(([v,col],i)=>{
+    const x=pts[i][0],y=pts[i][1];
+    // 點
+    ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);
+    ctx.fillStyle=col;ctx.fill();
+    // 標籤
+    ctx.fillStyle=col;ctx.font='bold 9px monospace';ctx.textAlign='center';
+    const lbl=(v>0?'+':'')+v.toFixed(1)+'%';
+    ctx.fillText(lbl,x,y>h/2?y-6:y+13);
+  });
+  // 連線（REL60→REL20→REL5）
+  ctx.beginPath();
+  ctx.moveTo(pts[0][0],pts[0][1]);
+  ctx.lineTo(pts[1][0],pts[1][1]);
+  ctx.lineTo(pts[2][0],pts[2][1]);
+  ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.stroke();
+  ctx.setLineDash([]);
+  // x軸標籤
+  ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='9px monospace';
+  [['長線',pts[0][0]],['中線',pts[1][0]],['短線',pts[2][0]]].forEach(([t,x])=>{
+    ctx.textAlign='center';ctx.fillText(t,x,h-2);
+  });
+}
+
+// 初始化所有已展開的 sc-det 中的 canvas
+function initMiniCharts(){
+  document.querySelectorAll('.mini-chart-canvas').forEach(c=>{
+    const r5=parseFloat(c.dataset.r5||0);
+    const r20=parseFloat(c.dataset.r20||0);
+    const r60=parseFloat(c.dataset.r60||0);
+    drawMiniChart(c,r5,r20,r60);
+  });
+}
+
+// sc-det 展開時重繪（原 onclick 基礎上掛 observer）
+const scDetObs=new MutationObserver(muts=>{
+  muts.forEach(m=>{
+    if(m.target.classList.contains('open')){
+      m.target.querySelectorAll('.mini-chart-canvas').forEach(c=>{
+        const r5=parseFloat(c.dataset.r5||0);
+        const r20=parseFloat(c.dataset.r20||0);
+        const r60=parseFloat(c.dataset.r60||0);
+        drawMiniChart(c,r5,r20,r60);
+      });
+    }
+  });
+});
+document.querySelectorAll('.sc-det').forEach(d=>scDetObs.observe(d,{attributeFilter:['class']}));
+window.addEventListener('resize',initMiniCharts);
+
+/* 事件展開 */
+function togEv(id){
+  const d=document.getElementById(id);
+  const item=d.previousElementSibling.closest('.ev-item')||d.parentElement;
+  const was=d.classList.contains('open');
+  document.querySelectorAll('.ev-det').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.ev-item').forEach(x=>x.classList.remove('open'));
+  if(!was){d.classList.add('open');d.closest('.ev-item').classList.add('open');}
+}
+
+/* Size 控制（補全） */
+function setSize(s){
+  const map={sm:1,md:1.16667,lg:1.33333};
+  document.documentElement.style.setProperty('--fs-scale',map[s]||1.16667);
+  document.querySelectorAll('.ctrl-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function setTheme(t){
+  const r=document.documentElement;
+  const themes={
+    dark:{'--bg':'#080b10','--surface':'#0d1118','--surface2':'#121820','--border':'#1c2330','--text':'#b8c8d8','--dim':'#405060','--accent':'#00c8f0','--green':'#00c896','--red':'#ff3d5a','--yellow':'#f0c040','--orange':'#ff8040'},
+    light:{'--bg':'#f2f5f9','--surface':'#ffffff','--surface2':'#e8eef5','--border':'#ccd6e2','--text':'#1a2535','--dim':'#6080a0','--accent':'#0070a0','--green':'#006e4a','--red':'#c00030','--yellow':'#7a5500','--orange':'#a03800'}
+  };
+  Object.entries(themes[t]||themes.dark).forEach(([k,v])=>r.style.setProperty(k,v));
+  document.body.classList.toggle('light',t==='light');
+  document.querySelectorAll('.ctrl-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+</script>
+
+<!-- 指令-簡報隱藏摘要（供daily-brief skill讀取，禁止在報告頁面顯示）
+日期：2026-07-18
+標題：能源接棒、廣度縮水——油價拿走了科技的票
+【市場天氣】🔴 警戒
+【一句話定性】QQQ 跌破 700 Gamma Flip，油價暴衝主導賣壓，HACK 逆市唯一，廣度繼續萎縮
+【核心數據】QQQ 695 / NQ 28,773 / VIX 18.76 / VXN 29.03 / P/C 0.31（極低） / US10Y 4.57%（延用） / HY_OAS 2.71% / SP20 58.1%↓ / NQ20 44.7%↓
+【三道防線】第一道 油價🔴（USO +3.91%，WTI 暴衝，美伊衝突）/ 第二道 US10Y🟡 4.57%（延用）/ 第三道 SOFR-IORB🟢 −3bp
+【主線聚焦】唯一主線：HACK（Rank100，今日 +0.85% 逆市）🟢 / 觀察：CIBR（短線轉負）🟡 / 退出：SOXX 🔴（Rank5）/ 事件驅動：XLE/XOP 能源
+【MAGS驅動力】觀察模式——MAGS −1.78%（弱），RSP −0.79%（弱），廣度修復一天吐回，行情型態不明
+【關鍵價位】QQQ $700（已跌破 Gamma Flip）；空方第一目標 $660 / 收復 $700 才有反彈討論空間
+【多空方向】多方：P/C 0.31 Call 堆積 + 週末衝突緩和 → 週一軋空反彈可能 / 空方：Gamma Flip 啟動做市商加速賣，660 是關鍵支撐 / 紀律：週一確認方向前不押注
+【未來事件】7/21 美伊局勢（最近）/ 7/22–23 AMD AI 大會 / 7/27–30 Big Tech 財報＋FOMC 超級週 / 7/30 GDP+PCE / 8/7 NFP
+【判斷登錄】① QQQ 週一能否收復 700 ② MAGS 五日翻負（1–2日內） ③ HACK Rank 守 100 至 7/23 ④ XOP 事件驅動方向（1–2日） ⑤ NQ20 維持 50% 以下至 7/25
+-->
+
+<!-- 微結構隱藏數據（供 timeline microstructure-log.md 寫入，禁止在報告頁面顯示）
+來源報告：market-watch
+寫入日：2026-07-18
+
+【領頭者更新】
+- HACK（網路安全）：👑 在位強化。今日逆市 +0.85%，Rank100，全表唯一正向科技板塊
+- CIBR（網路安全）：⚠ 動搖。短線轉負，從主線降為觀察
+- SOXX（半導體）：💥 倒下深化。Rank 5，短線 −9.18%、中線 −17.94%，弱勢加速
+- KIE（保險）：👑 在位。今日逆市 +1.10%，三欄全正，金融子板最強
+- KRE/KBE（銀行）：⚠ 動搖。今日回吐，中長線仍正
+- XOP（油氣）：🔄 事件型候選。美伊衝突驅動，非系統性輪動
+
+【微結構訊號】
+- R1（弱勢股補漲）：❌ 未觸發。RSP/MDY/IWM 同步負，廣度全面收縮，無雨露均霑
+- R2（強勢股補跌）：✅ 持續。SOXX 繼續深跌，EWT 台灣再 −2.83%，補跌格局未結束
+- R3（利多不漲）：✅ 持續。半導體利多出盡格局延續
+- R4（利空不跌）：❌ 未觸發
+
+【序列位置初判】
+多頭序列：中後段偏末（R2+R3 雙觸發持續，QQQ 跌破 700 Gamma Flip，加速下跌結構啟動）
+分岔判定：領頭者繼續倒（SOXX Rank 5）＋有條件接替（HACK 韌性最強，KIE 保險穩）→ 輪動延續或資金離場待 Big Tech 財報週定案
+否定條件：若 Big Tech 財報週（7/27–30）HACK 也破位，升級為「資金離場，短波段結束」
+
+【P/C 結構變化】
+7/15：0.42 → 7/17：1.47 → 7/18：0.31
+三天大幅擺盪（裸奔→恐慌→極度裸奔），代表多空雙方同時大量押注，情緒極度分裂。
+VIX 18.76 同步上升與 P/C 0.31 背離，是轉折前常見狀態，方向由週一開盤給答案。
+-->
+</body>
+</html>
