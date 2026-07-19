@@ -10,7 +10,38 @@
       167,
       122
     ],
-    "breadth_note": "廣度惡化：NQ20 44.7%、SP20 58.1%，科技廣度跌破 50%"
+    "breadth_note": "廣度惡化：NQ20 44.7%、SP20 58.1%，科技廣度跌破 50%",
+    "temp": [
+      {
+        "name": "資金流判定",
+        "label": "⚠ 警戒",
+        "labelColor": "#4da8e0",
+        "pct": 40,
+        "bubbleColor": "#4da8e0"
+      },
+      {
+        "name": "情緒過熱觸發",
+        "label": "⚡ 矛盾分裂",
+        "labelColor": "#f59e0b",
+        "pct": 55,
+        "bubbleColor": "#f59e0b"
+      },
+      {
+        "name": "Risk-on / off",
+        "label": "🔴 防禦",
+        "labelColor": "#00d4aa",
+        "pct": 30,
+        "bubbleColor": "#00d4aa"
+      },
+      {
+        "name": "市場廣度",
+        "label": "🟡 惡化中（44.7%）",
+        "labelColor": "#f59e0b",
+        "pct": 44,
+        "bubbleColor": "#f59e0b"
+      }
+    ],
+    "hero_note": "好消息不頂用，越線才是關鍵，財報週前多看少做"
   },
   "bubble": {
     "score": 6.2,
@@ -44,12 +75,18 @@
       "summary": "占位:發下一份報告時由 skill 自動填入"
     },
     "簡報": {
-      "date": "2026-07-13",
-      "file": "簡報_20260713.html",
-      "summary": "廣度回健康帶,但屬修復非主升,CPI公布前先看不追"
+      "date": "2026-07-18",
+      "file": "簡報_20260718.html",
+      "summary": "700 的門口，QQQ 跌破 Gamma Flip，多看少做，週一確認再行動"
     }
   },
   "history": [
+    {
+      "cat": "簡報",
+      "date": "2026-07-18",
+      "file": "簡報_20260718.html",
+      "summary": "700 的門口，QQQ 跌破 Gamma Flip，多看少做，週一確認再行動"
+    },
     {
       "cat": "台股",
       "date": "2026-07-17",
