@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 台股分析 | 2026-07-17</title>
+<style>
+:root{--fs:24px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;}
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
+.fb{padding:4px 10px;font-size:11px;font-family:var(--fm);background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb:hover{color:var(--text);background:var(--surface2);}.fb.on{color:var(--accent);background:rgba(0,200,240,.15);}
+.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
+.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-r{text-align:right;}
+.hdr-meta{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;}
+.wrap{max-width:1280px;margin:0 auto;padding:22px 40px 64px;}
+.sec-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+/* quadrant */
+.sec4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.sc{background:var(--surface);display:flex;flex-direction:column;}
+.sc-hdr{padding:9px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:filter .12s;}
+.sc-hdr:hover{filter:brightness(1.2);}
+.sc.s .sc-hdr{color:var(--green);background:rgba(0,200,150,.06);}
+.sc.w .sc-hdr{color:var(--yellow);background:rgba(240,192,64,.06);}
+.sc.tw .sc-hdr{color:var(--orange);background:rgba(255,140,64,.06);}
+.sc.x .sc-hdr{color:var(--red);background:rgba(255,61,90,.06);}
+/* breathing light */
+@keyframes bl-g{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--green),0 0 16px var(--green)}}
+@keyframes bl-y{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--yellow),0 0 16px var(--yellow)}}
+@keyframes bl-o{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--orange),0 0 16px var(--orange)}}
+@keyframes bl-r{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--red),0 0 16px var(--red)}}
+.bl{flex-shrink:0;font-size:10px;line-height:1;display:inline-block;}
+.sc.s .bl{color:var(--green);animation:bl-g 1.4s ease-in-out infinite;}
+.sc.w .bl{color:var(--yellow);animation:bl-y 1.6s ease-in-out infinite;}
+.sc.tw .bl{color:var(--orange);animation:bl-o 1.8s ease-in-out infinite;}
+.sc.x .bl{color:var(--red);animation:bl-r 1.2s ease-in-out infinite;}
+/* summary rows */
+.sc-item{padding:7px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.sc-item:last-child{border-bottom:none;}
+.sc-tk{font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);white-space:nowrap;flex-shrink:0;}
+.sc-rk{display:none;}
+.sc.s .sc-rk{color:var(--green);}.sc.w .sc-rk{color:var(--yellow);}
+.sc.tw .sc-rk{color:var(--orange);}.sc.x .sc-rk{color:var(--red);}
+/* detail panel */
+@keyframes sd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.sc-det{display:none;grid-column:1/-1;border-top:2px solid var(--border);}
+.sc-det.open{display:block;animation:sd .18s ease;}
+.det-tbl{width:100%;border-collapse:collapse;}
+.det-tbl thead tr{background:rgba(255,255,255,.025);}
+.det-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.72);letter-spacing:.15em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+.det-tbl th.r{text-align:right;}
+.det-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.85);background:var(--surface2);}
+.det-tbl td.r{text-align:right;font-family:var(--fm);}
+.det-tbl tr:last-child td{border-bottom:none;}
+.cg{color:var(--green);}.cr{color:var(--red);}.cy{color:var(--yellow);}.cd{color:var(--dim);}.cw{color:var(--text);font-weight:600;}
+.det-note{padding:8px 10px;font-family:var(--fb);font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+/* verdict */
+.rotation-verdict{background:rgba(255,130,64,.04);border:1px solid rgba(255,130,64,.18);border-left:3px solid var(--orange);padding:14px 20px;margin-top:10px;margin-bottom:30px;}
+.rv-title{font-size:calc(var(--fs)*.77);letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.rv-txt{font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.9;}
+.rv-txt strong{color:var(--orange);font-weight:700;}.rv-txt em{color:var(--yellow);font-style:normal;}
+.rv-sub{font-size:calc(var(--fs)*.72);letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin:12px 0 6px;border-bottom:1px solid var(--border);padding-bottom:4px;}
+.rv-row{display:flex;gap:8px;align-items:baseline;padding:3px 0;font-size:calc(var(--fs)*.88);}
+.rv-row .lbl{color:var(--dim);white-space:nowrap;flex-shrink:0;min-width:200px;}
+.rv-row .val{color:var(--text);}
+/* cross-market */
+.emo-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--yellow);padding:16px 20px;margin-bottom:34px;}
+.emo-box-title{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px;}
+.emo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);}
+.emo-cell{background:var(--surface2);padding:12px 14px;}
+.emo-cell-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+.emo-cell-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.8;}
+/* signal-flow stage ladder */
+.stage-ladder{border:1px solid var(--border);margin-bottom:34px;}
+.stage-ladder-hdr{padding:9px 14px;font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#94a3b8;background:var(--surface);border-bottom:1px solid var(--border);}
+.stage-row{display:grid;grid-template-columns:28px 130px 150px 1fr;gap:12px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--border);background:var(--surface2);}
+.stage-row:last-child{border-bottom:none;}
+.stage-num{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:calc(var(--fs)*.72);font-weight:700;color:var(--dim);}
+.stage-name{font-size:calc(var(--fs)*.85);color:var(--text);font-weight:600;}
+.stage-status{font-size:calc(var(--fs)*.85);font-weight:700;white-space:nowrap;}
+.stage-status.hot{color:var(--green);}
+.stage-status.warm{color:var(--yellow);}
+.stage-status.cold{color:var(--red);}
+.stage-status.mixed{color:var(--orange);}
+.stage-status.neutral{color:var(--dim);font-weight:400;}
+.stage-detail{font-size:calc(var(--fs)*.78);color:var(--dim);line-height:1.6;}
+.stage-detail b{color:var(--text);font-weight:600;}
+/* footer */
+.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
+.ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
+
+/* ── 法人籌碼 ── */
+.chip-section{margin-top:10px;margin-bottom:6px;}
+.chip-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.chip-box{background:var(--surface);border:1px solid var(--border);margin-bottom:2px;}
+.chip-hdr{padding:9px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:filter .12s;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;}
+.chip-hdr:hover{filter:brightness(1.2);}
+.chip-hdr.a{color:#00c896;background:rgba(0,200,150,.06);border-left:3px solid #00c896;}
+.chip-hdr.b{color:#0ea5e9;background:rgba(14,165,233,.06);border-left:3px solid #0ea5e9;}
+.chip-hdr.c{color:#f0c040;background:rgba(240,192,64,.06);border-left:3px solid #f0c040;}
+.chip-hdr.d{color:#ff8040;background:rgba(255,128,64,.06);border-left:3px solid #ff8040;}
+.chip-hdr.e{color:#ff3d5a;background:rgba(255,61,90,.06);border-left:3px solid #ff3d5a;}
+.chip-body{display:none;overflow-x:auto;}
+.chip-body.open{display:block;animation:sd .18s ease;}
+.chip-tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.82);}
+.chip-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.7);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(255,255,255,.02);}
+.chip-tbl th.r{text-align:right;}
+.chip-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);background:var(--surface2);white-space:nowrap;}
+.chip-tbl td.r{text-align:right;font-family:var(--fm);}
+.chip-tbl td.nm{color:var(--text);font-weight:600;}
+.chip-tbl td.sec{color:var(--dim);font-size:calc(var(--fs)*.78);}
+.chip-tbl tr:last-child td{border-bottom:none;}
+.g{color:#00c896;}.y{color:#f0c040;}.r{color:#ff3d5a;}.b{color:#0ea5e9;}
+.chip-note{padding:8px 10px;font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+.dist-row{display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--border);}
+.dist-badge{padding:4px 12px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;}
+.dist-badge.a{background:rgba(0,200,150,.15);color:#00c896;}
+.dist-badge.b{background:rgba(14,165,233,.15);color:#0ea5e9;}
+.dist-badge.c{background:rgba(240,192,64,.15);color:#f0c040;}
+.chip-cluster{background:var(--surface);border:1px solid var(--border);border-left:3px solid #f0c040;margin-top:2px;padding:10px 14px;}
+.cluster-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#f0c040;margin-bottom:8px;}
+
+.chip-section{margin-top:10px;margin-bottom:6px;}
+.chip-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.chip-box{background:var(--surface);border:1px solid var(--border);margin-bottom:2px;}
+.chip-hdr{padding:9px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:filter .12s;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;}
+.chip-hdr:hover{filter:brightness(1.2);}
+.chip-hdr.a{color:#00c896;background:rgba(0,200,150,.06);border-left:3px solid #00c896;}
+.chip-hdr.b{color:#0ea5e9;background:rgba(14,165,233,.06);border-left:3px solid #0ea5e9;}
+.chip-hdr.c{color:#f0c040;background:rgba(240,192,64,.06);border-left:3px solid #f0c040;}
+.chip-body{display:none;overflow-x:auto;}
+.chip-body.open{display:block;animation:sd .18s ease;}
+.chip-tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.82);}
+.chip-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.7);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(255,255,255,.02);}
+.chip-tbl th.r{text-align:right;}
+.chip-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);background:var(--surface2);white-space:nowrap;}
+.chip-tbl td.r{text-align:right;font-family:var(--fm);}
+.chip-tbl td.nm{color:var(--text);font-weight:600;}
+.chip-tbl td.sec{color:var(--dim);font-size:calc(var(--fs)*.78);}
+.chip-tbl tr:last-child td{border-bottom:none;}
+.chip-note{padding:8px 10px;font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+.dist-row{display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--border);}
+.dist-badge{padding:4px 12px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;}
+.dist-badge.a{background:rgba(0,200,150,.15);color:#00c896;}
+.dist-badge.b{background:rgba(14,165,233,.15);color:#0ea5e9;}
+.dist-badge.c{background:rgba(240,192,64,.15);color:#f0c040;}
+.chip-cluster{background:var(--surface);border:1px solid var(--border);border-left:3px solid #f0c040;margin-top:2px;padding:10px 14px;}
+.cluster-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#f0c040;margin-bottom:8px;}
+.cg{color:#00c896;}.cy{color:#f0c040;}.cr{color:#ff3d5a;}.cb{color:#0ea5e9;}
+
+/* ── 籌碼4卡片 v2 ── */
+.chip4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:0;;align-items:start;}
+.ccard{background:var(--bg);display:flex;flex-direction:column;cursor:pointer;align-self:start;}
+.ccard-hdr{padding:10px 12px;transition:filter .12s;border-bottom:1px solid var(--border);}
+.ccard:hover .ccard-hdr{filter:brightness(1.2);}
+.ccard.ca .ccard-hdr{border-left:3px solid #00c896;}
+.ccard.cb .ccard-hdr{border-left:3px solid #0ea5e9;}
+.ccard.cc .ccard-hdr{border-left:3px solid #f0c040;}
+.ccard.cd .ccard-hdr{border-left:3px solid #ff8040;}
+.ccard.ca.sel .ccard-hdr{background:rgba(0,200,150,.1);border-left-width:4px;}
+.ccard.cb.sel .ccard-hdr{background:rgba(14,165,233,.1);border-left-width:4px;}
+.ccard.cc.sel .ccard-hdr{background:rgba(240,192,64,.1);border-left-width:4px;}
+.ccard.cd.sel .ccard-hdr{background:rgba(255,128,64,.1);border-left-width:4px;}
+.ccard-pattern{font-size:calc(var(--fs)*.8);font-weight:700;letter-spacing:.05em;margin-bottom:3px;}
+.ccard.ca .ccard-pattern{color:#00c896;}
+.ccard.cb .ccard-pattern{color:#0ea5e9;}
+.ccard.cc .ccard-pattern{color:#f0c040;}
+.ccard.cd .ccard-pattern{color:#ff8040;}
+.ccard-count{font-size:calc(var(--fs)*1.15);font-weight:900;font-family:var(--fm);color:var(--text);margin-bottom:6px;}
+.ccard-brief{font-size:calc(var(--fs)*.78);color:var(--dim);line-height:1.6;margin-bottom:8px;}
+.ccard-brief b{color:var(--text);}
+.ccard-hint{display:flex;align-items:center;justify-content:flex-end;gap:5px;}
+.ccard-tri{font-size:calc(var(--fs)*.92);font-weight:700;line-height:1;}
+.ccard-hint-txt{font-size:calc(var(--fs)*.7);color:var(--dim);letter-spacing:.1em;}
+/* 呼吸燈只作用於 .ccard-tri */
+@keyframes breathe{
+  0%,100%{opacity:1;filter:drop-shadow(0 0 5px currentColor);}
+  50%{opacity:.18;filter:none;}
+}
+.ccard-tri.breathing{animation:breathe 2s ease-in-out infinite;}
+/* 全頁寬 detail panel */
+.chip-panel{display:none;background:var(--surface2);border:1px solid var(--border);border-top:2px solid;animation:sd .2s ease;overflow-x:auto;}
+.chip-panel.open{display:block;}
+.chip-panel.pA{border-top-color:#00c896;}
+.chip-panel.pB{border-top-color:#0ea5e9;}
+.chip-panel.pC{border-top-color:#f0c040;}
+.chip-panel.pD{border-top-color:#ff8040;}
+.chip-detail{display:none;padding:0;}
+.chip-detail.active{display:block;}
+@media(max-width:900px){.chip4{grid-template-columns:repeat(2,1fr);;align-items:start;}}
+
+/* ── 頂部主 Tab ── */
+.main-tab-bar{display:flex;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:9999;}
+
+@keyframes breathReport{
+  0%,100%{background:rgba(61,107,138,.08);color:#5a90b4;}
+  50%{background:rgba(61,107,138,.32);color:#a8d8f0;}
+}
+@keyframes breathCake{
+  0%,100%{background:rgba(122,92,66,.08);color:#9a7254;}
+  50%{background:rgba(122,92,66,.32);color:#d4a87a;}
+}
+
+.mtab{flex:1;max-width:220px;padding:12px 0;text-align:center;font-family:var(--fm);font-size:.79rem;letter-spacing:.1em;cursor:pointer;border:none;border-right:1px solid var(--border);}
+.mtab:last-child{border-right:none;}
+
+.mtab:nth-child(1){background:rgba(61,107,138,.08);color:#5a90b4;}
+.mtab:nth-child(1).on{animation:breathReport 2.6s ease-in-out infinite;border-bottom:2px solid #7db8d8;}
+.mtab:nth-child(2){background:rgba(122,92,66,.08);color:#9a7254;}
+.mtab:nth-child(2).on{animation:breathCake 2.6s ease-in-out infinite;border-bottom:2px solid #c4956a;}
+
+body.light .mtab:nth-child(1){background:rgba(61,107,138,.06);color:#2d6a96;}
+body.light .mtab:nth-child(1).on{animation:breathReport 2.6s ease-in-out infinite;}
+body.light .mtab:nth-child(2){background:rgba(122,92,66,.06);color:#7a5432;}
+body.light .mtab:nth-child(2).on{animation:breathCake 2.6s ease-in-out infinite;}
+
+
+#cake-root{
+  --ck-bg:var(--bg);--ck-sf:var(--surface);--ck-sf2:var(--surface2);
+  --ck-bd:var(--border);--ck-tx:var(--text);--ck-dm:var(--dim);
+  --ck-fm:var(--fm);--ck-fs:var(--fs);
+}
+#cake-root .fc{display:none!important;}
+
+
+:root{
+  --ck-bg:#080c14;--ck-sf:#0d1520;--ck-sf2:#111d2e;--ck-bd:#1e2d42;
+  --ck-tx:#e2eaf5;--ck-dm:#4a6480;--ck-fm:'SF Mono',Menlo,monospace;
+  --l1:#4a4870;--l2:#7a5c42;--l3:#3d6b8a;--l4:#3d6b55;--l5:#7a4a58;
+  --ck-fs:14px;
+}
+body.light{--ck-bg:#f0f4fa;--ck-sf:#fff;--ck-sf2:#f7f9fc;--ck-bd:#d1dce8;--ck-tx:#0f1e30;--ck-dm:#6b85a0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--ck-bg);color:var(--ck-tx);font-family:'Noto Serif TC',serif;min-height:100vh;overflow-x:hidden;}
+/* 頂部控制 */
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:0;background:var(--ck-sf);border:1px solid var(--ck-bd);padding:2px;}
+.fc a,.fc button{display:flex;align-items:center;padding:3px 9px;font-family:var(--ck-fm);font-size:11px;color:var(--ck-dm);text-decoration:none;border:none;background:none;cursor:pointer;border-right:1px solid var(--ck-bd);letter-spacing:.05em;white-space:nowrap;}
+.fc a:last-child,.fc button:last-child{border-right:none;}
+.fc a:hover,.fc button:hover{color:var(--ck-tx);}
+/* 標頭 */
+header{text-align:center;padding:56px 20px 12px;}
+header h1{font-size:clamp(1.3rem,3.5vw,2rem);font-weight:900;letter-spacing:-.02em;}
+header p{font-size:.8rem;color:var(--ck-dm);margin-top:6px;font-family:var(--ck-fm);letter-spacing:.1em;}
+/* 蛋糕 */
+.cake-wrap{display:flex;flex-direction:column;align-items:center;padding:24px 20px 0;gap:0;}
+.layer{position:relative;cursor:pointer;transition:filter .15s,transform .15s;display:flex;align-items:center;justify-content:center;clip-path:polygon(3.5% 0%,96.5% 0%,100% 100%,0% 100%);margin-bottom:-2px;user-select:none;}
+.layer:hover{filter:brightness(1.2);}
+.layer.active{filter:brightness(1.35);transform:scaleY(1.04);}
+.li{display:flex;align-items:center;gap:10px;padding:0 36px;}
+.ln{font-family:var(--ck-fm);font-size:.68rem;opacity:.55;letter-spacing:.15em;}
+.lt{font-size:clamp(.72rem,2vw,.92rem);font-weight:700;}
+.ls{font-size:.68rem;opacity:.6;font-family:var(--ck-fm);}
+.la{margin-left:auto;font-size:.7rem;opacity:.45;transition:transform .18s;}
+.layer.active .la{transform:rotate(180deg);opacity:.9;}
+.l5{width:300px;height:48px;background:var(--l5);}
+.l4{width:430px;height:52px;background:var(--l4);}
+.l3{width:570px;height:58px;background:var(--l3);}
+.l2{width:700px;height:62px;background:var(--l2);}
+.l1{width:840px;height:68px;background:var(--l1);}
+@media(max-width:880px){.l1{width:98vw;}.l2{width:88vw;}.l3{width:76vw;}.l4{width:62vw;}.l5{width:50vw;}}
+/* 詳細面板 */
+.dw{width:min(900px,96vw);margin:0 auto;}
+.dp{display:none;border:1px solid var(--ck-bd);background:var(--ck-sf);}
+.dp.open{display:block;animation:sd .2s ease;}
+@keyframes sd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.dh{padding:13px 18px 10px;border-bottom:1px solid var(--ck-bd);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.dtitle{font-size:1rem;font-weight:700;}
+.dbadge{font-size:.7rem;font-family:var(--ck-fm);padding:2px 8px;border-radius:2px;margin-left:auto;}
+.dd{font-size:.8rem;color:var(--ck-dm);line-height:1.7;padding:10px 18px;border-bottom:1px solid var(--ck-bd);}
+/* Tab */
+.tr{display:flex;padding:8px 18px 0;gap:0;border-bottom:1px solid var(--ck-bd);}
+.tab{padding:5px 14px;font-family:var(--ck-fm);font-size:.76rem;cursor:pointer;border-bottom:2px solid transparent;color:var(--ck-dm);transition:all .12s;letter-spacing:.08em;}
+.tab.on{color:var(--ck-tx);border-bottom-color:currentColor;}
+.tc{display:none;padding:10px 18px 14px;}
+.tc.show{display:block;}
+/* 本週偵測股 */
+.detected-row{padding:8px 18px;border-bottom:1px solid var(--ck-bd);display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.det-label{font-family:var(--ck-fm);font-size:.68rem;letter-spacing:.1em;color:var(--ck-dm);margin-right:2px;}
+.det-chip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;font-size:.72rem;font-family:var(--ck-fm);cursor:pointer;border:1px solid;transition:all .12s;border-radius:1px;}
+.det-chip:hover{filter:brightness(1.3);}
+.det-chip.s{color:#22c55e;border-color:#22c55e30;background:#22c55e0d;}
+.det-chip.t{color:#38bdf8;border-color:#38bdf830;background:#38bdf80d;}
+.det-chip.w{color:#f59e0b;border-color:#f59e0b30;background:#f59e0b0d;}
+.det-chip.a{color:#f97316;border-color:#f9731630;background:#f973160d;}
+/* 股票 grid */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px;margin-top:8px;align-items:start;}
+.sc{background:var(--ck-sf2);border:1px solid var(--ck-bd);padding:7px 10px;cursor:pointer;transition:border-color .12s;}
+.sc:hover{border-color:var(--ck-tx);}
+.stk{font-family:var(--ck-fm);font-size:.82rem;font-weight:700;}
+.sn{font-size:.72rem;color:var(--ck-dm);margin-top:1px;}
+.sr{font-size:.68rem;color:var(--ck-dm);margin-top:4px;padding-top:3px;border-top:1px solid var(--ck-bd);}
+/* 股票 popup */
+.spop{display:none;position:fixed;inset:0;background:#00000088;z-index:888;align-items:center;justify-content:center;}
+.spop.show{display:flex;}
+.spop-inner{background:var(--ck-sf);border:1px solid var(--ck-bd);width:min(420px,92vw);max-height:80vh;overflow-y:auto;}
+.spop-hdr{padding:12px 16px;border-bottom:1px solid var(--ck-bd);display:flex;justify-content:space-between;align-items:center;}
+.spop-close{cursor:pointer;color:var(--ck-dm);font-size:1.1rem;padding:0 4px;}
+.spop-body{padding:14px 16px;}
+/* 輪動圖 */
+.rc{position:relative;height:96px;}
+canvas.rot{width:100%;height:96px;}
+/* 概覽 */
+.ov{width:min(900px,96vw);margin:18px auto 36px;background:var(--ck-sf);border:1px solid var(--ck-bd);}
+.ovh{padding:10px 18px;border-bottom:1px solid var(--ck-bd);display:flex;justify-content:space-between;align-items:center;}
+.ovt{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ck-dm);}
+.ovg{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ck-bd);align-items:start;}
+.ovc{background:var(--ck-sf);padding:9px 12px;cursor:pointer;transition:background .12s;}
+.ovc:hover{background:var(--ck-sf2);}
+@media(max-width:700px){.ovg{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.ovg{grid-template-columns:repeat(2,1fr);}}
+
+
+
+/* ── 真實走勢圖 ── */
+.spark-cell{width:168px;min-width:168px;max-width:168px;padding:2px 4px;vertical-align:middle;}
+.spark-cv{display:block;border-radius:1px;}
+/* 粉專按鈕（低調版） */
+.ctrl-fan {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: var(--fm);
+  color: var(--accent);
+  text-decoration: none;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.ctrl-fan svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.ctrl-fan:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--accent);
+  transform: scale(1.02);
+}
+
+@keyframes fan-breathe {
+  0%,100% { background:#b8960a; box-shadow:0 0 4px 1px rgba(255,215,0,.35); color:#1a1200; }
+  50%      { background:#ffd700; box-shadow:0 0 10px 3px rgba(255,215,0,.75); color:#000; }
+}
+
+/* 研究報告中心按鈕（金色呼吸動畫版） */
+.ctrl-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: var(--fm);
+  color: #1a1200;
+  font-weight: 700;
+  text-decoration: none;
+  background: #b8960a;
+  border-radius: 9999px;
+  animation: fan-breathe 1.8s ease-in-out infinite;
+  white-space: nowrap;
+  margin-left: 1px;
+  transition: all 0.15s ease;
+}
+.ctrl-home:hover {
+  background: #ffd700;
+  color: #000;
+  box-shadow: 0 0 10px 3px rgba(255, 215, 0, .75);
+  animation: none;
+}
+</style>
+  <!-- ══ Copy Protection ══ -->
+  <style>
+    * { -webkit-user-select:none; -moz-user-select:none;
+        -ms-user-select:none; user-select:none; -webkit-touch-callout:none; }
+  
+/* ── 頂部主 Tab ── */
+.main-tab-bar{display:flex;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:9999;}
+
+@keyframes breathReport{
+  0%,100%{background:rgba(61,107,138,.08);color:#5a90b4;}
+  50%{background:rgba(61,107,138,.32);color:#a8d8f0;}
+}
+@keyframes breathCake{
+  0%,100%{background:rgba(122,92,66,.08);color:#9a7254;}
+  50%{background:rgba(122,92,66,.32);color:#d4a87a;}
+}
+
+.mtab{flex:1;max-width:220px;padding:12px 0;text-align:center;font-family:var(--fm);font-size:.79rem;letter-spacing:.1em;cursor:pointer;border:none;border-right:1px solid var(--border);}
+.mtab:last-child{border-right:none;}
+
+.mtab:nth-child(1){background:rgba(61,107,138,.08);color:#5a90b4;}
+.mtab:nth-child(1).on{animation:breathReport 2.6s ease-in-out infinite;border-bottom:2px solid #7db8d8;}
+.mtab:nth-child(2){background:rgba(122,92,66,.08);color:#9a7254;}
+.mtab:nth-child(2).on{animation:breathCake 2.6s ease-in-out infinite;border-bottom:2px solid #c4956a;}
+
+body.light .mtab:nth-child(1){background:rgba(61,107,138,.06);color:#2d6a96;}
+body.light .mtab:nth-child(1).on{animation:breathReport 2.6s ease-in-out infinite;}
+body.light .mtab:nth-child(2){background:rgba(122,92,66,.06);color:#7a5432;}
+body.light .mtab:nth-child(2).on{animation:breathCake 2.6s ease-in-out infinite;}
+
+
+#cake-root{
+  --ck-bg:var(--bg);--ck-sf:var(--surface);--ck-sf2:var(--surface2);
+  --ck-bd:var(--border);--ck-tx:var(--text);--ck-dm:var(--dim);
+  --ck-fm:var(--fm);--ck-fs:var(--fs);
+}
+#cake-root .fc{display:none!important;}
+
+
+:root{
+  --ck-bg:#080c14;--ck-sf:#0d1520;--ck-sf2:#111d2e;--ck-bd:#1e2d42;
+  --ck-tx:#e2eaf5;--ck-dm:#4a6480;--ck-fm:'SF Mono',Menlo,monospace;
+  --l1:#4a4870;--l2:#7a5c42;--l3:#3d6b8a;--l4:#3d6b55;--l5:#7a4a58;
+  --ck-fs:14px;
+}
+body.light{--ck-bg:#f0f4fa;--ck-sf:#fff;--ck-sf2:#f7f9fc;--ck-bd:#d1dce8;--ck-tx:#0f1e30;--ck-dm:#6b85a0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--ck-bg);color:var(--ck-tx);font-family:'Noto Serif TC',serif;min-height:100vh;overflow-x:hidden;}
+/* 頂部控制 */
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:0;background:var(--ck-sf);border:1px solid var(--ck-bd);padding:2px;}
+.fc a,.fc button{display:flex;align-items:center;padding:3px 9px;font-family:var(--ck-fm);font-size:11px;color:var(--ck-dm);text-decoration:none;border:none;background:none;cursor:pointer;border-right:1px solid var(--ck-bd);letter-spacing:.05em;white-space:nowrap;}
+.fc a:last-child,.fc button:last-child{border-right:none;}
+.fc a:hover,.fc button:hover{color:var(--ck-tx);}
+/* 標頭 */
+header{text-align:center;padding:56px 20px 12px;}
+header h1{font-size:clamp(1.3rem,3.5vw,2rem);font-weight:900;letter-spacing:-.02em;}
+header p{font-size:.8rem;color:var(--ck-dm);margin-top:6px;font-family:var(--ck-fm);letter-spacing:.1em;}
+/* 蛋糕 */
+.cake-wrap{display:flex;flex-direction:column;align-items:center;padding:24px 20px 0;gap:0;}
+.layer{position:relative;cursor:pointer;transition:filter .15s,transform .15s;display:flex;align-items:center;justify-content:center;clip-path:polygon(3.5% 0%,96.5% 0%,100% 100%,0% 100%);margin-bottom:-2px;user-select:none;}
+.layer:hover{filter:brightness(1.2);}
+.layer.active{filter:brightness(1.35);transform:scaleY(1.04);}
+.li{display:flex;align-items:center;gap:10px;padding:0 36px;}
+.ln{font-family:var(--ck-fm);font-size:.68rem;opacity:.55;letter-spacing:.15em;}
+.lt{font-size:clamp(.72rem,2vw,.92rem);font-weight:700;}
+.ls{font-size:.68rem;opacity:.6;font-family:var(--ck-fm);}
+.la{margin-left:auto;font-size:.7rem;opacity:.45;transition:transform .18s;}
+.layer.active .la{transform:rotate(180deg);opacity:.9;}
+.l5{width:300px;height:48px;background:var(--l5);}
+.l4{width:430px;height:52px;background:var(--l4);}
+.l3{width:570px;height:58px;background:var(--l3);}
+.l2{width:700px;height:62px;background:var(--l2);}
+.l1{width:840px;height:68px;background:var(--l1);}
+@media(max-width:880px){.l1{width:98vw;}.l2{width:88vw;}.l3{width:76vw;}.l4{width:62vw;}.l5{width:50vw;}}
+/* 詳細面板 */
+.dw{width:min(900px,96vw);margin:0 auto;}
+.dp{display:none;border:1px solid var(--ck-bd);background:var(--ck-sf);}
+.dp.open{display:block;animation:sd .2s ease;}
+@keyframes sd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.dh{padding:13px 18px 10px;border-bottom:1px solid var(--ck-bd);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.dtitle{font-size:1rem;font-weight:700;}
+.dbadge{font-size:.7rem;font-family:var(--ck-fm);padding:2px 8px;border-radius:2px;margin-left:auto;}
+.dd{font-size:.8rem;color:var(--ck-dm);line-height:1.7;padding:10px 18px;border-bottom:1px solid var(--ck-bd);}
+/* Tab */
+.tr{display:flex;padding:8px 18px 0;gap:0;border-bottom:1px solid var(--ck-bd);}
+.tab{padding:5px 14px;font-family:var(--ck-fm);font-size:.76rem;cursor:pointer;border-bottom:2px solid transparent;color:var(--ck-dm);transition:all .12s;letter-spacing:.08em;}
+.tab.on{color:var(--ck-tx);border-bottom-color:currentColor;}
+.tc{display:none;padding:10px 18px 14px;}
+.tc.show{display:block;}
+/* 本週偵測股 */
+.detected-row{padding:8px 18px;border-bottom:1px solid var(--ck-bd);display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.det-label{font-family:var(--ck-fm);font-size:.68rem;letter-spacing:.1em;color:var(--ck-dm);margin-right:2px;}
+.det-chip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;font-size:.72rem;font-family:var(--ck-fm);cursor:pointer;border:1px solid;transition:all .12s;border-radius:1px;}
+.det-chip:hover{filter:brightness(1.3);}
+.det-chip.s{color:#22c55e;border-color:#22c55e30;background:#22c55e0d;}
+.det-chip.t{color:#38bdf8;border-color:#38bdf830;background:#38bdf80d;}
+.det-chip.w{color:#f59e0b;border-color:#f59e0b30;background:#f59e0b0d;}
+.det-chip.a{color:#f97316;border-color:#f9731630;background:#f973160d;}
+/* 股票 grid */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px;margin-top:8px;align-items:start;}
+.sc{background:var(--ck-sf2);border:1px solid var(--ck-bd);padding:7px 10px;cursor:pointer;transition:border-color .12s;}
+.sc:hover{border-color:var(--ck-tx);}
+.stk{font-family:var(--ck-fm);font-size:.82rem;font-weight:700;}
+.sn{font-size:.72rem;color:var(--ck-dm);margin-top:1px;}
+.sr{font-size:.68rem;color:var(--ck-dm);margin-top:4px;padding-top:3px;border-top:1px solid var(--ck-bd);}
+/* 股票 popup */
+.spop{display:none;position:fixed;inset:0;background:#00000088;z-index:888;align-items:center;justify-content:center;}
+.spop.show{display:flex;}
+.spop-inner{background:var(--ck-sf);border:1px solid var(--ck-bd);width:min(420px,92vw);max-height:80vh;overflow-y:auto;}
+.spop-hdr{padding:12px 16px;border-bottom:1px solid var(--ck-bd);display:flex;justify-content:space-between;align-items:center;}
+.spop-close{cursor:pointer;color:var(--ck-dm);font-size:1.1rem;padding:0 4px;}
+.spop-body{padding:14px 16px;}
+/* 輪動圖 */
+.rc{position:relative;height:96px;}
+canvas.rot{width:100%;height:96px;}
+/* 概覽 */
+.ov{width:min(900px,96vw);margin:18px auto 36px;background:var(--ck-sf);border:1px solid var(--ck-bd);}
+.ovh{padding:10px 18px;border-bottom:1px solid var(--ck-bd);display:flex;justify-content:space-between;align-items:center;}
+.ovt{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ck-dm);}
+.ovg{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ck-bd);align-items:start;}
+.ovc{background:var(--ck-sf);padding:9px 12px;cursor:pointer;transition:background .12s;}
+.ovc:hover{background:var(--ck-sf2);}
+@media(max-width:700px){.ovg{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.ovg{grid-template-columns:repeat(2,1fr);}}
+
+</style>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('copy',        e => e.preventDefault());
+    document.addEventListener('cut',         e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+    document.addEventListener('dragstart',   e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      const k = e.key.toLowerCase();
+      if (e.ctrlKey && ['c','a','u','s','p','j'].includes(k)) e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && ['i','j'].includes(k))   e.preventDefault();
+      if (['f12','f11'].includes(k)) e.preventDefault();
+    });
+  </script>
+  <!-- ══ End Protection ══ -->
+</head>
+<body>
+<div id="report-root">
+<div class="fc">
+  <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" class="ctrl-fan" title="Facebook粉專">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>粉專
+  </a>
+  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Reaearch">Yoda Reaearch</a>
+
+  <button class="fb" id="fs-small" onclick="setFS('small')">小</button>
+  <button class="fb on" id="fs-normal" onclick="setFS('normal')">中</button>
+  <button class="fb" id="fs-large" onclick="setFS('large')">大</button>
+  <button class="fb" style="margin-left:4px;border-left:1px solid var(--border);padding-left:10px;" onclick="setTheme('dark')" id="btn-dark">深</button>
+  <button class="fb" onclick="setTheme('light')" id="btn-light">淺</button>
+</div>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-lbl">Yoda × Claude</div>
+    <div class="hdr-title">Yoda <span>台股分析</span><span style="font-size:calc(var(--fs)*1.1);font-weight:400;color:var(--dim);letter-spacing:.05em;margin-left:16px;vertical-align:middle;">2026-07-17</span></div>
+  </div>
+  <div class="hdr-r">
+    <div class="hdr-meta">外資買賣超｜佔發行張數口徑｜吸籌佔比 50.8% | A=155 D=150 | 雙向確認16支</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ 台股法人籌碼 ═══ -->
+<div class="chip-section">
+<div class="chip-lbl">台股板塊資金位階｜法人籌碼分析</div>
+
+<div class="chip-lbl">台股觀察結論</div>
+<div class="obs-conclusion" style="background:rgba(0,8,20,.5);border:1px solid var(--border);border-left:3px solid var(--accent);padding:14px 20px;margin-bottom:16px;line-height:1.9;color:var(--text);">
+<p>今天的盤面只有一個字：跌。而且跌得很整齊——台積電 -7.29%、聯發科 -8.92%、台達電 -8.66%、欣興 -9.98%、南亞科 -9.91%，AI 硬體全鏈幾乎跌停板掃過去。</p>
+<p>這不是隨機的賣壓。信號流 8 個階段裡，核心運算（台積電/聯發科）和記憶體暫存兩個階段直接落後，其他六個階段全部分化偏弱。台積電月線賣超 -291,326 萬、聯發科 -70,153 萬、台達電 -65,748 萬，這三張單子的規模說明外資不是在調倉，是在出貨。</p>
+<p>吸籌佔比 50.8%，數字剛好在臨界點。但 A 型態的成分是環球晶、長榮航、國泰20年美債、中美晶——資金跑去買美債和航空了。雙向確認 16 支名單裡有第一金、玉山金、台灣大、台塑化，典型防禦輪動。</p>
+<p>南電月線仍有 +25,446 萬，是 AI 硬體鏈裡外資仍持續布局的少數個股，但今日 5 日已轉賣超，掛在衰退邊緣。現在不宜進場 AI 硬體，等台積電月線由負轉正或信號流核心運算從落後翻分化，再重新評估。</p>
+</div>
+<div class="rotation-verdict" style="margin-bottom:1px;">
+  <div class="rv-title">AI硬體全線崩跌，防禦資產接棒——吸籌佔比臨界，輪動結構惡化</div>
+  <div class="rv-txt"><div class="rv-row"><span class="lbl">整體籌碼</span><span class="val">吸籌佔比 <strong>50.8%</strong>（A=155 / D=150），雙向確認 <strong>16支</strong>（環球晶、長榮航、中美晶、長榮、禾伸堂、第一金等）。佔比雖在臨界線上，但 A 型態成分以防禦資產（美債ETF、金融股、電信、航空）為主，AI 硬體鏈集中在 D 型態。</span></div><div class="rv-row"><span class="lbl">★ 重大訊號</span><span class="val">台積電 <span style="color:var(--red)">月線-291,326萬、5日-130,589萬、當日-93,952萬</span>，三線全賣超且規模創近期新高。聯發科月線-70,153萬、台達電月線-65,748萬、欣興月線-38,894萬，AI硬體主鏈全面出貨。</span></div><div class="rv-row"><span class="lbl">信號流</span><span class="val">階段3（核心運算）❄️落後｜階段4（記憶體）❄️落後｜其餘6階段全數➡️分化偏弱——8個階段無任何啟動訊號。聯詠月線+5,693萬是信號流中唯一正值個股。</span></div><div class="rv-row"><span class="lbl">亮點</span><span class="val"><strong>環球晶（6488）</strong>月線+13,151萬、<strong>長榮航（2618）</strong>月線+12,062萬、<strong>中美晶（5483）</strong>月線+7,893萬，為本期 A 型態金額最大個股，但屬防禦/非AI輪動。<strong>南電月線+25,446萬</strong>仍正，但5日轉賣（-3,680萬），列衰退觀察。</span></div><div class="rv-row"><span class="lbl">操作含意</span><span class="val">不接刀 AI 硬體。觀察條件：台積電月線由負轉正、信號流核心運算從❄️落後翻➡️分化，才重新評估多方部位。防禦輪動（環球晶/航空/美債ETF）若持續可留倉。</span></div></div>
+</div>
+
+<div class="stage-ladder" style="margin-top:14px;">
+  <div class="stage-ladder-hdr">📶 信號流階梯｜主機板8階段資金位置（台股）</div>
+<div class="cat-card"><div class="cat-hdr" data-group="stage" onclick="togCat(this,'stage-det-1')"><span><span class="cat-hdr-main">階段1｜訊號輸入/網通接口</span><span class="cat-hdr-meta" style="color:#ff8040">➡️分化偏弱｜1/4支偏多</span></span><span class="arrow cold breathing">▶</span></div><div class="cat-det" id="stage-det-1" data-group="stage"><table><thead><tr><th class="sortable" onclick="sortTable(this)">代號</th><th class="sortable" onclick="sortTable(this)">名稱</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="r sortable" onclick="sortTable(this)">當日(萬)</th><th class="r sortable" onclick="sortTable(this)">5日(萬)</th><th class="r sortable" onclick="sortTable(this)">月線(萬)</th><th class="r sortable" onclick="sortTable(this)">季線(萬)</th><th class="sortable" onclick="sortTable(this)">位階</th></tr></thead><tbody><tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2345</td><td style="font-weight:700;color:var(--text);">智邦</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">網通設備</td><td style="color:var(--red)">-457萬</td><td style="color:var(--red)">-1,390萬</td><td style="color:var(--red)">-3,765萬</td><td style="color:var(--green)">+13,120萬</td><td>❄️落後</td></tr>
+<tr style=""><td style="font-weight:700;color:var(--text);">3380</td><td style="font-weight:700;color:var(--text);">3380</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">網通設備</td><td style="">－</td><td style="">－</td><td style="">－</td><td style="">－</td><td>？</td></tr>
+<tr style="background:rgba(0,212,170,.06);"><td style="font-weight:700;color:var(--text);">5388</td><td style="font-weight:700;color:var(--text);">中磊</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">網通設備</td><td style="color:var(--green)">+13萬</td><td style="color:var(--green)">+592萬</td><td style="color:var(--green)">+375萬</td><td style="color:var(--green)">+1,307萬</td><td>🔥領先</td></tr>
+<tr style=""><td style="font-weight:700;color:var(--text);">3596</td><td style="font-weight:700;color:var(--text);">3596</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">網通設備</td><td style="">－</td><td style="">－</td><td style="">－</td><td style="">－</td><td>？</td></tr>
+</tbody></table></div></div>
+<div class="cat-card"><div class="cat-hdr" data-group="stage" onclick="togCat(this,'stage-det-2')"><span><span class="cat-hdr-main">階段2｜高速傳輸/載板</span><span class="cat-hdr-meta" style="color:#ff8040">➡️分化偏弱｜0/4支偏多</span></span><span class="arrow cold breathing">▶</span></div><div class="cat-det" id="stage-det-2" data-group="stage"><table><thead><tr><th class="sortable" onclick="sortTable(this)">代號</th><th class="sortable" onclick="sortTable(this)">名稱</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="r sortable" onclick="sortTable(this)">當日(萬)</th><th class="r sortable" onclick="sortTable(this)">5日(萬)</th><th class="r sortable" onclick="sortTable(this)">月線(萬)</th><th class="r sortable" onclick="sortTable(this)">季線(萬)</th><th class="sortable" onclick="sortTable(this)">位階</th></tr></thead><tbody><tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">3037</td><td style="font-weight:700;color:var(--text);">欣興</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">ABF載板</td><td style="color:var(--red)">-3,514萬</td><td style="color:var(--red)">-10,359萬</td><td style="color:var(--red)">-38,894萬</td><td style="color:var(--red)">-36,209萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(56,189,248,.08);"><td style="font-weight:700;color:var(--text);">3189</td><td style="font-weight:700;color:var(--text);">景碩</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">ABF載板</td><td style="color:var(--green)">+514萬</td><td style="color:var(--green)">+1,535萬</td><td style="color:var(--red)">-1,464萬</td><td style="color:var(--green)">+17,387萬</td><td>🌱回升</td></tr>
+<tr style="background:rgba(251,191,36,.08);"><td style="font-weight:700;color:var(--text);">8046</td><td style="font-weight:700;color:var(--text);">南電</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">高階PCB</td><td style="color:var(--green)">+1,310萬</td><td style="color:var(--red)">-3,680萬</td><td style="color:var(--green)">+25,446萬</td><td style="color:var(--green)">+29,469萬</td><td>⚠️衰退</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">4966</td><td style="font-weight:700;color:var(--text);">譜瑞-KY</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">高速傳輸IC</td><td style="color:var(--red)">-162萬</td><td style="color:var(--red)">-220萬</td><td style="color:var(--red)">-2,412萬</td><td style="color:var(--green)">+5,037萬</td><td>❄️落後</td></tr>
+</tbody></table></div></div>
+<div class="cat-card"><div class="cat-hdr" data-group="stage" onclick="togCat(this,'stage-det-3')"><span><span class="cat-hdr-main">階段3｜核心運算</span><span class="cat-hdr-meta" style="color:#ff8040">❄️落後｜0/4支偏多</span></span><span class="arrow cold breathing">▶</span></div><div class="cat-det" id="stage-det-3" data-group="stage"><table><thead><tr><th class="sortable" onclick="sortTable(this)">代號</th><th class="sortable" onclick="sortTable(this)">名稱</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="r sortable" onclick="sortTable(this)">當日(萬)</th><th class="r sortable" onclick="sortTable(this)">5日(萬)</th><th class="r sortable" onclick="sortTable(this)">月線(萬)</th><th class="r sortable" onclick="sortTable(this)">季線(萬)</th><th class="sortable" onclick="sortTable(this)">位階</th></tr></thead><tbody><tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2330</td><td style="font-weight:700;color:var(--text);">台積電</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">晶圓代工</td><td style="color:var(--red)">-93,952萬</td><td style="color:var(--red)">-130,589萬</td><td style="color:var(--red)">-291,326萬</td><td style="color:var(--red)">-607,548萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">3661</td><td style="font-weight:700;color:var(--text);">世芯-KY</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">IC設計</td><td style="color:var(--red)">-1,287萬</td><td style="color:var(--red)">-5,029萬</td><td style="color:var(--red)">-14,676萬</td><td style="color:var(--green)">+3,605萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">3443</td><td style="font-weight:700;color:var(--text);">創意</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">IC設計</td><td style="color:var(--green)">+665萬</td><td style="color:var(--red)">-119萬</td><td style="color:var(--red)">-2,341萬</td><td style="color:var(--red)">-4,984萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2454</td><td style="font-weight:700;color:var(--text);">聯發科</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">IC設計</td><td style="color:var(--red)">-2,643萬</td><td style="color:var(--red)">-10,718萬</td><td style="color:var(--red)">-70,153萬</td><td style="color:var(--red)">-70,875萬</td><td>❄️落後</td></tr>
+</tbody></table></div></div>
+<div class="cat-card"><div class="cat-hdr" data-group="stage" onclick="togCat(this,'stage-det-4')"><span><span class="cat-hdr-main">階段4｜記憶體暫存</span><span class="cat-hdr-meta" style="color:#ff8040">❄️落後｜0/3支偏多</span></span><span class="arrow cold breathing">▶</span></div><div class="cat-det" id="stage-det-4" data-group="stage"><table><thead><tr><th class="sortable" onclick="sortTable(this)">代號</th><th class="sortable" onclick="sortTable(this)">名稱</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="r sortable" onclick="sortTable(this)">當日(萬)</th><th class="r sortable" onclick="sortTable(this)">5日(萬)</th><th class="r sortable" onclick="sortTable(this)">月線(萬)</th><th class="r sortable" onclick="sortTable(this)">季線(萬)</th><th class="sortable" onclick="sortTable(this)">位階</th></tr></thead><tbody><tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2408</td><td style="font-weight:700;color:var(--text);">南亞科</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">記憶體</td><td style="color:var(--red)">-3,476萬</td><td style="color:var(--red)">-18,658萬</td><td style="color:var(--red)">-21,168萬</td><td style="color:var(--green)">+60,554萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2344</td><td style="font-weight:700;color:var(--text);">華邦電</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">記憶體</td><td style="color:var(--red)">-5,090萬</td><td style="color:var(--red)">-7,241萬</td><td style="color:var(--red)">-46,926萬</td><td style="color:var(--green)">+19,022萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2337</td><td style="font-weight:700;color:var(--text);">旺宏</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">記憶體</td><td style="color:var(--green)">+533萬</td><td style="color:var(--red)">-2,953萬</td><td style="color:var(--red)">-15,452萬</td><td style="color:var(--green)">+821萬</td><td>❄️落後</td></tr>
+</tbody></table></div></div>
+<div class="cat-card"><div class="cat-hdr" data-group="stage" onclick="togCat(this,'stage-det-5')"><span><span class="cat-hdr-main">階段5｜周邊驅動IC</span><span class="cat-hdr-meta" style="color:#ff8040">➡️分化偏弱｜1/4支偏多</span></span><span class="arrow cold breathing">▶</span></div><div class="cat-det" id="stage-det-5" data-group="stage"><table><thead><tr><th class="sortable" onclick="sortTable(this)">代號</th><th class="sortable" onclick="sortTable(this)">名稱</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="r sortable" onclick="sortTable(this)">當日(萬)</th><th class="r sortable" onclick="sortTable(this)">5日(萬)</th><th class="r sortable" onclick="sortTable(this)">月線(萬)</th><th class="r sortable" onclick="sortTable(this)">季線(萬)</th><th class="sortable" onclick="sortTable(this)">位階</th></tr></thead><tbody><tr style="background:rgba(0,212,170,.06);"><td style="font-weight:700;color:var(--text);">3034</td><td style="font-weight:700;color:var(--text);">聯詠</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">驅動IC</td><td style="color:var(--green)">+493萬</td><td style="color:var(--green)">+4,288萬</td><td style="color:var(--green)">+5,693萬</td><td style="color:var(--green)">+18,513萬</td><td>🔥領先</td></tr>
+<tr style="background:rgba(251,191,36,.08);"><td style="font-weight:700;color:var(--text);">8016</td><td style="font-weight:700;color:var(--text);">矽創</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">驅動IC</td><td style="color:var(--green)">+86萬</td><td style="color:var(--red)">-53萬</td><td style="color:var(--green)">+2,417萬</td><td style="color:var(--green)">+4,553萬</td><td>⚠️衰退</td></tr>
+<tr style=""><td style="font-weight:700;color:var(--text);">8081</td><td style="font-weight:700;color:var(--text);">8081</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">驅動IC</td><td style="">－</td><td style="">－</td><td style="">－</td><td style="">－</td><td>？</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2379</td><td style="font-weight:700;color:var(--text);">瑞昱</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">驅動IC</td><td style="color:var(--green)">+516萬</td><td style="color:var(--red)">-1,356萬</td><td style="color:var(--red)">-3,000萬</td><td style="color:var(--green)">+8,780萬</td><td>❄️落後</td></tr>
+</tbody></table></div></div>
+<div class="cat-card"><div class="cat-hdr" data-group="stage" onclick="togCat(this,'stage-det-6')"><span><span class="cat-hdr-main">階段6｜供電功率</span><span class="cat-hdr-meta" style="color:#ff8040">➡️分化偏弱｜0/4支偏多</span></span><span class="arrow cold breathing">▶</span></div><div class="cat-det" id="stage-det-6" data-group="stage"><table><thead><tr><th class="sortable" onclick="sortTable(this)">代號</th><th class="sortable" onclick="sortTable(this)">名稱</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="r sortable" onclick="sortTable(this)">當日(萬)</th><th class="r sortable" onclick="sortTable(this)">5日(萬)</th><th class="r sortable" onclick="sortTable(this)">月線(萬)</th><th class="r sortable" onclick="sortTable(this)">季線(萬)</th><th class="sortable" onclick="sortTable(this)">位階</th></tr></thead><tbody><tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2308</td><td style="font-weight:700;color:var(--text);">台達電</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">散熱+電源</td><td style="color:var(--red)">-8,805萬</td><td style="color:var(--red)">-10,428萬</td><td style="color:var(--red)">-65,748萬</td><td style="color:var(--red)">-103,294萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(56,189,248,.08);"><td style="font-weight:700;color:var(--text);">6138</td><td style="font-weight:700;color:var(--text);">茂達</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">功率元件</td><td style="color:var(--green)">+16萬</td><td style="color:var(--green)">+106萬</td><td style="color:var(--red)">-1,049萬</td><td style="color:var(--red)">-614萬</td><td>🌱回升</td></tr>
+<tr style=""><td style="font-weight:700;color:var(--text);">2481</td><td style="font-weight:700;color:var(--text);">2481</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">功率元件</td><td style="">－</td><td style="">－</td><td style="">－</td><td style="">－</td><td>？</td></tr>
+<tr style=""><td style="font-weight:700;color:var(--text);">6435</td><td style="font-weight:700;color:var(--text);">6435</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">功率元件</td><td style="">－</td><td style="">－</td><td style="">－</td><td style="">－</td><td>？</td></tr>
+</tbody></table></div></div>
+<div class="cat-card"><div class="cat-hdr" data-group="stage" onclick="togCat(this,'stage-det-7')"><span><span class="cat-hdr-main">階段7｜被動濾波</span><span class="cat-hdr-meta" style="color:#ff8040">➡️分化偏弱｜1/3支偏多</span></span><span class="arrow cold breathing">▶</span></div><div class="cat-det" id="stage-det-7" data-group="stage"><table><thead><tr><th class="sortable" onclick="sortTable(this)">代號</th><th class="sortable" onclick="sortTable(this)">名稱</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="r sortable" onclick="sortTable(this)">當日(萬)</th><th class="r sortable" onclick="sortTable(this)">5日(萬)</th><th class="r sortable" onclick="sortTable(this)">月線(萬)</th><th class="r sortable" onclick="sortTable(this)">季線(萬)</th><th class="sortable" onclick="sortTable(this)">位階</th></tr></thead><tbody><tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2327</td><td style="font-weight:700;color:var(--text);">國巨*</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">被動元件</td><td style="color:var(--red)">-4,029萬</td><td style="color:var(--red)">-15,230萬</td><td style="color:var(--red)">-23,412萬</td><td style="color:var(--red)">-21,980萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">2492</td><td style="font-weight:700;color:var(--text);">華新科</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">被動元件</td><td style="color:var(--green)">+36萬</td><td style="color:var(--red)">-350萬</td><td style="color:var(--red)">-3,598萬</td><td style="color:var(--green)">+15,640萬</td><td>❄️落後</td></tr>
+<tr style="background:rgba(0,212,170,.06);"><td style="font-weight:700;color:var(--text);">3357</td><td style="font-weight:700;color:var(--text);">臺慶科</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">被動元件</td><td style="color:var(--green)">+247萬</td><td style="color:var(--green)">+425萬</td><td style="color:var(--green)">+935萬</td><td style="color:var(--green)">+654萬</td><td>🔥領先</td></tr>
+</tbody></table></div></div>
+<div class="cat-card"><div class="cat-hdr" data-group="stage" onclick="togCat(this,'stage-det-8')"><span><span class="cat-hdr-main">階段8｜散熱防禦</span><span class="cat-hdr-meta" style="color:#ff8040">➡️分化偏弱｜0/4支偏多</span></span><span class="arrow cold breathing">▶</span></div><div class="cat-det" id="stage-det-8" data-group="stage"><table><thead><tr><th class="sortable" onclick="sortTable(this)">代號</th><th class="sortable" onclick="sortTable(this)">名稱</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="r sortable" onclick="sortTable(this)">當日(萬)</th><th class="r sortable" onclick="sortTable(this)">5日(萬)</th><th class="r sortable" onclick="sortTable(this)">月線(萬)</th><th class="r sortable" onclick="sortTable(this)">季線(萬)</th><th class="sortable" onclick="sortTable(this)">位階</th></tr></thead><tbody><tr style="background:rgba(251,191,36,.08);"><td style="font-weight:700;color:var(--text);">3017</td><td style="font-weight:700;color:var(--text);">奇鋐</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">散熱</td><td style="color:var(--green)">+275萬</td><td style="color:var(--red)">-3,527萬</td><td style="color:var(--green)">+6,669萬</td><td style="color:var(--red)">-17,819萬</td><td>⚠️衰退</td></tr>
+<tr style="background:rgba(56,189,248,.08);"><td style="font-weight:700;color:var(--text);">3324</td><td style="font-weight:700;color:var(--text);">雙鴻</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">散熱</td><td style="color:var(--green)">+493萬</td><td style="color:var(--green)">+184萬</td><td style="color:var(--red)">-3,616萬</td><td style="color:var(--red)">-5,621萬</td><td>🌱回升</td></tr>
+<tr style="background:rgba(251,191,36,.08);"><td style="font-weight:700;color:var(--text);">8996</td><td style="font-weight:700;color:var(--text);">高力</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">散熱</td><td style="color:var(--red)">-277萬</td><td style="color:var(--red)">-280萬</td><td style="color:var(--green)">+509萬</td><td style="color:var(--green)">+6,103萬</td><td>⚠️衰退</td></tr>
+<tr style="background:rgba(255,61,90,.06);"><td style="font-weight:700;color:var(--text);">6805</td><td style="font-weight:700;color:var(--text);">富世達</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">散熱電源</td><td style="color:var(--red)">-54萬</td><td style="color:var(--red)">-77萬</td><td style="color:var(--red)">-1,771萬</td><td style="color:var(--red)">-3,529萬</td><td>❄️落後</td></tr>
+</tbody></table></div></div>
+
+</div>
+
+<div class="chip-lbl" style="margin-top:18px;">台股法人籌碼四型態</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);padding:9px 14px 8px;margin-bottom:1px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+  <span class="dist-badge a">吸籌佔比 50.8%</span>
+  <span class="dist-badge b">雙向確認 16 支</span>
+  <span class="dist-badge c">⚠️ 防禦輪動警示（AI硬體全線落後）</span>
+  
+</div>
+
+<!-- 4 卡片 -->
+<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #94a3b8;padding:10px 14px;margin-bottom:2px;font-size:calc(var(--fs)*.82);line-height:1.8;color:var(--dim);">
+  <div style="font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#94a3b8;margin-bottom:6px;">型態分類定義</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;">
+    <div><span style="color:#00c896">🟢 全面吸籌</span> = 1月 ＋ 5日 ＋ 當日 均買超</div>
+    <div><span style="color:#0ea5e9">🔵 低檔反轉</span> = 1月賣超，但 5日＋當日近期翻多</div>
+    <div><span style="color:#f0c040">🟡 高檔換手</span> = 1月＋5日買超，當日小幅賣出</div>
+    <div><span style="color:#ff8040">🟠 賣超警示</span> = 長多短出 或 三線均賣超</div>
+  </div>
+  <div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);">
+    <b style="color:var(--text)">分類依據</b>：金額榜（當日/5日/1月買賣超金額）三軸正負。🟢🟢 = 金額+佔比（佔發行張數%）同向，最高信心訊號。
+  </div>
+</div>
+
+<div class="chip4">
+
+<div class="ccard ca" data-type="A" onclick="selectChipCard('A')" data-id="A">
+  <div class="ccard-hdr">
+    <div class="ccard-pattern">🟢 全面吸籌</div>
+    <div class="ccard-count">155 支</div>
+    <div class="ccard-brief">環球晶/長榮航/美債ETF/中美晶主導，防禦資產吸籌</div>
+    <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#00c896;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+  </div>
+</div>
+
+<div class="ccard cb" data-type="B" onclick="selectChipCard('B')" data-id="B">
+  <div class="ccard-hdr">
+    <div class="ccard-pattern">🔵 低檔反轉</div>
+    <div class="ccard-count">36 支</div>
+    <div class="ccard-brief">跌深低檔翻買，量少質輕</div>
+    <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#0ea5e9;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+  </div>
+</div>
+
+<div class="ccard cc" data-type="C" onclick="selectChipCard('C')" data-id="C">
+  <div class="ccard-hdr">
+    <div class="ccard-pattern">🟡 高檔換手</div>
+    <div class="ccard-count">47 支</div>
+    <div class="ccard-brief">南電/奇鋐月線正但5日轉賣，衰退警示</div>
+    <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#f0c040;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+  </div>
+</div>
+
+<div class="ccard cd" data-type="D" onclick="selectChipCard('D')" data-id="D">
+  <div class="ccard-hdr">
+    <div class="ccard-pattern">🟠 賣超警示</div>
+    <div class="ccard-count">150 支</div>
+    <div class="ccard-brief">台積電/聯發科/台達電賣壓最重，AI硬體全線</div>
+    <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#ff8040;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+  </div>
+</div>
+
+</div><!-- end chip4 -->
+
+<!-- 全頁寬展開面板 -->
+<div id="chip-panel" class="chip-panel">
+
+  <div id="chip-detail-A" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th>名稱</th><th>代號</th><th>產業別</th><th class="r">漲跌%</th><th class="r">當日(萬)</th><th class="r">5日(萬)</th><th class="r">1月(萬)</th><th>訊號</th></tr></thead><tbody>
+<tr><td>★環球晶</td><td>6488</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">環球晶</td><td class="r cr">-9.49%</td><td class="r cg">+3,785萬</td><td class="r cg">+9,611萬</td><td class="r cg">+13,151萬</td><td>🔥領先</td></tr>
+<tr><td>★長榮航</td><td>2618</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">長榮航</td><td class="r cr">-1.67%</td><td class="r cg">+351萬</td><td class="r cg">+5,366萬</td><td class="r cg">+12,062萬</td><td>🔥領先</td></tr>
+<tr><td>國泰20年美債</td><td>00687B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰20年美債</td><td class="r cg">+0.5%</td><td class="r cg">+809萬</td><td class="r cg">+1,422萬</td><td class="r cg">+9,842萬</td><td>🔥領先</td></tr>
+<tr><td>大華優利高填息30</td><td>00918</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">大華優利高填息30</td><td class="r cr">-2.39%</td><td class="r cr">-3萬</td><td class="r cg">+361萬</td><td class="r cg">+8,310萬</td><td>🔥領先</td></tr>
+<tr><td>★中美晶</td><td>5483</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中美晶</td><td class="r cr">-9.07%</td><td class="r cg">+1,433萬</td><td class="r cg">+5,216萬</td><td class="r cg">+7,893萬</td><td>🔥領先</td></tr>
+<tr><td>★長榮</td><td>2603</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">長榮</td><td class="r cr">-1.0%</td><td class="r cg">+1,890萬</td><td class="r cg">+5,505萬</td><td class="r cg">+7,434萬</td><td>🔥領先</td></tr>
+<tr><td>微星</td><td>2377</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">微星</td><td class="r cr">-2.41%</td><td class="r cr">-19萬</td><td class="r cg">+742萬</td><td class="r cg">+7,319萬</td><td>🔥領先</td></tr>
+<tr><td>★禾伸堂</td><td>3026</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">禾伸堂</td><td class="r cr">-9.92%</td><td class="r cg">+1,826萬</td><td class="r cg">+1,393萬</td><td class="r cg">+6,349萬</td><td>🔥領先</td></tr>
+<tr><td>★第一金</td><td>2892</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">第一金</td><td class="r cg">+0.44%</td><td class="r cg">+633萬</td><td class="r cg">+1,547萬</td><td class="r cg">+5,928萬</td><td>🔥領先</td></tr>
+<tr><td>元大美債20年</td><td>00679B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大美債20年</td><td class="r cg">+0.48%</td><td class="r cg">+876萬</td><td class="r cg">+1,152萬</td><td class="r cg">+5,774萬</td><td>🔥領先</td></tr>
+<tr><td>★聯詠</td><td>3034</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聯詠</td><td class="r cr">-2.33%</td><td class="r cg">+493萬</td><td class="r cg">+4,288萬</td><td class="r cg">+5,693萬</td><td>🔥領先</td></tr>
+<tr><td>★台塑化</td><td>6505</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台塑化</td><td class="r cg">+1.62%</td><td class="r cg">+1,132萬</td><td class="r cg">+4,387萬</td><td class="r cg">+5,608萬</td><td>🔥領先</td></tr>
+<tr><td>富邦金融投等債</td><td>00785B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦金融投等債</td><td class="r cg">+0.4%</td><td class="r cg">+0萬</td><td class="r cg">+3,176萬</td><td class="r cg">+5,135萬</td><td>🔥領先</td></tr>
+<tr><td>★台灣大</td><td>3045</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台灣大</td><td class="r cg">+0.45%</td><td class="r cg">+1,258萬</td><td class="r cg">+4,571萬</td><td class="r cg">+5,076萬</td><td>🔥領先</td></tr>
+<tr><td>南茂</td><td>8150</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">南茂</td><td class="r cr">-9.8%</td><td class="r cr">-1,464萬</td><td class="r cg">+470萬</td><td class="r cg">+4,912萬</td><td>🔥領先</td></tr>
+<tr><td>★統一</td><td>1216</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">統一</td><td class="r cg">+1.27%</td><td class="r cg">+1,098萬</td><td class="r cg">+1,538萬</td><td class="r cg">+4,564萬</td><td>🔥領先</td></tr>
+<tr><td>★祥碩</td><td>5269</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">祥碩</td><td class="r cr">-5.28%</td><td class="r cr">-44萬</td><td class="r cg">+1,360萬</td><td class="r cg">+4,309萬</td><td>🔥領先</td></tr>
+<tr><td>★玉山金</td><td>2884</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">玉山金</td><td class="r cg">+0.57%</td><td class="r cg">+2,127萬</td><td class="r cg">+2,945萬</td><td class="r cg">+4,241萬</td><td>🔥領先</td></tr>
+<tr><td>聯友金屬-創</td><td>7610</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聯友金屬-創</td><td class="r cr">-7.31%</td><td class="r cg">+264萬</td><td class="r cg">+970萬</td><td class="r cg">+3,965萬</td><td>🔥領先</td></tr>
+<tr><td>★立隆電</td><td>2472</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">立隆電</td><td class="r cr">-10.0%</td><td class="r cg">+507萬</td><td class="r cg">+1,352萬</td><td class="r cg">+3,588萬</td><td>🔥領先</td></tr>
+<tr><td>京鼎</td><td>3413</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">京鼎</td><td class="r cr">-2.88%</td><td class="r cr">-53萬</td><td class="r cg">+1,023萬</td><td class="r cg">+3,473萬</td><td>🔥領先</td></tr>
+<tr><td>★台虹</td><td>8039</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台虹</td><td class="r cr">-3.51%</td><td class="r cg">+389萬</td><td class="r cg">+2,843萬</td><td class="r cg">+3,422萬</td><td>🔥領先</td></tr>
+<tr><td>★台勝科</td><td>3532</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台勝科</td><td class="r cr">-9.98%</td><td class="r cg">+593萬</td><td class="r cg">+2,703萬</td><td class="r cg">+3,129萬</td><td>🔥領先</td></tr>
+<tr><td>★昇陽半導體</td><td>8028</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">昇陽半導體</td><td class="r cr">-10.0%</td><td class="r cg">+808萬</td><td class="r cg">+2,051萬</td><td class="r cg">+2,985萬</td><td>🔥領先</td></tr>
+<tr><td>華碩</td><td>2357</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">華碩</td><td class="r cr">-2.1%</td><td class="r cg">+1,101萬</td><td class="r cg">+5,301萬</td><td class="r cg">+2,885萬</td><td>🔥領先</td></tr>
+<tr><td>正新</td><td>2105</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">正新</td><td class="r cg">+0.15%</td><td class="r cg">+356萬</td><td class="r cg">+1,024萬</td><td class="r cg">+2,768萬</td><td>🔥領先</td></tr>
+<tr><td>復華富時不動產</td><td>00712</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">復華富時不動產</td><td class="r cg">+0.44%</td><td class="r cg">+882萬</td><td class="r cg">+1,585萬</td><td class="r cg">+2,758萬</td><td>🔥領先</td></tr>
+<tr><td>樺漢</td><td>6414</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">樺漢</td><td class="r cr">-1.25%</td><td class="r cg">+210萬</td><td class="r cg">+875萬</td><td class="r cg">+2,624萬</td><td>🔥領先</td></tr>
+<tr><td>元大台灣高息低波</td><td>00713</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大台灣高息低波</td><td class="r cr">-1.07%</td><td class="r cg">+297萬</td><td class="r cg">+1,060萬</td><td class="r cg">+2,459萬</td><td>🔥領先</td></tr>
+<tr><td>統一FANG+</td><td>00757</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">統一FANG+</td><td class="r cr">-3.69%</td><td class="r cg">+432萬</td><td class="r cg">+574萬</td><td class="r cg">+2,116萬</td><td>🔥領先</td></tr>
+<tr><td>尖點</td><td>8021</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">尖點</td><td class="r cr">-10.0%</td><td class="r cr">-12萬</td><td class="r cg">+240萬</td><td class="r cg">+2,099萬</td><td>🔥領先</td></tr>
+<tr><td>崇越</td><td>5434</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">崇越</td><td class="r cr">-5.7%</td><td class="r cg">+187萬</td><td class="r cg">+1,083萬</td><td class="r cg">+1,900萬</td><td>🔥領先</td></tr>
+<tr><td>富鼎</td><td>8261</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富鼎</td><td class="r cr">-9.87%</td><td class="r cg">+325萬</td><td class="r cg">+953萬</td><td class="r cg">+1,869萬</td><td>🔥領先</td></tr>
+<tr><td>遠東新</td><td>1402</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">遠東新</td><td class="r cr">-0.36%</td><td class="r cg">+380萬</td><td class="r cg">+1,597萬</td><td class="r cg">+1,848萬</td><td>🔥領先</td></tr>
+<tr><td>上海商銀</td><td>5876</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">上海商銀</td><td class="r cg">+0.56%</td><td class="r cg">+540萬</td><td class="r cg">+1,806萬</td><td class="r cg">+1,836萬</td><td>🔥領先</td></tr>
+<tr><td>元大台灣50反1</td><td>00632R</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大台灣50反1</td><td class="r cg">+6.8%</td><td class="r cg">+1,806萬</td><td class="r cg">+2,100萬</td><td class="r cg">+1,808萬</td><td>🔥領先</td></tr>
+<tr><td>晶碩</td><td>6491</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">晶碩</td><td class="r cr">-6.82%</td><td class="r cg">+65萬</td><td class="r cg">+178萬</td><td class="r cg">+1,706萬</td><td>🔥領先</td></tr>
+<tr><td>義隆</td><td>2458</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">義隆</td><td class="r cr">-6.27%</td><td class="r cg">+81萬</td><td class="r cg">+247萬</td><td class="r cg">+1,691萬</td><td>🔥領先</td></tr>
+<tr><td>元大台灣價值高息</td><td>00940</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大台灣價值高息</td><td class="r cr">-3.26%</td><td class="r cg">+31萬</td><td class="r cg">+308萬</td><td class="r cg">+1,686萬</td><td>🔥領先</td></tr>
+<tr><td>儒鴻</td><td>1476</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">儒鴻</td><td class="r cr">-1.62%</td><td class="r cg">+145萬</td><td class="r cg">+551萬</td><td class="r cg">+1,667萬</td><td>🔥領先</td></tr>
+<tr><td>統一超</td><td>2912</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">統一超</td><td class="r cr">-1.02%</td><td class="r cg">+332萬</td><td class="r cg">+1,139萬</td><td class="r cg">+1,656萬</td><td>🔥領先</td></tr>
+<tr><td>台中銀</td><td>2812</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台中銀</td><td class="r cg">+1.48%</td><td class="r cg">+419萬</td><td class="r cg">+580萬</td><td class="r cg">+1,600萬</td><td>🔥領先</td></tr>
+<tr><td>漢翔</td><td>2634</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">漢翔</td><td class="r cr">-5.12%</td><td class="r cg">+322萬</td><td class="r cg">+432萬</td><td class="r cg">+1,541萬</td><td>🔥領先</td></tr>
+<tr><td>創新服務</td><td>7828</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">創新服務</td><td class="r cr">-9.95%</td><td class="r cr">-44萬</td><td class="r cg">+483萬</td><td class="r cg">+1,440萬</td><td>🔥領先</td></tr>
+<tr><td>國泰A級金融債</td><td>00780B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰A級金融債</td><td class="r cg">+0.29%</td><td class="r cg">+1,416萬</td><td class="r cg">+1,416萬</td><td class="r cg">+1,421萬</td><td>🔥領先</td></tr>
+<tr><td>聚陽</td><td>1477</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聚陽</td><td class="r cr">-1.59%</td><td class="r cg">+70萬</td><td class="r cg">+24萬</td><td class="r cg">+1,373萬</td><td>🔥領先</td></tr>
+<tr><td>宏碁</td><td>2353</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宏碁</td><td class="r cr">-3.74%</td><td class="r cr">-46萬</td><td class="r cg">+325萬</td><td class="r cg">+1,252萬</td><td>🔥領先</td></tr>
+<tr><td>慧洋-KY</td><td>2637</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">慧洋-KY</td><td class="r cr">-3.76%</td><td class="r cg">+2萬</td><td class="r cg">+254萬</td><td class="r cg">+1,169萬</td><td>🔥領先</td></tr>
+<tr><td>主動安聯美國科技</td><td>00402A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動安聯美國科技</td><td class="r cr">-4.46%</td><td class="r cr">-20萬</td><td class="r cg">+258萬</td><td class="r cg">+1,142萬</td><td>🔥領先</td></tr>
+<tr><td>富邦特選高股息30</td><td>00900</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦特選高股息30</td><td class="r cr">-4.66%</td><td class="r cg">+50萬</td><td class="r cg">+205萬</td><td class="r cg">+1,116萬</td><td>🔥領先</td></tr>
+<tr><td>台新美國電力基建</td><td>009805</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台新美國電力基建</td><td class="r cr">-2.91%</td><td class="r cg">+33萬</td><td class="r cg">+137萬</td><td class="r cg">+1,104萬</td><td>🔥領先</td></tr>
+<tr><td>揚博</td><td>2493</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">揚博</td><td class="r cr">-9.81%</td><td class="r cg">+744萬</td><td class="r cg">+1,404萬</td><td class="r cg">+1,099萬</td><td>🔥領先</td></tr>
+<tr><td>裕民</td><td>2606</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">裕民</td><td class="r cr">-4.4%</td><td class="r cr">-61萬</td><td class="r cg">+142萬</td><td class="r cg">+1,092萬</td><td>🔥領先</td></tr>
+<tr><td>萬海</td><td>2615</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">萬海</td><td class="r cr">-1.49%</td><td class="r cg">+111萬</td><td class="r cg">+554萬</td><td class="r cg">+1,082萬</td><td>🔥領先</td></tr>
+<tr><td>順德</td><td>2351</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">順德</td><td class="r cr">-9.92%</td><td class="r cg">+41萬</td><td class="r cg">+447萬</td><td class="r cg">+1,071萬</td><td>🔥領先</td></tr>
+<tr><td>東和鋼鐵</td><td>2006</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">東和鋼鐵</td><td class="r cr">-3.04%</td><td class="r cg">+52萬</td><td class="r cg">+529萬</td><td class="r cg">+948萬</td><td>🔥領先</td></tr>
+<tr><td>臺慶科</td><td>3357</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">臺慶科</td><td class="r cr">-7.82%</td><td class="r cg">+247萬</td><td class="r cg">+425萬</td><td class="r cg">+935萬</td><td>🔥領先</td></tr>
+<tr><td>雙鍵</td><td>4764</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">雙鍵</td><td class="r cr">-9.89%</td><td class="r cg">+12萬</td><td class="r cg">+269萬</td><td class="r cg">+927萬</td><td>🔥領先</td></tr>
+<tr><td>元大納斯達克精選</td><td>009820</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大納斯達克精選</td><td class="r cr">-4.25%</td><td class="r cr">-52萬</td><td class="r cg">+439萬</td><td class="r cg">+908萬</td><td>🔥領先</td></tr>
+<tr><td>宏致</td><td>3605</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宏致</td><td class="r cr">-6.6%</td><td class="r cg">+41萬</td><td class="r cg">+76萬</td><td class="r cg">+908萬</td><td>🔥領先</td></tr>
+<tr><td>印能科技</td><td>7734</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">印能科技</td><td class="r cr">-9.81%</td><td class="r cr">-23萬</td><td class="r cg">+874萬</td><td class="r cg">+866萬</td><td>🔥領先</td></tr>
+<tr><td>群益優選非投等債</td><td>00953B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">群益優選非投等債</td><td class="r cg">+0.21%</td><td class="r cg">+347萬</td><td class="r cg">+1,039萬</td><td class="r cg">+838萬</td><td>🔥領先</td></tr>
+<tr><td>蔚華科</td><td>3055</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">蔚華科</td><td class="r cr">-9.44%</td><td class="r cg">+34萬</td><td class="r cg">+135萬</td><td class="r cg">+833萬</td><td>🔥領先</td></tr>
+<tr><td>三商壽</td><td>2867</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">三商壽</td><td class="r cg">+0.79%</td><td class="r cg">+224萬</td><td class="r cg">+442萬</td><td class="r cg">+801萬</td><td>🔥領先</td></tr>
+<tr><td>鼎元</td><td>2426</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">鼎元</td><td class="r cr">-9.87%</td><td class="r cg">+72萬</td><td class="r cg">+92萬</td><td class="r cg">+801萬</td><td>🔥領先</td></tr>
+<tr><td>沛爾生醫-創</td><td>6949</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">沛爾生醫-創</td><td class="r cr">-6.79%</td><td class="r cg">+59萬</td><td class="r cg">+579萬</td><td class="r cg">+737萬</td><td>🔥領先</td></tr>
+<tr><td>雍智科技</td><td>6683</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">雍智科技</td><td class="r cr">-10.0%</td><td class="r cg">+745萬</td><td class="r cg">+772萬</td><td class="r cg">+734萬</td><td>🔥領先</td></tr>
+<tr><td>神基</td><td>3005</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">神基</td><td class="r cr">-3.08%</td><td class="r cg">+163萬</td><td class="r cg">+334萬</td><td class="r cg">+700萬</td><td>🔥領先</td></tr>
+<tr><td>所羅門</td><td>2359</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">所羅門</td><td class="r cr">-4.08%</td><td class="r cr">-377萬</td><td class="r cg">+286萬</td><td class="r cg">+673萬</td><td>🔥領先</td></tr>
+<tr><td>國泰全球品牌50</td><td>00916</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰全球品牌50</td><td class="r cr">-0.71%</td><td class="r cg">+58萬</td><td class="r cg">+207萬</td><td class="r cg">+666萬</td><td>🔥領先</td></tr>
+<tr><td>遠東銀</td><td>2845</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">遠東銀</td><td class="r cr">-1.11%</td><td class="r cg">+84萬</td><td class="r cg">+331萬</td><td class="r cg">+649萬</td><td>🔥領先</td></tr>
+<tr><td>大華美國MAG7+</td><td>009815</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">大華美國MAG7+</td><td class="r cr">-3.03%</td><td class="r cg">+47萬</td><td class="r cg">+184萬</td><td class="r cg">+631萬</td><td>🔥領先</td></tr>
+<tr><td>元大航太防衛科技</td><td>00965</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大航太防衛科技</td><td class="r cr">-2.99%</td><td class="r cg">+9萬</td><td class="r cg">+62萬</td><td class="r cg">+617萬</td><td>🔥領先</td></tr>
+<tr><td>第一金太空衛星</td><td>00910</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">第一金太空衛星</td><td class="r cr">-6.32%</td><td class="r cg">+42萬</td><td class="r cg">+84萬</td><td class="r cg">+612萬</td><td>🔥領先</td></tr>
+<tr><td>捷敏-KY</td><td>6525</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">捷敏-KY</td><td class="r cr">-9.92%</td><td class="r cg">+169萬</td><td class="r cg">+107萬</td><td class="r cg">+609萬</td><td>🔥領先</td></tr>
+<tr><td>永豐20年美公債</td><td>00857B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">永豐20年美公債</td><td class="r cg">+0.47%</td><td class="r cg">+55萬</td><td class="r cg">+125萬</td><td class="r cg">+594萬</td><td>🔥領先</td></tr>
+<tr><td>智伸科</td><td>4551</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">智伸科</td><td class="r cr">-5.05%</td><td class="r cg">+62萬</td><td class="r cg">+260萬</td><td class="r cg">+581萬</td><td>🔥領先</td></tr>
+<tr><td>主動中信ARK創新</td><td>00983A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動中信ARK創新</td><td class="r cr">-4.35%</td><td class="r cg">+17萬</td><td class="r cg">+52萬</td><td class="r cg">+576萬</td><td>🔥領先</td></tr>
+<tr><td>凱基優選高股息30</td><td>00915</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">凱基優選高股息30</td><td class="r cr">-3.31%</td><td class="r cg">+18萬</td><td class="r cg">+120萬</td><td class="r cg">+564萬</td><td>🔥領先</td></tr>
+<tr><td>力智</td><td>6719</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">力智</td><td class="r cr">-8.4%</td><td class="r cg">+45萬</td><td class="r cg">+199萬</td><td class="r cg">+550萬</td><td>🔥領先</td></tr>
+<tr><td>美利達</td><td>9914</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">美利達</td><td class="r cr">-0.24%</td><td class="r cg">+431萬</td><td class="r cg">+517萬</td><td class="r cg">+548萬</td><td>🔥領先</td></tr>
+<tr><td>富邦越南</td><td>00885</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦越南</td><td class="r cg">+1.0%</td><td class="r cg">+68萬</td><td class="r cg">+27萬</td><td class="r cg">+541萬</td><td>🔥領先</td></tr>
+<tr><td>大成鋼</td><td>2027</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">大成鋼</td><td class="r cr">-0.85%</td><td class="r cg">+235萬</td><td class="r cg">+889萬</td><td class="r cg">+537萬</td><td>🔥領先</td></tr>
+<tr><td>同欣電</td><td>6271</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">同欣電</td><td class="r cr">-9.38%</td><td class="r cg">+170萬</td><td class="r cg">+735萬</td><td class="r cg">+533萬</td><td>🔥領先</td></tr>
+<tr><td>漢科</td><td>3402</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">漢科</td><td class="r cr">-7.03%</td><td class="r cr">-9萬</td><td class="r cg">+125萬</td><td class="r cg">+517萬</td><td>🔥領先</td></tr>
+<tr><td>富邦恒生國企正2</td><td>00665L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦恒生國企正2</td><td class="r cr">-7.46%</td><td class="r cr">-0萬</td><td class="r cg">+491萬</td><td class="r cg">+503萬</td><td>🔥領先</td></tr>
+<tr><td>嘉晶</td><td>3016</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">嘉晶</td><td class="r cr">-9.91%</td><td class="r cr">-0萬</td><td class="r cg">+90萬</td><td class="r cg">+482萬</td><td>🔥領先</td></tr>
+<tr><td>中信中國50</td><td>00752</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中信中國50</td><td class="r cr">-3.97%</td><td class="r cg">+77萬</td><td class="r cg">+143萬</td><td class="r cg">+481萬</td><td>🔥領先</td></tr>
+<tr><td>青雲</td><td>5386</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">青雲</td><td class="r cr">-1.31%</td><td class="r cg">+44萬</td><td class="r cg">+393萬</td><td class="r cg">+476萬</td><td>🔥領先</td></tr>
+<tr><td>鈺邦</td><td>6449</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">鈺邦</td><td class="r cr">-8.63%</td><td class="r cg">+194萬</td><td class="r cg">+228萬</td><td class="r cg">+458萬</td><td>🔥領先</td></tr>
+<tr><td>德宏</td><td>5475</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">德宏</td><td class="r cr">-9.97%</td><td class="r cg">+143萬</td><td class="r cg">+615萬</td><td class="r cg">+424萬</td><td>🔥領先</td></tr>
+<tr><td>主動野村台灣50</td><td>00985A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動野村台灣50</td><td class="r cr">-6.11%</td><td class="r cg">+3萬</td><td class="r cg">+46萬</td><td class="r cg">+416萬</td><td>🔥領先</td></tr>
+<tr><td>復華S&P500成長</td><td>00924</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">復華S&P500成長</td><td class="r cr">-2.29%</td><td class="r cg">+16萬</td><td class="r cg">+115萬</td><td class="r cg">+398萬</td><td>🔥領先</td></tr>
+<tr><td>零壹</td><td>3029</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">零壹</td><td class="r cr">-1.91%</td><td class="r cg">+64萬</td><td class="r cg">+196萬</td><td class="r cg">+384萬</td><td>🔥領先</td></tr>
+<tr><td>鈺創</td><td>5351</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">鈺創</td><td class="r cr">-9.93%</td><td class="r cr">-576萬</td><td class="r cg">+671萬</td><td class="r cg">+382萬</td><td>🔥領先</td></tr>
+<tr><td>中磊</td><td>5388</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中磊</td><td class="r cr">-3.81%</td><td class="r cg">+13萬</td><td class="r cg">+592萬</td><td class="r cg">+375萬</td><td>🔥領先</td></tr>
+<tr><td>敦陽科</td><td>2480</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">敦陽科</td><td class="r cr">-3.1%</td><td class="r cg">+2萬</td><td class="r cg">+31萬</td><td class="r cg">+371萬</td><td>🔥領先</td></tr>
+<tr><td>冠西電</td><td>2466</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">冠西電</td><td class="r cg">+0.83%</td><td class="r cg">+8萬</td><td class="r cg">+7萬</td><td class="r cg">+366萬</td><td>🔥領先</td></tr>
+<tr><td>兆赫</td><td>2485</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">兆赫</td><td class="r cr">-8.25%</td><td class="r cg">+83萬</td><td class="r cg">+218萬</td><td class="r cg">+366萬</td><td>🔥領先</td></tr>
+<tr><td>眾達-KY</td><td>4977</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">眾達-KY</td><td class="r cr">-9.72%</td><td class="r cg">+55萬</td><td class="r cg">+173萬</td><td class="r cg">+364萬</td><td>🔥領先</td></tr>
+<tr><td>貝萊德標普卓越50</td><td>009813</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">貝萊德標普卓越50</td><td class="r cr">-1.67%</td><td class="r cg">+16萬</td><td class="r cg">+94萬</td><td class="r cg">+363萬</td><td>🔥領先</td></tr>
+<tr><td>大量</td><td>3167</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">大量</td><td class="r cr">-9.99%</td><td class="r cr">-340萬</td><td class="r cg">+35萬</td><td class="r cg">+357萬</td><td>🔥領先</td></tr>
+<tr><td>千附</td><td>8383</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">千附</td><td class="r cg">+2.18%</td><td class="r cr">-11萬</td><td class="r cg">+296萬</td><td class="r cg">+356萬</td><td>🔥領先</td></tr>
+<tr><td>中纖</td><td>1718</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中纖</td><td class="r cr">-6.83%</td><td class="r cg">+19萬</td><td class="r cg">+171萬</td><td class="r cg">+356萬</td><td>🔥領先</td></tr>
+<tr><td>百容</td><td>2483</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">百容</td><td class="r cr">-9.94%</td><td class="r cg">+73萬</td><td class="r cg">+67萬</td><td class="r cg">+353萬</td><td>🔥領先</td></tr>
+<tr><td>國票金</td><td>2889</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國票金</td><td class="r cr">-0.95%</td><td class="r cg">+16萬</td><td class="r cg">+40萬</td><td class="r cg">+348萬</td><td>🔥領先</td></tr>
+<tr><td>統一美國50</td><td>009811</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">統一美國50</td><td class="r cr">-1.8%</td><td class="r cg">+12萬</td><td class="r cg">+72萬</td><td class="r cg">+331萬</td><td>🔥領先</td></tr>
+<tr><td>精誠</td><td>6214</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">精誠</td><td class="r cr">-2.14%</td><td class="r cg">+50萬</td><td class="r cg">+153萬</td><td class="r cg">+327萬</td><td>🔥領先</td></tr>
+<tr><td>東洋</td><td>4105</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">東洋</td><td class="r cr">-1.14%</td><td class="r cg">+34萬</td><td class="r cg">+100萬</td><td class="r cg">+308萬</td><td>🔥領先</td></tr>
+<tr><td>統一台灣高息動能</td><td>00939</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">統一台灣高息動能</td><td class="r cr">-1.96%</td><td class="r cg">+30萬</td><td class="r cg">+109萬</td><td class="r cg">+302萬</td><td>🔥領先</td></tr>
+<tr><td>達邁</td><td>3645</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">達邁</td><td class="r cr">-7.96%</td><td class="r cg">+48萬</td><td class="r cg">+171萬</td><td class="r cg">+297萬</td><td>🔥領先</td></tr>
+<tr><td>南港</td><td>2101</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">南港</td><td class="r cr">-1.59%</td><td class="r cg">+33萬</td><td class="r cg">+109萬</td><td class="r cg">+291萬</td><td>🔥領先</td></tr>
+<tr><td>宏璟</td><td>2527</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宏璟</td><td class="r cr">-2.93%</td><td class="r cg">+27萬</td><td class="r cg">+168萬</td><td class="r cg">+278萬</td><td>🔥領先</td></tr>
+<tr><td>榮剛</td><td>5009</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">榮剛</td><td class="r cr">-4.15%</td><td class="r cr">-25萬</td><td class="r cg">+189萬</td><td class="r cg">+278萬</td><td>🔥領先</td></tr>
+<tr><td>汎銓</td><td>6830</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">汎銓</td><td class="r cr">-9.36%</td><td class="r cg">+40萬</td><td class="r cg">+188萬</td><td class="r cg">+272萬</td><td>🔥領先</td></tr>
+<tr><td>和益</td><td>1709</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">和益</td><td class="r cr">-4.23%</td><td class="r cg">+29萬</td><td class="r cg">+198萬</td><td class="r cg">+248萬</td><td>🔥領先</td></tr>
+<tr><td>IET-KY</td><td>4971</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">IET-KY</td><td class="r cr">-9.96%</td><td class="r cg">+53萬</td><td class="r cg">+233萬</td><td class="r cg">+233萬</td><td>🔥領先</td></tr>
+<tr><td>裕隆</td><td>2201</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">裕隆</td><td class="r cr">-0.35%</td><td class="r cg">+50萬</td><td class="r cg">+104萬</td><td class="r cg">+205萬</td><td>🔥領先</td></tr>
+<tr><td>柏文</td><td>8462</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">柏文</td><td class="r cr">-2.19%</td><td class="r cg">+8萬</td><td class="r cg">+120萬</td><td class="r cg">+199萬</td><td>🔥領先</td></tr>
+<tr><td>燿華</td><td>2367</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">燿華</td><td class="r cr">-7.44%</td><td class="r cg">+143萬</td><td class="r cg">+196萬</td><td class="r cg">+194萬</td><td>🔥領先</td></tr>
+<tr><td>柏承</td><td>6141</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">柏承</td><td class="r cr">-6.97%</td><td class="r cg">+60萬</td><td class="r cg">+151萬</td><td class="r cg">+175萬</td><td>🔥領先</td></tr>
+<tr><td>榮成</td><td>1909</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">榮成</td><td class="r cr">-2.88%</td><td class="r cg">+3萬</td><td class="r cg">+7萬</td><td class="r cg">+173萬</td><td>🔥領先</td></tr>
+<tr><td>華電網</td><td>6163</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">華電網</td><td class="r cr">-9.54%</td><td class="r cg">+39萬</td><td class="r cg">+69萬</td><td class="r cg">+170萬</td><td>🔥領先</td></tr>
+<tr><td>中碳</td><td>1723</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中碳</td><td class="r cr">-1.67%</td><td class="r cr">-8萬</td><td class="r cg">+139萬</td><td class="r cg">+170萬</td><td>🔥領先</td></tr>
+<tr><td>合勤控</td><td>3704</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">合勤控</td><td class="r cr">-2.04%</td><td class="r cr">-19萬</td><td class="r cg">+195萬</td><td class="r cg">+168萬</td><td>🔥領先</td></tr>
+<tr><td>期元大S&P石油</td><td>00642U</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">期元大S&P石油</td><td class="r cg">+0.15%</td><td class="r cg">+22萬</td><td class="r cg">+111萬</td><td class="r cg">+166萬</td><td>🔥領先</td></tr>
+<tr><td>沛亨</td><td>6291</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">沛亨</td><td class="r cr">-9.45%</td><td class="r cg">+81萬</td><td class="r cg">+181萬</td><td class="r cg">+161萬</td><td>🔥領先</td></tr>
+<tr><td>光鼎</td><td>6226</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">光鼎</td><td class="r cr">-9.98%</td><td class="r cg">+8萬</td><td class="r cg">+26萬</td><td class="r cg">+157萬</td><td>🔥領先</td></tr>
+<tr><td>邑錡</td><td>7402</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">邑錡</td><td class="r cr">-8.24%</td><td class="r cg">+50萬</td><td class="r cg">+137萬</td><td class="r cg">+155萬</td><td>🔥領先</td></tr>
+<tr><td>中信美國公債0-1</td><td>00864B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中信美國公債0-1</td><td class="r cg">+0.49%</td><td class="r cg">+52萬</td><td class="r cg">+85萬</td><td class="r cg">+155萬</td><td>🔥領先</td></tr>
+<tr><td>復華香港正2</td><td>00650L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">復華香港正2</td><td class="r cr">-6.07%</td><td class="r cg">+29萬</td><td class="r cg">+230萬</td><td class="r cg">+154萬</td><td>🔥領先</td></tr>
+<tr><td>期街口S&P黃豆</td><td>00693U</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">期街口S&P黃豆</td><td class="r cr">-1.0%</td><td class="r cg">+17萬</td><td class="r cg">+53萬</td><td class="r cg">+150萬</td><td>🔥領先</td></tr>
+<tr><td>群益ESG投等債0-5</td><td>00985B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">群益ESG投等債0-5</td><td class="r cg">+0.39%</td><td class="r cg">+103萬</td><td class="r cg">+149萬</td><td class="r cg">+134萬</td><td>🔥領先</td></tr>
+<tr><td>亞航</td><td>2630</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">亞航</td><td class="r cr">-6.15%</td><td class="r cg">+85萬</td><td class="r cg">+149萬</td><td class="r cg">+132萬</td><td>🔥領先</td></tr>
+<tr><td>期街口布蘭特正2</td><td>00715L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">期街口布蘭特正2</td><td class="r cg">+1.62%</td><td class="r cg">+31萬</td><td class="r cg">+439萬</td><td class="r cg">+126萬</td><td>🔥領先</td></tr>
+<tr><td>期元大S&P日圓正2</td><td>00706L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">期元大S&P日圓正2</td><td class="r cr">-0.54%</td><td class="r cg">+25萬</td><td class="r cg">+64萬</td><td class="r cg">+117萬</td><td>🔥領先</td></tr>
+<tr><td>永豐優息存股</td><td>00907</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">永豐優息存股</td><td class="r cr">-1.15%</td><td class="r cg">+3萬</td><td class="r cg">+34萬</td><td class="r cg">+110萬</td><td>🔥領先</td></tr>
+<tr><td>宏碁資訊</td><td>6811</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宏碁資訊</td><td class="r cg">+4.81%</td><td class="r cg">+106萬</td><td class="r cg">+115萬</td><td class="r cg">+99萬</td><td>🔥領先</td></tr>
+<tr><td>亞電</td><td>4939</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">亞電</td><td class="r cr">-9.88%</td><td class="r cg">+146萬</td><td class="r cg">+187萬</td><td class="r cg">+91萬</td><td>🔥領先</td></tr>
+<tr><td>睿生光電</td><td>6861</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">睿生光電</td><td class="r cr">-10.0%</td><td class="r cg">+29萬</td><td class="r cg">+78萬</td><td class="r cg">+87萬</td><td>🔥領先</td></tr>
+<tr><td>新光鋼</td><td>2031</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">新光鋼</td><td class="r cr">-2.72%</td><td class="r cr">-3萬</td><td class="r cg">+104萬</td><td class="r cg">+83萬</td><td>🔥領先</td></tr>
+<tr><td>卜蜂</td><td>1215</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">卜蜂</td><td class="r cr">-1.78%</td><td class="r cg">+103萬</td><td class="r cg">+285萬</td><td class="r cg">+81萬</td><td>🔥領先</td></tr>
+<tr><td>期街口道瓊銅</td><td>00763U</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">期街口道瓊銅</td><td class="r cr">-2.99%</td><td class="r cg">+12萬</td><td class="r cg">+121萬</td><td class="r cg">+74萬</td><td>🔥領先</td></tr>
+<tr><td>國泰臺灣加權反1</td><td>00664R</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰臺灣加權反1</td><td class="r cg">+6.1%</td><td class="r cg">+46萬</td><td class="r cg">+78萬</td><td class="r cg">+71萬</td><td>🔥領先</td></tr>
+<tr><td>鈺齊-KY</td><td>9802</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">鈺齊-KY</td><td class="r cr">-2.9%</td><td class="r cg">+5萬</td><td class="r cg">+53萬</td><td class="r cg">+62萬</td><td>🔥領先</td></tr>
+<tr><td>富邦臺灣加權反1</td><td>00676R</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦臺灣加權反1</td><td class="r cg">+6.42%</td><td class="r cg">+79萬</td><td class="r cg">+82萬</td><td class="r cg">+61萬</td><td>🔥領先</td></tr>
+<tr><td>91APP*-KY</td><td>6741</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">91APP*-KY</td><td class="r cr">-3.08%</td><td class="r cr">-1萬</td><td class="r cg">+36萬</td><td class="r cg">+59萬</td><td>🔥領先</td></tr>
+<tr><td>宏全</td><td>9939</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宏全</td><td class="r cg">+0.0%</td><td class="r cg">+121萬</td><td class="r cg">+354萬</td><td class="r cg">+48萬</td><td>🔥領先</td></tr>
+<tr><td>惠特</td><td>6706</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">惠特</td><td class="r cr">-9.43%</td><td class="r cg">+80萬</td><td class="r cg">+220萬</td><td class="r cg">+48萬</td><td>🔥領先</td></tr>
+<tr><td>威強電</td><td>3022</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">威強電</td><td class="r cr">-6.25%</td><td class="r cg">+3萬</td><td class="r cg">+43萬</td><td class="r cg">+37萬</td><td>🔥領先</td></tr>
+<tr><td>達麗</td><td>6177</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">達麗</td><td class="r cr">-1.04%</td><td class="r cg">+59萬</td><td class="r cg">+156萬</td><td class="r cg">+30萬</td><td>🔥領先</td></tr>
+<tr><td>統新</td><td>6426</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">統新</td><td class="r cr">-8.19%</td><td class="r cg">+32萬</td><td class="r cg">+108萬</td><td class="r cg">+22萬</td><td>🔥領先</td></tr>
+<tr><td>中信中國50正2</td><td>00753L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中信中國50正2</td><td class="r cr">-8.14%</td><td class="r cr">-64萬</td><td class="r cg">+206萬</td><td class="r cg">+20萬</td><td>🔥領先</td></tr>
+<tr><td>宇隆</td><td>2233</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宇隆</td><td class="r cr">-4.79%</td><td class="r cr">-28萬</td><td class="r cg">+80萬</td><td class="r cr">-30萬</td><td>🌱回升</td></tr>
+<tr><td>前鼎</td><td>4908</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">前鼎</td><td class="r cr">-8.91%</td><td class="r cg">+108萬</td><td class="r cg">+237萬</td><td class="r cr">-70萬</td><td>🌱回升</td></tr>
+</tbody></table><div class="det-note">共155支｜月線降序｜金額口徑｜★=雙向確認</div> -->
+</tbody></table>
+    <div class="chip-note">共155支｜月線降序｜★=雙向確認</div>
+  </div>
+
+  
+
+  
+
+  
+
+  <div id="chip-detail-B" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th>名稱</th><th>代號</th><th>產業別</th><th class="r">漲跌%</th><th class="r">當日(萬)</th><th class="r">5日(萬)</th><th class="r">1月(萬)</th><th>訊號</th></tr></thead><tbody>
+<tr><td>野村稀土關鍵資源</td><td>009821</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">野村稀土關鍵資源</td><td class="r cr">-4.72%</td><td class="r cr">-29萬</td><td class="r cg">+48萬</td><td class="r cr">-5,690萬</td><td>🌱回升</td></tr>
+<tr><td>雙鴻</td><td>3324</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">雙鴻</td><td class="r cg">+1.22%</td><td class="r cg">+493萬</td><td class="r cg">+184萬</td><td class="r cr">-3,616萬</td><td>🌱回升</td></tr>
+<tr><td>晶技</td><td>3042</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">晶技</td><td class="r cr">-9.65%</td><td class="r cg">+702萬</td><td class="r cr">-67萬</td><td class="r cr">-3,614萬</td><td>❄️落後</td></tr>
+<tr><td>新唐</td><td>4919</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">新唐</td><td class="r cr">-9.9%</td><td class="r cg">+95萬</td><td class="r cg">+227萬</td><td class="r cr">-2,751萬</td><td>🌱回升</td></tr>
+<tr><td>良維</td><td>6290</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">良維</td><td class="r cr">-9.71%</td><td class="r cg">+195萬</td><td class="r cg">+202萬</td><td class="r cr">-2,561萬</td><td>🌱回升</td></tr>
+<tr><td>仁寶</td><td>2324</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">仁寶</td><td class="r cg">+0.14%</td><td class="r cg">+797萬</td><td class="r cg">+752萬</td><td class="r cr">-2,052萬</td><td>🌱回升</td></tr>
+<tr><td>光聖</td><td>6442</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">光聖</td><td class="r cr">-3.7%</td><td class="r cr">-310萬</td><td class="r cg">+753萬</td><td class="r cr">-1,984萬</td><td>🌱回升</td></tr>
+<tr><td>波若威</td><td>3163</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">波若威</td><td class="r cr">-9.94%</td><td class="r cg">+204萬</td><td class="r cg">+691萬</td><td class="r cr">-1,692萬</td><td>🌱回升</td></tr>
+<tr><td>景碩</td><td>3189</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">景碩</td><td class="r cr">-10.0%</td><td class="r cg">+514萬</td><td class="r cg">+1,535萬</td><td class="r cr">-1,464萬</td><td>🌱回升</td></tr>
+<tr><td>和桐</td><td>1714</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">和桐</td><td class="r cr">-5.56%</td><td class="r cg">+121萬</td><td class="r cg">+46萬</td><td class="r cr">-1,110萬</td><td>🌱回升</td></tr>
+<tr><td>正達</td><td>3149</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">正達</td><td class="r cr">-14.9%</td><td class="r cr">-98萬</td><td class="r cg">+50萬</td><td class="r cr">-1,077萬</td><td>🌱回升</td></tr>
+<tr><td>茂達</td><td>6138</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">茂達</td><td class="r cr">-6.73%</td><td class="r cg">+16萬</td><td class="r cg">+106萬</td><td class="r cr">-1,049萬</td><td>🌱回升</td></tr>
+<tr><td>期元大S&P黃金</td><td>00635U</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">期元大S&P黃金</td><td class="r cr">-1.38%</td><td class="r cg">+28萬</td><td class="r cg">+1萬</td><td class="r cr">-808萬</td><td>🌱回升</td></tr>
+<tr><td>群光</td><td>2385</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">群光</td><td class="r cr">-2.84%</td><td class="r cr">-32萬</td><td class="r cg">+143萬</td><td class="r cr">-755萬</td><td>🌱回升</td></tr>
+<tr><td>訊芯-KY</td><td>6451</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">訊芯-KY</td><td class="r cr">-9.96%</td><td class="r cr">-5萬</td><td class="r cg">+268萬</td><td class="r cr">-703萬</td><td>🌱回升</td></tr>
+<tr><td>康普</td><td>4739</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">康普</td><td class="r cr">-6.97%</td><td class="r cg">+12萬</td><td class="r cg">+90萬</td><td class="r cr">-602萬</td><td>🌱回升</td></tr>
+<tr><td>金山電</td><td>8042</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">金山電</td><td class="r cr">-9.76%</td><td class="r cg">+196萬</td><td class="r cg">+371萬</td><td class="r cr">-535萬</td><td>🌱回升</td></tr>
+<tr><td>華容</td><td>5328</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">華容</td><td class="r cr">-10.0%</td><td class="r cr">-47萬</td><td class="r cg">+62萬</td><td class="r cr">-501萬</td><td>🌱回升</td></tr>
+<tr><td>瑞軒</td><td>2489</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">瑞軒</td><td class="r cr">-8.66%</td><td class="r cg">+177萬</td><td class="r cg">+283萬</td><td class="r cr">-447萬</td><td>🌱回升</td></tr>
+<tr><td>中探針</td><td>6217</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中探針</td><td class="r cr">-9.86%</td><td class="r cr">-26萬</td><td class="r cg">+114萬</td><td class="r cr">-384萬</td><td>🌱回升</td></tr>
+<tr><td>科嶠</td><td>4542</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">科嶠</td><td class="r cr">-9.9%</td><td class="r cr">-8萬</td><td class="r cg">+58萬</td><td class="r cr">-371萬</td><td>🌱回升</td></tr>
+<tr><td>九豪</td><td>6127</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">九豪</td><td class="r cr">-9.9%</td><td class="r cg">+62萬</td><td class="r cg">+138萬</td><td class="r cr">-274萬</td><td>🌱回升</td></tr>
+<tr><td>大綜</td><td>3147</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">大綜</td><td class="r cr">-6.47%</td><td class="r cg">+4萬</td><td class="r cg">+56萬</td><td class="r cr">-244萬</td><td>🌱回升</td></tr>
+<tr><td>亞泰金屬</td><td>6727</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">亞泰金屬</td><td class="r cr">-9.93%</td><td class="r cr">-8萬</td><td class="r cg">+28萬</td><td class="r cr">-233萬</td><td>🌱回升</td></tr>
+<tr><td>華晶科</td><td>3059</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">華晶科</td><td class="r cr">-6.1%</td><td class="r cg">+0萬</td><td class="r cg">+56萬</td><td class="r cr">-198萬</td><td>🌱回升</td></tr>
+<tr><td>千如</td><td>3236</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">千如</td><td class="r cr">-9.96%</td><td class="r cg">+38萬</td><td class="r cg">+103萬</td><td class="r cr">-190萬</td><td>🌱回升</td></tr>
+<tr><td>直得</td><td>1597</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">直得</td><td class="r cr">-7.58%</td><td class="r cg">+10萬</td><td class="r cg">+100萬</td><td class="r cr">-186萬</td><td>🌱回升</td></tr>
+<tr><td>九暘</td><td>8040</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">九暘</td><td class="r cr">-8.61%</td><td class="r cg">+26萬</td><td class="r cg">+71萬</td><td class="r cr">-171萬</td><td>🌱回升</td></tr>
+<tr><td>元晶</td><td>6443</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元晶</td><td class="r cg">+0.0%</td><td class="r cg">+64萬</td><td class="r cg">+138萬</td><td class="r cr">-144萬</td><td>🌱回升</td></tr>
+<tr><td>聯合再生</td><td>3576</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聯合再生</td><td class="r cg">+0.85%</td><td class="r cg">+90萬</td><td class="r cg">+641萬</td><td class="r cr">-121萬</td><td>🌱回升</td></tr>
+<tr><td>松川精密</td><td>7788</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">松川精密</td><td class="r cr">-9.96%</td><td class="r cg">+834萬</td><td class="r cg">+823萬</td><td class="r cr">-111萬</td><td>🌱回升</td></tr>
+<tr><td>新興</td><td>2605</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">新興</td><td class="r cr">-0.8%</td><td class="r cg">+21萬</td><td class="r cg">+192萬</td><td class="r cr">-102萬</td><td>🌱回升</td></tr>
+<tr><td>麗正</td><td>2302</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">麗正</td><td class="r cr">-9.84%</td><td class="r cg">+25萬</td><td class="r cg">+2萬</td><td class="r cr">-94萬</td><td>🌱回升</td></tr>
+<tr><td>光環</td><td>3234</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">光環</td><td class="r cr">-6.94%</td><td class="r cg">+55萬</td><td class="r cg">+62萬</td><td class="r cr">-53萬</td><td>🌱回升</td></tr>
+<tr><td>友訊</td><td>2332</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">友訊</td><td class="r cr">-8.89%</td><td class="r cg">+159萬</td><td class="r cg">+138萬</td><td class="r cr">-30萬</td><td>🌱回升</td></tr>
+<tr><td>界霖</td><td>5285</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">界霖</td><td class="r cr">-7.8%</td><td class="r cr">-3萬</td><td class="r cg">+49萬</td><td class="r cr">-18萬</td><td>🌱回升</td></tr>
+</tbody></table><div class="det-note">共36支｜月線降序｜月線賣超但5日翻買</div> -->
+</tbody></table>
+    <div class="chip-note">共36支｜月線降序</div>
+  </div>
+
+  
+
+  
+
+  
+
+  <div id="chip-detail-C" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th>名稱</th><th>代號</th><th>產業別</th><th class="r">漲跌%</th><th class="r">當日(萬)</th><th class="r">5日(萬)</th><th class="r">1月(萬)</th><th>訊號</th></tr></thead><tbody>
+<tr><td>京元電子</td><td>2449</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">京元電子</td><td class="r cr">-9.91%</td><td class="r cr">-6,526萬</td><td class="r cr">-7,452萬</td><td class="r cg">+15,828萬</td><td>⚠️衰退</td></tr>
+<tr><td>精材</td><td>3374</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">精材</td><td class="r cr">-9.24%</td><td class="r cg">+500萬</td><td class="r cr">-1,317萬</td><td class="r cg">+6,637萬</td><td>⚠️衰退</td></tr>
+<tr><td>雷虎</td><td>8033</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">雷虎</td><td class="r cr">-9.88%</td><td class="r cg">+22萬</td><td class="r cr">-304萬</td><td class="r cg">+4,034萬</td><td>⚠️衰退</td></tr>
+<tr><td>矽格</td><td>6257</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">矽格</td><td class="r cr">-9.87%</td><td class="r cr">-891萬</td><td class="r cr">-1,368萬</td><td class="r cg">+3,442萬</td><td>⚠️衰退</td></tr>
+<tr><td>矽創</td><td>8016</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">矽創</td><td class="r cr">-3.05%</td><td class="r cg">+86萬</td><td class="r cr">-53萬</td><td class="r cg">+2,417萬</td><td>⚠️衰退</td></tr>
+<tr><td>期元大S&P原油反1</td><td>00673R</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">期元大S&P原油反1</td><td class="r cr">-0.29%</td><td class="r cg">+57萬</td><td class="r cr">-123萬</td><td class="r cg">+2,307萬</td><td>⚠️衰退</td></tr>
+<tr><td>原相</td><td>3227</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">原相</td><td class="r cr">-6.32%</td><td class="r cr">-249萬</td><td class="r cr">-766萬</td><td class="r cg">+1,662萬</td><td>⚠️衰退</td></tr>
+<tr><td>主動野村臺灣高息</td><td>00999A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動野村臺灣高息</td><td class="r cr">-5.5%</td><td class="r cr">-138萬</td><td class="r cr">-69萬</td><td class="r cg">+1,271萬</td><td>⚠️衰退</td></tr>
+<tr><td>晶豪科</td><td>3006</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">晶豪科</td><td class="r cr">-10.0%</td><td class="r cr">-410萬</td><td class="r cr">-201萬</td><td class="r cg">+1,214萬</td><td>⚠️衰退</td></tr>
+<tr><td>台半</td><td>5425</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台半</td><td class="r cr">-9.31%</td><td class="r cg">+247萬</td><td class="r cr">-130萬</td><td class="r cg">+1,155萬</td><td>⚠️衰退</td></tr>
+<tr><td>騰輝電子-KY</td><td>6672</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">騰輝電子-KY</td><td class="r cr">-9.91%</td><td class="r cr">-303萬</td><td class="r cr">-478萬</td><td class="r cg">+1,117萬</td><td>⚠️衰退</td></tr>
+<tr><td>台玻</td><td>1802</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台玻</td><td class="r cr">-8.27%</td><td class="r cr">-496萬</td><td class="r cr">-1,912萬</td><td class="r cg">+1,012萬</td><td>⚠️衰退</td></tr>
+<tr><td>精成科</td><td>6191</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">精成科</td><td class="r cr">-4.6%</td><td class="r cr">-159萬</td><td class="r cr">-548萬</td><td class="r cg">+1,009萬</td><td>⚠️衰退</td></tr>
+<tr><td>辛耘</td><td>3583</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">辛耘</td><td class="r cr">-10.0%</td><td class="r cr">-323萬</td><td class="r cr">-99萬</td><td class="r cg">+822萬</td><td>⚠️衰退</td></tr>
+<tr><td>中砂</td><td>1560</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中砂</td><td class="r cr">-9.89%</td><td class="r cr">-628萬</td><td class="r cr">-347萬</td><td class="r cg">+813萬</td><td>⚠️衰退</td></tr>
+<tr><td>威盛</td><td>2388</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">威盛</td><td class="r cr">-9.23%</td><td class="r cr">-164萬</td><td class="r cr">-288萬</td><td class="r cg">+714萬</td><td>⚠️衰退</td></tr>
+<tr><td>富喬</td><td>1815</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富喬</td><td class="r cr">-8.53%</td><td class="r cg">+259萬</td><td class="r cr">-220萬</td><td class="r cg">+649萬</td><td>⚠️衰退</td></tr>
+<tr><td>長廣</td><td>7795</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">長廣</td><td class="r cr">-9.95%</td><td class="r cr">-10萬</td><td class="r cr">-245萬</td><td class="r cg">+624萬</td><td>⚠️衰退</td></tr>
+<tr><td>榮科</td><td>4989</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">榮科</td><td class="r cr">-9.97%</td><td class="r cg">+30萬</td><td class="r cr">-317萬</td><td class="r cg">+491萬</td><td>⚠️衰退</td></tr>
+<tr><td>艾訊</td><td>3088</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">艾訊</td><td class="r cr">-6.52%</td><td class="r cr">-62萬</td><td class="r cr">-64萬</td><td class="r cg">+449萬</td><td>⚠️衰退</td></tr>
+<tr><td>中石化</td><td>1314</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中石化</td><td class="r cr">-4.64%</td><td class="r cr">-119萬</td><td class="r cr">-128萬</td><td class="r cg">+411萬</td><td>⚠️衰退</td></tr>
+<tr><td>偉詮電</td><td>2436</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">偉詮電</td><td class="r cr">-5.72%</td><td class="r cr">-113萬</td><td class="r cr">-270萬</td><td class="r cg">+335萬</td><td>⚠️衰退</td></tr>
+<tr><td>台橡</td><td>2103</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台橡</td><td class="r cr">-4.28%</td><td class="r cg">+14萬</td><td class="r cr">-43萬</td><td class="r cg">+279萬</td><td>⚠️衰退</td></tr>
+<tr><td>大亞</td><td>1609</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">大亞</td><td class="r cr">-4.66%</td><td class="r cr">-35萬</td><td class="r cr">-75萬</td><td class="r cg">+269萬</td><td>⚠️衰退</td></tr>
+<tr><td>天鈺</td><td>4961</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">天鈺</td><td class="r cr">-8.33%</td><td class="r cr">-52萬</td><td class="r cr">-151萬</td><td class="r cg">+241萬</td><td>⚠️衰退</td></tr>
+<tr><td>雅特力-KY</td><td>6907</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">雅特力-KY</td><td class="r cr">-1.26%</td><td class="r cg">+1萬</td><td class="r cr">-56萬</td><td class="r cg">+230萬</td><td>⚠️衰退</td></tr>
+<tr><td>豐達科</td><td>3004</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">豐達科</td><td class="r cr">-5.03%</td><td class="r cg">+6萬</td><td class="r cr">-54萬</td><td class="r cg">+207萬</td><td>⚠️衰退</td></tr>
+<tr><td>安國</td><td>8054</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">安國</td><td class="r cr">-6.15%</td><td class="r cr">-16萬</td><td class="r cr">-119萬</td><td class="r cg">+204萬</td><td>⚠️衰退</td></tr>
+<tr><td>融程電</td><td>3416</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">融程電</td><td class="r cr">-5.81%</td><td class="r cr">-21萬</td><td class="r cr">-11萬</td><td class="r cg">+203萬</td><td>⚠️衰退</td></tr>
+<tr><td>全漢</td><td>3015</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">全漢</td><td class="r cr">-5.41%</td><td class="r cr">-20萬</td><td class="r cr">-30萬</td><td class="r cg">+202萬</td><td>⚠️衰退</td></tr>
+<tr><td>望隼</td><td>4771</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">望隼</td><td class="r cr">-3.69%</td><td class="r cr">-3萬</td><td class="r cr">-4萬</td><td class="r cg">+199萬</td><td>⚠️衰退</td></tr>
+<tr><td>楠梓電</td><td>2316</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">楠梓電</td><td class="r cr">-9.89%</td><td class="r cg">+14萬</td><td class="r cr">-145萬</td><td class="r cg">+178萬</td><td>⚠️衰退</td></tr>
+<tr><td>茂訊</td><td>3213</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">茂訊</td><td class="r cr">-5.95%</td><td class="r cr">-34萬</td><td class="r cr">-33萬</td><td class="r cg">+162萬</td><td>⚠️衰退</td></tr>
+<tr><td>東台</td><td>4526</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">東台</td><td class="r cr">-7.66%</td><td class="r cr">-12萬</td><td class="r cr">-74萬</td><td class="r cg">+148萬</td><td>⚠️衰退</td></tr>
+<tr><td>奕力-KY</td><td>6962</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">奕力-KY</td><td class="r cr">-5.39%</td><td class="r cr">-46萬</td><td class="r cr">-148萬</td><td class="r cg">+132萬</td><td>⚠️衰退</td></tr>
+<tr><td>AES-KY</td><td>6781</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">AES-KY</td><td class="r cr">-8.13%</td><td class="r cr">-99萬</td><td class="r cr">-502萬</td><td class="r cg">+129萬</td><td>⚠️衰退</td></tr>
+<tr><td>泰宗</td><td>4169</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">泰宗</td><td class="r cr">-5.26%</td><td class="r cr">-5萬</td><td class="r cr">-9萬</td><td class="r cg">+126萬</td><td>⚠️衰退</td></tr>
+<tr><td>增你強</td><td>3028</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">增你強</td><td class="r cr">-6.98%</td><td class="r cr">-106萬</td><td class="r cr">-185萬</td><td class="r cg">+99萬</td><td>⚠️衰退</td></tr>
+<tr><td>胡連</td><td>6279</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">胡連</td><td class="r cr">-3.35%</td><td class="r cr">-17萬</td><td class="r cr">-18萬</td><td class="r cg">+95萬</td><td>⚠️衰退</td></tr>
+<tr><td>創惟</td><td>6104</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">創惟</td><td class="r cr">-7.41%</td><td class="r cr">-92萬</td><td class="r cr">-220萬</td><td class="r cg">+68萬</td><td>⚠️衰退</td></tr>
+<tr><td>和大</td><td>1536</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">和大</td><td class="r cr">-6.34%</td><td class="r cr">-44萬</td><td class="r cr">-69萬</td><td class="r cg">+62萬</td><td>⚠️衰退</td></tr>
+<tr><td>怡利電</td><td>2497</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">怡利電</td><td class="r cr">-6.38%</td><td class="r cr">-16萬</td><td class="r cr">-18萬</td><td class="r cg">+60萬</td><td>⚠️衰退</td></tr>
+<tr><td>迅得</td><td>6438</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">迅得</td><td class="r cr">-6.15%</td><td class="r cr">-39萬</td><td class="r cr">-59萬</td><td class="r cg">+55萬</td><td>⚠️衰退</td></tr>
+<tr><td>台新臺灣半導體30</td><td>00904</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台新臺灣半導體30</td><td class="r cr">-7.32%</td><td class="r cr">-14萬</td><td class="r cr">-8萬</td><td class="r cg">+48萬</td><td>⚠️衰退</td></tr>
+<tr><td>主動野村臺灣優選</td><td>00980A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動野村臺灣優選</td><td class="r cr">-7.32%</td><td class="r cr">-127萬</td><td class="r cr">-183萬</td><td class="r cg">+37萬</td><td>⚠️衰退</td></tr>
+<tr><td>麗臺</td><td>2465</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">麗臺</td><td class="r cr">-5.45%</td><td class="r cr">-16萬</td><td class="r cr">-77萬</td><td class="r cg">+35萬</td><td>⚠️衰退</td></tr>
+<tr><td>富邦NASDAQ正2</td><td>00670L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦NASDAQ正2</td><td class="r cr">-6.47%</td><td class="r cr">-140萬</td><td class="r cr">-143萬</td><td class="r cg">+22萬</td><td>⚠️衰退</td></tr>
+</tbody></table><div class="det-note">共47支｜月線降序｜月線買超但5日轉賣（衰退警示）</div> -->
+</tbody></table>
+    <div class="chip-note">共47支｜月線降序</div>
+  </div>
+
+  
+
+  
+
+  
+
+  <div id="chip-detail-D" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th>名稱</th><th>代號</th><th>產業別</th><th class="r">漲跌%</th><th class="r">當日(萬)</th><th class="r">5日(萬)</th><th class="r">1月(萬)</th><th>訊號</th></tr></thead><tbody>
+<tr><td>元大台灣50</td><td>0050</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大台灣50</td><td class="r cr">-5.87%</td><td class="r cr">-42,316萬</td><td class="r cr">-59,203萬</td><td class="r cr">-118,332萬</td><td>❄️落後</td></tr>
+<tr><td>元大台灣50正2</td><td>00631L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大台灣50正2</td><td class="r cr">-13.5%</td><td class="r cr">-17,826萬</td><td class="r cr">-25,126萬</td><td class="r cr">-58,862萬</td><td>❄️落後</td></tr>
+<tr><td>華邦電</td><td>2344</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">華邦電</td><td class="r cr">-9.88%</td><td class="r cr">-5,090萬</td><td class="r cr">-7,241萬</td><td class="r cr">-46,926萬</td><td>❄️落後</td></tr>
+<tr><td>群益臺灣加權正2</td><td>00685L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">群益臺灣加權正2</td><td class="r cr">-13.4%</td><td class="r cr">-8,919萬</td><td class="r cr">-15,072萬</td><td class="r cr">-43,333萬</td><td>❄️落後</td></tr>
+<tr><td>欣興</td><td>3037</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">欣興</td><td class="r cr">-9.98%</td><td class="r cr">-3,514萬</td><td class="r cr">-10,359萬</td><td class="r cr">-38,894萬</td><td>❄️落後</td></tr>
+<tr><td>元大高股息</td><td>0056</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大高股息</td><td class="r cr">-3.61%</td><td class="r cr">-8,160萬</td><td class="r cr">-15,592萬</td><td class="r cr">-26,560萬</td><td>❄️落後</td></tr>
+<tr><td>主動復華未來50</td><td>00991A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動復華未來50</td><td class="r cr">-9.23%</td><td class="r cr">-2,760萬</td><td class="r cr">-8,477萬</td><td class="r cr">-24,971萬</td><td>❄️落後</td></tr>
+<tr><td>凱基台灣TOP50</td><td>009816</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">凱基台灣TOP50</td><td class="r cr">-6.61%</td><td class="r cr">-5,889萬</td><td class="r cr">-10,362萬</td><td class="r cr">-22,618萬</td><td>❄️落後</td></tr>
+<tr><td>群益半導體收益</td><td>00927</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">群益半導體收益</td><td class="r cr">-7.8%</td><td class="r cr">-574萬</td><td class="r cr">-7,251萬</td><td class="r cr">-21,693萬</td><td>❄️落後</td></tr>
+<tr><td>南亞科</td><td>2408</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">南亞科</td><td class="r cr">-9.91%</td><td class="r cr">-3,476萬</td><td class="r cr">-18,658萬</td><td class="r cr">-21,168萬</td><td>❄️落後</td></tr>
+<tr><td>大立光</td><td>3008</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">大立光</td><td class="r cr">-5.87%</td><td class="r cg">+334萬</td><td class="r cr">-3,345萬</td><td class="r cr">-19,602萬</td><td>❄️落後</td></tr>
+<tr><td>旺宏</td><td>2337</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">旺宏</td><td class="r cr">-8.42%</td><td class="r cg">+533萬</td><td class="r cr">-2,953萬</td><td class="r cr">-15,452萬</td><td>❄️落後</td></tr>
+<tr><td>世芯-KY</td><td>3661</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">世芯-KY</td><td class="r cr">-7.69%</td><td class="r cr">-1,287萬</td><td class="r cr">-5,029萬</td><td class="r cr">-14,676萬</td><td>❄️落後</td></tr>
+<tr><td>主動統一全球創新</td><td>00988A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動統一全球創新</td><td class="r cr">-10.8%</td><td class="r cr">-1,013萬</td><td class="r cr">-2,451萬</td><td class="r cr">-14,524萬</td><td>❄️落後</td></tr>
+<tr><td>力積電</td><td>6770</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">力積電</td><td class="r cr">-9.93%</td><td class="r cr">-8,582萬</td><td class="r cr">-1,380萬</td><td class="r cr">-9,738萬</td><td>❄️落後</td></tr>
+<tr><td>主動富邦台灣龍耀</td><td>00405A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動富邦台灣龍耀</td><td class="r cr">-8.18%</td><td class="r cr">-1,343萬</td><td class="r cr">-2,624萬</td><td class="r cr">-8,238萬</td><td>❄️落後</td></tr>
+<tr><td>富邦科技</td><td>0052</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦科技</td><td class="r cr">-6.91%</td><td class="r cr">-2,531萬</td><td class="r cr">-3,666萬</td><td class="r cr">-7,946萬</td><td>❄️落後</td></tr>
+<tr><td>國泰費城半導體</td><td>00830</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰費城半導體</td><td class="r cr">-6.68%</td><td class="r cr">-865萬</td><td class="r cr">-1,457萬</td><td class="r cr">-7,940萬</td><td>❄️落後</td></tr>
+<tr><td>主動統一台股增長</td><td>00981A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動統一台股增長</td><td class="r cr">-8.7%</td><td class="r cr">-6,025萬</td><td class="r cr">-13,437萬</td><td class="r cr">-7,703萬</td><td>❄️落後</td></tr>
+<tr><td>主動統一升級50</td><td>00403A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動統一升級50</td><td class="r cr">-7.39%</td><td class="r cr">-9,511萬</td><td class="r cr">-12,969萬</td><td class="r cr">-7,394萬</td><td>❄️落後</td></tr>
+<tr><td>主動國泰動能高息</td><td>00400A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動國泰動能高息</td><td class="r cr">-7.15%</td><td class="r cr">-637萬</td><td class="r cr">-1,375萬</td><td class="r cr">-7,181萬</td><td>❄️落後</td></tr>
+<tr><td>富邦台50</td><td>006208</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦台50</td><td class="r cr">-6.08%</td><td class="r cr">-2,010萬</td><td class="r cr">-4,022萬</td><td class="r cr">-6,564萬</td><td>❄️落後</td></tr>
+<tr><td>群聯</td><td>8299</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">群聯</td><td class="r cr">-9.85%</td><td class="r cg">+657萬</td><td class="r cr">-3,058萬</td><td class="r cr">-5,941萬</td><td>❄️落後</td></tr>
+<tr><td>野村臺灣新科技50</td><td>00935</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">野村臺灣新科技50</td><td class="r cr">-7.85%</td><td class="r cr">-961萬</td><td class="r cr">-1,947萬</td><td class="r cr">-5,394萬</td><td>❄️落後</td></tr>
+<tr><td>永豐台灣ESG</td><td>00888</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">永豐台灣ESG</td><td class="r cr">-7.35%</td><td class="r cr">-1,166萬</td><td class="r cr">-2,003萬</td><td class="r cr">-5,348萬</td><td>❄️落後</td></tr>
+<tr><td>復華台灣科技優息</td><td>00929</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">復華台灣科技優息</td><td class="r cr">-4.62%</td><td class="r cr">-2,058萬</td><td class="r cr">-4,232萬</td><td class="r cr">-5,264萬</td><td>❄️落後</td></tr>
+<tr><td>主動元大AI新經濟</td><td>00990A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動元大AI新經濟</td><td class="r cr">-9.89%</td><td class="r cr">-486萬</td><td class="r cr">-907萬</td><td class="r cr">-4,287萬</td><td>❄️落後</td></tr>
+<tr><td>主動群益美國增長</td><td>00997A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動群益美國增長</td><td class="r cr">-7.49%</td><td class="r cr">-105萬</td><td class="r cr">-149萬</td><td class="r cr">-4,116萬</td><td>❄️落後</td></tr>
+<tr><td>健鼎</td><td>3044</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">健鼎</td><td class="r cr">-5.81%</td><td class="r cr">-127萬</td><td class="r cr">-158萬</td><td class="r cr">-4,108萬</td><td>❄️落後</td></tr>
+<tr><td>亞泥</td><td>1102</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">亞泥</td><td class="r cg">+0.76%</td><td class="r cg">+410萬</td><td class="r cr">-1,197萬</td><td class="r cr">-3,646萬</td><td>❄️落後</td></tr>
+<tr><td>主動中信台灣收益</td><td>00406A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動中信台灣收益</td><td class="r cr">-8.51%</td><td class="r cr">-1,336萬</td><td class="r cr">-2,187萬</td><td class="r cr">-3,030萬</td><td>❄️落後</td></tr>
+<tr><td>新應材</td><td>4749</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">新應材</td><td class="r cr">-7.33%</td><td class="r cr">-26萬</td><td class="r cr">-99萬</td><td class="r cr">-3,005萬</td><td>❄️落後</td></tr>
+<tr><td>至上</td><td>8112</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">至上</td><td class="r cr">-4.55%</td><td class="r cr">-146萬</td><td class="r cr">-273萬</td><td class="r cr">-2,983萬</td><td>❄️落後</td></tr>
+<tr><td>主動安聯台灣高息</td><td>00984A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動安聯台灣高息</td><td class="r cr">-5.25%</td><td class="r cr">-185萬</td><td class="r cr">-1,019萬</td><td class="r cr">-2,726萬</td><td>❄️落後</td></tr>
+<tr><td>台表科</td><td>6278</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台表科</td><td class="r cr">-7.32%</td><td class="r cr">-58萬</td><td class="r cr">-900萬</td><td class="r cr">-2,723萬</td><td>❄️落後</td></tr>
+<tr><td>康舒</td><td>6282</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">康舒</td><td class="r cr">-7.92%</td><td class="r cr">-142萬</td><td class="r cr">-1,128萬</td><td class="r cr">-2,693萬</td><td>❄️落後</td></tr>
+<tr><td>中信關鍵半導體</td><td>00891</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中信關鍵半導體</td><td class="r cr">-7.39%</td><td class="r cr">-860萬</td><td class="r cr">-1,346萬</td><td class="r cr">-2,691萬</td><td>❄️落後</td></tr>
+<tr><td>台新臺灣IC設計</td><td>00947</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台新臺灣IC設計</td><td class="r cr">-8.23%</td><td class="r cr">-68萬</td><td class="r cr">-207萬</td><td class="r cr">-2,665萬</td><td>❄️落後</td></tr>
+<tr><td>國泰台灣領袖50</td><td>00922</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰台灣領袖50</td><td class="r cr">-6.16%</td><td class="r cr">-694萬</td><td class="r cr">-1,386萬</td><td class="r cr">-2,555萬</td><td>❄️落後</td></tr>
+<tr><td>擎亞</td><td>8096</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">擎亞</td><td class="r cr">-9.86%</td><td class="r cg">+50萬</td><td class="r cr">-1,192萬</td><td class="r cr">-2,483萬</td><td>❄️落後</td></tr>
+<tr><td>富邦台灣半導體</td><td>00892</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦台灣半導體</td><td class="r cr">-7.03%</td><td class="r cr">-97萬</td><td class="r cr">-1,202萬</td><td class="r cr">-2,479萬</td><td>❄️落後</td></tr>
+<tr><td>新日興</td><td>3376</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">新日興</td><td class="r cr">-3.86%</td><td class="r cr">-299萬</td><td class="r cr">-524萬</td><td class="r cr">-2,447萬</td><td>❄️落後</td></tr>
+<tr><td>譜瑞-KY</td><td>4966</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">譜瑞-KY</td><td class="r cr">-7.29%</td><td class="r cr">-162萬</td><td class="r cr">-220萬</td><td class="r cr">-2,412萬</td><td>❄️落後</td></tr>
+<tr><td>FT臺灣永續高息</td><td>00961</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">FT臺灣永續高息</td><td class="r cr">-1.44%</td><td class="r cr">-69萬</td><td class="r cr">-1,239萬</td><td class="r cr">-2,378萬</td><td>❄️落後</td></tr>
+<tr><td>國泰臺灣加權正2</td><td>00663L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰臺灣加權正2</td><td class="r cr">-13.6%</td><td class="r cr">-1,436萬</td><td class="r cr">-1,729萬</td><td class="r cr">-2,343萬</td><td>❄️落後</td></tr>
+<tr><td>群益證</td><td>6005</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">群益證</td><td class="r cr">-4.76%</td><td class="r cr">-179萬</td><td class="r cr">-555萬</td><td class="r cr">-1,909萬</td><td>❄️落後</td></tr>
+<tr><td>台郡</td><td>6269</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台郡</td><td class="r cr">-8.02%</td><td class="r cr">-126萬</td><td class="r cr">-322萬</td><td class="r cr">-1,903萬</td><td>❄️落後</td></tr>
+<tr><td>萬潤</td><td>6187</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">萬潤</td><td class="r cr">-9.3%</td><td class="r cr">-561萬</td><td class="r cr">-806萬</td><td class="r cr">-1,868萬</td><td>❄️落後</td></tr>
+<tr><td>國泰臺韓科技</td><td>00735</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰臺韓科技</td><td class="r cr">-8.14%</td><td class="r cr">-97萬</td><td class="r cr">-489萬</td><td class="r cr">-1,848萬</td><td>❄️落後</td></tr>
+<tr><td>德律</td><td>3030</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">德律</td><td class="r cr">-7.1%</td><td class="r cr">-122萬</td><td class="r cr">-351萬</td><td class="r cr">-1,569萬</td><td>❄️落後</td></tr>
+<tr><td>主動聯博全球非投</td><td>00984D</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動聯博全球非投</td><td class="r cg">+0.1%</td><td class="r cr">-28萬</td><td class="r cr">-245萬</td><td class="r cr">-1,505萬</td><td>❄️落後</td></tr>
+<tr><td>漢磊</td><td>3707</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">漢磊</td><td class="r cr">-9.01%</td><td class="r cg">+70萬</td><td class="r cg">+48萬</td><td class="r cr">-1,451萬</td><td>🌱回升</td></tr>
+<tr><td>富邦臺灣加權正2</td><td>00675L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦臺灣加權正2</td><td class="r cr">-13.7%</td><td class="r cr">-1,090萬</td><td class="r cr">-1,212萬</td><td class="r cr">-1,403萬</td><td>❄️落後</td></tr>
+<tr><td>主動群益台灣強棒</td><td>00982A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動群益台灣強棒</td><td class="r cr">-9.08%</td><td class="r cr">-908萬</td><td class="r cr">-1,472萬</td><td class="r cr">-1,381萬</td><td>❄️落後</td></tr>
+<tr><td>聯亞</td><td>3081</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聯亞</td><td class="r cr">-8.64%</td><td class="r cg">+879萬</td><td class="r cr">-726萬</td><td class="r cr">-1,361萬</td><td>❄️落後</td></tr>
+<tr><td>新纖</td><td>1409</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">新纖</td><td class="r cr">-6.54%</td><td class="r cr">-9萬</td><td class="r cr">-577萬</td><td class="r cr">-1,337萬</td><td>❄️落後</td></tr>
+<tr><td>事欣科</td><td>4916</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">事欣科</td><td class="r cr">-7.69%</td><td class="r cr">-101萬</td><td class="r cr">-261萬</td><td class="r cr">-1,324萬</td><td>❄️落後</td></tr>
+<tr><td>亞翔</td><td>6139</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">亞翔</td><td class="r cr">-7.95%</td><td class="r cr">-723萬</td><td class="r cr">-2,275萬</td><td class="r cr">-1,317萬</td><td>❄️落後</td></tr>
+<tr><td>主動群益科技創新</td><td>00992A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動群益科技創新</td><td class="r cr">-9.13%</td><td class="r cr">-559萬</td><td class="r cr">-1,880萬</td><td class="r cr">-1,295萬</td><td>❄️落後</td></tr>
+<tr><td>東捷</td><td>8064</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">東捷</td><td class="r cr">-9.02%</td><td class="r cg">+24萬</td><td class="r cr">-323萬</td><td class="r cr">-1,195萬</td><td>❄️落後</td></tr>
+<tr><td>期元大S&P黃金正2</td><td>00708L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">期元大S&P黃金正2</td><td class="r cr">-2.66%</td><td class="r cg">+25萬</td><td class="r cr">-75萬</td><td class="r cr">-1,125萬</td><td>❄️落後</td></tr>
+<tr><td>亞光</td><td>3019</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">亞光</td><td class="r cr">-7.42%</td><td class="r cr">-301萬</td><td class="r cr">-343萬</td><td class="r cr">-1,106萬</td><td>❄️落後</td></tr>
+<tr><td>元大S&P500</td><td>00646</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大S&P500</td><td class="r cr">-1.04%</td><td class="r cg">+5萬</td><td class="r cr">-613萬</td><td class="r cr">-1,017萬</td><td>❄️落後</td></tr>
+<tr><td>聯邦台精彩50</td><td>009804</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聯邦台精彩50</td><td class="r cr">-6.62%</td><td class="r cr">-18萬</td><td class="r cr">-504萬</td><td class="r cr">-979萬</td><td>❄️落後</td></tr>
+<tr><td>家登</td><td>3680</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">家登</td><td class="r cr">-9.98%</td><td class="r cr">-843萬</td><td class="r cr">-959萬</td><td class="r cr">-964萬</td><td>❄️落後</td></tr>
+<tr><td>兆豐台灣晶圓製造</td><td>00913</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">兆豐台灣晶圓製造</td><td class="r cr">-8.67%</td><td class="r cr">-100萬</td><td class="r cr">-212萬</td><td class="r cr">-916萬</td><td>❄️落後</td></tr>
+<tr><td>高技</td><td>5439</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">高技</td><td class="r cr">-9.34%</td><td class="r cg">+140萬</td><td class="r cr">-153萬</td><td class="r cr">-884萬</td><td>❄️落後</td></tr>
+<tr><td>佳必琪</td><td>6197</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">佳必琪</td><td class="r cr">-6.45%</td><td class="r cg">+173萬</td><td class="r cr">-113萬</td><td class="r cr">-865萬</td><td>❄️落後</td></tr>
+<tr><td>宇瞻</td><td>8271</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宇瞻</td><td class="r cg">+1.33%</td><td class="r cr">-207萬</td><td class="r cr">-161萬</td><td class="r cr">-860萬</td><td>❄️落後</td></tr>
+<tr><td>正文</td><td>4906</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">正文</td><td class="r cr">-5.56%</td><td class="r cr">-43萬</td><td class="r cr">-71萬</td><td class="r cr">-831萬</td><td>❄️落後</td></tr>
+<tr><td>宏捷科</td><td>8086</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宏捷科</td><td class="r cr">-6.69%</td><td class="r cr">-27萬</td><td class="r cr">-127萬</td><td class="r cr">-826萬</td><td>❄️落後</td></tr>
+<tr><td>致和證</td><td>5864</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">致和證</td><td class="r cr">-7.91%</td><td class="r cr">-24萬</td><td class="r cr">-43萬</td><td class="r cr">-793萬</td><td>❄️落後</td></tr>
+<tr><td>聯鈞</td><td>3450</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聯鈞</td><td class="r cr">-10.0%</td><td class="r cr">-360萬</td><td class="r cr">-1,227萬</td><td class="r cr">-779萬</td><td>❄️落後</td></tr>
+<tr><td>華泰</td><td>2329</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">華泰</td><td class="r cr">-7.76%</td><td class="r cr">-121萬</td><td class="r cr">-391萬</td><td class="r cr">-758萬</td><td>❄️落後</td></tr>
+<tr><td>FT臺灣Smart</td><td>00905</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">FT臺灣Smart</td><td class="r cr">-6.6%</td><td class="r cr">-66萬</td><td class="r cr">-309萬</td><td class="r cr">-752萬</td><td>❄️落後</td></tr>
+<tr><td>玉山嚴選非投債</td><td>00988B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">玉山嚴選非投債</td><td class="r cr">-0.25%</td><td class="r cr">-16萬</td><td class="r cr">-539萬</td><td class="r cr">-739萬</td><td>❄️落後</td></tr>
+<tr><td>定穎投控</td><td>3715</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">定穎投控</td><td class="r cr">-9.85%</td><td class="r cg">+261萬</td><td class="r cr">-64萬</td><td class="r cr">-706萬</td><td>❄️落後</td></tr>
+<tr><td>可寧衛*</td><td>8422</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">可寧衛*</td><td class="r cr">-4.26%</td><td class="r cr">-36萬</td><td class="r cr">-260萬</td><td class="r cr">-683萬</td><td>❄️落後</td></tr>
+<tr><td>盟立</td><td>2464</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">盟立</td><td class="r cr">-9.21%</td><td class="r cg">+158萬</td><td class="r cr">-228萬</td><td class="r cr">-650萬</td><td>❄️落後</td></tr>
+<tr><td>系統電</td><td>5309</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">系統電</td><td class="r cr">-8.1%</td><td class="r cr">-30萬</td><td class="r cr">-144萬</td><td class="r cr">-646萬</td><td>❄️落後</td></tr>
+<tr><td>美律</td><td>2439</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">美律</td><td class="r cr">-4.31%</td><td class="r cr">-78萬</td><td class="r cr">-285萬</td><td class="r cr">-637萬</td><td>❄️落後</td></tr>
+<tr><td>上詮</td><td>3363</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">上詮</td><td class="r cr">-9.19%</td><td class="r cg">+141萬</td><td class="r cr">-17萬</td><td class="r cr">-632萬</td><td>❄️落後</td></tr>
+<tr><td>億光</td><td>2393</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">億光</td><td class="r cr">-4.32%</td><td class="r cr">-135萬</td><td class="r cr">-361萬</td><td class="r cr">-626萬</td><td>❄️落後</td></tr>
+<tr><td>信邦</td><td>3023</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">信邦</td><td class="r cr">-3.81%</td><td class="r cr">-79萬</td><td class="r cr">-253萬</td><td class="r cr">-600萬</td><td>❄️落後</td></tr>
+<tr><td>寶雅</td><td>5904</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">寶雅</td><td class="r cr">-1.28%</td><td class="r cg">+311萬</td><td class="r cr">-392萬</td><td class="r cr">-586萬</td><td>❄️落後</td></tr>
+<tr><td>映泰</td><td>2399</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">映泰</td><td class="r cr">-8.24%</td><td class="r cg">+37萬</td><td class="r cr">-197萬</td><td class="r cr">-573萬</td><td>❄️落後</td></tr>
+<tr><td>復華中國5G</td><td>00877</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">復華中國5G</td><td class="r cr">-9.73%</td><td class="r cr">-75萬</td><td class="r cr">-136萬</td><td class="r cr">-568萬</td><td>❄️落後</td></tr>
+<tr><td>佳邦</td><td>6284</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">佳邦</td><td class="r cr">-8.67%</td><td class="r cg">+44萬</td><td class="r cr">-152萬</td><td class="r cr">-555萬</td><td>❄️落後</td></tr>
+<tr><td>中信上櫃ESG30</td><td>00928</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中信上櫃ESG30</td><td class="r cr">-8.12%</td><td class="r cg">+5萬</td><td class="r cr">-308萬</td><td class="r cr">-546萬</td><td>❄️落後</td></tr>
+<tr><td>中光電</td><td>5371</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中光電</td><td class="r cr">-9.04%</td><td class="r cr">-15萬</td><td class="r cr">-303萬</td><td class="r cr">-530萬</td><td>❄️落後</td></tr>
+<tr><td>矽統</td><td>2363</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">矽統</td><td class="r cr">-10.0%</td><td class="r cr">-389萬</td><td class="r cr">-571萬</td><td class="r cr">-525萬</td><td>❄️落後</td></tr>
+<tr><td>陽程</td><td>3498</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">陽程</td><td class="r cr">-9.65%</td><td class="r cr">-88萬</td><td class="r cr">-107萬</td><td class="r cr">-511萬</td><td>❄️落後</td></tr>
+<tr><td>國碩</td><td>2406</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國碩</td><td class="r cr">-9.43%</td><td class="r cr">-144萬</td><td class="r cr">-443萬</td><td class="r cr">-495萬</td><td>❄️落後</td></tr>
+<tr><td>東鹼</td><td>1708</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">東鹼</td><td class="r cr">-6.08%</td><td class="r cg">+31萬</td><td class="r cr">-159萬</td><td class="r cr">-493萬</td><td>❄️落後</td></tr>
+<tr><td>永豐中國科技50大</td><td>00887</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">永豐中國科技50大</td><td class="r cr">-7.34%</td><td class="r cr">-32萬</td><td class="r cr">-195萬</td><td class="r cr">-487萬</td><td>❄️落後</td></tr>
+<tr><td>中信成長高股息</td><td>00934</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中信成長高股息</td><td class="r cr">-4.54%</td><td class="r cr">-60萬</td><td class="r cr">-260萬</td><td class="r cr">-456萬</td><td>❄️落後</td></tr>
+<tr><td>洋基工程</td><td>6691</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">洋基工程</td><td class="r cr">-6.63%</td><td class="r cr">-267萬</td><td class="r cr">-412萬</td><td class="r cr">-445萬</td><td>❄️落後</td></tr>
+<tr><td>建準</td><td>2421</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">建準</td><td class="r cr">-5.93%</td><td class="r cr">-149萬</td><td class="r cr">-388萬</td><td class="r cr">-430萬</td><td>❄️落後</td></tr>
+<tr><td>竑騰</td><td>7751</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">竑騰</td><td class="r cr">-8.87%</td><td class="r cr">-19萬</td><td class="r cr">-77萬</td><td class="r cr">-428萬</td><td>❄️落後</td></tr>
+<tr><td>兆豐洲際半導體</td><td>00911</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">兆豐洲際半導體</td><td class="r cr">-6.13%</td><td class="r cr">-47萬</td><td class="r cr">-171萬</td><td class="r cr">-408萬</td><td>❄️落後</td></tr>
+<tr><td>新盛力</td><td>4931</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">新盛力</td><td class="r cr">-9.95%</td><td class="r cg">+16萬</td><td class="r cr">-241萬</td><td class="r cr">-405萬</td><td>❄️落後</td></tr>
+<tr><td>鈦昇</td><td>8027</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">鈦昇</td><td class="r cr">-9.83%</td><td class="r cg">+22萬</td><td class="r cr">-168萬</td><td class="r cr">-401萬</td><td>❄️落後</td></tr>
+<tr><td>中信上游半導體</td><td>00941</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中信上游半導體</td><td class="r cr">-4.0%</td><td class="r cr">-37萬</td><td class="r cr">-84萬</td><td class="r cr">-381萬</td><td>❄️落後</td></tr>
+<tr><td>嘉聯益</td><td>6153</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">嘉聯益</td><td class="r cr">-6.87%</td><td class="r cr">-38萬</td><td class="r cr">-68萬</td><td class="r cr">-379萬</td><td>❄️落後</td></tr>
+<tr><td>玉山市值動能50</td><td>009803</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">玉山市值動能50</td><td class="r cr">-6.1%</td><td class="r cr">-94萬</td><td class="r cr">-247萬</td><td class="r cr">-359萬</td><td>❄️落後</td></tr>
+<tr><td>僑威</td><td>3078</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">僑威</td><td class="r cr">-2.99%</td><td class="r cr">-25萬</td><td class="r cr">-113萬</td><td class="r cr">-331萬</td><td>❄️落後</td></tr>
+<tr><td>富邦上証正2</td><td>00633L</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">富邦上証正2</td><td class="r cr">-7.85%</td><td class="r cr">-274萬</td><td class="r cr">-197萬</td><td class="r cr">-320萬</td><td>❄️落後</td></tr>
+<tr><td>平衡凱基雙核收息</td><td>00981T</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">平衡凱基雙核收息</td><td class="r cr">-1.81%</td><td class="r cr">-38萬</td><td class="r cr">-172萬</td><td class="r cr">-304萬</td><td>❄️落後</td></tr>
+<tr><td>宏泰</td><td>1612</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宏泰</td><td class="r cr">-2.05%</td><td class="r cr">-16萬</td><td class="r cr">-70萬</td><td class="r cr">-298萬</td><td>❄️落後</td></tr>
+<tr><td>王品</td><td>2727</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">王品</td><td class="r cg">+1.63%</td><td class="r cg">+75萬</td><td class="r cr">-300萬</td><td class="r cr">-290萬</td><td>❄️落後</td></tr>
+<tr><td>宜特</td><td>3289</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">宜特</td><td class="r cr">-8.1%</td><td class="r cr">-18萬</td><td class="r cr">-74萬</td><td class="r cr">-284萬</td><td>❄️落後</td></tr>
+<tr><td>元大全球5G</td><td>00876</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">元大全球5G</td><td class="r cr">-6.98%</td><td class="r cr">-33萬</td><td class="r cr">-185萬</td><td class="r cr">-271萬</td><td>❄️落後</td></tr>
+<tr><td>昇貿</td><td>3305</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">昇貿</td><td class="r cr">-9.17%</td><td class="r cr">-41萬</td><td class="r cr">-56萬</td><td class="r cr">-270萬</td><td>❄️落後</td></tr>
+<tr><td>毅嘉</td><td>2402</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">毅嘉</td><td class="r cr">-7.58%</td><td class="r cr">-59萬</td><td class="r cr">-77萬</td><td class="r cr">-269萬</td><td>❄️落後</td></tr>
+<tr><td>瀚宇博</td><td>5469</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">瀚宇博</td><td class="r cr">-7.1%</td><td class="r cr">-92萬</td><td class="r cr">-470萬</td><td class="r cr">-260萬</td><td>❄️落後</td></tr>
+<tr><td>永光</td><td>1711</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">永光</td><td class="r cr">-9.91%</td><td class="r cr">-215萬</td><td class="r cr">-144萬</td><td class="r cr">-249萬</td><td>❄️落後</td></tr>
+<tr><td>全科</td><td>3209</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">全科</td><td class="r cr">-6.83%</td><td class="r cr">-39萬</td><td class="r cr">-96萬</td><td class="r cr">-237萬</td><td>❄️落後</td></tr>
+<tr><td>嘉基</td><td>6715</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">嘉基</td><td class="r cr">-4.87%</td><td class="r cr">-43萬</td><td class="r cr">-182萬</td><td class="r cr">-227萬</td><td>❄️落後</td></tr>
+<tr><td>美琪瑪</td><td>4721</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">美琪瑪</td><td class="r cr">-6.26%</td><td class="r cr">-15萬</td><td class="r cr">-60萬</td><td class="r cr">-222萬</td><td>❄️落後</td></tr>
+<tr><td>光罩</td><td>2338</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">光罩</td><td class="r cr">-10.0%</td><td class="r cr">-148萬</td><td class="r cr">-305萬</td><td class="r cr">-222萬</td><td>❄️落後</td></tr>
+<tr><td>萬泰科</td><td>6190</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">萬泰科</td><td class="r cr">-9.04%</td><td class="r cr">-3萬</td><td class="r cr">-73萬</td><td class="r cr">-213萬</td><td>❄️落後</td></tr>
+<tr><td>兆豐藍籌30</td><td>00690</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">兆豐藍籌30</td><td class="r cr">-6.21%</td><td class="r cr">-65萬</td><td class="r cr">-113萬</td><td class="r cr">-206萬</td><td>❄️落後</td></tr>
+<tr><td>希華</td><td>2484</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">希華</td><td class="r cr">-9.93%</td><td class="r cg">+2萬</td><td class="r cr">-140萬</td><td class="r cr">-201萬</td><td>❄️落後</td></tr>
+<tr><td>瀚荃</td><td>8103</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">瀚荃</td><td class="r cr">-5.64%</td><td class="r cr">-16萬</td><td class="r cr">-53萬</td><td class="r cr">-196萬</td><td>❄️落後</td></tr>
+<tr><td>台新美國非投等債</td><td>00989B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台新美國非投等債</td><td class="r cg">+0.1%</td><td class="r cg">+3萬</td><td class="r cr">-196萬</td><td class="r cr">-196萬</td><td>❄️落後</td></tr>
+<tr><td>一零四</td><td>3130</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">一零四</td><td class="r cg">+0.0%</td><td class="r cr">-1萬</td><td class="r cr">-90萬</td><td class="r cr">-189萬</td><td>❄️落後</td></tr>
+<tr><td>中華化</td><td>1727</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">中華化</td><td class="r cr">-9.45%</td><td class="r cr">-130萬</td><td class="r cr">-209萬</td><td class="r cr">-184萬</td><td>❄️落後</td></tr>
+<tr><td>華懋</td><td>5292</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">華懋</td><td class="r cr">-4.3%</td><td class="r cr">-6萬</td><td class="r cr">-83萬</td><td class="r cr">-162萬</td><td>❄️落後</td></tr>
+<tr><td>昇佳電子</td><td>6732</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">昇佳電子</td><td class="r cr">-9.58%</td><td class="r cr">-47萬</td><td class="r cr">-169萬</td><td class="r cr">-148萬</td><td>❄️落後</td></tr>
+<tr><td>金益鼎</td><td>8390</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">金益鼎</td><td class="r cr">-4.56%</td><td class="r cr">-43萬</td><td class="r cr">-94萬</td><td class="r cr">-147萬</td><td>❄️落後</td></tr>
+<tr><td>佳世達</td><td>2352</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">佳世達</td><td class="r cr">-3.03%</td><td class="r cr">-47萬</td><td class="r cr">-257萬</td><td class="r cr">-132萬</td><td>❄️落後</td></tr>
+<tr><td>台星科</td><td>3265</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台星科</td><td class="r cr">-8.48%</td><td class="r cg">+0萬</td><td class="r cr">-6萬</td><td class="r cr">-126萬</td><td>❄️落後</td></tr>
+<tr><td>jpp-KY</td><td>5284</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">jpp-KY</td><td class="r cr">-7.18%</td><td class="r cr">-31萬</td><td class="r cr">-102萬</td><td class="r cr">-126萬</td><td>❄️落後</td></tr>
+<tr><td>華東</td><td>8110</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">華東</td><td class="r cr">-8.68%</td><td class="r cr">-28萬</td><td class="r cr">-171萬</td><td class="r cr">-109萬</td><td>❄️落後</td></tr>
+<tr><td>倉和</td><td>6538</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">倉和</td><td class="r cr">-7.43%</td><td class="r cg">+15萬</td><td class="r cr">-78萬</td><td class="r cr">-99萬</td><td>❄️落後</td></tr>
+<tr><td>國泰US短期公債</td><td>00865B</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">國泰US短期公債</td><td class="r cg">+0.39%</td><td class="r cg">+85萬</td><td class="r cr">-43萬</td><td class="r cr">-98萬</td><td>❄️落後</td></tr>
+<tr><td>菱生</td><td>2369</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">菱生</td><td class="r cr">-9.91%</td><td class="r cr">-264萬</td><td class="r cr">-479萬</td><td class="r cr">-89萬</td><td>❄️落後</td></tr>
+<tr><td>主動兆豐台灣豐收</td><td>00996A</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">主動兆豐台灣豐收</td><td class="r cr">-8.67%</td><td class="r cr">-58萬</td><td class="r cr">-74萬</td><td class="r cr">-88萬</td><td>❄️落後</td></tr>
+<tr><td>朋程</td><td>8255</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">朋程</td><td class="r cr">-8.51%</td><td class="r cg">+17萬</td><td class="r cr">-100萬</td><td class="r cr">-84萬</td><td>❄️落後</td></tr>
+<tr><td>聯策</td><td>6658</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聯策</td><td class="r cr">-8.29%</td><td class="r cg">+1萬</td><td class="r cr">-33萬</td><td class="r cr">-74萬</td><td>❄️落後</td></tr>
+<tr><td>優群</td><td>3217</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">優群</td><td class="r cr">-4.84%</td><td class="r cr">-37萬</td><td class="r cr">-155萬</td><td class="r cr">-70萬</td><td>❄️落後</td></tr>
+<tr><td>聯陽</td><td>3014</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">聯陽</td><td class="r cr">-4.94%</td><td class="r cr">-25萬</td><td class="r cr">-165萬</td><td class="r cr">-56萬</td><td>❄️落後</td></tr>
+<tr><td>台嘉碩</td><td>3221</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台嘉碩</td><td class="r cr">-9.85%</td><td class="r cr">-3萬</td><td class="r cr">-24萬</td><td class="r cr">-55萬</td><td>❄️落後</td></tr>
+<tr><td>凡甲</td><td>3526</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">凡甲</td><td class="r cr">-5.28%</td><td class="r cr">-42萬</td><td class="r cr">-179萬</td><td class="r cr">-44萬</td><td>❄️落後</td></tr>
+<tr><td>台亞</td><td>2340</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">台亞</td><td class="r cr">-7.02%</td><td class="r cr">-55萬</td><td class="r cr">-188萬</td><td class="r cr">-34萬</td><td>❄️落後</td></tr>
+<tr><td>能率</td><td>5392</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">能率</td><td class="r cr">-4.38%</td><td class="r cr">-31萬</td><td class="r cr">-52萬</td><td class="r cr">-17萬</td><td>❄️落後</td></tr>
+<tr><td>亞力</td><td>1514</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">亞力</td><td class="r cr">-3.76%</td><td class="r cg">+47萬</td><td class="r cr">-482萬</td><td class="r cr">-2萬</td><td>❄️落後</td></tr>
+<tr><td>湧德</td><td>3689</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">湧德</td><td class="r cr">-7.42%</td><td class="r cr">-115萬</td><td class="r cr">-143萬</td><td class="r cg">+19萬</td><td>⚠️衰退</td></tr>
+<tr><td>均豪</td><td>5443</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">均豪</td><td class="r cr">-9.95%</td><td class="r cr">-202萬</td><td class="r cr">-221萬</td><td class="r cg">+51萬</td><td>⚠️衰退</td></tr>
+<tr><td>福懋科</td><td>8131</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">福懋科</td><td class="r cr">-9.92%</td><td class="r cr">-258萬</td><td class="r cr">-33萬</td><td class="r cg">+51萬</td><td>⚠️衰退</td></tr>
+</tbody></table><div class="det-note">共150支｜月線升序（賣壓最重前置）｜AI硬體鏈集中在此</div> -->
+</tbody></table>
+    <div class="chip-note">共150支｜月線升序（賣壓最重前置）</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</div><!-- end chip-panel -->
+
+  <table class="chip-tbl">
+    <thead><tr><th>名稱</th><th>代號</th><th>型態</th><th class="r">當日</th><th class="r">5日</th><th class="r">1月</th><th class="r">3月</th><th>警示訊號</th></tr></thead>
+    <tbody>
+<tr><td>台積電</td><td>2330</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">晶圓代工</td><td class="r cr">-7.29%</td><td class="r cr">-93,952萬</td><td class="r cr">-130,589萬</td><td class="r cr">-291,326萬</td><td>❄️落後</td></tr>
+<tr><td>聯發科</td><td>2454</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">IC設計</td><td class="r cr">-8.92%</td><td class="r cr">-2,643萬</td><td class="r cr">-10,718萬</td><td class="r cr">-70,153萬</td><td>❄️落後</td></tr>
+<tr><td>台達電</td><td>2308</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">散熱+電源</td><td class="r cr">-8.66%</td><td class="r cr">-8,805萬</td><td class="r cr">-10,428萬</td><td class="r cr">-65,748萬</td><td>❄️落後</td></tr>
+<tr><td>欣興</td><td>3037</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">ABF載板</td><td class="r cr">-9.98%</td><td class="r cr">-3,514萬</td><td class="r cr">-10,359萬</td><td class="r cr">-38,894萬</td><td>❄️落後</td></tr>
+<tr><td>華邦電</td><td>2344</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">記憶體</td><td class="r cr">-9.88%</td><td class="r cr">-5,090萬</td><td class="r cr">-7,241萬</td><td class="r cr">-46,926萬</td><td>❄️落後</td></tr>
+<tr><td>日月光投控</td><td>3711</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">IC封測</td><td class="r cr">-9.97%</td><td class="r cr">-7,689萬</td><td class="r cr">-6,772萬</td><td class="r cr">-5,552萬</td><td>❄️落後</td></tr>
+<tr><td>南電</td><td>8046</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">高階PCB</td><td class="r cr">-9.8%</td><td class="r cg">+1,310萬</td><td class="r cr">-3,680萬</td><td class="r cg">+25,446萬</td><td>⚠️衰退</td></tr>
+<tr><td>奇鋐</td><td>3017</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">散熱</td><td class="r cr">-1.12%</td><td class="r cg">+275萬</td><td class="r cr">-3,527萬</td><td class="r cg">+6,669萬</td><td>⚠️衰退</td></tr>
+<tr><td>★聯詠</td><td>3034</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">驅動IC</td><td class="r cr">-2.33%</td><td class="r cg">+493萬</td><td class="r cg">+4,288萬</td><td class="r cg">+5,693萬</td><td>🔥領先</td></tr>
+<tr><td>★環球晶</td><td>6488</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">半導體材料</td><td class="r cr">-9.49%</td><td class="r cg">+3,785萬</td><td class="r cg">+9,611萬</td><td class="r cg">+13,151萬</td><td>🔥領先</td></tr>
+<tr><td>★長榮航</td><td>2618</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">航空</td><td class="r cr">-1.67%</td><td class="r cg">+351萬</td><td class="r cg">+5,366萬</td><td class="r cg">+12,062萬</td><td>🔥領先</td></tr>
+<tr><td>★中美晶</td><td>5483</td><td style="color:var(--dim);font-size:calc(var(--fs)*.82);">半導體材料</td><td class="r cr">-9.07%</td><td class="r cg">+1,433萬</td><td class="r cg">+5,216萬</td><td class="r cg">+7,893萬</td><td>🔥領先</td></tr>
+</tbody></table><div class="det-note">重點個股警示｜金額口徑｜含雙向確認★</div> -->
+</tbody>
+  </table>
+  <div class="chip-note">重點個股警示表｜★=雙向確認</div>
+</div>
+</div>
+
+<!-- ═══ 法人型態長期追蹤 ═══ -->
+<div style="margin-top:20px;border-top:1px solid var(--border);padding-top:10px;">
+  <div onclick="togLT()" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surface);border:1px solid var(--border);">
+    <div>
+      <span style="font-size:calc(var(--fs)*.82);font-weight:600;color:var(--text);">📊 法人籌碼四型態長期追蹤</span>
+      <span style="font-size:calc(var(--fs)*.78);color:var(--dim);margin-left:10px;">兩季觀察 ｜ 點擊展開</span>
+    </div>
+    <span id="lt-tri" style="color:var(--dim);" class="ccard-tri breathing">▼</span>
+  </div>
+
+  <div id="lt-body" style="display:none;border:1px solid var(--border);border-top:none;">
+    <div style="padding:10px 14px;background:var(--surface2);font-size:calc(var(--fs)*.82);color:var(--dim);line-height:1.75;border-bottom:1px solid var(--border);">
+      <b style="color:var(--text)">判讀方式</b>：全面吸籌↑ 賣超警示↓ → 法人偏多；吸籌佔比 &gt; 55% 為偏多區，&lt; 40% 為偏空區。<br>
+      <span style="color:#94a3b8;font-size:calc(var(--fs)*.78);">⁺ = 估計基準（尚無實際量測）｜ ● = 實際量測值</span>
+    </div>
+
+    <div style="overflow-x:auto;">
+    <table class="chip-tbl">
+      <thead><tr>
+        <th>日期</th>
+        <th class="r" style="color:#00c896">🟢 全面吸籌</th>
+        <th class="r" style="color:#0ea5e9">🔵 低檔反轉</th>
+        <th class="r" style="color:#f0c040">🟡 高檔換手</th>
+        <th class="r" style="color:#ff8040">🟠 賣超警示</th>
+        <th class="r">吸籌佔比%</th>
+        <th>資料說明</th>
+      </tr></thead>
+      <tbody>
+<tr><td>07/17</td><td class="r">155</td><td class="r">36</td><td class="r">47</td><td class="r">150</td><td class="r"><b class="cg">50.8%</b></td><td>AI硬體全線崩跌，防禦輪動接棒</td></tr></tbody></table><div class="det-note">每次報告自動累積，含台股觀察結論關鍵詞</div> -->
+</tbody>
+    </table>
+    </div>
+
+    <div style="padding:10px 14px;background:rgba(255,128,64,.06);font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);">
+      <b style="color:#ff8040">研判</b>：全面吸籌 168 vs 長多短出+賣超 213，吸籌佔比 44%（偏空警戒區）。
+      5/22 的偏多高峰（吸籌佔比 62%）後，法人在短短一週明顯轉移籌碼。
+      需連續觀察 2–3 週確認是短線調節還是趨勢反轉。
+    </div>
+  </div>
+</div>
+
+
+
+</div><!-- end report-root -->
+
+
+
+
+
+
+
+<script id="real-sparklines">
+// ══ PRICE_DATA（GOOGLEFINANCE 導出） ══
+const PRICE_DATA = {/* [] */};
+// ══ drawSpark：畫真實折線圖 ══
+function drawSpark(cv, prices, color, W) {
+  if (!cv || !prices || prices.length < 2) return;
+  const dpr = window.devicePixelRatio || 1;
+  const H = cv.offsetHeight || 40;
+  cv.width  = W * dpr;
+  cv.height = H * dpr;
+  cv.style.width  = W + 'px';
+  cv.style.height = H + 'px';
+  const ctx = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const isDark = !document.body.classList.contains('light');
+  ctx.fillStyle = isDark ? '#0d1118' : '#f7f9fc';
+  ctx.fillRect(0, 0, W, H);
+  const mn = Math.min(...prices), mx = Math.max(...prices), rng = (mx - mn) || 1;
+  const pad = 4, CW = W - 2, CH = H - pad * 2;
+  // 漸層
+  const grd = ctx.createLinearGradient(0, pad, 0, H);
+  grd.addColorStop(0, color + '44'); grd.addColorStop(1, color + '00');
+  ctx.fillStyle = grd; ctx.beginPath();
+  prices.forEach((p, i) => {
+    const x = 1 + i / (prices.length - 1) * CW;
+    const y = pad + CH * (1 - (p - mn) / rng);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.lineTo(1 + CW, H); ctx.lineTo(1, H); ctx.closePath(); ctx.fill();
+  // 折線
+  ctx.strokeStyle = color; ctx.lineWidth = 2;
+  ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.beginPath();
+  prices.forEach((p, i) => {
+    const x = 1 + i / (prices.length - 1) * CW;
+    const y = pad + CH * (1 - (p - mn) / rng);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  // 最後一點
+  const lp = prices[prices.length - 1];
+  const lx = 1 + CW, ly = pad + CH * (1 - (lp - mn) / rng);
+  ctx.fillStyle = color; ctx.beginPath(); ctx.arc(lx, ly, 2.5, 0, Math.PI * 2); ctx.fill();
+  // 漲跌%
+  const chg = ((prices[prices.length-1] - prices[0]) / prices[0] * 100).toFixed(1);
+  const isUp = parseFloat(chg) >= 0;
+  ctx.font = '8px monospace';
+  ctx.fillStyle = isUp ? '#00c896' : '#ff3d5a';
+  ctx.textAlign = 'right';
+  ctx.fillText((isUp ? '▲' : '▼') + Math.abs(chg) + '%', W - 2, H - 2);
+}
+
+// ══ 台股 chip-tbl 注入 ══
+function injectTWSparklines() {
+  document.querySelectorAll('.chip-tbl tbody tr').forEach(row => {
+    if (row.querySelector('.spark-cell')) return;
+    const tds = row.querySelectorAll('td');
+    if (tds.length < 2) return;
+    const raw = tds[1].textContent.trim();
+    const code = /^\d{4}$/.test(raw) ? raw : raw.replace(/[^A-Z0-9]/g, '');
+    const prices = PRICE_DATA[code];
+    if (!prices) return;
+    const panel = row.closest('[id^="chip-detail-"]');
+    const COLORS = {'chip-detail-A':'#22c55e','chip-detail-B':'#0ea5e9','chip-detail-C':'#f0c040','chip-detail-D':'#ff8040'};
+    const color = (panel && COLORS[panel.id]) || '#4a6480';
+    const td = document.createElement('td');
+    td.className = 'spark-cell';
+    const cv = document.createElement('canvas');
+    cv.style.cssText = 'display:block;height:40px;';
+    td.appendChild(cv);
+    if (tds[2]) row.insertBefore(td, tds[2]); else row.appendChild(td);
+    requestAnimationFrame(() => drawSpark(cv, prices, color, 160));
+  });
+  document.querySelectorAll('.chip-tbl thead tr').forEach(tr => {
+    if (tr.querySelector('.spark-th')) return;
+    const th = document.createElement('th');
+    th.className = 'spark-th';
+    th.textContent = '走勢';
+    th.style.cssText = 'font-size:.68rem;color:var(--dim);width:168px;min-width:168px;';
+    const ths = tr.querySelectorAll('th');
+    if (ths[2]) tr.insertBefore(th, ths[2]);
+  });
+}
+
+// ══ 美股 sc-det 注入（傳入具體 det element）══
+function injectUSSparklines(det) {
+  // 清除舊的
+  const old = det.querySelector('.us-spark-tbl');
+  if (old) old.remove();
+
+  const box = det.closest('.sc');
+  let color = '#4a6480';
+  if (box) {
+    if (box.classList.contains('s')) color = '#22c55e';
+    else if (box.classList.contains('w')) color = '#f59e0b';
+    else if (box.classList.contains('d')) color = '#ff8040';
+    else if (box.classList.contains('t')) color = '#38bdf8';
+  }
+
+  // 從所有 sc-item 全文掃出 ticker
+  const seen = new Set();
+  const rows = [];
+  det.querySelectorAll('.sc-item').forEach(item => {
+    const words = (item.textContent.match(/\b[A-Z]{2,5}\b/g) || []);
+    const rk = item.querySelector('.sc-rk');
+    const rkText = rk ? rk.textContent.trim() : '';
+    words.forEach(w => {
+      if (seen.has(w) || !PRICE_DATA[w]) return;
+      seen.add(w);
+      rows.push({ code: w, prices: PRICE_DATA[w], rkText });
+    });
+  });
+
+  if (rows.length === 0) return;
+
+  // 建表
+  const tbl = document.createElement('div');
+  tbl.className = 'us-spark-tbl';
+  tbl.style.cssText = 'margin:4px 12px 8px;border:1px solid var(--border);';
+  const hdr = document.createElement('div');
+  hdr.style.cssText = 'display:grid;grid-template-columns:72px 1fr 168px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:.68rem;color:var(--dim);font-family:var(--fm);';
+  hdr.innerHTML = '<div style="padding:3px 8px">代號</div><div style="padding:3px 8px">說明</div><div style="padding:3px 8px">走勢（20日）</div>';
+  tbl.appendChild(hdr);
+
+  rows.forEach(({code, prices, rkText}) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:72px 1fr 168px;border-bottom:1px solid var(--border);align-items:center;';
+    const c1 = document.createElement('div');
+    c1.style.cssText = 'padding:2px 8px;font-family:var(--fm);font-size:.78rem;font-weight:700;color:' + color + ';';
+    c1.textContent = code;
+    const c2 = document.createElement('div');
+    c2.style.cssText = 'padding:2px 8px;color:var(--dim);font-size:.72rem;line-height:1.4;';
+    c2.textContent = rkText;
+    const c3 = document.createElement('div');
+    c3.style.cssText = 'padding:2px 4px;';
+    const cv = document.createElement('canvas');
+    cv.style.cssText = 'display:block;height:40px;';
+    c3.appendChild(cv);
+    row.appendChild(c1); row.appendChild(c2); row.appendChild(c3);
+    tbl.appendChild(row);
+    requestAnimationFrame(() => drawSpark(cv, prices, color, 160));
+  });
+
+  det.appendChild(tbl);
+}
+
+// ══ Cake 股票卡注入 ══
+function injectCakeSparklines() {
+  document.querySelectorAll('#cake-root .sg .sc').forEach(card => {
+    if (card.querySelector('.cake-spark')) return;
+    const stkEl = card.querySelector('.stk');
+    if (!stkEl) return;
+    const code = stkEl.textContent.trim().replace(/[^A-Z0-9]/g, '');
+    const prices = PRICE_DATA[code];
+    if (!prices) return;
+    let color = '#4a4870';
+    const bts = card.style.borderTop || '';
+    const hex = bts.match(/#[0-9a-fA-F]{6}/);
+    if (hex) color = hex[0];
+    const cv = document.createElement('canvas');
+    cv.className = 'cake-spark';
+    cv.style.cssText = 'display:block;width:100%;height:36px;margin-top:6px;border-radius:1px;';
+    card.appendChild(cv);
+    requestAnimationFrame(() => {
+      const W = Math.max(card.clientWidth - 20, 60);
+      drawSpark(cv, prices, color, W);
+    });
+  });
+}
+
+// ══ MutationObserver：監控 .sc-det 的 class 變化 ══
+function setupObserver() {
+  document.querySelectorAll('.sc-det').forEach(det => {
+    new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        if (m.attributeName === 'class' && det.classList.contains('open')) {
+          setTimeout(function() { injectUSSparklines(det); }, 50);
+        }
+      });
+    }).observe(det, { attributes: true, attributeFilter: ['class'] });
+  });
+}
+
+// ══ 台股 chip-tbl：監控卡片展開 ══
+function setupChipObserver() {
+  document.querySelectorAll('.chip-detail').forEach(panel => {
+    new MutationObserver(function() {
+      injectTWSparklines();
+    }).observe(panel, { childList: true, subtree: false, attributes: true, attributeFilter: ['class'] });
+  });
+}
+
+// ══ Cake：監控 .sg 動態插入 ══
+function setupCakeObserver() {
+  const cakeRoot = document.getElementById('cake-root');
+  if (!cakeRoot) return;
+  new MutationObserver(function() {
+    injectCakeSparklines();
+  }).observe(cakeRoot, { childList: true, subtree: true });
+}
+
+// ══ 初始化 ══
+window.addEventListener('load', function() {
+  injectTWSparklines();
+  setupObserver();
+  setupChipObserver();
+  setupCakeObserver();
+  // 台股 chip 卡片展開也觸發
+  document.addEventListener('click', function(e) {
+    const hdr = e.target.closest('.ccard-hdr, .chip-hdr, .ccard');
+    if (hdr) setTimeout(injectTWSparklines, 200);
+  });
+});
+</script>
+
+
+<!-- 舊版 setFS/setTheme 死碼已於 2026-07-07 移除（原 11/13/15px 版本，被後方 script 覆蓋） -->
+
+
+<script>
+/* ── 字體：18/21/24px ── */
+function setFS(size){
+  var map={small:'21px', normal:'24px', large:'27px'};
+  document.documentElement.style.setProperty('--fs', map[size]||'24px');
+  ['fs-small','fs-normal','fs-large'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.classList.remove('on');
+  });
+  var btn=document.getElementById('fs-'+size);
+  if(btn) btn.classList.add('on');
+}
+
+/* ── 深淺主題 ── */
+function setTheme(t){
+  var r=document.documentElement;
+  if(t==='light'){
+    r.style.setProperty('--bg','#f7f9fc');
+    r.style.setProperty('--surface','#ffffff');
+    r.style.setProperty('--surface2','#f0f4f8');
+    r.style.setProperty('--border','#dde3ea');
+    r.style.setProperty('--text','#1a2433');
+    r.style.setProperty('--dim','#6b7f94');
+    document.body.classList.add('light');
+  } else {
+    r.style.setProperty('--bg','#080b10');
+    r.style.setProperty('--surface','#0d1118');
+    r.style.setProperty('--surface2','#121820');
+    r.style.setProperty('--border','#1c2330');
+    r.style.setProperty('--text','#b8c8d8');
+    r.style.setProperty('--dim','#405060');
+    document.body.classList.remove('light');
+  }
+  var bd=document.getElementById('btn-dark');
+  var bl=document.getElementById('btn-light');
+  if(bd) bd.classList.toggle('on', t==='dark');
+  if(bl) bl.classList.toggle('on', t==='light');
+}
+
+/* ── 台股法人四型態卡片：點擊展開，再點收起，一次只開一張 ── */
+function selectChipCard(id){
+  var panel = document.getElementById('chip-panel');
+  var det   = document.getElementById('chip-detail-'+id);
+  var card  = document.querySelector('[data-id="'+id+'"]');
+
+  // 判斷目前是否已開啟
+  var isOpen = panel && panel.style.display === 'block' && det && det.style.display === 'block';
+
+  // 先全部收起
+  if(panel) panel.style.display = 'none';
+  document.querySelectorAll('.chip-detail').forEach(function(d){ d.style.display='none'; });
+  document.querySelectorAll('.ccard').forEach(function(c){ c.classList.remove('on'); });
+
+  // 若原本是關閉的，才打開
+  if(!isOpen){
+    if(panel) panel.style.display = 'block';
+    if(det)   det.style.display   = 'block';
+    if(card)  card.classList.add('on');
+  }
+}
+/* ── chip-box togChip（買超/賣超 展開列） ── */
+function togChip(id){
+  var el=document.getElementById(id);
+  if(!el) return;
+  var isOpen=el.classList.contains('open');
+  document.querySelectorAll('.chip-body').forEach(function(b){
+    b.classList.remove('open');
+    b.style.display='none';
+  });
+  if(!isOpen){
+    el.classList.add('open');
+    el.style.display='block';
+  }
+}
+
+/* ── 初始化 ── */
+document.addEventListener('DOMContentLoaded',function(){
+  setFS('normal');
+});
+function togCat(hdr,detId){
+  var grp=hdr.getAttribute('data-group');
+  document.querySelectorAll('[data-group="'+grp+'"].cat-det').forEach(function(d){d.classList.remove('open');});
+  var det=document.getElementById(detId);
+  if(det) det.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
+
+
+
