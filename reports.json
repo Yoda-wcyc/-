@@ -1,8 +1,8 @@
 {
   "updated": "2026-07-18",
   "dashboard": {
-    "signal": "yellow",
-    "signal_note": "QQQ 跌破 700 Gamma Flip，觀察模式",
+    "signal": "red",
+    "signal_note": "QQQ 跌破 700 Gamma Flip，油價暴衝，財報週前最脆弱時間點",
     "vix": 18.76,
     "spx": 7380,
     "spx_anchor_5y": 6945,
@@ -10,8 +10,7 @@
       167,
       122
     ],
-    "breadth_note": "廣度惡化：NQ20 44.7%、SP20 58.1%，科技廣度跌破 50%",
-    "hero_note": "好消息不頂用，越線才是關鍵，財報週前多看少做"
+    "breadth_note": "廣度惡化：NQ20 44.7%、SP20 58.1%，科技廣度跌破 50%"
   },
   "bubble": {
     "score": 6.2,
@@ -45,18 +44,12 @@
       "summary": "占位:發下一份報告時由 skill 自動填入"
     },
     "簡報": {
-      "date": "2026-07-18",
-      "file": "簡報_20260718.html",
-      "summary": "700 的門口，QQQ 跌破 Gamma Flip，多看少做，週一確認再行動"
+      "date": "2026-07-13",
+      "file": "簡報_20260713.html",
+      "summary": "廣度回健康帶,但屬修復非主升,CPI公布前先看不追"
     }
   },
   "history": [
-    {
-      "cat": "簡報",
-      "date": "2026-07-18",
-      "file": "簡報_20260718.html",
-      "summary": "700 的門口，QQQ 跌破 Gamma Flip，多看少做，週一確認再行動"
-    },
     {
       "cat": "台股",
       "date": "2026-07-17",
