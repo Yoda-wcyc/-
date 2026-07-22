@@ -22,9 +22,42 @@
   --fm:'SF Mono','Consolas','Monaco','Courier New',monospace;
 
   /* 粉專按鈕 — 總控 B-3 唯一正本 */
-  .ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-family:var(--mono);font-size:calc(11px * var(--fs-scale));font-weight:600;color:#e8f2ff;text-decoration:none;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;transition:all 0.15s ease;white-space:nowrap;line-height:1}
-.ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;transform:scale(1.02)}.plain-fan{animation:none!important;background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
+.fb{padding:4px 10px;font-size:11px;font-family:var(--mono);background:transparent;border:none;color:var(--muted);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb:hover{color:var(--text);background:var(--bg3);}
+.fb.on{color:#00c8f0;background:rgba(0,200,240,.15);}
+@keyframes fan-breathe {
+  0%,100% { background:#b8960a; box-shadow:0 0 4px 1px rgba(255,215,0,.35); color:#1a1200; }
+  50%      { background:#ffd700; box-shadow:0 0 10px 3px rgba(255,215,0,.75); color:#000; }
+}
 
+/* 粉專按鈕（低調版） */
+.ctrl-fan {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: 'SF Mono','Consolas','Monaco','Courier New',monospace;
+  color: #e8f2ff;
+  text-decoration: none;
+  background: #1a3a5c;
+  border: 1px solid #2a4a6c;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.ctrl-fan svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.ctrl-fan:hover {
+  background: #2a4a6c;
+  border-color: #3a5a7c;
+  transform: scale(1.02);
+}
   --fan-bg:#b8960a;
   --fan-bg-hover:#ffd700;
   --fan-text:#d39b19;
@@ -302,13 +335,33 @@ body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
 }
 /* ========== 效果對調後 ========== */
 
-/* 粉專按鈕（改為低調版） */
-.ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-family:var(--mono);font-size:calc(11px * var(--fs-scale));font-weight:600;color:#e8f2ff;text-decoration:none;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;transition:all 0.15s ease;white-space:nowrap;line-height:1}
-.ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;transform:scale(1.02)}.plain-fan{animation:none!important;background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
-.ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-size:11px;font-family:'SF Mono','Consolas','Monaco','Courier New',monospace;color:#e8f2ff;text-decoration:none;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;transition:all 0.15s ease;white-space:nowrap;}
-.ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0;}
-.ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;transform:scale(1.02);}
-
+/* 粉專按鈕（低調版） */
+.ctrl-fan {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: 'SF Mono','Consolas','Monaco','Courier New',monospace;
+  color: #e8f2ff;
+  text-decoration: none;
+  background: #1a3a5c;
+  border: 1px solid #2a4a6c;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.ctrl-fan svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.ctrl-fan:hover {
+  background: #2a4a6c;
+  border-color: #3a5a7c;
+  transform: scale(1.02);
+}
 /* 研究報告中心按鈕（改為金色呼吸動畫版） */
 .ctrl-home {
   display: inline-flex;
