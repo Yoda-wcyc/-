@@ -1,8 +1,8 @@
 {
-  "updated": "2026-07-21",
+  "updated": "2026-07-22",
   "dashboard": {
-    "signal": "red",
-    "signal_note": "QQQ 跌破 700 Gamma Flip，油價暴衝，財報週前最脆弱時間點",
+    "signal": "yellow",
+    "signal_note": "QQQ 收復 700，補漲不是多頭確認，超級週前謹慎",
     "vix": 18.76,
     "spx": 7380,
     "spx_anchor_5y": 6945,
@@ -16,32 +16,32 @@
         "name": "資金流判定",
         "label": "⚠ 警戒",
         "labelColor": "#4da8e0",
-        "pct": 40,
+        "pct": 37,
         "bubbleColor": "#4da8e0"
       },
       {
         "name": "情緒過熱觸發",
-        "label": "⚡ 矛盾分裂",
+        "label": "🔴 過熱警戒",
         "labelColor": "#f59e0b",
-        "pct": 55,
+        "pct": 70,
         "bubbleColor": "#f59e0b"
       },
       {
         "name": "Risk-on / off",
-        "label": "🔴 防禦",
+        "label": "🟢 強烈進攻",
         "labelColor": "#00d4aa",
-        "pct": 30,
+        "pct": 72,
         "bubbleColor": "#00d4aa"
       },
       {
         "name": "市場廣度",
-        "label": "🟡 惡化中（44.7%）",
+        "label": "🔴 廣度仍弱（49.9%）",
         "labelColor": "#f59e0b",
-        "pct": 44,
+        "pct": 50,
         "bubbleColor": "#f59e0b"
       }
     ],
-    "hero_note": "好消息不頂用，越線才是關鍵，財報週前多看少做"
+    "hero_note": "三圈全空七週，超級週②前夕不追"
   },
   "bubble": {
     "score": 6.2,
@@ -50,14 +50,14 @@
   },
   "latest": {
     "市場觀察": {
-      "date": "2026-07-18",
-      "file": "市場觀察_20260718.html",
-      "summary": "QQQ 跌破 700 Gamma Flip，油價暴衝拿走科技的票，HACK 逆市唯一主線"
+      "date": "2026-07-22",
+      "file": "市場觀察_20260722.html",
+      "summary": "補漲不是多頭，SOXX +5.45% 但廣度三項低於 50%，QQQ 收復 700，超級週前守紀律"
     },
     "美股": {
-      "date": "2026-07-18",
-      "file": "美股分析_20260718.html",
-      "summary": "三圈全空第六週，high 407/low 556，法說利多未反映，生技唯一啟動板塊，不追"
+      "date": "2026-07-22",
+      "file": "美股分析_20260722.html",
+      "summary": "三圈全空第七週，high/low 0.66x持續惡化，確信清單歸零，MPWR供電功率為唯一候選首燈訊號"
     },
     "台股": {
       "date": "2026-07-17",
@@ -75,9 +75,9 @@
       "summary": "占位:發下一份報告時由 skill 自動填入"
     },
     "簡報": {
-      "date": "2026-07-18",
-      "file": "簡報_20260718.html",
-      "summary": "700 的門口，QQQ 跌破 Gamma Flip，多看少做，週一確認再行動"
+      "date": "2026-07-22",
+      "file": "簡報_20260722.html",
+      "summary": "三圈全空七週high/low 0.66x，確信清單歸零，超級週②Big Tech財報前不追"
     },
     "專題": {
       "date": "2026-07-21",
@@ -86,6 +86,18 @@
     }
   },
   "history": [
+    {
+      "cat": "簡報",
+      "date": "2026-07-22",
+      "file": "簡報_20260722.html",
+      "summary": "三圈全空七週high/low 0.66x，確信清單歸零，超級週②Big Tech財報前不追"
+    },
+    {
+      "cat": "市場觀察",
+      "date": "2026-07-22",
+      "file": "市場觀察_20260722.html",
+      "summary": "補漲不是多頭，SOXX +5.45% 但廣度三項低於 50%，QQQ 收復 700，超級週前守紀律"
+    },
     {
       "cat": "專題",
       "date": "2026-07-21",
