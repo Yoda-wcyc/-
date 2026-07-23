@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 台股分析 | 2026-07-22</title>
+<style>
+:root{--fs:24px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fan-bg:#b8960a;--fan-bg-hover:#ffd700;--fan-text:#1a1200;--fan-text-hover:#000;--fan-glow:rgba(255,215,0,.35);--fan-glow-hover:rgba(255,215,0,.75);--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;}
+/* ===== 標準 Control Bar（所有報告統一使用） ===== */
+.fc{
+  position:fixed;top:14px;right:14px;z-index:999;
+  display:flex;gap:2px;
+  background:var(--surface);border:1px solid var(--border);border-radius:4px;
+  padding:3px;
+}
+
+/* 字體/主題按鈕 */
+.fb{
+  padding:4px 10px;font-size:11px;font-family:'SF Mono','Consolas','Monaco','Courier New',monospace;
+  background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;
+}
+.fb:hover{color:var(--text);background:var(--surface2);}
+.fb.on{color:#00c8f0;background:rgba(0,200,240,.15);}
+
+/* 粉專按鈕 */
+.ctrl-fan{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 12px;font-size:11px;font-family:'SF Mono','Consolas','Monaco','Courier New',monospace;
+  color:#e8f2ff;text-decoration:none;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;
+  transition:all 0.15s ease;white-space:nowrap;
+}
+.ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0;}
+.ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;transform:scale(1.02);}
+
+/* Yoda Research 按鈕 */
+.ctrl-home{
+  display:inline-flex;align-items:center;padding:4px 12px;
+  font-size:11px;font-family:'SF Mono','Consolas','Monaco','Courier New',monospace;
+  color:#1a1200;font-weight:700;text-decoration:none;background:#b8960a;border-radius:9999px;
+  animation:fan-breathe 1.8s ease-in-out infinite;white-space:nowrap;transition:all 0.15s ease;
+}
+.ctrl-home:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none;}
+
+/* 呼吸動畫 */
+@keyframes fan-breathe{
+  0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200;}
+  50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000;}
+}
+/* ── Header ── */
+.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
+.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-r{text-align:right;}
+.hdr-meta{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;}
+.wrap{max-width:1280px;margin:0 auto;padding:22px 40px 64px;}
+/* ── Section labels ── */
+.sec-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.sec-lbl .sub{font-size:calc(var(--fs)*.72);letter-spacing:.18em;color:var(--dim);opacity:.7;margin-left:10px;text-transform:none;}
+/* ── Verdict ── */
+.rotation-verdict{background:rgba(255,130,64,.04);border:1px solid rgba(255,130,64,.18);border-left:3px solid var(--orange);padding:14px 20px;margin-top:10px;margin-bottom:24px;}
+.rv-title{font-size:calc(var(--fs)*.77);letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.rv-txt{font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.9;}
+.rv-txt strong,.rv-txt b{color:var(--orange);font-weight:700;}
+.rv-row{display:flex;gap:8px;align-items:baseline;padding:3px 0;font-size:calc(var(--fs)*.88);}
+.rv-row .lbl{color:var(--dim);white-space:nowrap;flex-shrink:0;min-width:180px;}
+.rv-row .val{color:var(--text);}
+/* ── Obs conclusion ── */
+.obs-conclusion{background:rgba(0,8,20,.5);border:1px solid var(--border);border-left:3px solid var(--accent);padding:14px 20px;margin-bottom:16px;line-height:1.9;color:var(--text);font-family:var(--fb);}
+.obs-conclusion p{margin-bottom:10px;font-size:calc(var(--fs)*.92);}
+.obs-conclusion p:last-child{margin-bottom:0;}
+/* ── dist-badge ── */
+.dist-row{display:flex;gap:10px;flex-wrap:wrap;padding:10px 0;margin-bottom:8px;}
+.dist-badge{padding:4px 12px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;}
+.dist-badge.a{background:rgba(0,200,150,.15);color:#00c896;}
+.dist-badge.b{background:rgba(14,165,233,.15);color:#0ea5e9;}
+.dist-badge.c{background:rgba(240,192,64,.15);color:#f0c040;}
+/* ── AI三層 (ailayer3) ── */
+.ailayer3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:0;}
+.ai-lcard{background:var(--surface);padding:14px 16px;cursor:pointer;transition:filter .12s;}
+.ai-lcard:hover{filter:brightness(1.15);}
+.ai-lcard.sel{background:rgba(0,200,240,.08);outline:2px solid var(--accent);}
+.ai-lcard-title{font-size:calc(var(--fs)*.85);font-weight:700;color:var(--text);margin-bottom:5px;}
+.ai-lcard-meta{font-size:calc(var(--fs)*.82);color:var(--dim);line-height:1.6;margin-bottom:6px;}
+.ai-lcard-hint{font-size:calc(var(--fs)*.72);color:var(--accent);letter-spacing:.12em;}
+.ai-layer-panel{display:none;border:1px solid var(--border);border-top:2px solid var(--accent);margin-bottom:20px;overflow-x:auto;}
+.ai-layer-detail{display:none;}
+.ai-layer-detail.active{display:block;}
+/* ── AI三圈 ── */
+.circle-panel-wrap{display:none;border:1px solid var(--border);border-top:2px solid var(--accent);margin-bottom:4px;overflow-x:auto;}
+.circle-panel{display:none;}
+.circle-panel.active{display:block;}
+/* ── cat-card (stage / board 手風琴) ── */
+.cat-card{background:var(--surface);border:1px solid var(--border);margin-bottom:2px;}
+.cat-hdr{padding:10px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:filter .12s;}
+.cat-hdr:hover{filter:brightness(1.15);}
+.cat-hdr-main{font-size:calc(var(--fs)*.85);font-weight:600;color:var(--text);}
+.cat-hdr-meta{font-size:calc(var(--fs)*.78);color:var(--dim);margin-top:3px;}
+.cat-tier{font-size:calc(var(--fs)*.72);font-weight:700;margin-left:8px;letter-spacing:.05em;}
+.cat-tri{font-size:calc(var(--fs)*.85);font-weight:700;color:var(--dim);transition:transform .18s;flex-shrink:0;}
+.cat-det{display:none;border-top:1px solid var(--border);overflow-x:auto;}
+.cat-det.open{display:block;animation:sd .18s ease;}
+.cat-card.open .cat-tri.breathing{animation:none;}
+.arrow{font-size:calc(var(--fs)*.85);transition:transform .18s;flex-shrink:0;}
+.arrow.cold{color:var(--orange);}
+.arrow.hot{color:var(--green);}
+.arrow.warm{color:var(--yellow);}
+.arrow.mixed{color:#0ea5e9;}
+.arrow.neutral{color:var(--dim);}
+.stage-num{display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--border);align-items:center;justify-content:center;font-size:calc(var(--fs)*.72);font-weight:700;color:var(--dim);margin-right:8px;flex-shrink:0;}
+.stage-ladder-hdr{padding:9px 14px;font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#94a3b8;background:var(--surface);border-bottom:1px solid var(--border);}
+/* ── det-tbl ── */
+@keyframes sd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.det-tbl{width:100%;border-collapse:collapse;}
+.det-tbl thead tr{background:rgba(255,255,255,.025);}
+.det-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.72);letter-spacing:.15em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+.det-tbl th.r{text-align:right;}
+.det-tbl th.sortable{cursor:pointer;user-select:none;}
+.det-tbl th.sortable:hover{color:var(--text);}
+.det-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.85);background:var(--surface2);}
+.det-tbl td.r{text-align:right;font-family:var(--fm);}
+.det-tbl td.nm{color:var(--text);font-weight:600;}
+.det-tbl tr:last-child td{border-bottom:none;}
+.det-note{padding:8px 10px;font-family:var(--fb);font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+/* ── chip-tbl (三圈 / AI層) ── */
+.chip-tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.85);}
+.chip-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.72);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(255,255,255,.02);}
+.chip-tbl th.r{text-align:right;}
+.chip-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);background:var(--surface2);white-space:nowrap;}
+.chip-tbl td.r{text-align:right;font-family:var(--fm);}
+.chip-tbl td.nm{color:var(--text);font-weight:600;}
+.chip-tbl tr:last-child td{border-bottom:none;}
+/* ── 四型態 ccard ── */
+.chip4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:0;align-items:start;}
+.ccard{background:var(--bg);display:flex;flex-direction:column;cursor:pointer;align-self:start;}
+.ccard-hdr{padding:10px 12px;transition:filter .12s;border-bottom:1px solid var(--border);}
+.ccard:hover .ccard-hdr{filter:brightness(1.2);}
+.ccard.ca .ccard-hdr{border-left:3px solid #00c896;}
+.ccard.cb .ccard-hdr{border-left:3px solid #0ea5e9;}
+.ccard.cc .ccard-hdr{border-left:3px solid #f0c040;}
+.ccard.cd .ccard-hdr{border-left:3px solid #ff8040;}
+.ccard.ca.sel .ccard-hdr{background:rgba(0,200,150,.1);border-left-width:4px;}
+.ccard.cb.sel .ccard-hdr{background:rgba(14,165,233,.1);border-left-width:4px;}
+.ccard.cc.sel .ccard-hdr{background:rgba(240,192,64,.1);border-left-width:4px;}
+.ccard.cd.sel .ccard-hdr{background:rgba(255,128,64,.1);border-left-width:4px;}
+.ccard-pattern{font-size:calc(var(--fs)*.8);font-weight:700;letter-spacing:.05em;margin-bottom:3px;}
+.ccard.ca .ccard-pattern{color:#00c896;}
+.ccard.cb .ccard-pattern{color:#0ea5e9;}
+.ccard.cc .ccard-pattern{color:#f0c040;}
+.ccard.cd .ccard-pattern{color:#ff8040;}
+.ccard-count{font-size:calc(var(--fs)*1.15);font-weight:900;font-family:var(--fm);color:var(--text);margin-bottom:6px;}
+.ccard-brief{font-size:calc(var(--fs)*.78);color:var(--dim);line-height:1.6;margin-bottom:8px;}
+.ccard-brief b{color:var(--text);}
+.ccard-hint{display:flex;align-items:center;justify-content:flex-end;gap:5px;}
+.ccard-tri{font-size:calc(var(--fs)*.92);font-weight:700;line-height:1;}
+.ccard-hint-txt{font-size:calc(var(--fs)*.7);color:var(--dim);letter-spacing:.1em;}
+@keyframes breathe{0%,100%{opacity:1;filter:drop-shadow(0 0 5px currentColor);}50%{opacity:.18;filter:none;}}
+.ccard-tri.breathing{animation:breathe 2s ease-in-out infinite;}
+.chip-panel{display:none;background:var(--surface2);border:1px solid var(--border);border-top:2px solid;animation:sd .2s ease;overflow-x:auto;}
+.chip-panel.open{display:block;}
+.chip-panel.pA{border-top-color:#00c896;}
+.chip-panel.pB{border-top-color:#0ea5e9;}
+.chip-panel.pC{border-top-color:#f0c040;}
+.chip-panel.pD{border-top-color:#ff8040;}
+.chip-detail{display:none;padding:0;}
+.chip-detail.active{display:block;}
+.chip-note{padding:8px 10px;font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+/* ── chip-lbl ── */
+.chip-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.chip-section{margin-top:10px;margin-bottom:6px;}
+/* ── utils ── */
+.cg{color:var(--green);}.cr{color:var(--red);}.cy{color:var(--yellow);}
+.sect-wrap{margin-bottom:32px;}
+/* ── Footer ── */
+.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
+/* ── Light theme ── */
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
+@media(max-width:900px){.chip4{grid-template-columns:repeat(2,1fr);}.ailayer3{grid-template-columns:1fr;}}
+</style>
+  <!-- ══ Copy Protection ══ -->
+  <style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;}
+/* ── 可排序欄位 ── */
+.sortable{cursor:pointer;user-select:none;white-space:nowrap;}
+.sortable::after{content:" ⇅";font-size:.7em;opacity:.35;letter-spacing:0;}
+.sortable.asc::after{content:" ▲";opacity:.9;}
+.sortable.desc::after{content:" ▼";opacity:.9;}
+.sortable:hover{color:var(--text);}
+
+/* ── 大盤ETF週向 ── */
+.etf-signal-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:8px;}
+.etf-card{background:var(--surface);padding:14px 16px;}
+.etf-card-ticker{font-size:calc(var(--fs)*.92);font-weight:700;color:var(--text);margin-bottom:3px;font-family:var(--fm);}
+.etf-card-name{font-size:calc(var(--fs)*.78);color:var(--dim);margin-bottom:10px;}
+.etf-signal{display:inline-block;padding:3px 10px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;margin-bottom:10px;}
+.etf-signal.bull{background:rgba(0,200,150,.15);color:#00c896;}
+.etf-signal.bear{background:rgba(255,61,90,.12);color:#ff3d5a;}
+.etf-signal.obs{background:rgba(240,192,64,.12);color:#f0c040;}
+.etf-rows{display:flex;flex-direction:column;gap:5px;}
+.etf-row{display:flex;justify-content:space-between;font-size:calc(var(--fs)*.82);}
+.etf-row .lbl{color:var(--dim);}
+.etf-row .val{font-family:var(--fm);font-weight:600;}
+.etf-verdict{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 14px;margin-top:6px;font-family:var(--fb);font-size:calc(var(--fs)*.88);line-height:1.7;grid-column:1/-1;}
+.etf-verdict .verdict-label{font-size:calc(var(--fs)*.77);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+@media(max-width:700px){.etf-signal-wrap{grid-template-columns:1fr;}}
+</style>
+  <script>
+    document.addEventListener('contextmenu',e=>e.preventDefault());
+    document.addEventListener('copy',e=>e.preventDefault());
+    document.addEventListener('cut',e=>e.preventDefault());
+    document.addEventListener('selectstart',e=>e.preventDefault());
+    document.addEventListener('dragstart',e=>e.preventDefault());
+    document.addEventListener('keydown',e=>{
+      const k=e.key.toLowerCase();
+      if(e.ctrlKey&&['c','a','u','s','p','j'].includes(k))e.preventDefault();
+      if(e.ctrlKey&&e.shiftKey&&['i','j'].includes(k))e.preventDefault();
+      if(['f12','f11'].includes(k))e.preventDefault();
+    });
+  </script>
+  <!-- ══ End Protection ══ -->
+</head>
+<body>
+<div id="report-root">
+
+<!-- 標準 Control Bar -->
+<div class="fc">
+  <a class="ctrl-fan" href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" title="Facebook粉專">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+    </svg>粉專
+  </a>
+  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Research">Yoda Research</a>
+  <button class="fb" id="fs-small" onclick="setSize('sm')">小</button>
+  <button class="fb on" id="fs-normal" onclick="setSize('md')">中</button>
+  <button class="fb" id="fs-large" onclick="setSize('lg')">大</button>
+  <button class="fb" style="margin-left:4px;border-left:1px solid var(--border);padding-left:10px;" onclick="setTheme('dark')" id="btn-dark">深</button>
+  <button class="fb" onclick="setTheme('light')" id="btn-light">淺</button>
+</div>
+
+<!-- Header -->
+<div class="hdr">
+  <div>
+    <div class="hdr-lbl">Yoda × Claude</div>
+    <div class="hdr-title">Yoda <span>台股分析</span><span style="font-size:calc(var(--fs)*1.1);font-weight:400;color:var(--dim);letter-spacing:.05em;margin-left:16px;vertical-align:middle;">2026-07-22</span></div>
+  </div>
+  <div class="hdr-r">
+    <div class="hdr-meta">全面吸籌 224｜低檔回補 101｜吸籌佔比 51.5%｜雙向確認 4支⚠️｜台積電月線-31.3萬</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ 台股觀察結論 ═══ -->
+<div class="sect-wrap">
+<div class="chip-lbl">台股觀察結論</div>
+<div class="obs-conclusion"><p>外資本週對台股的態度很分裂：一邊在賣台積電（5日-83,664萬、月線-313,463萬），另一邊在買鴻海（5日+13,124萬）、華碩（5日+4,995萬）、長榮（5日+5,720萬）。</p>
+<p>這不是看好台股，是在台灣市場內部換倉。賣的是AI主鏈（台積電、聯發科、聯電、台達電），買的是低估值的AI硬體組裝（鴻海）和非AI傳統標的（海運、金融）。全面吸籌佔比51.5%表面回升，但雙向確認只剩<strong>4支</strong>，清一色是中小型標的，大型權值股一支也沒有。</p>
+<p>信號流8個階段有3個完全熄火：階段3核心運算（台積電/聯發科）、階段2載板（欣興/景碩）、階段4記憶體（南亞科/華邦電）。唯一逆勢轉強的是階段5驅動IC（聯詠5日+2,293萬）。</p>
+<p>操作判斷：主鏈台積電月線未止跌前不宜進場。有確信度的標的集中在海運（長榮三向同買）與驅動IC（聯詠），體量太小，不構成全面多頭訊號。</p></div>
+</div>
+
+<!-- ═══ 今日結論 ═══ -->
+<div class="sect-wrap">
+<div class="rotation-verdict">
+  <div class="rv-title">台積電月線-31.3萬，資金擠向海運華碩，主鏈持續淨流出</div>
+  <div class="rv-txt">
+<div class="rv-row"><span class="lbl">市場廣度</span><span class="val">全面吸籌 <span class="cg">224</span> 支｜持續賣超 <span class="cr">211</span> 支｜吸籌佔比 <span class="cg">51.5%</span>（前期06/22 36.8%）</span></div>
+<div class="rv-row"><span class="lbl">雙向確認</span><span class="val"><span class="cr">4 支</span>（前期17支）⚠️ 廣度萎縮警示</span></div>
+<div class="rv-row"><span class="lbl">領先板塊</span><span class="val">海運（長榮 月+10,852 / 5日+5,720）｜AI伺服器主板（華碩 月+9,412）｜驅動IC（聯詠/矽創/瑞昱）</span></div>
+<div class="rv-row"><span class="lbl">落後警示</span><span class="val">晶圓代工（台積電 月<span class="cr">-313,463</span>）｜IC設計（聯發科 月<span class="cr">-71,863</span>）｜電源散熱（台達電 月<span class="cr">-57,079</span>）</span></div>
+<div class="rv-row"><span class="lbl">大盤ETF</span><span class="val">0050 月<span class="cr">-143,522</span> / 5日<span class="cr">-66,164</span>｜00631L 月<span class="cr">-56,758</span> / 5日<span class="cr">-14,037</span>　→ <span class="cr">雙重持續撤退</span></span></div>
+<div class="rv-row"><span class="lbl">結構判斷</span><span class="val">⚠️ 結構分裂：大型權值股全數落後，領先區清一色中小型標的；0050/00631L 偏空格局未解</span></div>
+</div>
+</div>
+<div class="dist-row">
+  <span class="dist-badge a">全面吸籌 224 支</span>
+  <span class="dist-badge b">低檔回補 101 支</span>
+  <span class="dist-badge c">高檔換手 62 支 / 持續賣超 211 支</span>
+</div>
+</div>
+
+<!-- ═══ AI核心競爭力三層 ═══ -->
+<div class="sect-wrap">
+<div class="sec-lbl">AI核心競爭力分類<span class="sub">台股三層架構｜月線排序｜點擊展開細節</span></div>
+<div class="ailayer3">
+  <div class="ai-lcard" data-id="1" onclick="selectAILayer('1')">
+    <div class="ai-lcard-title">第一層：算力核心硬體</div>
+    <div class="ai-lcard-meta">0/7 支領先區｜月線合計 -450,883萬</div>
+    <div class="ai-lcard-hint">▼ 點擊展開細節</div>
+  </div>
+  <div class="ai-lcard" data-id="2" onclick="selectAILayer('2')">
+    <div class="ai-lcard-title">第二層：AI供應鏈基建</div>
+    <div class="ai-lcard-meta">2/8 支領先區｜月線合計 -72,927萬</div>
+    <div class="ai-lcard-hint">▼ 點擊展開細節</div>
+  </div>
+  <div class="ai-lcard" data-id="3" onclick="selectAILayer('3')">
+    <div class="ai-lcard-title">第三層：網通/光電/顯示</div>
+    <div class="ai-lcard-meta">0/9 支領先區｜月線合計 -34,037萬</div>
+    <div class="ai-lcard-hint">▼ 點擊展開細節</div>
+  </div>
+</div>
+<div class="ai-layer-panel" id="ai-layer-panel">
+  <div class="ai-layer-detail" id="ai-layer-detail-1">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable r" onclick="sortTbl(this)">季線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">2330</td><td>台積電</td><td>晶圓代工</td><td class="r"><span class="cr">-7,308</span></td><td class="r"><span class="cr">-83,664</span></td><td class="r"><span class="cr">-313,463</span></td><td class="r"><span class="cr">-585,097</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3661</td><td>世芯-KY</td><td>AI運算</td><td class="r"><span class="cg">+88</span></td><td class="r"><span class="cr">-613</span></td><td class="r"><span class="cr">-12,088</span></td><td class="r"><span class="cr">-8,728</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3443</td><td>創意</td><td>AI運算</td><td class="r"><span class="cr">-1,033</span></td><td class="r"><span class="cr">-1,044</span></td><td class="r"><span class="cr">-2,270</span></td><td class="r"><span class="cr">-4,861</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2454</td><td>聯發科</td><td>IC設計</td><td class="r"><span class="cg">+1,647</span></td><td class="r"><span class="cr">-1,109</span></td><td class="r"><span class="cr">-71,863</span></td><td class="r"><span class="cr">-83,580</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2303</td><td>聯電</td><td>IC製造</td><td class="r"><span class="cr">-260</span></td><td class="r"><span class="cr">-18,715</span></td><td class="r"><span class="cr">-35,309</span></td><td class="r"><span class="cr">-53,151</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3711</td><td>日月光投控</td><td>IC封測</td><td class="r"><span class="cg">+1,411</span></td><td class="r"><span class="cr">-5,746</span></td><td class="r"><span class="cr">-13,922</span></td><td class="r"><span class="cr">-35,970</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">4966</td><td>譜瑞-KY</td><td>高速傳輸IC</td><td class="r"><span class="cg">+145</span></td><td class="r"><span class="cr">-61</span></td><td class="r"><span class="cr">-1,968</span></td><td class="r"><span class="cg">+5,240</span></td><td>❄️落後</td></tr>
+</tbody></table></div>
+  <div class="ai-layer-detail" id="ai-layer-detail-2">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable r" onclick="sortTbl(this)">季線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">2317</td><td>鴻海</td><td>AI伺服器ODM</td><td class="r"><span class="cg">+4,610</span></td><td class="r"><span class="cg">+13,124</span></td><td class="r"><span class="cr">-26,600</span></td><td class="r"><span class="cg">+120,763</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">2382</td><td>廣達</td><td>AI伺服器ODM</td><td class="r"><span class="cr">-784</span></td><td class="r"><span class="cg">+3,091</span></td><td class="r"><span class="cg">+2,293</span></td><td class="r"><span class="cg">+15,488</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">3231</td><td>緯創</td><td>AI伺服器ODM</td><td class="r"><span class="cg">+3,747</span></td><td class="r"><span class="cg">+6,378</span></td><td class="r"><span class="cr">-5,584</span></td><td class="r"><span class="cg">+9,654</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">2357</td><td>華碩</td><td>AI伺服器主板</td><td class="r"><span class="cg">+1,522</span></td><td class="r"><span class="cg">+4,995</span></td><td class="r"><span class="cg">+9,412</span></td><td class="r"><span class="cg">+24,041</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">3037</td><td>欣興</td><td>ABF載板</td><td class="r"><span class="cg">+2,897</span></td><td class="r"><span class="cr">-2,098</span></td><td class="r"><span class="cr">-37,148</span></td><td class="r"><span class="cr">-33,342</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3189</td><td>景碩</td><td>ABF載板</td><td class="r"><span class="cr">-330</span></td><td class="r"><span class="cr">-454</span></td><td class="r"><span class="cr">-1,764</span></td><td class="r"><span class="cg">+11,873</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2383</td><td>台光電</td><td>高階CCL基板</td><td class="r"><span class="cr">-329</span></td><td class="r"><span class="cr">-435</span></td><td class="r"><span class="cr">-2,336</span></td><td class="r"><span class="cg">+31,264</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2313</td><td>華通</td><td>高階PCB</td><td class="r"><span class="cr">-1,183</span></td><td class="r"><span class="cr">-6,182</span></td><td class="r"><span class="cr">-11,200</span></td><td class="r"><span class="cr">-25,456</span></td><td>❄️落後</td></tr>
+</tbody></table></div>
+  <div class="ai-layer-detail" id="ai-layer-detail-3">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable r" onclick="sortTbl(this)">季線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">2345</td><td>智邦</td><td>網通設備</td><td class="r"><span class="cg">+12</span></td><td class="r"><span class="cr">-764</span></td><td class="r"><span class="cr">-5,219</span></td><td class="r"><span class="cg">+12,682</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3363</td><td>上詮</td><td>光通訊</td><td class="r"><span class="cg">+108</span></td><td class="r"><span class="cg">+404</span></td><td class="r"><span class="cr">-122</span></td><td class="r"><span class="cr">-2,497</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">3081</td><td>聯亞</td><td>光通訊</td><td class="r"><span class="cg">+26</span></td><td class="r"><span class="cg">+489</span></td><td class="r"><span class="cr">-1,946</span></td><td class="r"><span class="cr">-10,381</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">6451</td><td>訊芯-KY</td><td>光通訊</td><td class="r"><span class="cr">-30</span></td><td class="r"><span class="cg">+258</span></td><td class="r"><span class="cr">-365</span></td><td class="r"><span class="cg">+325</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">8021</td><td>尖點</td><td>光電連接器</td><td class="r"><span class="cg">+118</span></td><td class="r"><span class="cr">-200</span></td><td class="r"><span class="cg">+942</span></td><td class="r"><span class="cg">+1,738</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">2492</td><td>華新科</td><td>MLCC/被動元件</td><td class="r"><span class="cr">-190</span></td><td class="r"><span class="cr">-1,154</span></td><td class="r"><span class="cr">-3,310</span></td><td class="r"><span class="cg">+14,356</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2327</td><td>國巨*</td><td>高階MLCC</td><td class="r"><span class="cr">-2,738</span></td><td class="r"><span class="cr">-10,914</span></td><td class="r"><span class="cr">-24,896</span></td><td class="r"><span class="cr">-27,518</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3324</td><td>雙鴻</td><td>散熱模組</td><td class="r"><span class="cr">-411</span></td><td class="r"><span class="cg">+324</span></td><td class="r"><span class="cr">-3,617</span></td><td class="r"><span class="cr">-7,240</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">3017</td><td>奇鋐</td><td>散熱龍頭</td><td class="r"><span class="cr">-1,606</span></td><td class="r"><span class="cr">-3,623</span></td><td class="r"><span class="cg">+4,496</span></td><td class="r"><span class="cr">-20,357</span></td><td>⚠️衰退</td></tr>
+</tbody></table></div>
+</div>
+</div>
+
+<!-- ═══ AI三圈擴散 ═══ -->
+<div class="sect-wrap">
+<div class="sec-lbl">AI三圈擴散分析<span class="sub">算力核心→瓶頸→基建外溢｜點擊展開細節</span></div>
+<div class="ailayer3">
+  <div class="ai-lcard" data-id="c1" onclick="selectCircle('c1')">
+    <div class="ai-lcard-title">Circle 1｜算力核心</div>
+    <div class="ai-lcard-meta">領先 0/4 支</div>
+    <div class="ai-lcard-hint">▼ 點擊展開</div>
+  </div>
+  <div class="ai-lcard" data-id="c2" onclick="selectCircle('c2')">
+    <div class="ai-lcard-title">Circle 2｜不可或缺瓶頸</div>
+    <div class="ai-lcard-meta">領先 1/8 支</div>
+    <div class="ai-lcard-hint">▼ 點擊展開</div>
+  </div>
+  <div class="ai-lcard" data-id="c3" onclick="selectCircle('c3')">
+    <div class="ai-lcard-title">Circle 3｜供應鏈外溢基建</div>
+    <div class="ai-lcard-meta">領先 0/9 支</div>
+    <div class="ai-lcard-hint">▼ 點擊展開</div>
+  </div>
+</div>
+<div class="circle-panel-wrap" id="circle-panel-wrap">
+  <div class="circle-panel" id="circle-panel-c1">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable r" onclick="sortTbl(this)">季線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">2330</td><td>台積電</td><td>晶圓代工</td><td class="r"><span class="cr">-7,308</span></td><td class="r"><span class="cr">-83,664</span></td><td class="r"><span class="cr">-313,463</span></td><td class="r"><span class="cr">-585,097</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2454</td><td>聯發科</td><td>IC設計</td><td class="r"><span class="cg">+1,647</span></td><td class="r"><span class="cr">-1,109</span></td><td class="r"><span class="cr">-71,863</span></td><td class="r"><span class="cr">-83,580</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3661</td><td>世芯-KY</td><td>AI運算</td><td class="r"><span class="cg">+88</span></td><td class="r"><span class="cr">-613</span></td><td class="r"><span class="cr">-12,088</span></td><td class="r"><span class="cr">-8,728</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3443</td><td>創意</td><td>AI運算</td><td class="r"><span class="cr">-1,033</span></td><td class="r"><span class="cr">-1,044</span></td><td class="r"><span class="cr">-2,270</span></td><td class="r"><span class="cr">-4,861</span></td><td>❄️落後</td></tr>
+</tbody></table></div>
+  <div class="circle-panel" id="circle-panel-c2">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable r" onclick="sortTbl(this)">季線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">2317</td><td>鴻海</td><td>AI伺服器ODM</td><td class="r"><span class="cg">+4,610</span></td><td class="r"><span class="cg">+13,124</span></td><td class="r"><span class="cr">-26,600</span></td><td class="r"><span class="cg">+120,763</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">2382</td><td>廣達</td><td>AI伺服器ODM</td><td class="r"><span class="cr">-784</span></td><td class="r"><span class="cg">+3,091</span></td><td class="r"><span class="cg">+2,293</span></td><td class="r"><span class="cg">+15,488</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">3231</td><td>緯創</td><td>AI伺服器ODM</td><td class="r"><span class="cg">+3,747</span></td><td class="r"><span class="cg">+6,378</span></td><td class="r"><span class="cr">-5,584</span></td><td class="r"><span class="cg">+9,654</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">3037</td><td>欣興</td><td>ABF載板</td><td class="r"><span class="cg">+2,897</span></td><td class="r"><span class="cr">-2,098</span></td><td class="r"><span class="cr">-37,148</span></td><td class="r"><span class="cr">-33,342</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3189</td><td>景碩</td><td>ABF載板</td><td class="r"><span class="cr">-330</span></td><td class="r"><span class="cr">-454</span></td><td class="r"><span class="cr">-1,764</span></td><td class="r"><span class="cg">+11,873</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2308</td><td>台達電</td><td>電源/散熱</td><td class="r"><span class="cg">+1,293</span></td><td class="r"><span class="cr">-6,442</span></td><td class="r"><span class="cr">-57,079</span></td><td class="r"><span class="cr">-99,111</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2344</td><td>華邦電</td><td>記憶體DRAM</td><td class="r"><span class="cr">-1,124</span></td><td class="r"><span class="cr">-9,255</span></td><td class="r"><span class="cr">-33,977</span></td><td class="r"><span class="cg">+12,974</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2408</td><td>南亞科</td><td>記憶體DRAM</td><td class="r"><span class="cg">+4,629</span></td><td class="r"><span class="cr">-12,155</span></td><td class="r"><span class="cr">-30,840</span></td><td class="r"><span class="cg">+58,432</span></td><td>❄️落後</td></tr>
+</tbody></table></div>
+  <div class="circle-panel" id="circle-panel-c3">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable r" onclick="sortTbl(this)">季線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">2345</td><td>智邦</td><td>網通設備</td><td class="r"><span class="cg">+12</span></td><td class="r"><span class="cr">-764</span></td><td class="r"><span class="cr">-5,219</span></td><td class="r"><span class="cg">+12,682</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2383</td><td>台光電</td><td>高階CCL基板</td><td class="r"><span class="cr">-329</span></td><td class="r"><span class="cr">-435</span></td><td class="r"><span class="cr">-2,336</span></td><td class="r"><span class="cg">+31,264</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">4966</td><td>譜瑞-KY</td><td>高速傳輸IC</td><td class="r"><span class="cg">+145</span></td><td class="r"><span class="cr">-61</span></td><td class="r"><span class="cr">-1,968</span></td><td class="r"><span class="cg">+5,240</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3363</td><td>上詮</td><td>光通訊</td><td class="r"><span class="cg">+108</span></td><td class="r"><span class="cg">+404</span></td><td class="r"><span class="cr">-122</span></td><td class="r"><span class="cr">-2,497</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">2327</td><td>國巨*</td><td>高階MLCC</td><td class="r"><span class="cr">-2,738</span></td><td class="r"><span class="cr">-10,914</span></td><td class="r"><span class="cr">-24,896</span></td><td class="r"><span class="cr">-27,518</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2492</td><td>華新科</td><td>MLCC/被動元件</td><td class="r"><span class="cr">-190</span></td><td class="r"><span class="cr">-1,154</span></td><td class="r"><span class="cr">-3,310</span></td><td class="r"><span class="cg">+14,356</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3324</td><td>雙鴻</td><td>散熱模組</td><td class="r"><span class="cr">-411</span></td><td class="r"><span class="cg">+324</span></td><td class="r"><span class="cr">-3,617</span></td><td class="r"><span class="cr">-7,240</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">3017</td><td>奇鋐</td><td>散熱龍頭</td><td class="r"><span class="cr">-1,606</span></td><td class="r"><span class="cr">-3,623</span></td><td class="r"><span class="cg">+4,496</span></td><td class="r"><span class="cr">-20,357</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">8021</td><td>尖點</td><td>光電連接器</td><td class="r"><span class="cg">+118</span></td><td class="r"><span class="cr">-200</span></td><td class="r"><span class="cg">+942</span></td><td class="r"><span class="cg">+1,738</span></td><td>⚠️衰退</td></tr>
+</tbody></table></div>
+</div>
+</div>
+
+<!-- ═══ AI硬體信號流 ═══ -->
+<div class="sect-wrap">
+<div class="sec-lbl">AI硬體信號流階梯<span class="sub">台股8階段｜月線×5日位階｜點擊展開細節</span></div>
+<div class="stage-ladder">
+  <div class="stage-ladder-hdr">📶 信號流階梯｜主機板8階段資金位置（台股）</div>
+<div class="cat-card" data-group="stage">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="stage-num">1</span><span class="cat-hdr-main">訊號輸入/網通接口</span><span class="cat-tier" style="color:var(--yellow)">🌱轉強中</span></span>
+    <span class="cat-hdr-meta" style="font-size:calc(var(--fs)*.75)">智邦↓　上詮↑　聯亞↑　訊芯-KY↑</span>
+    <span class="arrow warm breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2345</td><td>智邦</td><td class="r"><span class="cr">-764</span></td><td class="r"><span class="cr">-5,219</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3363</td><td>上詮</td><td class="r"><span class="cg">+404</span></td><td class="r"><span class="cr">-122</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">3081</td><td>聯亞</td><td class="r"><span class="cg">+489</span></td><td class="r"><span class="cr">-1,946</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">6451</td><td>訊芯-KY</td><td class="r"><span class="cg">+258</span></td><td class="r"><span class="cr">-365</span></td><td>🌱回升</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="stage">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="stage-num">2</span><span class="cat-hdr-main">高速傳輸/載板</span><span class="cat-tier" style="color:var(--red)">❄️落後（全數負）</span></span>
+    <span class="cat-hdr-meta" style="font-size:calc(var(--fs)*.75)">欣興↓　景碩↓　台光電↓　譜瑞-KY↓</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3037</td><td>欣興</td><td class="r"><span class="cr">-2,098</span></td><td class="r"><span class="cr">-37,148</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3189</td><td>景碩</td><td class="r"><span class="cr">-454</span></td><td class="r"><span class="cr">-1,764</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2383</td><td>台光電</td><td class="r"><span class="cr">-435</span></td><td class="r"><span class="cr">-2,336</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">4966</td><td>譜瑞-KY</td><td class="r"><span class="cr">-61</span></td><td class="r"><span class="cr">-1,968</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="stage">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="stage-num">3</span><span class="cat-hdr-main">核心運算</span><span class="cat-tier" style="color:var(--red)">❄️落後（全數負）</span></span>
+    <span class="cat-hdr-meta" style="font-size:calc(var(--fs)*.75)">台積電↓　世芯-KY↓　創意↓　聯發科↓</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2330</td><td>台積電</td><td class="r"><span class="cr">-83,664</span></td><td class="r"><span class="cr">-313,463</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3661</td><td>世芯-KY</td><td class="r"><span class="cr">-613</span></td><td class="r"><span class="cr">-12,088</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3443</td><td>創意</td><td class="r"><span class="cr">-1,044</span></td><td class="r"><span class="cr">-2,270</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2454</td><td>聯發科</td><td class="r"><span class="cr">-1,109</span></td><td class="r"><span class="cr">-71,863</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="stage">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="stage-num">4</span><span class="cat-hdr-main">記憶體暫存</span><span class="cat-tier" style="color:var(--red)">❄️落後（全數負）</span></span>
+    <span class="cat-hdr-meta" style="font-size:calc(var(--fs)*.75)">南亞科↓　華邦電↓　旺宏↓</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2408</td><td>南亞科</td><td class="r"><span class="cr">-12,155</span></td><td class="r"><span class="cr">-30,840</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2344</td><td>華邦電</td><td class="r"><span class="cr">-9,255</span></td><td class="r"><span class="cr">-33,977</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2337</td><td>旺宏</td><td class="r"><span class="cr">-2,831</span></td><td class="r"><span class="cr">-22,065</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="stage">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="stage-num">5</span><span class="cat-hdr-main">周邊驅動IC</span><span class="cat-tier" style="color:var(--yellow)">🌱轉強中</span></span>
+    <span class="cat-hdr-meta" style="font-size:calc(var(--fs)*.75)">聯詠↑　瑞昱↑　矽創↑</span>
+    <span class="arrow warm breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3034</td><td>聯詠</td><td class="r"><span class="cg">+2,293</span></td><td class="r"><span class="cg">+4,887</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">2379</td><td>瑞昱</td><td class="r"><span class="cg">+159</span></td><td class="r"><span class="cr">-5,379</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">8016</td><td>矽創</td><td class="r"><span class="cg">+188</span></td><td class="r"><span class="cg">+2,132</span></td><td>🔥領先</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="stage">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="stage-num">6</span><span class="cat-hdr-main">供電功率</span><span class="cat-tier" style="color:var(--red)">❄️落後（全數負）</span></span>
+    <span class="cat-hdr-meta" style="font-size:calc(var(--fs)*.75)">台達電↓　茂達↓</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2308</td><td>台達電</td><td class="r"><span class="cr">-6,442</span></td><td class="r"><span class="cr">-57,079</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">6138</td><td>茂達</td><td class="r"><span class="cr">-234</span></td><td class="r"><span class="cr">-1,706</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="stage">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="stage-num">7</span><span class="cat-hdr-main">被動濾波</span><span class="cat-tier" style="color:var(--yellow)">🌱轉強中</span></span>
+    <span class="cat-hdr-meta" style="font-size:calc(var(--fs)*.75)">國巨*↓　華新科↓　臺慶科↑</span>
+    <span class="arrow warm breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2327</td><td>國巨*</td><td class="r"><span class="cr">-10,914</span></td><td class="r"><span class="cr">-24,896</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2492</td><td>華新科</td><td class="r"><span class="cr">-1,154</span></td><td class="r"><span class="cr">-3,310</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3357</td><td>臺慶科</td><td class="r"><span class="cg">+53</span></td><td class="r"><span class="cr">-283</span></td><td>🌱回升</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="stage">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="stage-num">8</span><span class="cat-hdr-main">散熱防禦</span><span class="cat-tier" style="color:var(--yellow)">🌱轉強中</span></span>
+    <span class="cat-hdr-meta" style="font-size:calc(var(--fs)*.75)">奇鋐↓　雙鴻↑　高力↓</span>
+    <span class="arrow warm breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3017</td><td>奇鋐</td><td class="r"><span class="cr">-3,623</span></td><td class="r"><span class="cg">+4,496</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">3324</td><td>雙鴻</td><td class="r"><span class="cg">+324</span></td><td class="r"><span class="cr">-3,617</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">8996</td><td>高力</td><td class="r"><span class="cr">-298</span></td><td class="r"><span class="cr">-1,324</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ═══ 個股四型態 ═══ -->
+<div class="sect-wrap">
+<div class="sec-lbl">台股法人籌碼四型態<span class="sub">月線×5日佔比口徑判定｜金額口徑排序｜點擊展開</span></div>
+<div class="chip4">
+  <div class="ccard ca" data-id="A" onclick="selectChipCard('A')">
+    <div class="ccard-hdr">
+      <div class="ccard-pattern">全面吸籌</div>
+      <div class="ccard-count">224 支</div>
+      <div class="ccard-brief">月+5日+｜三向同買：長榮/華碩/聯詠/矽創<br>最強：長榮(月+10,852) / 華碩(月+9,412)</div>
+      <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#00c896;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+    </div>
+  </div>
+  <div class="ccard cb" data-id="B" onclick="selectChipCard('B')">
+    <div class="ccard-hdr">
+      <div class="ccard-pattern">低檔回補</div>
+      <div class="ccard-count">101 支</div>
+      <div class="ccard-brief">月-5日+｜最大：鴻海(5日+13,124) / 緯創(5日+6,378)<br>潛在轉折觀察中</div>
+      <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#0ea5e9;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+    </div>
+  </div>
+  <div class="ccard cc" data-id="C" onclick="selectChipCard('C')">
+    <div class="ccard-hdr">
+      <div class="ccard-pattern">高檔換手</div>
+      <div class="ccard-count">62 支</div>
+      <div class="ccard-brief">月+5日-｜奇鋐(5日-3,623) / 南電(5日-4,803)<br>注意籌碼鬆動</div>
+      <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#f0c040;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+    </div>
+  </div>
+  <div class="ccard cd" data-id="D" onclick="selectChipCard('D')">
+    <div class="ccard-hdr">
+      <div class="ccard-pattern">持續賣超</div>
+      <div class="ccard-count">211 支</div>
+      <div class="ccard-brief">月-5日-｜台積電(月-313,463) / 聯發科(月-71,863)<br>大盤ETF 0050/00631L 同步撤退</div>
+      <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#ff8040;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+    </div>
+  </div>
+</div><!-- end chip4 -->
+<div id="chip-panel" class="chip-panel">
+  <div id="chip-detail-A" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">漲跌%</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">長榮航</td><td>2618</td><td>其他</td><td class="r"><span class="cr">-0.47%</span></td><td class="r"><span class="cg">+362</span></td><td class="r"><span class="cg">+1,854</span></td><td class="r"><span class="cg">+13,315</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">長榮</td><td>2603</td><td>海運</td><td class="r"><span class="cg">+1.48%</span></td><td class="r"><span class="cg">+1,186</span></td><td class="r"><span class="cg">+5,720</span></td><td class="r"><span class="cg">+10,852</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">微星</td><td>2377</td><td>其他</td><td class="r"><span class="cg">+6.16%</span></td><td class="r"><span class="cg">+1,990</span></td><td class="r"><span class="cg">+2,411</span></td><td class="r"><span class="cg">+9,708</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">中美晶</td><td>5483</td><td>其他</td><td class="r"><span class="cg">+6.12%</span></td><td class="r"><span class="cg">+875</span></td><td class="r"><span class="cg">+1,231</span></td><td class="r"><span class="cg">+9,503</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">華碩</td><td>2357</td><td>AI伺服器主板</td><td class="r"><span class="cg">+2.85%</span></td><td class="r"><span class="cg">+1,522</span></td><td class="r"><span class="cg">+4,995</span></td><td class="r"><span class="cg">+9,412</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">國泰20年美債</td><td>00687B</td><td>其他</td><td class="r"><span class="cr">-0.07%</span></td><td class="r"><span class="cg">+41</span></td><td class="r"><span class="cg">+1,262</span></td><td class="r"><span class="cg">+9,005</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">禾伸堂</td><td>3026</td><td>其他</td><td class="r"><span class="cr">-2.79%</span></td><td class="r"><span class="cg">+54</span></td><td class="r"><span class="cg">+5,277</span></td><td class="r"><span class="cg">+8,144</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">凱基金</td><td>2883</td><td>其他</td><td class="r"><span class="cg">+2.53%</span></td><td class="r"><span class="cg">+1,153</span></td><td class="r"><span class="cg">+2,455</span></td><td class="r"><span class="cg">+7,310</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">環球晶</td><td>6488</td><td>其他</td><td class="r"><span class="cg">+2.90%</span></td><td class="r"><span class="cr">-1,279</span></td><td class="r"><span class="cg">+1,102</span></td><td class="r"><span class="cg">+7,146</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">台灣大</td><td>3045</td><td>其他</td><td class="r"><span class="cg">+0.45%</span></td><td class="r"><span class="cg">+234</span></td><td class="r"><span class="cg">+4,026</span></td><td class="r"><span class="cg">+6,752</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">大華優利高填息30</td><td>00918</td><td>其他</td><td class="r"><span class="cg">+1.82%</span></td><td class="r"><span class="cg">+651</span></td><td class="r"><span class="cg">+1,008</span></td><td class="r"><span class="cg">+6,741</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">國泰金</td><td>2882</td><td>其他</td><td class="r"><span class="cg">+1.04%</span></td><td class="r"><span class="cg">+643</span></td><td class="r"><span class="cg">+3,103</span></td><td class="r"><span class="cg">+6,726</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">群益投等新興公債</td><td>00756B</td><td>其他</td><td class="r"><span class="cr">-0.31%</span></td><td class="r"><span class="cr">-3</span></td><td class="r"><span class="cg">+634</span></td><td class="r"><span class="cg">+6,651</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">台塑化</td><td>6505</td><td>其他</td><td class="r"><span class="cr">-0.35%</span></td><td class="r"><span class="cg">+106</span></td><td class="r"><span class="cg">+3,017</span></td><td class="r"><span class="cg">+6,634</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">玉山金</td><td>2884</td><td>其他</td><td class="r"><span class="cr">-2.44%</span></td><td class="r"><span class="cg">+55</span></td><td class="r"><span class="cg">+4,495</span></td><td class="r"><span class="cg">+6,510</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">永豐金</td><td>2890</td><td>其他</td><td class="r"><span class="cg">+0.50%</span></td><td class="r"><span class="cg">+108</span></td><td class="r"><span class="cg">+530</span></td><td class="r"><span class="cg">+6,238</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">兆豐金</td><td>2886</td><td>其他</td><td class="r"><span class="cr">-0.82%</span></td><td class="r"><span class="cr">-15</span></td><td class="r"><span class="cg">+1,996</span></td><td class="r"><span class="cg">+6,105</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">台新新光金</td><td>2887</td><td>其他</td><td class="r"><span class="cr">-0.29%</span></td><td class="r"><span class="cr">-96</span></td><td class="r"><span class="cg">+49</span></td><td class="r"><span class="cg">+5,789</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">第一金</td><td>2892</td><td>其他</td><td class="r"><span class="cr">-0.15%</span></td><td class="r"><span class="cg">+45</span></td><td class="r"><span class="cg">+968</span></td><td class="r"><span class="cg">+5,614</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">群益ESG投等債20+</td><td>00937B</td><td>其他</td><td class="r"><span class="cr">-0.27%</span></td><td class="r"><span class="cr">-442</span></td><td class="r"><span class="cg">+923</span></td><td class="r"><span class="cg">+5,182</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">貿聯-KY</td><td>3665</td><td>其他</td><td class="r"><span class="cg">+5.75%</span></td><td class="r"><span class="cg">+81</span></td><td class="r"><span class="cg">+453</span></td><td class="r"><span class="cg">+5,128</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">元大美債20年</td><td>00679B</td><td>其他</td><td class="r"><span class="cr">-0.04%</span></td><td class="r"><span class="cg">+23</span></td><td class="r"><span class="cg">+1,195</span></td><td class="r"><span class="cg">+4,926</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">聯詠</td><td>3034</td><td>驅動IC</td><td class="r"><span class="cg">+5.25%</span></td><td class="r"><span class="cg">+1,109</span></td><td class="r"><span class="cg">+2,293</span></td><td class="r"><span class="cg">+4,887</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">中信金</td><td>2891</td><td>其他</td><td class="r"><span class="cg">+2.07%</span></td><td class="r"><span class="cr">-105</span></td><td class="r"><span class="cg">+3,335</span></td><td class="r"><span class="cg">+4,688</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">統一</td><td>1216</td><td>其他</td><td class="r"><span class="cr">-3.52%</span></td><td class="r"><span class="cr">-727</span></td><td class="r"><span class="cg">+762</span></td><td class="r"><span class="cg">+4,468</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">富邦金</td><td>2881</td><td>其他</td><td class="r"><span class="cg">+2.83%</span></td><td class="r"><span class="cg">+693</span></td><td class="r"><span class="cg">+2,516</span></td><td class="r"><span class="cg">+4,426</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">祥碩</td><td>5269</td><td>其他</td><td class="r"><span class="cg">+0.35%</span></td><td class="r"><span class="cg">+104</span></td><td class="r"><span class="cg">+345</span></td><td class="r"><span class="cg">+4,337</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">緯穎</td><td>6669</td><td>其他</td><td class="r"><span class="cg">+10.00%</span></td><td class="r"><span class="cg">+1,928</span></td><td class="r"><span class="cg">+2,948</span></td><td class="r"><span class="cg">+4,242</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">聯友金屬-創</td><td>7610</td><td>其他</td><td class="r"><span class="cr">-6.14%</span></td><td class="r"><span class="cr">-150</span></td><td class="r"><span class="cg">+1,318</span></td><td class="r"><span class="cg">+4,156</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">華航</td><td>2610</td><td>航空</td><td class="r"><span class="cr">-0.47%</span></td><td class="r"><span class="cr">-7</span></td><td class="r"><span class="cg">+532</span></td><td class="r"><span class="cg">+4,145</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">健策</td><td>3653</td><td>其他</td><td class="r"><span class="cg">+0.00%</span></td><td class="r"><span class="cr">-446</span></td><td class="r"><span class="cg">+686</span></td><td class="r"><span class="cg">+3,833</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">復華富時不動產</td><td>00712</td><td>其他</td><td class="r"><span class="cr">-0.11%</span></td><td class="r"><span class="cg">+14</span></td><td class="r"><span class="cg">+1,280</span></td><td class="r"><span class="cg">+3,478</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">京鼎</td><td>3413</td><td>其他</td><td class="r"><span class="cg">+8.36%</span></td><td class="r"><span class="cg">+493</span></td><td class="r"><span class="cg">+675</span></td><td class="r"><span class="cg">+3,478</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">合庫金</td><td>5880</td><td>其他</td><td class="r"><span class="cr">-0.58%</span></td><td class="r"><span class="cr">-87</span></td><td class="r"><span class="cg">+798</span></td><td class="r"><span class="cg">+3,448</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">台勝科</td><td>3532</td><td>其他</td><td class="r"><span class="cg">+7.96%</span></td><td class="r"><span class="cg">+439</span></td><td class="r"><span class="cg">+288</span></td><td class="r"><span class="cg">+3,199</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">萬海</td><td>2615</td><td>其他</td><td class="r"><span class="cr">-0.12%</span></td><td class="r"><span class="cg">+378</span></td><td class="r"><span class="cg">+1,900</span></td><td class="r"><span class="cg">+3,060</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">立隆電</td><td>2472</td><td>其他</td><td class="r"><span class="cg">+3.48%</span></td><td class="r"><span class="cr">-279</span></td><td class="r"><span class="cg">+546</span></td><td class="r"><span class="cg">+2,992</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">上海商銀</td><td>5876</td><td>其他</td><td class="r"><span class="cr">-1.42%</span></td><td class="r"><span class="cg">+104</span></td><td class="r"><span class="cg">+1,457</span></td><td class="r"><span class="cg">+2,892</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">統一超</td><td>2912</td><td>其他</td><td class="r"><span class="cr">-1.44%</span></td><td class="r"><span class="cr">-334</span></td><td class="r"><span class="cg">+801</span></td><td class="r"><span class="cg">+2,880</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">樺漢</td><td>6414</td><td>其他</td><td class="r"><span class="cg">+9.99%</span></td><td class="r"><span class="cg">+359</span></td><td class="r"><span class="cg">+832</span></td><td class="r"><span class="cg">+2,875</span></td><td>🔥領先</td></tr>
+</tbody></table>
+    <div class="chip-note">全面吸籌（月+5日+）共 224 支，依月線金額降序排列。三向同買（含當日+）雙向確認：長榮、華碩、聯詠、矽創。</div>
+  </div>
+  <div id="chip-detail-B" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">漲跌%</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">鴻海</td><td>2317</td><td>AI伺服器ODM</td><td class="r"><span class="cg">+2.24%</span></td><td class="r"><span class="cg">+4,610</span></td><td class="r"><span class="cg">+13,124</span></td><td class="r"><span class="cr">-26,600</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">中華電</td><td>2412</td><td>其他</td><td class="r"><span class="cr">-0.36%</span></td><td class="r"><span class="cg">+390</span></td><td class="r"><span class="cg">+7,375</span></td><td class="r"><span class="cr">-1,845</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">緯創</td><td>3231</td><td>AI伺服器ODM</td><td class="r"><span class="cg">+9.70%</span></td><td class="r"><span class="cg">+3,747</span></td><td class="r"><span class="cg">+6,378</span></td><td class="r"><span class="cr">-5,584</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">中鋼</td><td>2002</td><td>其他</td><td class="r"><span class="cg">+0.27%</span></td><td class="r"><span class="cg">+455</span></td><td class="r"><span class="cg">+1,620</span></td><td class="r"><span class="cr">-318</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">頎邦</td><td>6147</td><td>其他</td><td class="r"><span class="cg">+9.83%</span></td><td class="r"><span class="cr">-278</span></td><td class="r"><span class="cg">+1,506</span></td><td class="r"><span class="cr">-5,450</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">至上</td><td>8112</td><td>其他</td><td class="r"><span class="cg">+2.20%</span></td><td class="r"><span class="cg">+1,346</span></td><td class="r"><span class="cg">+1,418</span></td><td class="r"><span class="cr">-2,354</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">穩懋</td><td>3105</td><td>其他</td><td class="r"><span class="cg">+5.74%</span></td><td class="r"><span class="cr">-140</span></td><td class="r"><span class="cg">+1,076</span></td><td class="r"><span class="cr">-11,404</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">仁寶</td><td>2324</td><td>其他</td><td class="r"><span class="cg">+0.56%</span></td><td class="r"><span class="cg">+262</span></td><td class="r"><span class="cg">+998</span></td><td class="r"><span class="cr">-514</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">宜鼎</td><td>5289</td><td>其他</td><td class="r"><span class="cg">+4.62%</span></td><td class="r"><span class="cr">-517</span></td><td class="r"><span class="cg">+848</span></td><td class="r"><span class="cr">-7,338</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">台泥</td><td>1101</td><td>其他</td><td class="r"><span class="cr">-0.83%</span></td><td class="r"><span class="cr">-83</span></td><td class="r"><span class="cg">+786</span></td><td class="r"><span class="cr">-2,257</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">華星光</td><td>4979</td><td>其他</td><td class="r"><span class="cg">+6.16%</span></td><td class="r"><span class="cr">-675</span></td><td class="r"><span class="cg">+779</span></td><td class="r"><span class="cr">-767</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">全新</td><td>2455</td><td>其他</td><td class="r"><span class="cg">+10.00%</span></td><td class="r"><span class="cg">+110</span></td><td class="r"><span class="cg">+699</span></td><td class="r"><span class="cr">-611</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">元大金</td><td>2885</td><td>其他</td><td class="r"><span class="cg">+2.94%</span></td><td class="r"><span class="cg">+1,417</span></td><td class="r"><span class="cg">+679</span></td><td class="r"><span class="cr">-2,779</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">亞泥</td><td>1102</td><td>其他</td><td class="r"><span class="cr">-2.11%</span></td><td class="r"><span class="cg">+36</span></td><td class="r"><span class="cg">+588</span></td><td class="r"><span class="cr">-3,305</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">信昌電</td><td>6173</td><td>其他</td><td class="r"><span class="cg">+1.71%</span></td><td class="r"><span class="cg">+57</span></td><td class="r"><span class="cg">+529</span></td><td class="r"><span class="cr">-754</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">富喬</td><td>1815</td><td>其他</td><td class="r"><span class="cg">+1.64%</span></td><td class="r"><span class="cg">+41</span></td><td class="r"><span class="cg">+515</span></td><td class="r"><span class="cr">-589</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">聯亞</td><td>3081</td><td>光通訊</td><td class="r"><span class="cg">+9.90%</span></td><td class="r"><span class="cg">+26</span></td><td class="r"><span class="cg">+489</span></td><td class="r"><span class="cr">-1,946</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">環宇-KY</td><td>4991</td><td>其他</td><td class="r"><span class="cg">+9.93%</span></td><td class="r"><span class="cr">-187</span></td><td class="r"><span class="cg">+457</span></td><td class="r"><span class="cr">-102</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">凱美</td><td>2375</td><td>其他</td><td class="r"><span class="cg">+4.68%</span></td><td class="r"><span class="cr">-145</span></td><td class="r"><span class="cg">+450</span></td><td class="r"><span class="cr">-221</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">康霈*</td><td>6919</td><td>其他</td><td class="r"><span class="cr">-0.95%</span></td><td class="r"><span class="cg">+4</span></td><td class="r"><span class="cg">+431</span></td><td class="r"><span class="cr">-336</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">華城</td><td>1519</td><td>其他</td><td class="r"><span class="cg">+1.88%</span></td><td class="r"><span class="cg">+77</span></td><td class="r"><span class="cg">+415</span></td><td class="r"><span class="cr">-3,469</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">上詮</td><td>3363</td><td>光通訊</td><td class="r"><span class="cg">+8.22%</span></td><td class="r"><span class="cg">+108</span></td><td class="r"><span class="cg">+404</span></td><td class="r"><span class="cr">-122</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">聯鈞</td><td>3450</td><td>其他</td><td class="r"><span class="cg">+7.25%</span></td><td class="r"><span class="cg">+101</span></td><td class="r"><span class="cg">+393</span></td><td class="r"><span class="cr">-280</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">材料*-KY</td><td>4763</td><td>其他</td><td class="r"><span class="cr">-0.59%</span></td><td class="r"><span class="cg">+227</span></td><td class="r"><span class="cg">+381</span></td><td class="r"><span class="cr">-11</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">中信中國高股息</td><td>00882</td><td>其他</td><td class="r"><span class="cr">-0.46%</span></td><td class="r"><span class="cg">+10</span></td><td class="r"><span class="cg">+341</span></td><td class="r"><span class="cr">-38</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">雙鴻</td><td>3324</td><td>散熱模組</td><td class="r"><span class="cr">-1.94%</span></td><td class="r"><span class="cr">-411</span></td><td class="r"><span class="cg">+324</span></td><td class="r"><span class="cr">-3,617</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">寶成</td><td>9904</td><td>其他</td><td class="r"><span class="cr">-0.61%</span></td><td class="r"><span class="cr">-136</span></td><td class="r"><span class="cg">+315</span></td><td class="r"><span class="cr">-3,160</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">定穎投控</td><td>3715</td><td>其他</td><td class="r"><span class="cg">+2.45%</span></td><td class="r"><span class="cr">-32</span></td><td class="r"><span class="cg">+314</span></td><td class="r"><span class="cr">-4,175</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">大立光</td><td>3008</td><td>其他</td><td class="r"><span class="cg">+0.38%</span></td><td class="r"><span class="cr">-130</span></td><td class="r"><span class="cg">+308</span></td><td class="r"><span class="cr">-21,167</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">營邦</td><td>3693</td><td>其他</td><td class="r"><span class="cg">+9.96%</span></td><td class="r"><span class="cg">+220</span></td><td class="r"><span class="cg">+277</span></td><td class="r"><span class="cr">-44</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">瑞軒</td><td>2489</td><td>其他</td><td class="r"><span class="cg">+3.10%</span></td><td class="r"><span class="cr">-4</span></td><td class="r"><span class="cg">+273</span></td><td class="r"><span class="cr">-640</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">訊芯-KY</td><td>6451</td><td>光通訊</td><td class="r"><span class="cg">+2.07%</span></td><td class="r"><span class="cr">-30</span></td><td class="r"><span class="cg">+258</span></td><td class="r"><span class="cr">-365</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">潤泰新</td><td>9945</td><td>其他</td><td class="r"><span class="cr">-0.94%</span></td><td class="r"><span class="cg">+61</span></td><td class="r"><span class="cg">+257</span></td><td class="r"><span class="cr">-35</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">信驊</td><td>5274</td><td>其他</td><td class="r"><span class="cg">+10.00%</span></td><td class="r"><span class="cr">-44</span></td><td class="r"><span class="cg">+252</span></td><td class="r"><span class="cr">-5,411</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">勤誠</td><td>8210</td><td>其他</td><td class="r"><span class="cr">-1.29%</span></td><td class="r"><span class="cr">-243</span></td><td class="r"><span class="cg">+228</span></td><td class="r"><span class="cr">-2,932</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">新唐</td><td>4919</td><td>其他</td><td class="r"><span class="cg">+1.42%</span></td><td class="r"><span class="cg">+3</span></td><td class="r"><span class="cg">+218</span></td><td class="r"><span class="cr">-3,539</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">愛普*</td><td>6531</td><td>其他</td><td class="r"><span class="cg">+5.83%</span></td><td class="r"><span class="cg">+329</span></td><td class="r"><span class="cg">+210</span></td><td class="r"><span class="cr">-337</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">立敦</td><td>6175</td><td>其他</td><td class="r"><span class="cg">+2.50%</span></td><td class="r"><span class="cr">-23</span></td><td class="r"><span class="cg">+209</span></td><td class="r"><span class="cr">-143</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">擎亞</td><td>8096</td><td>其他</td><td class="r"><span class="cg">+0.36%</span></td><td class="r"><span class="cg">+16</span></td><td class="r"><span class="cg">+193</span></td><td class="r"><span class="cr">-1,955</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">禾榮科</td><td>7799</td><td>其他</td><td class="r"><span class="cr">-3.53%</span></td><td class="r"><span class="cr">-85</span></td><td class="r"><span class="cg">+191</span></td><td class="r"><span class="cr">-120</span></td><td>🌱回升</td></tr>
+</tbody></table>
+    <div class="chip-note">低檔回補（月-5日+）共 101 支，依5日金額降序排列。月線仍負，5日轉買為潛在轉折訊號，需持續觀察。</div>
+  </div>
+  <div id="chip-detail-C" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">漲跌%</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">京元電子</td><td>2449</td><td>其他</td><td class="r"><span class="cg">+5.73%</span></td><td class="r"><span class="cg">+1,082</span></td><td class="r"><span class="cr">-5,281</span></td><td class="r"><span class="cg">+4,495</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">南電</td><td>8046</td><td>其他</td><td class="r"><span class="cg">+9.66%</span></td><td class="r"><span class="cr">-1,553</span></td><td class="r"><span class="cr">-4,803</span></td><td class="r"><span class="cg">+27,475</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">奇鋐</td><td>3017</td><td>散熱龍頭</td><td class="r"><span class="cr">-2.37%</span></td><td class="r"><span class="cr">-1,606</span></td><td class="r"><span class="cr">-3,623</span></td><td class="r"><span class="cg">+4,496</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">南亞</td><td>1303</td><td>其他</td><td class="r"><span class="cg">+6.39%</span></td><td class="r"><span class="cg">+290</span></td><td class="r"><span class="cr">-2,692</span></td><td class="r"><span class="cg">+4,179</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">矽格</td><td>6257</td><td>其他</td><td class="r"><span class="cg">+3.47%</span></td><td class="r"><span class="cg">+103</span></td><td class="r"><span class="cr">-1,034</span></td><td class="r"><span class="cg">+93</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">漢翔</td><td>2634</td><td>其他</td><td class="r"><span class="cr">-9.93%</span></td><td class="r"><span class="cr">-2,095</span></td><td class="r"><span class="cr">-917</span></td><td class="r"><span class="cg">+472</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">台虹</td><td>8039</td><td>其他</td><td class="r"><span class="cg">+9.91%</span></td><td class="r"><span class="cr">-371</span></td><td class="r"><span class="cr">-764</span></td><td class="r"><span class="cg">+1,734</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">長興</td><td>1717</td><td>其他</td><td class="r"><span class="cr">-0.95%</span></td><td class="r"><span class="cr">-172</span></td><td class="r"><span class="cr">-714</span></td><td class="r"><span class="cg">+412</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">強茂</td><td>2481</td><td>其他</td><td class="r"><span class="cg">+9.76%</span></td><td class="r"><span class="cr">-920</span></td><td class="r"><span class="cr">-595</span></td><td class="r"><span class="cg">+958</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">騰輝電子-KY</td><td>6672</td><td>其他</td><td class="r"><span class="cg">+2.40%</span></td><td class="r"><span class="cr">-22</span></td><td class="r"><span class="cr">-581</span></td><td class="r"><span class="cg">+332</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">邁科</td><td>6831</td><td>其他</td><td class="r"><span class="cg">+5.83%</span></td><td class="r"><span class="cr">-68</span></td><td class="r"><span class="cr">-557</span></td><td class="r"><span class="cg">+908</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">威健</td><td>3033</td><td>其他</td><td class="r"><span class="cg">+1.83%</span></td><td class="r"><span class="cg">+78</span></td><td class="r"><span class="cr">-512</span></td><td class="r"><span class="cg">+255</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">所羅門</td><td>2359</td><td>其他</td><td class="r"><span class="cg">+0.36%</span></td><td class="r"><span class="cg">+22</span></td><td class="r"><span class="cr">-457</span></td><td class="r"><span class="cg">+582</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">雷虎</td><td>8033</td><td>其他</td><td class="r"><span class="cr">-8.18%</span></td><td class="r"><span class="cg">+425</span></td><td class="r"><span class="cr">-418</span></td><td class="r"><span class="cg">+3,297</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">精成科</td><td>6191</td><td>其他</td><td class="r"><span class="cg">+0.55%</span></td><td class="r"><span class="cr">-40</span></td><td class="r"><span class="cr">-412</span></td><td class="r"><span class="cg">+852</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">盛群</td><td>6202</td><td>其他</td><td class="r"><span class="cg">+0.70%</span></td><td class="r"><span class="cr">-9</span></td><td class="r"><span class="cr">-358</span></td><td class="r"><span class="cg">+131</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">晶豪科</td><td>3006</td><td>其他</td><td class="r"><span class="cg">+9.02%</span></td><td class="r"><span class="cg">+933</span></td><td class="r"><span class="cr">-347</span></td><td class="r"><span class="cg">+805</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">期元大S&P原油反1</td><td>00673R</td><td>其他</td><td class="r"><span class="cr">-3.55%</span></td><td class="r"><span class="cr">-218</span></td><td class="r"><span class="cr">-289</span></td><td class="r"><span class="cg">+1,707</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">台塑</td><td>1301</td><td>其他</td><td class="r"><span class="cg">+0.79%</span></td><td class="r"><span class="cg">+650</span></td><td class="r"><span class="cr">-281</span></td><td class="r"><span class="cg">+4,219</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">長廣</td><td>7795</td><td>其他</td><td class="r"><span class="cg">+4.45%</span></td><td class="r"><span class="cr">-41</span></td><td class="r"><span class="cr">-259</span></td><td class="r"><span class="cg">+273</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">中砂</td><td>1560</td><td>其他</td><td class="r"><span class="cg">+4.59%</span></td><td class="r"><span class="cg">+392</span></td><td class="r"><span class="cr">-258</span></td><td class="r"><span class="cg">+941</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">聚陽</td><td>1477</td><td>其他</td><td class="r"><span class="cr">-1.61%</span></td><td class="r"><span class="cr">-255</span></td><td class="r"><span class="cr">-224</span></td><td class="r"><span class="cg">+1,208</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">富邦NASDAQ正2</td><td>00670L</td><td>其他</td><td class="r"><span class="cg">+0.67%</span></td><td class="r"><span class="cr">-28</span></td><td class="r"><span class="cr">-222</span></td><td class="r"><span class="cg">+15</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">尖點</td><td>8021</td><td>光電連接器</td><td class="r"><span class="cg">+9.99%</span></td><td class="r"><span class="cg">+118</span></td><td class="r"><span class="cr">-200</span></td><td class="r"><span class="cg">+942</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">東洋</td><td>4105</td><td>其他</td><td class="r"><span class="cr">-2.65%</span></td><td class="r"><span class="cr">-64</span></td><td class="r"><span class="cr">-195</span></td><td class="r"><span class="cg">+114</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">弘塑</td><td>3131</td><td>其他</td><td class="r"><span class="cg">+0.67%</span></td><td class="r"><span class="cr">-13</span></td><td class="r"><span class="cr">-172</span></td><td class="r"><span class="cg">+687</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">南俊國際</td><td>6584</td><td>其他</td><td class="r"><span class="cg">+2.03%</span></td><td class="r"><span class="cr">-5</span></td><td class="r"><span class="cr">-163</span></td><td class="r"><span class="cg">+152</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">合一</td><td>4743</td><td>其他</td><td class="r"><span class="cr">-0.21%</span></td><td class="r"><span class="cr">-50</span></td><td class="r"><span class="cr">-159</span></td><td class="r"><span class="cg">+130</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">辛耘</td><td>3583</td><td>其他</td><td class="r"><span class="cg">+2.27%</span></td><td class="r"><span class="cg">+76</span></td><td class="r"><span class="cr">-148</span></td><td class="r"><span class="cg">+964</span></td><td>⚠️衰退</td></tr>
+<tr><td class="nm">原相</td><td>3227</td><td>其他</td><td class="r"><span class="cg">+4.40%</span></td><td class="r"><span class="cg">+189</span></td><td class="r"><span class="cr">-146</span></td><td class="r"><span class="cg">+1,447</span></td><td>⚠️衰退</td></tr>
+</tbody></table>
+    <div class="chip-note">高檔換手（月+5日-）共 62 支，依5日金額升序排列。月線積累但短線轉賣，注意籌碼鬆動（奇鋐最需關注）。</div>
+  </div>
+  <div id="chip-detail-D" class="chip-detail">
+    <table class="chip-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">產業</th><th class="sortable r" onclick="sortTbl(this)">漲跌%</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th class="sortable" onclick="sortTbl(this)">位階</th></tr></thead><tbody>
+<tr><td class="nm">台積電</td><td>2330</td><td>晶圓代工</td><td class="r"><span class="cr">-0.41%</span></td><td class="r"><span class="cr">-7,308</span></td><td class="r"><span class="cr">-83,664</span></td><td class="r"><span class="cr">-313,463</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">元大台灣50</td><td>0050</td><td>其他</td><td class="r"><span class="cg">+1.32%</span></td><td class="r"><span class="cg">+1,689</span></td><td class="r"><span class="cr">-66,164</span></td><td class="r"><span class="cr">-143,522</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">聯發科</td><td>2454</td><td>IC設計</td><td class="r"><span class="cg">+4.90%</span></td><td class="r"><span class="cg">+1,647</span></td><td class="r"><span class="cr">-1,109</span></td><td class="r"><span class="cr">-71,863</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">台達電</td><td>2308</td><td>電源/散熱</td><td class="r"><span class="cg">+2.45%</span></td><td class="r"><span class="cg">+1,293</span></td><td class="r"><span class="cr">-6,442</span></td><td class="r"><span class="cr">-57,079</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">元大台灣50正2</td><td>00631L</td><td>其他</td><td class="r"><span class="cg">+1.34%</span></td><td class="r"><span class="cg">+2,341</span></td><td class="r"><span class="cr">-14,037</span></td><td class="r"><span class="cr">-56,758</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">群益臺灣加權正2</td><td>00685L</td><td>其他</td><td class="r"><span class="cg">+1.61%</span></td><td class="r"><span class="cg">+618</span></td><td class="r"><span class="cr">-9,384</span></td><td class="r"><span class="cr">-42,403</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">欣興</td><td>3037</td><td>ABF載板</td><td class="r"><span class="cg">+9.94%</span></td><td class="r"><span class="cg">+2,897</span></td><td class="r"><span class="cr">-2,098</span></td><td class="r"><span class="cr">-37,148</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">聯電</td><td>2303</td><td>IC製造</td><td class="r"><span class="cg">+3.35%</span></td><td class="r"><span class="cr">-260</span></td><td class="r"><span class="cr">-18,715</span></td><td class="r"><span class="cr">-35,309</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">華邦電</td><td>2344</td><td>記憶體DRAM</td><td class="r"><span class="cg">+9.97%</span></td><td class="r"><span class="cr">-1,124</span></td><td class="r"><span class="cr">-9,255</span></td><td class="r"><span class="cr">-33,977</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">元大高股息</td><td>0056</td><td>其他</td><td class="r"><span class="cg">+2.83%</span></td><td class="r"><span class="cg">+1,791</span></td><td class="r"><span class="cr">-14,888</span></td><td class="r"><span class="cr">-32,839</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">南亞科</td><td>2408</td><td>記憶體DRAM</td><td class="r"><span class="cg">+10.00%</span></td><td class="r"><span class="cg">+4,629</span></td><td class="r"><span class="cr">-12,155</span></td><td class="r"><span class="cr">-30,840</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">國巨*</td><td>2327</td><td>高階MLCC</td><td class="r"><span class="cg">+4.93%</span></td><td class="r"><span class="cr">-2,738</span></td><td class="r"><span class="cr">-10,914</span></td><td class="r"><span class="cr">-24,896</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">主動復華未來50</td><td>00991A</td><td>其他</td><td class="r"><span class="cg">+3.77%</span></td><td class="r"><span class="cg">+184</span></td><td class="r"><span class="cr">-5,292</span></td><td class="r"><span class="cr">-23,933</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">凱基台灣TOP50</td><td>009816</td><td>其他</td><td class="r"><span class="cg">+1.90%</span></td><td class="r"><span class="cg">+417</span></td><td class="r"><span class="cr">-6,714</span></td><td class="r"><span class="cr">-22,473</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">旺宏</td><td>2337</td><td>記憶體NOR</td><td class="r"><span class="cg">+9.76%</span></td><td class="r"><span class="cg">+1,401</span></td><td class="r"><span class="cr">-2,831</span></td><td class="r"><span class="cr">-22,065</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">群益半導體收益</td><td>00927</td><td>其他</td><td class="r"><span class="cg">+3.02%</span></td><td class="r"><span class="cg">+87</span></td><td class="r"><span class="cr">-1,018</span></td><td class="r"><span class="cr">-21,273</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">群創</td><td>3481</td><td>其他</td><td class="r"><span class="cg">+3.55%</span></td><td class="r"><span class="cr">-36</span></td><td class="r"><span class="cr">-2,339</span></td><td class="r"><span class="cr">-20,486</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">力積電</td><td>6770</td><td>記憶體代工</td><td class="r"><span class="cg">+4.30%</span></td><td class="r"><span class="cr">-622</span></td><td class="r"><span class="cr">-7,615</span></td><td class="r"><span class="cr">-17,050</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">臻鼎-KY</td><td>4958</td><td>其他</td><td class="r"><span class="cg">+9.82%</span></td><td class="r"><span class="cg">+421</span></td><td class="r"><span class="cr">-6,992</span></td><td class="r"><span class="cr">-14,747</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">主動統一台股增長</td><td>00981A</td><td>其他</td><td class="r"><span class="cg">+2.81%</span></td><td class="r"><span class="cg">+1,747</span></td><td class="r"><span class="cr">-5,139</span></td><td class="r"><span class="cr">-14,674</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">日月光投控</td><td>3711</td><td>IC封測</td><td class="r"><span class="cg">+3.63%</span></td><td class="r"><span class="cg">+1,411</span></td><td class="r"><span class="cr">-5,746</span></td><td class="r"><span class="cr">-13,922</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">主動統一升級50</td><td>00403A</td><td>其他</td><td class="r"><span class="cg">+2.46%</span></td><td class="r"><span class="cg">+1,650</span></td><td class="r"><span class="cr">-9,828</span></td><td class="r"><span class="cr">-13,196</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">主動統一全球創新</td><td>00988A</td><td>其他</td><td class="r"><span class="cg">+2.50%</span></td><td class="r"><span class="cg">+90</span></td><td class="r"><span class="cr">-1,598</span></td><td class="r"><span class="cr">-13,020</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">世芯-KY</td><td>3661</td><td>AI運算</td><td class="r"><span class="cg">+2.87%</span></td><td class="r"><span class="cg">+88</span></td><td class="r"><span class="cr">-613</span></td><td class="r"><span class="cr">-12,088</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">華通</td><td>2313</td><td>高階PCB</td><td class="r"><span class="cr">-0.95%</span></td><td class="r"><span class="cr">-1,183</span></td><td class="r"><span class="cr">-6,182</span></td><td class="r"><span class="cr">-11,200</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">金居</td><td>8358</td><td>其他</td><td class="r"><span class="cg">+4.56%</span></td><td class="r"><span class="cr">-1,396</span></td><td class="r"><span class="cr">-618</span></td><td class="r"><span class="cr">-9,355</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">富邦科技</td><td>0052</td><td>其他</td><td class="r"><span class="cg">+0.50%</span></td><td class="r"><span class="cg">+516</span></td><td class="r"><span class="cr">-2,581</span></td><td class="r"><span class="cr">-8,309</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">國泰費城半導體</td><td>00830</td><td>其他</td><td class="r"><span class="cg">+1.68%</span></td><td class="r"><span class="cr">-50</span></td><td class="r"><span class="cr">-1,651</span></td><td class="r"><span class="cr">-8,265</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">富邦台50</td><td>006208</td><td>其他</td><td class="r"><span class="cg">+1.22%</span></td><td class="r"><span class="cg">+158</span></td><td class="r"><span class="cr">-2,699</span></td><td class="r"><span class="cr">-7,622</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">復華台灣科技優息</td><td>00929</td><td>其他</td><td class="r"><span class="cg">+2.58%</span></td><td class="r"><span class="cg">+186</span></td><td class="r"><span class="cr">-3,590</span></td><td class="r"><span class="cr">-7,364</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">主動富邦台灣龍耀</td><td>00405A</td><td>其他</td><td class="r"><span class="cg">+3.75%</span></td><td class="r"><span class="cg">+295</span></td><td class="r"><span class="cr">-1,374</span></td><td class="r"><span class="cr">-7,305</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">主動國泰動能高息</td><td>00400A</td><td>其他</td><td class="r"><span class="cg">+3.35%</span></td><td class="r"><span class="cg">+136</span></td><td class="r"><span class="cr">-672</span></td><td class="r"><span class="cr">-6,864</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">永豐台灣ESG</td><td>00888</td><td>其他</td><td class="r"><span class="cg">+3.07%</span></td><td class="r"><span class="cr">-518</span></td><td class="r"><span class="cr">-2,883</span></td><td class="r"><span class="cr">-6,628</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">群益台灣精選高息</td><td>00919</td><td>其他</td><td class="r"><span class="cg">+1.59%</span></td><td class="r"><span class="cg">+608</span></td><td class="r"><span class="cr">-2,481</span></td><td class="r"><span class="cr">-6,088</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">群聯</td><td>8299</td><td>NAND控制器</td><td class="r"><span class="cg">+3.23%</span></td><td class="r"><span class="cr">-126</span></td><td class="r"><span class="cr">-792</span></td><td class="r"><span class="cr">-5,989</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">野村臺灣新科技50</td><td>00935</td><td>其他</td><td class="r"><span class="cg">+2.89%</span></td><td class="r"><span class="cg">+74</span></td><td class="r"><span class="cr">-1,234</span></td><td class="r"><span class="cr">-5,681</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">台玻</td><td>1802</td><td>其他</td><td class="r"><span class="cg">+2.77%</span></td><td class="r"><span class="cr">-42</span></td><td class="r"><span class="cr">-932</span></td><td class="r"><span class="cr">-5,659</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">智邦</td><td>2345</td><td>網通設備</td><td class="r"><span class="cg">+2.93%</span></td><td class="r"><span class="cg">+12</span></td><td class="r"><span class="cr">-764</span></td><td class="r"><span class="cr">-5,219</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">健鼎</td><td>3044</td><td>其他</td><td class="r"><span class="cg">+3.21%</span></td><td class="r"><span class="cr">-85</span></td><td class="r"><span class="cr">-186</span></td><td class="r"><span class="cr">-4,738</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">主動元大AI新經濟</td><td>00990A</td><td>其他</td><td class="r"><span class="cg">+1.64%</span></td><td class="r"><span class="cg">+38</span></td><td class="r"><span class="cr">-645</span></td><td class="r"><span class="cr">-4,207</span></td><td>❄️落後</td></tr>
+</tbody></table>
+    <div class="chip-note">持續賣超（月-5日-）共 211 支，依月線金額升序（最大賣超在前）。台積電月線 -313,463 萬為全市場最重賣壓。</div>
+  </div>
+</div><!-- end chip-panel -->
+</div>
+
+<!-- ═══ 其他板塊 ═══ -->
+<div class="sect-wrap">
+<div class="sec-lbl">台股板塊資金位階<span class="sub">TW_INDUSTRY 全板塊展開｜月線×5日位階</span></div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🔥領先 海運</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 +10,852萬　5日 +5,720萬</span>
+    <span class="arrow hot breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2603</td><td>長榮</td><td class="r"><span class="cg">+1,186</span></td><td class="r"><span class="cg">+5,720</span></td><td class="r"><span class="cg">+10,852</span></td><td>🔥領先</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🔥領先 AI伺服器主板</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 +9,412萬　5日 +4,995萬</span>
+    <span class="arrow hot breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2357</td><td>華碩</td><td class="r"><span class="cg">+1,522</span></td><td class="r"><span class="cg">+4,995</span></td><td class="r"><span class="cg">+9,412</span></td><td>🔥領先</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🔥領先 航空</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 +4,145萬　5日 +532萬</span>
+    <span class="arrow hot breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2610</td><td>華航</td><td class="r"><span class="cr">-7</span></td><td class="r"><span class="cg">+532</span></td><td class="r"><span class="cg">+4,145</span></td><td>🔥領先</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🔥領先 物流配送</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 +2,080萬　5日 +11萬</span>
+    <span class="arrow hot breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">6409</td><td>旭隼</td><td class="r"><span class="cr">-36</span></td><td class="r"><span class="cg">+11</span></td><td class="r"><span class="cg">+2,080</span></td><td>🔥領先</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🔥領先 驅動IC</span><span class="cat-tier"> N=3</span></span>
+    <span class="cat-hdr-meta">月線 +547萬　5日 +880萬</span>
+    <span class="arrow hot breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3034</td><td>聯詠</td><td class="r"><span class="cg">+1,109</span></td><td class="r"><span class="cg">+2,293</span></td><td class="r"><span class="cg">+4,887</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">8016</td><td>矽創</td><td class="r"><span class="cg">+48</span></td><td class="r"><span class="cg">+188</span></td><td class="r"><span class="cg">+2,132</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">2379</td><td>瑞昱</td><td class="r"><span class="cr">-505</span></td><td class="r"><span class="cg">+159</span></td><td class="r"><span class="cr">-5,379</span></td><td>🌱回升</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🔥領先 工業自動化</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 +52萬　5日 +37萬</span>
+    <span class="arrow hot breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">6890</td><td>來億-KY</td><td class="r"><span class="cr">-18</span></td><td class="r"><span class="cg">+37</span></td><td class="r"><span class="cg">+52</span></td><td>🔥領先</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🌱回升 AI伺服器ODM</span><span class="cat-tier"> N=3</span></span>
+    <span class="cat-hdr-meta">月線 -9,964萬　5日 +7,531萬</span>
+    <span class="arrow warm breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2382</td><td>廣達</td><td class="r"><span class="cr">-784</span></td><td class="r"><span class="cg">+3,091</span></td><td class="r"><span class="cg">+2,293</span></td><td>🔥領先</td></tr>
+<tr><td class="nm">3231</td><td>緯創</td><td class="r"><span class="cg">+3,747</span></td><td class="r"><span class="cg">+6,378</span></td><td class="r"><span class="cr">-5,584</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">2317</td><td>鴻海</td><td class="r"><span class="cg">+4,610</span></td><td class="r"><span class="cg">+13,124</span></td><td class="r"><span class="cr">-26,600</span></td><td>🌱回升</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🌱回升 散熱模組</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -3,617萬　5日 +324萬</span>
+    <span class="arrow warm breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3324</td><td>雙鴻</td><td class="r"><span class="cr">-411</span></td><td class="r"><span class="cg">+324</span></td><td class="r"><span class="cr">-3,617</span></td><td>🌱回升</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🌱回升 光通訊</span><span class="cat-tier"> N=3</span></span>
+    <span class="cat-hdr-meta">月線 -811萬　5日 +384萬</span>
+    <span class="arrow warm breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3363</td><td>上詮</td><td class="r"><span class="cg">+108</span></td><td class="r"><span class="cg">+404</span></td><td class="r"><span class="cr">-122</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">6451</td><td>訊芯-KY</td><td class="r"><span class="cr">-30</span></td><td class="r"><span class="cg">+258</span></td><td class="r"><span class="cr">-365</span></td><td>🌱回升</td></tr>
+<tr><td class="nm">3081</td><td>聯亞</td><td class="r"><span class="cg">+26</span></td><td class="r"><span class="cg">+489</span></td><td class="r"><span class="cr">-1,946</span></td><td>🌱回升</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">🌱回升 被動元件</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -283萬　5日 +53萬</span>
+    <span class="arrow warm breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3357</td><td>臺慶科</td><td class="r"><span class="cr">-111</span></td><td class="r"><span class="cg">+53</span></td><td class="r"><span class="cr">-283</span></td><td>🌱回升</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">⚠️衰退 散熱龍頭</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 +4,496萬　5日 -3,623萬</span>
+    <span class="arrow mixed breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3017</td><td>奇鋐</td><td class="r"><span class="cr">-1,606</span></td><td class="r"><span class="cr">-3,623</span></td><td class="r"><span class="cg">+4,496</span></td><td>⚠️衰退</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">⚠️衰退 光電連接器</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 +942萬　5日 -200萬</span>
+    <span class="arrow mixed breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">8021</td><td>尖點</td><td class="r"><span class="cg">+118</span></td><td class="r"><span class="cr">-200</span></td><td class="r"><span class="cg">+942</span></td><td>⚠️衰退</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 晶圓代工</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -313,463萬　5日 -83,664萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2330</td><td>台積電</td><td class="r"><span class="cr">-7,308</span></td><td class="r"><span class="cr">-83,664</span></td><td class="r"><span class="cr">-313,463</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 IC設計</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -71,863萬　5日 -1,109萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2454</td><td>聯發科</td><td class="r"><span class="cg">+1,647</span></td><td class="r"><span class="cr">-1,109</span></td><td class="r"><span class="cr">-71,863</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 電源/散熱</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -57,079萬　5日 -6,442萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2308</td><td>台達電</td><td class="r"><span class="cg">+1,293</span></td><td class="r"><span class="cr">-6,442</span></td><td class="r"><span class="cr">-57,079</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 IC製造</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -35,309萬　5日 -18,715萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2303</td><td>聯電</td><td class="r"><span class="cr">-260</span></td><td class="r"><span class="cr">-18,715</span></td><td class="r"><span class="cr">-35,309</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 記憶體DRAM</span><span class="cat-tier"> N=2</span></span>
+    <span class="cat-hdr-meta">月線 -32,408萬　5日 -10,705萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2408</td><td>南亞科</td><td class="r"><span class="cg">+4,629</span></td><td class="r"><span class="cr">-12,155</span></td><td class="r"><span class="cr">-30,840</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">2344</td><td>華邦電</td><td class="r"><span class="cr">-1,124</span></td><td class="r"><span class="cr">-9,255</span></td><td class="r"><span class="cr">-33,977</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 高階MLCC</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -24,896萬　5日 -10,914萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2327</td><td>國巨*</td><td class="r"><span class="cr">-2,738</span></td><td class="r"><span class="cr">-10,914</span></td><td class="r"><span class="cr">-24,896</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 記憶體NOR</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -22,065萬　5日 -2,831萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2337</td><td>旺宏</td><td class="r"><span class="cg">+1,401</span></td><td class="r"><span class="cr">-2,831</span></td><td class="r"><span class="cr">-22,065</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 ABF載板</span><span class="cat-tier"> N=2</span></span>
+    <span class="cat-hdr-meta">月線 -19,456萬　5日 -1,276萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3189</td><td>景碩</td><td class="r"><span class="cr">-330</span></td><td class="r"><span class="cr">-454</span></td><td class="r"><span class="cr">-1,764</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3037</td><td>欣興</td><td class="r"><span class="cg">+2,897</span></td><td class="r"><span class="cr">-2,098</span></td><td class="r"><span class="cr">-37,148</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 記憶體代工</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -17,050萬　5日 -7,615萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">6770</td><td>力積電</td><td class="r"><span class="cr">-622</span></td><td class="r"><span class="cr">-7,615</span></td><td class="r"><span class="cr">-17,050</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 IC封測</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -13,922萬　5日 -5,746萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3711</td><td>日月光投控</td><td class="r"><span class="cg">+1,411</span></td><td class="r"><span class="cr">-5,746</span></td><td class="r"><span class="cr">-13,922</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 高階PCB</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -11,200萬　5日 -6,182萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2313</td><td>華通</td><td class="r"><span class="cr">-1,183</span></td><td class="r"><span class="cr">-6,182</span></td><td class="r"><span class="cr">-11,200</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 AI運算</span><span class="cat-tier"> N=2</span></span>
+    <span class="cat-hdr-meta">月線 -7,179萬　5日 -828萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">3443</td><td>創意</td><td class="r"><span class="cr">-1,033</span></td><td class="r"><span class="cr">-1,044</span></td><td class="r"><span class="cr">-2,270</span></td><td>❄️落後</td></tr>
+<tr><td class="nm">3661</td><td>世芯-KY</td><td class="r"><span class="cg">+88</span></td><td class="r"><span class="cr">-613</span></td><td class="r"><span class="cr">-12,088</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 NAND控制器</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -5,989萬　5日 -792萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">8299</td><td>群聯</td><td class="r"><span class="cr">-126</span></td><td class="r"><span class="cr">-792</span></td><td class="r"><span class="cr">-5,989</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 網通設備</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -5,219萬　5日 -764萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2345</td><td>智邦</td><td class="r"><span class="cg">+12</span></td><td class="r"><span class="cr">-764</span></td><td class="r"><span class="cr">-5,219</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 電源供應</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -3,546萬　5日 -824萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">6282</td><td>康舒</td><td class="r"><span class="cr">-28</span></td><td class="r"><span class="cr">-824</span></td><td class="r"><span class="cr">-3,546</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 MLCC/被動元件</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -3,310萬　5日 -1,154萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2492</td><td>華新科</td><td class="r"><span class="cr">-190</span></td><td class="r"><span class="cr">-1,154</span></td><td class="r"><span class="cr">-3,310</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 散熱電源</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -2,443萬　5日 -738萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">6805</td><td>富世達</td><td class="r"><span class="cr">-333</span></td><td class="r"><span class="cr">-738</span></td><td class="r"><span class="cr">-2,443</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 高階CCL基板</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -2,336萬　5日 -435萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">2383</td><td>台光電</td><td class="r"><span class="cr">-329</span></td><td class="r"><span class="cr">-435</span></td><td class="r"><span class="cr">-2,336</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 高速傳輸IC</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -1,968萬　5日 -61萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">4966</td><td>譜瑞-KY</td><td class="r"><span class="cg">+145</span></td><td class="r"><span class="cr">-61</span></td><td class="r"><span class="cr">-1,968</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 功率元件</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -1,706萬　5日 -234萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">6138</td><td>茂達</td><td class="r"><span class="cr">-197</span></td><td class="r"><span class="cr">-234</span></td><td class="r"><span class="cr">-1,706</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 散熱機殼</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -1,324萬　5日 -298萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">8996</td><td>高力</td><td class="r"><span class="cg">+119</span></td><td class="r"><span class="cr">-298</span></td><td class="r"><span class="cr">-1,324</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+<div class="cat-card" data-group="board">
+  <div class="cat-hdr" onclick="togCat(this)">
+    <span><span class="cat-hdr-main">❄️落後 汽車零件</span><span class="cat-tier"> N=1</span></span>
+    <span class="cat-hdr-meta">月線 -529萬　5日 -92萬</span>
+    <span class="arrow cold breathing">▶</span>
+  </div>
+  <div class="cat-det">
+    <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTbl(this)">代號</th><th class="sortable" onclick="sortTbl(this)">名稱</th><th class="sortable r" onclick="sortTbl(this)">當日(萬)</th><th class="sortable r" onclick="sortTbl(this)">5日(萬)</th><th class="sortable r" onclick="sortTbl(this)">月線(萬)</th><th>位階</th></tr></thead><tbody>
+<tr><td class="nm">1319</td><td>東陽</td><td class="r"><span class="cr">-55</span></td><td class="r"><span class="cr">-92</span></td><td class="r"><span class="cr">-529</span></td><td>❄️落後</td></tr>
+</tbody></table>
+  </div>
+</div>
+</div>
+
+
+<!-- ═══ 大盤ETF法人週向 ═══ -->
+<div class="sect-wrap">
+<div class="sec-lbl">大盤 ETF 法人週向判讀<span class="sub">0050 / 00631L / 00632R｜外資週線累積方向 × 大盤趨勢研判</span></div>
+<div class="etf-signal-wrap">
+<div class="etf-card">
+<div class="etf-card-ticker">0050</div>
+<div class="etf-card-name">元大台灣50<br><span style="opacity:.6">大盤多空直接代理</span></div>
+<div class="etf-signal bear">❄️持續撤退</div>
+<div class="etf-rows">
+  <div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cg">+1,689</span></div>
+  <div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cr">-66,164</span></div>
+  <div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cr">-143,522</span></div>
+  <div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cr">-266,089</span></div>
+</div></div><div class="etf-card">
+<div class="etf-card-ticker">00631L</div>
+<div class="etf-card-name">元大台灣50正2<br><span style="opacity:.6">槓桿多頭部位指標</span></div>
+<div class="etf-signal bear">❄️持續撤退</div>
+<div class="etf-rows">
+  <div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cg">+2,341</span></div>
+  <div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cr">-14,037</span></div>
+  <div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cr">-56,758</span></div>
+  <div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cr">-114,103</span></div>
+</div></div><div class="etf-card">
+<div class="etf-card-ticker">00632R</div>
+<div class="etf-card-name">元大台灣50反1<br><span style="opacity:.6">避險需求指標（買超=實質偏空）</span></div>
+<div class="etf-signal obs">⚠️月線正避險仍在，5日縮減</div>
+<div class="etf-rows">
+  <div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cr">-650</span></div>
+  <div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cr">-137</span></div>
+  <div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cg">+1,117</span></div>
+  <div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cr">-2,269</span></div>
+</div></div><div class="etf-verdict" style="border-left-color:#ff3d5a;">
+<div class="verdict-label">綜合研判</div>
+<b style="color:#ff3d5a;font-size:calc(var(--fs)*.95);">🔴 偏空</b>　外資連續賣出 0050，月線 -143,522萬 與5日均為負值；00631L槓桿部位同樣持續撤退，機構對大盤淨空頭部位持續擴大。
+</div>
+</div>
+</div>
+
+<!-- ═══ 歷史追蹤 ═══ -->
+<div class="sect-wrap">
+<div class="chip-lbl">法人型態長期追蹤</div>
+<div style="overflow-x:auto;border:1px solid var(--border);">
+<table class="chip-tbl"><thead><tr>
+  <th>日期</th><th class="r" style="color:#00c896;">🟢 全面吸籌</th><th class="r" style="color:#0ea5e9;">🔵 低檔反轉</th>
+  <th class="r" style="color:#f0c040;">🟡 高檔換手</th><th class="r" style="color:#ff8040;">🟠 賣超警示</th>
+  <th class="r">吸籌佔比%</th><th>市場研判</th>
+</tr></thead><tbody>
+<tr><td>06/22</td><td class="r" style="color:#00c896;">180</td><td class="r" style="color:#0ea5e9;">50</td><td class="r" style="color:#f0c040;">61</td><td class="r" style="color:#ff8040;">309</td><td class="r">36.8%</td><td>⚪觀察中(偏多)：台積電/聯發科5日加速回補；吸籌佔比跌破40%但權值股進入低檔反轉</td></tr>
+<tr><td>07/22</td><td class="r cg">224</td><td class="r" style="color:#0ea5e9;">101</td><td class="r" style="color:#f0c040;">62</td><td class="r cr">211</td><td class="r">51.5%</td><td>⚠️廣度萎縮：吸籌佔比回升但雙向確認僅4支（歷史低位）；台積電/聯發科/0050持續撤退；資金換倉至海運/華碩/驅動IC。0050↓</td></tr>
+</tbody></table>
+</div>
+</div>
+
+</div><!-- end wrap -->
+
+<div class="ftr">
+  <span class="disc">本報告由 Yoda Research 提供，僅供訂閱會員參考。所有內容均不構成投資建議，投資者應自行評估風險並作出獨立投資決策。</span>
+  <span class="disc" style="color:var(--accent);font-weight:700;">Yoda Research</span>
+</div>
+
+</div><!-- end report-root -->
+
+<script>
+function setSize(size){
+  var map={sm:'21px',md:'24px',lg:'27px'};
+  document.documentElement.style.setProperty('--fs',map[size]||'24px');
+  document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('fs-'+size).classList.add('on');
+  var cur=document.body.classList.contains('light')?'light':'dark';
+  document.getElementById('btn-'+cur).classList.add('on');
+}
+/* ── 主題 ── */
+function setTheme(t){
+  var r=document.documentElement;
+  if(t==='light'){
+    r.style.setProperty('--bg','#f2f5f9');r.style.setProperty('--surface','#ffffff');
+    r.style.setProperty('--surface2','#e8eef5');r.style.setProperty('--border','#ccd6e2');
+    r.style.setProperty('--text','#1a2535');r.style.setProperty('--dim','#6080a0');
+    document.body.classList.add('light');
+  }else{
+    r.style.setProperty('--bg','#080b10');r.style.setProperty('--surface','#0d1118');
+    r.style.setProperty('--surface2','#121820');r.style.setProperty('--border','#1c2330');
+    r.style.setProperty('--text','#b8c8d8');r.style.setProperty('--dim','#405060');
+    document.body.classList.remove('light');
+  }
+    document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('btn-'+t).classList.add('on');
+  var fs=r.style.getPropertyValue('--fs')||'24px';
+    var key=Object.entries({sm:'21px',md:'24px',lg:'27px'}).find(function(e){return e[1]===fs;});
+  if(key) document.getElementById('fs-'+key[0]).classList.add('on');
+}
+/* ── AI三層點擊 ── */
+function selectAILayer(id){
+  var panel=document.getElementById('ai-layer-panel');
+  var det=document.getElementById('ai-layer-detail-'+id);
+  var card=document.querySelector('.ai-lcard[data-id="'+id+'"]');
+  var isOpen=panel.style.display==='block'&&det.classList.contains('active');
+  panel.style.display='none';
+  document.querySelectorAll('.ai-layer-detail').forEach(function(d){d.classList.remove('active');});
+  document.querySelectorAll('.ai-lcard').forEach(function(c){c.classList.remove('sel');});
+  if(!isOpen){panel.style.display='block';det.classList.add('active');card.classList.add('sel');}
+}
+/* ── AI三圈點擊 ── */
+function selectCircle(id){
+  var wrap=document.getElementById('circle-panel-wrap');
+  var panel=document.getElementById('circle-panel-'+id);
+  var card=document.querySelector('.ai-lcard[data-id="'+id+'"]');
+  var isOpen=wrap.style.display==='block'&&panel.classList.contains('active');
+  wrap.style.display='none';
+  document.querySelectorAll('.circle-panel').forEach(function(d){d.classList.remove('active');});
+  document.querySelectorAll('.ai-lcard[data-id^="c"]').forEach(function(c){c.classList.remove('sel');});
+  if(!isOpen){wrap.style.display='block';panel.classList.add('active');card.classList.add('sel');}
+}
+/* ── 信號流 cat-card 手風琴（互斥）── */
+function togCat(hdr){
+  var card=hdr.closest('.cat-card');
+  var g=card.getAttribute('data-group');
+  var was=card.classList.contains('open');
+  document.querySelectorAll('.cat-card[data-group="'+g+'"]').forEach(function(c){
+    c.classList.remove('open');
+    var det=c.querySelector('.cat-det');
+    if(det) det.classList.remove('open');
+  });
+  if(!was){
+    card.classList.add('open');
+    var det=card.querySelector('.cat-det');
+    if(det) det.classList.add('open');
+  }
+}
+/* ── 四型態 ccard 點擊（互斥）── */
+function selectChipCard(id){
+  var panel=document.getElementById('chip-panel');
+  var det=document.getElementById('chip-detail-'+id);
+  var card=document.querySelector('.ccard[data-id="'+id+'"]');
+  var isOpen=panel&&panel.style.display==='block'&&det&&det.style.display==='block';
+  if(panel) panel.style.display='none';
+  document.querySelectorAll('.chip-detail').forEach(function(d){d.style.display='none';});
+  document.querySelectorAll('.ccard').forEach(function(c){c.classList.remove('sel');});
+  if(!isOpen){
+    if(panel) panel.style.display='block';
+    if(det) det.style.display='block';
+    if(card) card.classList.add('sel');
+  }
+}
+/* ── 初始化 ── */
+document.addEventListener('DOMContentLoaded',function(){
+  setSize('md');
+  setTheme('dark');
+});
+
+/* ── 通用欄位排序（升/降序切換）── */
+function sortTbl(th) {
+  var table = th.closest('table');
+  var tbody = table.querySelector('tbody');
+  var rows  = Array.from(tbody.querySelectorAll('tr'));
+  var ths   = Array.from(th.closest('tr').querySelectorAll('th'));
+  var col   = ths.indexOf(th);
+  var asc   = !th.classList.contains('asc');
+
+  // 清除同一 table 所有 th 的排序標記
+  ths.forEach(function(t){ t.classList.remove('asc','desc'); });
+  th.classList.add(asc ? 'asc' : 'desc');
+
+  rows.sort(function(a, b) {
+    var A = a.cells[col] ? a.cells[col].textContent.trim() : '';
+    var B = b.cells[col] ? b.cells[col].textContent.trim() : '';
+    // 嘗試數字（去掉萬、%、逗號、+）
+    var na = parseFloat(A.replace(/[萬%,＋]/g,'').replace(/[+]/g,''));
+    var nb = parseFloat(B.replace(/[萬%,＋]/g,'').replace(/[+]/g,''));
+    if (!isNaN(na) && !isNaN(nb)) return asc ? na - nb : nb - na;
+    // 文字排序
+    return asc ? A.localeCompare(B,'zh-TW') : B.localeCompare(A,'zh-TW');
+  });
+
+  rows.forEach(function(r){ tbody.appendChild(r); });
+}
+</script>
+<!-- 微結構隱藏數據
+【微結構數據】tw-screener 2026-07-22
+四型分布：全面吸籌 224／低檔回補 101／高檔換手 62／持續賣超 211（前次 A180/B50/C61/D309）
+A型新進：—（跨期較長無法精確比較）
+最強板塊：海運（三向同買）、AI伺服器主板（華碩）、驅動IC（聯詠/矽創/瑞昱）
+D型警示重點：台積電｜月線-313,463萬，5日-83,664萬，信號流階段3核心熄火
+爆量轉弱名單：無明確記錄（資料未含量能）
+-->
+</body>
+</html>
