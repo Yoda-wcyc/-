@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 美股分析 | 2026-07-29</title>
+<style>
+:root{--fs:24px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;--fan-bg:#b8960a;--fan-bg-hover:#ffd700;--fan-text:#1a1200;--fan-text-hover:#000;--fan-glow:rgba(255,215,0,.35);--fan-glow-hover:rgba(255,215,0,.75);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;
+  display:grid;grid-template-columns:230px 1fr;min-height:100vh;}
+
+/* ══ 左側導覽 NAV（對齊 template-mw）══ */
+nav{width:230px;min-width:230px;background:var(--surface);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 0 40px;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:rgba(120,140,160,.3) transparent;transition:background .25s,border-color .25s}
+.main{min-width:0;}
+.nav-brand{padding:0 18px 22px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.nav-brand-title{font-family:var(--fb);font-size:calc(var(--fs)*1);color:#ff9f0a!important;font-weight:600;line-height:1.2}
+.nav-brand-sub{font-family:var(--fm);font-size:calc(var(--fs)*.4);color:var(--accent);letter-spacing:.1em;margin-top:6px;text-transform:uppercase}
+.nav-section-label{font-family:var(--fm);font-size:calc(var(--fs)*.36);letter-spacing:.02em;text-transform:uppercase;color:var(--dim);padding:12px 18px 5px}
+nav a{display:flex;align-items:center;gap:9px;padding:7px 18px;color:var(--dim);text-decoration:none;font-size:calc(var(--fs)*.52);transition:all .14s;border-left:2px solid transparent}
+nav a:hover{color:var(--text);background:var(--surface2);border-left-color:var(--accent)}
+.nav-num{font-family:var(--fm);font-size:calc(var(--fs)*.4);color:var(--dim);min-width:16px}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--border);min-width:5px}
+.izy-section{margin-top:auto;padding:18px;border-top:1px solid var(--border)}
+.izy-badge{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:11px 13px}
+.izy-badge-label{font-family:var(--fm);font-size:calc(var(--fs)*.36);letter-spacing:.02em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.izy-badge-text{font-size:calc(var(--fs)*.46);color:var(--dim);line-height:1.5}
+
+/* ══ Control Bar（對齊 template-mw Version A）══ */
+@keyframes fan-breathe{0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}}
+.controls-bar{position:fixed;top:14px;right:20px;z-index:9999;display:flex;align-items:center;gap:6px;background:rgba(13,17,24,.72);border:1px solid var(--border);border-radius:8px;padding:5px 8px;backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(0,0,0,.18)}
+body.light .controls-bar{background:rgba(255,255,255,.82)}
+.ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-size:calc(var(--fs)*.5);font-family:var(--fm);color:var(--dim);text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:9999px;transition:all .15s;white-space:nowrap;font-weight:700}
+.ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0}
+.ctrl-fan:hover{background:var(--surface);color:var(--text);border-color:var(--accent)}
+.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-family:var(--fb);font-size:calc(var(--fs)*.5);font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite;white-space:nowrap;margin-left:1px;transition:all .15s}
+.ctrl-home:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none}
+.ctrl-group{display:flex;gap:2px}
+.ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
+.ctrl-btn{font-family:var(--fb);font-size:calc(var(--fs)*.5);font-weight:600;color:var(--dim);background:transparent;border:none;border-radius:5px;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.ctrl-btn:hover{background:var(--surface2);color:var(--text)}
+.ctrl-btn.active{background:var(--accent);color:#fff;font-weight:600}
+
+/* ══ 舊 A版本 Control Bar 樣式（保留供未使用區塊，不影響新版）══ */
+
+/* ══ 統一的按鈕與狀態設定 ══ */
+.ctrl-btn {
+  font-family: var(--fm); 
+  font-size: 11px; 
+  padding: 5px 10px;
+  border-radius: 5px; 
+  border: none; 
+  background: transparent;
+  color: #a1a1a6; /* 強制設定為您指定的灰色 */
+  cursor: pointer; 
+  transition: all .15s; 
+  white-space: nowrap;
+}.controls-bar
+
+/* 滑鼠懸停效果 */
+.ctrl-btn:hover { 
+  background: var(--surface2); 
+  color: #f5f5f7; 
+}
+
+/* 選中狀態 (active) - 藍色背景，文字維持灰色 */
+.ctrl-btn.active { 
+  background: var(--accent); 
+  color: #a1a1a6 !important; 
+  font-weight: 600; 
+}
+/* 相容舊 .fc/.fb 選擇器（body 內未使用，但防止殘留 CSS 干擾） */
+.fc{display:none;}
+.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
+.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-r{text-align:right;}
+.hdr-meta{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;}
+.wrap{max-width:1280px;margin:0 auto;padding:22px 40px 64px;}
+.sec-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+/* quadrant */
+.sec4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.sc{background:var(--surface);display:flex;flex-direction:column;}
+.sc-hdr{padding:9px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:filter .12s;}
+.sc-hdr:hover{filter:brightness(1.2);}
+.sc.s .sc-hdr{color:var(--green);background:rgba(0,200,150,.06);}
+.sc.w .sc-hdr{color:var(--yellow);background:rgba(240,192,64,.06);}
+.sc.tw .sc-hdr{color:var(--orange);background:rgba(255,140,64,.06);}
+.sc.x .sc-hdr{color:var(--red);background:rgba(255,61,90,.06);}
+/* breathing light */
+@keyframes bl-g{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--green),0 0 16px var(--green)}}
+@keyframes bl-y{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--yellow),0 0 16px var(--yellow)}}
+@keyframes bl-o{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--orange),0 0 16px var(--orange)}}
+@keyframes bl-r{0%,100%{opacity:.18;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--red),0 0 16px var(--red)}}
+.bl{flex-shrink:0;font-size:10px;line-height:1;display:inline-block;}
+.sc.s .bl{color:var(--green);animation:bl-g 1.4s ease-in-out infinite;}
+.sc.w .bl{color:var(--yellow);animation:bl-y 1.6s ease-in-out infinite;}
+.sc.tw .bl{color:var(--orange);animation:bl-o 1.8s ease-in-out infinite;}
+.sc.x .bl{color:var(--red);animation:bl-r 1.2s ease-in-out infinite;}
+/* summary rows */
+.sc-item{padding:7px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.sc-item:last-child{border-bottom:none;}
+.sc-tk{font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);white-space:nowrap;flex-shrink:0;}
+.sc-rk{display:none;}
+.sc.s .sc-rk{color:var(--green);}.sc.w .sc-rk{color:var(--yellow);}
+.sc.tw .sc-rk{color:var(--orange);}.sc.x .sc-rk{color:var(--red);}
+/* detail panel */
+@keyframes sd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.sc-det{display:none;grid-column:1/-1;border-top:2px solid var(--border);}
+.sc-det.open{display:block;animation:sd .18s ease;}
+.det-tbl{width:100%;border-collapse:collapse;}
+.det-tbl thead tr{background:rgba(255,255,255,.025);}
+.det-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.72);letter-spacing:.15em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+.det-tbl th.r{text-align:right;}
+.det-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.85);background:var(--surface2);}
+.det-tbl td.r{text-align:right;font-family:var(--fm);}
+.det-tbl tr:last-child td{border-bottom:none;}
+.cg{color:var(--green);}.cr{color:var(--red);}.cy{color:var(--yellow);}.cd{color:var(--dim);}.cw{color:var(--text);font-weight:600;}
+.det-note{padding:8px 10px;font-family:var(--fb);font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+/* verdict */
+.rotation-verdict{background:rgba(255,130,64,.04);border:1px solid rgba(255,130,64,.18);border-left:3px solid var(--orange);padding:14px 20px;margin-top:10px;margin-bottom:30px;}
+.rv-title{font-size:calc(var(--fs)*.77);letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.rv-txt{font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.9;}
+.rv-txt strong{color:var(--orange);font-weight:700;}.rv-txt em{color:var(--yellow);font-style:normal;}
+.rv-sub{font-size:calc(var(--fs)*.72);letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin:12px 0 6px;border-bottom:1px solid var(--border);padding-bottom:4px;}
+.rv-row{display:flex;gap:8px;align-items:baseline;padding:3px 0;font-size:calc(var(--fs)*.88);}
+.rv-row .lbl{color:var(--dim);white-space:nowrap;flex-shrink:0;min-width:200px;}
+.rv-row .val{color:var(--text);}
+/* cross-market */
+.emo-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--yellow);padding:16px 20px;margin-bottom:34px;}
+.emo-box-title{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px;}
+.emo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);}
+.emo-cell{background:var(--surface2);padding:12px 14px;}
+.emo-cell-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+.emo-cell-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.8;}
+/* signal-flow stage ladder */
+.stage-ladder{border:1px solid var(--border);margin-bottom:34px;}
+.stage-ladder-hdr{padding:9px 14px;font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#94a3b8;background:var(--surface);border-bottom:1px solid var(--border);}
+.stage-row{display:grid;grid-template-columns:28px 130px 150px 1fr;gap:12px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--border);background:var(--surface2);}
+.stage-row:last-child{border-bottom:none;}
+.stage-num{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:calc(var(--fs)*.72);font-weight:700;color:var(--dim);}
+.stage-name{font-size:calc(var(--fs)*.85);color:var(--text);font-weight:600;}
+.stage-status{font-size:calc(var(--fs)*.85);font-weight:700;white-space:nowrap;}
+.stage-status.hot{color:var(--green);}
+.stage-status.warm{color:var(--yellow);}
+.stage-status.cold{color:var(--red);}
+.stage-status.mixed{color:var(--orange);}
+.stage-status.neutral{color:var(--dim);font-weight:400;}
+.stage-detail{font-size:calc(var(--fs)*.78);color:var(--dim);line-height:1.6;}
+.stage-detail b{color:var(--text);font-weight:600;}
+/* footer */
+.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
+.ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
+
+/* ── 法人籌碼 ── */
+.chip-section{margin-top:10px;margin-bottom:6px;}
+.chip-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.chip-box{background:var(--surface);border:1px solid var(--border);margin-bottom:2px;}
+.chip-hdr{padding:9px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:filter .12s;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;}
+.chip-hdr:hover{filter:brightness(1.2);}
+.chip-hdr.a{color:#00c896;background:rgba(0,200,150,.06);border-left:3px solid #00c896;}
+.chip-hdr.b{color:#0ea5e9;background:rgba(14,165,233,.06);border-left:3px solid #0ea5e9;}
+.chip-hdr.c{color:#f0c040;background:rgba(240,192,64,.06);border-left:3px solid #f0c040;}
+.chip-hdr.d{color:#ff8040;background:rgba(255,128,64,.06);border-left:3px solid #ff8040;}
+.chip-hdr.e{color:#ff3d5a;background:rgba(255,61,90,.06);border-left:3px solid #ff3d5a;}
+.chip-body{display:none;overflow-x:auto;}
+.chip-body.open{display:block;animation:sd .18s ease;}
+.chip-tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.82);}
+.chip-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.7);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(255,255,255,.02);}
+.chip-tbl th.r{text-align:right;}
+.chip-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);background:var(--surface2);white-space:nowrap;}
+.chip-tbl td.r{text-align:right;font-family:var(--fm);}
+.chip-tbl td.nm{color:var(--text);font-weight:600;}
+.chip-tbl td.sec{color:var(--dim);font-size:calc(var(--fs)*.78);}
+.chip-tbl tr:last-child td{border-bottom:none;}
+.g{color:#00c896;}.y{color:#f0c040;}.r{color:#ff3d5a;}.b{color:#0ea5e9;}
+.chip-note{padding:8px 10px;font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+.dist-row{display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--border);}
+.dist-badge{padding:4px 12px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;}
+.dist-badge.a{background:rgba(0,200,150,.15);color:#00c896;}
+.dist-badge.b{background:rgba(14,165,233,.15);color:#0ea5e9;}
+.dist-badge.c{background:rgba(240,192,64,.15);color:#f0c040;}
+.chip-cluster{background:var(--surface);border:1px solid var(--border);border-left:3px solid #f0c040;margin-top:2px;padding:10px 14px;}
+.cluster-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#f0c040;margin-bottom:8px;}
+
+.chip-section{margin-top:10px;margin-bottom:6px;}
+.chip-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.chip-box{background:var(--surface);border:1px solid var(--border);margin-bottom:2px;}
+.chip-hdr{padding:9px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:filter .12s;font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;}
+.chip-hdr:hover{filter:brightness(1.2);}
+.chip-hdr.a{color:#00c896;background:rgba(0,200,150,.06);border-left:3px solid #00c896;}
+.chip-hdr.b{color:#0ea5e9;background:rgba(14,165,233,.06);border-left:3px solid #0ea5e9;}
+.chip-hdr.c{color:#f0c040;background:rgba(240,192,64,.06);border-left:3px solid #f0c040;}
+.chip-body{display:none;overflow-x:auto;}
+.chip-body.open{display:block;animation:sd .18s ease;}
+.chip-tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.82);}
+.chip-tbl th{padding:5px 10px;font-size:calc(var(--fs)*.7);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(255,255,255,.02);}
+.chip-tbl th.r{text-align:right;}
+.chip-tbl td{padding:5px 10px;border-bottom:1px solid var(--border);background:var(--surface2);white-space:nowrap;}
+.chip-tbl td.r{text-align:right;font-family:var(--fm);}
+.chip-tbl td.nm{color:var(--text);font-weight:600;}
+.chip-tbl td.sec{color:var(--dim);font-size:calc(var(--fs)*.78);}
+.chip-tbl tr:last-child td{border-bottom:none;}
+.chip-note{padding:8px 10px;font-size:calc(var(--fs)*.82);color:var(--dim);border-top:1px solid var(--border);background:var(--surface2);line-height:1.65;}
+.dist-row{display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--border);}
+.dist-badge{padding:4px 12px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;}
+.dist-badge.a{background:rgba(0,200,150,.15);color:#00c896;}
+.dist-badge.b{background:rgba(14,165,233,.15);color:#0ea5e9;}
+.dist-badge.c{background:rgba(240,192,64,.15);color:#f0c040;}
+.chip-cluster{background:var(--surface);border:1px solid var(--border);border-left:3px solid #f0c040;margin-top:2px;padding:10px 14px;}
+.cluster-lbl{font-size:calc(var(--fs)*.72);letter-spacing:.25em;text-transform:uppercase;color:#f0c040;margin-bottom:8px;}
+.cg{color:#00c896;}.cy{color:#f0c040;}.cr{color:#ff3d5a;}.cb{color:#0ea5e9;}
+
+/* ── 籌碼4卡片 v2 ── */
+.chip4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:0;;align-items:start;}
+.ccard{background:var(--bg);display:flex;flex-direction:column;cursor:pointer;align-self:start;}
+.ccard-hdr{padding:10px 12px;transition:filter .12s;border-bottom:1px solid var(--border);}
+.ccard:hover .ccard-hdr{filter:brightness(1.2);}
+.ccard.ca .ccard-hdr{border-left:3px solid #00c896;}
+.ccard.cb .ccard-hdr{border-left:3px solid #0ea5e9;}
+.ccard.cc .ccard-hdr{border-left:3px solid #f0c040;}
+.ccard.cd .ccard-hdr{border-left:3px solid #ff8040;}
+.ccard.ca.sel .ccard-hdr{background:rgba(0,200,150,.1);border-left-width:4px;}
+.ccard.cb.sel .ccard-hdr{background:rgba(14,165,233,.1);border-left-width:4px;}
+.ccard.cc.sel .ccard-hdr{background:rgba(240,192,64,.1);border-left-width:4px;}
+.ccard.cd.sel .ccard-hdr{background:rgba(255,128,64,.1);border-left-width:4px;}
+.ccard-pattern{font-size:calc(var(--fs)*.8);font-weight:700;letter-spacing:.05em;margin-bottom:3px;}
+.ccard.ca .ccard-pattern{color:#00c896;}
+.ccard.cb .ccard-pattern{color:#0ea5e9;}
+.ccard.cc .ccard-pattern{color:#f0c040;}
+.ccard.cd .ccard-pattern{color:#ff8040;}
+.ccard-count{font-size:calc(var(--fs)*1.15);font-weight:900;font-family:var(--fm);color:var(--text);margin-bottom:6px;}
+.ccard-brief{font-size:calc(var(--fs)*.78);color:var(--dim);line-height:1.6;margin-bottom:8px;}
+.ccard-brief b{color:var(--text);}
+.ccard-hint{display:flex;align-items:center;justify-content:flex-end;gap:5px;}
+.ccard-tri{font-size:calc(var(--fs)*.92);font-weight:700;line-height:1;}
+.ccard-hint-txt{font-size:calc(var(--fs)*.7);color:var(--dim);letter-spacing:.1em;}
+/* 呼吸燈只作用於 .ccard-tri */
+@keyframes breathe{
+  0%,100%{opacity:1;filter:drop-shadow(0 0 5px currentColor);}
+  50%{opacity:.18;filter:none;}
+}
+.ccard-tri.breathing{animation:breathe 2s ease-in-out infinite;}
+/* 全頁寬 detail panel */
+.chip-panel{display:none;background:var(--surface2);border:1px solid var(--border);border-top:2px solid;animation:sd .2s ease;overflow-x:auto;}
+.chip-panel.open{display:block;}
+.chip-panel.pA{border-top-color:#00c896;}
+.chip-panel.pB{border-top-color:#0ea5e9;}
+.chip-panel.pC{border-top-color:#f0c040;}
+.chip-panel.pD{border-top-color:#ff8040;}
+.chip-detail{display:none;padding:0;}
+.chip-detail.active{display:block;}
+@media(max-width:900px){.chip4{grid-template-columns:repeat(2,1fr);;align-items:start;}}
+
+/* ── 頂部主 Tab ── */
+.main-tab-bar{display:flex;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:9999;}
+
+@keyframes breathReport{
+  0%,100%{background:rgba(61,107,138,.08);color:#5a90b4;}
+  50%{background:rgba(61,107,138,.32);color:#a8d8f0;}
+}
+@keyframes breathCake{
+  0%,100%{background:rgba(122,92,66,.08);color:#9a7254;}
+  50%{background:rgba(122,92,66,.32);color:#d4a87a;}
+}
+
+.mtab{flex:1;max-width:220px;padding:12px 0;text-align:center;font-family:var(--fm);font-size:.79rem;letter-spacing:.1em;cursor:pointer;border:none;border-right:1px solid var(--border);}
+.mtab:last-child{border-right:none;}
+
+.mtab:nth-child(1){background:rgba(61,107,138,.08);color:#5a90b4;}
+.mtab:nth-child(1).on{animation:breathReport 2.6s ease-in-out infinite;border-bottom:2px solid #7db8d8;}
+.mtab:nth-child(2){background:rgba(122,92,66,.08);color:#9a7254;}
+.mtab:nth-child(2).on{animation:breathCake 2.6s ease-in-out infinite;border-bottom:2px solid #c4956a;}
+
+body.light .mtab:nth-child(1){background:rgba(61,107,138,.06);color:#2d6a96;}
+body.light .mtab:nth-child(1).on{animation:breathReport 2.6s ease-in-out infinite;}
+body.light .mtab:nth-child(2){background:rgba(122,92,66,.06);color:#7a5432;}
+body.light .mtab:nth-child(2).on{animation:breathCake 2.6s ease-in-out infinite;}
+
+
+#cake-root{
+  --ck-bg:var(--bg);--ck-sf:var(--surface);--ck-sf2:var(--surface2);
+  --ck-bd:var(--border);--ck-tx:var(--text);--ck-dm:var(--dim);
+  --ck-fm:var(--fm);--ck-fs:var(--fs);
+}
+#cake-root .fc{display:none!important;}
+
+
+:root{
+  --ck-bg:#080c14;--ck-sf:#0d1520;--ck-sf2:#111d2e;--ck-bd:#1e2d42;
+  --ck-tx:#e2eaf5;--ck-dm:#4a6480;--ck-fm:'SF Mono',Menlo,monospace;
+  --l1:#4a4870;--l2:#7a5c42;--l3:#3d6b8a;--l4:#3d6b55;--l5:#7a4a58;
+  --ck-fs:14px;
+}
+body.light{--ck-bg:#f0f4fa;--ck-sf:#fff;--ck-sf2:#f7f9fc;--ck-bd:#d1dce8;--ck-tx:#0f1e30;--ck-dm:#6b85a0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--ck-bg);color:var(--ck-tx);font-family:'Noto Serif TC',serif;min-height:100vh;}
+/* 頂部控制 */
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:0;background:var(--ck-sf);border:1px solid var(--ck-bd);padding:2px;}
+.fc a,.fc button{display:flex;align-items:center;padding:3px 9px;font-family:var(--ck-fm);font-size:11px;color:var(--ck-dm);text-decoration:none;border:none;background:none;cursor:pointer;border-right:1px solid var(--ck-bd);letter-spacing:.05em;white-space:nowrap;}
+.fc a:last-child,.fc button:last-child{border-right:none;}
+.fc a:hover,.fc button:hover{color:var(--ck-tx);}
+/* 標頭 */
+header{text-align:center;padding:56px 20px 12px;}
+header h1{font-size:clamp(1.3rem,3.5vw,2rem);font-weight:900;letter-spacing:-.02em;}
+header p{font-size:.8rem;color:var(--ck-dm);margin-top:6px;font-family:var(--ck-fm);letter-spacing:.1em;}
+/* 蛋糕 */
+.cake-wrap{display:flex;flex-direction:column;align-items:center;padding:24px 20px 0;gap:0;}
+.layer{position:relative;cursor:pointer;transition:filter .15s,transform .15s;display:flex;align-items:center;justify-content:center;clip-path:polygon(3.5% 0%,96.5% 0%,100% 100%,0% 100%);margin-bottom:-2px;user-select:none;}
+.layer:hover{filter:brightness(1.2);}
+.layer.active{filter:brightness(1.35);transform:scaleY(1.04);}
+.li{display:flex;align-items:center;gap:10px;padding:0 36px;}
+.ln{font-family:var(--ck-fm);font-size:.68rem;opacity:.55;letter-spacing:.15em;}
+.lt{font-size:clamp(.72rem,2vw,.92rem);font-weight:700;}
+.ls{font-size:.68rem;opacity:.6;font-family:var(--ck-fm);}
+.la{margin-left:auto;font-size:.7rem;opacity:.45;transition:transform .18s;}
+.layer.active .la{transform:rotate(180deg);opacity:.9;}
+.l5{width:300px;height:48px;background:var(--l5);}
+.l4{width:430px;height:52px;background:var(--l4);}
+.l3{width:570px;height:58px;background:var(--l3);}
+.l2{width:700px;height:62px;background:var(--l2);}
+.l1{width:840px;height:68px;background:var(--l1);}
+@media(max-width:880px){.l1{width:98vw;}.l2{width:88vw;}.l3{width:76vw;}.l4{width:62vw;}.l5{width:50vw;}}
+/* 詳細面板 */
+.dw{width:min(900px,96vw);margin:0 auto;}
+.dp{display:none;border:1px solid var(--ck-bd);background:var(--ck-sf);}
+.dp.open{display:block;animation:sd .2s ease;}
+@keyframes sd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.dh{padding:13px 18px 10px;border-bottom:1px solid var(--ck-bd);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.dtitle{font-size:1rem;font-weight:700;}
+.dbadge{font-size:.7rem;font-family:var(--ck-fm);padding:2px 8px;border-radius:2px;margin-left:auto;}
+.dd{font-size:.8rem;color:var(--ck-dm);line-height:1.7;padding:10px 18px;border-bottom:1px solid var(--ck-bd);}
+/* Tab */
+.tr{display:flex;padding:8px 18px 0;gap:0;border-bottom:1px solid var(--ck-bd);}
+.tab{padding:5px 14px;font-family:var(--ck-fm);font-size:.76rem;cursor:pointer;border-bottom:2px solid transparent;color:var(--ck-dm);transition:all .12s;letter-spacing:.08em;}
+.tab.on{color:var(--ck-tx);border-bottom-color:currentColor;}
+.tc{display:none;padding:10px 18px 14px;}
+.tc.show{display:block;}
+/* 本週偵測股 */
+.detected-row{padding:8px 18px;border-bottom:1px solid var(--ck-bd);display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.det-label{font-family:var(--ck-fm);font-size:.68rem;letter-spacing:.1em;color:var(--ck-dm);margin-right:2px;}
+.det-chip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;font-size:.72rem;font-family:var(--ck-fm);cursor:pointer;border:1px solid;transition:all .12s;border-radius:1px;}
+.det-chip:hover{filter:brightness(1.3);}
+.det-chip.s{color:#22c55e;border-color:#22c55e30;background:#22c55e0d;}
+.det-chip.t{color:#38bdf8;border-color:#38bdf830;background:#38bdf80d;}
+.det-chip.w{color:#f59e0b;border-color:#f59e0b30;background:#f59e0b0d;}
+.det-chip.a{color:#f97316;border-color:#f9731630;background:#f973160d;}
+/* 股票 grid */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px;margin-top:8px;align-items:start;}
+.sc{background:var(--ck-sf2);border:1px solid var(--ck-bd);padding:7px 10px;cursor:pointer;transition:border-color .12s;}
+.sc:hover{border-color:var(--ck-tx);}
+.stk{font-family:var(--ck-fm);font-size:.82rem;font-weight:700;}
+.sn{font-size:.72rem;color:var(--ck-dm);margin-top:1px;}
+.sr{font-size:.68rem;color:var(--ck-dm);margin-top:4px;padding-top:3px;border-top:1px solid var(--ck-bd);}
+/* 股票 popup */
+.spop{display:none;position:fixed;inset:0;background:#00000088;z-index:888;align-items:center;justify-content:center;}
+.spop.show{display:flex;}
+.spop-inner{background:var(--ck-sf);border:1px solid var(--ck-bd);width:min(420px,92vw);max-height:80vh;overflow-y:auto;}
+.spop-hdr{padding:12px 16px;border-bottom:1px solid var(--ck-bd);display:flex;justify-content:space-between;align-items:center;}
+.spop-close{cursor:pointer;color:var(--ck-dm);font-size:1.1rem;padding:0 4px;}
+.spop-body{padding:14px 16px;}
+/* 輪動圖 */
+.rc{position:relative;height:96px;}
+canvas.rot{width:100%;height:96px;}
+/* 概覽 */
+.ov{width:min(900px,96vw);margin:18px auto 36px;background:var(--ck-sf);border:1px solid var(--ck-bd);}
+.ovh{padding:10px 18px;border-bottom:1px solid var(--ck-bd);display:flex;justify-content:space-between;align-items:center;}
+.ovt{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ck-dm);}
+.ovg{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ck-bd);align-items:start;}
+.ovc{background:var(--ck-sf);padding:9px 12px;cursor:pointer;transition:background .12s;}
+.ovc:hover{background:var(--ck-sf2);}
+@media(max-width:700px){.ovg{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.ovg{grid-template-columns:repeat(2,1fr);}}
+
+
+
+/* ── 真實走勢圖 ── */
+.spark-cell{width:168px;min-width:168px;max-width:168px;padding:2px 4px;vertical-align:middle;}
+.spark-cv{display:block;border-radius:1px;}
+
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* 隱藏 scrollbar 視覺，保留捲動功能 */
+html { overflow-y: scroll; }
+html::-webkit-scrollbar { width: 0; background: transparent; }
+html { scrollbar-width: none; }
+
+@keyframes fan-breathe{0%,100%{background:var(--fan-bg);box-shadow:0 0 4px 1px var(--fan-glow);color:var(--fan-text);}50%{background:var(--fan-bg-hover);box-shadow:0 0 10px 3px var(--fan-glow-hover);color:var(--fan-text-hover);}}
+/* 舊 ctrl-fan 已由 Version B controls-bar 取代 */
+@keyframes breathe{0%,100%{opacity:1;filter:drop-shadow(0 0 5px currentColor);}50%{opacity:.18;filter:none;}}
+.cat-card{border:1px solid var(--border);margin-bottom:1px;}
+.cat-hdr{cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:var(--surface2);font-size:calc(var(--fs)*.85);transition:filter .12s;}
+.cat-hdr:hover{filter:brightness(1.15);}
+.cat-hdr-main{color:var(--text);font-weight:600;}
+.cat-hdr-meta{color:var(--dim);font-size:calc(var(--fs)*.78);margin-left:10px;font-weight:400;}
+.cat-hdr .arrow{color:var(--dim);font-size:calc(var(--fs)*.7);flex-shrink:0;margin-left:10px;display:inline-block;transition:transform .15s ease;}
+.cat-hdr .arrow.breathing{animation:breathe 2s ease-in-out infinite;}
+.cat-hdr.open .arrow{animation:none;transform:rotate(90deg);}
+.cat-det{display:none;border-top:1px solid var(--border);background:var(--surface);}
+.cat-det.open{display:block;animation:sd .18s ease;}
+.cat-det table{width:100%;border-collapse:collapse;}
+.cat-det th{padding:6px 10px;text-align:right;color:var(--dim);font-size:calc(var(--fs)*.7);letter-spacing:.08em;border-bottom:1px solid var(--border);background:var(--surface2);}
+.cat-det th:first-child{text-align:left;}
+.cat-det td{padding:6px 10px;text-align:right;font-size:calc(var(--fs)*.8);border-bottom:1px solid var(--border);}
+.cat-det td:first-child{text-align:left;font-weight:600;color:var(--text);}
+.cat-det .empty{padding:10px 14px;color:var(--dim);font-size:calc(var(--fs)*.8);}
+.other-sub{font-size:calc(var(--fs)*.7);font-weight:400;letter-spacing:.05em;text-transform:none;color:var(--dim);margin-left:10px;}
+
+.ailayer3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:0;}
+.ai-lcard{background:var(--surface2);display:flex;flex-direction:column;cursor:pointer;padding:12px 14px;transition:filter .12s;}
+.ai-lcard:hover{filter:brightness(1.15);}
+.ai-lcard.on{background:var(--surface);box-shadow:inset 0 2px 0 #00d4aa;}
+.ai-lcard-title{font-size:calc(var(--fs)*.88);font-weight:700;color:var(--text);margin-bottom:6px;}
+.ai-lcard-meta{font-size:calc(var(--fs)*.78);color:var(--dim);margin-bottom:8px;}
+.ai-lcard-hint{font-size:calc(var(--fs)*.72);color:#00d4aa;margin-top:auto;animation:hint-breathe 1.8s ease-in-out infinite;}
+.ai-lcard.on .ai-lcard-hint{animation:none;opacity:1;}
+@keyframes hint-breathe{0%,100%{opacity:.35;text-shadow:none;}50%{opacity:1;text-shadow:0 0 8px #00d4aaaa;}}
+@media(max-width:700px){.ailayer3{grid-template-columns:1fr;}}
+.ai-layer-panel{display:none;background:var(--surface2);border:1px solid var(--border);border-top:2px solid #00d4aa;}
+.ai-layer-detail{display:none;padding:0;}
+.ai-layer-detail table{width:100%;border-collapse:collapse;}
+.ai-layer-detail th{padding:7px 10px;text-align:right;color:var(--dim);font-size:calc(var(--fs)*.72);letter-spacing:.08em;border-bottom:1px solid var(--border);background:var(--surface);}
+.ai-layer-detail th:first-child,.ai-layer-detail th:nth-child(2){text-align:left;}
+.ai-layer-detail td{padding:7px 10px;text-align:right;font-size:calc(var(--fs)*.82);border-bottom:1px solid var(--border);}
+.ai-layer-detail td:first-child{text-align:left;font-weight:600;color:var(--text);}
+.ai-layer-detail td:nth-child(2){text-align:left;color:var(--dim);}
+.ai-layer-detail td:last-child{text-align:left;}
+
+.circle-hint{font-size:calc(var(--fs)*.72);color:#f59e0b;margin-top:auto;animation:circle-breathe 1.8s ease-in-out infinite;}
+@keyframes circle-breathe{0%,100%{opacity:.35;text-shadow:none;}50%{opacity:1;text-shadow:0 0 8px #f59e0baa;}}
+.ai-lcard.on .circle-hint{animation:none;opacity:1;color:#00d4aa;}
+
+/* ── 其他板塊 split layout ── */
+.other-split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);margin-top:10px;min-height:200px;}
+.other-list{border-right:1px solid var(--border);overflow-y:auto;max-height:680px;}
+.other-card-wrap .cat-hdr{border-bottom:1px solid var(--border);}
+.other-card-wrap .cat-hdr.on{background:var(--surface);box-shadow:inset 3px 0 0 var(--accent);color:var(--text);}
+.other-card-wrap .cat-hdr.on .cat-hdr-main{color:var(--text);}
+.other-detail-panel{position:sticky;top:80px;overflow-y:auto;max-height:680px;background:var(--surface);}
+.other-det-placeholder{display:flex;align-items:center;justify-content:center;height:100%;min-height:120px;color:var(--dim);font-size:calc(var(--fs)*.85);letter-spacing:.05em;}
+.other-det-item{display:none;}
+.other-det-item.on{display:block;}
+.other-det-item.active{display:block;}
+.other-det-item table{width:100%;border-collapse:collapse;}
+.other-det-item th{padding:6px 10px;text-align:right;color:var(--dim);font-size:calc(var(--fs)*.7);letter-spacing:.08em;border-bottom:1px solid var(--border);background:var(--surface2);position:sticky;top:0;z-index:1;}
+.other-det-item th:first-child{text-align:left;}
+.other-det-item td{padding:6px 10px;text-align:right;font-size:calc(var(--fs)*.8);border-bottom:1px solid var(--border);}
+.other-det-item td:first-child{text-align:left;font-weight:600;color:var(--text);}
+@media(max-width:700px){.other-split{grid-template-columns:1fr;}.other-list{border-right:none;border-bottom:1px solid var(--border);max-height:300px;}}
+/* ── sortable table headers ── */
+th.sortable{cursor:pointer;user-select:none;white-space:nowrap;position:relative;padding-right:20px!important;}
+th.sortable:hover{background:var(--surface2)!important;color:var(--text)!important;}
+th.sortable::after{content:"⇅";position:absolute;right:4px;top:50%;transform:translateY(-50%);opacity:.3;font-size:.8em;pointer-events:none;}
+th.sortable.asc::after{content:"▲";opacity:1;color:var(--accent);}
+th.sortable.desc::after{content:"▼";opacity:1;color:var(--accent);}
+/* === 修復 Yoda Research 金色呼吸燈 === */
+.ctrl-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: var(--fm);
+  font-weight: 700;
+  color: #1a1200;
+  text-decoration: none;
+  background: #b8960a;
+  border-radius: 9999px;
+  animation: fan-breathe 1.8s ease-in-out infinite;
+  white-space: nowrap;
+  margin-left: 1px;
+  transition: all 0.15s ease;
+}
+.ctrl-home:hover {
+  background: #ffd700;
+  color: #000;
+  box-shadow: 0 0 10px 3px rgba(255, 215, 0, .75);
+  animation: none;
+}
+@keyframes fan-breathe {
+  0%,100% { background:#b8960a; box-shadow:0 0 4px 1px rgba(255,215,0,.35); color:#1a1200; }
+  50%     { background:#ffd700; box-shadow:0 0 10px 3px rgba(255,215,0,.75); color:#000; }
+}
+
+/* === 修復 小/中/大 和 深/淺 的 hover + 選中效果 === */
+.fb {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-family: var(--fm);
+  background: transparent;
+  border: none;
+  color: var(--dim);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.fb:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+.fb.on {
+  color: var(--accent);
+  background: rgba(0,200,240,.15);
+  font-weight: 600;
+}
+
+/* 確保 .fc 正常顯示 */
+.fc {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 999;
+  display: flex;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px;
+}
+</style>
+  <!-- ══ Copy Protection ══ -->
+  <style>
+    * { -webkit-user-select:none; -moz-user-select:none;
+        -ms-user-select:none; user-select:none; -webkit-touch-callout:none; }
+  
+
+* 頂部控制 */
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:0;background:var(--ck-sf);border:1px solid var(--ck-bd);padding:2px;}
+.fc a,.fc button{display:flex;align-items:center;padding:3px 9px;font-family:var(--ck-fm);font-size:11px;color:var(--ck-dm);text-decoration:none;border:none;background:none;cursor:pointer;border-right:1px solid var(--ck-bd);letter-spacing:.05em;white-space:nowrap;}
+.fc a:last-child,.fc button:last-child{border-right:none;}
+.fc a:hover,.fc button:hover{color:var(--ck-tx);}
+/* 標頭 */
+header{text-align:center;padding:56px 20px 12px;}
+header h1{font-size:clamp(1.3rem,3.5vw,2rem);font-weight:900;letter-spacing:-.02em;}
+header p{font-size:.8rem;color:var(--ck-dm);margin-top:6px;font-family:var(--ck-fm);letter-spacing:.1em;}
+/* 蛋糕 */
+.cake-wrap{display:flex;flex-direction:column;align-items:center;padding:24px 20px 0;gap:0;}
+.layer{position:relative;cursor:pointer;transition:filter .15s,transform .15s;display:flex;align-items:center;justify-content:center;clip-path:polygon(3.5% 0%,96.5% 0%,100% 100%,0% 100%);margin-bottom:-2px;user-select:none;}
+.layer:hover{filter:brightness(1.2);}
+.layer.active{filter:brightness(1.35);transform:scaleY(1.04);}
+.li{display:flex;align-items:center;gap:10px;padding:0 36px;}
+.ln{font-family:var(--ck-fm);font-size:.68rem;opacity:.55;letter-spacing:.15em;}
+.lt{font-size:clamp(.72rem,2vw,.92rem);font-weight:700;}
+.ls{font-size:.68rem;opacity:.6;font-family:var(--ck-fm);}
+.la{margin-left:auto;font-size:.7rem;opacity:.45;transition:transform .18s;}
+.layer.active .la{transform:rotate(180deg);opacity:.9;}
+.l5{width:300px;height:48px;background:var(--l5);}
+.l4{width:430px;height:52px;background:var(--l4);}
+.l3{width:570px;height:58px;background:var(--l3);}
+.l2{width:700px;height:62px;background:var(--l2);}
+.l1{width:840px;height:68px;background:var(--l1);}
+@media(max-width:880px){.l1{width:98vw;}.l2{width:88vw;}.l3{width:76vw;}.l4{width:62vw;}.l5{width:50vw;}}
+/* 詳細面板 */
+.dw{width:min(900px,96vw);margin:0 auto;}
+.dp{display:none;border:1px solid var(--ck-bd);background:var(--ck-sf);}
+.dp.open{display:block;animation:sd .2s ease;}
+@keyframes sd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.dh{padding:13px 18px 10px;border-bottom:1px solid var(--ck-bd);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.dtitle{font-size:1rem;font-weight:700;}
+.dbadge{font-size:.7rem;font-family:var(--ck-fm);padding:2px 8px;border-radius:2px;margin-left:auto;}
+.dd{font-size:.8rem;color:var(--ck-dm);line-height:1.7;padding:10px 18px;border-bottom:1px solid var(--ck-bd);}
+/* Tab */
+.tr{display:flex;padding:8px 18px 0;gap:0;border-bottom:1px solid var(--ck-bd);}
+.tab{padding:5px 14px;font-family:var(--ck-fm);font-size:.76rem;cursor:pointer;border-bottom:2px solid transparent;color:var(--ck-dm);transition:all .12s;letter-spacing:.08em;}
+.tab.on{color:var(--ck-tx);border-bottom-color:currentColor;}
+.tc{display:none;padding:10px 18px 14px;}
+.tc.show{display:block;}
+/* 本週偵測股 */
+.detected-row{padding:8px 18px;border-bottom:1px solid var(--ck-bd);display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.det-label{font-family:var(--ck-fm);font-size:.68rem;letter-spacing:.1em;color:var(--ck-dm);margin-right:2px;}
+.det-chip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;font-size:.72rem;font-family:var(--ck-fm);cursor:pointer;border:1px solid;transition:all .12s;border-radius:1px;}
+.det-chip:hover{filter:brightness(1.3);}
+.det-chip.s{color:#22c55e;border-color:#22c55e30;background:#22c55e0d;}
+.det-chip.t{color:#38bdf8;border-color:#38bdf830;background:#38bdf80d;}
+.det-chip.w{color:#f59e0b;border-color:#f59e0b30;background:#f59e0b0d;}
+.det-chip.a{color:#f97316;border-color:#f9731630;background:#f973160d;}
+/* 股票 grid */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px;margin-top:8px;align-items:start;}
+.sc{background:var(--ck-sf2);border:1px solid var(--ck-bd);padding:7px 10px;cursor:pointer;transition:border-color .12s;}
+.sc:hover{border-color:var(--ck-tx);}
+.stk{font-family:var(--ck-fm);font-size:.82rem;font-weight:700;}
+.sn{font-size:.72rem;color:var(--ck-dm);margin-top:1px;}
+.sr{font-size:.68rem;color:var(--ck-dm);margin-top:4px;padding-top:3px;border-top:1px solid var(--ck-bd);}
+/* 股票 popup */
+.spop{display:none;position:fixed;inset:0;background:#00000088;z-index:888;align-items:center;justify-content:center;}
+.spop.show{display:flex;}
+.spop-inner{background:var(--ck-sf);border:1px solid var(--ck-bd);width:min(420px,92vw);max-height:80vh;overflow-y:auto;}
+.spop-hdr{padding:12px 16px;border-bottom:1px solid var(--ck-bd);display:flex;justify-content:space-between;align-items:center;}
+.spop-close{cursor:pointer;color:var(--ck-dm);font-size:1.1rem;padding:0 4px;}
+.spop-body{padding:14px 16px;}
+/* 輪動圖 */
+.rc{position:relative;height:96px;}
+canvas.rot{width:100%;height:96px;}
+/* 概覽 */
+.ov{width:min(900px,96vw);margin:18px auto 36px;background:var(--ck-sf);border:1px solid var(--ck-bd);}
+.ovh{padding:10px 18px;border-bottom:1px solid var(--ck-bd);display:flex;justify-content:space-between;align-items:center;}
+.ovt{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ck-dm);}
+.ovg{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ck-bd);align-items:start;}
+.ovc{background:var(--ck-sf);padding:9px 12px;cursor:pointer;transition:background .12s;}
+.ovc:hover{background:var(--ck-sf2);}
+@media(max-width:700px){.ovg{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.ovg{grid-template-columns:repeat(2,1fr);}}
+
+</style>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('copy',        e => e.preventDefault());
+    document.addEventListener('cut',         e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+    document.addEventListener('dragstart',   e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      const k = e.key.toLowerCase();
+      if (e.ctrlKey && ['c','a','u','s','p','j'].includes(k)) e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && ['i','j'].includes(k))   e.preventDefault();
+      if (['f12','f11'].includes(k)) e.preventDefault();
+    });
+  </script>
+  <!-- ══ End Protection ══ -->
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-title">Yoda 美股<br>分析</div>
+    <div class="nav-brand-sub">▸ 2026 · JULY</div>
+  </div>
+  <div class="nav-section-label">美股分析</div>
+  <a href="#sec-rotation"><span class="nav-num">01</span><div class="nav-dot"></div>板塊輪動研判</a>
+  <a href="#sec-screen"><span class="nav-num">02</span><div class="nav-dot"></div>強勢股篩選</a>
+  <a href="#sec-judge"><span class="nav-num">03</span><div class="nav-dot"></div>完整研判</a>
+  <div class="izy-section">
+    <div class="izy-badge">
+      <div class="izy-badge-label">Yoda Research</div>
+      <div class="izy-badge-text">美股分析報告</div>
+    </div>
+  </div>
+</nav>
+
+<!-- 主內容 -->
+<div class="main">
+<div id="report-root">
+
+<!-- CONTROLS -->
+<div class="controls-bar">
+  <a href="https://www.facebook.com/profile.php?id=100069223220386" class="ctrl-fan" target="_blank" rel="noopener" title="Facebook粉專">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>粉專
+  </a>
+  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Research">Yoda Research</a>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn" id="fs-small" onclick="setFS('small')">小</button>
+    <button class="ctrl-btn active" id="fs-normal" onclick="setFS('normal')">中</button>
+    <button class="ctrl-btn" id="fs-large" onclick="setFS('large')">大</button>
+  </div>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group">
+    <button class="ctrl-btn active" id="btn-dark" onclick="setTheme('dark')">深</button>
+    <button class="ctrl-btn" id="btn-light" onclick="setTheme('light')">淺</button>
+  </div>
+</div>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-lbl">Yoda Research</div>
+    <div class="hdr-title">Yoda <span>美股分析</span><span style="font-size:calc(var(--fs)*1.1);font-weight:400;color:var(--dim);letter-spacing:.05em;margin-left:16px;vertical-align:middle;">2026-07-29</span></div>
+  </div>
+  <div class="hdr-r">
+    <div class="hdr-meta">3個月新高 579 支｜新低 512 支｜高低比 1.13x｜A級 25／B級 262／C級 197</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ 美股 ═══ -->
+<div id="sec-rotation" class="sec-lbl" style="margin-bottom:10px;">美股分析｜板塊輪動與個股篩選</div>
+
+<div class="rotation-verdict">
+        <div class="rv-title">今日結論：AI 三圈全熄火，資金換手輪進價值防禦</div>
+  <div class="rv-txt">
+<div class="rv-row"><div class="val">大盤表面沒事——3個月新高 <em>579</em> 支對新低 <em>512</em> 支、高低比 <strong>1.13x</strong>，廣度中性偏多。但把 AI 硬體拉出來就冷了：算力、傳輸記憶體、設備三圈共 48 支，<strong>3個月新高掛零</strong>，NVDA、AVGO、AMAT 一個都不在榜，C3 設備反有 10 支掉進新低。</div></div>
+<div class="rv-row"><div class="val">錢沒跑掉，是換手。<strong>資訊科技</strong>板塊均5D 僅 +0.3%、月線 -1.9%、正值比剛好一半，在成長類裡墊底；接棒的是<strong>非必需消費(+4.6%)、原材料(+4.4%)、醫療(+4.3%)</strong>，金融月線 +8.6% 全類最強。半導體流出、價值防禦承接，是輪動不是全面撤退（廣度沒破）。</div></div>
+<div class="rv-row"><div class="val">操作上：手裡部位不用急砍，但 <strong>AI 硬體現在不是進場點</strong>，等三圈重新站回新高再談。A 級 25 支幾乎全在非科技，且不少是 FBRX(1M+264%)、SAIH、KNSA 這種小型爆衝——WA 雖正，追高風險高，別把小型脈衝當主升龍頭。把注意力放在有廣度撐的價值防禦，別去接半導體的刀。</div></div>
+</div>
+</div>
+
+
+
+<div class="sec-lbl" style="margin-top:30px;">AI 核心競爭力分類（算力→傳輸→設備）</div>
+<div class="ailayer3"><div class="ai-lcard" data-id="L1" onclick="selectAILayer('L1')">
+  <div class="ai-lcard-title">C1 算力核心</div>
+  <div class="ai-lcard-meta">GPU／ASIC 運算主體<br>新高 0／7｜新低 2</div>
+  <div class="ai-lcard-hint">▸ 點擊展開成分股</div>
+</div><div class="ai-lcard" data-id="L2" onclick="selectAILayer('L2')">
+  <div class="ai-lcard-title">C2 傳輸・記憶體</div>
+  <div class="ai-lcard-meta">HBM／光模組／交換晶片<br>新高 0／16｜新低 5</div>
+  <div class="ai-lcard-hint">▸ 點擊展開成分股</div>
+</div><div class="ai-lcard" data-id="L3" onclick="selectAILayer('L3')">
+  <div class="ai-lcard-title">C3 設備・材料</div>
+  <div class="ai-lcard-meta">先進封裝／測試／設備<br>新高 0／25｜新低 10</div>
+  <div class="ai-lcard-hint">▸ 點擊展開成分股</div>
+</div></div>
+<div class="ai-layer-panel" id="ai-layer-panel"><div class="ai-layer-detail" id="ai-layer-detail-L1">
+  <table><thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">狀態</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th><th class="sortable" onclick="sortTable(this)">WA</th></tr></thead>
+  <tbody><tr><td>NVDA</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>AMD</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>INTC</td><td><span class="r">新低</span></td><td>-18.2%</td><td>-32.8%</td><td>206</td></tr>
+<tr><td>AVGO</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>MRVL</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ARM</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>TSM</td><td><span class="r">新低</span></td><td>-7.6%</td><td>-9.3%</td><td>56</td></tr></tbody></table></div><div class="ai-layer-detail" id="ai-layer-detail-L2">
+  <table><thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">狀態</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th><th class="sortable" onclick="sortTable(this)">WA</th></tr></thead>
+  <tbody><tr><td>MU</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>WDC</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>STX</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>SNDK</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>COHR</td><td><span class="r">新低</span></td><td>-23.3%</td><td>-36.1%</td><td>92</td></tr>
+<tr><td>LITE</td><td><span class="r">新低</span></td><td>-22.2%</td><td>-20.2%</td><td>257</td></tr>
+<tr><td>CRDO</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>AAOI</td><td><span class="r">新低</span></td><td>-26.1%</td><td>-35.0%</td><td>68</td></tr>
+<tr><td>MTSI</td><td><span class="r">新低</span></td><td>-11.9%</td><td>-32.5%</td><td>45</td></tr>
+<tr><td>ANET</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>CSCO</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ALAB</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>CIEN</td><td><span class="r">新低</span></td><td>-14.2%</td><td>-26.9%</td><td>179</td></tr>
+<tr><td>INFN</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>QCOM</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>TXN</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div><div class="ai-layer-detail" id="ai-layer-detail-L3">
+  <table><thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">狀態</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th><th class="sortable" onclick="sortTable(this)">WA</th></tr></thead>
+  <tbody><tr><td>AMAT</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>LRCX</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>KLAC</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ASML</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ONTO</td><td><span class="r">新低</span></td><td>-19.1%</td><td>-25.3%</td><td>99</td></tr>
+<tr><td>TER</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>FORM</td><td><span class="r">新低</span></td><td>-22.4%</td><td>-32.5%</td><td>104</td></tr>
+<tr><td>UCTT</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>MKSI</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ICHR</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ENTG</td><td><span class="r">新低</span></td><td>-15.7%</td><td>-26.8%</td><td>37</td></tr>
+<tr><td>ACMR</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>AMKR</td><td><span class="r">新低</span></td><td>-31.5%</td><td>-42.0%</td><td>64</td></tr>
+<tr><td>ASX</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>MPWR</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ON</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>NVTS</td><td><span class="r">新低</span></td><td>-21.9%</td><td>-42.1%</td><td>-27</td></tr>
+<tr><td>VICR</td><td><span class="r">新低</span></td><td>-10.5%</td><td>-41.2%</td><td>132</td></tr>
+<tr><td>VSH</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>LFUS</td><td><span class="r">新低</span></td><td>-5.4%</td><td>-13.3%</td><td>51</td></tr>
+<tr><td>VRT</td><td><span class="r">新低</span></td><td>-11.5%</td><td>-11.3%</td><td>75</td></tr>
+<tr><td>MOD</td><td><span class="r">新低</span></td><td>-15.8%</td><td>-18.7%</td><td>34</td></tr>
+<tr><td>GLW</td><td><span class="r">新低</span></td><td>-22.4%</td><td>-43.0%</td><td>61</td></tr>
+<tr><td>ECL</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>CAMT</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div></div>
+<div class="sec-lbl" style="margin-top:30px;">AI 三圈擴散追蹤（新高＝資金仍在／新低＝退場）</div>
+<div class="ailayer3"><div class="ai-lcard" data-id="c1" onclick="selectCircle('c1')">
+  <div class="ai-lcard-title">C1 算力</div>
+  <div class="ai-lcard-meta"><span style="color:#ff3d5a;font-weight:700">新高 0/7</span>｜新低 2<br>GPU/ASIC 運算主體</div>
+  <div class="circle-hint">▸ 點擊看擴散明細</div>
+</div><div class="ai-lcard" data-id="c2" onclick="selectCircle('c2')">
+  <div class="ai-lcard-title">C2 傳輸・記憶體</div>
+  <div class="ai-lcard-meta"><span style="color:#ff3d5a;font-weight:700">新高 0/16</span>｜新低 5<br>HBM／光模組／網通交換</div>
+  <div class="circle-hint">▸ 點擊看擴散明細</div>
+</div><div class="ai-lcard" data-id="c3" onclick="selectCircle('c3')">
+  <div class="ai-lcard-title">C3 設備・材料</div>
+  <div class="ai-lcard-meta"><span style="color:#ff3d5a;font-weight:700">新高 0/25</span>｜新低 10<br>先進封裝／測試設備</div>
+  <div class="circle-hint">▸ 點擊看擴散明細</div>
+</div></div>
+<div id="circle-panel-wrap" style="display:none;background:var(--surface2);border:1px solid var(--border);border-top:2px solid #f59e0b;"><div id="circle-panel-c1" style="display:none">
+  <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">狀態</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th><th class="sortable" onclick="sortTable(this)">WA</th></tr></thead>
+  <tbody><tr><td>NVDA</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>AMD</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>INTC</td><td><span class="r">新低</span></td><td>-18.2%</td><td>-32.8%</td><td>206</td></tr>
+<tr><td>AVGO</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>MRVL</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ARM</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>TSM</td><td><span class="r">新低</span></td><td>-7.6%</td><td>-9.3%</td><td>56</td></tr></tbody></table></div><div id="circle-panel-c2" style="display:none">
+  <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">狀態</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th><th class="sortable" onclick="sortTable(this)">WA</th></tr></thead>
+  <tbody><tr><td>MU</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>WDC</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>STX</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>SNDK</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>COHR</td><td><span class="r">新低</span></td><td>-23.3%</td><td>-36.1%</td><td>92</td></tr>
+<tr><td>LITE</td><td><span class="r">新低</span></td><td>-22.2%</td><td>-20.2%</td><td>257</td></tr>
+<tr><td>CRDO</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>AAOI</td><td><span class="r">新低</span></td><td>-26.1%</td><td>-35.0%</td><td>68</td></tr>
+<tr><td>MTSI</td><td><span class="r">新低</span></td><td>-11.9%</td><td>-32.5%</td><td>45</td></tr>
+<tr><td>ANET</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>CSCO</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ALAB</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>CIEN</td><td><span class="r">新低</span></td><td>-14.2%</td><td>-26.9%</td><td>179</td></tr>
+<tr><td>INFN</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>QCOM</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>TXN</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div><div id="circle-panel-c3" style="display:none">
+  <table class="det-tbl"><thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">狀態</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th><th class="sortable" onclick="sortTable(this)">WA</th></tr></thead>
+  <tbody><tr><td>AMAT</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>LRCX</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>KLAC</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ASML</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ONTO</td><td><span class="r">新低</span></td><td>-19.1%</td><td>-25.3%</td><td>99</td></tr>
+<tr><td>TER</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>FORM</td><td><span class="r">新低</span></td><td>-22.4%</td><td>-32.5%</td><td>104</td></tr>
+<tr><td>UCTT</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>MKSI</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ICHR</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ENTG</td><td><span class="r">新低</span></td><td>-15.7%</td><td>-26.8%</td><td>37</td></tr>
+<tr><td>ACMR</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>AMKR</td><td><span class="r">新低</span></td><td>-31.5%</td><td>-42.0%</td><td>64</td></tr>
+<tr><td>ASX</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>MPWR</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ON</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>NVTS</td><td><span class="r">新低</span></td><td>-21.9%</td><td>-42.1%</td><td>-27</td></tr>
+<tr><td>VICR</td><td><span class="r">新低</span></td><td>-10.5%</td><td>-41.2%</td><td>132</td></tr>
+<tr><td>VSH</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>LFUS</td><td><span class="r">新低</span></td><td>-5.4%</td><td>-13.3%</td><td>51</td></tr>
+<tr><td>VRT</td><td><span class="r">新低</span></td><td>-11.5%</td><td>-11.3%</td><td>75</td></tr>
+<tr><td>MOD</td><td><span class="r">新低</span></td><td>-15.8%</td><td>-18.7%</td><td>34</td></tr>
+<tr><td>GLW</td><td><span class="r">新低</span></td><td>-22.4%</td><td>-43.0%</td><td>61</td></tr>
+<tr><td>ECL</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>CAMT</td><td><span style="color:var(--dim)">—</span></td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div></div>
+<div class="sec-lbl" style="margin-top:30px;">AI 硬體信號流階梯（8 階段）</div>
+<div class="stage-ladder"><div class="stage-ladder-hdr">信號流：全鏈無單一啟動階段，AI 硬體短線熄火</div><div class="stage-row"><div class="stage-num">1</div><div class="stage-name">GPU 算力</div><div class="stage-status neutral">中性（無新高）</div><div class="stage-detail">代表：<b>NVDA/AMD</b>｜0 新高／0 新低（共 2）</div></div><div class="stage-row"><div class="stage-num">2</div><div class="stage-name">ASIC 自研</div><div class="stage-status neutral">中性（無新高）</div><div class="stage-detail">代表：<b>AVGO/MRVL</b>｜0 新高／0 新低（共 2）</div></div><div class="stage-row"><div class="stage-num">3</div><div class="stage-name">網通交換</div><div class="stage-status neutral">中性（無新高）</div><div class="stage-detail">代表：<b>ANET/CSCO/CRDO</b>｜0 新高／0 新低（共 4）</div></div><div class="stage-row"><div class="stage-num">4</div><div class="stage-name">光模組</div><div class="stage-status cold">熄火（新低 5）</div><div class="stage-detail">代表：<b>COHR/LITE/AAOI</b>｜0 新高／5 新低（共 6）</div></div><div class="stage-row"><div class="stage-num">5</div><div class="stage-name">HBM 記憶體</div><div class="stage-status neutral">中性（無新高）</div><div class="stage-detail">代表：<b>MU/WDC/STX</b>｜0 新高／0 新低（共 4）</div></div><div class="stage-row"><div class="stage-num">6</div><div class="stage-name">先進封裝</div><div class="stage-status cold">熄火（新低 1）</div><div class="stage-detail">代表：<b>AMKR/ASX/AMAT</b>｜0 新高／1 新低（共 4）</div></div><div class="stage-row"><div class="stage-num">7</div><div class="stage-name">測試設備</div><div class="stage-status cold">熄火（新低 2）</div><div class="stage-detail">代表：<b>TER/KLAC/ONTO</b>｜0 新高／2 新低（共 5）</div></div><div class="stage-row"><div class="stage-num">8</div><div class="stage-name">散熱・電源</div><div class="stage-status cold">熄火（新低 4）</div><div class="stage-detail">代表：<b>VRT/MOD/VICR</b>｜0 新高／4 新低（共 5）</div></div></div>
+
+<div id="sec-screen" class="sec-lbl" style="margin-top:36px;">強勢股篩選</div>
+<div class="sec4">
+
+  <div class="sc s">
+    <div class="sc-hdr" onclick="tog('us-s')"><span>✅ A級 三條件全中（25）</span><span class="bl">▼</span></div>
+<div class="sc-item"><span class="sc-tk">FBRX <span style="color:var(--dim);font-weight:400">+51.1%</span></span><span class="sc-rk">+51.1%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">RNG <span style="color:var(--dim);font-weight:400">+43.9%</span></span><span class="sc-rk">+43.9%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">SAIH <span style="color:var(--dim);font-weight:400">+40.1%</span></span><span class="sc-rk">+40.1%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">KNSA <span style="color:var(--dim);font-weight:400">+25.0%</span></span><span class="sc-rk">+25.0%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">IMAX <span style="color:var(--dim);font-weight:400">+24.9%</span></span><span class="sc-rk">+24.9%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">PLSE <span style="color:var(--dim);font-weight:400">+17.2%</span></span><span class="sc-rk">+17.2%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">FTRE <span style="color:var(--dim);font-weight:400">+15.6%</span></span><span class="sc-rk">+15.6%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">UVE <span style="color:var(--dim);font-weight:400">+15.2%</span></span><span class="sc-rk">+15.2%｜—</span></div>
+  </div>
+
+  <div class="sc w">
+    <div class="sc-hdr" onclick="tog('us-w')"><span>🟩 B級 5D+1M 過、WA<80（262）</span><span class="bl">▼</span></div>
+<div class="sc-item"><span class="sc-tk">OTLY <span style="color:var(--dim);font-weight:400">+67.5%</span></span><span class="sc-rk">+67.5%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">OPK <span style="color:var(--dim);font-weight:400">+36.4%</span></span><span class="sc-rk">+36.4%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">THC <span style="color:var(--dim);font-weight:400">+33.7%</span></span><span class="sc-rk">+33.7%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">GSHD <span style="color:var(--dim);font-weight:400">+28.0%</span></span><span class="sc-rk">+28.0%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">ACU <span style="color:var(--dim);font-weight:400">+27.7%</span></span><span class="sc-rk">+27.7%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">ITRI <span style="color:var(--dim);font-weight:400">+27.2%</span></span><span class="sc-rk">+27.2%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">IP <span style="color:var(--dim);font-weight:400">+21.3%</span></span><span class="sc-rk">+21.3%｜金屬礦業</span></div>
+<div class="sc-item"><span class="sc-tk">IQV <span style="color:var(--dim);font-weight:400">+20.5%</span></span><span class="sc-rk">+20.5%｜醫材診斷</span></div>
+  </div>
+
+  <div class="sc tw">
+    <div class="sc-hdr" onclick="tog('us-tw')"><span>🟨 C級 一條件命中（197）</span><span class="bl">▼</span></div>
+<div class="sc-item"><span class="sc-tk">FIRY <span style="color:var(--dim);font-weight:400">+11.6%</span></span><span class="sc-rk">+11.6%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">W <span style="color:var(--dim);font-weight:400">+11.5%</span></span><span class="sc-rk">+11.5%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">CNK <span style="color:var(--dim);font-weight:400">+11.4%</span></span><span class="sc-rk">+11.4%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">SHW <span style="color:var(--dim);font-weight:400">+11.2%</span></span><span class="sc-rk">+11.2%｜化工特材</span></div>
+<div class="sc-item"><span class="sc-tk">DHR <span style="color:var(--dim);font-weight:400">+11.2%</span></span><span class="sc-rk">+11.2%｜醫材診斷</span></div>
+  </div>
+
+  <div class="sc x">
+    <div class="sc-hdr" onclick="tog('us-x')"><span>▼ 弱勢觀察（low清單空，顯示REL5<-3%個股）</span><span class="bl">▼</span></div>
+<div class="sc-item"><span class="sc-tk">AWK <span style="color:var(--dim);font-weight:400">+5.0%</span></span><span class="sc-rk">+5.0%｜水氣公用</span></div>
+<div class="sc-item"><span class="sc-tk">HTB <span style="color:var(--dim);font-weight:400">+4.9%</span></span><span class="sc-rk">+4.9%｜—</span></div>
+<div class="sc-item"><span class="sc-tk">SYY <span style="color:var(--dim);font-weight:400">+4.9%</span></span><span class="sc-rk">+4.9%｜必需零售</span></div>
+<div class="sc-item"><span class="sc-tk">CLX <span style="color:var(--dim);font-weight:400">+4.8%</span></span><span class="sc-rk">+4.8%｜家用個護</span></div>
+<div class="sc-item"><span class="sc-tk">MPLX <span style="color:var(--dim);font-weight:400">+4.8%</span></span><span class="sc-rk">+4.8%｜—</span></div>
+  </div>
+
+
+<div class="sc-det" id="us-s">
+      <table class="det-tbl">
+        <thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="sortable" onclick="sortTable(this)">WA</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th></tr></thead>
+ <tbody>
+<tr><td>FBRX</td><td>—</td><td>118</td><td>+51.1%</td><td>+264.5%</td></tr>
+<tr><td>RNG</td><td>—</td><td>131</td><td>+43.9%</td><td>+53.1%</td></tr>
+<tr><td>SAIH</td><td>—</td><td>132</td><td>+40.1%</td><td>+62.6%</td></tr>
+<tr><td>KNSA</td><td>—</td><td>131</td><td>+25.0%</td><td>+34.2%</td></tr>
+<tr><td>IMAX</td><td>—</td><td>84</td><td>+24.9%</td><td>+15.1%</td></tr>
+<tr><td>PLSE</td><td>—</td><td>90</td><td>+17.2%</td><td>+24.7%</td></tr>
+<tr><td>FTRE</td><td>—</td><td>278</td><td>+15.6%</td><td>+17.3%</td></tr>
+<tr><td>UVE</td><td>—</td><td>90</td><td>+15.2%</td><td>+7.5%</td></tr>
+<tr><td>FRD</td><td>—</td><td>117</td><td>+13.4%</td><td>+8.0%</td></tr>
+<tr><td>BVS</td><td>—</td><td>127</td><td>+11.2%</td><td>+35.1%</td></tr>
+<tr><td>FNKO</td><td>—</td><td>85</td><td>+9.3%</td><td>+9.5%</td></tr>
+<tr><td>ENVA</td><td>—</td><td>161</td><td>+9.0%</td><td>+7.8%</td></tr>
+<tr><td>DYN</td><td>—</td><td>130</td><td>+8.7%</td><td>+23.7%</td></tr>
+<tr><td>KRT</td><td>—</td><td>86</td><td>+8.4%</td><td>+31.4%</td></tr>
+<tr><td>MSBI</td><td>—</td><td>118</td><td>+8.3%</td><td>+9.2%</td></tr>
+<tr><td>CBL</td><td>—</td><td>135</td><td>+8.1%</td><td>+12.4%</td></tr>
+<tr><td>LBRX</td><td>—</td><td>109</td><td>+8.1%</td><td>+9.5%</td></tr>
+<tr><td>ETON</td><td>—</td><td>256</td><td>+8.0%</td><td>+30.7%</td></tr>
+<tr><td>LTH</td><td>—</td><td>88</td><td>+7.9%</td><td>+11.3%</td></tr>
+<tr><td>ECPG</td><td>—</td><td>163</td><td>+7.5%</td><td>+5.8%</td></tr>
+<tr><td>CIB</td><td>—</td><td>97</td><td>+6.5%</td><td>+12.4%</td></tr>
+<tr><td>ROST</td><td>電商零售</td><td>80</td><td>+6.5%</td><td>+17.7%</td></tr>
+<tr><td>DAO</td><td>—</td><td>99</td><td>+6.0%</td><td>+43.7%</td></tr>
+<tr><td>OOMA</td><td>—</td><td>119</td><td>+5.9%</td><td>+20.0%</td></tr>
+<tr><td>AMLX</td><td>—</td><td>138</td><td>+5.7%</td><td>+9.9%</td></tr>
+</tbody>
+      </table>
+      <div class="det-note">A級＝5D>5% 且 1M>5% 且 WA≥80，共 25 支。多屬非科技中小型，FBRX/SAIH/KNSA/PLSE 為小型高波動脈衝，WA 正但追高風險高；ROST 為少數具板塊廣度大型股。可點欄位排序。</div>
+    </div>
+<div class="sc-det" id="us-w">
+      <table class="det-tbl">
+        <thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="sortable" onclick="sortTable(this)">WA</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th></tr></thead>
+ <tbody>
+<tr><td>OTLY</td><td>—</td><td>2</td><td>+67.5%</td><td>+68.4%</td></tr>
+<tr><td>OPK</td><td>—</td><td>23</td><td>+36.4%</td><td>+7.8%</td></tr>
+<tr><td>THC</td><td>—</td><td>71</td><td>+33.7%</td><td>+39.0%</td></tr>
+<tr><td>GSHD</td><td>—</td><td>-4</td><td>+28.0%</td><td>+46.8%</td></tr>
+<tr><td>ACU</td><td>—</td><td>64</td><td>+27.7%</td><td>+21.7%</td></tr>
+<tr><td>ITRI</td><td>—</td><td>-4</td><td>+27.2%</td><td>+27.6%</td></tr>
+<tr><td>IP</td><td>金屬礦業</td><td>5</td><td>+21.3%</td><td>+13.8%</td></tr>
+<tr><td>IQV</td><td>醫材診斷</td><td>42</td><td>+20.5%</td><td>+27.1%</td></tr>
+<tr><td>SKYW</td><td>—</td><td>14</td><td>+19.5%</td><td>+14.5%</td></tr>
+<tr><td>AMTB</td><td>—</td><td>79</td><td>+18.2%</td><td>+20.3%</td></tr>
+<tr><td>MGRX</td><td>—</td><td>-55</td><td>+18.1%</td><td>+47.7%</td></tr>
+<tr><td>AWI</td><td>—</td><td>-3</td><td>+18.0%</td><td>+10.2%</td></tr>
+<tr><td>SW</td><td>—</td><td>25</td><td>+18.0%</td><td>+8.1%</td></tr>
+<tr><td>IMMR</td><td>—</td><td>21</td><td>+17.5%</td><td>+9.1%</td></tr>
+<tr><td>ALLE</td><td>商業服務營建</td><td>2</td><td>+17.4%</td><td>+15.4%</td></tr>
+<tr><td>OPHC</td><td>—</td><td>73</td><td>+17.3%</td><td>+21.6%</td></tr>
+<tr><td>CURV</td><td>—</td><td>43</td><td>+17.2%</td><td>+37.4%</td></tr>
+<tr><td>PAMT</td><td>—</td><td>72</td><td>+17.0%</td><td>+16.5%</td></tr>
+<tr><td>WPP</td><td>—</td><td>-9</td><td>+16.8%</td><td>+32.0%</td></tr>
+<tr><td>SI</td><td>—</td><td>59</td><td>+16.6%</td><td>+6.4%</td></tr>
+<tr><td>WAB</td><td>運輸物流</td><td>67</td><td>+16.0%</td><td>+13.5%</td></tr>
+<tr><td>LW</td><td>—</td><td>15</td><td>+15.6%</td><td>+20.9%</td></tr>
+<tr><td>CERT</td><td>—</td><td>9</td><td>+15.5%</td><td>+35.4%</td></tr>
+<tr><td>RELX</td><td>—</td><td>-19</td><td>+15.4%</td><td>+20.5%</td></tr>
+<tr><td>PAY</td><td>—</td><td>21</td><td>+15.3%</td><td>+45.7%</td></tr>
+<tr><td>ATRC</td><td>—</td><td>25</td><td>+15.2%</td><td>+31.7%</td></tr>
+<tr><td>FDS</td><td>軟體雲端資安</td><td>-14</td><td>+14.9%</td><td>+22.5%</td></tr>
+<tr><td>LILA</td><td>—</td><td>30</td><td>+14.9%</td><td>+16.5%</td></tr>
+<tr><td>SSNC</td><td>—</td><td>-4</td><td>+14.7%</td><td>+22.4%</td></tr>
+<tr><td>BSY</td><td>—</td><td>-31</td><td>+14.6%</td><td>+19.5%</td></tr>
+<tr><td>LMT</td><td>航太國防</td><td>32</td><td>+14.6%</td><td>+14.6%</td></tr>
+<tr><td>CDRE</td><td>—</td><td>9</td><td>+14.6%</td><td>+19.2%</td></tr>
+<tr><td>JILL</td><td>—</td><td>40</td><td>+14.3%</td><td>+17.0%</td></tr>
+<tr><td>TNET</td><td>—</td><td>44</td><td>+14.1%</td><td>+37.0%</td></tr>
+<tr><td>CBZ</td><td>—</td><td>1</td><td>+14.1%</td><td>+48.0%</td></tr>
+<tr><td>DGX</td><td>—</td><td>44</td><td>+14.1%</td><td>+12.4%</td></tr>
+<tr><td>TRI</td><td>—</td><td>-40</td><td>+13.9%</td><td>+23.2%</td></tr>
+<tr><td>VIA</td><td>—</td><td>-51</td><td>+13.9%</td><td>+17.8%</td></tr>
+<tr><td>WEX</td><td>—</td><td>19</td><td>+13.6%</td><td>+32.5%</td></tr>
+<tr><td>SONO</td><td>—</td><td>49</td><td>+13.6%</td><td>+23.8%</td></tr>
+<tr><td>GM</td><td>汽車居家</td><td>66</td><td>+13.6%</td><td>+15.6%</td></tr>
+<tr><td>WDAY</td><td>軟體雲端資安</td><td>-24</td><td>+13.1%</td><td>+28.6%</td></tr>
+<tr><td>AVTR</td><td>—</td><td>26</td><td>+13.0%</td><td>+20.8%</td></tr>
+<tr><td>GEF.B</td><td>—</td><td>74</td><td>+13.0%</td><td>+13.7%</td></tr>
+<tr><td>ETS</td><td>—</td><td>-23</td><td>+12.9%</td><td>+43.8%</td></tr>
+<tr><td>RTX</td><td>航太國防</td><td>42</td><td>+12.9%</td><td>+16.3%</td></tr>
+<tr><td>DUOL</td><td>—</td><td>-45</td><td>+12.8%</td><td>+15.8%</td></tr>
+<tr><td>PAG</td><td>—</td><td>44</td><td>+12.7%</td><td>+20.8%</td></tr>
+<tr><td>RYAN</td><td>—</td><td>-12</td><td>+12.5%</td><td>+18.3%</td></tr>
+<tr><td>GGG</td><td>—</td><td>-0</td><td>+12.5%</td><td>+7.6%</td></tr>
+<tr><td>LH</td><td>—</td><td>26</td><td>+12.5%</td><td>+15.8%</td></tr>
+<tr><td>PSN</td><td>—</td><td>-12</td><td>+12.4%</td><td>+21.8%</td></tr>
+<tr><td>PAYC</td><td>—</td><td>-17</td><td>+12.1%</td><td>+25.2%</td></tr>
+<tr><td>ANF</td><td>—</td><td>5</td><td>+12.1%</td><td>+12.7%</td></tr>
+<tr><td>PCTY</td><td>—</td><td>-12</td><td>+11.9%</td><td>+30.4%</td></tr>
+<tr><td>WWW</td><td>—</td><td>12</td><td>+11.8%</td><td>+21.8%</td></tr>
+<tr><td>FOUR</td><td>—</td><td>-33</td><td>+11.7%</td><td>+15.1%</td></tr>
+<tr><td>EXPE</td><td>餐旅</td><td>63</td><td>+11.6%</td><td>+12.6%</td></tr>
+<tr><td>ABG</td><td>—</td><td>13</td><td>+11.5%</td><td>+17.5%</td></tr>
+<tr><td>GDDY</td><td>軟體雲端資安</td><td>-25</td><td>+11.5%</td><td>+21.7%</td></tr>
+<tr><td>ROP</td><td>工業機械</td><td>-21</td><td>+11.5%</td><td>+15.6%</td></tr>
+<tr><td>FMAO</td><td>—</td><td>54</td><td>+11.5%</td><td>+13.0%</td></tr>
+<tr><td>MLKN</td><td>—</td><td>41</td><td>+11.4%</td><td>+18.2%</td></tr>
+<tr><td>BWFG</td><td>—</td><td>79</td><td>+11.2%</td><td>+11.9%</td></tr>
+<tr><td>HRB</td><td>—</td><td>-5</td><td>+11.2%</td><td>+20.7%</td></tr>
+<tr><td>BKNG</td><td>餐旅</td><td>-2</td><td>+11.1%</td><td>+9.8%</td></tr>
+<tr><td>AN</td><td>服飾休閒</td><td>17</td><td>+11.0%</td><td>+15.0%</td></tr>
+<tr><td>USCB</td><td>—</td><td>44</td><td>+10.9%</td><td>+10.3%</td></tr>
+<tr><td>ICFI</td><td>—</td><td>-1</td><td>+10.8%</td><td>+16.3%</td></tr>
+<tr><td>SON</td><td>—</td><td>43</td><td>+10.7%</td><td>+9.9%</td></tr>
+<tr><td>INCY</td><td>製藥</td><td>75</td><td>+10.7%</td><td>+14.2%</td></tr>
+<tr><td>AGCO</td><td>—</td><td>12</td><td>+10.7%</td><td>+5.4%</td></tr>
+<tr><td>BRO</td><td>—</td><td>-14</td><td>+10.5%</td><td>+14.7%</td></tr>
+<tr><td>FAF</td><td>—</td><td>37</td><td>+10.5%</td><td>+18.0%</td></tr>
+<tr><td>SPSC</td><td>—</td><td>-20</td><td>+10.4%</td><td>+16.4%</td></tr>
+<tr><td>NIQ</td><td>—</td><td>-5</td><td>+10.4%</td><td>+35.6%</td></tr>
+<tr><td>RBCAA</td><td>—</td><td>61</td><td>+10.2%</td><td>+12.6%</td></tr>
+<tr><td>TRU</td><td>—</td><td>-2</td><td>+10.2%</td><td>+19.1%</td></tr>
+<tr><td>LZ</td><td>—</td><td>-6</td><td>+10.2%</td><td>+33.1%</td></tr>
+<tr><td>GEF</td><td>—</td><td>41</td><td>+10.1%</td><td>+11.3%</td></tr>
+<tr><td>TMO</td><td>醫材診斷</td><td>25</td><td>+10.1%</td><td>+12.3%</td></tr>
+<tr><td>UL</td><td>—</td><td>2</td><td>+10.0%</td><td>+10.4%</td></tr>
+<tr><td>AGYS</td><td>—</td><td>8</td><td>+10.0%</td><td>+7.9%</td></tr>
+<tr><td>GRND</td><td>—</td><td>12</td><td>+9.9%</td><td>+15.8%</td></tr>
+<tr><td>HBT</td><td>—</td><td>60</td><td>+9.9%</td><td>+13.9%</td></tr>
+<tr><td>PRK</td><td>—</td><td>39</td><td>+9.8%</td><td>+12.4%</td></tr>
+<tr><td>GENI</td><td>—</td><td>-27</td><td>+9.8%</td><td>+17.7%</td></tr>
+<tr><td>ARDT</td><td>—</td><td>45</td><td>+9.8%</td><td>+17.9%</td></tr>
+<tr><td>FMNB</td><td>—</td><td>26</td><td>+9.7%</td><td>+8.3%</td></tr>
+<tr><td>BAX</td><td>醫材診斷</td><td>23</td><td>+9.7%</td><td>+10.6%</td></tr>
+<tr><td>BIO</td><td>—</td><td>21</td><td>+9.7%</td><td>+10.0%</td></tr>
+<tr><td>SOLV</td><td>醫療服務</td><td>25</td><td>+9.6%</td><td>+8.3%</td></tr>
+<tr><td>CMCO</td><td>—</td><td>10</td><td>+9.6%</td><td>+12.0%</td></tr>
+<tr><td>CRL</td><td>醫材診斷</td><td>55</td><td>+9.6%</td><td>+11.4%</td></tr>
+<tr><td>BLFS</td><td>—</td><td>63</td><td>+9.6%</td><td>+11.6%</td></tr>
+<tr><td>NBBK</td><td>—</td><td>36</td><td>+9.6%</td><td>+8.2%</td></tr>
+<tr><td>ZIP</td><td>—</td><td>-27</td><td>+9.5%</td><td>+8.4%</td></tr>
+<tr><td>BWIN</td><td>—</td><td>-26</td><td>+9.5%</td><td>+9.2%</td></tr>
+<tr><td>WTW</td><td>—</td><td>4</td><td>+9.5%</td><td>+19.1%</td></tr>
+<tr><td>PCAR</td><td>運輸物流</td><td>47</td><td>+9.5%</td><td>+14.5%</td></tr>
+<tr><td>SMBK</td><td>—</td><td>68</td><td>+9.3%</td><td>+10.7%</td></tr>
+<tr><td>ASIC</td><td>—</td><td>34</td><td>+9.3%</td><td>+8.1%</td></tr>
+<tr><td>CFBK</td><td>—</td><td>61</td><td>+9.2%</td><td>+14.8%</td></tr>
+<tr><td>GPN</td><td>交易所金融科技</td><td>19</td><td>+9.2%</td><td>+25.3%</td></tr>
+<tr><td>VLTO</td><td>—</td><td>-2</td><td>+9.2%</td><td>+9.7%</td></tr>
+<tr><td>CLMB</td><td>—</td><td>8</td><td>+9.1%</td><td>+26.1%</td></tr>
+<tr><td>JAKK</td><td>—</td><td>54</td><td>+9.1%</td><td>+11.4%</td></tr>
+<tr><td>KNSL</td><td>—</td><td>-12</td><td>+9.1%</td><td>+12.7%</td></tr>
+<tr><td>SF</td><td>—</td><td>17</td><td>+9.1%</td><td>+22.2%</td></tr>
+<tr><td>BPRN</td><td>—</td><td>43</td><td>+9.0%</td><td>+10.4%</td></tr>
+<tr><td>HNVR</td><td>—</td><td>35</td><td>+9.0%</td><td>+15.6%</td></tr>
+<tr><td>CXM</td><td>—</td><td>-19</td><td>+9.0%</td><td>+22.3%</td></tr>
+<tr><td>DBX</td><td>—</td><td>27</td><td>+9.0%</td><td>+20.3%</td></tr>
+<tr><td>NTNX</td><td>—</td><td>-3</td><td>+9.0%</td><td>+18.8%</td></tr>
+<tr><td>ENOV</td><td>—</td><td>20</td><td>+8.9%</td><td>+30.0%</td></tr>
+<tr><td>TCBX</td><td>—</td><td>22</td><td>+8.9%</td><td>+7.0%</td></tr>
+<tr><td>INTA</td><td>—</td><td>-8</td><td>+8.9%</td><td>+22.4%</td></tr>
+<tr><td>FICO</td><td>—</td><td>-1</td><td>+8.9%</td><td>+13.0%</td></tr>
+<tr><td>OMC</td><td>廣告遊戲</td><td>23</td><td>+8.8%</td><td>+18.0%</td></tr>
+<tr><td>AZTA</td><td>—</td><td>1</td><td>+8.8%</td><td>+13.5%</td></tr>
+<tr><td>STE</td><td>—</td><td>0</td><td>+8.8%</td><td>+6.8%</td></tr>
+<tr><td>MPB</td><td>—</td><td>44</td><td>+8.7%</td><td>+10.7%</td></tr>
+<tr><td>SRCE</td><td>—</td><td>62</td><td>+8.7%</td><td>+10.6%</td></tr>
+<tr><td>VRSK</td><td>軟體雲端資安</td><td>-14</td><td>+8.7%</td><td>+16.5%</td></tr>
+<tr><td>SIG</td><td>—</td><td>27</td><td>+8.6%</td><td>+12.0%</td></tr>
+<tr><td>FCCO</td><td>—</td><td>44</td><td>+8.6%</td><td>+5.7%</td></tr>
+<tr><td>MGYR</td><td>—</td><td>15</td><td>+8.6%</td><td>+6.7%</td></tr>
+<tr><td>ITW</td><td>工業機械</td><td>21</td><td>+8.5%</td><td>+10.2%</td></tr>
+<tr><td>YEXT</td><td>—</td><td>-10</td><td>+8.5%</td><td>+26.8%</td></tr>
+<tr><td>J</td><td>商業服務營建</td><td>4</td><td>+8.5%</td><td>+11.9%</td></tr>
+<tr><td>FCBC</td><td>—</td><td>43</td><td>+8.5%</td><td>+7.2%</td></tr>
+<tr><td>NKSH</td><td>—</td><td>45</td><td>+8.5%</td><td>+6.0%</td></tr>
+<tr><td>ZBRA</td><td>—</td><td>-3</td><td>+8.4%</td><td>+13.1%</td></tr>
+<tr><td>AVBC</td><td>—</td><td>55</td><td>+8.4%</td><td>+10.7%</td></tr>
+<tr><td>LCNB</td><td>—</td><td>54</td><td>+8.4%</td><td>+13.3%</td></tr>
+<tr><td>LAD</td><td>—</td><td>30</td><td>+8.3%</td><td>+22.7%</td></tr>
+<tr><td>ATHM</td><td>—</td><td>-6</td><td>+8.2%</td><td>+24.0%</td></tr>
+<tr><td>ALL</td><td>保險</td><td>47</td><td>+8.2%</td><td>+13.7%</td></tr>
+<tr><td>ICLR</td><td>—</td><td>56</td><td>+8.2%</td><td>+6.1%</td></tr>
+<tr><td>RLI</td><td>—</td><td>5</td><td>+8.1%</td><td>+13.1%</td></tr>
+<tr><td>SN</td><td>—</td><td>59</td><td>+8.1%</td><td>+10.2%</td></tr>
+<tr><td>BDX</td><td>醫材診斷</td><td>19</td><td>+8.1%</td><td>+6.7%</td></tr>
+<tr><td>EFX</td><td>交易所金融科技</td><td>-19</td><td>+8.1%</td><td>+18.0%</td></tr>
+<tr><td>RMNI</td><td>—</td><td>29</td><td>+8.0%</td><td>+13.2%</td></tr>
+<tr><td>LCID</td><td>—</td><td>-68</td><td>+7.9%</td><td>+33.5%</td></tr>
+<tr><td>GRPN</td><td>—</td><td>10</td><td>+7.9%</td><td>+24.3%</td></tr>
+<tr><td>HNI</td><td>—</td><td>-4</td><td>+7.8%</td><td>+11.3%</td></tr>
+<tr><td>SNN</td><td>—</td><td>3</td><td>+7.8%</td><td>+8.4%</td></tr>
+<tr><td>KO</td><td>食品飲料</td><td>32</td><td>+7.7%</td><td>+6.8%</td></tr>
+<tr><td>ABT</td><td>醫材診斷</td><td>-12</td><td>+7.6%</td><td>+14.0%</td></tr>
+<tr><td>JMSB</td><td>—</td><td>31</td><td>+7.5%</td><td>+7.2%</td></tr>
+<tr><td>FIVN</td><td>—</td><td>13</td><td>+7.5%</td><td>+27.2%</td></tr>
+<tr><td>AMCR</td><td>—</td><td>8</td><td>+7.5%</td><td>+8.5%</td></tr>
+<tr><td>TRV</td><td>保險</td><td>64</td><td>+7.5%</td><td>+21.3%</td></tr>
+<tr><td>CRAI</td><td>—</td><td>7</td><td>+7.4%</td><td>+23.2%</td></tr>
+<tr><td>QTWO</td><td>—</td><td>-15</td><td>+7.4%</td><td>+23.6%</td></tr>
+<tr><td>SPNT</td><td>—</td><td>42</td><td>+7.4%</td><td>+10.3%</td></tr>
+<tr><td>DPZ</td><td>—</td><td>-22</td><td>+7.4%</td><td>+17.5%</td></tr>
+<tr><td>CZNC</td><td>—</td><td>38</td><td>+7.4%</td><td>+6.9%</td></tr>
+<tr><td>SAH</td><td>—</td><td>67</td><td>+7.3%</td><td>+23.9%</td></tr>
+<tr><td>CHCO</td><td>—</td><td>26</td><td>+7.3%</td><td>+8.1%</td></tr>
+<tr><td>AMGN</td><td>製藥</td><td>35</td><td>+7.3%</td><td>+9.7%</td></tr>
+<tr><td>MCK</td><td>醫療服務</td><td>26</td><td>+7.3%</td><td>+16.5%</td></tr>
+<tr><td>ADP</td><td>硬體網通</td><td>-3</td><td>+7.3%</td><td>+18.2%</td></tr>
+<tr><td>KFY</td><td>—</td><td>31</td><td>+7.2%</td><td>+15.9%</td></tr>
+<tr><td>HG</td><td>—</td><td>76</td><td>+7.2%</td><td>+11.1%</td></tr>
+<tr><td>CTAS</td><td>商業服務營建</td><td>7</td><td>+7.2%</td><td>+25.0%</td></tr>
+<tr><td>DFIN</td><td>—</td><td>8</td><td>+7.2%</td><td>+29.7%</td></tr>
+<tr><td>MAN</td><td>—</td><td>57</td><td>+7.2%</td><td>+53.0%</td></tr>
+<tr><td>ROCK</td><td>—</td><td>-21</td><td>+7.2%</td><td>+5.7%</td></tr>
+<tr><td>GRMN</td><td>服飾休閒</td><td>19</td><td>+7.2%</td><td>+9.1%</td></tr>
+<tr><td>IDT</td><td>—</td><td>33</td><td>+7.1%</td><td>+18.4%</td></tr>
+<tr><td>FRBA</td><td>—</td><td>32</td><td>+7.1%</td><td>+7.9%</td></tr>
+<tr><td>STBA</td><td>—</td><td>55</td><td>+7.0%</td><td>+8.3%</td></tr>
+<tr><td>WLY</td><td>—</td><td>60</td><td>+7.0%</td><td>+12.7%</td></tr>
+<tr><td>MTD</td><td>醫材診斷</td><td>16</td><td>+7.0%</td><td>+9.9%</td></tr>
+<tr><td>BALL</td><td>金屬礦業</td><td>25</td><td>+6.9%</td><td>+8.2%</td></tr>
+<tr><td>GD</td><td>航太國防</td><td>28</td><td>+6.9%</td><td>+13.4%</td></tr>
+<tr><td>IR</td><td>工業機械</td><td>15</td><td>+6.9%</td><td>+6.3%</td></tr>
+<tr><td>PEBO</td><td>—</td><td>57</td><td>+6.9%</td><td>+9.6%</td></tr>
+<tr><td>ATR</td><td>—</td><td>4</td><td>+6.9%</td><td>+9.4%</td></tr>
+<tr><td>AJG</td><td>保險</td><td>2</td><td>+6.9%</td><td>+17.4%</td></tr>
+<tr><td>GPK</td><td>—</td><td>-40</td><td>+6.9%</td><td>+5.8%</td></tr>
+<tr><td>MMM</td><td>工業機械</td><td>30</td><td>+6.9%</td><td>+11.3%</td></tr>
+<tr><td>CHMG</td><td>—</td><td>76</td><td>+6.8%</td><td>+8.5%</td></tr>
+<tr><td>CALM</td><td>—</td><td>-4</td><td>+6.8%</td><td>+16.2%</td></tr>
+<tr><td>XYL</td><td>工業機械</td><td>-10</td><td>+6.8%</td><td>+7.3%</td></tr>
+<tr><td>FISI</td><td>—</td><td>72</td><td>+6.8%</td><td>+8.3%</td></tr>
+<tr><td>CXT</td><td>—</td><td>2</td><td>+6.8%</td><td>+12.2%</td></tr>
+<tr><td>GGB</td><td>—</td><td>71</td><td>+6.7%</td><td>+19.3%</td></tr>
+<tr><td>CAC</td><td>—</td><td>60</td><td>+6.7%</td><td>+6.5%</td></tr>
+<tr><td>FMBH</td><td>—</td><td>48</td><td>+6.6%</td><td>+9.2%</td></tr>
+<tr><td>ACOG</td><td>—</td><td>12</td><td>+6.6%</td><td>+29.4%</td></tr>
+<tr><td>OBK</td><td>—</td><td>64</td><td>+6.6%</td><td>+6.4%</td></tr>
+<tr><td>MTN</td><td>—</td><td>12</td><td>+6.6%</td><td>+13.9%</td></tr>
+<tr><td>MMSI</td><td>—</td><td>-3</td><td>+6.6%</td><td>+9.2%</td></tr>
+<tr><td>FNF</td><td>—</td><td>-1</td><td>+6.5%</td><td>+15.8%</td></tr>
+<tr><td>CBAN</td><td>—</td><td>40</td><td>+6.5%</td><td>+7.6%</td></tr>
+<tr><td>OSBC</td><td>—</td><td>56</td><td>+6.5%</td><td>+7.9%</td></tr>
+<tr><td>TOST</td><td>—</td><td>-20</td><td>+6.5%</td><td>+19.4%</td></tr>
+<tr><td>WK</td><td>—</td><td>-29</td><td>+6.5%</td><td>+19.3%</td></tr>
+<tr><td>PM</td><td>家用個護</td><td>29</td><td>+6.5%</td><td>+10.7%</td></tr>
+<tr><td>DEO</td><td>—</td><td>-5</td><td>+6.4%</td><td>+6.5%</td></tr>
+<tr><td>CBRE</td><td>房產服務</td><td>-4</td><td>+6.3%</td><td>+7.0%</td></tr>
+<tr><td>NDAQ</td><td>交易所金融科技</td><td>5</td><td>+6.3%</td><td>+22.1%</td></tr>
+<tr><td>VEEV</td><td>—</td><td>-22</td><td>+6.3%</td><td>+17.4%</td></tr>
+<tr><td>TOWN</td><td>—</td><td>16</td><td>+6.3%</td><td>+6.3%</td></tr>
+<tr><td>GABC</td><td>—</td><td>41</td><td>+6.3%</td><td>+7.1%</td></tr>
+<tr><td>SJM</td><td>食品飲料</td><td>21</td><td>+6.3%</td><td>+6.4%</td></tr>
+<tr><td>ABNB</td><td>餐旅</td><td>25</td><td>+6.2%</td><td>+5.2%</td></tr>
+<tr><td>CARS</td><td>—</td><td>20</td><td>+6.2%</td><td>+17.3%</td></tr>
+<tr><td>APPF</td><td>—</td><td>-38</td><td>+6.2%</td><td>+14.5%</td></tr>
+<tr><td>PAYX</td><td>硬體網通</td><td>-3</td><td>+6.2%</td><td>+19.0%</td></tr>
+<tr><td>HALO</td><td>—</td><td>44</td><td>+6.2%</td><td>+11.3%</td></tr>
+<tr><td>AON</td><td>—</td><td>14</td><td>+6.1%</td><td>+16.0%</td></tr>
+<tr><td>HMC</td><td>—</td><td>2</td><td>+6.0%</td><td>+12.9%</td></tr>
+<tr><td>SCHW</td><td>資產管理</td><td>16</td><td>+6.0%</td><td>+16.9%</td></tr>
+<tr><td>QCRH</td><td>—</td><td>48</td><td>+6.0%</td><td>+5.1%</td></tr>
+<tr><td>FBP</td><td>—</td><td>54</td><td>+6.0%</td><td>+11.1%</td></tr>
+<tr><td>BIP</td><td>—</td><td>36</td><td>+6.0%</td><td>+14.6%</td></tr>
+<tr><td>CCEP</td><td>—</td><td>22</td><td>+5.9%</td><td>+9.7%</td></tr>
+<tr><td>ACGL</td><td>保險</td><td>24</td><td>+5.9%</td><td>+9.2%</td></tr>
+<tr><td>SHOP</td><td>—</td><td>2</td><td>+5.9%</td><td>+11.5%</td></tr>
+<tr><td>KHC</td><td>食品飲料</td><td>7</td><td>+5.9%</td><td>+15.2%</td></tr>
+<tr><td>MRSH</td><td>—</td><td>2</td><td>+5.8%</td><td>+13.7%</td></tr>
+<tr><td>ORI</td><td>—</td><td>22</td><td>+5.8%</td><td>+7.7%</td></tr>
+<tr><td>ACIW</td><td>—</td><td>56</td><td>+5.8%</td><td>+21.7%</td></tr>
+<tr><td>RVLV</td><td>—</td><td>32</td><td>+5.8%</td><td>+12.9%</td></tr>
+<tr><td>JLL</td><td>—</td><td>26</td><td>+5.8%</td><td>+8.9%</td></tr>
+<tr><td>DCI</td><td>—</td><td>30</td><td>+5.7%</td><td>+7.7%</td></tr>
+<tr><td>ORRF</td><td>—</td><td>39</td><td>+5.7%</td><td>+5.8%</td></tr>
+<tr><td>JKHY</td><td>—</td><td>-4</td><td>+5.7%</td><td>+16.6%</td></tr>
+<tr><td>EG</td><td>—</td><td>27</td><td>+5.7%</td><td>+12.2%</td></tr>
+<tr><td>HAE</td><td>—</td><td>22</td><td>+5.7%</td><td>+6.8%</td></tr>
+<tr><td>MSA</td><td>—</td><td>5</td><td>+5.7%</td><td>+5.4%</td></tr>
+<tr><td>MTUS</td><td>—</td><td>40</td><td>+5.7%</td><td>+5.9%</td></tr>
+<tr><td>USPH</td><td>—</td><td>8</td><td>+5.7%</td><td>+14.9%</td></tr>
+<tr><td>MANH</td><td>—</td><td>-13</td><td>+5.7%</td><td>+22.0%</td></tr>
+<tr><td>CNMD</td><td>—</td><td>-6</td><td>+5.7%</td><td>+23.1%</td></tr>
+<tr><td>MMED</td><td>—</td><td>—</td><td>+5.6%</td><td>+23.9%</td></tr>
+<tr><td>SEIC</td><td>—</td><td>28</td><td>+5.6%</td><td>+18.2%</td></tr>
+<tr><td>AEBI</td><td>—</td><td>48</td><td>+5.6%</td><td>+5.1%</td></tr>
+<tr><td>CBNK</td><td>—</td><td>31</td><td>+5.6%</td><td>+7.3%</td></tr>
+<tr><td>WRB</td><td>保險</td><td>13</td><td>+5.6%</td><td>+6.9%</td></tr>
+<tr><td>EMBJ</td><td>—</td><td>22</td><td>+5.5%</td><td>+8.4%</td></tr>
+<tr><td>RJF</td><td>資產管理</td><td>14</td><td>+5.5%</td><td>+18.2%</td></tr>
+<tr><td>FVCB</td><td>—</td><td>56</td><td>+5.5%</td><td>+7.1%</td></tr>
+<tr><td>STVN</td><td>—</td><td>-11</td><td>+5.5%</td><td>+13.0%</td></tr>
+<tr><td>MDT</td><td>醫材診斷</td><td>-4</td><td>+5.5%</td><td>+7.3%</td></tr>
+<tr><td>ACNB</td><td>—</td><td>61</td><td>+5.5%</td><td>+6.9%</td></tr>
+<tr><td>COR</td><td>醫療服務</td><td>8</td><td>+5.5%</td><td>+11.7%</td></tr>
+<tr><td>ACT</td><td>—</td><td>39</td><td>+5.4%</td><td>+6.0%</td></tr>
+<tr><td>ELF</td><td>—</td><td>0</td><td>+5.3%</td><td>+24.7%</td></tr>
+<tr><td>ADUS</td><td>—</td><td>19</td><td>+5.2%</td><td>+23.0%</td></tr>
+<tr><td>KELYA</td><td>—</td><td>62</td><td>+5.2%</td><td>+26.9%</td></tr>
+<tr><td>CASS</td><td>—</td><td>48</td><td>+5.2%</td><td>+8.5%</td></tr>
+<tr><td>CNA</td><td>—</td><td>31</td><td>+5.1%</td><td>+14.4%</td></tr>
+<tr><td>MTG</td><td>—</td><td>20</td><td>+5.1%</td><td>+9.8%</td></tr>
+<tr><td>USNA</td><td>—</td><td>-2</td><td>+5.1%</td><td>+12.3%</td></tr>
+<tr><td>NEXN</td><td>—</td><td>27</td><td>+5.0%</td><td>+20.8%</td></tr>
+<tr><td>SYBT</td><td>—</td><td>26</td><td>+5.0%</td><td>+11.9%</td></tr>
+<tr><td>NMIH</td><td>—</td><td>22</td><td>+5.0%</td><td>+8.2%</td></tr>
+</tbody>
+      </table>
+      <div class="det-note">B級＝5D、1M 過關但 WA<80，共 262 支，待量能（WA/Rel Vol）確認再升級。</div>
+    </div>
+<div class="sc-det" id="us-tw">
+      <table class="det-tbl">
+        <thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="sortable" onclick="sortTable(this)">WA</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th></tr></thead>
+ <tbody>
+<tr><td>FIRY</td><td>—</td><td>-38</td><td>+11.6%</td><td>+3.4%</td></tr>
+<tr><td>W</td><td>—</td><td>34</td><td>+11.5%</td><td>+0.1%</td></tr>
+<tr><td>CNK</td><td>—</td><td>46</td><td>+11.4%</td><td>+4.8%</td></tr>
+<tr><td>SHW</td><td>化工特材</td><td>6</td><td>+11.2%</td><td>+3.0%</td></tr>
+<tr><td>DHR</td><td>醫材診斷</td><td>0</td><td>+11.2%</td><td>+1.5%</td></tr>
+<tr><td>MTW</td><td>—</td><td>30</td><td>+11.1%</td><td>+2.3%</td></tr>
+<tr><td>PKG</td><td>金屬礦業</td><td>35</td><td>+11.0%</td><td>+4.8%</td></tr>
+<tr><td>SYK</td><td>醫材診斷</td><td>-6</td><td>+10.2%</td><td>+4.2%</td></tr>
+<tr><td>RPM</td><td>化工特材</td><td>-2</td><td>+10.1%</td><td>-0.6%</td></tr>
+<tr><td>VZ</td><td>電信</td><td>14</td><td>+10.1%</td><td>+3.5%</td></tr>
+<tr><td>NWFL</td><td>—</td><td>41</td><td>+10.0%</td><td>+4.8%</td></tr>
+<tr><td>BF.B</td><td>—</td><td>4</td><td>+9.9%</td><td>+3.4%</td></tr>
+<tr><td>BF.A</td><td>—</td><td>5</td><td>+9.5%</td><td>+2.4%</td></tr>
+<tr><td>AXTA</td><td>化工特材</td><td>30</td><td>+9.2%</td><td>+2.7%</td></tr>
+<tr><td>DE</td><td>工業機械</td><td>33</td><td>+9.0%</td><td>+4.3%</td></tr>
+<tr><td>PNFP</td><td>—</td><td>24</td><td>+8.7%</td><td>+4.2%</td></tr>
+<tr><td>AVY</td><td>金屬礦業</td><td>1</td><td>+8.6%</td><td>+2.0%</td></tr>
+<tr><td>POLA</td><td>—</td><td>-31</td><td>+8.6%</td><td>-1.2%</td></tr>
+<tr><td>ACCO</td><td>—</td><td>29</td><td>+8.2%</td><td>+3.3%</td></tr>
+<tr><td>OPBK</td><td>—</td><td>29</td><td>+8.0%</td><td>+5.0%</td></tr>
+<tr><td>JHX</td><td>—</td><td>30</td><td>+8.0%</td><td>+1.0%</td></tr>
+<tr><td>ZBH</td><td>醫材診斷</td><td>7</td><td>+7.7%</td><td>+2.9%</td></tr>
+<tr><td>NSIT</td><td>—</td><td>24</td><td>+7.5%</td><td>+4.4%</td></tr>
+<tr><td>CIX</td><td>—</td><td>30</td><td>+7.2%</td><td>+3.3%</td></tr>
+<tr><td>TNL</td><td>—</td><td>34</td><td>+7.0%</td><td>+0.5%</td></tr>
+<tr><td>FAST</td><td>商業服務營建</td><td>9</td><td>+6.9%</td><td>+2.1%</td></tr>
+<tr><td>SWK</td><td>工業機械</td><td>45</td><td>+6.8%</td><td>+2.4%</td></tr>
+<tr><td>PSA</td><td>工商住宅REIT</td><td>22</td><td>+6.7%</td><td>+1.9%</td></tr>
+<tr><td>TISI</td><td>—</td><td>9</td><td>+6.5%</td><td>+4.4%</td></tr>
+<tr><td>JNJ</td><td>製藥</td><td>57</td><td>+6.4%</td><td>+4.7%</td></tr>
+<tr><td>MAS</td><td>商業服務營建</td><td>26</td><td>+6.2%</td><td>+2.1%</td></tr>
+<tr><td>TWI</td><td>—</td><td>-1</td><td>+6.2%</td><td>+2.7%</td></tr>
+<tr><td>RGEN</td><td>—</td><td>20</td><td>+6.1%</td><td>-1.1%</td></tr>
+<tr><td>A</td><td>醫材診斷</td><td>23</td><td>+5.8%</td><td>+3.3%</td></tr>
+<tr><td>GSK</td><td>—</td><td>35</td><td>+5.8%</td><td>+2.3%</td></tr>
+<tr><td>SHBI</td><td>—</td><td>65</td><td>+5.7%</td><td>+4.9%</td></tr>
+<tr><td>WGO</td><td>—</td><td>-6</td><td>+5.7%</td><td>+2.4%</td></tr>
+<tr><td>FTV</td><td>工業機械</td><td>37</td><td>+5.6%</td><td>+4.2%</td></tr>
+<tr><td>FELE</td><td>—</td><td>20</td><td>+5.6%</td><td>+1.7%</td></tr>
+<tr><td>RBA</td><td>—</td><td>12</td><td>+5.5%</td><td>+1.1%</td></tr>
+<tr><td>MCS</td><td>—</td><td>83</td><td>+5.5%</td><td>+0.2%</td></tr>
+<tr><td>TXRH</td><td>—</td><td>20</td><td>+5.4%</td><td>+4.2%</td></tr>
+<tr><td>GHC</td><td>—</td><td>30</td><td>+5.4%</td><td>+4.6%</td></tr>
+<tr><td>GIC</td><td>—</td><td>16</td><td>+5.3%</td><td>+3.5%</td></tr>
+<tr><td>SIBN</td><td>—</td><td>12</td><td>+5.2%</td><td>+3.5%</td></tr>
+<tr><td>ARTNA</td><td>—</td><td>9</td><td>+5.1%</td><td>+4.1%</td></tr>
+<tr><td>BHB</td><td>—</td><td>43</td><td>+5.1%</td><td>+2.3%</td></tr>
+<tr><td>BBY</td><td>—</td><td>38</td><td>+5.0%</td><td>+15.1%</td></tr>
+<tr><td>CPAY</td><td>—</td><td>29</td><td>+5.0%</td><td>+15.6%</td></tr>
+<tr><td>EVTC</td><td>—</td><td>-2</td><td>+5.0%</td><td>+15.1%</td></tr>
+<tr><td>FNRN</td><td>—</td><td>71</td><td>+4.9%</td><td>+6.1%</td></tr>
+<tr><td>ABM</td><td>—</td><td>15</td><td>+4.8%</td><td>+8.2%</td></tr>
+<tr><td>BMRN</td><td>—</td><td>12</td><td>+4.8%</td><td>+5.2%</td></tr>
+<tr><td>AFL</td><td>保險</td><td>33</td><td>+4.8%</td><td>+7.8%</td></tr>
+<tr><td>VTEX</td><td>—</td><td>-5</td><td>+4.8%</td><td>+8.2%</td></tr>
+<tr><td>BILL</td><td>—</td><td>12</td><td>+4.7%</td><td>+30.5%</td></tr>
+<tr><td>VRTS</td><td>—</td><td>-1</td><td>+4.7%</td><td>+15.9%</td></tr>
+<tr><td>WTRG</td><td>—</td><td>8</td><td>+4.6%</td><td>+5.3%</td></tr>
+<tr><td>SIRI</td><td>電信</td><td>59</td><td>+4.6%</td><td>+11.8%</td></tr>
+<tr><td>FRSH</td><td>—</td><td>-2</td><td>+4.6%</td><td>+13.5%</td></tr>
+<tr><td>CPK</td><td>—</td><td>16</td><td>+4.5%</td><td>+9.6%</td></tr>
+<tr><td>MA</td><td>—</td><td>4</td><td>+4.5%</td><td>+12.8%</td></tr>
+<tr><td>PRU</td><td>保險</td><td>29</td><td>+4.5%</td><td>+14.5%</td></tr>
+<tr><td>EEFT</td><td>—</td><td>-2</td><td>+4.5%</td><td>+17.5%</td></tr>
+<tr><td>SMTI</td><td>—</td><td>15</td><td>+4.5%</td><td>+11.6%</td></tr>
+<tr><td>ALRM</td><td>—</td><td>8</td><td>+4.4%</td><td>+17.6%</td></tr>
+<tr><td>SKWD</td><td>—</td><td>41</td><td>+4.4%</td><td>+6.0%</td></tr>
+<tr><td>PYPL</td><td>交易所金融科技</td><td>-2</td><td>+4.4%</td><td>+31.7%</td></tr>
+<tr><td>MET</td><td>保險</td><td>39</td><td>+4.4%</td><td>+13.4%</td></tr>
+<tr><td>ICUI</td><td>—</td><td>37</td><td>+4.4%</td><td>+11.8%</td></tr>
+<tr><td>BMY</td><td>製藥</td><td>43</td><td>+4.4%</td><td>+10.6%</td></tr>
+<tr><td>STRT</td><td>—</td><td>42</td><td>+4.4%</td><td>+7.2%</td></tr>
+<tr><td>KLC</td><td>—</td><td>24</td><td>+4.3%</td><td>+25.1%</td></tr>
+<tr><td>LPLA</td><td>—</td><td>-2</td><td>+4.3%</td><td>+27.4%</td></tr>
+<tr><td>BURL</td><td>—</td><td>42</td><td>+4.3%</td><td>+15.3%</td></tr>
+<tr><td>APAM</td><td>—</td><td>-5</td><td>+4.3%</td><td>+14.9%</td></tr>
+<tr><td>MFC</td><td>—</td><td>50</td><td>+4.2%</td><td>+10.8%</td></tr>
+<tr><td>HIPO</td><td>—</td><td>16</td><td>+4.2%</td><td>+10.3%</td></tr>
+<tr><td>ITGR</td><td>—</td><td>19</td><td>+4.2%</td><td>+6.9%</td></tr>
+<tr><td>L</td><td>保險</td><td>31</td><td>+4.2%</td><td>+5.4%</td></tr>
+<tr><td>BRC</td><td>—</td><td>35</td><td>+4.2%</td><td>+8.3%</td></tr>
+<tr><td>ETD</td><td>—</td><td>-11</td><td>+4.2%</td><td>+5.6%</td></tr>
+<tr><td>AXS</td><td>—</td><td>32</td><td>+4.2%</td><td>+9.7%</td></tr>
+<tr><td>PFIS</td><td>—</td><td>62</td><td>+4.1%</td><td>+7.3%</td></tr>
+<tr><td>RRBI</td><td>—</td><td>71</td><td>+4.1%</td><td>+11.2%</td></tr>
+<tr><td>JOYY</td><td>—</td><td>43</td><td>+4.1%</td><td>+12.3%</td></tr>
+<tr><td>RSKD</td><td>—</td><td>17</td><td>+4.1%</td><td>+6.3%</td></tr>
+<tr><td>WSBC</td><td>—</td><td>46</td><td>+4.0%</td><td>+8.3%</td></tr>
+<tr><td>NRC</td><td>—</td><td>94</td><td>+4.0%</td><td>+7.3%</td></tr>
+<tr><td>PCRX</td><td>—</td><td>25</td><td>+4.0%</td><td>+6.2%</td></tr>
+<tr><td>IPAR</td><td>—</td><td>26</td><td>+4.0%</td><td>+18.2%</td></tr>
+<tr><td>IART</td><td>—</td><td>80</td><td>+4.0%</td><td>+5.3%</td></tr>
+<tr><td>CTBI</td><td>—</td><td>53</td><td>+3.9%</td><td>+8.0%</td></tr>
+<tr><td>PRI</td><td>—</td><td>31</td><td>+3.9%</td><td>+13.3%</td></tr>
+<tr><td>CAG</td><td>食品飲料</td><td>-15</td><td>+3.9%</td><td>+9.6%</td></tr>
+<tr><td>STRW</td><td>—</td><td>41</td><td>+3.9%</td><td>+7.3%</td></tr>
+<tr><td>FLXS</td><td>—</td><td>100</td><td>+3.9%</td><td>+6.8%</td></tr>
+<tr><td>SBH</td><td>—</td><td>44</td><td>+3.9%</td><td>+7.0%</td></tr>
+<tr><td>MKL</td><td>—</td><td>7</td><td>+3.9%</td><td>+6.2%</td></tr>
+<tr><td>RYZ</td><td>—</td><td>51</td><td>+3.9%</td><td>+11.9%</td></tr>
+<tr><td>ESQ</td><td>—</td><td>40</td><td>+3.9%</td><td>+7.7%</td></tr>
+<tr><td>FBIZ</td><td>—</td><td>50</td><td>+3.8%</td><td>+7.6%</td></tr>
+<tr><td>SLF</td><td>—</td><td>48</td><td>+3.8%</td><td>+7.9%</td></tr>
+<tr><td>UNF</td><td>—</td><td>84</td><td>+3.8%</td><td>+12.9%</td></tr>
+<tr><td>UBSI</td><td>—</td><td>42</td><td>+3.8%</td><td>+6.0%</td></tr>
+<tr><td>SNA</td><td>工業機械</td><td>33</td><td>+3.8%</td><td>+5.6%</td></tr>
+<tr><td>AAPL</td><td>大型平台</td><td>67</td><td>+3.8%</td><td>+19.8%</td></tr>
+<tr><td>PJT</td><td>—</td><td>2</td><td>+3.8%</td><td>+14.2%</td></tr>
+<tr><td>UHA.B</td><td>—</td><td>38</td><td>+3.7%</td><td>+9.6%</td></tr>
+<tr><td>TRST</td><td>—</td><td>75</td><td>+3.7%</td><td>+5.7%</td></tr>
+<tr><td>PLUS</td><td>—</td><td>43</td><td>+3.7%</td><td>+16.0%</td></tr>
+<tr><td>ONC</td><td>—</td><td>12</td><td>+3.7%</td><td>+18.1%</td></tr>
+<tr><td>AMRX</td><td>—</td><td>136</td><td>+3.6%</td><td>+8.9%</td></tr>
+<tr><td>CWT</td><td>—</td><td>19</td><td>+3.6%</td><td>+6.9%</td></tr>
+<tr><td>EPR</td><td>—</td><td>24</td><td>+3.6%</td><td>+7.7%</td></tr>
+<tr><td>HQY</td><td>—</td><td>18</td><td>+3.5%</td><td>+14.4%</td></tr>
+<tr><td>HLN</td><td>—</td><td>8</td><td>+3.5%</td><td>+11.2%</td></tr>
+<tr><td>EHC</td><td>—</td><td>10</td><td>+3.5%</td><td>+14.5%</td></tr>
+<tr><td>JPM</td><td>銀行</td><td>28</td><td>+3.5%</td><td>+8.6%</td></tr>
+<tr><td>HOMB</td><td>—</td><td>19</td><td>+3.5%</td><td>+7.4%</td></tr>
+<tr><td>INSW</td><td>—</td><td>132</td><td>+3.5%</td><td>+17.7%</td></tr>
+<tr><td>TROW</td><td>資產管理</td><td>26</td><td>+3.5%</td><td>+10.3%</td></tr>
+<tr><td>AMP</td><td>資產管理</td><td>16</td><td>+3.5%</td><td>+20.7%</td></tr>
+<tr><td>CBK</td><td>—</td><td>52</td><td>+3.4%</td><td>+5.4%</td></tr>
+<tr><td>UHAL</td><td>—</td><td>44</td><td>+3.3%</td><td>+9.3%</td></tr>
+<tr><td>ACVA</td><td>—</td><td>9</td><td>+3.3%</td><td>+18.2%</td></tr>
+<tr><td>JAN</td><td>—</td><td>—</td><td>+3.3%</td><td>+12.0%</td></tr>
+<tr><td>BBSI</td><td>—</td><td>5</td><td>+3.2%</td><td>+13.8%</td></tr>
+<tr><td>SCSC</td><td>—</td><td>63</td><td>+3.2%</td><td>+12.6%</td></tr>
+<tr><td>NOMD</td><td>—</td><td>-17</td><td>+3.1%</td><td>+9.6%</td></tr>
+<tr><td>TRN</td><td>—</td><td>58</td><td>+3.1%</td><td>+5.4%</td></tr>
+<tr><td>V</td><td>—</td><td>13</td><td>+3.0%</td><td>+9.0%</td></tr>
+<tr><td>NBTB</td><td>—</td><td>38</td><td>+3.0%</td><td>+8.2%</td></tr>
+<tr><td>SMA</td><td>—</td><td>6</td><td>+3.0%</td><td>+5.8%</td></tr>
+<tr><td>GIII</td><td>—</td><td>58</td><td>+2.9%</td><td>+8.1%</td></tr>
+<tr><td>IGIC</td><td>—</td><td>29</td><td>+2.9%</td><td>+7.7%</td></tr>
+<tr><td>NWBI</td><td>—</td><td>41</td><td>+2.9%</td><td>+5.0%</td></tr>
+<tr><td>ESNT</td><td>—</td><td>20</td><td>+2.9%</td><td>+5.3%</td></tr>
+<tr><td>NSP</td><td>—</td><td>75</td><td>+2.9%</td><td>+26.9%</td></tr>
+<tr><td>CON</td><td>—</td><td>81</td><td>+2.9%</td><td>+8.3%</td></tr>
+<tr><td>CFR</td><td>—</td><td>41</td><td>+2.9%</td><td>+7.6%</td></tr>
+<tr><td>TWFG</td><td>—</td><td>22</td><td>+2.8%</td><td>+16.6%</td></tr>
+<tr><td>EAT</td><td>—</td><td>44</td><td>+2.8%</td><td>+15.6%</td></tr>
+<tr><td>CCK</td><td>—</td><td>30</td><td>+2.7%</td><td>+9.6%</td></tr>
+<tr><td>CHE</td><td>—</td><td>30</td><td>+2.7%</td><td>+11.7%</td></tr>
+<tr><td>IBEX</td><td>—</td><td>12</td><td>+2.7%</td><td>+19.2%</td></tr>
+<tr><td>EBC</td><td>—</td><td>55</td><td>+2.7%</td><td>+6.6%</td></tr>
+<tr><td>RPRX</td><td>—</td><td>69</td><td>+2.6%</td><td>+6.7%</td></tr>
+<tr><td>NREF</td><td>—</td><td>30</td><td>+2.6%</td><td>+11.4%</td></tr>
+<tr><td>CRBG</td><td>—</td><td>3</td><td>+2.4%</td><td>+12.9%</td></tr>
+<tr><td>LNC</td><td>—</td><td>19</td><td>+2.4%</td><td>+16.6%</td></tr>
+<tr><td>PRGS</td><td>—</td><td>-4</td><td>+2.3%</td><td>+21.8%</td></tr>
+<tr><td>CNXN</td><td>—</td><td>48</td><td>+2.3%</td><td>+16.4%</td></tr>
+<tr><td>CTVA</td><td>—</td><td>31</td><td>+2.3%</td><td>+7.7%</td></tr>
+<tr><td>ALRS</td><td>—</td><td>69</td><td>+2.2%</td><td>+7.5%</td></tr>
+<tr><td>CAKE</td><td>—</td><td>66</td><td>+2.2%</td><td>+10.7%</td></tr>
+<tr><td>SFD</td><td>—</td><td>15</td><td>+2.2%</td><td>+7.9%</td></tr>
+<tr><td>ECO</td><td>—</td><td>133</td><td>+2.2%</td><td>+17.0%</td></tr>
+<tr><td>CBC</td><td>—</td><td>47</td><td>+2.2%</td><td>+8.7%</td></tr>
+<tr><td>NBIX</td><td>—</td><td>49</td><td>+2.1%</td><td>+8.5%</td></tr>
+<tr><td>EIX</td><td>電力核能</td><td>51</td><td>+2.1%</td><td>+5.4%</td></tr>
+<tr><td>OHI</td><td>—</td><td>30</td><td>+2.1%</td><td>+7.4%</td></tr>
+<tr><td>NU</td><td>—</td><td>14</td><td>+2.0%</td><td>+11.5%</td></tr>
+<tr><td>CCBG</td><td>—</td><td>41</td><td>+1.9%</td><td>+5.7%</td></tr>
+<tr><td>HR</td><td>—</td><td>36</td><td>+1.9%</td><td>+6.7%</td></tr>
+<tr><td>BZH</td><td>—</td><td>68</td><td>+1.8%</td><td>+14.4%</td></tr>
+<tr><td>CDP</td><td>—</td><td>45</td><td>+1.7%</td><td>+5.3%</td></tr>
+<tr><td>HIW</td><td>—</td><td>30</td><td>+1.7%</td><td>+12.5%</td></tr>
+<tr><td>MGA</td><td>—</td><td>55</td><td>+1.7%</td><td>+6.9%</td></tr>
+<tr><td>TAK</td><td>—</td><td>23</td><td>+1.7%</td><td>+10.1%</td></tr>
+<tr><td>PLGO</td><td>—</td><td>75</td><td>+1.6%</td><td>+5.0%</td></tr>
+<tr><td>VTRS</td><td>—</td><td>99</td><td>+1.5%</td><td>+9.4%</td></tr>
+<tr><td>ITIC</td><td>—</td><td>39</td><td>+1.5%</td><td>+6.0%</td></tr>
+<tr><td>PNTG</td><td>—</td><td>95</td><td>+1.3%</td><td>+17.0%</td></tr>
+<tr><td>COTY</td><td>—</td><td>-31</td><td>+1.1%</td><td>+44.8%</td></tr>
+<tr><td>MBWM</td><td>—</td><td>39</td><td>+1.1%</td><td>+5.7%</td></tr>
+<tr><td>JAZZ</td><td>—</td><td>114</td><td>+1.1%</td><td>+11.7%</td></tr>
+<tr><td>HIG</td><td>保險</td><td>16</td><td>+1.0%</td><td>+7.1%</td></tr>
+<tr><td>SBRA</td><td>—</td><td>25</td><td>+1.0%</td><td>+13.9%</td></tr>
+<tr><td>DOC</td><td>—</td><td>44</td><td>+1.0%</td><td>+5.9%</td></tr>
+<tr><td>MDXG</td><td>—</td><td>-35</td><td>+0.9%</td><td>+10.9%</td></tr>
+<tr><td>DVA</td><td>—</td><td>67</td><td>+0.9%</td><td>+10.3%</td></tr>
+<tr><td>AGO</td><td>—</td><td>3</td><td>+0.9%</td><td>+7.2%</td></tr>
+<tr><td>BLLN</td><td>—</td><td>51</td><td>+0.8%</td><td>+13.1%</td></tr>
+<tr><td>VTR</td><td>工商住宅REIT</td><td>47</td><td>+0.5%</td><td>+10.2%</td></tr>
+<tr><td>CTRN</td><td>—</td><td>134</td><td>+0.4%</td><td>+13.5%</td></tr>
+<tr><td>NHP</td><td>—</td><td>—</td><td>+0.4%</td><td>+7.8%</td></tr>
+<tr><td>HTO</td><td>—</td><td>34</td><td>+0.4%</td><td>+5.9%</td></tr>
+<tr><td>BZ</td><td>—</td><td>-15</td><td>+0.2%</td><td>+19.0%</td></tr>
+<tr><td>OFG</td><td>—</td><td>36</td><td>+0.2%</td><td>+8.4%</td></tr>
+<tr><td>PMN</td><td>—</td><td>-24</td><td>+0.2%</td><td>+37.9%</td></tr>
+<tr><td>AHR</td><td>—</td><td>48</td><td>+0.2%</td><td>+13.2%</td></tr>
+<tr><td>ASH</td><td>—</td><td>37</td><td>-0.7%</td><td>+6.4%</td></tr>
+<tr><td>WELL</td><td>工商住宅REIT</td><td>49</td><td>-1.1%</td><td>+7.1%</td></tr>
+<tr><td>DINO</td><td>—</td><td>122</td><td>-2.6%</td><td>+30.8%</td></tr>
+<tr><td>IQ</td><td>—</td><td>-36</td><td>+0.0%</td><td>+26.8%</td></tr>
+<tr><td>RPC</td><td>—</td><td>-21</td><td>+0.0%</td><td>+13.8%</td></tr>
+</tbody>
+      </table>
+      <div class="det-note">C級＝僅單一條件命中，共 197 支，觀察池不操作。</div>
+    </div>
+<div class="sc-det" id="us-x">
+      <table class="det-tbl">
+        <thead><tr><th class="sortable" onclick="sortTable(this)">Ticker</th><th class="sortable" onclick="sortTable(this)">產業</th><th class="sortable" onclick="sortTable(this)">WA</th><th class="sortable" onclick="sortTable(this)">5D%</th><th class="sortable" onclick="sortTable(this)">1M%</th></tr></thead>
+ <tbody>
+<tr><td>AWK</td><td>水氣公用</td><td>-1</td><td>+5.0%</td><td>+4.0%</td></tr>
+<tr><td>HTB</td><td>—</td><td>35</td><td>+4.9%</td><td>+3.9%</td></tr>
+<tr><td>SYY</td><td>必需零售</td><td>10</td><td>+4.9%</td><td>+2.9%</td></tr>
+<tr><td>CLX</td><td>家用個護</td><td>-17</td><td>+4.8%</td><td>+2.9%</td></tr>
+<tr><td>MPLX</td><td>—</td><td>16</td><td>+4.8%</td><td>+4.7%</td></tr>
+<tr><td>PFGC</td><td>—</td><td>24</td><td>+4.7%</td><td>+4.6%</td></tr>
+<tr><td>BYD</td><td>—</td><td>12</td><td>+4.7%</td><td>+1.7%</td></tr>
+<tr><td>RHP</td><td>—</td><td>58</td><td>+4.6%</td><td>+2.9%</td></tr>
+<tr><td>BRK.B</td><td>保險</td><td>9</td><td>+4.6%</td><td>+2.8%</td></tr>
+<tr><td>EXR</td><td>工商住宅REIT</td><td>12</td><td>+4.6%</td><td>+2.0%</td></tr>
+<tr><td>MRK</td><td>製藥</td><td>63</td><td>+4.4%</td><td>+2.5%</td></tr>
+<tr><td>SPG</td><td>工商住宅REIT</td><td>49</td><td>+4.4%</td><td>+4.3%</td></tr>
+<tr><td>CHD</td><td>家用個護</td><td>9</td><td>+4.4%</td><td>+0.4%</td></tr>
+<tr><td>RCKY</td><td>—</td><td>49</td><td>+4.3%</td><td>+3.5%</td></tr>
+<tr><td>PKBK</td><td>—</td><td>69</td><td>+4.2%</td><td>+3.8%</td></tr>
+<tr><td>KOF</td><td>—</td><td>29</td><td>+4.2%</td><td>+1.5%</td></tr>
+<tr><td>HST</td><td>—</td><td>68</td><td>+4.2%</td><td>+1.6%</td></tr>
+<tr><td>OSK</td><td>—</td><td>17</td><td>+4.2%</td><td>+0.6%</td></tr>
+<tr><td>TGT</td><td>電商零售</td><td>53</td><td>+4.1%</td><td>+2.7%</td></tr>
+<tr><td>YORW</td><td>—</td><td>5</td><td>+4.1%</td><td>+3.7%</td></tr>
+<tr><td>RNR</td><td>—</td><td>40</td><td>+4.1%</td><td>+4.6%</td></tr>
+<tr><td>HBCP</td><td>—</td><td>42</td><td>+4.1%</td><td>+3.2%</td></tr>
+<tr><td>BFST</td><td>—</td><td>42</td><td>+4.0%</td><td>+4.1%</td></tr>
+<tr><td>BHRB</td><td>—</td><td>32</td><td>+4.0%</td><td>+3.8%</td></tr>
+<tr><td>CUBE</td><td>工商住宅REIT</td><td>10</td><td>+3.9%</td><td>+3.0%</td></tr>
+<tr><td>CLW</td><td>—</td><td>-14</td><td>+3.9%</td><td>+4.2%</td></tr>
+<tr><td>UTL</td><td>—</td><td>13</td><td>+3.8%</td><td>+4.0%</td></tr>
+<tr><td>UVV</td><td>—</td><td>2</td><td>+3.8%</td><td>+1.8%</td></tr>
+<tr><td>WTBA</td><td>—</td><td>55</td><td>+3.7%</td><td>+3.9%</td></tr>
+<tr><td>LEVI</td><td>—</td><td>34</td><td>+3.7%</td><td>+3.8%</td></tr>
+<tr><td>THFF</td><td>—</td><td>56</td><td>+3.6%</td><td>+2.9%</td></tr>
+<tr><td>CZFS</td><td>—</td><td>49</td><td>+3.5%</td><td>+4.2%</td></tr>
+<tr><td>MAC</td><td>—</td><td>70</td><td>+3.4%</td><td>+2.6%</td></tr>
+<tr><td>MSEX</td><td>—</td><td>13</td><td>+3.3%</td><td>+4.3%</td></tr>
+<tr><td>CNP</td><td>電力核能</td><td>15</td><td>+3.2%</td><td>-2.1%</td></tr>
+<tr><td>ES</td><td>電力核能</td><td>16</td><td>+3.2%</td><td>+2.6%</td></tr>
+<tr><td>CCNE</td><td>—</td><td>59</td><td>+3.1%</td><td>+4.4%</td></tr>
+<tr><td>EBF</td><td>—</td><td>25</td><td>+3.0%</td><td>+0.0%</td></tr>
+<tr><td>HOPE</td><td>—</td><td>47</td><td>+3.0%</td><td>+3.9%</td></tr>
+<tr><td>PROV</td><td>—</td><td>16</td><td>+2.9%</td><td>+2.3%</td></tr>
+<tr><td>ABBV</td><td>製藥</td><td>37</td><td>+2.8%</td><td>+3.9%</td></tr>
+<tr><td>DUK</td><td>電力核能</td><td>6</td><td>+2.6%</td><td>+0.7%</td></tr>
+<tr><td>FE</td><td>電力核能</td><td>14</td><td>+2.6%</td><td>+2.4%</td></tr>
+<tr><td>LKFN</td><td>—</td><td>6</td><td>+2.6%</td><td>+1.6%</td></tr>
+<tr><td>VSXY</td><td>—</td><td>297</td><td>+2.5%</td><td>+0.9%</td></tr>
+<tr><td>MO</td><td>家用個護</td><td>24</td><td>+2.5%</td><td>+1.4%</td></tr>
+<tr><td>NJR</td><td>—</td><td>33</td><td>+2.5%</td><td>+3.9%</td></tr>
+<tr><td>AFG</td><td>—</td><td>18</td><td>+2.4%</td><td>+4.1%</td></tr>
+<tr><td>SFBS</td><td>—</td><td>21</td><td>+2.4%</td><td>+1.6%</td></tr>
+<tr><td>CIVB</td><td>—</td><td>54</td><td>+2.4%</td><td>+2.2%</td></tr>
+<tr><td>CFFN</td><td>—</td><td>54</td><td>+2.1%</td><td>+3.5%</td></tr>
+<tr><td>MVBF</td><td>—</td><td>33</td><td>+2.1%</td><td>+2.7%</td></tr>
+<tr><td>AIT</td><td>—</td><td>39</td><td>+2.0%</td><td>+3.2%</td></tr>
+<tr><td>OGE</td><td>—</td><td>10</td><td>+2.0%</td><td>-0.6%</td></tr>
+<tr><td>FBLA</td><td>—</td><td>38</td><td>+2.0%</td><td>+2.2%</td></tr>
+<tr><td>FCF</td><td>—</td><td>36</td><td>+1.9%</td><td>+4.1%</td></tr>
+<tr><td>XHR</td><td>—</td><td>84</td><td>+1.8%</td><td>+4.9%</td></tr>
+<tr><td>SPB</td><td>—</td><td>74</td><td>+1.8%</td><td>+3.5%</td></tr>
+<tr><td>PCG</td><td>水氣公用</td><td>23</td><td>+1.7%</td><td>+2.3%</td></tr>
+<tr><td>CLDT</td><td>—</td><td>128</td><td>+1.6%</td><td>+0.7%</td></tr>
+<tr><td>CPF</td><td>—</td><td>52</td><td>+1.6%</td><td>+4.9%</td></tr>
+<tr><td>RLJ</td><td>—</td><td>90</td><td>+1.6%</td><td>+3.3%</td></tr>
+<tr><td>HBNC</td><td>—</td><td>40</td><td>+1.5%</td><td>+2.1%</td></tr>
+<tr><td>FTS</td><td>—</td><td>17</td><td>+1.3%</td><td>+0.2%</td></tr>
+<tr><td>KRNY</td><td>—</td><td>65</td><td>+1.1%</td><td>+3.8%</td></tr>
+<tr><td>ISTR</td><td>—</td><td>38</td><td>+0.9%</td><td>+0.9%</td></tr>
+<tr><td>PK</td><td>—</td><td>57</td><td>+0.9%</td><td>+2.8%</td></tr>
+<tr><td>DRH</td><td>—</td><td>78</td><td>+0.8%</td><td>+4.8%</td></tr>
+<tr><td>IBN</td><td>—</td><td>-5</td><td>+0.7%</td><td>+2.4%</td></tr>
+<tr><td>AFBI</td><td>—</td><td>22</td><td>+0.7%</td><td>+1.7%</td></tr>
+<tr><td>TECH</td><td>—</td><td>34</td><td>+0.6%</td><td>+1.5%</td></tr>
+<tr><td>KIM</td><td>工商住宅REIT</td><td>30</td><td>+0.5%</td><td>+1.4%</td></tr>
+<tr><td>WPC</td><td>—</td><td>16</td><td>+0.5%</td><td>+2.4%</td></tr>
+<tr><td>FRT</td><td>工商住宅REIT</td><td>40</td><td>+0.4%</td><td>+0.8%</td></tr>
+<tr><td>PAYO</td><td>—</td><td>10</td><td>+0.4%</td><td>+0.3%</td></tr>
+<tr><td>SKT</td><td>—</td><td>44</td><td>+0.4%</td><td>+4.0%</td></tr>
+<tr><td>FSEA</td><td>—</td><td>20</td><td>+0.4%</td><td>+0.4%</td></tr>
+<tr><td>EMIS</td><td>—</td><td>—</td><td>+0.4%</td><td>+0.4%</td></tr>
+<tr><td>LPRO</td><td>—</td><td>51</td><td>+0.3%</td><td>+1.0%</td></tr>
+<tr><td>APAC</td><td>—</td><td>—</td><td>+0.3%</td><td>+0.4%</td></tr>
+<tr><td>ANSC</td><td>—</td><td>5</td><td>+0.3%</td><td>+0.5%</td></tr>
+<tr><td>CHCT</td><td>—</td><td>28</td><td>+0.2%</td><td>+3.8%</td></tr>
+<tr><td>HRI</td><td>—</td><td>21</td><td>+0.2%</td><td>-2.0%</td></tr>
+<tr><td>SOUL</td><td>—</td><td>3</td><td>+0.1%</td><td>+0.4%</td></tr>
+<tr><td>SZZL</td><td>—</td><td>3</td><td>+0.1%</td><td>+0.2%</td></tr>
+<tr><td>EA</td><td>廣告遊戲</td><td>26</td><td>-0.1%</td><td>+1.8%</td></tr>
+<tr><td>CLST</td><td>—</td><td>32</td><td>-0.1%</td><td>-0.6%</td></tr>
+<tr><td>PKOH</td><td>—</td><td>152</td><td>-0.3%</td><td>+0.2%</td></tr>
+<tr><td>CURB</td><td>—</td><td>47</td><td>-0.3%</td><td>-0.0%</td></tr>
+<tr><td>RAPP</td><td>—</td><td>110</td><td>-1.4%</td><td>+4.7%</td></tr>
+<tr><td>CTRE</td><td>—</td><td>32</td><td>-1.5%</td><td>+4.7%</td></tr>
+<tr><td>FMX</td><td>—</td><td>44</td><td>-2.0%</td><td>-0.9%</td></tr>
+<tr><td>PII</td><td>—</td><td>39</td><td>-2.5%</td><td>-1.3%</td></tr>
+<tr><td>MESH</td><td>—</td><td>—</td><td>+0.0%</td><td>+0.2%</td></tr>
+</tbody>
+      </table>
+      <div class="det-note">弱勢＝三條件皆未過，共 94 支（此處列 3個月新高清單內的相對落後者）。</div>
+    </div>
+</div>
+
+<div id="sec-judge" class="sec-lbl" style="margin-top:36px;">完整研判</div>
+<div style="font-size:calc(var(--fs)*.82);color:var(--dim);margin:6px 0 10px">11 大類板塊輪動（依均5D 排序）。點左側板塊看成分股明細。資金主線：半導體/資訊科技流出 → 非必需消費・原材料・醫療・金融承接（輪動，非全面撤退）。</div>
+<div class="other-split">
+  <div class="other-list"><div class="cat-hdr" onclick="togOther(this,'other-det-0')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 非必需消費</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--green)">+4.6%</span>｜月+2.8%｜N54</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-1')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 原材料</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--green)">+4.4%</span>｜月+2.8%｜N28</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-2')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 醫療保健</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--green)">+4.3%</span>｜月+4.6%｜N52</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-3')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 金融</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--yellow)">+2.9%</span>｜月+8.6%｜N67</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-4')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 工業</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--yellow)">+2.9%</span>｜月+0.8%｜N68</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-5')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 必需消費</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--yellow)">+2.6%</span>｜月+3.0%｜N32</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-6')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 房地產</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--yellow)">+1.6%</span>｜月+1.4%｜N30</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-7')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 通訊服務</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--yellow)">+1.5%</span>｜月+3.4%｜N24</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-8')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">🌱萌芽期 公用事業</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--yellow)">+1.3%</span>｜月-1.5%｜N30</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-9')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">➡整理期 資訊科技</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--yellow)">+0.3%</span>｜月-1.9%｜N76</span></div><div class="cat-hdr" onclick="togOther(this,'other-det-10')" style="padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;gap:8px;">
+  <span style="font-weight:600">➡整理期 能源</span>
+  <span class="cat-hdr-meta">均5D <span style="color:var(--red)">-1.1%</span>｜月+3.9%｜N23</span></div></div>
+  <div class="other-detail-panel" id="other-detail-panel"><div class="other-det-placeholder">← 點左側板塊查看成分股</div><div class="other-det-item" id="other-det-0">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>GM</td><td style='color:var(--dim)'>General Motors</td><td style='text-align:right'>+19.3%</td><td style='text-align:right'>+16.8%</td></tr><tr><td>HAS</td><td style='color:var(--dim)'>Hasbro</td><td style='text-align:right'>+18.2%</td><td style='text-align:right'>+14.1%</td></tr><tr><td>RCL</td><td style='color:var(--dim)'>Royal Caribbean Cruise</td><td style='text-align:right'>+12.9%</td><td style='text-align:right'>+0.3%</td></tr><tr><td>PVH</td><td style='color:var(--dim)'>PVH Corp</td><td style='text-align:right'>+12.7%</td><td style='text-align:right'>+18.6%</td></tr><tr><td>CPRT</td><td style='color:var(--dim)'>Copart</td><td style='text-align:right'>+11.8%</td><td style='text-align:right'>+9.2%</td></tr><tr><td>EXPE</td><td style='color:var(--dim)'>Expedia Group</td><td style='text-align:right'>+11.8%</td><td style='text-align:right'>+11.5%</td></tr><tr><td>AN</td><td style='color:var(--dim)'>AutoNation</td><td style='text-align:right'>+11.5%</td><td style='text-align:right'>+16.7%</td></tr><tr><td>BKNG</td><td style='color:var(--dim)'>Booking Holdings</td><td style='text-align:right'>+11.2%</td><td style='text-align:right'>+9.3%</td></tr><tr><td>PHM</td><td style='color:var(--dim)'>PulteGroup</td><td style='text-align:right'>+9.6%</td><td style='text-align:right'>-2.3%</td></tr><tr><td>MHK</td><td style='color:var(--dim)'>Mohawk Industries</td><td style='text-align:right'>+8.6%</td><td style='text-align:right'>-1.4%</td></tr><tr><td>CCL</td><td style='color:var(--dim)'>Carnival Corp</td><td style='text-align:right'>+8.6%</td><td style='text-align:right'>-3.3%</td></tr><tr><td>VFC</td><td style='color:var(--dim)'>VF Corp</td><td style='text-align:right'>+8.3%</td><td style='text-align:right'>+9.3%</td></tr><tr><td>ORLY</td><td style='color:var(--dim)'>O&#x27;Reilly Automoti</td><td style='text-align:right'>+8.0%</td><td style='text-align:right'>+1.1%</td></tr><tr><td>F</td><td style='color:var(--dim)'>Ford Motor</td><td style='text-align:right'>+7.1%</td><td style='text-align:right'>+6.7%</td></tr><tr><td>TPR</td><td style='color:var(--dim)'>Tapestry</td><td style='text-align:right'>+7.1%</td><td style='text-align:right'>+3.0%</td></tr><tr><td>LOW</td><td style='color:var(--dim)'>Lowe&#x27;s Companies</td><td style='text-align:right'>+6.8%</td><td style='text-align:right'>-0.6%</td></tr><tr><td>ROST</td><td style='color:var(--dim)'>Ross Stores</td><td style='text-align:right'>+6.6%</td><td style='text-align:right'>+20.2%</td></tr><tr><td>LEA</td><td style='color:var(--dim)'>Lear Corp</td><td style='text-align:right'>+6.2%</td><td style='text-align:right'>+11.2%</td></tr><tr><td>LKQ</td><td style='color:var(--dim)'>LKQ Corp</td><td style='text-align:right'>+6.2%</td><td style='text-align:right'>+1.7%</td></tr><tr><td>GPC</td><td style='color:var(--dim)'>Genuine Parts</td><td style='text-align:right'>+6.1%</td><td style='text-align:right'>+10.7%</td></tr><tr><td>LEN</td><td style='color:var(--dim)'>Lennar Corp</td><td style='text-align:right'>+5.9%</td><td style='text-align:right'>-3.5%</td></tr><tr><td>ABNB</td><td style='color:var(--dim)'>Airbnb</td><td style='text-align:right'>+5.8%</td><td style='text-align:right'>+4.1%</td></tr><tr><td>LVS</td><td style='color:var(--dim)'>Las Vegas Sands</td><td style='text-align:right'>+5.5%</td><td style='text-align:right'>+4.1%</td></tr><tr><td>KMX</td><td style='color:var(--dim)'>CarMax</td><td style='text-align:right'>+5.5%</td><td style='text-align:right'>+10.8%</td></tr><tr><td>MAR</td><td style='color:var(--dim)'>Marriott International</td><td style='text-align:right'>+4.7%</td><td style='text-align:right'>+2.3%</td></tr><tr><td>DHI</td><td style='color:var(--dim)'>D.R. Horton</td><td style='text-align:right'>+4.6%</td><td style='text-align:right'>-7.9%</td></tr><tr><td>AZO</td><td style='color:var(--dim)'>AutoZone</td><td style='text-align:right'>+4.3%</td><td style='text-align:right'>-1.1%</td></tr><tr><td>APTV</td><td style='color:var(--dim)'>Aptiv</td><td style='text-align:right'>+3.8%</td><td style='text-align:right'>+0.3%</td></tr><tr><td>GRMN</td><td style='color:var(--dim)'>Garmin</td><td style='text-align:right'>+3.8%</td><td style='text-align:right'>+8.5%</td></tr><tr><td>HD</td><td style='color:var(--dim)'>Home Depot</td><td style='text-align:right'>+3.6%</td><td style='text-align:right'>-1.8%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-1">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>IP</td><td style='color:var(--dim)'>International Paper</td><td style='text-align:right'>+21.8%</td><td style='text-align:right'>+15.3%</td></tr><tr><td>NUE</td><td style='color:var(--dim)'>Nucor Corp</td><td style='text-align:right'>+15.3%</td><td style='text-align:right'>+16.2%</td></tr><tr><td>STLD</td><td style='color:var(--dim)'>Steel Dynamics</td><td style='text-align:right'>+12.9%</td><td style='text-align:right'>+10.9%</td></tr><tr><td>PKG</td><td style='color:var(--dim)'>Packaging Corp of Amer</td><td style='text-align:right'>+11.0%</td><td style='text-align:right'>+6.6%</td></tr><tr><td>AXTA</td><td style='color:var(--dim)'>Axalta Coating Systems</td><td style='text-align:right'>+10.5%</td><td style='text-align:right'>+4.2%</td></tr><tr><td>RPM</td><td style='color:var(--dim)'>RPM International</td><td style='text-align:right'>+10.1%</td><td style='text-align:right'>+1.1%</td></tr><tr><td>SHW</td><td style='color:var(--dim)'>Sherwin-Williams</td><td style='text-align:right'>+9.6%</td><td style='text-align:right'>+2.9%</td></tr><tr><td>BALL</td><td style='color:var(--dim)'>Ball Corp</td><td style='text-align:right'>+7.6%</td><td style='text-align:right'>+7.9%</td></tr><tr><td>AVY</td><td style='color:var(--dim)'>Avery Dennison</td><td style='text-align:right'>+7.0%</td><td style='text-align:right'>+3.6%</td></tr><tr><td>MLM</td><td style='color:var(--dim)'>Martin Marietta Materi</td><td style='text-align:right'>+5.6%</td><td style='text-align:right'>+0.4%</td></tr><tr><td>ECL</td><td style='color:var(--dim)'>Ecolab</td><td style='text-align:right'>+5.5%</td><td style='text-align:right'>+1.6%</td></tr><tr><td>FCX</td><td style='color:var(--dim)'>Freeport-McMoRan</td><td style='text-align:right'>+5.0%</td><td style='text-align:right'>+0.1%</td></tr><tr><td>MOS</td><td style='color:var(--dim)'>Mosaic Company</td><td style='text-align:right'>+3.2%</td><td style='text-align:right'>+2.9%</td></tr><tr><td>PPG</td><td style='color:var(--dim)'>PPG Industries</td><td style='text-align:right'>+3.0%</td><td style='text-align:right'>-1.6%</td></tr><tr><td>VMC</td><td style='color:var(--dim)'>Vulcan Materials</td><td style='text-align:right'>+3.0%</td><td style='text-align:right'>-5.0%</td></tr><tr><td>NEM</td><td style='color:var(--dim)'>Newmont Corp</td><td style='text-align:right'>+2.8%</td><td style='text-align:right'>-3.1%</td></tr><tr><td>IFF</td><td style='color:var(--dim)'>Intl Flavors &amp; Fra</td><td style='text-align:right'>+2.7%</td><td style='text-align:right'>+3.6%</td></tr><tr><td>SEE</td><td style='color:var(--dim)'>Sealed Air Corp</td><td style='text-align:right'>+2.2%</td><td style='text-align:right'>+6.5%</td></tr><tr><td>EMN</td><td style='color:var(--dim)'>Eastman Chemical</td><td style='text-align:right'>+0.2%</td><td style='text-align:right'>+1.8%</td></tr><tr><td>WRK</td><td style='color:var(--dim)'>WestRock Company</td><td style='text-align:right'>+0.2%</td><td style='text-align:right'>-11.1%</td></tr><tr><td>CF</td><td style='color:var(--dim)'>CF Industries</td><td style='text-align:right'>-0.4%</td><td style='text-align:right'>+16.6%</td></tr><tr><td>APD</td><td style='color:var(--dim)'>Air Products &amp; Che</td><td style='text-align:right'>-1.1%</td><td style='text-align:right'>+7.9%</td></tr><tr><td>FMC</td><td style='color:var(--dim)'>FMC Corp</td><td style='text-align:right'>-2.1%</td><td style='text-align:right'>-5.2%</td></tr><tr><td>CE</td><td style='color:var(--dim)'>Celanese</td><td style='text-align:right'>-2.2%</td><td style='text-align:right'>-5.3%</td></tr><tr><td>OLN</td><td style='color:var(--dim)'>Olin Corp</td><td style='text-align:right'>-3.5%</td><td style='text-align:right'>+2.7%</td></tr><tr><td>LYB</td><td style='color:var(--dim)'>LyondellBasell Industr</td><td style='text-align:right'>-4.0%</td><td style='text-align:right'>+8.6%</td></tr><tr><td>ALB</td><td style='color:var(--dim)'>Albemarle Corp</td><td style='text-align:right'>-4.1%</td><td style='text-align:right'>-12.8%</td></tr><tr><td>LIN</td><td style='color:var(--dim)'>Linde</td><td style='text-align:right'>-0.0%</td><td style='text-align:right'>+0.0%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-2">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>IQV</td><td style='color:var(--dim)'>IQVIA Holdings</td><td style='text-align:right'>+19.3%</td><td style='text-align:right'>+25.7%</td></tr><tr><td>HCA</td><td style='color:var(--dim)'>HCA Healthcare</td><td style='text-align:right'>+13.1%</td><td style='text-align:right'>+6.6%</td></tr><tr><td>INCY</td><td style='color:var(--dim)'>Incyte Corp</td><td style='text-align:right'>+12.5%</td><td style='text-align:right'>+13.3%</td></tr><tr><td>BAX</td><td style='color:var(--dim)'>Baxter International</td><td style='text-align:right'>+10.6%</td><td style='text-align:right'>+10.7%</td></tr><tr><td>UHS</td><td style='color:var(--dim)'>Universal Health Servi</td><td style='text-align:right'>+10.5%</td><td style='text-align:right'>+13.1%</td></tr><tr><td>TMO</td><td style='color:var(--dim)'>Thermo Fisher Scientif</td><td style='text-align:right'>+9.7%</td><td style='text-align:right'>+13.8%</td></tr><tr><td>CRL</td><td style='color:var(--dim)'>Charles River Laborato</td><td style='text-align:right'>+9.6%</td><td style='text-align:right'>+6.6%</td></tr><tr><td>MTD</td><td style='color:var(--dim)'>Mettler-Toledo</td><td style='text-align:right'>+9.2%</td><td style='text-align:right'>+10.3%</td></tr><tr><td>SOLV</td><td style='color:var(--dim)'>Solventum</td><td style='text-align:right'>+8.9%</td><td style='text-align:right'>+10.2%</td></tr><tr><td>SYK</td><td style='color:var(--dim)'>Stryker Corp</td><td style='text-align:right'>+8.8%</td><td style='text-align:right'>+4.9%</td></tr><tr><td>AMGN</td><td style='color:var(--dim)'>Amgen</td><td style='text-align:right'>+8.1%</td><td style='text-align:right'>+9.1%</td></tr><tr><td>A</td><td style='color:var(--dim)'>Agilent Technologies</td><td style='text-align:right'>+8.1%</td><td style='text-align:right'>+5.8%</td></tr><tr><td>BDX</td><td style='color:var(--dim)'>Becton Dickinson</td><td style='text-align:right'>+7.8%</td><td style='text-align:right'>+7.2%</td></tr><tr><td>JNJ</td><td style='color:var(--dim)'>Johnson &amp; Johnson</td><td style='text-align:right'>+7.4%</td><td style='text-align:right'>+3.2%</td></tr><tr><td>MCK</td><td style='color:var(--dim)'>McKesson Corp</td><td style='text-align:right'>+7.2%</td><td style='text-align:right'>+19.0%</td></tr><tr><td>ZBH</td><td style='color:var(--dim)'>Zimmer Biomet Holdings</td><td style='text-align:right'>+6.9%</td><td style='text-align:right'>+5.0%</td></tr><tr><td>LLY</td><td style='color:var(--dim)'>Eli Lilly</td><td style='text-align:right'>+6.6%</td><td style='text-align:right'>-0.7%</td></tr><tr><td>CI</td><td style='color:var(--dim)'>Cigna</td><td style='text-align:right'>+6.2%</td><td style='text-align:right'>+8.0%</td></tr><tr><td>MRK</td><td style='color:var(--dim)'>Merck &amp; Co</td><td style='text-align:right'>+6.1%</td><td style='text-align:right'>+1.9%</td></tr><tr><td>BMY</td><td style='color:var(--dim)'>Bristol-Myers Squibb</td><td style='text-align:right'>+5.9%</td><td style='text-align:right'>+8.6%</td></tr><tr><td>ABT</td><td style='color:var(--dim)'>Abbott Laboratories</td><td style='text-align:right'>+5.7%</td><td style='text-align:right'>+15.7%</td></tr><tr><td>BSX</td><td style='color:var(--dim)'>Boston Scientific</td><td style='text-align:right'>+5.4%</td><td style='text-align:right'>+6.0%</td></tr><tr><td>RMD</td><td style='color:var(--dim)'>ResMed</td><td style='text-align:right'>+5.4%</td><td style='text-align:right'>+5.3%</td></tr><tr><td>COR</td><td style='color:var(--dim)'>Cencora</td><td style='text-align:right'>+5.3%</td><td style='text-align:right'>+13.5%</td></tr><tr><td>RVTY</td><td style='color:var(--dim)'>Revvity</td><td style='text-align:right'>+4.9%</td><td style='text-align:right'>+0.3%</td></tr><tr><td>ILMN</td><td style='color:var(--dim)'>Illumina</td><td style='text-align:right'>+4.7%</td><td style='text-align:right'>+6.6%</td></tr><tr><td>MDT</td><td style='color:var(--dim)'>Medtronic</td><td style='text-align:right'>+4.5%</td><td style='text-align:right'>+7.4%</td></tr><tr><td>ABBV</td><td style='color:var(--dim)'>AbbVie</td><td style='text-align:right'>+4.0%</td><td style='text-align:right'>+3.5%</td></tr><tr><td>REGN</td><td style='color:var(--dim)'>Regeneron Pharmaceutic</td><td style='text-align:right'>+3.6%</td><td style='text-align:right'>+10.1%</td></tr><tr><td>CAH</td><td style='color:var(--dim)'>Cardinal Health</td><td style='text-align:right'>+3.2%</td><td style='text-align:right'>-1.6%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-3">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>FDS</td><td style='color:var(--dim)'>FactSet Research Syste</td><td style='text-align:right'>+11.1%</td><td style='text-align:right'>+21.5%</td></tr><tr><td>GDDY</td><td style='color:var(--dim)'>GoDaddy</td><td style='text-align:right'>+8.7%</td><td style='text-align:right'>+20.8%</td></tr><tr><td>BX</td><td style='color:var(--dim)'>Blackstone</td><td style='text-align:right'>+8.5%</td><td style='text-align:right'>+16.6%</td></tr><tr><td>ICE</td><td style='color:var(--dim)'>Intercontinental Excha</td><td style='text-align:right'>+8.0%</td><td style='text-align:right'>+24.3%</td></tr><tr><td>TRV</td><td style='color:var(--dim)'>Travelers Companies</td><td style='text-align:right'>+8.0%</td><td style='text-align:right'>+19.7%</td></tr><tr><td>ALL</td><td style='color:var(--dim)'>Allstate</td><td style='text-align:right'>+7.5%</td><td style='text-align:right'>+12.9%</td></tr><tr><td>CBOE</td><td style='color:var(--dim)'>Cboe Global Markets</td><td style='text-align:right'>+7.1%</td><td style='text-align:right'>+28.5%</td></tr><tr><td>FIS</td><td style='color:var(--dim)'>Fidelity National Info</td><td style='text-align:right'>+6.5%</td><td style='text-align:right'>+16.1%</td></tr><tr><td>MKTX</td><td style='color:var(--dim)'>MarketAxess Holdings</td><td style='text-align:right'>+6.4%</td><td style='text-align:right'>+11.0%</td></tr><tr><td>GPN</td><td style='color:var(--dim)'>Global Payments</td><td style='text-align:right'>+6.3%</td><td style='text-align:right'>+23.0%</td></tr><tr><td>CME</td><td style='color:var(--dim)'>CME Group</td><td style='text-align:right'>+6.2%</td><td style='text-align:right'>+19.0%</td></tr><tr><td>APO</td><td style='color:var(--dim)'>Apollo Global Manageme</td><td style='text-align:right'>+5.6%</td><td style='text-align:right'>+8.6%</td></tr><tr><td>JPM</td><td style='color:var(--dim)'>JPMorgan Chase</td><td style='text-align:right'>+5.6%</td><td style='text-align:right'>+8.5%</td></tr><tr><td>BR</td><td style='color:var(--dim)'>Broadridge Financial S</td><td style='text-align:right'>+5.6%</td><td style='text-align:right'>+16.8%</td></tr><tr><td>RJF</td><td style='color:var(--dim)'>Raymond James Financia</td><td style='text-align:right'>+5.4%</td><td style='text-align:right'>+18.9%</td></tr><tr><td>PRU</td><td style='color:var(--dim)'>Prudential Financial</td><td style='text-align:right'>+5.2%</td><td style='text-align:right'>+13.5%</td></tr><tr><td>SYF</td><td style='color:var(--dim)'>Synchrony Financial</td><td style='text-align:right'>+5.2%</td><td style='text-align:right'>-1.6%</td></tr><tr><td>MET</td><td style='color:var(--dim)'>MetLife</td><td style='text-align:right'>+5.0%</td><td style='text-align:right'>+13.4%</td></tr><tr><td>WRB</td><td style='color:var(--dim)'>W.R. Berkley</td><td style='text-align:right'>+4.9%</td><td style='text-align:right'>+7.3%</td></tr><tr><td>COIN</td><td style='color:var(--dim)'>Coinbase Global</td><td style='text-align:right'>+4.8%</td><td style='text-align:right'>+10.7%</td></tr><tr><td>AJG</td><td style='color:var(--dim)'>Arthur J. Gallagher</td><td style='text-align:right'>+4.8%</td><td style='text-align:right'>+16.8%</td></tr><tr><td>ACGL</td><td style='color:var(--dim)'>Arch Capital Group</td><td style='text-align:right'>+4.7%</td><td style='text-align:right'>+8.6%</td></tr><tr><td>TROW</td><td style='color:var(--dim)'>T. Rowe Price</td><td style='text-align:right'>+4.6%</td><td style='text-align:right'>+6.4%</td></tr><tr><td>NDAQ</td><td style='color:var(--dim)'>Nasdaq Inc</td><td style='text-align:right'>+4.6%</td><td style='text-align:right'>+24.9%</td></tr><tr><td>AFL</td><td style='color:var(--dim)'>Aflac</td><td style='text-align:right'>+4.6%</td><td style='text-align:right'>+7.9%</td></tr><tr><td>BRK.B</td><td style='color:var(--dim)'>Berkshire Hathaway (B)</td><td style='text-align:right'>+4.5%</td><td style='text-align:right'>+3.3%</td></tr><tr><td>L</td><td style='color:var(--dim)'>Loews Corp</td><td style='text-align:right'>+4.4%</td><td style='text-align:right'>+5.0%</td></tr><tr><td>BLK</td><td style='color:var(--dim)'>BlackRock</td><td style='text-align:right'>+4.3%</td><td style='text-align:right'>+15.5%</td></tr><tr><td>TFC</td><td style='color:var(--dim)'>Truist Financial</td><td style='text-align:right'>+4.1%</td><td style='text-align:right'>+4.8%</td></tr><tr><td>AMP</td><td style='color:var(--dim)'>Ameriprise Financial</td><td style='text-align:right'>+4.0%</td><td style='text-align:right'>+22.4%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-4">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>WAB</td><td style='color:var(--dim)'>Wabtec Corp</td><td style='text-align:right'>+18.8%</td><td style='text-align:right'>+14.0%</td></tr><tr><td>ALLE</td><td style='color:var(--dim)'>Allegion</td><td style='text-align:right'>+16.9%</td><td style='text-align:right'>+15.5%</td></tr><tr><td>MMM</td><td style='color:var(--dim)'>3M Company</td><td style='text-align:right'>+14.8%</td><td style='text-align:right'>+12.4%</td></tr><tr><td>LMT</td><td style='color:var(--dim)'>Lockheed Martin</td><td style='text-align:right'>+14.2%</td><td style='text-align:right'>+15.8%</td></tr><tr><td>RTX</td><td style='color:var(--dim)'>RTX Corp (Raytheon)</td><td style='text-align:right'>+12.6%</td><td style='text-align:right'>+16.7%</td></tr><tr><td>PCAR</td><td style='color:var(--dim)'>PACCAR</td><td style='text-align:right'>+11.3%</td><td style='text-align:right'>+15.6%</td></tr><tr><td>EMR</td><td style='color:var(--dim)'>Emerson Electric</td><td style='text-align:right'>+11.3%</td><td style='text-align:right'>+6.3%</td></tr><tr><td>HII</td><td style='color:var(--dim)'>Huntington Ingalls Ind</td><td style='text-align:right'>+11.2%</td><td style='text-align:right'>+8.1%</td></tr><tr><td>LDOS</td><td style='color:var(--dim)'>Leidos Holdings</td><td style='text-align:right'>+10.8%</td><td style='text-align:right'>+17.9%</td></tr><tr><td>TRMB</td><td style='color:var(--dim)'>Trimble</td><td style='text-align:right'>+9.9%</td><td style='text-align:right'>+15.0%</td></tr><tr><td>HON</td><td style='color:var(--dim)'>Honeywell Internationa</td><td style='text-align:right'>+9.4%</td><td style='text-align:right'>+8.5%</td></tr><tr><td>DE</td><td style='color:var(--dim)'>Deere &amp; Company</td><td style='text-align:right'>+9.3%</td><td style='text-align:right'>+2.1%</td></tr><tr><td>ITW</td><td style='color:var(--dim)'>Illinois Tool Works</td><td style='text-align:right'>+8.8%</td><td style='text-align:right'>+10.4%</td></tr><tr><td>J</td><td style='color:var(--dim)'>Jacobs Solutions</td><td style='text-align:right'>+8.8%</td><td style='text-align:right'>+13.6%</td></tr><tr><td>TDG</td><td style='color:var(--dim)'>TransDigm Group</td><td style='text-align:right'>+8.7%</td><td style='text-align:right'>-1.1%</td></tr><tr><td>IR</td><td style='color:var(--dim)'>Ingersoll Rand</td><td style='text-align:right'>+8.1%</td><td style='text-align:right'>+6.8%</td></tr><tr><td>ROP</td><td style='color:var(--dim)'>Roper Technologies</td><td style='text-align:right'>+7.9%</td><td style='text-align:right'>+16.8%</td></tr><tr><td>SWK</td><td style='color:var(--dim)'>Stanley Black &amp; De</td><td style='text-align:right'>+7.8%</td><td style='text-align:right'>+0.6%</td></tr><tr><td>FAST</td><td style='color:var(--dim)'>Fastenal</td><td style='text-align:right'>+7.6%</td><td style='text-align:right'>+1.5%</td></tr><tr><td>GE</td><td style='color:var(--dim)'>GE Aerospace</td><td style='text-align:right'>+6.7%</td><td style='text-align:right'>-2.7%</td></tr><tr><td>CTAS</td><td style='color:var(--dim)'>Cintas Corp</td><td style='text-align:right'>+6.7%</td><td style='text-align:right'>+27.1%</td></tr><tr><td>NDSN</td><td style='color:var(--dim)'>Nordson Corp</td><td style='text-align:right'>+6.3%</td><td style='text-align:right'>+0.2%</td></tr><tr><td>GD</td><td style='color:var(--dim)'>General Dynamics</td><td style='text-align:right'>+6.3%</td><td style='text-align:right'>+13.0%</td></tr><tr><td>KTOS</td><td style='color:var(--dim)'>Kratos Defense &amp; S</td><td style='text-align:right'>+6.0%</td><td style='text-align:right'>+3.6%</td></tr><tr><td>DAL</td><td style='color:var(--dim)'>Delta Air Lines</td><td style='text-align:right'>+5.9%</td><td style='text-align:right'>-4.1%</td></tr><tr><td>UAL</td><td style='color:var(--dim)'>United Airlines Holdin</td><td style='text-align:right'>+5.5%</td><td style='text-align:right'>-8.4%</td></tr><tr><td>MAS</td><td style='color:var(--dim)'>Masco Corp</td><td style='text-align:right'>+5.5%</td><td style='text-align:right'>+1.4%</td></tr><tr><td>HWM</td><td style='color:var(--dim)'>Howmet Aerospace</td><td style='text-align:right'>+5.3%</td><td style='text-align:right'>+6.5%</td></tr><tr><td>FTV</td><td style='color:var(--dim)'>Fortive Corp</td><td style='text-align:right'>+5.2%</td><td style='text-align:right'>+5.7%</td></tr><tr><td>NOC</td><td style='color:var(--dim)'>Northrop Grumman</td><td style='text-align:right'>+5.0%</td><td style='text-align:right'>+10.7%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-5">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>SJM</td><td style='color:var(--dim)'>J.M. Smucker</td><td style='text-align:right'>+9.5%</td><td style='text-align:right'>+6.2%</td></tr><tr><td>KO</td><td style='color:var(--dim)'>Coca-Cola</td><td style='text-align:right'>+7.6%</td><td style='text-align:right'>+6.8%</td></tr><tr><td>HSY</td><td style='color:var(--dim)'>Hershey Company</td><td style='text-align:right'>+7.0%</td><td style='text-align:right'>+1.0%</td></tr><tr><td>KHC</td><td style='color:var(--dim)'>Kraft Heinz</td><td style='text-align:right'>+5.7%</td><td style='text-align:right'>+12.9%</td></tr><tr><td>SYY</td><td style='color:var(--dim)'>Sysco Corp</td><td style='text-align:right'>+5.6%</td><td style='text-align:right'>+2.2%</td></tr><tr><td>PEP</td><td style='color:var(--dim)'>PepsiCo</td><td style='text-align:right'>+5.6%</td><td style='text-align:right'>+3.0%</td></tr><tr><td>CAG</td><td style='color:var(--dim)'>ConAgra Brands</td><td style='text-align:right'>+5.6%</td><td style='text-align:right'>+10.4%</td></tr><tr><td>K</td><td style='color:var(--dim)'>Kellanova</td><td style='text-align:right'>+5.1%</td><td style='text-align:right'>-1.6%</td></tr><tr><td>CLX</td><td style='color:var(--dim)'>Clorox</td><td style='text-align:right'>+4.3%</td><td style='text-align:right'>+3.4%</td></tr><tr><td>PM</td><td style='color:var(--dim)'>Philip Morris Internat</td><td style='text-align:right'>+4.0%</td><td style='text-align:right'>+9.5%</td></tr><tr><td>KVUE</td><td style='color:var(--dim)'>Kenvue</td><td style='text-align:right'>+4.0%</td><td style='text-align:right'>+3.6%</td></tr><tr><td>MDLZ</td><td style='color:var(--dim)'>Mondelez International</td><td style='text-align:right'>+3.8%</td><td style='text-align:right'>+3.9%</td></tr><tr><td>COST</td><td style='color:var(--dim)'>Costco Wholesale</td><td style='text-align:right'>+3.5%</td><td style='text-align:right'>+2.1%</td></tr><tr><td>CPB</td><td style='color:var(--dim)'>Campbell Soup</td><td style='text-align:right'>+3.4%</td><td style='text-align:right'>-0.9%</td></tr><tr><td>MNST</td><td style='color:var(--dim)'>Monster Beverage</td><td style='text-align:right'>+2.6%</td><td style='text-align:right'>+0.1%</td></tr><tr><td>CHD</td><td style='color:var(--dim)'>Church &amp; Dwight</td><td style='text-align:right'>+2.4%</td><td style='text-align:right'>+2.1%</td></tr><tr><td>TAP</td><td style='color:var(--dim)'>Molson Coors Beverage</td><td style='text-align:right'>+2.3%</td><td style='text-align:right'>+7.0%</td></tr><tr><td>KDP</td><td style='color:var(--dim)'>Keurig Dr Pepper</td><td style='text-align:right'>+2.3%</td><td style='text-align:right'>-7.2%</td></tr><tr><td>KR</td><td style='color:var(--dim)'>Kroger</td><td style='text-align:right'>+1.6%</td><td style='text-align:right'>+5.9%</td></tr><tr><td>EL</td><td style='color:var(--dim)'>Estée Lauder Companies</td><td style='text-align:right'>+1.5%</td><td style='text-align:right'>+6.8%</td></tr><tr><td>HRL</td><td style='color:var(--dim)'>Hormel Foods</td><td style='text-align:right'>+1.3%</td><td style='text-align:right'>-2.8%</td></tr><tr><td>CL</td><td style='color:var(--dim)'>Colgate-Palmolive</td><td style='text-align:right'>+1.0%</td><td style='text-align:right'>+0.4%</td></tr><tr><td>WMT</td><td style='color:var(--dim)'>Walmart</td><td style='text-align:right'>+1.0%</td><td style='text-align:right'>-1.3%</td></tr><tr><td>MO</td><td style='color:var(--dim)'>Altria Group</td><td style='text-align:right'>+0.4%</td><td style='text-align:right'>+1.1%</td></tr><tr><td>GIS</td><td style='color:var(--dim)'>General Mills</td><td style='text-align:right'>+0.3%</td><td style='text-align:right'>+3.5%</td></tr><tr><td>WBA</td><td style='color:var(--dim)'>Walgreens Boots Allian</td><td style='text-align:right'>+0.2%</td><td style='text-align:right'>+0.0%</td></tr><tr><td>CASY</td><td style='color:var(--dim)'>Casey&#x27;s General S</td><td style='text-align:right'>-0.9%</td><td style='text-align:right'>+9.8%</td></tr><tr><td>MKC</td><td style='color:var(--dim)'>McCormick &amp; Compan</td><td style='text-align:right'>-1.2%</td><td style='text-align:right'>-1.0%</td></tr><tr><td>STZ</td><td style='color:var(--dim)'>Constellation Brands</td><td style='text-align:right'>-1.6%</td><td style='text-align:right'>-5.5%</td></tr><tr><td>BG</td><td style='color:var(--dim)'>Bunge Global</td><td style='text-align:right'>-2.4%</td><td style='text-align:right'>+7.6%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-6">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>DLR</td><td style='color:var(--dim)'>Digital Realty Trust</td><td style='text-align:right'>+9.8%</td><td style='text-align:right'>+1.4%</td></tr><tr><td>CBRE</td><td style='color:var(--dim)'>CBRE Group</td><td style='text-align:right'>+6.2%</td><td style='text-align:right'>+8.1%</td></tr><tr><td>PSA</td><td style='color:var(--dim)'>Public Storage</td><td style='text-align:right'>+4.9%</td><td style='text-align:right'>+1.9%</td></tr><tr><td>SPG</td><td style='color:var(--dim)'>Simon Property Group</td><td style='text-align:right'>+3.9%</td><td style='text-align:right'>+4.0%</td></tr><tr><td>EXR</td><td style='color:var(--dim)'>Extra Space Storage</td><td style='text-align:right'>+3.5%</td><td style='text-align:right'>+2.7%</td></tr><tr><td>BXP</td><td style='color:var(--dim)'>Boston Properties</td><td style='text-align:right'>+3.2%</td><td style='text-align:right'>+4.3%</td></tr><tr><td>WY</td><td style='color:var(--dim)'>Weyerhaeuser</td><td style='text-align:right'>+2.9%</td><td style='text-align:right'>-0.0%</td></tr><tr><td>GLPI</td><td style='color:var(--dim)'>Gaming and Leisure Pro</td><td style='text-align:right'>+2.8%</td><td style='text-align:right'>-0.1%</td></tr><tr><td>AMT</td><td style='color:var(--dim)'>American Tower</td><td style='text-align:right'>+2.8%</td><td style='text-align:right'>+1.7%</td></tr><tr><td>CUBE</td><td style='color:var(--dim)'>CubeSmart</td><td style='text-align:right'>+2.4%</td><td style='text-align:right'>+4.4%</td></tr><tr><td>CSGP</td><td style='color:var(--dim)'>CoStar Group</td><td style='text-align:right'>+2.4%</td><td style='text-align:right'>+3.5%</td></tr><tr><td>VTR</td><td style='color:var(--dim)'>Ventas</td><td style='text-align:right'>+2.1%</td><td style='text-align:right'>+9.9%</td></tr><tr><td>EQIX</td><td style='color:var(--dim)'>Equinix</td><td style='text-align:right'>+1.9%</td><td style='text-align:right'>-4.6%</td></tr><tr><td>MAA</td><td style='color:var(--dim)'>Mid-America Apartment </td><td style='text-align:right'>+1.6%</td><td style='text-align:right'>-3.5%</td></tr><tr><td>IRM</td><td style='color:var(--dim)'>Iron Mountain</td><td style='text-align:right'>+1.4%</td><td style='text-align:right'>-3.3%</td></tr><tr><td>VICI</td><td style='color:var(--dim)'>VICI Properties</td><td style='text-align:right'>+1.1%</td><td style='text-align:right'>-0.3%</td></tr><tr><td>O</td><td style='color:var(--dim)'>Realty Income</td><td style='text-align:right'>+1.0%</td><td style='text-align:right'>+4.3%</td></tr><tr><td>KIM</td><td style='color:var(--dim)'>Kimco Realty</td><td style='text-align:right'>+1.0%</td><td style='text-align:right'>+1.6%</td></tr><tr><td>NNN</td><td style='color:var(--dim)'>NNN REIT</td><td style='text-align:right'>+0.8%</td><td style='text-align:right'>+4.0%</td></tr><tr><td>FRT</td><td style='color:var(--dim)'>Federal Realty Investm</td><td style='text-align:right'>+0.6%</td><td style='text-align:right'>+0.6%</td></tr><tr><td>ESS</td><td style='color:var(--dim)'>Essex Property Trust</td><td style='text-align:right'>+0.4%</td><td style='text-align:right'>-0.5%</td></tr><tr><td>AMH</td><td style='color:var(--dim)'>American Homes 4 Rent</td><td style='text-align:right'>+0.4%</td><td style='text-align:right'>-0.6%</td></tr><tr><td>INVH</td><td style='color:var(--dim)'>Invitation Homes</td><td style='text-align:right'>+0.1%</td><td style='text-align:right'>-1.8%</td></tr><tr><td>PLD</td><td style='color:var(--dim)'>Prologis</td><td style='text-align:right'>-0.1%</td><td style='text-align:right'>+5.9%</td></tr><tr><td>WELL</td><td style='color:var(--dim)'>Welltower</td><td style='text-align:right'>-0.3%</td><td style='text-align:right'>+7.0%</td></tr><tr><td>AVB</td><td style='color:var(--dim)'>AvalonBay Communities</td><td style='text-align:right'>-0.6%</td><td style='text-align:right'>-1.1%</td></tr><tr><td>EQR</td><td style='color:var(--dim)'>Equity Residential</td><td style='text-align:right'>-0.9%</td><td style='text-align:right'>-0.3%</td></tr><tr><td>REG</td><td style='color:var(--dim)'>Regency Centers</td><td style='text-align:right'>-1.3%</td><td style='text-align:right'>-0.4%</td></tr><tr><td>CCI</td><td style='color:var(--dim)'>Crown Castle</td><td style='text-align:right'>-2.9%</td><td style='text-align:right'>-3.6%</td></tr><tr><td>SBAC</td><td style='color:var(--dim)'>SBA Communications</td><td style='text-align:right'>-3.7%</td><td style='text-align:right'>-2.5%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-7">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>T</td><td style='color:var(--dim)'>AT&amp;T</td><td style='text-align:right'>+12.5%</td><td style='text-align:right'>+13.0%</td></tr><tr><td>VZ</td><td style='color:var(--dim)'>Verizon</td><td style='text-align:right'>+10.9%</td><td style='text-align:right'>+9.3%</td></tr><tr><td>CHTR</td><td style='color:var(--dim)'>Charter Communications</td><td style='text-align:right'>+8.5%</td><td style='text-align:right'>-4.2%</td></tr><tr><td>NFLX</td><td style='color:var(--dim)'>Netflix</td><td style='text-align:right'>+7.2%</td><td style='text-align:right'>-1.9%</td></tr><tr><td>OMC</td><td style='color:var(--dim)'>Omnicom Group</td><td style='text-align:right'>+4.8%</td><td style='text-align:right'>+16.6%</td></tr><tr><td>TTWO</td><td style='color:var(--dim)'>Take-Two Interactive</td><td style='text-align:right'>+3.8%</td><td style='text-align:right'>+0.2%</td></tr><tr><td>SIRI</td><td style='color:var(--dim)'>Sirius XM Holdings</td><td style='text-align:right'>+3.7%</td><td style='text-align:right'>+8.4%</td></tr><tr><td>DIS</td><td style='color:var(--dim)'>Walt Disney</td><td style='text-align:right'>+2.7%</td><td style='text-align:right'>+0.3%</td></tr><tr><td>IPG</td><td style='color:var(--dim)'>Interpublic Group</td><td style='text-align:right'>+2.3%</td><td style='text-align:right'>-15.2%</td></tr><tr><td>Z</td><td style='color:var(--dim)'>Zillow Group</td><td style='text-align:right'>+2.1%</td><td style='text-align:right'>+7.3%</td></tr><tr><td>CMCSA</td><td style='color:var(--dim)'>Comcast</td><td style='text-align:right'>+1.9%</td><td style='text-align:right'>-0.1%</td></tr><tr><td>MTCH</td><td style='color:var(--dim)'>Match Group</td><td style='text-align:right'>+0.8%</td><td style='text-align:right'>+1.4%</td></tr><tr><td>FOXA</td><td style='color:var(--dim)'>Fox Corp (Class A)</td><td style='text-align:right'>+0.6%</td><td style='text-align:right'>+14.6%</td></tr><tr><td>FOX</td><td style='color:var(--dim)'>Fox Corp (Class B)</td><td style='text-align:right'>+0.3%</td><td style='text-align:right'>+13.0%</td></tr><tr><td>PARA</td><td style='color:var(--dim)'>Paramount Global</td><td style='text-align:right'>+0.2%</td><td style='text-align:right'>+0.0%</td></tr><tr><td>LYV</td><td style='color:var(--dim)'>Live Nation Entertainm</td><td style='text-align:right'>+0.2%</td><td style='text-align:right'>-0.9%</td></tr><tr><td>EA</td><td style='color:var(--dim)'>Electronic Arts</td><td style='text-align:right'>-0.0%</td><td style='text-align:right'>+1.9%</td></tr><tr><td>NWSA</td><td style='color:var(--dim)'>News Corp (Class A)</td><td style='text-align:right'>-0.2%</td><td style='text-align:right'>+11.6%</td></tr><tr><td>WBD</td><td style='color:var(--dim)'>Warner Bros. Discovery</td><td style='text-align:right'>-0.8%</td><td style='text-align:right'>-5.6%</td></tr><tr><td>NWS</td><td style='color:var(--dim)'>News Corp (Class B)</td><td style='text-align:right'>-1.1%</td><td style='text-align:right'>+11.4%</td></tr><tr><td>GOOGL</td><td style='color:var(--dim)'>Alphabet (Class A)</td><td style='text-align:right'>-5.0%</td><td style='text-align:right'>-5.6%</td></tr><tr><td>GOOG</td><td style='color:var(--dim)'>Alphabet (Class C)</td><td style='text-align:right'>-5.2%</td><td style='text-align:right'>-5.3%</td></tr><tr><td>TMUS</td><td style='color:var(--dim)'>T-Mobile US</td><td style='text-align:right'>-6.6%</td><td style='text-align:right'>+4.9%</td></tr><tr><td>META</td><td style='color:var(--dim)'>Meta Platforms</td><td style='text-align:right'>-8.0%</td><td style='text-align:right'>+5.5%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-8">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>EIX</td><td style='color:var(--dim)'>Edison International</td><td style='text-align:right'>+3.5%</td><td style='text-align:right'>+5.8%</td></tr><tr><td>AWK</td><td style='color:var(--dim)'>American Water Works</td><td style='text-align:right'>+3.5%</td><td style='text-align:right'>+4.2%</td></tr><tr><td>EXC</td><td style='color:var(--dim)'>Exelon</td><td style='text-align:right'>+3.1%</td><td style='text-align:right'>+0.4%</td></tr><tr><td>DUK</td><td style='color:var(--dim)'>Duke Energy</td><td style='text-align:right'>+2.9%</td><td style='text-align:right'>+0.7%</td></tr><tr><td>CNP</td><td style='color:var(--dim)'>CenterPoint Energy</td><td style='text-align:right'>+2.8%</td><td style='text-align:right'>-1.5%</td></tr><tr><td>PPL</td><td style='color:var(--dim)'>PPL Corp</td><td style='text-align:right'>+2.7%</td><td style='text-align:right'>-1.1%</td></tr><tr><td>CEG</td><td style='color:var(--dim)'>Constellation Energy</td><td style='text-align:right'>+2.7%</td><td style='text-align:right'>+0.2%</td></tr><tr><td>SO</td><td style='color:var(--dim)'>Southern Company</td><td style='text-align:right'>+2.6%</td><td style='text-align:right'>+0.1%</td></tr><tr><td>FE</td><td style='color:var(--dim)'>FirstEnergy</td><td style='text-align:right'>+2.5%</td><td style='text-align:right'>+3.3%</td></tr><tr><td>XEL</td><td style='color:var(--dim)'>Xcel Energy</td><td style='text-align:right'>+2.3%</td><td style='text-align:right'>-2.0%</td></tr><tr><td>CMS</td><td style='color:var(--dim)'>CMS Energy</td><td style='text-align:right'>+2.2%</td><td style='text-align:right'>-4.5%</td></tr><tr><td>PCG</td><td style='color:var(--dim)'>PG&amp;E Corp</td><td style='text-align:right'>+2.2%</td><td style='text-align:right'>+3.1%</td></tr><tr><td>AEE</td><td style='color:var(--dim)'>Ameren Corp</td><td style='text-align:right'>+2.1%</td><td style='text-align:right'>-1.8%</td></tr><tr><td>ES</td><td style='color:var(--dim)'>Eversource Energy</td><td style='text-align:right'>+2.0%</td><td style='text-align:right'>+2.2%</td></tr><tr><td>AEP</td><td style='color:var(--dim)'>American Electric Powe</td><td style='text-align:right'>+1.7%</td><td style='text-align:right'>-3.6%</td></tr><tr><td>NEE</td><td style='color:var(--dim)'>NextEra Energy</td><td style='text-align:right'>+1.6%</td><td style='text-align:right'>+0.7%</td></tr><tr><td>PEG</td><td style='color:var(--dim)'>Public Service Enterpr</td><td style='text-align:right'>+1.6%</td><td style='text-align:right'>-4.2%</td></tr><tr><td>ATO</td><td style='color:var(--dim)'>Atmos Energy</td><td style='text-align:right'>+1.3%</td><td style='text-align:right'>+2.6%</td></tr><tr><td>WEC</td><td style='color:var(--dim)'>WEC Energy Group</td><td style='text-align:right'>+1.1%</td><td style='text-align:right'>-4.1%</td></tr><tr><td>ED</td><td style='color:var(--dim)'>Consolidated Edison</td><td style='text-align:right'>+1.0%</td><td style='text-align:right'>-0.3%</td></tr><tr><td>NI</td><td style='color:var(--dim)'>NiSource</td><td style='text-align:right'>+1.0%</td><td style='text-align:right'>-5.0%</td></tr><tr><td>EVRG</td><td style='color:var(--dim)'>Evergy</td><td style='text-align:right'>+0.8%</td><td style='text-align:right'>-1.5%</td></tr><tr><td>D</td><td style='color:var(--dim)'>Dominion Energy</td><td style='text-align:right'>+0.5%</td><td style='text-align:right'>+2.1%</td></tr><tr><td>ETR</td><td style='color:var(--dim)'>Entergy</td><td style='text-align:right'>+0.5%</td><td style='text-align:right'>-3.4%</td></tr><tr><td>DTE</td><td style='color:var(--dim)'>DTE Energy</td><td style='text-align:right'>+0.2%</td><td style='text-align:right'>-5.1%</td></tr><tr><td>SRE</td><td style='color:var(--dim)'>Sempra</td><td style='text-align:right'>+0.0%</td><td style='text-align:right'>-3.5%</td></tr><tr><td>LNT</td><td style='color:var(--dim)'>Alliant Energy</td><td style='text-align:right'>-0.1%</td><td style='text-align:right'>-4.4%</td></tr><tr><td>PNW</td><td style='color:var(--dim)'>Pinnacle West Capital</td><td style='text-align:right'>-0.8%</td><td style='text-align:right'>-2.3%</td></tr><tr><td>NRG</td><td style='color:var(--dim)'>NRG Energy</td><td style='text-align:right'>-2.1%</td><td style='text-align:right'>-14.4%</td></tr><tr><td>VST</td><td style='color:var(--dim)'>Vistra Corp</td><td style='text-align:right'>-5.8%</td><td style='text-align:right'>-8.4%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-9">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>SMCI</td><td style='color:var(--dim)'>Super Micro Computer</td><td style='text-align:right'>+19.6%</td><td style='text-align:right'>+1.1%</td></tr><tr><td>HPQ</td><td style='color:var(--dim)'>HP Inc</td><td style='text-align:right'>+17.0%</td><td style='text-align:right'>+25.0%</td></tr><tr><td>ACN</td><td style='color:var(--dim)'>Accenture</td><td style='text-align:right'>+13.9%</td><td style='text-align:right'>+32.0%</td></tr><tr><td>CTSH</td><td style='color:var(--dim)'>Cognizant Technology S</td><td style='text-align:right'>+12.9%</td><td style='text-align:right'>+29.9%</td></tr><tr><td>EPAM</td><td style='color:var(--dim)'>EPAM Systems</td><td style='text-align:right'>+12.5%</td><td style='text-align:right'>+25.5%</td></tr><tr><td>FDS</td><td style='color:var(--dim)'>FactSet Research Syste</td><td style='text-align:right'>+11.1%</td><td style='text-align:right'>+21.5%</td></tr><tr><td>CDW</td><td style='color:var(--dim)'>CDW Corp</td><td style='text-align:right'>+10.9%</td><td style='text-align:right'>+3.0%</td></tr><tr><td>IT</td><td style='color:var(--dim)'>Gartner</td><td style='text-align:right'>+10.6%</td><td style='text-align:right'>+17.4%</td></tr><tr><td>ADSK</td><td style='color:var(--dim)'>Autodesk</td><td style='text-align:right'>+9.2%</td><td style='text-align:right'>+21.6%</td></tr><tr><td>GDDY</td><td style='color:var(--dim)'>GoDaddy</td><td style='text-align:right'>+8.7%</td><td style='text-align:right'>+20.8%</td></tr><tr><td>WDAY</td><td style='color:var(--dim)'>Workday</td><td style='text-align:right'>+8.6%</td><td style='text-align:right'>+29.2%</td></tr><tr><td>NTAP</td><td style='color:var(--dim)'>NetApp</td><td style='text-align:right'>+8.5%</td><td style='text-align:right'>+12.6%</td></tr><tr><td>SWKS</td><td style='color:var(--dim)'>Skyworks Solutions</td><td style='text-align:right'>+8.3%</td><td style='text-align:right'>-4.5%</td></tr><tr><td>QRVO</td><td style='color:var(--dim)'>Qorvo</td><td style='text-align:right'>+7.2%</td><td style='text-align:right'>-1.9%</td></tr><tr><td>IBM</td><td style='color:var(--dim)'>IBM</td><td style='text-align:right'>+7.0%</td><td style='text-align:right'>-18.1%</td></tr><tr><td>INTU</td><td style='color:var(--dim)'>Intuit</td><td style='text-align:right'>+6.7%</td><td style='text-align:right'>+17.5%</td></tr><tr><td>ADBE</td><td style='color:var(--dim)'>Adobe</td><td style='text-align:right'>+6.3%</td><td style='text-align:right'>+20.7%</td></tr><tr><td>NOW</td><td style='color:var(--dim)'>ServiceNow</td><td style='text-align:right'>+5.8%</td><td style='text-align:right'>+10.7%</td></tr><tr><td>TEL</td><td style='color:var(--dim)'>TE Connectivity</td><td style='text-align:right'>+5.7%</td><td style='text-align:right'>+8.1%</td></tr><tr><td>BR</td><td style='color:var(--dim)'>Broadridge Financial S</td><td style='text-align:right'>+5.6%</td><td style='text-align:right'>+16.8%</td></tr><tr><td>VRSK</td><td style='color:var(--dim)'>Verisk Analytics</td><td style='text-align:right'>+5.3%</td><td style='text-align:right'>+18.5%</td></tr><tr><td>CDNS</td><td style='color:var(--dim)'>Cadence Design Systems</td><td style='text-align:right'>+4.7%</td><td style='text-align:right'>-7.5%</td></tr><tr><td>CRM</td><td style='color:var(--dim)'>Salesforce</td><td style='text-align:right'>+4.6%</td><td style='text-align:right'>+14.9%</td></tr><tr><td>CSCO</td><td style='color:var(--dim)'>Cisco Systems</td><td style='text-align:right'>+4.6%</td><td style='text-align:right'>-1.8%</td></tr><tr><td>AAPL</td><td style='color:var(--dim)'>Apple</td><td style='text-align:right'>+4.3%</td><td style='text-align:right'>+20.7%</td></tr><tr><td>TEAM</td><td style='color:var(--dim)'>Atlassian</td><td style='text-align:right'>+3.9%</td><td style='text-align:right'>+26.2%</td></tr><tr><td>ADP</td><td style='color:var(--dim)'>Automatic Data Process</td><td style='text-align:right'>+3.7%</td><td style='text-align:right'>+17.4%</td></tr><tr><td>PAYX</td><td style='color:var(--dim)'>Paychex</td><td style='text-align:right'>+3.4%</td><td style='text-align:right'>+19.1%</td></tr><tr><td>HPE</td><td style='color:var(--dim)'>Hewlett Packard Enterp</td><td style='text-align:right'>+2.5%</td><td style='text-align:right'>+2.7%</td></tr><tr><td>CSGP</td><td style='color:var(--dim)'>CoStar Group</td><td style='text-align:right'>+2.4%</td><td style='text-align:right'>+3.5%</td></tr></tbody></table></div><div class="other-det-item" id="other-det-10">
+  <table><thead><tr><th>Ticker</th><th>名稱</th><th style="text-align:right">5D%</th><th style="text-align:right">1M%</th></tr></thead><tbody><tr><td>SLB</td><td style='color:var(--dim)'>SLB (Schlumberger)</td><td style='text-align:right'>+7.9%</td><td style='text-align:right'>+7.8%</td></tr><tr><td>BKR</td><td style='color:var(--dim)'>Baker Hughes</td><td style='text-align:right'>+6.2%</td><td style='text-align:right'>+3.8%</td></tr><tr><td>EQT</td><td style='color:var(--dim)'>EQT Corp</td><td style='text-align:right'>+5.5%</td><td style='text-align:right'>-0.6%</td></tr><tr><td>XOM</td><td style='color:var(--dim)'>ExxonMobil</td><td style='text-align:right'>+3.3%</td><td style='text-align:right'>+12.5%</td></tr><tr><td>MRO</td><td style='color:var(--dim)'>Marathon Oil</td><td style='text-align:right'>+3.3%</td><td style='text-align:right'>+2.9%</td></tr><tr><td>APA</td><td style='color:var(--dim)'>APA Corp</td><td style='text-align:right'>+0.4%</td><td style='text-align:right'>+6.0%</td></tr><tr><td>CTRA</td><td style='color:var(--dim)'>Coterra Energy</td><td style='text-align:right'>+0.2%</td><td style='text-align:right'>+0.0%</td></tr><tr><td>HES</td><td style='color:var(--dim)'>Hess Corp</td><td style='text-align:right'>+0.2%</td><td style='text-align:right'>+0.0%</td></tr><tr><td>EOG</td><td style='color:var(--dim)'>EOG Resources</td><td style='text-align:right'>-0.9%</td><td style='text-align:right'>+5.9%</td></tr><tr><td>CVX</td><td style='color:var(--dim)'>Chevron</td><td style='text-align:right'>-1.0%</td><td style='text-align:right'>+11.4%</td></tr><tr><td>COP</td><td style='color:var(--dim)'>ConocoPhillips</td><td style='text-align:right'>-1.2%</td><td style='text-align:right'>+9.5%</td></tr><tr><td>PSX</td><td style='color:var(--dim)'>Phillips 66</td><td style='text-align:right'>-1.2%</td><td style='text-align:right'>+18.3%</td></tr><tr><td>OXY</td><td style='color:var(--dim)'>Occidental Petroleum</td><td style='text-align:right'>-2.1%</td><td style='text-align:right'>+9.9%</td></tr><tr><td>NRG</td><td style='color:var(--dim)'>NRG Energy</td><td style='text-align:right'>-2.1%</td><td style='text-align:right'>-14.4%</td></tr><tr><td>DVN</td><td style='color:var(--dim)'>Devon Energy</td><td style='text-align:right'>-2.4%</td><td style='text-align:right'>+1.6%</td></tr><tr><td>FANG</td><td style='color:var(--dim)'>Diamondback Energy</td><td style='text-align:right'>-2.4%</td><td style='text-align:right'>+5.4%</td></tr><tr><td>MPC</td><td style='color:var(--dim)'>Marathon Petroleum</td><td style='text-align:right'>-2.8%</td><td style='text-align:right'>+18.1%</td></tr><tr><td>KMI</td><td style='color:var(--dim)'>Kinder Morgan</td><td style='text-align:right'>-2.8%</td><td style='text-align:right'>-2.0%</td></tr><tr><td>VLO</td><td style='color:var(--dim)'>Valero Energy</td><td style='text-align:right'>-4.4%</td><td style='text-align:right'>+12.2%</td></tr><tr><td>OKE</td><td style='color:var(--dim)'>ONEOK</td><td style='text-align:right'>-4.9%</td><td style='text-align:right'>+0.1%</td></tr><tr><td>WMB</td><td style='color:var(--dim)'>Williams Companies</td><td style='text-align:right'>-5.2%</td><td style='text-align:right'>-6.5%</td></tr><tr><td>TRGP</td><td style='color:var(--dim)'>Targa Resources</td><td style='text-align:right'>-7.2%</td><td style='text-align:right'>-3.6%</td></tr><tr><td>HAL</td><td style='color:var(--dim)'>Halliburton</td><td style='text-align:right'>-10.9%</td><td style='text-align:right'>-8.4%</td></tr></tbody></table></div></div>
+</div>
+</div><!-- end report-root -->
+
+<div class="ftr">
+  <div class="disc">本報告為 Yoda Research 內部量化篩選，數據源為 3個月新高/新低清單與全市場觀察表，僅供研究參考，不構成投資建議。投資有風險，進出場請自負盈虧。</div>
+  <div class="brand">Yoda Research｜個股輪動 v1.1</div>
+</div>
+</div><!-- end main -->
+
+<script>
+const fsMap={small:'21px',normal:'24px',large:'27px'};
+const themes={
+  dark:{'--bg':'#080b10','--surface':'#0d1118','--surface2':'#121820','--border':'#1c2330','--text':'#b8c8d8','--dim':'#405060','--accent':'#00c8f0','--green':'#00c896','--red':'#ff3d5a','--yellow':'#f0c040','--orange':'#ff8040'},
+  light:{'--bg':'#f2f5f9','--surface':'#ffffff','--surface2':'#e8eef5','--border':'#ccd6e2','--text':'#1a2535','--dim':'#6080a0','--accent':'#0070a0','--green':'#006e4a','--red':'#c00030','--yellow':'#7a5500','--orange':'#a03800'}
+};
+/* ── 字體大小切換 ── */
+function setFS(s){
+  document.documentElement.style.setProperty('--fs', fsMap[s]);
+  // 移除所有按鈕的 active 狀態
+  document.querySelectorAll('.ctrl-btn').forEach(b => b.classList.remove('active'));
+  // 為當前點擊的按鈕加上 active 狀態
+  document.getElementById('fs-'+s).classList.add('active');
+  // 同步處理當前主題狀態，確保主題按鈕保持選中
+  const cur = document.body.classList.contains('light') ? 'light' : 'dark';
+  document.getElementById('btn-'+cur).classList.add('active');
+}
+
+/* ── 深淺主題切換 ── */
+function setTheme(t){
+  const r = document.documentElement;
+  Object.entries(themes[t]).forEach(([k,v]) => r.style.setProperty(k, v));
+  document.body.classList.toggle('light', t === 'light');
+  // 移除所有按鈕的 active 狀態
+  document.querySelectorAll('.ctrl-btn').forEach(b => b.classList.remove('active'));
+  // 為當前點擊的主題按鈕加上 active 狀態
+  document.getElementById('btn-'+t).classList.add('active');
+  // 同步處理當前字體狀態，確保字體按鈕保持選中
+  const fs = r.style.getPropertyValue('--fs') || '24px';
+  const fsKey = Object.entries(fsMap).find(([,v]) => v === fs)?.[0] || 'normal';
+  document.getElementById('fs-'+fsKey).classList.add('active');
+}
+function tog(id){
+  const el=document.getElementById(id);
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.sc-det').forEach(d=>d.classList.remove('open'));
+  if(!isOpen) el.classList.add('open');
+}
+
+
+function selectCircle(id){
+  var wrap = document.getElementById('circle-panel-wrap');
+  var det  = document.getElementById('circle-panel-'+id);
+  var card = document.querySelector('.ai-lcard[data-id="'+id+'"]');
+  var isOpen = wrap && wrap.style.display === 'block' && det && det.style.display === 'block';
+  if(wrap) wrap.style.display = 'none';
+  document.querySelectorAll('[id^="circle-panel-c"]').forEach(function(d){ d.style.display='none'; });
+  document.querySelectorAll('.ai-lcard[data-id^="c"]').forEach(function(c){ c.classList.remove('on'); });
+  if(!isOpen){
+    if(wrap) wrap.style.display = 'block';
+    if(det)  det.style.display  = 'block';
+    if(card) card.classList.add('active');
+  }
+}
+
+function selectAILayer(id){
+  var panel = document.getElementById('ai-layer-panel');
+  var det   = document.getElementById('ai-layer-detail-'+id);
+  var card  = document.querySelector('.ai-lcard[data-id="'+id+'"]');
+  var isOpen = panel && panel.style.display === 'block' && det && det.style.display === 'block';
+  if(panel) panel.style.display = 'none';
+  document.querySelectorAll('.ai-layer-detail').forEach(function(d){ d.style.display='none'; });
+  document.querySelectorAll('.ai-lcard').forEach(function(c){ c.classList.remove('on'); });
+  if(!isOpen){
+    if(panel) panel.style.display = 'block';
+    if(det)   det.style.display = 'block';
+    if(card)  card.classList.add('active');
+  }
+}
+
+
+function togOther(hdr, detId){
+  var panel = document.getElementById('other-detail-panel');
+  var det   = document.getElementById(detId);
+  var placeholder = panel ? panel.querySelector('.other-det-placeholder') : null;
+  var isOpen = det && det.classList.contains('on');
+  // close all
+document.querySelectorAll('.other-det-item').forEach(function(d){ d.classList.remove('on','active'); });
+document.querySelectorAll('.other-card-wrap .cat-hdr').forEach(function(h){ h.classList.remove('on','active'); });  if(!isOpen && det){
+    det.classList.add('active');
+    hdr.classList.add('active');
+    if(placeholder) placeholder.style.display = 'none';
+  } else {
+    if(placeholder) placeholder.style.display = 'flex';
+  }
+  if(panel) panel.scrollTop = 0;
+}
+
+function togCat(hdr, detId){
+  const det = document.getElementById(detId);
+  const group = hdr.getAttribute('data-group');
+  const isOpen = det.classList.contains('open');
+  document.querySelectorAll('.cat-det[data-group="'+group+'"]').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.cat-hdr[data-group="'+group+'"]').forEach(h=>h.classList.remove('open'));
+  if(!isOpen){ det.classList.add('open'); hdr.classList.add('open'); }
+}
+
+document.getElementById('btn-dark').classList.add('active');
+document.getElementById('fs-normal').classList.add('active');
+document.addEventListener('copy',e=>e.preventDefault());
+document.addEventListener('cut',e=>e.preventDefault());
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&['a','c','x','s','u'].includes(e.key.toLowerCase()))e.preventDefault();});
+document.addEventListener('selectstart',e=>e.preventDefault());
+document.addEventListener('dragstart',e=>e.preventDefault());
+</script>
+
+<script>
+var _selType = null;
+function selectChipCard(type){
+  var panel = document.getElementById('chip-panel');
+  var same = (_selType === type);
+  document.querySelectorAll('.ccard').forEach(function(c){
+    c.classList.remove('sel');
+    var tri = c.querySelector('.ccard-tri');
+    if(tri){ tri.textContent='▼'; tri.classList.add('breathing'); }
+    var txt = c.querySelector('.ccard-hint-txt');
+    if(txt) txt.textContent='點擊展開';
+  });
+  document.querySelectorAll('.chip-detail').forEach(function(d){ d.classList.remove('active'); });
+  panel.className='chip-panel';
+  if(same){ _selType=null; return; }
+  _selType = type;
+  var card = document.querySelector('.ccard[data-type="'+type+'"]');
+  if(card){
+    card.classList.add('sel');
+    var tri = card.querySelector('.ccard-tri');
+    if(tri){ tri.textContent='▲'; tri.classList.remove('breathing'); }
+    var txt = card.querySelector('.ccard-hint-txt');
+    if(txt) txt.textContent='點擊收合';
+  }
+  var det = document.getElementById('chip-detail-'+type);
+  if(det) det.classList.add('active');
+  panel.classList.add('open');
+  panel.classList.add({A:'pA',B:'pB',C:'pC',D:'pD'}[type]||'');
+}
+</script>
+
+<script>
+// ── 歷史籌碼數據（月頻，300檔基準）────────────────────────
+// 格式：{d:'YYYY-MM', A:吸籌檔數, B:反轉檔數, C:換手檔數, D:出貨檔數}
+// Q3 2025 起（2025-12-31 以前為參考基準）
+var CHIP_DATA = [/*  */];
+
+var CHIP_COLORS = {A:'#00c896', B:'#0ea5e9', C:'#f0c040', D:'#ff8040'};
+var CHIP_LABELS = {A:'A 全面吸籌', B:'B 低檔反轉', C:'C 高檔換手', D:'D 長多短出'};
+
+function renderChipChart(){
+  var canvas = document.getElementById('chipChart');
+  if(!canvas) return;
+
+  var parent = canvas.parentElement;
+  var W = parent.clientWidth || 800;
+  var H = 260;
+  var dpr = window.devicePixelRatio||1;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  var isDark = !document.body.classList.contains('light');
+  var bg     = isDark ? '#0d1118' : '#f4f4f4';
+  var grid   = isDark ? '#1c2330' : '#e0e0e0';
+  var dim    = isDark ? '#405060' : '#aaa';
+  var txt    = isDark ? '#64748b' : '#888';
+
+  var PAD = {t:24, r:16, b:44, l:38};
+  var CW = W - PAD.l - PAD.r;
+  var CH = H - PAD.t - PAD.b;
+  var N  = CHIP_DATA.length;
+
+  // background
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,H);
+
+  // max Y
+  var maxV = 0;
+  CHIP_DATA.forEach(function(d){maxV = Math.max(maxV,d.A,d.B,d.C,d.D);});
+  var yMax = Math.ceil(maxV/50)*50;
+
+  // grid lines & Y labels
+  [0,50,100,150,200].forEach(function(v){
+    if(v>yMax) return;
+    var y = PAD.t + CH - v/yMax*CH;
+    ctx.strokeStyle = grid; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(PAD.l,y); ctx.lineTo(PAD.l+CW,y); ctx.stroke();
+    ctx.fillStyle = dim; ctx.font='10px monospace'; ctx.textAlign='right';
+    ctx.fillText(v, PAD.l-5, y+4);
+  });
+
+  // X axis line
+  ctx.strokeStyle=grid; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(PAD.l,PAD.t+CH); ctx.lineTo(PAD.l+CW,PAD.t+CH); ctx.stroke();
+
+  function px(i){ return PAD.l + i/(N-1)*CW; }
+  function py(v){ return PAD.t + CH - v/yMax*CH; }
+
+  // shade reference area (before 2026)
+  var refEnd = 0;
+  for(var i=0;i<N;i++){ if(CHIP_DATA[i].d<'2026') refEnd=i; }
+  ctx.fillStyle = isDark ? 'rgba(255,255,255,.02)' : 'rgba(0,0,0,.03)';
+  ctx.fillRect(PAD.l, PAD.t, px(refEnd)-PAD.l, CH);
+
+  // "參考" label
+  ctx.fillStyle=dim; ctx.font='9px monospace'; ctx.textAlign='center';
+  ctx.fillText('← 參考', PAD.l+(px(refEnd)-PAD.l)/2, PAD.t+10);
+  ctx.fillText('實際 →', px(refEnd)+(CW-(px(refEnd)-PAD.l))/2, PAD.t+10);
+
+  // dashed divider
+  ctx.setLineDash([3,3]); ctx.strokeStyle=dim; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(px(refEnd),PAD.t+12); ctx.lineTo(px(refEnd),PAD.t+CH); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // latest dashed marker
+  var li=N-1;
+  ctx.setLineDash([4,4]); ctx.strokeStyle=isDark?'rgba(255,255,255,.12)':'rgba(0,0,0,.1)';
+  ctx.beginPath(); ctx.moveTo(px(li),PAD.t+12); ctx.lineTo(px(li),PAD.t+CH); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // draw each series
+  ['D','C','B','A'].forEach(function(key){
+    var color = CHIP_COLORS[key];
+    ctx.strokeStyle=color; ctx.lineWidth=2.5;
+    ctx.beginPath();
+    CHIP_DATA.forEach(function(d,i){
+      if(i===0) ctx.moveTo(px(i),py(d[key]));
+      else ctx.lineTo(px(i),py(d[key]));
+    });
+    ctx.stroke();
+    // dots
+    CHIP_DATA.forEach(function(d,i){
+      var r = i===li ? 5.5 : 3;
+      ctx.fillStyle = i===li ? color : bg;
+      ctx.strokeStyle=color; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.arc(px(i),py(d[key]),r,0,Math.PI*2);
+      i===li ? ctx.fill() : (ctx.fill(),ctx.stroke());
+    });
+    // latest value label
+    ctx.fillStyle=color; ctx.font='bold 11px monospace'; ctx.textAlign='left';
+    ctx.fillText(CHIP_DATA[li][key], px(li)+8, py(CHIP_DATA[li][key])+4);
+  });
+
+  // X labels
+  ctx.fillStyle=txt; ctx.font='10px monospace'; ctx.textAlign='center';
+  CHIP_DATA.forEach(function(d,i){
+    if(i!==0 && i!==li && i%2!==0) return;
+    var lbl = d.d.length>7 ? d.d.substring(2,7) : d.d.substring(2);
+    ctx.fillText(lbl, px(i), PAD.t+CH+16);
+  });
+
+  // legend
+  var leg = document.getElementById('chip-chart-legend');
+  if(leg && !leg.dataset.init){
+    leg.dataset.init='1';
+    Object.keys(CHIP_LABELS).forEach(function(k){
+      var span=document.createElement('span');
+      span.style.display='flex'; span.style.alignItems='center'; span.style.gap='6px';
+      span.innerHTML='<span style="display:inline-block;width:18px;height:3px;background:'+CHIP_COLORS[k]+';border-radius:2px;"></span>'
+        +'<span style="color:'+CHIP_COLORS[k]+'">'+CHIP_LABELS[k]+'</span>';
+      leg.appendChild(span);
+    });
+  }
+}
+
+// ── Tooltip ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  // 呼吸燈初始化
+  document.querySelectorAll('.ccard-hint').forEach(function(h){h.classList.add('breathing');});
+  // 折線圖
+  renderChipChart();
+  var canvas=document.getElementById('chipChart');
+  var tip=document.getElementById('chip-tooltip');
+  if(!canvas||!tip) return;
+  canvas.addEventListener('mousemove',function(e){
+    var rect=canvas.getBoundingClientRect();
+    var mx=e.clientX-rect.left;
+    var W=rect.width;
+    var N=CHIP_DATA.length;
+    var PAD_L=38, PAD_R=16;
+    var CW=W-PAD_L-PAD_R;
+    var idx=Math.round((mx-PAD_L)/CW*(N-1));
+    idx=Math.max(0,Math.min(N-1,idx));
+    var d=CHIP_DATA[idx];
+    tip.style.display='block';
+    tip.innerHTML='<b style="color:var(--text)">'+d.d+'</b><br>'
+      +'<span style="color:#00c896">A吸籌 '+d.A+'</span> '
+      +'<span style="color:#0ea5e9">B反轉 '+d.B+'</span> '
+      +'<span style="color:#f0c040">C換手 '+d.C+'</span> '
+      +'<span style="color:#ff8040">D出貨 '+d.D+'</span>'
+      +'<br><span style="color:var(--dim);font-size:.9em">合計 '+(d.A+d.B+d.C+d.D)+' 檔</span>';
+    var left=Math.min(mx+12, W-160);
+    tip.style.left=left+'px';
+    tip.style.top='10px';
+  });
+  canvas.addEventListener('mouseleave',function(){tip.style.display='none';});
+  window.addEventListener('resize',function(){renderChipChart();});
+});
+</script>
+
+
+
+
+
+<script>
+
+function togChip(id){
+  var el=document.getElementById(id);
+  if(!el) return;
+  var open=el.classList.contains('open');
+  el.classList.toggle('open',!open);
+  el.style.display=open?'none':'block';
+}
+</script>
+
+
+
+
+
+
+<!-- ██ MARKET_DATA_START ██ -->
+<script id="market-history" type="application/json">
+{
+  "meta": {
+    "note": "資料已移至 Skill-美股.md 第二十二節歷史快照庫"
+  },
+  "history": []
+}
+</script>
+<!-- ██ MARKET_DATA_END ██ -->
+
+</div>
+<script>
+function sortTable(th){
+  var allTh=th.parentNode.cells, colIdx=-1;
+  for(var i=0;i<allTh.length;i++){if(allTh[i]===th){colIdx=i;break;}}
+  if(colIdx===-1) return;
+  var asc=!th.classList.contains('asc');
+  for(var i=0;i<allTh.length;i++){allTh[i].classList.remove('asc','desc');}
+  th.classList.add(asc?'asc':'desc');
+  var el=th;
+  while(el && el.tagName!=='TABLE') el=el.parentNode;
+  var tb=el?el.tBodies[0]:null;
+  if(!tb) return;
+  var rows=[].slice.call(tb.rows);
+  var hdr=th.textContent.replace(/[▲▼⇅\s]/g,'').trim();
+  var so={'🔥主升期':5,'🚀啟動期':4,'🌱萌芽期':3,'➡整理期':2,'📉退燒期':1,'❄全面弱勢':0,'🔥領先':4,'🌱回升':3,'⚠️衰退':2,'❄️落後':1};
+  rows.sort(function(a,b){
+    var at=a.cells[colIdx]?a.cells[colIdx].textContent.trim():'';
+    var bt=b.cells[colIdx]?b.cells[colIdx].textContent.trim():'';
+    var av,bv;
+    if(hdr==='位階'||hdr==='狀態'){
+      av=so[at]||0; bv=so[bt]||0;
+    } else if(hdr==='Ticker'||hdr==='代號'){
+      return asc?at.localeCompare(bt,'en'):bt.localeCompare(at,'en');
+    } else if(at.indexOf('萬')!==-1||bt.indexOf('萬')!==-1){
+      av=parseFloat(at.replace(/[,萬+]/g,''))||0;
+      bv=parseFloat(bt.replace(/[,萬+]/g,''))||0;
+    } else if(at.indexOf('%')!==-1||bt.indexOf('%')!==-1){
+      av=parseFloat(at.replace(/[%+,]/g,''))||0;
+      bv=parseFloat(bt.replace(/[%+,]/g,''))||0;
+    } else {
+      return asc?at.localeCompare(bt,'zh-Hant'):bt.localeCompare(at,'zh-Hant');
+    }
+    return asc?av-bv:bv-av;
+  });
+  for(var i=0;i<rows.length;i++) tb.appendChild(rows[i]);
+}
+
+</script>
+</body>
+</html>
