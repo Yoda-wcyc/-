@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>判斷紀錄 · Yoda Research</title>
+<meta name="description" content="Yoda Research 的判斷紀錄：我們下過的可證偽判斷，到期一條條對答案，對的錯的都攤開。">
+<style>
+:root{
+  --scale:1;
+  --bg:#000000; --surface:#1d1d1f; --surface2:#272729;
+  --border:rgba(255,255,255,.14); --divider:rgba(255,255,255,.08);
+  --text:#f5f5f7; --dim:#a1a1a6; --accent:#2997ff;
+  --green:#30d158; --red:#ff453a; --yellow:#ffd60a; --orange:#ff9f0a;
+  --gold-lg:#e0a526; --gold-sm:#e0a526; --gold-dim:#b8960a;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;
+}
+html[data-theme="light"]{
+  --bg:#f5f5f7; --surface:#ffffff; --surface2:#fafafc;
+  --border:#e0e0e0; --divider:#f0f0f0; --text:#1d1d1f; --dim:#7a7a7a;
+  --accent:#0066cc; --green:#248a3d; --red:#d70015; --yellow:#b25000; --orange:#c93400;
+  --gold-lg:#b8860b; --gold-sm:#b8860b; --gold-dim:#8a6508;
+}
+html[data-size="sm"]{ --scale:.875 }
+html[data-size="md"]{ --scale:1 }
+html[data-size="lg"]{ --scale:1.125 }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:calc(24px*var(--scale));line-height:1.65;font-variant-numeric:tabular-nums;transition:background .3s,color .3s}
+a{color:var(--accent);text-decoration:none}
+
+/* 控制列 B-2 / B-3 */
+.controls-bar{position:fixed;top:14px;right:20px;z-index:9999;display:flex;align-items:center;gap:6px;background:rgba(13,17,24,.72);border:1px solid var(--border);border-radius:8px;padding:5px 8px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(0,0,0,.18)}
+html[data-theme="light"] .controls-bar{background:rgba(255,255,255,.82)}
+.ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
+.ctrl-btn{font-family:'SF Mono','Consolas','Monaco',monospace;font-size:11px;font-weight:600;color:var(--dim);background:transparent;border:none;border-radius:5px;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.ctrl-btn:hover{background:var(--surface2);color:var(--text)}
+.ctrl-btn.active{background:#0071e3;color:#fff}
+.ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-size:11px;font-family:'SF Mono','Consolas',monospace;color:#e8f2ff;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;white-space:nowrap;font-weight:700}
+.ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0}
+.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-size:11px;font-weight:700;color:#1a1200;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite;white-space:nowrap}
+.ctrl-home:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none}
+@keyframes fan-breathe{0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}}
+
+/* 版面 */
+.wrap{max-width:860px;margin:0 auto;padding:calc(96px*var(--scale)) 24px calc(48px*var(--scale))}
+.eyebrow{font-size:calc(13px*var(--scale));letter-spacing:.08em;color:var(--gold-sm);font-weight:600;text-transform:uppercase;margin-bottom:12px}
+h1{font-size:calc(40px*var(--scale));font-weight:600;letter-spacing:-.02em;margin-bottom:calc(14px*var(--scale))}
+.intro{font-size:calc(16px*var(--scale));color:var(--dim);line-height:1.85;max-width:720px;margin-bottom:calc(30px*var(--scale))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:calc(28px*var(--scale))}
+.hd{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 20px;margin-bottom:calc(4px*var(--scale))}
+.hd .rate{font-size:calc(54px*var(--scale));font-weight:700;letter-spacing:-.02em;color:var(--gold-lg);line-height:1}
+.hd .sub{font-size:calc(15px*var(--scale));color:var(--dim);line-height:1.4}
+.hd .tag{font-size:calc(14px*var(--scale));color:var(--text);font-weight:600}
+.legend{font-size:calc(12px*var(--scale));color:var(--dim);margin-bottom:calc(24px*var(--scale))}
+.dash{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:calc(24px*var(--scale))}
+@media (max-width:600px){.dash{grid-template-columns:1fr 1fr}}
+.tile{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:calc(14px*var(--scale))}
+.tile .n{font-size:calc(11px*var(--scale));color:var(--dim);letter-spacing:.04em;margin-bottom:6px}
+.tile .w{font-size:calc(22px*var(--scale));font-weight:700;letter-spacing:-.01em}
+.rows{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;gap:12px;align-items:flex-start;padding:calc(11px*var(--scale)) calc(13px*var(--scale));background:var(--surface2);border-radius:0 8px 8px 0}
+.row .dt{width:calc(46px*var(--scale));flex-shrink:0;text-align:right;line-height:1.35;padding-top:1px}
+.row .dt .d1{font-size:calc(13px*var(--scale));font-weight:700;color:var(--text)}
+.row .dt .d2{font-size:calc(10px*var(--scale));color:var(--dim)}
+.row .ic{font-size:calc(15px*var(--scale));line-height:1.5;flex-shrink:0}
+.row .t{font-size:calc(14px*var(--scale));font-weight:600;line-height:1.55}
+.row .m{font-size:calc(12.5px*var(--scale));color:var(--dim);margin-top:3px;line-height:1.65}
+.row .c{font-weight:700}
+.gamebtn{display:inline-flex;align-items:center;gap:8px;margin-top:calc(18px*var(--scale));padding:calc(10px*var(--scale)) calc(18px*var(--scale));border-radius:9999px;background:var(--surface2);border:1px solid var(--gold-dim);color:var(--gold-lg);font-size:calc(13px*var(--scale));font-weight:600}
+.foot{font-size:calc(12px*var(--scale));color:var(--dim);margin-top:calc(20px*var(--scale));line-height:1.8}
+.back{display:inline-block;margin-top:calc(28px*var(--scale));font-size:calc(15px*var(--scale));color:var(--dim)}
+.back:hover{color:var(--text)}
+footer{border-top:1px solid var(--divider);margin-top:calc(40px*var(--scale));padding-top:calc(28px*var(--scale));font-size:calc(12px*var(--scale));color:var(--dim);line-height:1.8}
+</style>
+</head>
+<body>
+
+<div class="controls-bar">
+  <a href="https://www.facebook.com/profile.php?id=100069223220386" class="ctrl-fan" target="_blank" rel="noopener" title="Facebook粉專"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>粉專</a>
+  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Research">Yoda Research</a>
+  <div class="ctrl-sep"></div>
+  <button class="ctrl-btn" onclick="setSize('sm')">小</button>
+  <button class="ctrl-btn active" onclick="setSize('md')">中</button>
+  <button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  <div class="ctrl-sep"></div>
+  <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
+  <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow">Track Record</div>
+  <h1>判斷紀錄</h1>
+  <p class="intro">我們每天在報告裡下的判斷，都寫成有明確方向、有時間窗、事後能對答案的樣子。這裡就是到期之後、一條一條翻出來對過的成績單——不是挑好看的講，是連沒中的也擺在同一張表上。</p>
+
+  <div class="card">
+    <div class="hd">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span class="rate">56%</span>
+        <span class="sub">整體命中率<br>8 條已到期驗證</span>
+      </div>
+      <span class="tag">對的、錯的，全部攤開</span>
+    </div>
+    <div class="legend">✅ 命中 ×4　➖ 部分 ×1　❌ 未達 ×3　·　⏸ 條件未觸發 ×3（不計入）</div>
+
+    <div class="dash">
+      <div class="tile"><div class="n">事件反應</div><div class="w">2 / 3</div></div>
+      <div class="tile"><div class="n">廣度轉折</div><div class="w">1.5 / 3</div></div>
+      <div class="tile"><div class="n">殖利率方向</div><div class="w">1 / 1</div></div>
+      <div class="tile"><div class="n">板塊輪動</div><div class="w">0 / 1</div></div>
+    </div>
+
+    <div class="rows">
+      <div class="row" style="border-left:3px solid var(--green)"><div class="dt"><div class="d1">7/10</div><div class="d2">驗 7/15</div></div><span class="ic">✅</span><div><div class="t">CPI 當天先別追，等隔天看清楚再說</div><div class="m"><span class="c" style="color:var(--green)">事件反應</span>　公布前市場 Call 買到爆、樂觀到有點過頭；我們選擇不追。結果 7/16–17 一路反轉下殺，這個『先按住手』的紀律剛好躲過。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--green)"><div class="dt"><div class="d1">7/10</div><div class="d2">驗 7/14</div></div><span class="ic">✅</span><div><div class="t">CPI 前，US10Y 會守在 4.50–4.57%、不破 4.60%</div><div class="m"><span class="c" style="color:var(--green)">殖利率方向</span>　整段就黏在 4.55–4.57% 這個窄帶裡，沒有往上失控，最關鍵的那道利率防線守住了。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--red)"><div class="dt"><div class="d1">7/09</div><div class="d2">驗 7/14</div></div><span class="ic">❌</span><div><div class="t">SP20、RSP、SOXX 三條件湊齊，就是底部、可以加碼</div><div class="m"><span class="c" style="color:var(--red)">廣度轉折</span>　三個條件週中一度真的到齊，但那是假底——兩天內全部吐回、NQ 廣度還跌破 50%。照這訊號加碼會挨刀，這次最該記住。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--red)"><div class="dt"><div class="d1">7/09</div><div class="d2">驗 7/14</div></div><span class="ic">❌</span><div><div class="t">SOXX 五日翻正，就升格成強勢主線</div><div class="m"><span class="c" style="color:var(--red)">板塊輪動</span>　五日是翻正沒錯，但同一天月線又翻回負，之後 SOXX 一路深跌，根本沒站穩。升格沒發生。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--green)"><div class="dt"><div class="d1">7/09</div><div class="d2">驗 7/10</div></div><span class="ic">✅</span><div><div class="t">IWM 月線再翻負，廣度架構就正式降一級</div><div class="m"><span class="c" style="color:var(--green)">廣度轉折</span>　隔天 IWM 月線果然翻負，撐盤的最後一條腿也倒了，該降的級如期降。這條是高信心，也真的中了。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--red)"><div class="dt"><div class="d1">7/08</div><div class="d2">驗 7/14</div></div><span class="ic">❌</span><div><div class="t">CPI 只要溫和，QQQ 就會上攻 740–750</div><div class="m"><span class="c" style="color:var(--red)">事件反應</span>　價位是看錯了——CPI 真的溫和，QQQ 卻不漲反跌到 695。但這個『錯』本身就是最強的訊號：利多都出來了還跌，正是天秤在喊偏空（利多不漲＝賣壓在後面等），事後看就是那波轉折的起點。判斷失手，卻讀到了對的方向。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--yellow)"><div class="dt"><div class="d1">7/08</div><div class="d2">驗 7/10</div></div><span class="ic">➖</span><div><div class="t">MDY 跟 RSP 月線一起翻負，廣度就往 S−/M− 降</div><div class="m"><span class="c" style="color:var(--yellow)">廣度轉折</span>　兩個條件確實都到位、架構也照降了；只是那幾天回調沒有立刻擴大，市場短線還撐著，所以只能算對一半。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--dim)"><div class="dt"><div class="d1">7/08</div><div class="d2">驗 7/14</div></div><span class="ic">⏸</span><div><div class="t">US10Y 在 CPI 前，自己回落到 4.527% 以下</div><div class="m"><span class="c" style="color:var(--dim)">殖利率方向</span>　一樣沒回落到那，條件沒成立，不計入。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--dim)"><div class="dt"><div class="d1">7/07</div><div class="d2">驗 7/10</div></div><span class="ic">⏸</span><div><div class="t">US10Y 在紀要後兩天內，收復到 4.527% 以下</div><div class="m"><span class="c" style="color:var(--dim)">殖利率方向</span>　US10Y 沒收復到那個位置，設定的條件沒被觸發，不計入。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--dim)"><div class="dt"><div class="d1">7/07</div><div class="d2">驗 7/14</div></div><span class="ic">⏸</span><div><div class="t">SOXX 沒回收的話，QQQ 會被拖去測 675–690</div><div class="m"><span class="c" style="color:var(--dim)">板塊輪動</span>　但 SOXX 提早就自己回收了，前提根本沒成立，所以這條不列入計分。</div></div></div>
+      <div class="row" style="border-left:3px solid var(--green)"><div class="dt"><div class="d1">6/29</div><div class="d2">驗 7/15</div></div><span class="ic">✅</span><div><div class="t">6/27–30 那波是技術性賣壓，不是基本面壞掉</div><div class="m"><span class="c" style="color:var(--green)">事件反應</span>　整段期間信用利差都穩穩的、沒有異常，代表底層沒破洞；7 月一開月，市場也照著回神了。</div></div></div>
+    </div>
+
+    <a class="gamebtn" href="https://yoda-wcyc.github.io/game/%E8%90%BD%E5%BA%95%E8%A8%8A%E8%99%9F-20260729.html" target="_blank" rel="noopener noreferrer">🎮 這張表最痛的一條，是把「假底」當成真底——玩〈落底訊號〉，練怎麼分 →</a>
+
+    <div class="foot">▸ 這些判斷都是在報告當下就寫死的，一條方向配一個時間窗；時間到了用實際行情對答案：✅ 命中、➖ 部分對、❌ 沒中、⏸ 當初設的條件根本沒發生、所以不計分。寫過的一律留著、不回頭改一個字。截至 2026-08-02。</div>
+  </div>
+
+  <a class="back" href="https://yoda-research-next.vercel.app/">← 回 Yoda Research</a>
+
+  <footer>
+    免責聲明：本站所有內容僅為個人研究記錄與資訊分享，不構成任何投資建議或買賣邀約。投資有風險，任何決策請自行判斷並承擔結果。<br>© 2026 Yoda Research
+  </footer>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  try{ localStorage.setItem('track-theme',t); }catch(e){}
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>b.classList.toggle('active', b.textContent===({dark:'深',light:'淺'})[t]));
+}
+function setSize(s){
+  document.documentElement.setAttribute('data-size',s);
+  try{ localStorage.setItem('track-size',s); }catch(e){}
+  document.querySelectorAll('[onclick*="setSize"]').forEach(b=>b.classList.toggle('active', b.textContent===({sm:'小',md:'中',lg:'大'})[s]));
+}
+(function(){
+  try{
+    var t=localStorage.getItem('track-theme'); if(t) setTheme(t);
+    var s=localStorage.getItem('track-size'); if(s) setSize(s);
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
