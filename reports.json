@@ -53,8 +53,10 @@
     "url": "https://yoda-wcyc.github.io/-/global-leverage.html",
     "updated": "資料截至 2026-07-31",
     "markets": [
+      { "flag": "🇰🇷", "name": "韓國", "index": "KOSPI", "pressure": 82, "trend": "▲ 融資強平螺旋進行中", "history": [62, 72, 74, 77, 84, 82] },
+      { "flag": "🇺🇸", "name": "美國", "index": "S&P 500", "pressure": 58, "trend": "▲ 水位創高·尚未洩壓", "history": [52, 57, 58, 58] },
       { "flag": "🇹🇼", "name": "台灣", "index": "加權指數", "pressure": 48, "trend": "▼ 從高點回落·去槓桿早期", "history": [44, 51, 48, 48] },
-      { "flag": "🇰🇷", "name": "韓國", "index": "KOSPI", "pressure": 82, "trend": "▲ 融資強平螺旋進行中", "history": [62, 72, 74, 77, 84, 82] }
+      { "flag": "🇯🇵", "name": "日本", "index": "日經225", "pressure": 44, "trend": "— 多方滿載·壓力計待補", "history": [40, 45, 44, 44] }
     ]
   },
   "latest": {
