@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>創始會員 · Yoda Research</title>
+<meta name="description" content="Yoda Research 創始會員：認真投資自己的市場教育。免費看懂今天，完整版帶你看懂全貌與接下來。">
+<style>
+:root{
+  --scale:1;
+  --bg:#000000; --surface:#1d1d1f; --surface2:#272729;
+  --border:rgba(255,255,255,.14); --divider:rgba(255,255,255,.08);
+  --text:#f5f5f7; --dim:#a1a1a6; --accent:#2997ff;
+  --green:#30d158; --red:#ff453a; --gold-lg:#e0a526; --gold-dim:#b8960a;
+  --sub1:#8b5cf6; --sub2:#ec4899; /* 付費專屬跳色：紫→洋紅 */
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;
+}
+html[data-theme="light"]{
+  --bg:#f5f5f7; --surface:#ffffff; --surface2:#f0eef7;
+  --border:#e0e0e0; --divider:#f0f0f0; --text:#1d1d1f; --dim:#7a7a7a;
+  --accent:#0066cc; --green:#248a3d; --red:#d70015; --gold-lg:#b8860b; --gold-dim:#8a6508;
+  --sub1:#7c3aed; --sub2:#db2777;
+}
+html[data-size="sm"]{ --scale:.875 } html[data-size="md"]{ --scale:1 } html[data-size="lg"]{ --scale:1.125 }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:calc(24px*var(--scale));line-height:1.65;font-variant-numeric:tabular-nums;transition:background .3s,color .3s}
+a{color:var(--accent);text-decoration:none}
+
+/* 控制列 */
+.controls-bar{position:fixed;top:14px;right:20px;z-index:9999;display:flex;align-items:center;gap:6px;background:rgba(13,17,24,.72);border:1px solid var(--border);border-radius:8px;padding:5px 8px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+html[data-theme="light"] .controls-bar{background:rgba(255,255,255,.82)}
+.ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
+.ctrl-btn{font-family:'SF Mono','Consolas',monospace;font-size:11px;font-weight:600;color:var(--dim);background:transparent;border:none;border-radius:5px;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.ctrl-btn:hover{background:var(--surface2);color:var(--text)}.ctrl-btn.active{background:#0071e3;color:#fff}
+.ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-size:11px;font-family:'SF Mono',monospace;color:#e8f2ff;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;font-weight:700}
+.ctrl-fan svg{width:12px;height:12px;fill:currentColor}
+.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-size:11px;font-weight:700;color:#1a1200;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite}
+@keyframes fan-breathe{0%,100%{background:#b8960a;color:#1a1200}50%{background:#ffd700;color:#000}}
+
+/* 版面 */
+.wrap{max-width:980px;margin:0 auto;padding:calc(96px*var(--scale)) 24px calc(56px*var(--scale))}
+.eyebrow{font-size:calc(13px*var(--scale));letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:12px;background:linear-gradient(90deg,var(--sub1),var(--sub2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{font-size:calc(46px*var(--scale));font-weight:700;letter-spacing:-.02em;line-height:1.12;margin-bottom:calc(14px*var(--scale))}
+.lede{font-size:calc(17px*var(--scale));color:var(--dim);line-height:1.85;max-width:700px;margin-bottom:calc(20px*var(--scale))}
+h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;margin:calc(46px*var(--scale)) 0 calc(18px*var(--scale))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:calc(24px*var(--scale))}
+
+/* 免費 vs 付費 */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.cmp{grid-template-columns:1fr}}
+.cmp-col{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:calc(22px*var(--scale))}
+.cmp-col.paid{border-color:var(--sub1);box-shadow:0 0 0 1px var(--sub1)}
+.cmp-h{font-weight:700;font-size:calc(16px*var(--scale));margin-bottom:4px}
+.cmp-h.free{color:var(--green)} .cmp-h.paid{background:linear-gradient(90deg,var(--sub1),var(--sub2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cmp-sub{font-size:calc(12px*var(--scale));color:var(--dim);margin-bottom:14px}
+.cmp-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cmp-col li{font-size:calc(14px*var(--scale));line-height:1.6;padding-left:24px;position:relative}
+.cmp-col li::before{position:absolute;left:0;top:0}
+.cmp-col.free li::before{content:"✓";color:var(--green);font-weight:700}
+.cmp-col.paid li::before{content:"＋";color:var(--sub2);font-weight:700}
+
+/* 內容 6 卡 */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.grid3{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid3{grid-template-columns:1fr}}
+.gc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:calc(18px*var(--scale))}
+.gc .l{font-size:calc(11px*var(--scale));letter-spacing:.14em;text-transform:uppercase;color:var(--sub2);font-weight:700;margin-bottom:8px}
+.gc .t{font-size:calc(16px*var(--scale));font-weight:700;margin-bottom:6px}
+.gc .d{font-size:calc(13px*var(--scale));color:var(--dim);line-height:1.7}
+
+/* 方案卡 */
+.plans{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;align-items:stretch}
+@media(max-width:640px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--border);border-radius:18px;padding:calc(26px*var(--scale));display:flex;flex-direction:column;background:var(--surface)}
+.plan.founding{border:1.5px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,var(--sub1),var(--sub2)) border-box}
+.plan-badge{display:inline-block;align-self:flex-start;font-size:calc(11px*var(--scale));font-weight:700;letter-spacing:.04em;color:#fff;background:linear-gradient(90deg,var(--sub1),var(--sub2));padding:4px 10px;border-radius:9999px;margin-bottom:12px}
+.plan-name{font-size:calc(17px*var(--scale));font-weight:700;margin-bottom:6px}
+.plan.founding .plan-name{background:linear-gradient(90deg,var(--sub1),var(--sub2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.plan-price{font-size:calc(40px*var(--scale));font-weight:800;letter-spacing:-.02em;line-height:1}
+.plan-price .cur{font-size:calc(18px*var(--scale));font-weight:600;color:var(--dim);margin-right:4px}
+.plan-price .per{font-size:calc(14px*var(--scale));font-weight:500;color:var(--dim)}
+.plan-note{font-size:calc(13px*var(--scale));color:var(--dim);line-height:1.7;margin:12px 0 0}
+
+/* 付費專屬 CTA 鈕（跳色） */
+.btn-sub{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:calc(15px*var(--scale)) calc(24px*var(--scale));border-radius:9999px;font-size:calc(17px*var(--scale));font-weight:700;color:#fff;text-decoration:none;border:none;cursor:pointer;background:linear-gradient(135deg,var(--sub1),var(--sub2));box-shadow:0 6px 22px rgba(139,92,246,.4);transition:transform .12s,box-shadow .2s;margin-top:auto}
+.btn-sub:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(236,72,153,.5)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;width:100%;padding:calc(13px*var(--scale)) calc(20px*var(--scale));border-radius:9999px;font-size:calc(15px*var(--scale));font-weight:600;color:var(--text);border:1px solid var(--border);background:none;text-decoration:none;margin-top:auto}
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:calc(13px*var(--scale));color:var(--dim);margin-top:14px}
+.flow .step{background:var(--surface2);border:1px solid var(--border);border-radius:9999px;padding:4px 12px}
+.flow .arr{color:var(--sub2);font-weight:700}
+
+.guarantee{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:calc(18px*var(--scale));font-size:calc(14px*var(--scale));line-height:1.8}
+.pay-note{font-size:calc(13px*var(--scale));color:var(--dim);line-height:1.8;margin-top:16px}
+.faq-item{padding:16px 0;border-top:1px solid var(--divider)}
+.faq-item:first-child{border-top:none}
+.faq-q{font-weight:700;font-size:calc(15px*var(--scale));margin-bottom:5px}
+.faq-a{font-size:calc(14px*var(--scale));color:var(--dim);line-height:1.7}
+.disc{font-size:calc(12px*var(--scale));color:var(--dim);line-height:1.8;border-top:1px solid var(--divider);margin-top:calc(40px*var(--scale));padding-top:calc(24px*var(--scale))}
+.back{display:inline-block;margin-top:calc(24px*var(--scale));font-size:calc(15px*var(--scale));color:var(--dim)}
+.tag-key{display:inline-block;font-size:calc(11px*var(--scale));font-weight:700;color:var(--sub2);border:1px solid var(--sub1);border-radius:6px;padding:2px 8px;margin-right:8px}
+</style>
+</head>
+<body>
+
+<div class="controls-bar">
+  <a href="https://www.facebook.com/profile.php?id=100069223220386" class="ctrl-fan" target="_blank" rel="noopener" title="Facebook粉專"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>粉專</a>
+  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Research">Yoda Research</a>
+  <div class="ctrl-sep"></div>
+  <button class="ctrl-btn" onclick="setSize('sm')">小</button><button class="ctrl-btn active" onclick="setSize('md')">中</button><button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  <div class="ctrl-sep"></div>
+  <button class="ctrl-btn active" onclick="setTheme('dark')">深</button><button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow">Founding Member · 創始會員</div>
+  <h1>認真投資自己的<br>市場教育</h1>
+  <p class="lede">Yoda Research 不預測市場，也不報明牌——我把市場翻成人話，幫你長出自己的判斷。報告是教材，你長出來的判斷力，才是帶得走的東西。<b style="color:var(--text)">免費讓你看懂今天；完整版帶你看懂全貌，還有「接下來」。</b></p>
+
+  <!-- 免費 vs 付費 -->
+  <h2>免費，跟創始會員差在哪</h2>
+  <div class="cmp">
+    <div class="cmp-col free">
+      <div class="cmp-h free">永久免費</div>
+      <div class="cmp-sub">一個都不會被收走、也不會被弄爛</div>
+      <ul>
+        <li>每天粉專貼文、市場觀察</li>
+        <li>所有把一個概念講到你會為止的小遊戲</li>
+        <li>簡報的「今天發生什麼、為什麼」</li>
+        <li>時間軸 track record——每個判斷對或錯，公開擺著</li>
+        <li>六類報告「看懂今天」＋一句判讀方向</li>
+      </ul>
+    </div>
+    <div class="cmp-col paid">
+      <div class="cmp-h paid">創始會員 · 多給的（加法）</div>
+      <div class="cmp-sub">深度／前瞻／完整／歷史／個人化</div>
+      <ul>
+        <li><span class="tag-key">旗艦</span>【關鍵報告】：完整判讀＋我自己的實際操作與推理</li>
+        <li>六類<b>完整報告</b>（全貌與細節）</li>
+        <li>簡報「接下來要注意什麼」完整前瞻／條件劇本</li>
+        <li>動態圖即時互動版＋20 天歷史尾巴</li>
+        <li>歷史庫 archive、個人化答疑</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 會收到什麼（6 卡，沿用舊頁內容） -->
+  <h2>完整報告帶你看的六件事</h2>
+  <div class="grid3">
+    <div class="gc"><div class="l">總經定位</div><div class="t">景氣循環位階</div><div class="d">現在處在景氣循環的哪個位階、距轉折還有多遠、下一階段適合的標的類別。</div></div>
+    <div class="gc"><div class="l">資金潮汐</div><div class="t">全球資金流向</div><div class="d">Fed 收縮還是寬鬆、熱錢往哪個市場／板塊移動——跨市場的資金潮汐線索。</div></div>
+    <div class="gc"><div class="l">突發事件</div><div class="t">立即解析</div><div class="d">財報、戰爭、政策轉向——每個消息跟殖利率、波動率、板塊輪動交叉核對，分清是真轉折還是情緒反射。</div></div>
+    <div class="gc"><div class="l">風險判斷</div><div class="t">完整防線</div><div class="d">從 VIX 到投機客籌碼、Fed 流動性到價格位階，五個維度交叉檢視市場是過熱還是過悲。</div></div>
+    <div class="gc"><div class="l">板塊輪動</div><div class="t">真強勢 / 假反彈</div><div class="d">用相對強弱而非單純漲跌幅，分辨資金是不是真的在流入。</div></div>
+    <div class="gc"><div class="l">個股名單</div><div class="t">強勢股 / 新黑馬 / 警戒</div><div class="d">沿產業鏈找接棒者，辨認強勢轉弱與新黑馬，搭配對應的操作紀律提醒。</div></div>
+  </div>
+
+  <!-- 方案 -->
+  <h2>選擇方案</h2>
+  <div class="plans">
+    <div class="plan founding">
+      <span class="plan-badge">限量早鳥 · 價格鎖定</span>
+      <div class="plan-name">創始會員</div>
+      <div class="plan-price"><span class="cur">NT$</span>489<span class="per"> / 月</span></div>
+      <p class="plan-note">給最早相信我的人。<b style="color:var(--text)">你鎖的就是這個價</b>——名額滿後漲到 NT$589，創始會員永遠停在 489。完整六類報告＋【關鍵報告】＋歷史庫＋動態圖互動版＋個人化，全都給。</p>
+      <div style="height:16px"></div>
+      <a class="btn-sub" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html">先花兩分鐘，再決定 →</a>
+      <div class="flow"><span class="step">① 玩《先別急著付錢》</span><span class="arr">→</span><span class="step">② 確認方案</span><span class="arr">→</span><span class="step">③ 綠界刷卡</span></div>
+    </div>
+    <div class="plan">
+      <div class="plan-name" style="margin-top:calc(28px*var(--scale))">一般會員</div>
+      <div class="plan-price"><span class="cur">NT$</span>589<span class="per"> / 月</span></div>
+      <p class="plan-note">創始名額滿之後的正式價，內容與創始會員完全相同。想鎖 489，就趁現在。</p>
+      <div style="height:16px"></div>
+      <a class="btn-ghost" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html">了解一般會員 →</a>
+    </div>
+  </div>
+
+  <!-- 關鍵報告 -->
+  <h2>付費的核心：【關鍵報告】</h2>
+  <div class="card">
+    <p style="font-size:calc(15px*var(--scale));line-height:1.85;color:var(--text)">我對市況的<b>完整判讀</b>，加上<b>我自己的實際操作與背後推理</b>：為什麼我這樣看、什麼訊號會讓我改變主意。你看到的不是「你該買什麼」，是「一個人怎麼想、怎麼下判斷」——這比明牌值錢，因為它會變成你的能力。</p>
+    <p style="font-size:calc(13px*var(--scale));line-height:1.8;color:var(--dim);margin-top:12px">寫成可證偽的條件劇本（若 A → 通常 B，盯訊號 C），不給買賣指令或目標價。這是操作與觀點分享，不是投顧報單。</p>
+  </div>
+
+  <!-- 加法保證 -->
+  <h2>兩件事先說清楚</h2>
+  <div class="guarantee">
+    <b>1. 這是加法。</b>免費的一樣在，一個都不會被收走，也不會被弄爛來逼你付錢。<br>
+    <b>2. 我不主打便宜。</b>我賣的是判斷力，不是折扣。這個早鳥價，留給最早相信我的人。
+  </div>
+
+  <div class="pay-note">
+    ▸ 付款走 <b>綠界金流（ECPay）信用卡定期定額</b>（台灣本地、隨時可取消）。免費電子報照常出。<br>
+    ▸ 點「先花兩分鐘」會先開《先別急著付錢》這支小遊戲——搞清楚訂了多拿到什麼、這裡適不適合你，玩完再進確認與付款。不想付的人，免費的照拿。
+  </div>
+
+  <!-- FAQ -->
+  <h2>常見問題</h2>
+  <div class="faq-item"><div class="faq-q">多久更新一次？</div><div class="faq-a">市場觀察、美股、台股、簡報每週至少三次；總經月更、AI 泡沫與專題不定期。發生大事會即時追。</div></div>
+  <div class="faq-item"><div class="faq-q">會給個股買賣建議嗎？</div><div class="faq-a">不會。內容是市場結構、資金輪動與判斷框架，加上我自己怎麼想、怎麼動作的示範，可提高你自己操作與選股的勝率，但不構成個股買賣建議。</div></div>
+  <div class="faq-item"><div class="faq-q">為什麼要先玩一個遊戲才能訂？</div><div class="faq-a">兩分鐘的《先別急著付錢》讓你先搞清楚訂了會多拿到什麼、這裡適不適合你——不想付的人，免費的一樣照拿，體面離開。</div></div>
+  <div class="faq-item"><div class="faq-q">可以隨時取消嗎？</div><div class="faq-a">可以。取消後從下一期起不再扣款，當期已發送的內容不受影響。</div></div>
+
+  <!-- 綠界定期定額審核用：自動續扣揭露／取消／退費／客服／發票 -->
+  <h2>訂閱與付款須知</h2>
+  <div class="card" style="font-size:calc(13.5px*var(--scale));line-height:1.95;color:var(--dim)">
+    <b style="color:var(--text)">自動續扣（定期定額）</b>：訂閱採每月定期定額，綠界（ECPay）會於每月固定日向你綁定的信用卡收取當期費用，持續至你主動取消為止。<br>
+    <b style="color:var(--text)">取消方式</b>：可隨時取消——來信客服或私訊粉專即可；取消後自<b>下一期</b>起不再扣款。<br>
+    <b style="color:var(--text)">退費政策</b>：數位內容於當期開通後不另退費；取消僅停止下一期扣款，當期服務仍提供至期末。<br>
+    <b style="color:var(--text)">客服聯絡</b>：Email　<b style="color:var(--red)">【待填：客服信箱】</b>　·　<a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">Facebook 粉專</a><br>
+    <b style="color:var(--text)">發票</b>：<b style="color:var(--red)">【待填：開立電子發票／其他】</b>
+  </div>
+
+  <a class="back" href="https://yoda-research-next.vercel.app/">← 回 Yoda Research</a>
+
+  <div class="disc">
+    本內容為個人操作與觀點分享，非投資建議，僅供參考，投資決策與風險請自行判斷。創始名額與價格以官方公告為準。<br>© 2026 Yoda Research
+  </div>
+</div>
+
+<script>
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('sub-theme',t)}catch(e){}document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>b.classList.toggle('active',b.textContent===({dark:'深',light:'淺'})[t]))}
+function setSize(s){document.documentElement.setAttribute('data-size',s);try{localStorage.setItem('sub-size',s)}catch(e){}document.querySelectorAll('[onclick*="setSize"]').forEach(b=>b.classList.toggle('active',b.textContent===({sm:'小',md:'中',lg:'大'})[s]))}
+(function(){try{var t=localStorage.getItem('sub-theme');if(t)setTheme(t);var s=localStorage.getItem('sub-size');if(s)setSize(s)}catch(e){}})();
+</script>
+</body>
+</html>
