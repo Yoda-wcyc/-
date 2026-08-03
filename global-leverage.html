@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全球槓桿觀察表 · Yoda Research</title>
+<style>
+:root{
+  --scale:1;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  /* dark theme (default) */
+  --bg:#0b0e14; --bg2:#121722; --card:#161c28; --card2:#1c2432;
+  --ink:#e8ecf3; --ink2:#aab4c5; --ink3:#6b7688;
+  --border:#252d3c; --border2:#313b4d;
+  --accent:#ffd54a;
+  --g0:#2e7d32; --g1:#66bb6a; --g2:#f9a825; --g3:#fb8c00; --g4:#e53935;
+}
+html[data-theme="light"]{
+  --bg:#f4f6fa; --bg2:#eaeef4; --card:#ffffff; --card2:#f7f9fc;
+  --ink:#1a2130; --ink2:#4a5568; --ink3:#8a94a6;
+  --border:#dce2ec; --border2:#c8d1de;
+  --accent:#b8860b;
+}
+html[data-size="sm"]{ --scale:.875 }
+html[data-size="md"]{ --scale:1 }
+html[data-size="lg"]{ --scale:1.125 }
+*{ box-sizing:border-box; margin:0; padding:0 }
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--sans);
+  font-size:calc(24px * var(--scale));
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+  padding:0 0 80px;
+}
+.wrap{ max-width:1120px; margin:0 auto; padding:0 20px }
+
+/* ---------- 控制列 ---------- */
+.controls-bar{
+  position:fixed; top:14px; right:20px; z-index:100;
+  display:flex; align-items:center; gap:6px;
+  background:rgba(13,17,24,.72); border:1px solid var(--border);
+  border-radius:8px; padding:5px 8px;
+  backdrop-filter:blur(12px); box-shadow:0 2px 16px rgba(0,0,0,.18);
+  font-family:var(--mono);
+}
+html[data-theme="light"] .controls-bar{ background:rgba(255,255,255,.82) }
+.ctrl-group{ display:flex; gap:2px }
+.ctrl-sep{ width:1px; height:18px; background:var(--border); margin:0 2px }
+.ctrl-btn{
+  font-family:var(--mono); font-size:11px; font-weight:600;
+  color:var(--ink2); background:transparent; border:none; border-radius:5px;
+  padding:4px 9px; cursor:pointer; transition:all .15s; white-space:nowrap;
+}
+.ctrl-btn:hover{ background:var(--card2); color:var(--ink) }
+.ctrl-btn.on{ background:#0071e3; color:#fff; font-weight:600 }
+@keyframes fan-breathe{
+  0%,100%{ background:#b8960a; box-shadow:0 0 4px 1px rgba(255,215,0,.35); color:#1a1200 }
+  50%{ background:#ffd700; box-shadow:0 0 10px 3px rgba(255,215,0,.75); color:#000 }
+}
+/* 粉專：藍色 pill（MW 藍 #1a3a5c） */
+.ctrl-fan{
+  display:inline-flex; align-items:center; gap:4px; padding:4px 12px;
+  font-family:var(--mono); font-size:11px; font-weight:700;
+  color:#e8f2ff; text-decoration:none;
+  background:#1a3a5c; border:1px solid #2a4a6c; border-radius:9999px;
+  transition:all .15s ease; white-space:nowrap;
+}
+.ctrl-fan svg{ width:12px; height:12px; fill:currentColor; flex-shrink:0 }
+.ctrl-fan:hover{ background:#2a4a6c; border-color:#3a5a7c; color:#e8f2ff }
+/* 首頁：Yoda Research 金色呼吸 */
+.ctrl-home{
+  display:inline-flex; align-items:center; padding:4px 12px;
+  font-family:var(--mono); font-size:11px; font-weight:700;
+  color:#1a1200; text-decoration:none;
+  background:#b8960a; border-radius:9999px;
+  animation:fan-breathe 1.8s ease-in-out infinite;
+  white-space:nowrap; transition:all .15s ease;
+}
+.ctrl-home:hover{ background:#ffd700; color:#000; box-shadow:0 0 10px 3px rgba(255,215,0,.75); animation:none }
+
+/* ---------- Hero ---------- */
+.hero{ padding:64px 0 20px; border-bottom:1px solid var(--border) }
+.hero .kicker{ font-family:var(--mono); font-size:calc(11px*var(--scale)); letter-spacing:.18em; color:var(--ink3); text-transform:uppercase }
+.hero h1{ font-size:calc(38px*var(--scale)); font-weight:800; letter-spacing:-.01em; margin:8px 0 6px; line-height:1.15 }
+.hero .sub{ color:var(--ink2); font-size:calc(15px*var(--scale)); max-width:760px }
+.hero .asof{ font-family:var(--mono); font-size:calc(11px*var(--scale)); color:var(--ink3); margin-top:10px }
+
+/* ---------- Section ---------- */
+.sec{ margin-top:34px }
+.sec-h{ font-family:var(--mono); font-size:calc(12px*var(--scale)); letter-spacing:.14em; color:var(--ink3); text-transform:uppercase; margin-bottom:14px; display:flex; align-items:center; gap:10px }
+.sec-h::before{ content:""; width:22px; height:2px; background:var(--accent) }
+
+/* ---------- 全球地圖總述 ---------- */
+.mapline{
+  background:linear-gradient(135deg,var(--card),var(--card2));
+  border:1px solid var(--border); border-radius:12px; padding:18px 20px;
+  font-size:calc(15px*var(--scale)); color:var(--ink); line-height:1.7;
+}
+.mapline b{ color:var(--accent) }
+
+/* ---------- Overview grid ---------- */
+.grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px }
+@media(max-width:880px){ .grid{ grid-template-columns:repeat(2,1fr) } }
+@media(max-width:520px){ .grid{ grid-template-columns:1fr } }
+.mcard{
+  background:var(--card); border:1px solid var(--border); border-radius:12px;
+  padding:16px 16px 14px; cursor:pointer; transition:.15s;
+  position:relative; overflow:hidden;
+}
+.mcard:hover{ border-color:var(--border2); transform:translateY(-2px) }
+.mcard .top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:2px }
+.mcard .flag{ font-size:calc(22px*var(--scale)) }
+.mcard .mkt{ font-weight:700; font-size:calc(16px*var(--scale)) }
+.mcard .cad{ font-family:var(--mono); font-size:calc(9.5px*var(--scale)); padding:2px 6px; border-radius:20px; letter-spacing:.03em }
+.cad-d{ background:rgba(102,187,106,.15); color:#66bb6a }
+.cad-w{ background:rgba(249,168,37,.15); color:#f9a825 }
+.cad-m{ background:rgba(139,148,168,.15); color:#8b94a8 }
+.score{ font-family:var(--mono); font-weight:800; font-size:calc(34px*var(--scale)); line-height:1; margin:10px 0 2px; letter-spacing:-.02em }
+.score small{ font-size:calc(13px*var(--scale)); color:var(--ink3); font-weight:600; margin-left:3px }
+.band-lbl{ font-size:calc(12px*var(--scale)); font-weight:700; margin-bottom:9px }
+.bar{ height:7px; border-radius:6px; background:var(--bg2); position:relative; overflow:hidden;
+  background-image:linear-gradient(90deg,var(--g0) 0%,var(--g1) 20%,var(--g2) 45%,var(--g3) 70%,var(--g4) 100%); }
+.bar .mk{ position:absolute; top:-3px; width:3px; height:13px; background:var(--ink); border-radius:2px; box-shadow:0 0 0 2px var(--card) }
+.headline{ margin-top:11px; font-size:calc(12.5px*var(--scale)); color:var(--ink2); line-height:1.5 }
+.headline .v{ color:var(--ink); font-weight:700; font-family:var(--mono) }
+.mcard .trend{ font-family:var(--mono); font-size:calc(11px*var(--scale)); margin-top:7px; color:var(--ink3) }
+.cfoot{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:9px; padding-top:9px; border-top:1px solid var(--border) }
+.csrc{ font-family:var(--mono); font-size:calc(10.5px*var(--scale)); color:var(--ink3); text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.csrc:hover{ color:var(--accent) }
+.mcard .expand{ font-size:calc(11px*var(--scale)); color:var(--ink3); font-family:var(--mono); flex:none }
+
+/* ---------- Detail panel ---------- */
+.detail{ display:none; margin-top:14px }
+.detail.open{ display:block; animation:fade .2s ease }
+@keyframes fade{ from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:none} }
+.dpanel{ background:var(--card); border:1px solid var(--border2); border-radius:14px; padding:22px 22px 20px }
+.dhead{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:4px }
+.dhead .flag{ font-size:calc(28px*var(--scale)) }
+.dhead h3{ font-size:calc(22px*var(--scale)); font-weight:800 }
+.dhead .dscore{ font-family:var(--mono); font-weight:800; font-size:calc(20px*var(--scale)); margin-left:auto }
+.dmeta{ font-family:var(--mono); font-size:calc(11px*var(--scale)); color:var(--ink3); margin-bottom:16px }
+
+.chartbox{ background:var(--card2); border:1px solid var(--border); border-radius:12px; padding:14px 16px 12px; margin-bottom:20px }
+.chartbox .ct{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:8px }
+.chartbox .ctl{ font-size:calc(13px*var(--scale)); font-weight:700; color:var(--ink) }
+.chartbox .ctr{ font-family:var(--mono); font-size:calc(10.5px*var(--scale)); color:var(--ink3) }
+.chartbox svg{ display:block; width:100%; height:auto }
+.chartbox .accum{ font-size:calc(11.5px*var(--scale)); color:var(--g2); margin-top:6px; font-family:var(--mono) }
+.gtxt{ font-family:var(--mono); font-size:11px; fill:var(--ink3) }
+.gline{ stroke:var(--border); stroke-width:1 }
+
+.subs{ display:flex; flex-direction:column; gap:12px; margin:6px 0 20px }
+.sub{ }
+.sub .row{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:5px }
+.sub .lab{ font-size:calc(13.5px*var(--scale)); color:var(--ink); font-weight:600 }
+.sub .val{ font-family:var(--mono); font-size:calc(13px*var(--scale)); color:var(--ink); font-weight:700; white-space:nowrap }
+.sub .val.pend{ color:var(--g2) }
+.sbar{ height:6px; border-radius:5px; background:var(--bg2); overflow:hidden }
+.sbar i{ display:block; height:100%; border-radius:5px }
+.sub .note{ font-size:calc(11.5px*var(--scale)); color:var(--ink3); margin-top:4px; line-height:1.5 }
+
+.lights{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:4px 0 22px }
+@media(max-width:640px){ .lights{ grid-template-columns:1fr } }
+.light{ background:var(--card2); border:1px solid var(--border); border-radius:10px; padding:12px 13px }
+.light .lt{ display:flex; align-items:center; gap:7px; font-size:calc(12.5px*var(--scale)); font-weight:700; margin-bottom:3px }
+.dot{ width:11px; height:11px; border-radius:50%; flex:none; box-shadow:0 0 6px 1px currentColor }
+.dot.r{ background:#e53935; color:#e53935 } .dot.y{ background:#f9a825; color:#f9a825 } .dot.g{ background:#43a047; color:#43a047 }
+.light .ld{ font-size:calc(11.5px*var(--scale)); color:var(--ink2); line-height:1.5 }
+.light .lk{ font-family:var(--mono); font-size:calc(9.5px*var(--scale)); color:var(--ink3); text-transform:uppercase; letter-spacing:.05em; margin-bottom:2px }
+
+.interp{ background:var(--bg2); border-left:3px solid var(--accent); border-radius:0 10px 10px 0; padding:15px 18px; margin-bottom:4px }
+.interp p{ font-size:calc(14px*var(--scale)); line-height:1.75; margin-bottom:9px }
+.interp p:last-child{ margin-bottom:0 }
+.interp .tag{ font-family:var(--mono); font-size:calc(10.5px*var(--scale)); font-weight:700; color:var(--accent); background:rgba(255,213,74,.1); padding:1px 7px; border-radius:4px; margin-right:7px; letter-spacing:.03em }
+
+/* ---------- Methodology ---------- */
+.method{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px }
+.method h4{ font-size:calc(15px*var(--scale)); margin-bottom:10px; font-weight:700 }
+.method p,.method li{ font-size:calc(13px*var(--scale)); color:var(--ink2); line-height:1.7 }
+.method ul{ padding-left:20px; margin:6px 0 14px }
+.method li{ margin-bottom:4px }
+.method .scale-legend{ display:flex; gap:0; margin:10px 0 16px; border-radius:6px; overflow:hidden; font-family:var(--mono); font-size:calc(10px*var(--scale)) }
+.method .scale-legend span{ flex:1; padding:5px 4px; text-align:center; color:#000; font-weight:700 }
+.src-tbl{ width:100%; border-collapse:collapse; margin-top:8px; font-size:calc(12px*var(--scale)) }
+.src-tbl th,.src-tbl td{ text-align:left; padding:7px 8px; border-bottom:1px solid var(--border) }
+.src-tbl th{ color:var(--ink3); font-family:var(--mono); font-weight:600; font-size:calc(10.5px*var(--scale)); text-transform:uppercase; letter-spacing:.04em }
+.src-tbl td{ color:var(--ink2) }
+.src-tbl .cd{ font-family:var(--mono); color:var(--ink) }
+
+/* ---------- footer ---------- */
+.foot{ margin-top:38px; padding-top:20px; border-top:1px solid var(--border); font-size:calc(11.5px*var(--scale)); color:var(--ink3); line-height:1.7 }
+.foot b{ color:var(--ink2) }
+</style>
+</head>
+<body>
+
+<!-- 控制列（外殼統一標準） -->
+<style>
+/* ── 控制列統一覆寫 2026-07-31：粉專＝MW藍、字級固定 11px（對齊 MD） ── */
+.controls-bar .ctrl-fan{background:#1a3a5c;border:1px solid #2a4a6c;color:#e8f2ff;font-size:11px}
+.controls-bar .ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;color:#e8f2ff}
+.controls-bar .ctrl-btn{font-size:11px}
+.controls-bar .ctrl-home{font-size:11px}
+</style>
+<div class="controls-bar">
+  <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener" class="ctrl-fan" title="Facebook粉專"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>粉專</a>
+  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Research">Yoda Research</a>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group" role="group" aria-label="字級">
+    <button class="ctrl-btn" data-size-btn="sm">小</button><button class="ctrl-btn on" data-size-btn="md">中</button><button class="ctrl-btn" data-size-btn="lg">大</button>
+  </div>
+  <div class="ctrl-sep"></div>
+  <div class="ctrl-group" role="group" aria-label="主題">
+    <button class="ctrl-btn on" data-theme-btn="dark">深</button><button class="ctrl-btn" data-theme-btn="light">淺</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="kicker">Yoda Research · Global Leverage Monitor</div>
+    <h1>全球槓桿觀察表</h1>
+    <p class="sub">用同一把尺，稱量台灣、美國、韓國、日本四個市場的融資槓桿水位與去槓桿壓力。上排一眼看水位，點開任一市場，展開它的壓力子指標、三盞訊號燈與解讀。</p>
+    <div class="asof" id="asofLine"></div>
+  </header>
+
+  <!-- 全球地圖總述 -->
+  <section class="sec">
+    <div class="sec-h">當前全球槓桿地圖</div>
+    <div class="mapline" id="mapline"></div>
+  </section>
+
+  <!-- Overview -->
+  <section class="sec">
+    <div class="sec-h">四市場水位對照 · 點卡片展開細節</div>
+    <div class="grid" id="grid"></div>
+    <div class="detail" id="detail"></div>
+  </section>
+
+  <!-- Methodology -->
+  <section class="sec">
+    <div class="sec-h">方法論與數據源</div>
+    <div class="method">
+      <h4>去槓桿壓力指數（0–100）</h4>
+      <p>0＝槓桿已出清、100＝極端槓桿壓力。每個市場用各自的融資結構指標，加權合成一個 0–100 分數。由於四地的融資制度、揭露頻率不同，子指標不完全一樣，但都對應同一件事：<b>市場借了多少錢（水位）× 壓力計／強制平倉是否已啟動（洩壓）× 趨勢方向</b>。</p>
+      <div class="scale-legend">
+        <span style="background:#2e7d32">0–20 出清</span>
+        <span style="background:#66bb6a">20–40 低壓</span>
+        <span style="background:#f9a825">40–60 中性</span>
+        <span style="background:#fb8c00">60–80 高壓</span>
+        <span style="background:#e53935">80–100 極端</span>
+      </div>
+      <h4>三盞訊號燈（沿用參考儀表板架構）</h4>
+      <ul>
+        <li><b>技術性賣壓衰竭</b>——強制平倉／恐慌賣壓是否已耗盡（可由數據自動判定）。</li>
+        <li><b>外部催化劑落地</b>——引爆去槓桿的外部衝擊是否已發生並消化（人工旗標）。</li>
+        <li><b>監管干預力度</b>——主管機關是否已介入示警或限制（人工旗標）。</li>
+      </ul>
+      <p style="color:var(--ink3)">三燈全綠之前的反彈，多屬技術性反彈，而非壓力真正解除。</p>
+      <h4 style="margin-top:16px">數據源與更新頻率</h4>
+      <table class="src-tbl">
+        <thead><tr><th>市場</th><th>核心指標</th><th>來源</th><th>頻率</th></tr></thead>
+        <tbody id="srcBody"></tbody>
+      </table>
+      <p style="margin-top:12px;color:var(--ink3)">本表數字盡量自動抓取、標註核對日；搜不到即時值者以「待補」標示，由手動補上。各指標的 0–100 對照門檻寫在該指標的說明列，可逐日調整。</p>
+      <h4 style="margin-top:16px">壓力值歷史帳本</h4>
+      <p>每個市場的去槓桿壓力值每日記錄一點，累積成走勢圖，保留最近兩季（約 126 個交易日），較舊者自動汰除。圖中<b>虛線·空心點</b>為依 7 月已知事件（強制平倉佔比、熔斷、融資餘額變化等）估算回填的錨點，僅供起步時看出趨勢、非每日實記；<b>實線·實心點</b>為每日實際記錄，自 2026-07-31 起累積。</p>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="foot">
+    <p><b>免責聲明</b>：本觀察表僅研判市場槓桿狀態（現象→機制→含意），不構成任何買賣、進出場或部位建議。Yoda Research 提供研判與數據，不提供投資建議；投資決策與風險由讀者自行承擔。</p>
+    <p style="margin-top:6px">© 2026 Yoda Research · 全球槓桿觀察表</p>
+  </footer>
+
+</div>
+
+<script>
+/* =========================================================
+   資料層：每日更新只改這個物件即可
+   score：該指標的 0–100 去槓桿壓力貢獻（高＝壓力大）
+   w：權重；pend:true＝待補（不計入、以黃字標示）
+   ========================================================= */
+const AS_OF = "2026-07-31";
+const DATA = {
+  markets:[
+    {
+      id:"kr", flag:"🇰🇷", name:"韓國", index:"KOSPI",
+      cad:"日更", cadClass:"cad-d", asof:"2026-07-30",
+      src:"https://freesis.kofia.or.kr/", srcLab:"금융투자협회 FreeSIS",
+      pressure:82, band:4,
+      history:[
+        {d:"2026-07-06",v:62,est:1},{d:"2026-07-09",v:72,est:1},{d:"2026-07-15",v:74,est:1},
+        {d:"2026-07-22",v:77,est:1},{d:"2026-07-29",v:84,est:1},{d:"2026-07-31",v:82}
+      ],
+      headlineLab:"連兩日熔斷", headlineVal:"7/28–29", headlineNote:"強平再起、槓桿未解",
+      trend:"▲ 融資強平螺旋進行中",
+      subs:[
+        {lab:"強制平倉（반대매매）", val:"7/29 611億 KRW", score:90, w:.3,
+         note:"佔比1月1%→6月5.1%→7/9飆10.2%（>5%多伴隨恐慌拋售）；7/29單日611億、是7/9的1,422億以來最大，連兩日熔斷後強平再起。"},
+        {lab:"信用融資餘額", val:"38.6→34兆 KRW", score:76, w:.25,
+         note:"6/24見高38.6兆後降到7/15的34.4兆，去化約11%；HSBC指7月被強平的信用帳戶僅佔2%，部位尚未充分解除，後面還有量。"},
+        {lab:"미수금（超短期融資欠款）", val:"1.43兆 KRW", score:76, w:.15,
+         note:"7/9創上半年新高；還不出錢就會被強制平倉，是反對賣賣的前哨。"},
+        {lab:"指數回撤 / 熔斷", val:"7/28–29 連兩日熔斷", score:90, w:.3,
+         note:"KOSPI從7/6的8,051一路殺到7/30的5,593（約-30%），7/28、29連續兩日觸發熔斷+賣出sidecar——外部催化劑已落地。"}
+      ],
+      lights:[
+        {k:"技術性賣壓衰竭", c:"r", t:"未衰竭", d:"7/29強平再創近高、HSBC稱信用部位僅解除2%，強制賣壓遠未耗盡。"},
+        {k:"外部催化劑落地", c:"y", t:"剛落地", d:"美半導體殺盤+SK海力士暴跌已引爆，連兩日熔斷消化中但未結束。"},
+        {k:"監管干預力度", c:"y", t:"規制上路", d:"金監院警示빚투並點檢券商；7/31起單一個股槓桿商品基本委託保證金上調規制施行。"}
+      ],
+      interp:[
+        {tag:"定位", t:"四個市場裡去槓桿壓力最高、而且是「正在發生式」的那一個。"},
+        {tag:"證據", t:"強制平倉（반대매매，券商替還不出錢的散戶砍倉）佔比從1月的1%衝到7/9的10.2%（>5%多伴隨恐慌拋售）；KOSPI從7/6的8,051殺到7/30的5,593、7/28與29連兩日熔斷，7/29強平611億是7/9以來最大。槓桿滿載遇上外資與半導體殺盤，被迫賣→更低→更多被迫賣的螺旋已經轉起來。"},
+        {tag:"條件", t:"HSBC點出被強平的信用帳戶才佔2%、部位尚未充分解除——反對賣賣要回落到5%以下、信用餘額續降告一段落，壓力才算真正洩掉；在那之前的反彈，多半只是技術性反彈。"}
+      ]
+    },
+    {
+      id:"us", flag:"🇺🇸", name:"美國", index:"S&P 500",
+      cad:"月更", cadClass:"cad-m", asof:"2026-06（月更、數週落差）",
+      src:"https://www.thetrading.tools/margin-debt", srcLab:"FINRA margin debt",
+      pressure:58, band:2,
+      history:[
+        {d:"2026-05-01",v:52,est:1},{d:"2026-06-01",v:57,est:1},
+        {d:"2026-07-01",v:58,est:1},{d:"2026-07-31",v:58}
+      ],
+      headlineLab:"融資餘額 / GDP", headlineVal:"4.71%", headlineNote:"歷史新高，長期中位≈3%",
+      trend:"▲ 水位創高、尚未洩壓",
+      subs:[
+        {lab:"FINRA 融資餘額（margin debt）", val:"$1.53兆", score:88, w:.3,
+         note:"6月創歷史新高、連三月創高。投資人跟券商借錢買股的總額，水位四市場最高。"},
+        {lab:"融資餘額 / GDP", val:"4.71%", score:90, w:.25,
+         note:"歷史新高（長期中位數約3%）。相對經濟規模的槓桿倍率已到極端。"},
+        {lab:"融資餘額年增率", val:"+51.5% YoY", score:80, w:.25,
+         note:"拋物線式增長，典型的槓桿堆疊末段特徵。收斂放緩才是轉折訊號。"},
+        {lab:"投資人淨現金餘額", val:"-$1.06兆", score:70, w:.2,
+         note:"創歷史新低（負值＝整體踩滿槓桿）。子彈打光、緩衝薄。"}
+      ],
+      lights:[
+        {k:"技術性賣壓衰竭", c:"g", t:"尚無賣壓", d:"數據仍在堆疊、未見強制平倉；月更資料看不到7月亞洲殺盤反應。"},
+        {k:"外部催化劑落地", c:"g", t:"未落地", d:"美股本身尚未出現觸發去槓桿的衝擊事件（截至6月數據）。"},
+        {k:"監管干預力度", c:"g", t:"無介入", d:"無針對散戶槓桿的特別限制措施。"}
+      ],
+      interp:[
+        {tag:"定位", t:"槓桿「水位」四市場最高，但還沒開始洩壓——潛在壓力大、實際去槓桿還沒啟動。"},
+        {tag:"證據", t:"FINRA融資餘額6月衝上1.53兆美元創歷史新高、年增51.5%、連三月創高；佔GDP 4.71%也是新高；投資人淨現金-1.06兆創新低，整個市場踩滿槓桿往上疊。"},
+        {tag:"機制", t:"這是「潛在能量」很滿的狀態——借來的錢頂高行情，一旦出現外部衝擊，同樣會觸發強制平倉連鎖。但margin debt月更、有數週落差，6月數字看不到7月亞洲這波殺盤的反應。"},
+        {tag:"條件", t:"要等7月數據（8月下旬出）看餘額有沒有掉頭、年增率有沒有從51%收斂；在那之前，高水位只代表脆弱度高，不代表已在去槓桿。"}
+      ]
+    },
+    {
+      id:"tw", flag:"🇹🇼", name:"台灣", index:"加權指數",
+      cad:"日更", cadClass:"cad-d", asof:"2026-07-28",
+      src:"https://www.wantgoo.com/stock/margin-trading/market-price/taiex", srcLab:"wantgoo 融資融券",
+      pressure:48, band:2,
+      history:[
+        {d:"2026-06-26",v:44,est:1},{d:"2026-07-13",v:51,est:1},
+        {d:"2026-07-28",v:48,est:1},{d:"2026-07-31",v:48}
+      ],
+      headlineLab:"整體融資維持率", headlineVal:"158%", headlineNote:"<130% 為斷頭密集區",
+      trend:"▼ 從高點回落、去槓桿早期",
+      subs:[
+        {lab:"整體融資維持率", val:"158%", score:50, w:.4,
+         note:"跌破130%才是斷頭密集區，目前仍有緩衝但在往下走。門檻：>160%淡→130%極端。"},
+        {lab:"融資餘額 vs 歷史高", val:"5,070 / 5,909億", score:48, w:.3,
+         note:"已從6/26的5,909億歷史高回落約14%。掉頭向下＝資金開始收槓桿。"},
+        {lab:"融資餘額趨勢", val:"▼ 續降", score:45, w:.3,
+         note:"外資6月下旬大規模賣壓，融資隨之下滑；收槓桿在進行，但未到強平滿天飛。"}
+      ],
+      lights:[
+        {k:"技術性賣壓衰竭", c:"y", t:"進行中", d:"融資續降但維持率仍健康，賣壓溫和、未見集中斷頭。"},
+        {k:"外部催化劑落地", c:"y", t:"外溢中", d:"韓國斷頭風暴＋費半重摔為外部壓力來源，台股連動但衝擊小一階。"},
+        {k:"監管干預力度", c:"g", t:"無介入", d:"無特別槓桿限制措施。"}
+      ],
+      interp:[
+        {tag:"定位", t:"剛從高點回落、去槓桿在早期階段的市場。"},
+        {tag:"證據", t:"整體融資維持率7/28為158%（跌破130%才是斷頭密集區，目前還有緩衝但在往下）；融資餘額5,070億，已從6/26的5,909億歷史高回落約14%。餘額掉、維持率降，是資金開始收槓桿的訊號，但還沒到強制平倉滿天飛。"},
+        {tag:"條件", t:"盯融資維持率往140%以下靠近、以及餘額續降速度；韓國那種反對賣賣螺旋是對照組，台灣目前壓力明顯低一階。"}
+      ]
+    },
+    {
+      id:"jp", flag:"🇯🇵", name:"日本", index:"日經225",
+      cad:"週更", cadClass:"cad-w", asof:"2026-07-24（週更）",
+      src:"https://nikkei225jp.com/data/sinyou.php", srcLab:"信用評価損益率（點此查即時值）",
+      pressure:44, band:2,
+      history:[
+        {d:"2026-07-10",v:40,est:1},{d:"2026-07-17",v:45,est:1},
+        {d:"2026-07-24",v:44,est:1},{d:"2026-07-31",v:44}
+      ],
+      headlineLab:"信用倍率", headlineVal:"約 9–10",
+      headlineNote:">1＝買方槓桿多、清一色做多",
+      trend:"— 多方滿載、壓力計待補",
+      subs:[
+        {lab:"信用倍率（買殘÷賣殘）", val:"8.9–9.9", score:65, w:.4,
+         note:"遠高於1，幾乎沒人放空、清一色借錢做多——典型槓桿滿載結構。越高越擁擠、回檔時越脆弱。"},
+        {lab:"信用買殘（金額）", val:"約6.4兆 JPY", score:55, w:.3,
+         note:"7/24速報買殘64,769（百億日圓級），水位偏高。"},
+        {lab:"信用評価損益率（帳面損益率）", val:"待補", score:0, w:.3, pend:true,
+         note:"真正的壓力計。-3%＝天花板區、-10%＝追証啟動+散戶投げ売り、-15~-20%＝底部區。本次未抓到即時值，手動補上才能定壓力等級。"}
+      ],
+      lights:[
+        {k:"技術性賣壓衰竭", c:"y", t:"待判定", d:"需信用評価損益率數值才能判斷追証壓力是否啟動。"},
+        {k:"外部催化劑落地", c:"y", t:"外溢中", d:"亞洲區域殺盤為潛在壓力源，尚待週更資料確認買殘是否鬆動。"},
+        {k:"監管干預力度", c:"g", t:"無介入", d:"無特別槓桿限制措施。"}
+      ],
+      interp:[
+        {tag:"定位", t:"槓桿「多方一面倒」但壓力計數字待補的市場。"},
+        {tag:"證據", t:"信用倍率（信用買殘÷賣殘，>1代表買方槓桿多）約9–10，等於幾乎沒人放空、清一色借錢做多，是典型槓桿滿載結構；週更資料7/24買殘6.4兆日圓級。"},
+        {tag:"待補", t:"真正的壓力計是信用評価損益率（融資部位帳面損益率）——-3%天花板、-10%追証與投げ売り、-15~-20%底部。這次沒抓到即時值，先手動補上才能定壓力等級。"},
+        {tag:"條件", t:"信用評価損益率跌破-10%就是追証壓力啟動的訊號。"}
+      ]
+    }
+  ]
+};
+
+const BANDS=[
+  {max:20,c:"#2e7d32",lbl:"出清完成"},
+  {max:40,c:"#66bb6a",lbl:"低壓"},
+  {max:60,c:"#f9a825",lbl:"中性偏壓"},
+  {max:80,c:"#fb8c00",lbl:"高壓"},
+  {max:101,c:"#e53935",lbl:"極端壓力"}
+];
+function bandOf(v){ return BANDS.find(b=>v<b.max); }
+
+/* ===== 壓力值歷史帳本：每日累積、保留兩季 =====
+   每日更新流程：把當天的 pressure 以 pushDaily 寫進該市場 history，
+   保留最近兩季（約126個交易日），自動 trim 較舊者。
+   history 是走勢圖的唯一資料源；今日起累積，無法回填過去真實每日值。 */
+const MAX_DAYS = 126;            // 兩季 ≈ 126 交易日
+function pushDaily(mkt, date, val){
+  const h = mkt.history || (mkt.history=[]);
+  const last = h[h.length-1];
+  if(last && last.d===date){ last.v=val; }   // 同日重跑則覆蓋
+  else { h.push({d:date, v:val}); }
+  if(h.length>MAX_DAYS) h.splice(0, h.length-MAX_DAYS);  // trim 舊的
+}
+
+/* ===== 簡易折線圖（純SVG、無外部函式庫）
+   est:1 的點＝估算回填 → 虛線+空心點；無est＝每日實記 → 實線+實心點 ===== */
+function lineChart(hist, lineColor){
+  const W=640, H=150, padL=30, padR=12, padT=10, padB=22;
+  const iw=W-padL-padR, ih=H-padT-padB;
+  const y = v => padT + ih*(1 - v/100);
+  const n = hist.length;
+  const x = i => n<=1 ? padL+iw/2 : padL + iw*(i/(n-1));
+  const bandRects = BANDS.map(b=>{
+    const lo = b===BANDS[0]?0:BANDS[BANDS.indexOf(b)-1].max;
+    const hi = Math.min(b.max,100);
+    return `<rect x="${padL}" y="${y(hi)}" width="${iw}" height="${y(lo)-y(hi)}" fill="${b.c}" opacity="0.07"/>`;
+  }).join("");
+  const grid=[0,20,40,60,80,100].map(v=>
+    `<line class="gline" x1="${padL}" y1="${y(v)}" x2="${W-padR}" y2="${y(v)}"/>`+
+    `<text class="gtxt" x="${padL-5}" y="${y(v)+3}" text-anchor="end">${v}</text>`).join("");
+  // 逐段畫線：任一端是估算 → 虛線
+  let segs="";
+  for(let i=0;i<n-1;i++){
+    const a=hist[i], c=hist[i+1];
+    const dashed=a.est||c.est;
+    segs += `<line x1="${x(i).toFixed(1)}" y1="${y(a.v).toFixed(1)}" x2="${x(i+1).toFixed(1)}" y2="${y(c.v).toFixed(1)}" `+
+            `stroke="${lineColor}" stroke-width="2.2" stroke-linecap="round" `+
+            `${dashed?'stroke-dasharray="4 4" opacity="0.6"':'opacity="0.95"'}/>`;
+  }
+  // 點
+  let dots="";
+  hist.forEach((p,i)=>{
+    const cx=x(i).toFixed(1), cy=y(p.v).toFixed(1), isLast=i===n-1;
+    if(p.est){
+      dots += `<circle cx="${cx}" cy="${cy}" r="2.6" fill="var(--card2)" stroke="var(--ink3)" stroke-width="1.4"/>`;
+    } else {
+      dots += `<circle cx="${cx}" cy="${cy}" r="${isLast?4:3}" fill="${lineColor}" stroke="var(--card2)" stroke-width="2"/>`;
+    }
+  });
+  const dfmt=d=>d.slice(5);
+  const lastP=hist[n-1];
+  const xlab = n>=1 ? `<text class="gtxt" x="${padL}" y="${H-6}" text-anchor="start">${dfmt(hist[0].d)}</text>`+
+    (n>1?`<text class="gtxt" x="${W-padR}" y="${H-6}" text-anchor="end">${dfmt(lastP.d)}</text>`:"") : "";
+  const lastLab = `<text class="gtxt" x="${x(n-1)+(n<=1?0:6)}" y="${y(lastP.v)-8}" text-anchor="${n<=1?'middle':'end'}" fill="${lineColor}" font-weight="700">${lastP.v}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    ${bandRects}${grid}${segs}${dots}${lastLab}${xlab}</svg>`;
+}
+
+/* ---- render overview ---- */
+function renderGrid(){
+  const g=document.getElementById("grid");
+  g.innerHTML = DATA.markets.map(m=>{
+    const b=bandOf(m.pressure);
+    return `<div class="mcard" data-mkt="${m.id}">
+      <div class="top">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="flag">${m.flag}</span>
+          <span class="mkt">${m.name}<span style="color:var(--ink3);font-weight:400;font-size:.72em;margin-left:5px">${m.index}</span></span>
+        </div>
+        <span class="cad ${m.cadClass}">${m.cad}</span>
+      </div>
+      <div class="score" style="color:${b.c}">${m.pressure}<small>/100</small></div>
+      <div class="band-lbl" style="color:${b.c}">${b.lbl}</div>
+      <div class="bar"><span class="mk" style="left:calc(${m.pressure}% - 1.5px)"></span></div>
+      <div class="headline">${m.headlineLab}：<span class="v">${m.headlineVal}</span></div>
+      <div class="trend">${m.trend}</div>
+      <div class="cfoot">
+        ${m.src?`<a class="csrc" href="${m.src}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="${m.srcLab||'資料來源'}">↗ ${m.srcLab||'來源'}</a>`:`<span></span>`}
+        <span class="expand">點開 ▾</span>
+      </div>
+    </div>`;
+  }).join("");
+  g.querySelectorAll(".mcard").forEach(c=>{
+    c.addEventListener("click",()=>toggleDetail(c.dataset.mkt));
+  });
+}
+
+let openMkt=null;
+function toggleDetail(id){
+  const d=document.getElementById("detail");
+  if(openMkt===id){ d.classList.remove("open"); openMkt=null; return; }
+  openMkt=id;
+  const m=DATA.markets.find(x=>x.id===id);
+  const b=bandOf(m.pressure);
+  const subsHtml=m.subs.map(s=>{
+    const fill = s.pend ? `width:100%;background:repeating-linear-gradient(45deg,#3a3320,#3a3320 6px,#2a2618 6px,#2a2618 12px)`
+                        : `width:${s.score}%;background:${bandOf(s.score).c}`;
+    return `<div class="sub">
+      <div class="row"><span class="lab">${s.lab}</span><span class="val ${s.pend?'pend':''}">${s.val}${s.pend?' ⚠':''}</span></div>
+      <div class="sbar"><i style="${fill}"></i></div>
+      <div class="note">${s.note}</div>
+    </div>`;
+  }).join("");
+  const lightsHtml=m.lights.map(l=>`
+    <div class="light">
+      <div class="lk">${l.k}</div>
+      <div class="lt"><span class="dot ${l.c}"></span>${l.t}</div>
+      <div class="ld">${l.d}</div>
+    </div>`).join("");
+  const interpHtml=m.interp.map(p=>`<p><span class="tag">${p.tag}</span>${p.t}</p>`).join("");
+  const hist = m.history||[];
+  const estN=hist.filter(p=>p.est).length, realN=hist.length-estN;
+  const cap = estN>0
+    ? `<div class="accum">虛線·空心＝估算回填 ${estN} 點（依7月已知事件估算，非每日實記）　·　實線·實心＝每日實記 ${realN} 點，自 07-31 起累積</div>`
+    : (hist.length<10?`<div class="accum">⚠ 走勢累積中（目前 ${hist.length} 點）——每日記錄一點，滿兩季後顯示完整趨勢。</div>`:'');
+  const chartHtml = `<div class="chartbox">
+    <div class="ct"><span class="ctl">去槓桿壓力值走勢 · 近兩季</span><span class="ctr">每日一點 · 保留${MAX_DAYS}交易日</span></div>
+    ${lineChart(hist, b.c)}
+    ${cap}
+  </div>`;
+  d.innerHTML=`<div class="dpanel">
+    <div class="dhead">
+      <span class="flag">${m.flag}</span>
+      <h3>${m.name} · ${m.index}</h3>
+      <span class="dscore" style="color:${b.c}">壓力 ${m.pressure} · ${b.lbl}</span>
+    </div>
+    <div class="dmeta">資料截止 ${m.asof}　·　更新頻率 ${m.cad}${m.src?`　·　<a href="${m.src}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">↗ ${m.srcLab||'資料來源'}</a>`:''}</div>
+    ${chartHtml}
+    <div class="subs">${subsHtml}</div>
+    <div class="lights">${lightsHtml}</div>
+    <div class="interp">${interpHtml}</div>
+  </div>`;
+  d.classList.add("open");
+  d.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+/* ---- mapline + asof + src table ---- */
+function renderStatic(){
+  document.getElementById("asofLine").textContent = "資料核對日 "+AS_OF+"　·　台韓日更／日本週更／美國月更";
+  document.getElementById("mapline").innerHTML =
+    "<b>韓國</b>正在斷頭級去槓桿（壓力最高、進行式），<b>美國</b>槓桿水位創歷史新高但還沒洩壓（潛在壓力大、數據落後一個月），<b>台灣</b>從高點回落、去槓桿剛起步，<b>日本</b>多方槓桿滿載、壓力計待補。一句話：<b>亞洲在收，美國在頂</b>。";
+  const src=[
+    ["🇹🇼 台灣","融資維持率／融資餘額","證交所 · wantgoo","日更"],
+    ["🇰🇷 韓國","信用融資／반대매매","금융투자협회 · 금감원","日更"],
+    ["🇯🇵 日本","信用倍率／評価損益率","JPX · 日經","週更（週二16:30）"],
+    ["🇺🇸 美國","margin debt／debt/GDP","FINRA","月更（數週落差）"]
+  ];
+  document.getElementById("srcBody").innerHTML=src.map(r=>
+    `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="cd">${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+}
+
+/* ---- controls ---- */
+function initControls(){
+  document.querySelectorAll("[data-size-btn]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      document.documentElement.setAttribute("data-size",btn.dataset.sizeBtn);
+      document.querySelectorAll("[data-size-btn]").forEach(b=>b.classList.toggle("on",b===btn));
+    });
+  });
+  document.querySelectorAll("[data-theme-btn]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      document.documentElement.setAttribute("data-theme",btn.dataset.themeBtn);
+      document.querySelectorAll("[data-theme-btn]").forEach(b=>b.classList.toggle("on",b===btn));
+    });
+  });
+}
+
+/* ---- boot ---- */
+renderStatic();
+renderGrid();
+initControls();
+</script>
+</body>
+</html>
