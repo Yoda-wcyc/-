@@ -41,12 +41,18 @@
         "bubbleColor": "#a855f7"
       }
     ],
-    "hero_note": "破底翻確認中，賣壓見底差高Beta蓋章，日圓為頭號變數"
+    "hero_note": "破底翻確認中，賣壓見底差高Beta蓋章，日圓為頭號變數",
+    "cycle": { "big_pct": 74, "big_label": "榮景末段·逼近循環峰", "mfg_pct": 70, "mfg_label": "擴產近過熱·近製造業峰", "note": "景氣大循環榮景末段（74%）· 製造業週期近過熱（70%）", "updated": "8月更新" }
   },
   "bubble": {
-    "score": 6.2,
-    "headline": "估值偏熱,但 ROI 缺口尚未斷裂",
-    "url": "https://yoda-wcyc.github.io/-/AI泡沫評估_20260710.html"
+    "score": 6.3,
+    "headline": "估值更貴（CAPE 41.3、巴菲特 230%）但 Q2 巨頭盈餘接棒、破底翻洗掉投機浮額——泡沫警戒而非崩盤前夕，最需盯 CapEx ROI 缺口能否收斂。",
+    "url": "https://yoda-wcyc.github.io/-/AI泡沫評估表_20260701.html"
+  },
+  "leverage": {
+    "headline": "台灣去槓桿壓力最高·正在發生；美股水位最高·尚未洩壓",
+    "url": "https://yoda-wcyc.github.io/-/global-leverage.html",
+    "updated": "每日記錄（2026-07-31 起）"
   },
   "latest": {
     "市場觀察": {
