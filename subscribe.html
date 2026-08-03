@@ -82,6 +82,20 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
 .plan-price .cur{font-size:calc(18px*var(--scale));font-weight:600;color:var(--dim);margin-right:4px}
 .plan-price .per{font-size:calc(14px*var(--scale));font-weight:500;color:var(--dim)}
 .plan-note{font-size:calc(13px*var(--scale));color:var(--dim);line-height:1.7;margin:12px 0 0}
+/* 加碼寬卡：兩欄合併 + 左右分欄 + 階梯表 */
+.plan.span2{grid-column:span 2}
+.split{display:flex;gap:calc(28px*var(--scale));align-items:stretch;margin-top:calc(4px*var(--scale))}
+.split-l{flex:1;display:flex;flex-direction:column}
+.split-r{flex:1.05;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--divider);padding-left:calc(24px*var(--scale))}
+.ladder-title{font-size:calc(12.5px*var(--scale));font-weight:700;color:var(--sub1);margin-bottom:10px;line-height:1.4}
+.ladder{width:100%;border-collapse:collapse;font-size:calc(13.5px*var(--scale))}
+.ladder th{color:var(--dim);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--border);text-align:center;white-space:nowrap}
+.ladder td{padding:7px 8px;border-bottom:1px solid var(--divider);text-align:center;white-space:nowrap}
+.ladder tr:last-child td{border-bottom:none}
+.ladder td b{color:var(--sub1);font-weight:800}
+.ladder tr.lc td{background:rgba(224,165,38,.12);font-weight:800}
+.ladder-foot{font-size:calc(11.5px*var(--scale));color:var(--dim);line-height:1.65;margin-top:12px}
+@media(max-width:820px){.plan.span2{grid-column:auto}.split{flex-direction:column;gap:18px}.split-r{border-left:none;padding-left:0;border-top:1px solid var(--divider);padding-top:16px;justify-content:flex-start}}
 
 /* 付費專屬 CTA 鈕（跳色） */
 .btn-sub{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:calc(15px*var(--scale)) calc(24px*var(--scale));border-radius:9999px;font-size:calc(17px*var(--scale));font-weight:700;color:#1a1200;text-decoration:none;border:none;cursor:pointer;background:linear-gradient(135deg,var(--sub1),var(--sub2));box-shadow:0 6px 22px rgba(224,165,38,.4);transition:transform .12s,box-shadow .2s;margin-top:auto}
@@ -152,29 +166,39 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
   <!-- 方案 -->
   <h2>選擇方案</h2>
   <div class="plans">
-    <div class="plan founding founding-plus">
-      <span class="plan-badge">創始限定加碼 · 限額 50 位</span>
-      <div class="plan-name">創始會員加碼</div>
-      <div class="plan-price"><span class="cur">NT$</span>459<span class="per"> / 月</span></div>
-      <p class="plan-note"><b style="color:var(--text)">連續訂滿 3 個月 ＋ 介紹 1 位新朋友完成訂閱 ＝ 多送 1 個月。</b>兩個條件同時達成才成立，只有前 50 位創始會員能玩。<br>創始會員資格永久保留，未來方案調整仍維持創始會員價格；名額額滿後停止販售。</p>
-      <div style="height:16px"></div>
-      <a class="btn-sub" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">先花兩分鐘，再決定 →</a>
-      <div class="flow"><span class="step">① 玩《先別急著付錢》</span><span class="arr">→</span><span class="step">② 確認方案</span><span class="arr">→</span><span class="step">③ 綠界刷卡</span></div>
-    </div>
-    <div class="plan founding">
-      <span class="plan-badge">限額 50 位 · 早鳥鎖價</span>
-      <div class="plan-name">創始會員</div>
-      <div class="plan-price"><span class="cur">NT$</span>459<span class="per"> / 月</span></div>
-      <p class="plan-note">給最早相信我的人，<b style="color:var(--text)">你鎖的就是這個價</b>。創始會員資格永久保留，未來方案調整仍維持創始會員價格；名額額滿後停止販售。</p>
-      <div style="height:16px"></div>
-      <a class="btn-ghost" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">先花兩分鐘，再決定 →</a>
-    </div>
     <div class="plan">
       <div class="plan-name" style="margin-top:calc(28px*var(--scale))">一般會員</div>
       <div class="plan-price"><span class="cur">NT$</span>589<span class="per"> / 月</span></div>
-      <p class="plan-note">創始名額額滿後的一般價，內容與創始會員完全相同。想鎖 459，就趁現在。</p>
+      <p class="plan-note">創始名額額滿後的一般價，內容與創始會員完全相同。<b style="color:var(--text)">想鎖 459，就趁現在。</b></p>
       <div style="height:16px"></div>
       <a class="btn-ghost" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">了解一般會員 →</a>
+    </div>
+    <div class="plan founding founding-plus span2">
+      <span class="plan-badge">創始限定加碼 · 限額 50 位 · 早鳥鎖價</span>
+      <div class="split">
+        <div class="split-l">
+          <div class="plan-name">創始會員加碼</div>
+          <div class="plan-price"><span class="cur">NT$</span>459<span class="per"> / 月</span></div>
+          <p class="plan-note">早鳥鎖價。<b style="color:var(--text)">推薦朋友＋自己連續訂閱，達標就送月；推薦越多送越多，最高一年半價。</b>創始會員資格永久保留，未來方案調整仍維持創始會員價格；名額額滿後停止販售。</p>
+          <a class="btn-sub" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">先花兩分鐘，再決定 →</a>
+          <div class="flow"><span class="step">① 玩《先別急著付錢》</span><span class="arr">→</span><span class="step">② 確認方案</span><span class="arr">→</span><span class="step">③ 綠界刷卡</span></div>
+        </div>
+        <div class="split-r">
+          <div class="ladder-title">加碼階梯 </div>
+          <table class="ladder">
+            <thead><tr><th>你推薦朋友訂閱</th><th>你連續訂滿</th><th>就送你</th></tr></thead>
+            <tbody>
+              <tr><td>1 人</td><td>3 個月</td><td><b>1 個月</b></td></tr>
+              <tr><td>2 人</td><td>5 個月</td><td><b>2 個月</b></td></tr>
+              <tr><td>3 人</td><td>7 個月</td><td><b>3 個月</b></td></tr>
+              <tr><td>4 人</td><td>9 個月</td><td><b>4 個月</b></td></tr>
+              <tr><td>5 人</td><td>11 個月</td><td><b>5 個月</b></td></tr>
+              <tr class="lc"><td>5 人</td><td>滿 1 年（12 個月）</td><td><b>6 個月</b></td></tr>
+            </tbody>
+          </table>
+          <div class="ladder-foot">兩個條件都達到才解鎖，取同時滿足的最高階。<b style="color:var(--text)">連續訂滿一年、最多送半年（6 個月）封頂</b>，之後不再累加。朋友須從你的專屬連結來訂閱並完成付費才算數。</div>
+        </div>
+      </div>
     </div>
   </div>
 
