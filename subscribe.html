@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>創始會員 · Yoda Research</title>
-<meta name="description" content="Yoda Research 創始會員：免費看懂今天，完整版帶你看懂全貌與接下來。限量 30 位早鳥鎖價 NT$459／月。">
+<meta name="description" content="Yoda Research 創始會員：免費看懂今天，完整版帶你看懂全貌與接下來。限額 50 位早鳥鎖價 NT$459／月。">
 <style>
 :root{
   --scale:1;
@@ -70,8 +70,8 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
 .gc .d{font-size:calc(13px*var(--scale));color:var(--dim);line-height:1.7}
 
 /* 方案卡 */
-.plans{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;align-items:stretch}
-@media(max-width:640px){.plans{grid-template-columns:1fr}}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+@media(max-width:820px){.plans{grid-template-columns:1fr}}
 .plan{border:1px solid var(--border);border-radius:18px;padding:calc(26px*var(--scale));display:flex;flex-direction:column;background:var(--surface)}
 .plan.founding{border:1.5px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,var(--sub1),var(--sub2)) border-box}
 .plan-badge{display:inline-block;align-self:flex-start;font-size:calc(11px*var(--scale));font-weight:700;letter-spacing:.04em;color:#1a1200;background:linear-gradient(90deg,var(--sub1),var(--sub2));padding:4px 10px;border-radius:9999px;margin-bottom:12px}
@@ -152,18 +152,26 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
   <h2>選擇方案</h2>
   <div class="plans">
     <div class="plan founding">
-      <span class="plan-badge">限量 30 位 · 早鳥鎖價</span>
-      <div class="plan-name">創始會員</div>
+      <span class="plan-badge">創始限定加碼 · 限額 50 位</span>
+      <div class="plan-name">創始會員加碼</div>
       <div class="plan-price"><span class="cur">NT$</span>459<span class="per"> / 月</span></div>
-      <p class="plan-note">給最早相信我的人。<b style="color:var(--text)">你鎖的就是這個價</b>——名額滿後恢復原價到 NT$589，創始會員永遠停在 459。</p>
+      <p class="plan-note"><b style="color:var(--text)">訂 3 個月 ＋ 介紹 1 位新朋友完成訂閱 ＝ 多送 1 個月。</b>兩個條件同時達成才成立，只有前 50 位創始會員能玩。<br>創始會員資格永久保留，未來方案調整仍維持創始會員價格；名額額滿後停止販售。</p>
       <div style="height:16px"></div>
       <a class="btn-sub" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">先花兩分鐘，再決定 →</a>
       <div class="flow"><span class="step">① 玩《先別急著付錢》</span><span class="arr">→</span><span class="step">② 確認方案</span><span class="arr">→</span><span class="step">③ 綠界刷卡</span></div>
     </div>
     <div class="plan">
+      <span class="plan-badge">限額 50 位 · 早鳥鎖價</span>
+      <div class="plan-name">創始會員</div>
+      <div class="plan-price"><span class="cur">NT$</span>459<span class="per"> / 月</span></div>
+      <p class="plan-note">給最早相信我的人，<b style="color:var(--text)">你鎖的就是這個價</b>。創始會員資格永久保留，未來方案調整仍維持創始會員價格；名額額滿後停止販售。</p>
+      <div style="height:16px"></div>
+      <a class="btn-ghost" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">先花兩分鐘，再決定 →</a>
+    </div>
+    <div class="plan">
       <div class="plan-name" style="margin-top:calc(28px*var(--scale))">一般會員</div>
       <div class="plan-price"><span class="cur">NT$</span>589<span class="per"> / 月</span></div>
-      <p class="plan-note">創始名額滿之後的正式價，內容與創始會員完全相同。想鎖 459，就趁現在。</p>
+      <p class="plan-note">創始名額額滿後的一般價，內容與創始會員完全相同。想鎖 459，就趁現在。</p>
       <div style="height:16px"></div>
       <a class="btn-ghost" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">了解一般會員 →</a>
     </div>
