@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>創始會員 · Yoda Research</title>
-<meta name="description" content="Yoda Research 創始會員：認真投資自己的市場教育。免費看懂今天，完整版帶你看懂全貌與接下來。">
+<meta name="description" content="Yoda Research 創始會員：免費看懂今天，完整版帶你看懂全貌與接下來。限量 30 位早鳥鎖價 NT$459／月。">
 <style>
 :root{
   --scale:1;
@@ -12,19 +12,19 @@
   --border:rgba(255,255,255,.14); --divider:rgba(255,255,255,.08);
   --text:#f5f5f7; --dim:#a1a1a6; --accent:#2997ff;
   --green:#30d158; --red:#ff453a; --gold-lg:#e0a526; --gold-dim:#b8960a;
-  --sub1:#8b5cf6; --sub2:#ec4899; /* 付費專屬跳色：紫→洋紅 */
+  --sub1:#e0a526; --sub2:#b8860b; /* 付費專屬跳色：金色系（對齊首頁）*/
   --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;
 }
 html[data-theme="light"]{
   --bg:#f5f5f7; --surface:#ffffff; --surface2:#f0eef7;
   --border:#e0e0e0; --divider:#f0f0f0; --text:#1d1d1f; --dim:#7a7a7a;
   --accent:#0066cc; --green:#248a3d; --red:#d70015; --gold-lg:#b8860b; --gold-dim:#8a6508;
-  --sub1:#7c3aed; --sub2:#db2777;
+  --sub1:#b8860b; --sub2:#8a6508;
 }
 html[data-size="sm"]{ --scale:.875 } html[data-size="md"]{ --scale:1 } html[data-size="lg"]{ --scale:1.125 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:calc(24px*var(--scale));line-height:1.65;font-variant-numeric:tabular-nums;transition:background .3s,color .3s}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:calc(24px*var(--scale));line-height:1.65;font-variant-numeric:tabular-nums;transition:background .3s,color .3s;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none}
 a{color:var(--accent);text-decoration:none}
 
 /* 控制列 */
@@ -74,7 +74,7 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
 @media(max-width:640px){.plans{grid-template-columns:1fr}}
 .plan{border:1px solid var(--border);border-radius:18px;padding:calc(26px*var(--scale));display:flex;flex-direction:column;background:var(--surface)}
 .plan.founding{border:1.5px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,var(--sub1),var(--sub2)) border-box}
-.plan-badge{display:inline-block;align-self:flex-start;font-size:calc(11px*var(--scale));font-weight:700;letter-spacing:.04em;color:#fff;background:linear-gradient(90deg,var(--sub1),var(--sub2));padding:4px 10px;border-radius:9999px;margin-bottom:12px}
+.plan-badge{display:inline-block;align-self:flex-start;font-size:calc(11px*var(--scale));font-weight:700;letter-spacing:.04em;color:#1a1200;background:linear-gradient(90deg,var(--sub1),var(--sub2));padding:4px 10px;border-radius:9999px;margin-bottom:12px}
 .plan-name{font-size:calc(17px*var(--scale));font-weight:700;margin-bottom:6px}
 .plan.founding .plan-name{background:linear-gradient(90deg,var(--sub1),var(--sub2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .plan-price{font-size:calc(40px*var(--scale));font-weight:800;letter-spacing:-.02em;line-height:1}
@@ -83,15 +83,13 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
 .plan-note{font-size:calc(13px*var(--scale));color:var(--dim);line-height:1.7;margin:12px 0 0}
 
 /* 付費專屬 CTA 鈕（跳色） */
-.btn-sub{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:calc(15px*var(--scale)) calc(24px*var(--scale));border-radius:9999px;font-size:calc(17px*var(--scale));font-weight:700;color:#fff;text-decoration:none;border:none;cursor:pointer;background:linear-gradient(135deg,var(--sub1),var(--sub2));box-shadow:0 6px 22px rgba(139,92,246,.4);transition:transform .12s,box-shadow .2s;margin-top:auto}
-.btn-sub:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(236,72,153,.5)}
+.btn-sub{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:calc(15px*var(--scale)) calc(24px*var(--scale));border-radius:9999px;font-size:calc(17px*var(--scale));font-weight:700;color:#1a1200;text-decoration:none;border:none;cursor:pointer;background:linear-gradient(135deg,var(--sub1),var(--sub2));box-shadow:0 6px 22px rgba(224,165,38,.4);transition:transform .12s,box-shadow .2s;margin-top:auto}
+.btn-sub:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(184,134,11,.5)}
 .btn-ghost{display:inline-flex;align-items:center;justify-content:center;width:100%;padding:calc(13px*var(--scale)) calc(20px*var(--scale));border-radius:9999px;font-size:calc(15px*var(--scale));font-weight:600;color:var(--text);border:1px solid var(--border);background:none;text-decoration:none;margin-top:auto}
 .flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:calc(13px*var(--scale));color:var(--dim);margin-top:14px}
 .flow .step{background:var(--surface2);border:1px solid var(--border);border-radius:9999px;padding:4px 12px}
 .flow .arr{color:var(--sub2);font-weight:700}
 
-.guarantee{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:calc(18px*var(--scale));font-size:calc(14px*var(--scale));line-height:1.8}
-.pay-note{font-size:calc(13px*var(--scale));color:var(--dim);line-height:1.8;margin-top:16px}
 .faq-item{padding:16px 0;border-top:1px solid var(--divider)}
 .faq-item:first-child{border-top:none}
 .faq-q{font-weight:700;font-size:calc(15px*var(--scale));margin-bottom:5px}
@@ -113,33 +111,28 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
 </div>
 
 <div class="wrap">
-  <div class="eyebrow">Founding Member · 創始會員</div>
-  <h1>認真投資自己的<br>市場教育</h1>
-  <p class="lede">Yoda Research 不預測市場，也不報明牌——我把市場翻成人話，幫你長出自己的判斷。報告是教材，你長出來的判斷力，才是帶得走的東西。<b style="color:var(--text)">免費讓你看懂今天；完整版帶你看懂全貌，還有「接下來」。</b></p>
-
   <!-- 免費 vs 付費 -->
-  <h2>免費，跟創始會員差在哪</h2>
+  <h2 style="margin-top:calc(20px*var(--scale))">免費，跟創始會員差在哪</h2>
   <div class="cmp">
     <div class="cmp-col free">
       <div class="cmp-h free">永久免費</div>
-      <div class="cmp-sub">一個都不會被收走、也不會被弄爛</div>
+      <div class="cmp-sub">一個都不會被收走、品質也不會下降</div>
       <ul>
-        <li>每天粉專貼文、市場觀察</li>
-        <li>所有把一個概念講到你會為止的小遊戲</li>
-        <li>簡報的「今天發生什麼、為什麼」</li>
-        <li>時間軸 track record——每個判斷對或錯，公開擺著</li>
-        <li>六類報告「看懂今天」＋一句判讀方向</li>
+        <li>簡報直送到信箱</li>
+        <li>每週會有一～三份完整報告（輪流開放）</li>
+        <li>一部分的小遊戲</li>
+        <li>時間軸——我每個判斷對或錯，都公開擺著，不藏</li>
       </ul>
     </div>
     <div class="cmp-col paid">
-      <div class="cmp-h paid">創始會員 · 多給的（加法）</div>
-      <div class="cmp-sub">深度／前瞻／完整／歷史／個人化</div>
+      <div class="cmp-h paid">創始會員 · 專屬升級的禮遇</div>
+      <div class="cmp-sub">深度／前瞻／完整／歷史</div>
       <ul>
-        <li><span class="tag-key">旗艦</span>【關鍵報告】：完整判讀＋我自己的實際操作與推理</li>
-        <li>六類<b>完整報告</b>（全貌與細節）</li>
-        <li>簡報「接下來要注意什麼」完整前瞻／條件劇本</li>
-        <li>動態圖即時互動版＋20 天歷史尾巴</li>
-        <li>歷史庫 archive、個人化答疑</li>
+        <li><span class="tag-key">旗艦</span>【關鍵報告】：完整判讀＋我自己的預期、底線、條件劇本、實際操作與推理</li>
+        <li><b>所有六類完整報告</b>（每一份都會有）</li>
+        <li><b>所有概念型、教學型的小遊戲</b></li>
+
+        <li>歷史資料庫 archive</li>
       </ul>
     </div>
   </div>
@@ -159,47 +152,28 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
   <h2>選擇方案</h2>
   <div class="plans">
     <div class="plan founding">
-      <span class="plan-badge">限量早鳥 · 價格鎖定</span>
+      <span class="plan-badge">限量 30 位 · 早鳥鎖價</span>
       <div class="plan-name">創始會員</div>
-      <div class="plan-price"><span class="cur">NT$</span>489<span class="per"> / 月</span></div>
-      <p class="plan-note">給最早相信我的人。<b style="color:var(--text)">你鎖的就是這個價</b>——名額滿後漲到 NT$589，創始會員永遠停在 489。完整六類報告＋【關鍵報告】＋歷史庫＋動態圖互動版＋個人化，全都給。</p>
+      <div class="plan-price"><span class="cur">NT$</span>459<span class="per"> / 月</span></div>
+      <p class="plan-note">給最早相信我的人。<b style="color:var(--text)">你鎖的就是這個價</b>——名額滿後恢復原價到 NT$589，創始會員永遠停在 459。</p>
       <div style="height:16px"></div>
-      <a class="btn-sub" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html">先花兩分鐘，再決定 →</a>
+      <a class="btn-sub" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">先花兩分鐘，再決定 →</a>
       <div class="flow"><span class="step">① 玩《先別急著付錢》</span><span class="arr">→</span><span class="step">② 確認方案</span><span class="arr">→</span><span class="step">③ 綠界刷卡</span></div>
     </div>
     <div class="plan">
       <div class="plan-name" style="margin-top:calc(28px*var(--scale))">一般會員</div>
       <div class="plan-price"><span class="cur">NT$</span>589<span class="per"> / 月</span></div>
-      <p class="plan-note">創始名額滿之後的正式價，內容與創始會員完全相同。想鎖 489，就趁現在。</p>
+      <p class="plan-note">創始名額滿之後的正式價，內容與創始會員完全相同。想鎖 459，就趁現在。</p>
       <div style="height:16px"></div>
-      <a class="btn-ghost" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html">了解一般會員 →</a>
+      <a class="btn-ghost" href="https://yoda-wcyc.github.io/game/%E5%85%88%E5%88%A5%E6%80%A5%E8%91%97%E4%BB%98%E9%8C%A2-20260802.html" target="_blank" rel="noopener">了解一般會員 →</a>
     </div>
-  </div>
-
-  <!-- 關鍵報告 -->
-  <h2>付費的核心：【關鍵報告】</h2>
-  <div class="card">
-    <p style="font-size:calc(15px*var(--scale));line-height:1.85;color:var(--text)">我對市況的<b>完整判讀</b>，加上<b>我自己的實際操作與背後推理</b>：為什麼我這樣看、什麼訊號會讓我改變主意。你看到的不是「你該買什麼」，是「一個人怎麼想、怎麼下判斷」——這比明牌值錢，因為它會變成你的能力。</p>
-    <p style="font-size:calc(13px*var(--scale));line-height:1.8;color:var(--dim);margin-top:12px">寫成可證偽的條件劇本（若 A → 通常 B，盯訊號 C），不給買賣指令或目標價。這是操作與觀點分享，不是投顧報單。</p>
-  </div>
-
-  <!-- 加法保證 -->
-  <h2>兩件事先說清楚</h2>
-  <div class="guarantee">
-    <b>1. 這是加法。</b>免費的一樣在，一個都不會被收走，也不會被弄爛來逼你付錢。<br>
-    <b>2. 我不主打便宜。</b>我賣的是判斷力，不是折扣。這個早鳥價，留給最早相信我的人。
-  </div>
-
-  <div class="pay-note">
-    ▸ 付款走 <b>綠界金流（ECPay）信用卡定期定額</b>（台灣本地、隨時可取消）。免費電子報照常出。<br>
-    ▸ 點「先花兩分鐘」會先開《先別急著付錢》這支小遊戲——搞清楚訂了多拿到什麼、這裡適不適合你，玩完再進確認與付款。不想付的人，免費的照拿。
   </div>
 
   <!-- FAQ -->
   <h2>常見問題</h2>
-  <div class="faq-item"><div class="faq-q">多久更新一次？</div><div class="faq-a">市場觀察、美股、台股、簡報每週至少三次；總經月更、AI 泡沫與專題不定期。發生大事會即時追。</div></div>
+  <div class="faq-item"><div class="faq-q">創始會員內容多久更新一次？</div><div class="faq-a">市場觀察、美股、台股、簡報、關鍵報告每週至少各三次，總共 12 份報告；總經月更、AI 泡沫評估月更、專題不定期、發生大事會即時追。</div></div>
   <div class="faq-item"><div class="faq-q">會給個股買賣建議嗎？</div><div class="faq-a">不會。內容是市場結構、資金輪動與判斷框架，加上我自己怎麼想、怎麼動作的示範，可提高你自己操作與選股的勝率，但不構成個股買賣建議。</div></div>
-  <div class="faq-item"><div class="faq-q">為什麼要先玩一個遊戲才能訂？</div><div class="faq-a">兩分鐘的《先別急著付錢》讓你先搞清楚訂了會多拿到什麼、這裡適不適合你——不想付的人，免費的一樣照拿，體面離開。</div></div>
+  <div class="faq-item"><div class="faq-q">為什麼要先玩一個遊戲才能訂？</div><div class="faq-a">兩分鐘的《先別急著付錢》讓你先搞清楚訂了會多拿到什麼、這裡適不適合你——不願意付費的人，免費的一樣照拿，體面高歌離席。</div></div>
   <div class="faq-item"><div class="faq-q">可以隨時取消嗎？</div><div class="faq-a">可以。取消後從下一期起不再扣款，當期已發送的內容不受影響。</div></div>
 
   <!-- 綠界定期定額審核用：自動續扣揭露／取消／退費／客服／發票 -->
@@ -208,8 +182,8 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
     <b style="color:var(--text)">自動續扣（定期定額）</b>：訂閱採每月定期定額，綠界（ECPay）會於每月固定日向你綁定的信用卡收取當期費用，持續至你主動取消為止。<br>
     <b style="color:var(--text)">取消方式</b>：可隨時取消——來信客服或私訊粉專即可；取消後自<b>下一期</b>起不再扣款。<br>
     <b style="color:var(--text)">退費政策</b>：數位內容於當期開通後不另退費；取消僅停止下一期扣款，當期服務仍提供至期末。<br>
-    <b style="color:var(--text)">客服聯絡</b>：Email　<b style="color:var(--red)">【待填：客服信箱】</b>　·　<a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">Facebook 粉專</a><br>
-    <b style="color:var(--text)">發票</b>：<b style="color:var(--red)">【待填：開立電子發票／其他】</b>
+    <b style="color:var(--text)">客服聯絡</b>：Email　<a href="mailto:iamtwispin@gmail.com">iamtwispin@gmail.com</a>　·　<a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">Facebook 粉專</a><br>
+    <b style="color:var(--text)">發票</b>：本服務由個人提供，暫不開立統一發票；收款以綠界交易紀錄與信用卡帳單為憑。
   </div>
 
   <a class="back" href="https://yoda-research-next.vercel.app/">← 回 Yoda Research</a>
@@ -223,6 +197,8 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
 function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('sub-theme',t)}catch(e){}document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>b.classList.toggle('active',b.textContent===({dark:'深',light:'淺'})[t]))}
 function setSize(s){document.documentElement.setAttribute('data-size',s);try{localStorage.setItem('sub-size',s)}catch(e){}document.querySelectorAll('[onclick*="setSize"]').forEach(b=>b.classList.toggle('active',b.textContent===({sm:'小',md:'中',lg:'大'})[s]))}
 (function(){try{var t=localStorage.getItem('sub-theme');if(t)setTheme(t);var s=localStorage.getItem('sub-size');if(s)setSize(s)}catch(e){}})();
+/* 防盜：禁用右鍵選單與複製／剪下／拖曳 */
+['contextmenu','copy','cut','selectstart','dragstart'].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});
 </script>
 </body>
 </html>
