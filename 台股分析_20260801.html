@@ -768,12 +768,20 @@ function sortTbl(th) {
   function xy(o){if(WIN===5)return{x:o.rel5,y:o.rel5-o.rel20};if(WIN===20)return{x:o.rel20,y:o.rel20-o.rel60};return{x:o.rel60,y:o.rel20-o.rel60};}
   function seriesFor(t,label){var a=[];DATA.snapshots.forEach(function(s){var o=s.data[t]&&s.data[t][label];if(o)a.push(xy(o));});return a.slice(-TAIL);}
   function colorOf(t,label,idx){return (COL[t]||{})[label]||PAL[idx%PAL.length];}
+  var MKSET=['circle','diamond','square','triangle','ring'];
+  function mkMarker(g,ty,cx,cy,r,fill){
+    function shp(rr){if(ty==='diamond')return el('polygon',{points:cx+','+(cy-rr*1.3)+' '+(cx+rr*1.15)+','+cy+' '+cx+','+(cy+rr*1.3)+' '+(cx-rr*1.15)+','+cy});if(ty==='square')return el('rect',{x:cx-rr*0.9,y:cy-rr*0.9,width:rr*1.8,height:rr*1.8,rx:2});if(ty==='triangle')return el('polygon',{points:cx+','+(cy-rr*1.3)+' '+(cx+rr*1.15)+','+(cy+rr*0.85)+' '+(cx-rr*1.15)+','+(cy+rr*0.85)});return el('circle',{cx:cx,cy:cy,r:rr});}
+    var gl=shp(r+1);if(ty==='ring'){gl.setAttribute('fill','none');gl.setAttribute('stroke',fill);gl.setAttribute('stroke-width',3.4);}else gl.setAttribute('fill',fill);gl.setAttribute('opacity',.5);gl.setAttribute('filter','url(#dyn-glow)');g.appendChild(gl);
+    var m=shp(r);if(ty==='ring'){m.setAttribute('fill','none');m.setAttribute('stroke',fill);m.setAttribute('stroke-width',3.2);}else{m.setAttribute('fill',fill);m.setAttribute('stroke',cvar('--bg'));m.setAttribute('stroke-width',1.6);}g.appendChild(m);
+    if(ty!=='ring')g.appendChild(el('circle',{cx:cx-r*0.34,cy:cy-r*0.36,r:r*0.36,fill:'#ffffff',opacity:.6}));
+  }
   // 頁籤 + 反應速度 按鈕
   var tabseg=document.getElementById('dyn-tabseg');
   DATA.tab_order.forEach(function(t,i){var btn=document.createElement('button');btn.textContent=DATA.tabsMeta[t].name;btn.className=i===0?'on':'';btn.onclick=function(){TAB=t;[].forEach.call(tabseg.children,function(c){c.classList.remove('on');});btn.classList.add('on');document.getElementById('dyn-title').textContent=DATA.tabsMeta[t].name;draw();};tabseg.appendChild(btn);});
   document.getElementById('dyn-title').textContent=DATA.tabsMeta[TAB].name;
   document.getElementById('dyn-date').textContent=latest().date;
   [5,20,60].forEach(function(w){var btn=document.getElementById('dyn-w'+w);btn.onclick=function(){WIN=w;[5,20,60].forEach(function(x){document.getElementById('dyn-w'+x).classList.remove('on');});btn.classList.add('on');document.getElementById('dyn-win').textContent=w;draw();};});
+  [5,10,20].forEach(function(t){var btn=document.getElementById('dyn-t'+t);if(btn)btn.onclick=function(){TAIL=t;[5,10,20].forEach(function(x){var b=document.getElementById('dyn-t'+x);if(b)b.classList.remove('on');});btn.classList.add('on');draw();};});
   var TIP=document.createElement('div');TIP.className='dyn-tip';document.body.appendChild(TIP);
   function layout(nodes,ccx,ccy){
     var L=nodes.map(function(n){var dx=n.x-ccx,dy=n.y-ccy,d=Math.hypot(dx,dy)||1;return{n:n,ux:dx/d,uy:dy/d,w:n.label.length*12+4,lx:n.x+dx/d*34,ly:n.y+dy/d*34};});
@@ -786,35 +794,41 @@ function sortTbl(th) {
   }
   function draw(){
     while(SVG.firstChild)SVG.removeChild(SVG.firstChild);
+    var _defs=el('defs',{});var _f=el('filter',{id:'dyn-glow',x:'-60%',y:'-60%',width:'220%',height:'220%'});_f.appendChild(el('feGaussianBlur',{stdDeviation:'2.4'}));_defs.appendChild(_f);SVG.appendChild(_defs);
     var lg=document.getElementById('dyn-legend');
     var labels=labelsFor(TAB);
     if(!labels.length){var tx=el('text',{x:360,y:300,fill:cvar('--dim'),'font-size':16,'text-anchor':'middle','font-family':cvar('--fb')});tx.textContent='AI 核心競爭力三層成分待定義，補上後即接入';SVG.appendChild(tx);lg.innerHTML='';return;}
     var series={};labels.forEach(function(l){series[l]=seriesFor(TAB,l);});
-    var W=720,H=600,pad=52,x0=pad,x1=W-pad,y0=pad,y1=H-pad,hx=4,hy=3;
-    labels.forEach(function(l){series[l].forEach(function(p){hx=Math.max(hx,Math.abs(p.x));hy=Math.max(hy,Math.abs(p.y));});});hx*=1.22;hy*=1.22;
-    var mx=function(v){return x0+(v+hx)/(2*hx)*(x1-x0);},my=function(v){return y1-(v+hy)/(2*hy)*(y1-y0);};
+    var W=720,H=600,pad=52,x0=pad,x1=W-pad,y0=pad,y1=H-pad;
+    var allx=[],ally=[];labels.forEach(function(l){series[l].forEach(function(p){allx.push(Math.abs(p.x));ally.push(Math.abs(p.y));});});
+    allx.sort(function(a,b){return a-b;});ally.sort(function(a,b){return a-b;});
+    function capv(a,fl){if(!a.length)return fl;var q=a[Math.floor(a.length*0.86)]||fl;return Math.max(q*1.15,fl);}
+    var hx=capv(allx,6),hy=capv(ally,5);
+    var mx=function(v){return x0+(Math.max(-hx,Math.min(hx,v))+hx)/(2*hx)*(x1-x0);},my=function(v){return y1-(Math.max(-hy,Math.min(hy,v))+hy)/(2*hy)*(y1-y0);};
     var cx=mx(0),cy=my(0),qf={imp:cvar('--dyn-imp'),led:cvar('--dyn-led'),lag:cvar('--dyn-lag'),wk:cvar('--dyn-wk')};
     [['imp',x0,y0,cx-x0,cy-y0],['led',cx,y0,x1-cx,cy-y0],['lag',x0,cy,cx-x0,y1-cy],['wk',cx,cy,x1-cx,y1-cy]].forEach(function(r){SVG.appendChild(el('rect',{x:r[1],y:r[2],width:r[3],height:r[4],fill:qf[r[0]],opacity:.055}));});
     SVG.appendChild(el('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:'none',stroke:cvar('--border')}));
-    SVG.appendChild(el('line',{x1:cx,y1:y0,x2:cx,y2:y1,stroke:cvar('--border'),'stroke-dasharray':'4 4'}));
-    SVG.appendChild(el('line',{x1:x0,y1:cy,x2:x1,y2:cy,stroke:cvar('--border'),'stroke-dasharray':'4 4'}));
+    SVG.appendChild(el('line',{x1:cx,y1:y0,x2:cx,y2:y1,stroke:cvar('--border'),'stroke-width':.6,'stroke-dasharray':'2 5',opacity:.32}));
+    SVG.appendChild(el('line',{x1:x0,y1:cy,x2:x1,y2:cy,stroke:cvar('--border'),'stroke-width':.6,'stroke-dasharray':'2 5',opacity:.32}));
     [['落後',x0-6,cy+5,'lag','end'],['領先',x1+6,cy+5,'led','start'],['轉強',cx,y0-10,'imp','middle'],['轉弱',cx,y1+21,'wk','middle']].forEach(function(l){var t=el('text',{x:l[1],y:l[2],fill:qf[l[3]],'font-size':18,'font-weight':700,'text-anchor':l[4],'font-family':cvar('--fb')});t.textContent=l[0];SVG.appendChild(t);});
     SVG.appendChild(el('circle',{cx:cx,cy:cy,r:3.5,fill:cvar('--dim')}));
     var sp=el('text',{x:cx+7,y:cy-7,fill:cvar('--dim'),'font-size':11,'font-family':cvar('--fm')});sp.textContent='加權';SVG.appendChild(sp);
     var ri=el('text',{x:x0+5,y:y1-6,fill:cvar('--dim'),'font-size':10.5,'font-family':cvar('--fm')});ri.textContent='REL'+WIN;SVG.appendChild(ri);
     // 尾巴（今天最亮、越舊越淡）
     labels.forEach(function(l,idx){var s=series[l];if(!s.length)return;var col=colorOf(TAB,l,idx);
-      for(var i=1;i<s.length;i++){var frac=i/(s.length-1),op=.12+.88*frac;SVG.appendChild(el('line',{x1:mx(s[i-1].x),y1:my(s[i-1].y),x2:mx(s[i].x),y2:my(s[i].y),stroke:col,'stroke-width':1+1.6*frac,'stroke-linecap':'round',opacity:op*.85}));}
+      for(var i=1;i<s.length;i++){var frac=i/(s.length-1),op=.12+.88*frac;SVG.appendChild(el('line',{x1:mx(s[i-1].x),y1:my(s[i-1].y),x2:mx(s[i].x),y2:my(s[i].y),stroke:col,'stroke-width':.5+.9*frac,'stroke-linecap':'round','stroke-dasharray':'3 4',opacity:op*.6}));}
       s.forEach(function(p,i){if(i===s.length-1)return;var frac=s.length>1?i/(s.length-1):1;SVG.appendChild(el('circle',{cx:mx(p.x),cy:my(p.y),r:2+1.3*frac,fill:col,opacity:(.1+.5*frac)*.8}));});
     });
     // 頭點 + 標籤佈局
-    var nodes=labels.map(function(l,idx){var s=series[l],h=s[s.length-1];return{x:mx(h.x),y:my(h.y),label:l,col:colorOf(TAB,l,idx),hx:h.x,hy:h.y,n:latest().data[TAB][l].n};});
+    var nodes=labels.map(function(l,idx){var s=series[l],h=s[s.length-1];var off=(Math.abs(h.x)>hx||Math.abs(h.y)>hy);return{x:mx(h.x),y:my(h.y),label:l,col:colorOf(TAB,l,idx),hx:h.x,hy:h.y,n:latest().data[TAB][l].n,off:off};});
+    var hero=null;nodes.forEach(function(n){if(!n.off&&(!hero||n.hx>hero.hx))hero=n;});
     var L=layout(nodes,cx,cy);
-    L.forEach(function(l){SVG.appendChild(el('line',{x1:l.n.x,y1:l.n.y,x2:l.lx,y2:l.ly,stroke:cvar('--dim'),'stroke-width':.6,opacity:.4}));});
-    nodes.forEach(function(n){var g=el('g',{});g.style.cursor='pointer';var c=el('circle',{cx:n.x,cy:n.y,r:8,fill:n.col,stroke:cvar('--bg'),'stroke-width':1.4});g.appendChild(c);
+    L.forEach(function(l){SVG.appendChild(el('line',{x1:l.n.x,y1:l.n.y,x2:l.lx,y2:l.ly,stroke:cvar('--dim'),'stroke-width':.5,opacity:.35}));});
+    if(hero){SVG.appendChild(el('circle',{cx:hero.x,cy:hero.y,r:15,fill:'none',stroke:hero.col,'stroke-width':1.4,'stroke-dasharray':'3 3',opacity:.95,filter:'url(#dyn-glow)'}));}
+    nodes.forEach(function(n,ni){var g=el('g',{});g.style.cursor='pointer';if(n.off){g.appendChild(el('polygon',{points:n.x+','+(n.y-9)+' '+(n.x+8)+','+(n.y+6)+' '+(n.x-8)+','+(n.y+6),fill:n.col,stroke:cvar('--bg'),'stroke-width':1.4}));}else{mkMarker(g,'circle',n.x,n.y,8,n.col);}
       g.addEventListener('mousemove',function(ev){var q=(n.hy>=0?(n.hx>=0?'領先':'轉強'):(n.hx>=0?'轉弱':'落後'));TIP.innerHTML='<b>'+n.label+'</b>'+(n.n?'（'+n.n+'支）':'')+'　'+q+'<br>REL'+WIN+' '+(n.hx>=0?'+':'')+n.hx.toFixed(2)+'%　動能 '+(n.hy>=0?'+':'')+n.hy.toFixed(2);TIP.style.left=(ev.clientX+14)+'px';TIP.style.top=(ev.clientY+14)+'px';TIP.style.opacity=1;});
       g.addEventListener('mouseleave',function(){TIP.style.opacity=0;});SVG.appendChild(g);});
-    L.forEach(function(l){var t=el('text',{x:l.lx,y:l.ly+4,fill:cvar('--text'),'font-size':12.5,'font-family':cvar('--fb'),'font-weight':600,'text-anchor':'middle'});t.textContent=l.n.label;SVG.appendChild(t);});
+    L.forEach(function(l){var val=(l.n.hx>=0?'+':'')+Math.round(l.n.hx)+'%';var t=el('text',{x:l.lx,y:l.ly+4,'text-anchor':'middle','font-family':cvar('--fb')});var a=el('tspan',{fill:cvar('--text'),'font-size':11,'font-weight':600});a.textContent=l.n.label;var b=el('tspan',{fill:cvar('--dim'),'font-size':9.5,'font-weight':400});b.textContent=' '+val;t.appendChild(a);t.appendChild(b);SVG.appendChild(t);});
     var note={sector:'顏色 = 各 GICS 板塊',circle:'台股 AI 三圈（成分待定義）',stage:'主機板 8 階段（訊號輸入→散熱）'}[TAB]||'';
     lg.innerHTML='<span style="color:var(--dim)">'+note+'；滑鼠移上看數值</span>';
   }
