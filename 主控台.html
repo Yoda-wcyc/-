@@ -189,6 +189,7 @@ tr:hover td{background:var(--surface2)}
   <div class="head">
     <h1>訂閱名單主控台</h1>
     <span class="sub">Yoda Research · 對帳月 2026-08</span>
+    <button onclick="logout()" style="margin-left:auto;font-size:12px;color:var(--dim);background:none;border:1px solid var(--border);border-radius:8px;padding:5px 12px;cursor:pointer">登出</button>
   </div>
   <div class="proto-note">已接 Google Sheet · 即時資料</div>
 
@@ -269,6 +270,7 @@ tr:hover td{background:var(--surface2)}
     <div class="fld"><label>Email（唯一識別）</label><input id="f-email" placeholder="name@example.com"></div>
     <div class="fld"><label>會員密碼（≥1 英文字＋6 位數字）</label><div class="pw-wrap"><input id="f-pw" type="password" placeholder="yoda123456"><button type="button" class="pw-eye" id="fpwEye" aria-label="顯示或隱藏密碼">👁</button></div></div>
     <div class="fld"><label>推薦人代碼（可留空,例 R7K3P）</label><input id="f-ref" placeholder="R7K3P"></div>
+    <div class="fld"><label>首次扣款日（預設今天;留空＝待綠界）</label><input id="f-first" type="date"></div>
     <div class="modal-btns">
       <button class="btn-ghost" onclick="closeAdd()">取消</button>
       <button class="btn-primary" onclick="saveAdd()">加入名單</button>
@@ -301,7 +303,7 @@ function login(){
   $('loginBtn').disabled=true; $('loginMsg').style.color='var(--dim)'; $('loginMsg').textContent='登入中…';
   post({action:'adminData',key:KEY}).then(res=>{
     $('loginBtn').disabled=false;
-    if(res&&res.ok){members=(res.members||[]).map(mapMember);renderAll();$('login').style.display='none';$('app').style.display='block';}
+    if(res&&res.ok){try{localStorage.setItem('yoda_admin_key',KEY);}catch(e){}members=(res.members||[]).map(mapMember);renderAll();$('login').style.display='none';$('app').style.display='block';}
     else if(res&&res.error){$('loginMsg').style.color='var(--red)';$('loginMsg').textContent='後端回覆：'+res.error;}
     else{$('loginMsg').style.color='var(--red)';$('loginMsg').textContent='連線失敗或回應異常';}
   }).catch(function(){$('loginBtn').disabled=false;$('loginMsg').style.color='var(--red)';$('loginMsg').textContent='連線失敗（可能是本機 file:// CORS）';});
@@ -457,14 +459,14 @@ function renderRewards(){
 }
 
 /* ===== 新增會員（寫入 GAS）===== */
-function openAdd(){$('addModal').classList.add('show');}
+function openAdd(){$('f-first').value=new Date().toISOString().slice(0,10);$('addModal').classList.add('show');}
 function closeAdd(){$('addModal').classList.remove('show');}
 function saveAdd(){
-  const email=$('f-email').value.trim(),pw=$('f-pw').value.trim(),ref=$('f-ref').value.trim();
+  const email=$('f-email').value.trim(),pw=$('f-pw').value.trim(),ref=$('f-ref').value.trim(),first=$('f-first').value;
   if(!email||!pw){toast('請填 Email 與密碼');return;}
   toast('寫入中…');
-  post({action:'adminAdd',key:KEY,email:email,password:pw,referredBy:ref}).then(res=>{
-    if(res.ok){closeAdd();['f-email','f-pw','f-ref'].forEach(i=>$(i).value='');toast(`已加入 ${res.memberId}`);loadFromGAS();}
+  post({action:'adminAdd',key:KEY,email:email,password:pw,referredBy:ref,firstCharge:first}).then(res=>{
+    if(res.ok){closeAdd();['f-email','f-pw','f-ref','f-first'].forEach(i=>$(i).value='');toast(`已加入 ${res.memberId}`);loadFromGAS();}
     else{toast(res.error||'失敗');}
   }).catch(()=>toast('連線失敗'));
 }
@@ -481,6 +483,9 @@ function setTheme(t){document.documentElement.setAttribute('data-theme',t);docum
 let toastTimer;
 function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2200);}
 function renderAll(){renderDash();renderMembers();renderRecon();renderRewards();}
+function logout(){try{localStorage.removeItem('yoda_admin_key');}catch(e){}location.reload();}
+// 記住密碼：開頁時若已存過就自動登入
+(function(){try{var s=localStorage.getItem('yoda_admin_key');if(s){$('adminKey').value=s;login();}}catch(e){}})();
 </script>
 </body>
 </html>
