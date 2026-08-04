@@ -30,13 +30,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:ca
 /* 右上角金色光源（強）＋左下角金色光源（弱）＝ 全頁光影 */
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
-    radial-gradient(90% 65% at 108% -8%, rgba(255,193,46,.22) 0%, rgba(240,165,0,.10) 22%, rgba(240,165,0,.03) 42%, transparent 62%),
-    radial-gradient(140% 120% at 100% 0%, rgba(120,80,10,.10) 0%, transparent 55%);
+    radial-gradient(98% 72% at 108% -8%, rgba(255,201,64,.36) 0%, rgba(240,165,0,.17) 24%, rgba(240,165,0,.05) 46%, transparent 66%),
+    radial-gradient(150% 125% at 100% 0%, rgba(140,95,15,.18) 0%, transparent 60%);
   mix-blend-mode:screen}
 body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
-    radial-gradient(70% 50% at -8% 108%, rgba(255,193,46,.12) 0%, rgba(240,165,0,.05) 26%, transparent 58%),
-    radial-gradient(120% 100% at 12% 118%, rgba(0,0,0,.28) 0%, transparent 52%)}
+    radial-gradient(80% 58% at -8% 108%, rgba(255,201,64,.24) 0%, rgba(240,165,0,.10) 28%, rgba(240,165,0,.03) 48%, transparent 62%),
+    radial-gradient(120% 100% at 12% 118%, rgba(0,0,0,.22) 0%, transparent 52%)}
 
 /* CONTROLS */
 .fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:9999px;padding:3px}
