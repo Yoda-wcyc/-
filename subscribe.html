@@ -126,6 +126,11 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
 </div>
 
 <div class="wrap">
+  <!-- 推薦碼提示：透過朋友專屬連結而來時顯示（?ref=） -->
+  <div id="refBanner" style="display:none;margin-bottom:calc(20px*var(--scale));padding:14px 18px;border-radius:14px;background:linear-gradient(135deg,rgba(224,165,38,.14),rgba(184,134,11,.08));border:1px solid var(--sub1);font-size:calc(14px*var(--scale));line-height:1.7">
+    🎁 你正透過朋友的<b style="color:var(--sub1)">專屬推薦連結</b>而來 <span id="refWho" style="color:var(--dim)"></span>——你一樣享有創始會員早鳥鎖價；完成訂閱後，介紹你的朋友也會朝加碼獎勵更近一步。
+  </div>
+
   <!-- 免費 vs 付費 -->
   <h2 style="margin-top:calc(20px*var(--scale))">免費，跟創始會員差在哪</h2>
   <div class="cmp">
@@ -232,6 +237,16 @@ function setSize(s){document.documentElement.setAttribute('data-size',s);try{loc
 (function(){try{var t=localStorage.getItem('sub-theme');if(t)setTheme(t);var s=localStorage.getItem('sub-size');if(s)setSize(s)}catch(e){}})();
 /* 防盜：禁用右鍵選單與複製／剪下／拖曳 */
 ['contextmenu','copy','cut','selectstart','dragstart'].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});
+/* 接住推薦碼 ?ref=：清洗後記住(localStorage yoda_ref)，供未來確認頁註冊帶入 referredBy；並顯示提示 banner */
+(function(){try{
+  var ref=new URLSearchParams(location.search).get('ref');
+  if(ref){ref=ref.replace(/[^A-Za-z0-9]/g,'').slice(0,12);}
+  if(ref){try{localStorage.setItem('yoda_ref',ref);}catch(e){}}
+  var saved=ref||(function(){try{return localStorage.getItem('yoda_ref');}catch(e){return '';}})();
+  if(saved){var b=document.getElementById('refBanner'),w=document.getElementById('refWho');
+    if(w)w.textContent='（推薦碼 '+saved+'）';
+    if(b)b.style.display='block';}
+}catch(e){}})();
 </script>
 </body>
 </html>
