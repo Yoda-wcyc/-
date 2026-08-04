@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda Research · 會員報告</title>
+<!--
+  報告頁「空殼」範本 · 對應 subscribe §8-P1
+  這個檔本身【不含任何付費正文】——只有密碼框、空容器、JS。
+  讀者輸入密碼 → 打 GAS getReport 驗證 → 通過才把正文從後端載進 iframe。
+  所以盜傳者存檔／看原始碼，只會拿到這個空殼。
+  用法：把付費正文放進 GAS 設定的私有 Drive 資料夾，檔名 <id>.html；
+       報告連結長這樣：report-shell.html?id=macro-20260804
+-->
+<style>
+  :root{--bg:#000;--surface:#1d1d1f;--border:rgba(255,255,255,.14);--text:#f5f5f7;--dim:#a1a1a6;--gold:#e0a526;--gold-d:#b8860b;--sans:-apple-system,BlinkMacSystemFont,'PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none}
+  /* 密碼閘 */
+  #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .gate-card{width:100%;max-width:400px;border:1.5px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,var(--gold),var(--gold-d)) border-box;border-radius:16px;padding:32px}
+  .gate-card h1{font-size:20px;margin-bottom:8px}
+  .gate-card p{font-size:13px;color:var(--dim);margin-bottom:20px;line-height:1.65}
+  .gate-card input{width:100%;padding:12px 14px;font-size:16px;border-radius:10px;border:1px solid var(--border);background:#000;color:var(--text);margin-bottom:12px;outline:none}
+  .gate-card input:focus{border-color:var(--gold)}
+  .gate-card button{width:100%;padding:12px;font-size:16px;font-weight:700;color:#1a1200;background:linear-gradient(135deg,var(--gold),var(--gold-d));border:none;border-radius:9999px;cursor:pointer}
+  .gate-card button:disabled{opacity:.6;cursor:default}
+  .gate-msg{font-size:13px;color:#ff6b6b;margin-top:12px;min-height:18px;text-align:center}
+  /* 正文容器 + 浮水印 */
+  #content{display:none}
+  #content iframe{width:100%;border:none;display:block;min-height:100vh;background:#000}
+  #wm{display:none;position:fixed;inset:0;z-index:9998;pointer-events:none;background-repeat:repeat}
+</style>
+</head>
+<body>
+  <div id="gate">
+    <div class="gate-card">
+      <h1>會員專屬報告</h1>
+      <p>請輸入你的會員密碼（至少 1 個英文字母＋6 位數字）。這是報告存取碼、內容為個人專屬——每份報告都有你的浮水印，請勿外流。</p>
+      <input id="pw" type="password" placeholder="會員密碼" autocomplete="off" />
+      <button id="go">開啟報告</button>
+      <div class="gate-msg" id="msg"></div>
+    </div>
+  </div>
+
+  <div id="wm"></div>
+  <div id="content"></div>
+
+<script>
+  // ★ 換成你部署 GAS 後拿到的 Web App URL（/exec 結尾）
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec';
+
+  var reportId = new URLSearchParams(location.search).get('id') || '';
+  // 裝置指紋（GAS 讀不到真 IP，用這個當「不同裝置」訊號，抓密碼共用）
+  var device = localStorage.getItem('yoda_dev') || (function(){var d='D'+Math.random().toString(36).slice(2,12);localStorage.setItem('yoda_dev',d);return d;})();
+
+  var pw=document.getElementById('pw'), go=document.getElementById('go'), msg=document.getElementById('msg');
+  go.onclick=submit;
+  pw.addEventListener('keydown',function(e){if(e.key==='Enter')submit();});
+
+  function submit(){
+    var v=pw.value.trim();
+    if(!v){msg.textContent='請輸入密碼';return;}
+    go.disabled=true; msg.style.color='var(--dim)'; msg.textContent='驗證中…';
+    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'getReport',password:v,reportId:reportId,ip:device,ua:navigator.userAgent})})
+      .then(function(r){return r.json();})
+      .then(function(res){
+        go.disabled=false; msg.style.color='#ff6b6b';
+        if(!res.allow){msg.textContent=res.error||'密碼錯誤或訂閱已失效';return;}
+        if(res.error){msg.textContent=res.error;return;}      // 例如找不到這份報告
+        render(res.html, res.watermark);
+      })
+      .catch(function(){go.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試';});
+  }
+
+  function render(html, watermark){
+    document.getElementById('gate').style.display='none';
+    // 把防盜 script 也注進報告內文（iframe 內部一起擋右鍵/複製）
+    var guard='<scr'+'ipt>["contextmenu","copy","cut","selectstart","dragstart"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});</scr'+'ipt>';
+    var f=document.createElement('iframe');
+    f.setAttribute('sandbox','allow-scripts allow-same-origin'); // 讓報告的圖表 JS 能跑
+    f.srcdoc=guard+html;                                          // 正文從後端來，靜態檔裡沒有
+    var c=document.getElementById('content');
+    c.appendChild(f); c.style.display='block';
+    setWatermark(watermark||'Yoda Research');
+  }
+
+  function setWatermark(text){
+    var t=String(text).replace(/[<>&]/g,'');
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="340" height="220">'
+      +'<text x="18" y="120" fill="rgba(255,255,255,0.05)" font-size="14" font-family="sans-serif" transform="rotate(-28 170 110)">'+t+'</text></svg>';
+    var wm=document.getElementById('wm');
+    wm.style.backgroundImage='url("data:image/svg+xml;utf8,'+encodeURIComponent(svg)+'")';
+    wm.style.display='block';
+  }
+
+  // 空殼本身也擋右鍵/複製
+  ['contextmenu','copy','cut','selectstart','dragstart'].forEach(function(ev){
+    document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});
+  });
+</script>
+</body>
+</html>
