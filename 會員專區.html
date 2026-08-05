@@ -47,9 +47,17 @@
   .card h2{font-size:15px;font-weight:700;margin-bottom:14px;color:var(--sub1)}
 
   /* 頂部登入快捷 */
-  .login-quick{text-align:center;margin-bottom:14px}
-  .login-quick a{display:inline-block;color:var(--sub1);font-weight:700;font-size:13px;line-height:1.45;text-align:center;border:1px solid var(--sub1);border-radius:12px;padding:8px 20px;cursor:pointer;background:rgba(224,165,38,.08)}
-  .login-quick a:hover{background:rgba(224,165,38,.16)}
+  /* 最上面：登入卡（左）＋「還沒訂閱」提示（右） */
+  .top-login{display:flex;gap:16px;align-items:stretch;margin-bottom:26px}
+  @media(max-width:640px){.top-login{flex-direction:column}}
+  .top-login .login-card{flex:1;margin:0;max-width:none}
+  .lc-title{font-size:17px;font-weight:800;margin-bottom:8px;background:linear-gradient(90deg,var(--sub1),var(--sub2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .not-yet{flex:0 0 210px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:7px;border:1px dashed var(--sub1);border-radius:16px;padding:20px 16px;background:rgba(224,165,38,.06)}
+  @media(max-width:640px){.not-yet{flex:auto}}
+  .not-yet .ny-big{font-size:17px;font-weight:800;color:var(--text)}
+  .not-yet .ny-arrow{font-size:24px;color:var(--sub1);line-height:1;animation:ny-bob 1.5s ease-in-out infinite}
+  @keyframes ny-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+  .not-yet .ny-sm{font-size:12.5px;color:var(--dim);line-height:1.6}
 
   /* Hero / 電子報 */
   .hero{text-align:center;padding:14px 4px 4px}
@@ -169,7 +177,34 @@
   <!-- ============ 訪客區（未登入） ============ -->
   <div id="guest">
 
-    <div class="login-quick"><a onclick="document.getElementById('loginCard').scrollIntoView({behavior:'smooth'})">已經是付費會員？<br>登入看我的訂閱與推薦 →</a></div>
+    <!-- 登入卡：最上面一進來就看到（左）＋ 還沒訂閱提示（右） -->
+    <div class="top-login">
+      <div class="login-card card gold" id="loginCard">
+        <h3 class="lc-title">已經是付費會員？登入</h3>
+        <p class="hint" style="margin-top:0">用你訂閱時的 email 與自設密碼登入，查看訂閱狀態、推薦成效與加碼進度。</p>
+        <label>Email</label>
+        <input id="email" type="email" autocomplete="email" placeholder="you@example.com" />
+        <label>密碼</label>
+        <div class="pw-wrap">
+          <input id="pw" type="password" autocomplete="current-password" placeholder="自設密碼" onkeydown="if(event.key==='Enter')doLogin()" />
+          <button type="button" class="pw-eye" onclick="eyeToggle('pw',this)" aria-label="顯示或隱藏密碼">👁</button>
+        </div>
+        <label class="remember"><input id="remember" type="checkbox" /> 記住我（下次自動登入）</label>
+        <p class="hint">⚠️ 公用或共用電腦請勿勾「記住我」——會把登入資訊留在這台裝置。</p>
+        <button class="btn" id="loginBtn" onclick="doLogin()">登入</button>
+        <div class="msg" id="loginMsg"></div>
+        <span class="link-sm" onclick="showForgot()">忘記密碼？</span>
+        <div class="hint" id="forgotBox" style="display:none;margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:10px">
+          密碼採不可還原加密，我們看不到你的原密碼、無法自動寄回。請來信 <a href="mailto:iamtwispin@gmail.com?subject=會員密碼重設">iamtwispin@gmail.com</a> 或
+          <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">私訊粉專</a>，附上你的訂閱 email，我們會協助你重設。
+        </div>
+      </div>
+      <div class="not-yet">
+        <div class="ny-big">還沒訂閱？</div>
+        <div class="ny-arrow">↓</div>
+        <div class="ny-sm">往下看：免費電子報、付費差在哪、方案與常見問題都在下面。</div>
+      </div>
+    </div>
 
     <!-- ① Hero：免費電子報引流 -->
     <div class="hero">
@@ -257,27 +292,6 @@
       <b style="color:var(--text)">發票</b>：本服務由個人提供，暫不開立統一發票；收款以綠界交易紀錄與信用卡帳單為憑。
     </div>
 
-    <!-- ⑦ 會員登入卡 -->
-    <h2 class="sec-h">付費會員登入</h2>
-    <div class="login-card card gold" id="loginCard">
-      <p class="hint" style="margin-top:0">用你訂閱時的 email 與自設密碼登入，查看訂閱狀態、推薦成效與加碼進度。</p>
-      <label>Email</label>
-      <input id="email" type="email" autocomplete="email" placeholder="you@example.com" />
-      <label>密碼</label>
-      <div class="pw-wrap">
-        <input id="pw" type="password" autocomplete="current-password" placeholder="自設密碼" onkeydown="if(event.key==='Enter')doLogin()" />
-        <button type="button" class="pw-eye" onclick="eyeToggle('pw',this)" aria-label="顯示或隱藏密碼">👁</button>
-      </div>
-      <label class="remember"><input id="remember" type="checkbox" /> 記住我（下次自動登入）</label>
-      <p class="hint">⚠️ 公用或共用電腦請勿勾「記住我」——會把登入資訊留在這台裝置。</p>
-      <button class="btn" id="loginBtn" onclick="doLogin()">登入</button>
-      <div class="msg" id="loginMsg"></div>
-      <span class="link-sm" onclick="showForgot()">忘記密碼？</span>
-      <div class="hint" id="forgotBox" style="display:none;margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:10px">
-        密碼採不可還原加密，我們看不到你的原密碼、無法自動寄回。請來信 <a href="mailto:iamtwispin@gmail.com?subject=會員密碼重設">iamtwispin@gmail.com</a> 或
-        <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">私訊粉專</a>，附上你的訂閱 email，我們會協助你重設。
-      </div>
-    </div>
 
   </div>
 
