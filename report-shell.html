@@ -23,6 +23,10 @@
   .gate-card p{font-size:13px;color:var(--dim);margin-bottom:20px;line-height:1.65}
   .gate-card input{width:100%;padding:12px 14px;font-size:16px;border-radius:10px;border:1px solid var(--border);background:#000;color:var(--text);margin-bottom:12px;outline:none}
   .gate-card input:focus{border-color:var(--gold)}
+  .pw-wrap{position:relative;margin-bottom:12px}
+  .pw-wrap input{margin-bottom:0;padding-right:46px}
+  .pw-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;line-height:1;opacity:.55;padding:6px}
+  .pw-eye:hover{opacity:1}
   .gate-card button{width:100%;padding:12px;font-size:16px;font-weight:700;color:#1a1200;background:linear-gradient(135deg,var(--gold),var(--gold-d));border:none;border-radius:9999px;cursor:pointer}
   .gate-card button:disabled{opacity:.6;cursor:default}
   .gate-msg{font-size:13px;color:#ff6b6b;margin-top:12px;min-height:18px;text-align:center}
@@ -36,8 +40,11 @@
   <div id="gate">
     <div class="gate-card">
       <h1>會員專屬報告</h1>
-      <p>請輸入你的會員密碼（至少 1 個英文字母＋6 位數字）。這是報告存取碼、內容為個人專屬——每份報告都有你的浮水印，請勿外流。</p>
-      <input id="pw" type="password" placeholder="會員密碼" autocomplete="off" />
+      <p>請輸入你的會員密碼（至少 6 位數字，其中至少 1 個英文字母）。這是報告存取碼、內容為個人專屬——每份報告都有你的浮水印，請勿外流。</p>
+      <div class="pw-wrap">
+        <input id="pw" type="password" placeholder="會員密碼" autocomplete="off" />
+        <button type="button" class="pw-eye" id="pwEye" aria-label="顯示或隱藏密碼">👁</button>
+      </div>
       <button id="go">開啟報告</button>
       <div class="gate-msg" id="msg"></div>
     </div>
@@ -57,6 +64,10 @@
   var pw=document.getElementById('pw'), go=document.getElementById('go'), msg=document.getElementById('msg');
   go.onclick=submit;
   pw.addEventListener('keydown',function(e){if(e.key==='Enter')submit();});
+  document.getElementById('pwEye').addEventListener('click',function(){
+    if(pw.type==='password'){pw.type='text';this.textContent='🙈';}
+    else{pw.type='password';this.textContent='👁';}
+  });
 
   function submit(){
     var v=pw.value.trim();
@@ -87,8 +98,8 @@
 
   function setWatermark(text){
     var t=String(text).replace(/[<>&]/g,'');
-    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="340" height="220">'
-      +'<text x="18" y="120" fill="rgba(255,255,255,0.05)" font-size="14" font-family="sans-serif" transform="rotate(-28 170 110)">'+t+'</text></svg>';
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="278" height="180">'
+      +'<text x="14" y="98" fill="rgba(255,255,255,0.05)" font-size="14" font-family="sans-serif" transform="rotate(-28 139 90)">'+t+'</text></svg>';
     var wm=document.getElementById('wm');
     wm.style.backgroundImage='url("data:image/svg+xml;utf8,'+encodeURIComponent(svg)+'")';
     wm.style.display='block';
