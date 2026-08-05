@@ -411,13 +411,20 @@ function renderMembers(){
       <td>${m.ref?'<span class="id">'+m.ref+'</span>':'<span class="email">—</span>'}</td>
       <td><span class="id">${m.paidRefs}</span></td>
       <td>${m.comp?'<span class="id" style="color:var(--gold)">'+m.comp+'</span>':'<span class="email">0</span>'}</td>
-      <td>${m.status==='已取消'?'':`<button class="mini-act" onclick="giftMonth('${m.id}')">贈送月</button>`}</td>
+      <td>${m.status==='已取消'?'':`<button class="mini-act" onclick="giftMonth('${m.id}')">贈送月</button> `}<button class="mini-act" style="color:#ff6b6b;border-color:#ff6b6b" onclick="deleteMember('${m.id}')">刪除</button></td>
     </tr>`;}).join('') || `<tr><td colspan="9"><div class="empty">沒有符合的會員</div></td></tr>`;
 }
 function giftMonth(id){
   toast('寫入中…');
   post({action:'adminGift',key:KEY,memberId:id}).then(res=>{
     if(res&&res.ok){toast('已贈送 1 個月並推進扣款日');loadFromGAS();}else{toast((res&&res.error)||'失敗');}
+  }).catch(()=>toast('連線失敗'));
+}
+function deleteMember(id){
+  if(!confirm('確定刪除會員 '+id+'？\n此動作會從 Google Sheet 永久移除該列，無法復原。'))return;
+  toast('刪除中…');
+  post({action:'adminDelete',key:KEY,memberId:id}).then(res=>{
+    if(res&&res.ok){toast('已刪除 '+id);loadFromGAS();}else{toast((res&&res.error)||'刪除失敗');}
   }).catch(()=>toast('連線失敗'));
 }
 
