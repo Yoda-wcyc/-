@@ -209,6 +209,11 @@ main{max-width:760px;margin:0 auto;padding:86px 26px 90px}
 /* --- report compat --- */
 .chart-ph{min-height:150px;justify-content:space-between}
 .chart-ph .ph-hint{font-family:var(--mono);font-size:calc(9.5px*var(--scale));color:var(--text3);margin-top:10px;text-align:center;opacity:.7}
+/* 使用手冊遊戲鈕（紅色呼吸燈，依 core-render B-5c 家規） */
+@keyframes game-breathe{0%,100%{box-shadow:0 0 4px 1px rgba(229,57,53,.35);opacity:.92}50%{box-shadow:0 0 12px 3px rgba(229,57,53,.75);opacity:1}}
+.nav-game-btn{display:block;max-width:360px;margin:2px auto 26px;padding:12px 16px;background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;text-decoration:none;text-align:center;border-radius:10px;font-weight:700;letter-spacing:.5px;font-size:calc(14px*var(--scale));animation:game-breathe 1.8s ease-in-out infinite}
+.nav-game-btn:hover{filter:brightness(1.08)}
+.nav-game-btn small{display:block;font-weight:400;opacity:.9;margin-top:3px;font-size:calc(11px*var(--scale))}
 </style>
 </head>
 <body>
@@ -258,6 +263,9 @@ main{max-width:760px;margin:0 auto;padding:86px 26px 90px}
     <div class="conclusion-box-title">所以我該怎麼想</div>
     <div class="conclusion-box-text">多方這一仗贏了——破底翻收復、大盤站回多方趨勢;但<strong>帶頭的不是半導體、也不是 AI 硬體</strong>。這份報告幫你看清「錢現在往哪裡集中」——想追 AI 硬體的,盤面沒給訊號、別硬追;要跟強勢,方向在生技、消費、能源這些正在創新高的族群。決定還是你自己下。</div>
   </div>
+
+  <!-- 讀懂關鍵報告 · 使用手冊遊戲鈕（教讀者怎麼讀這份旗艦，免費） -->
+  <a href="https://yoda-wcyc.github.io/game/%E8%AE%80%E6%87%82%E9%97%9C%E9%8D%B5%E5%A0%B1%E5%91%8A.html" target="_blank" rel="noopener" class="nav-game-btn">🎮 先花 3 分鐘，學會怎麼讀這份報告<small>《讀懂關鍵報告》· 一條主線，從全球讀到台股</small></a>
 
   <!-- 01 全球 -->
   <div class="section">
