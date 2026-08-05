@@ -47,8 +47,9 @@
   .card h2{font-size:15px;font-weight:700;margin-bottom:14px;color:var(--sub1)}
 
   /* 頂部登入快捷 */
-  .login-quick{font-size:13.5px;color:var(--dim);text-align:right;margin-bottom:8px}
-  .login-quick a{color:var(--sub1);font-weight:700}
+  .login-quick{text-align:center;margin-bottom:14px}
+  .login-quick a{display:inline-block;color:var(--sub1);font-weight:700;font-size:13px;line-height:1.45;text-align:center;border:1px solid var(--sub1);border-radius:12px;padding:8px 20px;cursor:pointer;background:rgba(224,165,38,.08)}
+  .login-quick a:hover{background:rgba(224,165,38,.16)}
 
   /* Hero / 電子報 */
   .hero{text-align:center;padding:14px 4px 4px}
@@ -168,7 +169,7 @@
   <!-- ============ 訪客區（未登入） ============ -->
   <div id="guest">
 
-    <div class="login-quick">已經是付費會員？<a onclick="document.getElementById('loginCard').scrollIntoView({behavior:'smooth'})">登入看我的訂閱與推薦 →</a></div>
+    <div class="login-quick"><a onclick="document.getElementById('loginCard').scrollIntoView({behavior:'smooth'})">已經是付費會員？<br>登入看我的訂閱與推薦 →</a></div>
 
     <!-- ① Hero：免費電子報引流 -->
     <div class="hero">
@@ -332,7 +333,7 @@
     </div>
 
     <div class="card">
-      <h2>帳戶設定 · 修改密碼</h2>
+      <h2>帳戶設定</h2>
       <label>目前密碼</label>
       <div class="pw-wrap">
         <input id="oldPw" type="password" autocomplete="current-password" placeholder="目前密碼" />
@@ -345,6 +346,12 @@
       </div>
       <button class="btn" id="pwBtn" onclick="doChangePw()" style="margin-top:16px">更新密碼</button>
       <div class="msg" id="pwMsg"></div>
+      <div style="border-top:1px solid var(--divider);margin-top:18px;padding-top:16px">
+        <button class="btn ghost" onclick="var c=document.getElementById('cancelBox');c.style.display=(c.style.display==='none'||!c.style.display)?'block':'none'">取消訂閱</button>
+        <div id="cancelBox" style="display:none;font-size:13px;color:var(--dim);line-height:1.85;margin-top:12px">
+          取消訂閱採人工確認：請來信 <a href="mailto:iamtwispin@gmail.com?subject=取消訂閱">iamtwispin@gmail.com</a> 或 <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">私訊粉專</a>，附上你的訂閱 email。我們會在<b style="color:var(--text)">下一期起停止扣款</b>，當期已開通的內容仍可使用到期末。
+        </div>
+      </div>
     </div>
 
     <div class="disc">
@@ -435,8 +442,8 @@
     }).join('');
   }
   function renderCerts(list){
-    var names={mw:'市場觀察',tw:'台股',us:'美股',key:'簡報',macro:'總經'};
-    var order=['mw','tw','us','key','macro'], set={};
+    var names={flag:'關鍵報告',mw:'市場觀察',tw:'台股',us:'美股',key:'簡報',macro:'總經'};
+    var order=['flag','mw','tw','us','key','macro'], set={};
     (list||[]).forEach(function(t){set[t]=1;});
     el('dCerts').innerHTML=order.map(function(t){
       return '<span class="cert-pill'+(set[t]?' on':'')+'">'+(set[t]?'✓ ':'')+names[t]+'</span>';
