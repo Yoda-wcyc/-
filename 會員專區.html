@@ -191,7 +191,7 @@
         </div>
         <label class="remember"><input id="remember" type="checkbox" /> 記住我（下次自動登入）</label>
         <p class="hint">⚠️ 公用或共用電腦請勿勾「記住我」——會把登入資訊留在這台裝置。</p>
-        <button class="btn" id="loginBtn" onclick="doLogin()">登入</button>
+        <button class="btn" id="loginBtn" onclick="doLogin()" style="background:linear-gradient(135deg,#2997ff,#5f8bff);color:#fff;box-shadow:0 6px 18px rgba(41,151,255,.35)">登入</button>
         <div class="msg" id="loginMsg"></div>
         <span class="link-sm" onclick="showForgot()">忘記密碼？</span>
         <div class="hint" id="forgotBox" style="display:none;margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:10px">
@@ -270,7 +270,7 @@
         </tbody>
       </table>
       <div class="ladder-foot">兩個條件都達到才解鎖，取同時滿足的最高階；連續訂滿一年最多送半年（6 個月）封頂。朋友須從你的專屬連結來訂閱並完成付費才算數。</div>
-      <a class="btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">前往選擇方案並訂閱 →</a>
+      <a class="btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);color:#fff;box-shadow:0 6px 18px rgba(139,92,246,.35)">前往選擇方案並訂閱 →</a>
     </div>
 
     <!-- ⑤ FAQ -->
@@ -299,7 +299,7 @@
   <div id="dash">
     <div class="dash-head">
       <div class="who">會員 <b id="dMemberId">—</b><span id="dBadge" class="badge active">—</span><br><span id="dEmail"></span></div>
-      <button class="btn ghost" style="width:auto;margin:0;padding:8px 18px;font-size:13px" onclick="logout()">登出</button>
+      <button class="btn" style="width:auto;margin:0;padding:8px 18px;font-size:13px;background:linear-gradient(135deg,#3a4356,#5a647a);color:#fff;box-shadow:0 4px 14px rgba(58,67,86,.45)" onclick="logout()">登出</button>
     </div>
 
     <!-- 登入後第一顆：付費報告總覽（連到 Next 站 archive 的付費版清單） -->
@@ -320,7 +320,7 @@
       <p style="font-size:13px;color:var(--dim);margin-bottom:8px">把這條專屬連結傳給朋友，朋友從這裡訂閱並完成付費，就算你介紹一位。</p>
       <div class="reflink">
         <input id="dRefLink" readonly onclick="this.select()" />
-        <button onclick="copyLink()" id="copyBtn">複製</button>
+        <button onclick="copyLink()" id="copyBtn" style="background:linear-gradient(135deg,#14b8a6,#0ea5e9);color:#fff;border:none">複製</button>
       </div>
       <div class="refstat">
         <div class="box"><div class="n" id="dRefTotal">0</div><div class="l">介紹了幾個人<br>（用你連結註冊）</div></div>
@@ -346,7 +346,7 @@
       <h2>使用手冊檢核 · 你讀懂了哪幾類報告</h2>
       <p style="font-size:13px;color:var(--dim);margin-bottom:10px">玩過各報告的導覽遊戲、通過檢核就會亮燈。這是給自己的學習進度，不影響報告閱讀權限。</p>
       <div class="certs" id="dCerts"></div>
-      <a class="btn" href="https://yoda-wcyc.github.io/game/%E5%95%9F%E5%8B%95%E4%BB%98%E8%B2%BB%E6%9C%83%E5%93%A1.html" target="_blank" rel="noopener" style="margin-top:16px">🎓 去玩使用手冊 · 啟動 / 補齊檢核 →</a>
+      <a class="btn" href="https://yoda-wcyc.github.io/game/%E5%95%9F%E5%8B%95%E4%BB%98%E8%B2%BB%E6%9C%83%E5%93%A1.html" target="_blank" rel="noopener" style="margin-top:16px;background:linear-gradient(135deg,#f59e0b,#ff6b35);color:#1a1200;box-shadow:0 6px 18px rgba(245,158,11,.35)">🎓 去玩使用手冊 · 啟動 / 補齊檢核 →</a>
     </div>
 
     <div class="card">
@@ -361,10 +361,10 @@
         <input id="newPw" type="password" autocomplete="new-password" placeholder="新密碼" />
         <button type="button" class="pw-eye" onclick="eyeToggle('newPw',this)">👁</button>
       </div>
-      <button class="btn" id="pwBtn" onclick="doChangePw()" style="margin-top:16px">更新密碼</button>
+      <button class="btn" id="pwBtn" onclick="doChangePw()" style="margin-top:16px;background:linear-gradient(135deg,#30d158,#0fb885);color:#04220f;box-shadow:0 6px 18px rgba(48,209,88,.32)">更新密碼</button>
       <div class="msg" id="pwMsg"></div>
       <div style="border-top:1px solid var(--divider);margin-top:18px;padding-top:16px">
-        <button class="btn ghost" onclick="var c=document.getElementById('cancelBox');c.style.display=(c.style.display==='none'||!c.style.display)?'block':'none'">取消訂閱</button>
+        <button class="btn" style="background:linear-gradient(135deg,#c0392b,#ff5a4d);color:#fff;box-shadow:0 6px 18px rgba(192,57,43,.35)" onclick="var c=document.getElementById('cancelBox');c.style.display=(c.style.display==='none'||!c.style.display)?'block':'none'">取消訂閱</button>
         <div id="cancelBox" style="display:none;font-size:13px;color:var(--dim);line-height:1.85;margin-top:12px">
           取消訂閱採人工確認：請來信 <a href="mailto:iamtwispin@gmail.com?subject=取消訂閱">iamtwispin@gmail.com</a> 或 <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">私訊粉專</a>，附上你的訂閱 email。我們會在<b style="color:var(--text)">下一期起停止扣款</b>，當期已開通的內容仍可使用到期末。
         </div>
