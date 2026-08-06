@@ -439,6 +439,20 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
 .dyn-guide .g-use li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
 .dyn-tip{position:fixed;pointer-events:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-family:var(--fb);font-size:calc(var(--fs)*.46);color:var(--text);opacity:0;transition:opacity .1s;z-index:99;box-shadow:0 6px 24px rgba(0,0,0,.4);white-space:nowrap}
 @media(max-width:820px){.dyn-main{flex-direction:column}.dyn-guide{flex:auto}}
+/* §05 廣度歷史折線圖 */
+.breadth-charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.bch-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.bch-t{font-size:calc(var(--fs)*.78);color:var(--dim);letter-spacing:.04em;margin-bottom:8px;font-family:var(--fb)}
+.bch-canvas{width:100%;height:150px;display:block}
+@media(max-width:720px){.breadth-charts{grid-template-columns:1fr}}
+/* §04 三線歷史 mini chart 加高 */
+.mini-chart-canvas{height:92px !important}
+/* §06 Gamma 簡圖 */
+.gamma-diagram{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:14px;display:flex;justify-content:center}
+.gamma-diagram svg{width:100%;max-width:480px;height:auto}
+.gamma-terms{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:14px 18px;margin-bottom:34px;font-family:var(--fb);font-size:calc(var(--fs)*.88);line-height:1.9;color:var(--text)}
+.gamma-terms b{color:var(--accent)}
+.gamma-terms .gt-row{margin-bottom:6px}
 </style>
 </head>
 <body>
@@ -812,7 +826,632 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
       </ul>
     </aside>
   </div>
-  <script id="dyn-data" type="application/json">{"tail": 20, "tabsMeta": {"asset": {"name": "跨資產"}, "sector": {"name": "產業輪動"}}, "snapshots": [{"date": "07/31", "data": {"asset": {"股": {"rel5": 0.16, "rel20": -0.12, "rel60": -1.14, "grp": "asset", "ticker": "ACWI"}, "債": {"rel5": -1.17, "rel20": -1.56, "rel60": -3.63, "grp": "asset", "ticker": "AGG"}, "商品": {"rel5": -4.04, "rel20": 10.54, "rel60": -4.31, "grp": "asset", "ticker": "DBC"}, "匯": {"rel5": -1.13, "rel20": 0.46, "rel60": 2.2, "grp": "asset", "ticker": "UUP"}, "幣": {"rel5": -3.95, "rel20": 1.91, "rel60": -24.64, "grp": "asset", "ticker": "IBIT"}, "台": {"rel5": -4.49, "rel20": -8.23, "rel60": -0.01, "grp": "region", "ticker": "EWT"}, "韓": {"rel5": -10.84, "rel20": -13.09, "rel60": -15.47, "grp": "region", "ticker": "EWY"}, "成熟": {"rel5": 1.41, "rel20": 0.86, "rel60": -1.06, "grp": "region", "ticker": "EFA"}, "新興": {"rel5": -1.99, "rel20": -2.75, "rel60": -6.84, "grp": "region", "ticker": "EEM"}, "金": {"rel5": -1.19, "rel20": -2.04, "rel60": -15.59, "grp": "commod", "ticker": "GLD"}, "油": {"rel5": -8.6, "rel20": 23.92, "rel60": -5.37, "grp": "commod", "ticker": "USO"}, "銅": {"rel5": 2.25, "rel20": 5.79, "rel60": 3.58, "grp": "commod", "ticker": "CPER"}, "銀": {"rel5": -0.62, "rel20": -5.14, "rel60": -27.14, "grp": "commod", "ticker": "SLV"}, "鈾": {"rel5": -6.21, "rel20": -9.93, "rel60": -34.74, "grp": "commod", "ticker": "URA"}, "金礦": {"rel5": -2.43, "rel20": -5.82, "rel60": -21.64, "grp": "commod", "ticker": "GDX"}}, "sector": {"通訊服務": {"rel5": 1.52, "rel20": -1.54, "rel60": -9.56, "grp": "sector", "ticker": "XLC"}, "非必需消費": {"rel5": 5.54, "rel20": -1.18, "rel60": -4.95, "grp": "sector", "ticker": "XLY"}, "必需消費": {"rel5": 1.01, "rel20": -0.23, "rel60": -0.84, "grp": "sector", "ticker": "XLP"}, "能源": {"rel5": -0.91, "rel20": 11.59, "rel60": 2.67, "grp": "sector", "ticker": "XLE"}, "金融": {"rel5": 0.79, "rel20": 2.07, "rel60": 8.04, "grp": "sector", "ticker": "XLF"}, "醫療保健": {"rel5": -0.51, "rel20": -1.03, "rel60": 10.0, "grp": "sector", "ticker": "XLV"}, "工業": {"rel5": -2.35, "rel20": -2.52, "rel60": -0.12, "grp": "sector", "ticker": "XLI"}, "原材料": {"rel5": -0.92, "rel20": -3.34, "rel60": -5.58, "grp": "sector", "ticker": "XLB"}, "房地產": {"rel5": -0.93, "rel20": 0.57, "rel60": -1.06, "grp": "sector", "ticker": "XLRE"}, "資訊科技": {"rel5": -2.94, "rel20": -3.2, "rel60": 1.33, "grp": "sector", "ticker": "XLK"}, "公用事業": {"rel5": -3.41, "rel20": 0.37, "rel60": -1.86, "grp": "sector", "ticker": "XLU"}}}}, {"date": "08/04", "data": {"asset": {"股": {"rel5": -0.47, "rel20": -0.98, "rel60": -1.19, "grp": "asset", "ticker": "ACWI"}, "債": {"rel5": -4.39, "rel20": -3.68, "rel60": -6.1, "grp": "asset", "ticker": "AGG"}, "商品": {"rel5": -6.78, "rel20": 2.18, "rel60": -11.14, "grp": "asset", "ticker": "DBC"}, "匯": {"rel5": -3.51, "rel20": -1.97, "rel60": -1.63, "grp": "asset", "ticker": "UUP"}, "幣": {"rel5": -5.4, "rel20": -1.92, "rel60": -24.5, "grp": "asset", "ticker": "IBIT"}, "台": {"rel5": 0.14, "rel20": -7.39, "rel60": 1.78, "grp": "region", "ticker": "EWT"}, "韓": {"rel5": 1.8, "rel20": -12.52, "rel60": -14.59, "grp": "region", "ticker": "EWY"}, "成熟": {"rel5": -1.08, "rel20": -0.91, "rel60": -1.34, "grp": "region", "ticker": "EFA"}, "新興": {"rel5": -0.62, "rel20": -4.99, "rel60": -7.43, "grp": "region", "ticker": "EEM"}, "金": {"rel5": -4.49, "rel20": -4.75, "rel60": -18.31, "grp": "commod", "ticker": "GLD"}, "油": {"rel5": -11.56, "rel20": 8.28, "rel60": -17.9, "grp": "commod", "ticker": "USO"}, "銅": {"rel5": -0.83, "rel20": 3.41, "rel60": 0.32, "grp": "commod", "ticker": "CPER"}, "銀": {"rel5": -2.64, "rel20": -6.71, "rel60": -30.83, "grp": "commod", "ticker": "SLV"}, "鈾": {"rel5": 1.02, "rel20": -5.84, "rel60": -27.57, "grp": "commod", "ticker": "URA"}, "金礦": {"rel5": -1.47, "rel20": -3.71, "rel60": -22.19, "grp": "commod", "ticker": "GDX"}}, "sector": {"通訊服務": {"rel5": -0.29, "rel20": -1.01, "rel60": -8.76, "grp": "sector", "ticker": "XLC"}, "非必需消費": {"rel5": 2.36, "rel20": -2.43, "rel60": -6.16, "grp": "sector", "ticker": "XLY"}, "必需消費": {"rel5": -4.35, "rel20": -1.16, "rel60": -3.16, "grp": "sector", "ticker": "XLP"}, "能源": {"rel5": -4.09, "rel20": 7.48, "rel60": 0.49, "grp": "sector", "ticker": "XLE"}, "金融": {"rel5": -2.6, "rel20": 0.43, "rel60": 8.39, "grp": "sector", "ticker": "XLF"}, "醫療保健": {"rel5": -5.16, "rel20": -2.58, "rel60": 8.4, "grp": "sector", "ticker": "XLV"}, "工業": {"rel5": -2.62, "rel20": -2.22, "rel60": 3.05, "grp": "sector", "ticker": "XLI"}, "原材料": {"rel5": -3.18, "rel20": -2.63, "rel60": -3.78, "grp": "sector", "ticker": "XLB"}, "房地產": {"rel5": -5.65, "rel20": -0.68, "rel60": -2.86, "grp": "sector", "ticker": "XLRE"}, "資訊科技": {"rel5": 2.87, "rel20": -0.85, "rel60": 1.91, "grp": "sector", "ticker": "XLK"}, "公用事業": {"rel5": -9.55, "rel20": -2.77, "rel60": -3.14, "grp": "sector", "ticker": "XLU"}}}}, {"date": "08/06", "data": {"asset": {"股": {"rel5": -0.05, "rel20": -0.37, "rel60": -0.93, "grp": "asset", "ticker": "ACWI"}, "債": {"rel5": -4.12, "rel20": -3.46, "rel60": -5.35, "grp": "asset", "ticker": "AGG"}, "商品": {"rel5": -4.32, "rel20": 1.18, "rel60": -12.43, "grp": "asset", "ticker": "DBC"}, "匯": {"rel5": -3.01, "rel20": -3.11, "rel60": -1.5, "grp": "asset", "ticker": "UUP"}, "幣": {"rel5": -2.24, "rel20": -1.32, "rel60": -25.06, "grp": "asset", "ticker": "IBIT"}, "台": {"rel5": 4.34, "rel20": -3.13, "rel60": 0.56, "grp": "region", "ticker": "EWT"}, "韓": {"rel5": 7.78, "rel20": -9.65, "rel60": -16.42, "grp": "region", "ticker": "EWY"}, "成熟": {"rel5": -0.5, "rel20": 0.19, "rel60": -0.57, "grp": "region", "ticker": "EFA"}, "新興": {"rel5": 1.48, "rel20": -2.95, "rel60": -7.32, "grp": "region", "ticker": "EEM"}, "金": {"rel5": 1.58, "rel20": 0.27, "rel60": -14.48, "grp": "commod", "ticker": "GLD"}, "油": {"rel5": -8.56, "rel20": 2.52, "rel60": -21.27, "grp": "commod", "ticker": "USO"}, "銅": {"rel5": 2.67, "rel20": 6.3, "rel60": -0.42, "grp": "commod", "ticker": "CPER"}, "銀": {"rel5": 4.55, "rel20": 0.0, "rel60": -32.24, "grp": "commod", "ticker": "SLV"}, "鈾": {"rel5": 6.21, "rel20": -0.22, "rel60": -29.18, "grp": "commod", "ticker": "URA"}, "金礦": {"rel5": 8.86, "rel20": 7.5, "rel60": -18.39, "grp": "commod", "ticker": "GDX"}}, "sector": {"通訊服務": {"rel5": -2.81, "rel20": -3.09, "rel60": -8.2, "grp": "sector", "ticker": "XLC"}, "非必需消費": {"rel5": 1.57, "rel20": -1.89, "rel60": -4.74, "grp": "sector", "ticker": "XLY"}, "必需消費": {"rel5": -5.89, "rel20": -2.4, "rel60": -1.77, "grp": "sector", "ticker": "XLP"}, "能源": {"rel5": -4.36, "rel20": 1.93, "rel60": -3.88, "grp": "sector", "ticker": "XLE"}, "金融": {"rel5": -3.21, "rel20": 0.53, "rel60": 9.2, "grp": "sector", "ticker": "XLF"}, "醫療保健": {"rel5": -5.76, "rel20": -3.12, "rel60": 10.64, "grp": "sector", "ticker": "XLV"}, "工業": {"rel5": -1.79, "rel20": -0.78, "rel60": 2.34, "grp": "sector", "ticker": "XLI"}, "原材料": {"rel5": -3.33, "rel20": -0.76, "rel60": -3.4, "grp": "sector", "ticker": "XLB"}, "房地產": {"rel5": -5.67, "rel20": -2.26, "rel60": -2.71, "grp": "sector", "ticker": "XLRE"}, "資訊科技": {"rel5": 4.76, "rel20": 0.8, "rel60": 0.39, "grp": "sector", "ticker": "XLK"}, "公用事業": {"rel5": -7.99, "rel20": -7.42, "rel60": -7.4, "grp": "sector", "ticker": "XLU"}}}}], "COL": {"asset": {"股": "#ec4899", "債": "#3b82f6", "商品": "#f59e0b", "匯": "#22d3ee", "幣": "#a78bfa", "台": "#ef4444", "韓": "#fb7185", "成熟": "#38bdf8", "新興": "#a3e635", "金": "#fbbf24", "油": "#f97316", "銅": "#d97706", "銀": "#94a3b8", "鈾": "#4ade80", "金礦": "#facc15"}, "sector": {"通訊服務": "#ec4899", "非必需消費": "#f59e0b", "必需消費": "#34d399", "能源": "#ef4444", "金融": "#3b82f6", "醫療保健": "#22d3ee", "工業": "#a78bfa", "原材料": "#a3e635", "房地產": "#f472b6", "資訊科技": "#38bdf8", "公用事業": "#fbbf24"}}, "tab_order": ["asset", "sector"], "benchmark": "SPY"}</script>
+  <script id="dyn-data" type="application/json">{
+ "tail": 20,
+ "tabsMeta": {
+  "asset": {
+   "name": "跨資產"
+  },
+  "sector": {
+   "name": "產業輪動"
+  }
+ },
+ "snapshots": [
+  {
+   "date": "07/31",
+   "data": {
+    "asset": {
+     "股": {
+      "rel5": 0.16,
+      "rel20": -0.12,
+      "rel60": -1.14,
+      "grp": "asset",
+      "ticker": "ACWI"
+     },
+     "債": {
+      "rel5": -1.17,
+      "rel20": -1.56,
+      "rel60": -3.63,
+      "grp": "asset",
+      "ticker": "AGG"
+     },
+     "商品": {
+      "rel5": -4.04,
+      "rel20": 10.54,
+      "rel60": -4.31,
+      "grp": "asset",
+      "ticker": "DBC"
+     },
+     "匯": {
+      "rel5": -1.13,
+      "rel20": 0.46,
+      "rel60": 2.2,
+      "grp": "asset",
+      "ticker": "UUP"
+     },
+     "幣": {
+      "rel5": -3.95,
+      "rel20": 1.91,
+      "rel60": -24.64,
+      "grp": "asset",
+      "ticker": "IBIT"
+     },
+     "台": {
+      "rel5": -4.49,
+      "rel20": -8.23,
+      "rel60": -0.01,
+      "grp": "region",
+      "ticker": "EWT"
+     },
+     "韓": {
+      "rel5": -10.84,
+      "rel20": -13.09,
+      "rel60": -15.47,
+      "grp": "region",
+      "ticker": "EWY"
+     },
+     "成熟": {
+      "rel5": 1.41,
+      "rel20": 0.86,
+      "rel60": -1.06,
+      "grp": "region",
+      "ticker": "EFA"
+     },
+     "新興": {
+      "rel5": -1.99,
+      "rel20": -2.75,
+      "rel60": -6.84,
+      "grp": "region",
+      "ticker": "EEM"
+     },
+     "金": {
+      "rel5": -1.19,
+      "rel20": -2.04,
+      "rel60": -15.59,
+      "grp": "commod",
+      "ticker": "GLD"
+     },
+     "油": {
+      "rel5": -8.6,
+      "rel20": 23.92,
+      "rel60": -5.37,
+      "grp": "commod",
+      "ticker": "USO"
+     },
+     "銅": {
+      "rel5": 2.25,
+      "rel20": 5.79,
+      "rel60": 3.58,
+      "grp": "commod",
+      "ticker": "CPER"
+     },
+     "銀": {
+      "rel5": -0.62,
+      "rel20": -5.14,
+      "rel60": -27.14,
+      "grp": "commod",
+      "ticker": "SLV"
+     },
+     "鈾": {
+      "rel5": -6.21,
+      "rel20": -9.93,
+      "rel60": -34.74,
+      "grp": "commod",
+      "ticker": "URA"
+     },
+     "金礦": {
+      "rel5": -2.43,
+      "rel20": -5.82,
+      "rel60": -21.64,
+      "grp": "commod",
+      "ticker": "GDX"
+     }
+    },
+    "sector": {
+     "通訊服務": {
+      "rel5": 1.52,
+      "rel20": -1.54,
+      "rel60": -9.56,
+      "grp": "sector",
+      "ticker": "XLC"
+     },
+     "非必需消費": {
+      "rel5": 5.54,
+      "rel20": -1.18,
+      "rel60": -4.95,
+      "grp": "sector",
+      "ticker": "XLY"
+     },
+     "必需消費": {
+      "rel5": 1.01,
+      "rel20": -0.23,
+      "rel60": -0.84,
+      "grp": "sector",
+      "ticker": "XLP"
+     },
+     "能源": {
+      "rel5": -0.91,
+      "rel20": 11.59,
+      "rel60": 2.67,
+      "grp": "sector",
+      "ticker": "XLE"
+     },
+     "金融": {
+      "rel5": 0.79,
+      "rel20": 2.07,
+      "rel60": 8.04,
+      "grp": "sector",
+      "ticker": "XLF"
+     },
+     "醫療保健": {
+      "rel5": -0.51,
+      "rel20": -1.03,
+      "rel60": 10.0,
+      "grp": "sector",
+      "ticker": "XLV"
+     },
+     "工業": {
+      "rel5": -2.35,
+      "rel20": -2.52,
+      "rel60": -0.12,
+      "grp": "sector",
+      "ticker": "XLI"
+     },
+     "原材料": {
+      "rel5": -0.92,
+      "rel20": -3.34,
+      "rel60": -5.58,
+      "grp": "sector",
+      "ticker": "XLB"
+     },
+     "房地產": {
+      "rel5": -0.93,
+      "rel20": 0.57,
+      "rel60": -1.06,
+      "grp": "sector",
+      "ticker": "XLRE"
+     },
+     "資訊科技": {
+      "rel5": -2.94,
+      "rel20": -3.2,
+      "rel60": 1.33,
+      "grp": "sector",
+      "ticker": "XLK"
+     },
+     "公用事業": {
+      "rel5": -3.41,
+      "rel20": 0.37,
+      "rel60": -1.86,
+      "grp": "sector",
+      "ticker": "XLU"
+     }
+    }
+   }
+  },
+  {
+   "date": "08/04",
+   "data": {
+    "asset": {
+     "股": {
+      "rel5": -0.47,
+      "rel20": -0.98,
+      "rel60": -1.19,
+      "grp": "asset",
+      "ticker": "ACWI"
+     },
+     "債": {
+      "rel5": -4.39,
+      "rel20": -3.68,
+      "rel60": -6.1,
+      "grp": "asset",
+      "ticker": "AGG"
+     },
+     "商品": {
+      "rel5": -6.78,
+      "rel20": 2.18,
+      "rel60": -11.14,
+      "grp": "asset",
+      "ticker": "DBC"
+     },
+     "匯": {
+      "rel5": -3.51,
+      "rel20": -1.97,
+      "rel60": -1.63,
+      "grp": "asset",
+      "ticker": "UUP"
+     },
+     "幣": {
+      "rel5": -5.4,
+      "rel20": -1.92,
+      "rel60": -24.5,
+      "grp": "asset",
+      "ticker": "IBIT"
+     },
+     "台": {
+      "rel5": 0.14,
+      "rel20": -7.39,
+      "rel60": 1.78,
+      "grp": "region",
+      "ticker": "EWT"
+     },
+     "韓": {
+      "rel5": 1.8,
+      "rel20": -12.52,
+      "rel60": -14.59,
+      "grp": "region",
+      "ticker": "EWY"
+     },
+     "成熟": {
+      "rel5": -1.08,
+      "rel20": -0.91,
+      "rel60": -1.34,
+      "grp": "region",
+      "ticker": "EFA"
+     },
+     "新興": {
+      "rel5": -0.62,
+      "rel20": -4.99,
+      "rel60": -7.43,
+      "grp": "region",
+      "ticker": "EEM"
+     },
+     "金": {
+      "rel5": -4.49,
+      "rel20": -4.75,
+      "rel60": -18.31,
+      "grp": "commod",
+      "ticker": "GLD"
+     },
+     "油": {
+      "rel5": -11.56,
+      "rel20": 8.28,
+      "rel60": -17.9,
+      "grp": "commod",
+      "ticker": "USO"
+     },
+     "銅": {
+      "rel5": -0.83,
+      "rel20": 3.41,
+      "rel60": 0.32,
+      "grp": "commod",
+      "ticker": "CPER"
+     },
+     "銀": {
+      "rel5": -2.64,
+      "rel20": -6.71,
+      "rel60": -30.83,
+      "grp": "commod",
+      "ticker": "SLV"
+     },
+     "鈾": {
+      "rel5": 1.02,
+      "rel20": -5.84,
+      "rel60": -27.57,
+      "grp": "commod",
+      "ticker": "URA"
+     },
+     "金礦": {
+      "rel5": -1.47,
+      "rel20": -3.71,
+      "rel60": -22.19,
+      "grp": "commod",
+      "ticker": "GDX"
+     }
+    },
+    "sector": {
+     "通訊服務": {
+      "rel5": -0.29,
+      "rel20": -1.01,
+      "rel60": -8.76,
+      "grp": "sector",
+      "ticker": "XLC"
+     },
+     "非必需消費": {
+      "rel5": 2.36,
+      "rel20": -2.43,
+      "rel60": -6.16,
+      "grp": "sector",
+      "ticker": "XLY"
+     },
+     "必需消費": {
+      "rel5": -4.35,
+      "rel20": -1.16,
+      "rel60": -3.16,
+      "grp": "sector",
+      "ticker": "XLP"
+     },
+     "能源": {
+      "rel5": -4.09,
+      "rel20": 7.48,
+      "rel60": 0.49,
+      "grp": "sector",
+      "ticker": "XLE"
+     },
+     "金融": {
+      "rel5": -2.6,
+      "rel20": 0.43,
+      "rel60": 8.39,
+      "grp": "sector",
+      "ticker": "XLF"
+     },
+     "醫療保健": {
+      "rel5": -5.16,
+      "rel20": -2.58,
+      "rel60": 8.4,
+      "grp": "sector",
+      "ticker": "XLV"
+     },
+     "工業": {
+      "rel5": -2.62,
+      "rel20": -2.22,
+      "rel60": 3.05,
+      "grp": "sector",
+      "ticker": "XLI"
+     },
+     "原材料": {
+      "rel5": -3.18,
+      "rel20": -2.63,
+      "rel60": -3.78,
+      "grp": "sector",
+      "ticker": "XLB"
+     },
+     "房地產": {
+      "rel5": -5.65,
+      "rel20": -0.68,
+      "rel60": -2.86,
+      "grp": "sector",
+      "ticker": "XLRE"
+     },
+     "資訊科技": {
+      "rel5": 2.87,
+      "rel20": -0.85,
+      "rel60": 1.91,
+      "grp": "sector",
+      "ticker": "XLK"
+     },
+     "公用事業": {
+      "rel5": -9.55,
+      "rel20": -2.77,
+      "rel60": -3.14,
+      "grp": "sector",
+      "ticker": "XLU"
+     }
+    }
+   }
+  },
+  {
+   "date": "08/06",
+   "data": {
+    "asset": {
+     "股": {
+      "rel5": -0.05,
+      "rel20": -0.37,
+      "rel60": -0.93,
+      "grp": "asset",
+      "ticker": "ACWI"
+     },
+     "債": {
+      "rel5": -4.12,
+      "rel20": -3.46,
+      "rel60": -5.35,
+      "grp": "asset",
+      "ticker": "AGG"
+     },
+     "商品": {
+      "rel5": -4.32,
+      "rel20": 1.18,
+      "rel60": -12.43,
+      "grp": "asset",
+      "ticker": "DBC"
+     },
+     "匯": {
+      "rel5": -3.01,
+      "rel20": -3.11,
+      "rel60": -1.5,
+      "grp": "asset",
+      "ticker": "UUP"
+     },
+     "幣": {
+      "rel5": -2.24,
+      "rel20": -1.32,
+      "rel60": -25.06,
+      "grp": "asset",
+      "ticker": "IBIT"
+     },
+     "台": {
+      "rel5": 4.34,
+      "rel20": -3.13,
+      "rel60": 0.56,
+      "grp": "region",
+      "ticker": "EWT"
+     },
+     "韓": {
+      "rel5": 7.78,
+      "rel20": -9.65,
+      "rel60": -16.42,
+      "grp": "region",
+      "ticker": "EWY"
+     },
+     "成熟": {
+      "rel5": -0.5,
+      "rel20": 0.19,
+      "rel60": -0.57,
+      "grp": "region",
+      "ticker": "EFA"
+     },
+     "新興": {
+      "rel5": 1.48,
+      "rel20": -2.95,
+      "rel60": -7.32,
+      "grp": "region",
+      "ticker": "EEM"
+     },
+     "金": {
+      "rel5": 1.58,
+      "rel20": 0.27,
+      "rel60": -14.48,
+      "grp": "commod",
+      "ticker": "GLD"
+     },
+     "油": {
+      "rel5": -8.56,
+      "rel20": 2.52,
+      "rel60": -21.27,
+      "grp": "commod",
+      "ticker": "USO"
+     },
+     "銅": {
+      "rel5": 2.67,
+      "rel20": 6.3,
+      "rel60": -0.42,
+      "grp": "commod",
+      "ticker": "CPER"
+     },
+     "銀": {
+      "rel5": 4.55,
+      "rel20": 0.0,
+      "rel60": -32.24,
+      "grp": "commod",
+      "ticker": "SLV"
+     },
+     "鈾": {
+      "rel5": 6.21,
+      "rel20": -0.22,
+      "rel60": -29.18,
+      "grp": "commod",
+      "ticker": "URA"
+     },
+     "金礦": {
+      "rel5": 8.86,
+      "rel20": 7.5,
+      "rel60": -18.39,
+      "grp": "commod",
+      "ticker": "GDX"
+     }
+    },
+    "sector": {
+     "通訊服務": {
+      "rel5": -2.81,
+      "rel20": -3.09,
+      "rel60": -8.2,
+      "grp": "sector",
+      "ticker": "XLC"
+     },
+     "非必需消費": {
+      "rel5": 1.57,
+      "rel20": -1.89,
+      "rel60": -4.74,
+      "grp": "sector",
+      "ticker": "XLY"
+     },
+     "必需消費": {
+      "rel5": -5.89,
+      "rel20": -2.4,
+      "rel60": -1.77,
+      "grp": "sector",
+      "ticker": "XLP"
+     },
+     "能源": {
+      "rel5": -4.36,
+      "rel20": 1.93,
+      "rel60": -3.88,
+      "grp": "sector",
+      "ticker": "XLE"
+     },
+     "金融": {
+      "rel5": -3.21,
+      "rel20": 0.53,
+      "rel60": 9.2,
+      "grp": "sector",
+      "ticker": "XLF"
+     },
+     "醫療保健": {
+      "rel5": -5.76,
+      "rel20": -3.12,
+      "rel60": 10.64,
+      "grp": "sector",
+      "ticker": "XLV"
+     },
+     "工業": {
+      "rel5": -1.79,
+      "rel20": -0.78,
+      "rel60": 2.34,
+      "grp": "sector",
+      "ticker": "XLI"
+     },
+     "原材料": {
+      "rel5": -3.33,
+      "rel20": -0.76,
+      "rel60": -3.4,
+      "grp": "sector",
+      "ticker": "XLB"
+     },
+     "房地產": {
+      "rel5": -5.67,
+      "rel20": -2.26,
+      "rel60": -2.71,
+      "grp": "sector",
+      "ticker": "XLRE"
+     },
+     "資訊科技": {
+      "rel5": 4.76,
+      "rel20": 0.8,
+      "rel60": 0.39,
+      "grp": "sector",
+      "ticker": "XLK"
+     },
+     "公用事業": {
+      "rel5": -7.99,
+      "rel20": -7.42,
+      "rel60": -7.4,
+      "grp": "sector",
+      "ticker": "XLU"
+     }
+    }
+   }
+  }
+ ],
+ "benchmark": "SPY",
+ "tab_order": [
+  "asset",
+  "sector"
+ ],
+ "riskNoteTab": "asset",
+ "emptyMsg": "此分頁成分待定義，補上後即接入",
+ "COL": {
+  "asset": {
+   "股": "#ec4899",
+   "債": "#3b82f6",
+   "商品": "#f59e0b",
+   "匯": "#22d3ee",
+   "幣": "#a78bfa",
+   "台": "#ef4444",
+   "韓": "#fb7185",
+   "成熟": "#38bdf8",
+   "新興": "#a3e635",
+   "金": "#fbbf24",
+   "油": "#f97316",
+   "銅": "#d97706",
+   "銀": "#94a3b8",
+   "鈾": "#4ade80",
+   "金礦": "#facc15"
+  },
+  "sector": {
+   "通訊服務": "#ec4899",
+   "非必需消費": "#f59e0b",
+   "必需消費": "#34d399",
+   "能源": "#ef4444",
+   "金融": "#3b82f6",
+   "醫療保健": "#22d3ee",
+   "工業": "#a78bfa",
+   "原材料": "#a3e635",
+   "房地產": "#f472b6",
+   "資訊科技": "#38bdf8",
+   "公用事業": "#fbbf24"
+  }
+ },
+ "notes": {}
+}</script>
 </div>
 <!-- ═══ /03 板塊動態圖 ═══ -->
 
@@ -832,39 +1471,316 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
 
     <div class="sc s">
       <div class="sc-hdr">▲ 強勢（三欄同向確立）</div>
-      <div class="sc-item" onclick="togSC('s1',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>XLK 科技</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank71</span><span class="sc-arr">&#9660;</span></span></div><div id="s1" class="sc-det"><canvas class="mini-chart-canvas" data-r5="4.76" data-r20="0.80" data-r60="0.39"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">三尺度全正，成長沒被棄、今日領漲科技側</div></div>
-<div class="sc-item" onclick="togSC('s2',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>IGV 軟體</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">&#9660;</span></span></div><div id="s2" class="sc-det"><canvas class="mini-chart-canvas" data-r5="6.48" data-r20="4.67" data-r60="7.59"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">軟體短中長皆領先大盤，主升續強</div></div>
-<div class="sc-item" onclick="togSC('s3',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>SKYY 雲端</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank96</span><span class="sc-arr">&#9660;</span></span></div><div id="s3" class="sc-det"><canvas class="mini-chart-canvas" data-r5="7.39" data-r20="7.46" data-r60="15.63"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">雲端最強，三尺度全領先</div></div>
-<div class="sc-item" onclick="togSC('s4',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>CIBR 資安</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank94</span><span class="sc-arr">&#9660;</span></span></div><div id="s4" class="sc-det"><canvas class="mini-chart-canvas" data-r5="5.38" data-r20="2.86" data-r60="25.23"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">資安長線主線，REL60 +25</div></div>
-<div class="sc-item" onclick="togSC('s5',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>HACK 資安</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">&#9660;</span></span></div><div id="s5" class="sc-det"><canvas class="mini-chart-canvas" data-r5="4.55" data-r20="1.54" data-r60="30.21"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">資安雙 ETF 同強，REL60 +30</div></div>
-<div class="sc-item" onclick="togSC('s6',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>FDN 網路</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank82</span><span class="sc-arr">&#9660;</span></span></div><div id="s6" class="sc-det"><canvas class="mini-chart-canvas" data-r5="3.23" data-r20="2.83" data-r60="4.83"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">網路平台三欄全正</div></div>
+      <div class="sc-item" onclick="togSC('s1',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>XLK 科技</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank71</span><span class="sc-arr">&#9660;</span></span></div><div id="s1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLK"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">三尺度全正，成長沒被棄、今日領漲科技側</div></div>
+<div class="sc-item" onclick="togSC('s2',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>IGV 軟體</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">&#9660;</span></span></div><div id="s2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="IGV"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">軟體短中長皆領先大盤，主升續強</div></div>
+<div class="sc-item" onclick="togSC('s3',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>SKYY 雲端</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank96</span><span class="sc-arr">&#9660;</span></span></div><div id="s3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="SKYY"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">雲端最強，三尺度全領先</div></div>
+<div class="sc-item" onclick="togSC('s4',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>CIBR 資安</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank94</span><span class="sc-arr">&#9660;</span></span></div><div id="s4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="CIBR"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">資安長線主線，REL60 +25</div></div>
+<div class="sc-item" onclick="togSC('s5',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>HACK 資安</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">&#9660;</span></span></div><div id="s5" class="sc-det"><canvas class="mini-chart-canvas" data-tk="HACK"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">資安雙 ETF 同強，REL60 +30</div></div>
+<div class="sc-item" onclick="togSC('s6',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>FDN 網路</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank82</span><span class="sc-arr">&#9660;</span></span></div><div id="s6" class="sc-det"><canvas class="mini-chart-canvas" data-tk="FDN"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">網路平台三欄全正</div></div>
     </div>
 
     <div class="sc w">
       <div class="sc-hdr">◎ 轉強觀察（短線翻正，中線待確認）</div>
-      <div class="sc-item" onclick="togSC('u1',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>GDX 金礦</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank54</span><span class="sc-arr">&#9660;</span></span></div><div id="u1" class="sc-det"><canvas class="mini-chart-canvas" data-r5="8.86" data-r20="7.50" data-r60="-18.39"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">跌深加速回補：近三月 -18→近一月 +7.5→近一週 +8.9，今日 +7.4% 領軍</div></div>
-<div class="sc-item" onclick="togSC('u2',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>COPX 銅礦</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank68</span><span class="sc-arr">&#9660;</span></span></div><div id="u2" class="sc-det"><canvas class="mini-chart-canvas" data-r5="9.42" data-r20="13.25" data-r60="-5.12"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">銅礦由弱轉強，短中線強勁回補</div></div>
-<div class="sc-item" onclick="togSC('u3',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>XME 金屬礦業</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank58</span><span class="sc-arr">&#9660;</span></span></div><div id="u3" class="sc-det"><canvas class="mini-chart-canvas" data-r5="6.43" data-r20="6.27" data-r60="-14.26"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">金屬礦業跌深回補，趨勢改善中</div></div>
-<div class="sc-item" onclick="togSC('u4',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>SOXX 費半</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank39</span><span class="sc-arr">&#9660;</span></span></div><div id="u4" class="sc-det"><canvas class="mini-chart-canvas" data-r5="4.08" data-r20="-6.76" data-r60="-4.51"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對仍 +4 領先、半年 +37 最強；今日回檔屬族群內獲利了結(Nvidia 收紅)</div></div>
-<div class="sc-item" onclick="togSC('u5',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>SMH 半導體</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank38</span><span class="sc-arr">&#9660;</span></span></div><div id="u5" class="sc-det"><canvas class="mini-chart-canvas" data-r5="3.67" data-r20="-4.97" data-r60="-5.27"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對 +3.7，中線整理後動能回溫</div></div>
-<div class="sc-item" onclick="togSC('u6',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>XLY 非必需消費</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank26</span><span class="sc-arr">&#9660;</span></span></div><div id="u6" class="sc-det"><canvas class="mini-chart-canvas" data-r5="1.57" data-r20="-1.89" data-r60="-4.74"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週翻正，cyclical 補漲一環</div></div>
+      <div class="sc-item" onclick="togSC('u1',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>GDX 金礦</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank54</span><span class="sc-arr">&#9660;</span></span></div><div id="u1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="GDX"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">跌深加速回補：近三月 -18→近一月 +7.5→近一週 +8.9，今日 +7.4% 領軍</div></div>
+<div class="sc-item" onclick="togSC('u2',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>COPX 銅礦</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank68</span><span class="sc-arr">&#9660;</span></span></div><div id="u2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="COPX"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">銅礦由弱轉強，短中線強勁回補</div></div>
+<div class="sc-item" onclick="togSC('u3',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>XME 金屬礦業</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank58</span><span class="sc-arr">&#9660;</span></span></div><div id="u3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XME"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">金屬礦業跌深回補，趨勢改善中</div></div>
+<div class="sc-item" onclick="togSC('u4',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>SOXX 費半</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank39</span><span class="sc-arr">&#9660;</span></span></div><div id="u4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="SOXX"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對仍 +4 領先、半年 +37 最強；今日回檔屬族群內獲利了結(Nvidia 收紅)</div></div>
+<div class="sc-item" onclick="togSC('u5',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>SMH 半導體</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank38</span><span class="sc-arr">&#9660;</span></span></div><div id="u5" class="sc-det"><canvas class="mini-chart-canvas" data-tk="SMH"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對 +3.7，中線整理後動能回溫</div></div>
+<div class="sc-item" onclick="togSC('u6',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>XLY 非必需消費</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank26</span><span class="sc-arr">&#9660;</span></span></div><div id="u6" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLY"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週翻正，cyclical 補漲一環</div></div>
     </div>
 
     <div class="sc tw">
       <div class="sc-hdr">△ 轉弱（短線惡化，投機退潮）</div>
-      <div class="sc-item" onclick="togSC('d1',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLV 醫療</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank50</span><span class="sc-arr">&#9660;</span></span></div><div id="d1" class="sc-det"><canvas class="mini-chart-canvas" data-r5="-5.76" data-r20="-3.12" data-r60="10.64"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對落後、但長線 REL60 +10.6 仍強；今日 +1.27 反彈，觀察</div></div>
-<div class="sc-item" onclick="togSC('d2',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLE 能源</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank66</span><span class="sc-arr">&#9660;</span></span></div><div id="d2" class="sc-det"><canvas class="mini-chart-canvas" data-r5="-4.36" data-r20="1.93" data-r60="-3.88"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">Iran 協議壓油價，能源短線落後（通膨交易降溫）</div></div>
-<div class="sc-item" onclick="togSC('d3',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLB 原材料</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank49</span><span class="sc-arr">&#9660;</span></span></div><div id="d3" class="sc-det"><canvas class="mini-chart-canvas" data-r5="-3.33" data-r20="-0.76" data-r60="-3.40"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對小回、今日 +1.23 反彈，方向待確認</div></div>
+      <div class="sc-item" onclick="togSC('d1',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLV 醫療</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank50</span><span class="sc-arr">&#9660;</span></span></div><div id="d1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLV"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對落後、但長線 REL60 +10.6 仍強；今日 +1.27 反彈，觀察</div></div>
+<div class="sc-item" onclick="togSC('d2',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLE 能源</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank66</span><span class="sc-arr">&#9660;</span></span></div><div id="d2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLE"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">Iran 協議壓油價，能源短線落後（通膨交易降溫）</div></div>
+<div class="sc-item" onclick="togSC('d3',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLB 原材料</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank49</span><span class="sc-arr">&#9660;</span></span></div><div id="d3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLB"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對小回、今日 +1.23 反彈，方向待確認</div></div>
     </div>
 
     <div class="sc x">
       <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
-      <div class="sc-item" onclick="togSC('w1',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLU 公用</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank17</span><span class="sc-arr">&#9660;</span></span></div><div id="w1" class="sc-det"><canvas class="mini-chart-canvas" data-r5="-7.99" data-r20="-7.42" data-r60="-7.40"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">防禦退位，三欄轉弱（risk-on 佐證）</div></div>
-<div class="sc-item" onclick="togSC('w2',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLC 通訊</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank10</span><span class="sc-arr">&#9660;</span></span></div><div id="w2" class="sc-det"><canvas class="mini-chart-canvas" data-r5="-2.81" data-r20="-3.09" data-r60="-8.20"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">通訊三欄全負，落後</div></div>
-<div class="sc-item" onclick="togSC('w3',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLP 必需消費</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank26</span><span class="sc-arr">&#9660;</span></span></div><div id="w3" class="sc-det"><canvas class="mini-chart-canvas" data-r5="-5.89" data-r20="-2.40" data-r60="-1.77"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">必需消費落後，risk-on 佐證</div></div>
-<div class="sc-item" onclick="togSC('w4',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLRE 房地產</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank32</span><span class="sc-arr">&#9660;</span></span></div><div id="w4" class="sc-det"><canvas class="mini-chart-canvas" data-r5="-5.67" data-r20="-2.26" data-r60="-2.71"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">利率敏感，三欄承壓</div></div>
+      <div class="sc-item" onclick="togSC('w1',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLU 公用</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank17</span><span class="sc-arr">&#9660;</span></span></div><div id="w1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLU"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">防禦退位，三欄轉弱（risk-on 佐證）</div></div>
+<div class="sc-item" onclick="togSC('w2',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLC 通訊</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank10</span><span class="sc-arr">&#9660;</span></span></div><div id="w2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLC"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">通訊三欄全負，落後</div></div>
+<div class="sc-item" onclick="togSC('w3',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLP 必需消費</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank26</span><span class="sc-arr">&#9660;</span></span></div><div id="w3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLP"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">必需消費落後，risk-on 佐證</div></div>
+<div class="sc-item" onclick="togSC('w4',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLRE 房地產</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank32</span><span class="sc-arr">&#9660;</span></span></div><div id="w4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLRE"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">利率敏感，三欄承壓</div></div>
     </div>
   </div>
+  <script id="sc-hist" type="application/json">{
+ "cap": 60,
+ "tickers": {
+  "IGV": [
+   {
+    "d": "08/06",
+    "r5": 6.48,
+    "r20": 4.67,
+    "r60": 7.59
+   }
+  ],
+  "SKYY": [
+   {
+    "d": "08/06",
+    "r5": 7.39,
+    "r20": 7.46,
+    "r60": 15.63
+   }
+  ],
+  "CIBR": [
+   {
+    "d": "08/06",
+    "r5": 5.38,
+    "r20": 2.86,
+    "r60": 25.23
+   }
+  ],
+  "HACK": [
+   {
+    "d": "08/06",
+    "r5": 4.55,
+    "r20": 1.54,
+    "r60": 30.21
+   }
+  ],
+  "FDN": [
+   {
+    "d": "08/06",
+    "r5": 3.23,
+    "r20": 2.83,
+    "r60": 4.83
+   }
+  ],
+  "XLK": [
+   {
+    "d": "07/31",
+    "r5": -2.94,
+    "r20": -3.2,
+    "r60": 1.33
+   },
+   {
+    "d": "08/04",
+    "r5": 2.87,
+    "r20": -0.85,
+    "r60": 1.91
+   },
+   {
+    "d": "08/06",
+    "r5": 4.76,
+    "r20": 0.8,
+    "r60": 0.39
+   }
+  ],
+  "GDX": [
+   {
+    "d": "07/31",
+    "r5": -2.43,
+    "r20": -5.82,
+    "r60": -21.64
+   },
+   {
+    "d": "08/04",
+    "r5": -1.47,
+    "r20": -3.71,
+    "r60": -22.19
+   },
+   {
+    "d": "08/06",
+    "r5": 8.86,
+    "r20": 7.5,
+    "r60": -18.39
+   }
+  ],
+  "COPX": [
+   {
+    "d": "08/06",
+    "r5": 9.42,
+    "r20": 13.25,
+    "r60": -5.12
+   }
+  ],
+  "XME": [
+   {
+    "d": "08/06",
+    "r5": 6.43,
+    "r20": 6.27,
+    "r60": -14.26
+   }
+  ],
+  "SOXX": [
+   {
+    "d": "08/06",
+    "r5": 4.08,
+    "r20": -6.76,
+    "r60": -4.51
+   }
+  ],
+  "SMH": [
+   {
+    "d": "08/06",
+    "r5": 3.67,
+    "r20": -4.97,
+    "r60": -5.27
+   }
+  ],
+  "XLY": [
+   {
+    "d": "07/31",
+    "r5": 5.54,
+    "r20": -1.18,
+    "r60": -4.95
+   },
+   {
+    "d": "08/04",
+    "r5": 2.36,
+    "r20": -2.43,
+    "r60": -6.16
+   },
+   {
+    "d": "08/06",
+    "r5": 1.57,
+    "r20": -1.89,
+    "r60": -4.74
+   }
+  ],
+  "XLV": [
+   {
+    "d": "07/31",
+    "r5": -0.51,
+    "r20": -1.03,
+    "r60": 10.0
+   },
+   {
+    "d": "08/04",
+    "r5": -5.16,
+    "r20": -2.58,
+    "r60": 8.4
+   },
+   {
+    "d": "08/06",
+    "r5": -5.76,
+    "r20": -3.12,
+    "r60": 10.64
+   }
+  ],
+  "XLE": [
+   {
+    "d": "07/31",
+    "r5": -0.91,
+    "r20": 11.59,
+    "r60": 2.67
+   },
+   {
+    "d": "08/04",
+    "r5": -4.09,
+    "r20": 7.48,
+    "r60": 0.49
+   },
+   {
+    "d": "08/06",
+    "r5": -4.36,
+    "r20": 1.93,
+    "r60": -3.88
+   }
+  ],
+  "XLB": [
+   {
+    "d": "07/31",
+    "r5": -0.92,
+    "r20": -3.34,
+    "r60": -5.58
+   },
+   {
+    "d": "08/04",
+    "r5": -3.18,
+    "r20": -2.63,
+    "r60": -3.78
+   },
+   {
+    "d": "08/06",
+    "r5": -3.33,
+    "r20": -0.76,
+    "r60": -3.4
+   }
+  ],
+  "XLU": [
+   {
+    "d": "07/31",
+    "r5": -3.41,
+    "r20": 0.37,
+    "r60": -1.86
+   },
+   {
+    "d": "08/04",
+    "r5": -9.55,
+    "r20": -2.77,
+    "r60": -3.14
+   },
+   {
+    "d": "08/06",
+    "r5": -7.99,
+    "r20": -7.42,
+    "r60": -7.4
+   }
+  ],
+  "XLC": [
+   {
+    "d": "07/31",
+    "r5": 1.52,
+    "r20": -1.54,
+    "r60": -9.56
+   },
+   {
+    "d": "08/04",
+    "r5": -0.29,
+    "r20": -1.01,
+    "r60": -8.76
+   },
+   {
+    "d": "08/06",
+    "r5": -2.81,
+    "r20": -3.09,
+    "r60": -8.2
+   }
+  ],
+  "XLP": [
+   {
+    "d": "07/31",
+    "r5": 1.01,
+    "r20": -0.23,
+    "r60": -0.84
+   },
+   {
+    "d": "08/04",
+    "r5": -4.35,
+    "r20": -1.16,
+    "r60": -3.16
+   },
+   {
+    "d": "08/06",
+    "r5": -5.89,
+    "r20": -2.4,
+    "r60": -1.77
+   }
+  ],
+  "XLRE": [
+   {
+    "d": "07/31",
+    "r5": -0.93,
+    "r20": 0.57,
+    "r60": -1.06
+   },
+   {
+    "d": "08/04",
+    "r5": -5.65,
+    "r20": -0.68,
+    "r60": -2.86
+   },
+   {
+    "d": "08/06",
+    "r5": -5.67,
+    "r20": -2.26,
+    "r60": -2.71
+   }
+  ]
+ }
+}</script>
 
   <div class="rotation-verdict">
     <div class="rv-title">⚡ 板塊強弱對位小結：<strong>多頭回神、資金輪進跌深板塊——換棒不是換方向</strong></div>
@@ -887,56 +1803,45 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
     <div class="section-desc">MARKET BREADTH</div>
   </div>
 </div>
-  <div class="g4" style="margin-bottom:8px;background:var(--border);gap:1px;display:grid;grid-template-columns:repeat(4,1fr);">
-
-    <div class="bc" id="bNQ20" onclick="togBC('dNQ20','bNQ20')">
-      <div class="bc-lbl">NQ 20MA 以上 % <span class="arr" id="aNQ20">▼</span></div>
+  <div class="g4" style="margin-bottom:14px;background:var(--border);gap:1px;display:grid;grid-template-columns:repeat(4,1fr);">
+    <div class="bc" style="cursor:default">
+      <div class="bc-lbl">NQ 20MA 以上 %</div>
       <div class="bc-val cg">65%</div>
       <div class="bc-tr cg">▲ 健康區間</div>
     </div>
-
-    <div class="bc" id="bSP20" onclick="togBC('dSP20','bSP20')">
-      <div class="bc-lbl">SP 20MA 以上 % <span class="arr" id="aSP20">▼</span></div>
+    <div class="bc" style="cursor:default">
+      <div class="bc-lbl">SP 20MA 以上 %</div>
       <div class="bc-val cg">64.8%</div>
       <div class="bc-tr cg">▲ 健康區間</div>
     </div>
-
-    <div class="bc" id="bNQ50" onclick="togBC('dNQ50','bNQ50')">
-      <div class="bc-lbl">NQ 50MA 以上 % <span class="arr" id="aNQ50">▼</span></div>
+    <div class="bc" style="cursor:default">
+      <div class="bc-lbl">NQ 50MA 以上 %</div>
       <div class="bc-val cy">56.3%</div>
       <div class="bc-tr cy">◎ 中性偏多</div>
     </div>
-
-    <div class="bc" id="bSP50" onclick="togBC('dSP50','bSP50')">
-      <div class="bc-lbl">SP 50MA 以上 % <span class="arr" id="aSP50">▼</span></div>
+    <div class="bc" style="cursor:default">
+      <div class="bc-lbl">SP 50MA 以上 %</div>
       <div class="bc-val cg">66.8%</div>
       <div class="bc-tr cg">▲ 底盤紮實</div>
     </div>
-
-    <div class="bc-det" id="dNQ20">
-      <div class="bc-sum">那斯達克站上月線約 65%，處健康區間，短期參與度不弱。</div>
-      <table class="tbl"><thead><tr><th>日期</th><th class="c">NQ 20MA%</th><th>狀態判讀</th></tr></thead>
-      <tbody><tr><td>08/06</td><td class="c">65%</td><td>健康區間，長線廣度未破</td></tr></tbody></table>
-    </div>
-
-    <div class="bc-det" id="dSP20">
-      <div class="bc-sum">標普站上月線 64.8%，與那指相近，健康。</div>
-      <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 20MA%</th><th>狀態判讀</th></tr></thead>
-      <tbody><tr><td>08/06</td><td class="c">64.8%</td><td>健康區間，與那指同步</td></tr></tbody></table>
-    </div>
-
-    <div class="bc-det" id="dNQ50">
-      <div class="bc-sum">那斯達克站上季線 56.3%，中性偏多；弱點集中科技側。</div>
-      <table class="tbl"><thead><tr><th>日期</th><th class="c">NQ 50MA%</th><th>狀態判讀</th></tr></thead>
-      <tbody><tr><td>08/06</td><td class="c">56.3%</td><td>中性偏多，那指底盤弱於標普</td></tr></tbody></table>
-    </div>
-
-    <div class="bc-det" id="dSP50">
-      <div class="bc-sum">標普站上季線 66.8%，明顯高於那指 56.3%——標普底盤比那斯達克紮實，弱點集中在科技那側。</div>
-      <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 50MA%</th><th>狀態判讀</th></tr></thead>
-      <tbody><tr><td>08/06</td><td class="c">66.8%</td><td>底盤紮實，強於那指</td></tr></tbody></table>
-    </div>
   </div>
+
+  <div class="breadth-charts">
+    <div class="bch-box"><div class="bch-t">20MA 寬度歷史 · <span style="color:#ff3d5a">紅 NQ</span> / <span style="color:#f0c040">黃 SP</span>（X=時間, Y=%, 上限60日）</div><canvas id="bch20" class="bch-canvas"></canvas></div>
+    <div class="bch-box"><div class="bch-t">50MA 寬度歷史 · <span style="color:#ff3d5a">紅 NQ</span> / <span style="color:#f0c040">黃 SP</span>（X=時間, Y=%, 上限60日）</div><canvas id="bch50" class="bch-canvas"></canvas></div>
+  </div>
+  <script id="breadth-hist" type="application/json">{
+ "cap": 60,
+ "series": [
+  {
+   "d": "08/06",
+   "nq20": 65,
+   "sp20": 64.8,
+   "nq50": 56.3,
+   "sp50": 66.8
+  }
+ ]
+}</script>
 
   <div class="breadth-verdict">長線廣度未破、短中線是大資金先行卡位的空轉多初期樣貌。站上月線約 65%（標普 64.8／那指 65）健康；站上季線標普 66.8% 強於那指 56.3%，底盤紮實。<b>廣度擴散的確認點：小型股中線由弱轉強、且高 Beta 同步翻正。</b>在那之前，短中線落後屬卡位期正常現象，不是惡化。</div>
 </div>
@@ -955,32 +1860,8 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
   </div>
 </div>
 
-  <div class="pbar" onclick="togGamma()">
-    <div class="pbi"><div class="pbl">QQQ 現價</div><div class="pbv ac">717.30</div></div>
-    <div class="pbi"><div class="pbl">Max Pain</div><div class="pbv cr">$684</div></div>
-    <div class="pbi"><div class="pbl">距 Max Pain</div><div class="pbv cy">+33.3（+4.9%）</div></div>
-    <div class="pbi"><div class="pbl">⚡ Gamma Flip</div><div class="pbv ye">~700（Put 牆）</div></div>
-    <div class="pbi"><div class="pbl">🟡 Call 牆</div><div class="pbv cy">750</div></div>
-    <div class="pbi" style="margin-left:auto"><div class="pbl">詳細</div><div class="pbv cd breath" id="gArrow" style="font-size:calc(var(--fs)*1.4);color:var(--accent)">▼</div></div>
-  </div>
-
-  <div id="gammaDet" class="gamma-det">
-    <div class="gamma-det-note">QQQ Sep 18 到期 · OI 結構（單位：張）</div>
-    <table class="gtbl" style="margin-bottom:14px">
-      <thead>
-        <tr><th>層級</th><th>QQQ</th><th style="color:var(--orange)">NQ! 等效</th><th>判讀</th><th>OI依據</th></tr>
-      </thead>
-      <tbody><tr><td><span class="dot d-o"></span>Call 牆 750</td><td>750</td><td style="color:var(--orange)">~30,970</td><td>上方壓力/短線天花板</td><td>Call OI 密集帶 33,918</td></tr><tr><td><span class="dot d-b"></span>現價 717</td><td>717.30</td><td style="color:var(--orange)">29,622</td><td>卡在區間中段</td><td>—</td></tr><tr><td><span class="dot d-g"></span>Put 牆 700</td><td>700</td><td style="color:var(--orange)">~28,910</td><td>最強支撐</td><td>Put OI 最大 62,739</td></tr><tr><td><span class="dot d-w"></span>Max Pain 684</td><td>684</td><td style="color:var(--orange)">~28,250</td><td>到期引力偏下</td><td>多空 OI 平衡點</td></tr><tr><td><span class="dot d-r"></span>下方 660/600</td><td>660</td><td style="color:var(--orange)">~27,260</td><td>層層有撐</td><td>Put OI 54,984 / 56,881</td></tr></tbody>
-    </table>
-    <div class="g-mech" style="margin-bottom:10px">
-      <div class="g-mech-title">做市商行為機制（多空情境）</div>
-      <div class="g-mech-txt">現價 <strong>717</strong> 在 700 Put 牆與 750 Call 牆之間。上破 <strong>750</strong>，做市商為對沖賣出的 Call 需回補（買進），可能助漲；下破 <strong>700</strong>，做市商 Delta 對沖轉為賣出，可能加速跌勢——但今日 <em>Dow 創高、無爆量破位</em>，下方 700 有全場最厚的 Put 撐，回檔屬良性。</div>
-    </div>
-    <div class="g-mech yel" style="margin-bottom:0">
-      <div class="g-mech-title">Max Pain 重力場機制</div>
-      <div class="g-mech-txt">Max Pain <strong>684</strong> 在現價下方約 33 點，到期日（<em>9/18 適逢四巫日</em>）前有把價格往 684 拉的引力；但 700 Put 牆的支撐強於引力，短線區間偏 <strong>700–750</strong> 震盪，而非直奔 684。</div>
-    </div>
-  </div>
+  <div class="gamma-diagram"><svg viewBox="0 0 460 212" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="460" height="212" rx="8" fill="#0d1118"/><line x1="92" y1="30" x2="430" y2="30" stroke="#ff3d5a" stroke-width="2.5"/><text x="92" y="23" fill="#ff8a80" font-size="12.5" font-family="monospace">壓力 · Call 牆</text><text x="436" y="34" fill="#ff8a80" font-size="13" font-family="monospace" text-anchor="end">750</text><line x1="92" y1="106" x2="430" y2="106" stroke="#ffffff" stroke-width="2.5"/><circle cx="240" cy="106" r="5" fill="#ffffff"/><text x="92" y="99" fill="#ffffff" font-size="12.5" font-family="monospace">現價 QQQ</text><text x="436" y="110" fill="#ffffff" font-size="13" font-family="monospace" text-anchor="end">717</text><line x1="92" y1="148" x2="430" y2="148" stroke="#5b8def" stroke-width="3.5"/><text x="92" y="141" fill="#8fb3ff" font-size="12.5" font-family="monospace">支撐 · Put 牆（最厚）</text><text x="436" y="152" fill="#8fb3ff" font-size="13" font-family="monospace" text-anchor="end">700</text><line x1="92" y1="186" x2="430" y2="186" stroke="#f0c040" stroke-width="2" stroke-dasharray="4 3"/><text x="92" y="203" fill="#e0a526" font-size="12.5" font-family="monospace">Max Pain（磁吸中樞）</text><text x="436" y="190" fill="#e0a526" font-size="13" font-family="monospace" text-anchor="end">684</text></svg></div>
+  <div class="gamma-terms"><div class="gt-row"><b>Call 牆（壓力／天花板）</b>：大量買權堆積的價位，形成上檔壓力。今日 <b>750</b>。</div><div class="gt-row"><b>Put 牆（支撐）</b>：大量賣權堆積的價位，形成下方支撐；跌破常引爆賣壓（負 Gamma：做市商被迫追跌殺、放大波動）。今日 <b>700</b>，全場最厚（6.3 萬張）。</div><div class="gt-row"><b>Max Pain（磁吸中樞）</b>：到期時讓多數選擇權變壁紙的價位，股價常被吸過去。今日 <b>684</b>。</div><div class="gt-row"><b>怎麼看</b>：現價 QQQ <b>717</b> 卡在 Put 牆 700 與 Call 牆 750 之間 → 短線區間偏 <b>700–750</b> 震盪。上破 750 做市商回補助漲、下破 700 對沖轉賣加速；今日 Dow 創高、無爆量破位，700 撐著＝回檔屬良性。（QQQ Sep 18 到期，適逢 9/18 四巫日結算）</div></div>
 </div>
 <!-- /Gamma 防線 -->
 
@@ -1116,77 +1997,40 @@ function togGamma(){
 document.getElementById('btn-dark')?.classList.add('on');
 document.getElementById('fs-normal')?.classList.add('on');
 
-/* Mini Chart 折線圖 */
-function drawMiniChart(canvas, r5, r20, r60){
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width=canvas.offsetWidth*2;
-  const H=canvas.height=54*2;
-  ctx.scale(2,2);
-  const w=canvas.offsetWidth,h=54;
+/* ── §04 板塊三線歷史 + §05 廣度雙圖（X=時間, Y=%, 上限60日）── */
+var SC_HIST=(function(){try{return JSON.parse(document.getElementById('sc-hist').textContent);}catch(e){return{tickers:{}};}})();
+var BREADTH_HIST=(function(){try{return JSON.parse(document.getElementById('breadth-hist').textContent);}catch(e){return{series:[]};}})();
+function seriesChart(canvas,series,defs,opts){
+  opts=opts||{};var h=opts.h||90;var ctx=canvas.getContext('2d');
+  var w=canvas.offsetWidth||300;canvas.width=w*2;canvas.height=h*2;ctx.setTransform(2,0,0,2,0,0);
   ctx.clearRect(0,0,w,h);
-  // 背景格線
-  ctx.strokeStyle='rgba(255,255,255,.05)';
-  ctx.lineWidth=1;
-  [h*0.25,h*0.5,h*0.75].forEach(y=>{ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();});
-  // 零線
-  ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
-  // 數據 → 座標（以 ±30% 為範圍上下限）
-  const scale=v=>h/2-Math.max(-1,Math.min(1,v/30))*(h/2-4);
-  const pts=[[w*0.18,scale(r60)],[w*0.5,scale(r20)],[w*0.82,scale(r5)]];
-  // 繪線
-  const lines=[[pts[0],pts[1],pts[2]]];
-  const colors=['#cf6f72','#f0c040','#7f9fc6'];
-  // REL60→REL20→REL5 各一條從左到右
-  [[r60,'#7f9fc6'],[r20,'#f0c040'],[r5,'#cf6f72']].forEach(([v,col],i)=>{
-    const x=pts[i][0],y=pts[i][1];
-    // 點
-    ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);
-    ctx.fillStyle=col;ctx.fill();
-    // 標籤
-    ctx.fillStyle=col;ctx.font='bold 9px monospace';ctx.textAlign='center';
-    const lbl=(v>0?'+':'')+v.toFixed(1)+'%';
-    ctx.fillText(lbl,x,y>h/2?y-6:y+13);
-  });
-  // 連線（REL60→REL20→REL5）
-  ctx.beginPath();
-  ctx.moveTo(pts[0][0],pts[0][1]);
-  ctx.lineTo(pts[1][0],pts[1][1]);
-  ctx.lineTo(pts[2][0],pts[2][1]);
-  ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.stroke();
-  ctx.setLineDash([]);
-  // x軸標籤
-  ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='9px monospace';
-  [['長線',pts[0][0]],['中線',pts[1][0]],['短線',pts[2][0]]].forEach(([t,x])=>{
-    ctx.textAlign='center';ctx.fillText(t,x,h-2);
-  });
+  var x0=8,x1=w-8,y0=16,y1=h-14,n=series.length;
+  var vmin,vmax;
+  if(opts.ymin!=null){vmin=opts.ymin;vmax=opts.ymax;}
+  else{var m=opts.minRange||10;series.forEach(function(p){defs.forEach(function(d){var v=p[d[0]];if(v!=null)m=Math.max(m,Math.abs(v));});});vmin=-m*1.12;vmax=m*1.12;}
+  function X(i){return n<=1?(x0+x1)/2:x0+(x1-x0)*i/(n-1);}
+  function Y(v){return y1-(v-vmin)/((vmax-vmin)||1)*(y1-y0);}
+  var refv=(opts.ref!=null)?opts.ref:((vmin<0&&vmax>0)?0:null);
+  if(refv!=null){ctx.strokeStyle='rgba(255,255,255,.16)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x0,Y(refv));ctx.lineTo(x1,Y(refv));ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,.32)';ctx.font='8px monospace';ctx.textAlign='left';ctx.fillText(opts.refLabel!=null?opts.refLabel:String(refv),x0,Y(refv)-2);}
+  defs.forEach(function(d){var key=d[0],col=d[1];ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=1.7;ctx.beginPath();var started=false;
+    series.forEach(function(p,i){var v=p[key];if(v==null)return;var x=X(i),y=Y(v);if(!started){ctx.moveTo(x,y);started=true;}else ctx.lineTo(x,y);});ctx.stroke();
+    series.forEach(function(p,i){var v=p[key];if(v==null)return;ctx.beginPath();ctx.arc(X(i),Y(v),2.1,0,Math.PI*2);ctx.fill();});});
+  ctx.font='bold 9px monospace';ctx.textAlign='left';var lx=x0;
+  defs.forEach(function(d){ctx.fillStyle=d[1];ctx.fillText(d[2],lx,10);lx+=d[2].length*6.6+14;});
+  if(n){ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='8px monospace';ctx.textAlign='left';ctx.fillText(series[0].d,x0,h-3);if(n>1){ctx.textAlign='right';ctx.fillText(series[n-1].d,x1,h-3);}}
 }
-
-// 初始化所有已展開的 sc-det 中的 canvas
-function initMiniCharts(){
-  document.querySelectorAll('.mini-chart-canvas').forEach(c=>{
-    const r5=parseFloat(c.dataset.r5||0);
-    const r20=parseFloat(c.dataset.r20||0);
-    const r60=parseFloat(c.dataset.r60||0);
-    drawMiniChart(c,r5,r20,r60);
-  });
-}
-
-// sc-det 展開時重繪（原 onclick 基礎上掛 observer）
-const scDetObs=new MutationObserver(muts=>{
-  muts.forEach(m=>{
-    if(m.target.classList.contains('open')){
-      m.target.querySelectorAll('.mini-chart-canvas').forEach(c=>{
-        const r5=parseFloat(c.dataset.r5||0);
-        const r20=parseFloat(c.dataset.r20||0);
-        const r60=parseFloat(c.dataset.r60||0);
-        drawMiniChart(c,r5,r20,r60);
-      });
-    }
-  });
-});
-document.querySelectorAll('.sc-det').forEach(d=>scDetObs.observe(d,{attributeFilter:['class']}));
-window.addEventListener('resize',initMiniCharts);
+function drawMiniChart(canvas){var tk=canvas.dataset.tk;var ser=(SC_HIST.tickers&&SC_HIST.tickers[tk])||[];
+  seriesChart(canvas,ser,[['r5','#ff3d5a','REL5'],['r20','#f0c040','REL20'],['r60','#00c8f0','REL60']],{h:92});}
+function initMiniCharts(){document.querySelectorAll('.mini-chart-canvas').forEach(function(c){drawMiniChart(c);});}
+function drawBreadthCharts(){var s=BREADTH_HIST.series||[];
+  var c20=document.getElementById('bch20'),c50=document.getElementById('bch50');
+  if(c20)seriesChart(c20,s,[['nq20','#ff3d5a','NQ'],['sp20','#f0c040','SP']],{h:150,ymin:0,ymax:100,ref:50,refLabel:'50%'});
+  if(c50)seriesChart(c50,s,[['nq50','#ff3d5a','NQ'],['sp50','#f0c040','SP']],{h:150,ymin:0,ymax:100,ref:50,refLabel:'50%'});}
+var scDetObs=new MutationObserver(function(muts){muts.forEach(function(m){if(m.target.classList.contains('open')){m.target.querySelectorAll('.mini-chart-canvas').forEach(function(c){drawMiniChart(c);});}});});
+document.querySelectorAll('.sc-det').forEach(function(d){scDetObs.observe(d,{attributeFilter:['class']});});
+window.addEventListener('resize',function(){initMiniCharts();drawBreadthCharts();});
+drawBreadthCharts();
 
 /* 事件展開 */
 function togEv(id){
@@ -1376,7 +2220,7 @@ function setTheme(t){
 })();
 </script>
 
-<!-- 平板以上體驗提示（自包含注入片段 · 只手機顯示 · 點擊關閉並記憶）— 正本規格見 SKILL-core-render §B-10b -->
+<!-- 平板以上體驗提示（自包含注入片段 · 只手機顯示 · 點擊關閉並記憶）— 正本規格見 SKILL-core-render §行動裝置提示 -->
 <script>
 (function(){
   try{ if(localStorage.getItem('hideTabletHint')==='1') return; }catch(e){}
@@ -1394,5 +2238,6 @@ function setTheme(t){
   document.body.insertBefore(bar,document.body.firstChild);
 })();
 </script>
+
 </body>
 </html>
