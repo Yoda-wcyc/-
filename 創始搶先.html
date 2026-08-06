@@ -56,6 +56,10 @@
   .pts li b{color:var(--gold)}
   .promise{margin-top:14px;padding:14px 16px;border-radius:12px;background:rgba(95,191,143,.1);border:1px solid rgba(95,191,143,.4);font-size:14px;line-height:1.75}
   .promise b{color:var(--green)}
+  .flow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12.5px;color:var(--dim);justify-content:center;margin-top:16px}
+  .flow .step{background:var(--surface2);border:1px solid var(--border);border-radius:9999px;padding:5px 12px;line-height:1.4}
+  .flow .arr{color:var(--gold);font-weight:800}
+  .flow .step.hot{color:#1a1200;background:linear-gradient(135deg,var(--gold),#f0d488);border-color:transparent;font-weight:700}
 
   /* 階梯表 */
   .ladder{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
@@ -118,6 +122,13 @@
     </ul>
     <div class="promise">
       <b>✦ 給你們的承諾：</b>只要你在這份搶先名單上，就算開放後前 50 個位置滿了，<b>創始早鳥價我也一定為你保留</b>——我會為名單上的你們，另外增設創始早鳥名額。
+    </div>
+    <div class="flow">
+      <span class="step">現在登記卡位</span><span class="arr">→</span>
+      <span class="step">開放優先通知</span><span class="arr">→</span>
+      <span class="step">你先訂 · 拿專屬連結</span><span class="arr">→</span>
+      <span class="step">朋友從你連結訂</span><span class="arr">→</span>
+      <span class="step hot">你開始賺介紹月</span>
     </div>
   </div>
 
