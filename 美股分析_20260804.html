@@ -1322,8 +1322,9 @@ function sortTable(th){
     var labels=labelsFor(TAB);
     if(!labels.length){var tx=el('text',{x:360,y:300,fill:cvar('--dim'),'font-size':16,'text-anchor':'middle','font-family':cvar('--fb')});tx.textContent='AI 核心競爭力三層成分待定義，補上後即接入';SVG.appendChild(tx);lg.innerHTML='';return;}
     var series={};labels.forEach(function(l){series[l]=seriesFor(TAB,l);});
+    var TAILF=0.5;var disp={};labels.forEach(function(l){var s=series[l];if(s.length<2){disp[l]=s;return;}var h=s[s.length-1];disp[l]=s.map(function(p,i){return i===s.length-1?p:{x:h.x+(p.x-h.x)*TAILF,y:h.y+(p.y-h.y)*TAILF};});});
     var W=720,H=600,pad=52,x0=pad,x1=W-pad,y0=pad,y1=H-pad;
-    var allx=[],ally=[];labels.forEach(function(l){series[l].forEach(function(p){allx.push(Math.abs(p.x));ally.push(Math.abs(p.y));});});
+    var allx=[],ally=[];labels.forEach(function(l){disp[l].forEach(function(p){allx.push(Math.abs(p.x));ally.push(Math.abs(p.y));});});
     allx.sort(function(a,b){return a-b;});ally.sort(function(a,b){return a-b;});
     function capv(a,fl){if(!a.length)return fl;var q=a[Math.floor(a.length*0.86)]||fl;return Math.max(q*1.15,fl);}
     var hx=capv(allx,6),hy=capv(ally,5);
@@ -1338,7 +1339,7 @@ function sortTable(th){
     var sp=el('text',{x:cx+7,y:cy-7,fill:cvar('--dim'),'font-size':11,'font-family':cvar('--fm')});sp.textContent='SPY';SVG.appendChild(sp);
     var ri=el('text',{x:x0+5,y:y1-6,fill:cvar('--dim'),'font-size':10.5,'font-family':cvar('--fm')});ri.textContent='REL'+WIN;SVG.appendChild(ri);
     // 尾巴（今天最亮、越舊越淡）
-    labels.forEach(function(l,idx){var s=series[l];if(!s.length)return;var col=colorOf(TAB,l,idx);
+    labels.forEach(function(l,idx){var s=disp[l];if(!s.length)return;var col=colorOf(TAB,l,idx);
       for(var i=1;i<s.length;i++){var frac=i/(s.length-1),op=.12+.88*frac;SVG.appendChild(el('line',{x1:mx(s[i-1].x),y1:my(s[i-1].y),x2:mx(s[i].x),y2:my(s[i].y),stroke:col,'stroke-width':.5+.9*frac,'stroke-linecap':'round','stroke-dasharray':'3 4',opacity:op*.6}));}
       s.forEach(function(p,i){if(i===s.length-1)return;var frac=s.length>1?i/(s.length-1):1;SVG.appendChild(el('circle',{cx:mx(p.x),cy:my(p.y),r:2+1.3*frac,fill:col,opacity:(.1+.5*frac)*.8}));});
     });

@@ -788,10 +788,10 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
   <div><div class="section-title">名詞解釋</div>
   <div class="section-desc">Glossary · 看不懂的詞，先點這裡對照</div></div>
 </div>
-<div class="sec-note"><span class="tag all">翻成人話</span><br>報告裡的專有名詞都收在這——<b>第一次看先展開對照，把數字背後的意思講白，沒有財經底子也能看懂。</b><br><span style="color:var(--accent)">小提醒：所有表格的欄位標題（Ticker／5D%／WtdAlpha…）都可以<b>點一下排序</b>，點第二下反向。</span></div>
 <details class="glossary">
   <summary>點開名詞對照表（1D%、REL、WtdAlpha、A/B/C 級、新高低、量價綜合怎麼用、動態圖…）</summary>
   <div class="gl-body">
+    <div class="sec-note"><span class="tag all">翻成人話</span><br>報告裡的專有名詞都收在這——<b>第一次看先展開對照，把數字背後的意思講白，沒有財經底子也能看懂。</b><br><span style="color:var(--accent)">小提醒：所有表格的欄位標題（Ticker／5D%／WtdAlpha…）都可以<b>點一下排序</b>，點第二下反向。</span></div>
     <div class="gl-gh">漲跌與強弱指標</div>
     <div class="gl-row"><div class="gl-term">1D%</div><div class="gl-def">今天單日的漲跌幅（今天漲/跌幾 %，絕對值，不跟大盤比）。</div></div>
     <div class="gl-row"><div class="gl-term">5D% / 1M% / 3M%</div><div class="gl-def">近 5 日 / 近 1 個月 / 近 3 個月的漲跌幅（絕對值，用在「新高+新低池」）。</div></div>
@@ -1461,8 +1461,9 @@ function sortTable(th){
     var labels=labelsFor(TAB);
     if(!labels.length){var tx=el('text',{x:360,y:300,fill:cvar('--dim'),'font-size':16,'text-anchor':'middle','font-family':cvar('--fb')});tx.textContent='AI 核心競爭力三層成分待定義，補上後即接入';SVG.appendChild(tx);lg.innerHTML='';return;}
     var series={};labels.forEach(function(l){series[l]=seriesFor(TAB,l);});
+    var TAILF=0.5;var disp={};labels.forEach(function(l){var s=series[l];if(s.length<2){disp[l]=s;return;}var h=s[s.length-1];disp[l]=s.map(function(p,i){return i===s.length-1?p:{x:h.x+(p.x-h.x)*TAILF,y:h.y+(p.y-h.y)*TAILF};});});
     var W=720,H=600,pad=52,x0=pad,x1=W-pad,y0=pad,y1=H-pad;
-    var allx=[],ally=[];labels.forEach(function(l){series[l].forEach(function(p){allx.push(Math.abs(p.x));ally.push(Math.abs(p.y));});});
+    var allx=[],ally=[];labels.forEach(function(l){disp[l].forEach(function(p){allx.push(Math.abs(p.x));ally.push(Math.abs(p.y));});});
     allx.sort(function(a,b){return a-b;});ally.sort(function(a,b){return a-b;});
     function capv(a,fl){if(!a.length)return fl;var q=a[Math.floor(a.length*0.86)]||fl;return Math.max(q*1.15,fl);}
     var hx=capv(allx,6),hy=capv(ally,5);
@@ -1477,7 +1478,7 @@ function sortTable(th){
     var sp=el('text',{x:cx+7,y:cy-7,fill:cvar('--dim'),'font-size':11,'font-family':cvar('--fm')});sp.textContent='SPY';SVG.appendChild(sp);
     var ri=el('text',{x:x0+5,y:y1-6,fill:cvar('--dim'),'font-size':10.5,'font-family':cvar('--fm')});ri.textContent='REL'+WIN;SVG.appendChild(ri);
     // 尾巴：每一天歷史點一個小點（不連長線；越舊越小越淡。N 天資料＝N-1 個歷史小點＋今日頭點）
-    labels.forEach(function(l,idx){var s=series[l];if(!s.length)return;var col=colorOf(TAB,l,idx);
+    labels.forEach(function(l,idx){var s=disp[l];if(!s.length)return;var col=colorOf(TAB,l,idx);
       s.forEach(function(p,i){if(i===s.length-1)return;var frac=s.length>1?i/(s.length-1):1;SVG.appendChild(el('circle',{cx:mx(p.x),cy:my(p.y),r:2+1.3*frac,fill:col,opacity:(.1+.5*frac)*.8}));});
     });
     // 頭點 + 標籤佈局

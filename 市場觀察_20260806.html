@@ -547,10 +547,10 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
     <div class="section-desc">GLOSSARY · 看不懂的詞，先點這裡對照</div>
   </div>
 </div>
-<div class="gl-intro">報告裡的專有名詞都收在這——<b style="color:var(--text)">第一次看先展開對照，把數字背後的意思講白，沒有財經底子也能看懂。</b></div>
 <details class="glossary">
   <summary>點開名詞對照表（多空溫度、VIX、三道防線、市場廣度、Gamma/Max Pain、板塊生命週期…）</summary>
   <div class="gl-body">
+    <div class="gl-intro">報告裡的專有名詞都收在這——<b style="color:var(--text)">第一次看先展開對照，把數字背後的意思講白，沒有財經底子也能看懂。</b></div>
     <div class="gl-gh">多空溫度與情緒</div>
     <div class="gl-row"><div class="gl-term">資金流判定</div><div class="gl-def">綜合各面向判斷「錢整體偏多買、還是偏空賣」的溫度：越右＝越偏多方。</div></div>
     <div class="gl-row"><div class="gl-term">情緒過熱觸發</div><div class="gl-def">市場情緒是冷靜還是過熱：越右＝越過熱、要提高警戒（過熱常是回檔前兆）。</div></div>
@@ -1865,8 +1865,9 @@ function setTheme(t){
     var lg=document.getElementById('dyn-legend'),labels=labelsFor(TAB);
     if(!labels.length){var tx=el('text',{x:360,y:300,fill:cvar('--dim'),'font-size':16,'text-anchor':'middle','font-family':cvar('--fb')});tx.textContent='資料待接入';SVG.appendChild(tx);lg.innerHTML='';return;}
     var series={};labels.forEach(function(l){series[l]=seriesFor(TAB,l);});
+    var TAILF=0.5;var disp={};labels.forEach(function(l){var s=series[l];if(s.length<2){disp[l]=s;return;}var h=s[s.length-1];disp[l]=s.map(function(p,i){return i===s.length-1?p:{x:h.x+(p.x-h.x)*TAILF,y:h.y+(p.y-h.y)*TAILF};});});
     var W=720,H=600,pad=52,x0=pad,x1=W-pad,y0=pad,y1=H-pad;
-    var allx=[],ally=[];labels.forEach(function(l){series[l].forEach(function(p){allx.push(Math.abs(p.x));ally.push(Math.abs(p.y));});});
+    var allx=[],ally=[];labels.forEach(function(l){disp[l].forEach(function(p){allx.push(Math.abs(p.x));ally.push(Math.abs(p.y));});});
     allx.sort(function(a,b){return a-b;});ally.sort(function(a,b){return a-b;});
     function capv(a,fl){if(!a.length)return fl;var q=a[Math.floor(a.length*0.86)]||fl;return Math.max(q*1.15,fl);}
     var hx=capv(allx,6),hy=capv(ally,5);
@@ -1880,7 +1881,7 @@ function setTheme(t){
     SVG.appendChild(el('circle',{cx:cx,cy:cy,r:3.5,fill:cvar('--dim')}));var sp=el('text',{x:cx+7,y:cy-7,fill:cvar('--dim'),'font-size':11,'font-family':cvar('--fm')});sp.textContent='SPY';SVG.appendChild(sp);
     var ri=el('text',{x:x0+5,y:y1-6,fill:cvar('--dim'),'font-size':10.5,'font-family':cvar('--fm')});ri.textContent='REL'+WIN;SVG.appendChild(ri);
     // 尾巴：每一天歷史點一個小點（不連長線；越舊越小越淡。三顆共用 B-8/B-7）
-    labels.forEach(function(l,idx){var s=series[l];if(!s.length)return;var col=colorOf(TAB,l,idx);s.forEach(function(p,i){if(i===s.length-1)return;var frac=s.length>1?i/(s.length-1):1;SVG.appendChild(el('circle',{cx:mx(p.x),cy:my(p.y),r:2+1.3*frac,fill:col,opacity:(.1+.5*frac)*.8}));});});
+    labels.forEach(function(l,idx){var s=disp[l];if(!s.length)return;var col=colorOf(TAB,l,idx);s.forEach(function(p,i){if(i===s.length-1)return;var frac=s.length>1?i/(s.length-1):1;SVG.appendChild(el('circle',{cx:mx(p.x),cy:my(p.y),r:2+1.3*frac,fill:col,opacity:(.1+.5*frac)*.8}));});});
     var nodes=labels.map(function(l,idx){var s=series[l],h=s[s.length-1];var off=(Math.abs(h.x)>hx||Math.abs(h.y)>hy);return{x:mx(h.x),y:my(h.y),label:l,col:colorOf(TAB,l,idx),shp:shapeOf(TAB,l),hx:h.x,hy:h.y,tk:meta(TAB,l).ticker,off:off};});
     var hero=null;nodes.forEach(function(n){if(!n.off&&(!hero||n.hx>hero.hx))hero=n;});
     var L=layout(nodes,cx,cy);
