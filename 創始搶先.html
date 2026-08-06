@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>創始會員 · 搶先禮遇 · Yoda Research</title>
+<meta name="description" content="Yoda Research 創始會員搶先禮遇：對外開放前，最前面的位置與最好的價格，留給最早相信的朋友。">
+<!--
+  VIP 搶先禮遇頁 · 給種子朋友散的專屬連結（無密碼）。
+  收登記 → GAS joinVip → Sheet「Waitlist」分頁（時間/email/稱呼/介紹人/想拉幾人）。
+  ★ 承諾：名單上的人保證創始早鳥資格，開放後前 50 若滿，另增設名額。
+-->
+<style>
+  :root{
+    --bg:#05060f; --surface:#12151f; --surface2:#1b1f2b;
+    --border:rgba(255,255,255,.14); --divider:rgba(255,255,255,.08);
+    --text:#f2f4fb; --dim:#a7b0c5; --gold:#e0a526; --gold2:#b8860b;
+    --green:#5fbf8f;
+    --sans:-apple-system,BlinkMacSystemFont,'PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;
+  }
+  html[data-theme="light"]{
+    --bg:#f5f5f7; --surface:#fff; --surface2:#f0eef7;
+    --border:#e2e2e6; --divider:#eee; --text:#1d1d1f; --dim:#6b7280; --gold:#b8860b; --gold2:#8a6508;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+  a{color:var(--gold);text-decoration:none}
+  .sky{position:fixed;inset:0;z-index:-2;background:radial-gradient(120% 90% at 50% 0%,rgba(224,165,38,.10),transparent 55%),linear-gradient(180deg,#080a14,#0d1020 60%,#141834)}
+  html[data-theme="light"] .sky{background:radial-gradient(120% 90% at 50% 0%,rgba(224,165,38,.14),transparent 55%),#f5f5f7}
+
+  .bar{position:fixed;top:12px;right:14px;z-index:50;display:flex;gap:6px;align-items:center;background:rgba(13,17,24,.72);border:1px solid var(--border);border-radius:8px;padding:5px 8px;backdrop-filter:blur(12px)}
+  html[data-theme="light"] .bar{background:rgba(255,255,255,.82)}
+  .bar a,.bar button{font-size:11px;font-weight:700;color:var(--dim);background:transparent;border:none;border-radius:5px;padding:4px 9px;cursor:pointer;font-family:inherit}
+  .bar a.home{color:#1a1200;background:var(--gold);border-radius:9999px}
+  .bar button.on{background:#0071e3;color:#fff}
+
+  .wrap{max-width:640px;margin:0 auto;padding:64px 18px 60px}
+  .eyebrow{text-align:center;font-size:12px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:12px}
+  h1{text-align:center;font-size:34px;font-weight:800;letter-spacing:.5px;line-height:1.25;margin-bottom:6px}
+  .h1-sub{text-align:center;font-size:14px;color:var(--dim);margin-bottom:28px}
+
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px 22px;margin:16px 0;box-shadow:0 14px 40px rgba(0,0,0,.28)}
+  .card.gold{border:1.5px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,var(--gold),var(--gold2)) border-box}
+  .card h2{font-size:16px;font-weight:800;margin-bottom:14px;color:var(--gold)}
+  .num{display:inline-block;width:24px;height:24px;border-radius:50%;background:rgba(224,165,38,.16);color:var(--gold);border:1px solid rgba(224,165,38,.4);font-size:13px;text-align:center;line-height:23px;margin-right:8px}
+
+  /* 感謝卡 */
+  .thanks{font-size:17px;line-height:1.95;color:var(--text);text-align:center}
+  .thanks .em{color:var(--gold);font-weight:700}
+
+  /* 卡位重點 */
+  .pts{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .pts li{font-size:14.5px;line-height:1.7;padding-left:26px;position:relative;color:var(--text)}
+  .pts li::before{content:"✦";position:absolute;left:0;top:0;color:var(--gold)}
+  .pts li b{color:var(--gold)}
+  .promise{margin-top:14px;padding:14px 16px;border-radius:12px;background:rgba(95,191,143,.1);border:1px solid rgba(95,191,143,.4);font-size:14px;line-height:1.75}
+  .promise b{color:var(--green)}
+
+  /* 階梯表 */
+  .ladder{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+  .ladder th{color:var(--dim);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--border);text-align:center;white-space:nowrap}
+  .ladder td{padding:7px 8px;border-bottom:1px solid var(--divider);text-align:center;white-space:nowrap}
+  .ladder tr:last-child td{border-bottom:none}
+  .ladder td b{color:var(--gold);font-weight:800}
+  .ladder tr.cap td{background:rgba(224,165,38,.13);font-weight:800}
+  .ladder-cap{font-size:12px;color:var(--dim);margin-top:10px;line-height:1.7}
+
+  /* 表單 */
+  label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 5px}
+  input,select{width:100%;padding:12px 14px;font-size:16px;border-radius:11px;border:1px solid var(--border);background:var(--bg);color:var(--text);outline:none;font-family:inherit}
+  input:focus,select:focus{border-color:var(--gold)}
+  .btn{width:100%;padding:14px;font-size:16px;font-weight:800;color:#1a1200;background:linear-gradient(135deg,var(--gold),#f0d488);border:none;border-radius:9999px;cursor:pointer;margin-top:20px;font-family:inherit;box-shadow:0 6px 20px rgba(224,165,38,.3)}
+  .btn:disabled{opacity:.6;cursor:default}
+  .msg{font-size:13.5px;margin-top:12px;min-height:18px;text-align:center;color:#f08a8a}
+  .hint{font-size:11.5px;color:var(--dim);margin-top:8px;line-height:1.6}
+
+  /* 成功態 */
+  #done{display:none;text-align:center;padding:8px 4px}
+  #done .big{font-size:52px;line-height:1;margin:6px 0 10px}
+  #done h3{font-size:20px;font-weight:800;margin-bottom:8px}
+  #done p{font-size:14.5px;color:var(--dim);line-height:1.8}
+
+  .foot{text-align:center;font-size:11.5px;color:var(--dim);line-height:1.8;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="sky"></div>
+
+<div class="bar">
+  <a class="home" href="https://yoda-research-next.vercel.app/">Yoda Research</a>
+  <button onclick="setTheme('dark')" id="thD" class="on">深</button>
+  <button onclick="setTheme('light')" id="thL">淺</button>
+</div>
+
+<div class="wrap">
+
+  <div class="eyebrow">Yoda Research · 創始會員</div>
+  <h1>搶先禮遇</h1>
+  <div class="h1-sub">對外開放之前，先給最早相信的你</div>
+
+  <!-- 感謝卡 -->
+  <div class="card gold">
+    <p class="thanks">謝謝願意相信我的朋友。<br>這是<span class="em">只給你們的優先禮遇</span>——在對外開放之前，<br>最前面的位置、鎖住最好的價格，留給你們。</p>
+  </div>
+
+  <!-- ① 卡位 -->
+  <div class="card">
+    <h2><span class="num">1</span>現在你能做的：卡位</h2>
+    <ul class="pts">
+      <li>登記＝<b>鎖住早鳥 NT$459／月</b>（額滿後恢復標準 589，你這批永遠停在 459）</li>
+      <li>創始名額<b>限量 50</b>，登記者<b>開放第一時間通知、優先進場</b></li>
+      <li>介紹獎勵於<b>正式開放後結算</b>——所以下面先記下「是誰介紹你來的」，開放時就接得上</li>
+    </ul>
+    <div class="promise">
+      <b>✦ 給你們的承諾：</b>只要你在這份搶先名單上，就算開放後前 50 個位置滿了，<b>創始早鳥價我也一定為你保留</b>——我會為名單上的你們，另外增設創始早鳥名額。
+    </div>
+  </div>
+
+  <!-- ② 加碼階梯 -->
+  <div class="card">
+    <h2><span class="num">2</span>介紹越多，送越多（最高一年半價）</h2>
+    <table class="ladder">
+      <thead><tr><th>你推薦朋友訂閱</th><th>你連續訂滿</th><th>就送你</th></tr></thead>
+      <tbody>
+        <tr><td>1 人</td><td>3 個月</td><td><b>1 個月</b></td></tr>
+        <tr><td>2 人</td><td>5 個月</td><td><b>2 個月</b></td></tr>
+        <tr><td>3 人</td><td>7 個月</td><td><b>3 個月</b></td></tr>
+        <tr><td>4 人</td><td>9 個月</td><td><b>4 個月</b></td></tr>
+        <tr><td>5 人</td><td>11 個月</td><td><b>5 個月</b></td></tr>
+        <tr class="cap"><td>5 人</td><td>滿 1 年（12 個月）</td><td><b>6 個月</b></td></tr>
+      </tbody>
+    </table>
+    <div class="ladder-cap">兩個條件都達到才解鎖，取最高階；連續訂滿一年最多送半年（6 個月）封頂。朋友須從你的專屬連結來訂閱並完成付費才算數——開放後你就會拿到自己的連結。</div>
+  </div>
+
+  <!-- ③ 搶先登記 -->
+  <div class="card gold">
+    <h2><span class="num">3</span>搶先登記，為你卡位</h2>
+    <div id="form">
+      <label>Email（開放通知寄這裡）</label>
+      <input id="v-email" type="email" placeholder="you@example.com" autocomplete="email" />
+      <label>你的稱呼</label>
+      <input id="v-name" type="text" placeholder="怎麼稱呼你" autocomplete="off" />
+      <label>是誰介紹你來的？（填他的名字／暱稱，沒有可留空）</label>
+      <input id="v-ref" type="text" placeholder="介紹人的名字／暱稱" autocomplete="off" />
+      <label>你想拉幾個朋友一起？</label>
+      <select id="v-scale">
+        <option value="">還不確定</option>
+        <option value="1-2">1～2 個</option>
+        <option value="3-5">3～5 個</option>
+        <option value="5+">5 個以上</option>
+      </select>
+      <button class="btn" id="v-btn" onclick="submitVip()">送出，為我卡位 →</button>
+      <div class="msg" id="v-msg"></div>
+      <div class="hint">我們只用這個 email 通知你開放與名額，不會外流。介紹獎勵於正式開放後結算。</div>
+    </div>
+    <div id="done">
+      <div class="big">✦</div>
+      <h3>已經為你卡位了</h3>
+      <p id="done-txt">開放第一時間，我會用 email 通知你——最前面的位置，留給你。</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    本內容為個人操作與觀點分享，非投資建議，僅供參考。創始名額與價格以官方公告為準。<br>© 2026 Yoda Research
+  </div>
+</div>
+
+<script>
+  var GAS_URL='https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec';
+  var el=function(id){return document.getElementById(id);};
+
+  function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('vip-theme',t);}catch(e){}
+    el('thD').classList.toggle('on',t==='dark');el('thL').classList.toggle('on',t==='light');}
+  (function(){try{var t=localStorage.getItem('vip-theme');if(t)setTheme(t);}catch(e){}})();
+
+  function submitVip(){
+    var email=(el('v-email').value||'').trim(), name=(el('v-name').value||'').trim();
+    var ref=(el('v-ref').value||'').trim(), scale=el('v-scale').value;
+    var msg=el('v-msg');
+    if(!email||!/.+@.+\..+/.test(email)){msg.style.color='#f08a8a';msg.textContent='請填一個正確的 email';return;}
+    if(!name){msg.style.color='#f08a8a';msg.textContent='留個稱呼，我好認得你';return;}
+    var btn=el('v-btn');btn.disabled=true;msg.style.color='var(--dim)';msg.textContent='登記中…';
+    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'joinVip',email:email,name:name,referrer:ref,scale:scale})})
+      .then(function(r){return r.json();})
+      .then(function(res){
+        btn.disabled=false;
+        if(res&&res.ok){
+          if(res.already){el('done-txt').textContent='你先前已經登記過了——放心，位置幫你留著，開放第一時間通知你。';}
+          el('form').style.display='none'; el('done').style.display='block';
+          window.scrollTo({top:0,behavior:'smooth'});
+        }else{
+          msg.style.color='#f08a8a';msg.textContent=(res&&res.error)||'登記失敗，請稍後再試';
+        }
+      })
+      .catch(function(){btn.disabled=false;msg.style.color='#f08a8a';msg.textContent='連線失敗，請稍後再試';});
+  }
+  el('v-email').addEventListener('keydown',function(e){if(e.key==='Enter')el('v-name').focus();});
+</script>
+</body>
+</html>
