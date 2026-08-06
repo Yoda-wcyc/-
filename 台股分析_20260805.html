@@ -346,6 +346,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
     <div class="nav-brand-sub">▸ 2026 · AUGUST</div>
   </div>
   <div class="nav-section-label">台股分析</div>
+  <a href="#sec-guide"><span class="nav-num">00</span><div class="nav-dot"></div>名詞與使用說明</a>
   <a href="#sec-dyn"><span class="nav-num">01</span><div class="nav-dot"></div>板塊動態圖</a>
   <a href="#sec-sector"><span class="nav-num">02</span><div class="nav-dot"></div>板塊資金位階</a>
   <a href="#sec-chip"><span class="nav-num">03</span><div class="nav-dot"></div>法人籌碼四型態</a>
@@ -402,6 +403,44 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
 
 <div class="wrap">
 
+<!-- ═══ 00 名詞與使用說明（靜態·母板固定；每份台股報告皆含）═══ -->
+<style>
+.glossary{background:rgba(0,8,20,.35);border:1px solid var(--border);border-left:3px solid var(--accent);padding:16px 20px;margin-bottom:26px;line-height:1.75;font-family:var(--fb);}
+.gl-lead{font-size:calc(var(--fs)*.8);color:var(--text);background:rgba(0,200,240,.08);border:1px solid rgba(0,200,240,.22);border-radius:6px;padding:10px 14px;margin-bottom:16px;}
+.gl-lead b{color:var(--accent);}
+.gl-h{font-size:calc(var(--fs)*.62);letter-spacing:.06em;color:var(--accent);font-family:var(--fm);text-transform:uppercase;margin:14px 0 7px;}
+.gl-row{display:flex;gap:12px;padding:5px 0;font-size:calc(var(--fs)*.72);border-bottom:1px dashed var(--border);}
+.gl-row:last-child{border-bottom:none;}
+.gl-k{color:var(--accent);font-family:var(--fm);min-width:118px;flex-shrink:0;font-weight:600;}
+.gl-v{color:var(--text);}
+.gl-v .warn{color:var(--yellow);}
+.gl-v .zg{color:var(--green);} .gl-v .zr{color:var(--red);} .gl-v .zy{color:var(--yellow);} .gl-v .zo{color:var(--orange);}
+</style>
+<div id="sec-guide" class="section-header">
+  <div class="section-num">00</div>
+  <div><div class="section-title">名詞與使用說明</div>
+  <div class="section-desc">Glossary · 看報告前先讀這裡（口徑、欄位、量價鏡頭怎麼用）</div></div>
+</div>
+<div class="glossary">
+  <div class="gl-lead">📌 <b>資料口徑（最重要）</b>：本報告講的「量」一律是 <b>三大法人（外資＋投信＋自營）買賣超「金額」，單位＝萬元</b>，<b>不是</b>成交張數、也不是成交量。數字為正＝法人淨買超金額、負＝淨賣超；例：「5日(萬) +20,734」＝近 5 個交易日三大法人合計淨買超 2 億 734 萬元。</div>
+
+  <div class="gl-h">欄位定義</div>
+  <div class="gl-row"><div class="gl-k">當日/5日/月線/季線(萬)</div><div class="gl-v">近 1／5／20（約 1 月）／60（約 3 月）交易日，三大法人「累計買賣超金額」（萬元）。</div></div>
+  <div class="gl-row"><div class="gl-k">1D%</div><div class="gl-v">當日股價漲跌幅（%）。</div></div>
+  <div class="gl-row"><div class="gl-k">REL5 / REL20 / REL60</div><div class="gl-v">相對強度＝這支「贏大盤（加權指數）幾 %」，正＝跑贏、負＝跑輸（<b>抗跌也算贏</b>），分別是近 5 日／約 1 月／約 3 月。<span class="warn">⚠ 不是「漲多少」，是「比大盤多漲／多跌多少」——漲最多的不一定 REL 最強。</span></div></div>
+  <div class="gl-row"><div class="gl-k">位階</div><div class="gl-v">用「月線 × 5日」兩軸判法人態度：<span class="zg">🔥領先</span>＝月線與 5 日都在買；<span class="zg">🌱回升</span>＝月線還在賣但 5 日翻買（轉折）；<span class="zy">⚠衰退</span>＝月線還在買但 5 日轉賣（動能減弱）；<span class="zr">❄落後</span>＝月線與 5 日都在賣。</div></div>
+
+  <div class="gl-h">操作提醒</div>
+  <div class="gl-row"><div class="gl-k">點欄名排序</div><div class="gl-v">所有可展開表格，<b>點欄位名稱可排序</b>（再點一次切升／降）——想看誰賣最凶就點「月線(萬)」、想看誰最強就點「REL5」。卡片點一下展開，同一區塊一次只開一張。</div></div>
+
+  <div class="gl-h">量 / 價 / 量價綜合 × 短中長（§02 三個鏡頭怎麼用）</div>
+  <div class="gl-row"><div class="gl-k">量</div><div class="gl-v">三大法人拿真金白銀在買什麼（買賣超金額）——看<b>籌碼</b>。</div></div>
+  <div class="gl-row"><div class="gl-k">價</div><div class="gl-v">價格相對大盤誰在漲（REL）——跟法人買不買無關，看<b>動能</b>。</div></div>
+  <div class="gl-row"><div class="gl-k">量價綜合</div><div class="gl-v">把量與價擺一起看一不一致：<span class="zg">★共振</span>＝法人買且價也在漲（最高確信）；<span class="zy">⚠背離</span>＝法人買但還沒漲（佈局型）或漲了但法人沒買（追高、缺籌碼支撐）。</div></div>
+  <div class="gl-row"><div class="gl-k">短 / 中 / 長</div><div class="gl-v">相鄰兩尺度交叉看、單一尺度不下結論。<b>量</b>：短＝5日／中＝10日／長＝月線；<b>價</b>：短＝REL5／中＝REL20／長＝REL60；<b>量價綜合</b>：短＝5日量＋REL5／中＝10日量＋REL20／長＝月量＋REL60。</div></div>
+  <div class="gl-row"><div class="gl-k">量優先 / 價優先</div><div class="gl-v">只改排序：<b>量優先</b>＝在法人買的裡面挑價格最強的；<b>價優先</b>＝在漲的裡面挑法人也在買的。</div></div>
+</div>
+
 <!-- ═══ 01 板塊動態圖（帳本 JSON 由每日流程注入 script#dyn-data；讀者不可見）═══ -->
 <div id="sec-dyn" class="section-header">
   <div class="section-num">01</div>
@@ -446,7 +485,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
       </ul>
     </aside>
   </div>
-  <script id="dyn-data" type="application/json">{"benchmark":"加權","tail":20,"tab_order":["sector"],"tabsMeta":{"sector":{"name":"板塊輪動"}},"snapshots":[{"date":"2026-08-01","real":true,"data":{"sector":{"半導體":{"rel5":-2.1,"rel20":-7.1,"rel60":-4.2,"n":8},"驅動IC":{"rel5":-2.8,"rel20":-13.7,"rel60":11.2,"n":4},"記憶體":{"rel5":-4.6,"rel20":-7.9,"rel60":-0.3,"n":6},"AI伺服器":{"rel5":-0.3,"rel20":10.1,"rel60":3.0,"n":5},"散熱":{"rel5":-0.0,"rel20":-3.0,"rel60":-10.4,"n":5},"載板PCB":{"rel5":-4.3,"rel20":-8.4,"rel60":1.4,"n":5},"光通訊":{"rel5":-4.2,"rel20":-7.2,"rel60":-17.0,"n":5},"電源":{"rel5":-2.5,"rel20":-5.3,"rel60":-12.0,"n":2},"被動":{"rel5":-10.4,"rel20":-33.5,"rel60":45.8,"n":3}}}},{"date":"2026-08-04","real":true,"data":{"sector":{"半導體":{"rel5":0.8,"rel20":-2.3,"rel60":-4.0,"n":8},"驅動IC":{"rel5":-0.1,"rel20":-7.8,"rel60":9.6,"n":4},"記憶體":{"rel5":2.7,"rel20":-0.4,"rel60":13.3,"n":6},"AI伺服器":{"rel5":0.4,"rel20":11.0,"rel60":5.2,"n":5},"散熱":{"rel5":2.4,"rel20":0.8,"rel60":-5.2,"n":5},"載板PCB":{"rel5":10.2,"rel20":2.4,"rel60":16.7,"n":5},"光通訊":{"rel5":0.3,"rel20":-4.4,"rel60":-8.0,"n":5},"電源":{"rel5":-0.5,"rel20":-5.4,"rel60":-8.9,"n":2},"被動":{"rel5":-2.1,"rel20":-29.1,"rel60":42.2,"n":3}}}},{"date":"2026-08-05","real":true,"data":{"sector":{"半導體":{"rel5":5.9,"rel20":-5.2,"rel60":-8.2,"n":6},"散熱":{"rel5":9.2,"rel20":1.4,"rel60":-11.8,"n":4},"載板PCB":{"rel5":17.3,"rel20":8.1,"rel60":11.4,"n":5},"AI伺服器":{"rel5":0.7,"rel20":11.4,"rel60":4.4,"n":5},"被動":{"rel5":4.3,"rel20":-42.6,"rel60":47.7,"n":2},"記憶體":{"rel5":10.2,"rel20":0.6,"rel60":10.6,"n":5},"光通訊":{"rel5":11.8,"rel20":-6.9,"rel60":-15.3,"n":2},"驅動IC":{"rel5":2.3,"rel20":-9.5,"rel60":8.3,"n":4},"電源":{"rel5":5.2,"rel20":-12.3,"rel60":-20.5,"n":1}}}}]}</script>
+  <script id="dyn-data" type="application/json">{"benchmark":"加權","tail":20,"tab_order":["sector"],"tabsMeta":{"sector":{"name":"板塊輪動"}},"snapshots":[{"date":"2026-08-04","real":true,"data":{"sector":{"半導體":{"rel5":0.8,"rel20":-2.3,"rel60":-4.0,"n":8},"驅動IC":{"rel5":-0.1,"rel20":-7.8,"rel60":9.6,"n":4},"記憶體":{"rel5":2.7,"rel20":-0.4,"rel60":13.3,"n":6},"AI伺服器":{"rel5":0.4,"rel20":11.0,"rel60":5.2,"n":5},"散熱":{"rel5":2.4,"rel20":0.8,"rel60":-5.2,"n":5},"載板PCB":{"rel5":10.2,"rel20":2.4,"rel60":16.7,"n":5},"光通訊":{"rel5":0.3,"rel20":-4.4,"rel60":-8.0,"n":5},"電源":{"rel5":-0.5,"rel20":-5.4,"rel60":-8.9,"n":2},"被動":{"rel5":-2.1,"rel20":-29.1,"rel60":42.2,"n":3}}}},{"date":"2026-08-05","real":true,"data":{"sector":{"半導體":{"rel5":5.9,"rel20":-5.2,"rel60":-8.2,"n":6},"散熱":{"rel5":9.2,"rel20":1.4,"rel60":-11.8,"n":4},"載板PCB":{"rel5":17.3,"rel20":8.1,"rel60":11.4,"n":5},"AI伺服器":{"rel5":0.7,"rel20":11.4,"rel60":4.4,"n":5},"被動":{"rel5":4.3,"rel20":-42.6,"rel60":47.7,"n":2},"記憶體":{"rel5":10.2,"rel20":0.6,"rel60":10.6,"n":5},"光通訊":{"rel5":11.8,"rel20":-6.9,"rel60":-15.3,"n":2},"驅動IC":{"rel5":2.3,"rel20":-9.5,"rel60":8.3,"n":4},"電源":{"rel5":5.2,"rel20":-12.3,"rel60":-20.5,"n":1}}}}]}</script>
 </div>
 <!-- ═══ /01 板塊動態圖 ═══ -->
 
@@ -1304,26 +1343,6 @@ function sortTbl(th) {
 })();
 </script>
 
-<!-- 關鍵報告摘要
-【台股摘要】2026-08-05
-廣度：吸籌佔比 53.4%（偏多，>40%）；A吸籌 230／D賣超 201；全面 risk-on，漲469跌103、近漲停40:2，非權值獨撐
-強勢股：3231 緯創（電腦及週邊設備業）5日=+20,734萬 月線=+50,208萬；2317 鴻海（其他電子業）5日=+18,269萬 月線=+30,759萬；2357 華碩（電腦及週邊設備業）5日=+5,885萬 月線=+22,581萬；6669 緯穎（電腦及週邊設備業）5日=+3,424萬 月線=+19,833萬；2618 長榮航（航運業）5日=+4,905萬 月線=+19,044萬
-板塊主線：電腦及週邊（AI伺服器ODM 緯創/鴻海/緯穎）月線 +130,236萬領先，載板PCB/記憶體今日價格領攻；半導體權值月線 -349,609萬為最大流出但5日翻買回補
-台積電：月線 -199,791萬（季底回補中，5日翻買 +18,040、今日+3.66%，賣壓被吸收非出逃）；對整體＝權值賣壓解除、指數壓力減輕
-AI主鏈：三圈核心月線仍負（台積電主導）但5日翻買回補；信號流資金淨流入在 驅動IC、散熱防禦，核心運算為最大流出段；領先/回升家數回升
--->
-<!-- 微結構隱藏數據
-【微結構數據】tw-screener 2026-08-05
-強勢鏈條：
-  L1 全球市場：台股
-  L2 強勢板塊：電腦及週邊設備業>金融保險業>航運業
-  L3 強勢個股：3231
-四型分布：A 230／B 101／C 67／D 201
-A型新進：（首建當日不列增減）／掉出：（同上）
-最強板塊：電腦及週邊設備業（AI伺服器ODM）
-D型警示重點：2303 聯電｜月線-36,070萬且5日-19,916萬，中線賣壓未解
-爆量轉弱名單：無（本 CSV 不含成交量，僅列價跌檢核；6488環球晶 1D%-8.4、3131弘塑 -7.68 收黑，待量能確認）
--->
 <!-- ═══ 分享列（固定畫面最下方、永遠可見、不閃爍）自包含注入片段；未來每份報告標配。正本規格見 SKILL-core-render ═══ -->
 <script>
 (function(){
@@ -1350,5 +1369,25 @@ D型警示重點：2303 聯電｜月線-36,070萬且5日-19,916萬，中線賣�
   });
 })();
 </script>
+<!-- 關鍵報告摘要
+【台股摘要】2026-08-05
+廣度：吸籌佔比 53.4%（偏多，>40%）；A吸籌 230／D賣超 201；全面 risk-on，漲469跌103、近漲停40:2，非權值獨撐
+強勢股：3231 緯創（電腦及週邊設備業）5日=+20,734萬 月線=+50,208萬；2317 鴻海（其他電子業）5日=+18,269萬 月線=+30,759萬；2357 華碩（電腦及週邊設備業）5日=+5,885萬 月線=+22,581萬；6669 緯穎（電腦及週邊設備業）5日=+3,424萬 月線=+19,833萬；2618 長榮航（航運業）5日=+4,905萬 月線=+19,044萬
+板塊主線：電腦及週邊（AI伺服器ODM 緯創/鴻海/緯穎）月線 +130,236萬領先，載板PCB/記憶體今日價格領攻；半導體權值月線 -349,609萬為最大流出但5日翻買回補
+台積電：月線 -199,791萬（季底回補中，5日翻買 +18,040、今日+3.66%，賣壓被吸收非出逃）；對整體＝權值賣壓解除、指數壓力減輕
+AI主鏈：三圈核心月線仍負（台積電主導）但5日翻買回補；信號流資金淨流入在 驅動IC、散熱防禦，核心運算為最大流出段；領先/回升家數回升
+-->
+<!-- 微結構隱藏數據
+【微結構數據】tw-screener 2026-08-05
+強勢鏈條：
+  L1 全球市場：台股
+  L2 強勢板塊：電腦及週邊設備業>金融保險業>航運業
+  L3 強勢個股：3231
+四型分布：A 230／B 101／C 67／D 201
+A型新進：（首建當日不列增減）／掉出：（同上）
+最強板塊：電腦及週邊設備業（AI伺服器ODM）
+D型警示重點：2303 聯電｜月線-36,070萬且5日-19,916萬，中線賣壓未解
+爆量轉弱名單：無（本 CSV 不含成交量，僅列價跌檢核；6488環球晶 1D%-8.4、3131弘塑 -7.68 收黑，待量能確認）
+-->
 </body>
 </html>
