@@ -467,7 +467,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
       <div class="dyn-seg"><button id="dyn-w5" class="on">快 5</button><button id="dyn-w20">中 20</button><button id="dyn-w60">慢 60</button></div>
     </div>
     <div style="display:inline-flex;align-items:center;gap:6px"><span class="dyn-seg-lbl">歷史天數</span>
-      <div class="dyn-seg"><button id="dyn-t5">5</button><button id="dyn-t10">10</button><button id="dyn-t20" class="on">20</button></div>
+      <div class="dyn-seg"><button id="dyn-t5" class="on">5</button><button id="dyn-t10">10</button><button id="dyn-t20">20</button></div>
     </div>
   </div>
   <div class="dyn-main">
@@ -1277,7 +1277,7 @@ function sortTbl(th) {
   var raw=document.getElementById('dyn-data').textContent.trim(),DATA=null;
   try{if(raw&&raw.indexOf('{{')!==0)DATA=JSON.parse(raw);}catch(e){DATA=null;}
   if(!DATA||!DATA.snapshots||!DATA.snapshots.length){BOX.innerHTML='<div class="dyn-empty">資料累積中，明日起每日更新。</div>';return;}
-  var TAB=DATA.tab_order[0],WIN=5,TAIL=DATA.tail||20;
+  var TAB=DATA.tab_order[0],WIN=5,TAIL=5;
   var PAL=['#38bdf8','#ec4899','#f59e0b','#34d399','#a78bfa','#ef4444','#22d3ee','#84cc16','#f472b6','#fbbf24','#fb923c'];
   var COL={sector:{'半導體':'#38bdf8','記憶體':'#ec4899','載板PCB':'#f59e0b','散熱':'#34d399','被動':'#a78bfa','AI伺服器':'#ef4444','光通訊':'#22d3ee','驅動IC':'#84cc16','電源':'#f472b6','其他':'#fbbf24'},circle:{},stage:{}};
   function cvar(n){return getComputedStyle(document.body).getPropertyValue(n).trim();}
