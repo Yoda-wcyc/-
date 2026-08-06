@@ -774,11 +774,14 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
 .glossary>summary::before{content:"▶ ";font-size:calc(var(--fs)*.7);}
 .glossary[open]>summary{border-bottom:1px solid var(--border);}
 .glossary[open]>summary::before{content:"▼ ";}
-.gl-wrap{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:16px 28px;}
-@media(max-width:760px){.gl-wrap{grid-template-columns:1fr;}}
-.gl-gh{font-size:calc(var(--fs)*.7);letter-spacing:.14em;text-transform:uppercase;color:#94a3b8;margin-bottom:7px;border-bottom:1px solid var(--border);padding-bottom:4px;}
-.gl-item{font-size:calc(var(--fs)*.76);color:var(--dim);line-height:1.75;margin-bottom:4px;}
-.gl-item b{color:var(--text);font-weight:700;}
+.gl-body{padding:0;}
+.gl-gh{font-size:calc(var(--fs)*.68);letter-spacing:.18em;text-transform:uppercase;color:#94a3b8;background:var(--surface2);padding:8px 14px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-weight:700;}
+.gl-body .gl-gh:first-child{border-top:none;}
+.gl-row{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--border);}
+.gl-row:last-child{border-bottom:none;}
+.gl-term{padding:9px 14px;font-size:calc(var(--fs)*.75);font-weight:700;color:var(--text);background:var(--surface2);border-right:1px solid var(--border);word-break:break-word;}
+.gl-def{padding:9px 16px;font-size:calc(var(--fs)*.75);color:var(--dim);line-height:1.75;}
+@media(max-width:640px){.gl-row{grid-template-columns:100px 1fr;}.gl-term{font-size:calc(var(--fs)*.7);}}
 </style>
 <div id="sec-glossary" class="section-header" style="margin-top:8px">
   <div class="section-num">00</div>
@@ -788,49 +791,43 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
 <div class="sec-note"><span class="tag all">翻成人話</span><br>報告裡的專有名詞都收在這——<b>第一次看先展開對照，把數字背後的意思講白，沒有財經底子也能看懂。</b><br><span style="color:var(--accent)">小提醒：所有表格的欄位標題（Ticker／5D%／WtdAlpha…）都可以<b>點一下排序</b>，點第二下反向。</span></div>
 <details class="glossary">
   <summary>點開名詞對照表（1D%、REL、WtdAlpha、A/B/C 級、新高低、量價綜合怎麼用、動態圖…）</summary>
-  <div class="gl-wrap">
-    <div class="gl-group">
-      <div class="gl-gh">漲跌與強弱指標</div>
-      <div class="gl-item"><b>1D%</b> 今天單日的漲跌幅（今天漲/跌幾 %，絕對值，不跟大盤比）。</div>
-      <div class="gl-item"><b>5D% / 1M% / 3M%</b> 近 5 日 / 近 1 個月 / 近 3 個月的漲跌幅（絕對值，用在「新高+新低池」）。</div>
-      <div class="gl-item"><b>REL5 / REL20 / REL60</b> 相對強度＝這檔近 5 / 20 / 60 日的報酬「減掉大盤」。正的＝跑贏大盤、負的＝跑輸。短線看 REL5、中線 REL20、長線 REL60。</div>
-      <div class="gl-item"><b>WtdAlpha（加權 Alpha）</b> 把不同時間長度的強弱加權、綜合成一個「強度分數」，越高＝整體越強。</div>
-      <div class="gl-item" style="border-left:2px solid var(--accent);padding-left:8px"><b>這裡的「量」是什麼？</b> 本報告的「量」＝<b>WtdAlpha 強度分數</b>，<b>不是</b>成交量、成交金額、也不是成交張數。資料源沒有成交量欄位，改用「強度」當「這檔多受資金追捧」的代理——所以看到「量·強度(WA)」就是在看 WtdAlpha，不是看買賣了多少錢或幾張。</div>
-    </div>
-    <div class="gl-group">
-      <div class="gl-gh">排名與數量</div>
-      <div class="gl-item"><b>Rank / 20R / 60R / 120R</b> 強度排名，0～100，越大越強（Rank 為綜合、其餘對應各時間窗口）。</div>
-      <div class="gl-item"><b>N</b> 這個板塊／分類裡有幾檔股票（成員數）。</div>
-      <div class="gl-gh" style="margin-top:12px">股票池與分級</div>
-      <div class="gl-item"><b>🔥3個月新高 / ❄️3個月新低</b> 創下近 3 個月的新高／新低。02 的池子＝新高（最強）＋新低（最弱）兩群合起來，同時盯兩個極端。</div>
-      <div class="gl-item"><b>A / B / C 級</b> 三條件（REL5、REL20、REL60 都過門檻）全中＝<b>A 級</b>（最強）；REL5+REL20 過＝B 級；只中一項＝C 級觀察池。</div>
-      <div class="gl-item"><b>廣度 / 高低比</b> 市場上漲面有多寬。高低比＝新高家數 ÷ 新低家數，越大＝多方越佔上風。</div>
-    </div>
-    <div class="gl-group">
-      <div class="gl-gh">§02 三軸怎麼用（量價綜合）</div>
-      <div class="gl-item"><b>三個鏡頭</b>　<b>價</b>＝只看純漲跌（5D/1M/3M）；<b>量·強度(WA)</b>＝只看 WtdAlpha 強度（越高越強）；<b>量價綜合</b>＝把「強度」和「漲跌」<b>交叉</b>，找同方向（共振）或反方向（背離）的股票。</div>
-      <div class="gl-item"><b>短 / 中 / 長</b>　同一份清單切三個時間框：短＝近 5 日、中＝近 1 個月、長＝近 3 個月，用來看短中長哪個尺度在動。</div>
-      <div class="gl-item"><b>量優先 / 價優先</b>（量價綜合內）　<b>量優先</b>＝先挑 WtdAlpha 強的、再看它漲不漲；<b>價優先</b>＝先挑漲得多的、再看它強度夠不夠。同一批股票、兩種切入角度。</div>
-      <div class="gl-item"><b>判定邏輯</b>　「量強」＝有站上 3 個月新高（🔥）；「價強」＝該時間框漲跌 &gt;0。兩者交叉出下面三種訊號。</div>
-    </div>
-    <div class="gl-group">
-      <div class="gl-gh">量價綜合訊號</div>
-      <div class="gl-item"><b>★共振</b> 又創新高、短線又在漲（量強＋價強，同方向，最健康）。</div>
-      <div class="gl-item"><b>⚠佈局型</b> 有創新高但短線在回檔（量強、價弱，強勢股休息中）。</div>
-      <div class="gl-item"><b>⚠危險型</b> 還在新低但短線反彈（量弱、價強，弱勢股跳一下，未必轉強）。</div>
-      <div class="gl-item"><b>⚡當日異動</b> 單日大漲/大跌跨門檻。REL5 同步強＝「起漲·觀察」；REL5 弱＝「脈衝·待確認」（可能只是單日跳動）。</div>
-    </div>
-    <div class="gl-group">
-      <div class="gl-gh">板塊 / AI 階段</div>
-      <div class="gl-item"><b>🔥主升 / 🚀啟動 / 🌱萌芽 / ➡️停滯 / 📉轉弱 / ❄️弱勢</b> 板塊或族群在輪動生命週期的位置，由強到弱。</div>
-      <div class="gl-item"><b>AI 三層 / 三圈 / 信號流 8 階段</b> 同一批 AI 股的三種切法——垂直價值鏈三層、由核心往外三圈、訊號實際流經的 8 個硬體階段。</div>
-    </div>
-    <div class="gl-group">
-      <div class="gl-gh">動態圖（§01）</div>
-      <div class="gl-item"><b>象限</b> 右＝比大盤強、左＝弱；上＝動能加速、下＝減速。四象限＝領先／轉強／轉弱／落後。</div>
-      <div class="gl-item"><b>尾巴（半透明點）</b> 這個項目前幾天的位置，看它往哪個方向移動；資料不齊時只畫最近幾天。</div>
-      <div class="gl-item"><b>反應速度 / 歷史天數</b> 反應速度＝用 REL5/20/60 哪個窗口算座標；歷史天數＝尾巴要拉幾天（5/10/20）。</div>
-    </div>
+  <div class="gl-body">
+    <div class="gl-gh">漲跌與強弱指標</div>
+    <div class="gl-row"><div class="gl-term">1D%</div><div class="gl-def">今天單日的漲跌幅（今天漲/跌幾 %，絕對值，不跟大盤比）。</div></div>
+    <div class="gl-row"><div class="gl-term">5D% / 1M% / 3M%</div><div class="gl-def">近 5 日 / 近 1 個月 / 近 3 個月的漲跌幅（絕對值，用在「新高+新低池」）。</div></div>
+    <div class="gl-row"><div class="gl-term">REL5 / REL20 / REL60</div><div class="gl-def">相對強度＝這檔近 5 / 20 / 60 日的報酬「減掉大盤」。正＝跑贏大盤、負＝跑輸。短線看 REL5、中線 REL20、長線 REL60。</div></div>
+    <div class="gl-row"><div class="gl-term">WtdAlpha（加權 Alpha）</div><div class="gl-def">把不同時間長度的強弱加權、綜合成一個「強度分數」，越高＝整體越強。</div></div>
+    <div class="gl-row"><div class="gl-term" style="color:var(--accent)">「量」是什麼？</div><div class="gl-def">本報告的「量」＝<b>WtdAlpha 強度分數</b>，<b>不是</b>成交量、成交金額、也不是成交張數。資料源沒有成交量欄位，改用「強度」當「這檔多受資金追捧」的代理——看到「量·強度(WA)」就是在看 WtdAlpha，不是看買賣了多少錢或幾張。</div></div>
+
+    <div class="gl-gh">排名與數量</div>
+    <div class="gl-row"><div class="gl-term">Rank / 20R / 60R / 120R</div><div class="gl-def">強度排名，0～100，越大越強（Rank 為綜合、其餘對應各時間窗口）。</div></div>
+    <div class="gl-row"><div class="gl-term">N</div><div class="gl-def">這個板塊／分類裡有幾檔股票（成員數）。</div></div>
+
+    <div class="gl-gh">股票池與分級</div>
+    <div class="gl-row"><div class="gl-term">🔥3個月新高<br>❄️3個月新低</div><div class="gl-def">創下近 3 個月的新高／新低。02 的池子＝新高（最強）＋新低（最弱）合起來，同時盯兩個極端。</div></div>
+    <div class="gl-row"><div class="gl-term">A / B / C 級</div><div class="gl-def">三條件（REL5、REL20、REL60 都過門檻）全中＝<b>A 級</b>（最強）；REL5+REL20 過＝B 級；只中一項＝C 級觀察池。</div></div>
+    <div class="gl-row"><div class="gl-term">廣度 / 高低比</div><div class="gl-def">市場上漲面有多寬。高低比＝新高家數 ÷ 新低家數，越大＝多方越佔上風。</div></div>
+
+    <div class="gl-gh">§02 三軸怎麼用（量價綜合）</div>
+    <div class="gl-row"><div class="gl-term">三個鏡頭</div><div class="gl-def"><b>價</b>＝只看純漲跌（5D/1M/3M）；<b>量·強度(WA)</b>＝只看 WtdAlpha 強度（越高越強）；<b>量價綜合</b>＝把強度和漲跌<b>交叉</b>，找同方向（共振）或反方向（背離）的股票。</div></div>
+    <div class="gl-row"><div class="gl-term">短 / 中 / 長</div><div class="gl-def">同一份清單切三個時間框：短＝近 5 日、中＝近 1 個月、長＝近 3 個月，用來看短中長哪個尺度在動。</div></div>
+    <div class="gl-row"><div class="gl-term">量優先 / 價優先</div><div class="gl-def"><b>量優先</b>＝先挑 WtdAlpha 強的、再看它漲不漲；<b>價優先</b>＝先挑漲得多的、再看它強度夠不夠。同一批股票、兩種切入角度。</div></div>
+    <div class="gl-row"><div class="gl-term">判定邏輯</div><div class="gl-def">「量強」＝有站上 3 個月新高（🔥）；「價強」＝該時間框漲跌 &gt;0。兩者交叉出下面三種訊號。</div></div>
+
+    <div class="gl-gh">量價綜合訊號</div>
+    <div class="gl-row"><div class="gl-term">★共振</div><div class="gl-def">又創新高、短線又在漲（量強＋價強，同方向，最健康）。</div></div>
+    <div class="gl-row"><div class="gl-term">⚠佈局型</div><div class="gl-def">有創新高但短線在回檔（量強、價弱，強勢股休息中）。</div></div>
+    <div class="gl-row"><div class="gl-term">⚠危險型</div><div class="gl-def">還在新低但短線反彈（量弱、價強，弱勢股跳一下，未必轉強）。</div></div>
+    <div class="gl-row"><div class="gl-term">⚡當日異動</div><div class="gl-def">單日大漲/大跌跨門檻。REL5 同步強＝「起漲·觀察」；REL5 弱＝「脈衝·待確認」（可能只是單日跳動）。</div></div>
+
+    <div class="gl-gh">板塊 / AI 階段</div>
+    <div class="gl-row"><div class="gl-term">🔥主升 / 🚀啟動<br>🌱萌芽 / ➡️停滯<br>📉轉弱 / ❄️弱勢</div><div class="gl-def">板塊或族群在輪動生命週期的位置，由強到弱。</div></div>
+    <div class="gl-row"><div class="gl-term">AI 三層 / 三圈 / 信號流</div><div class="gl-def">同一批 AI 股的三種切法——垂直價值鏈三層、由核心往外三圈、訊號實際流經的 8 個硬體階段。</div></div>
+
+    <div class="gl-gh">動態圖（§01）</div>
+    <div class="gl-row"><div class="gl-term">象限</div><div class="gl-def">右＝比大盤強、左＝弱；上＝動能加速、下＝減速。四象限＝領先／轉強／轉弱／落後。</div></div>
+    <div class="gl-row"><div class="gl-term">尾巴（半透明點）</div><div class="gl-def">這個項目前幾天的位置，看它往哪個方向移動；資料不齊時只畫最近幾天。</div></div>
+    <div class="gl-row"><div class="gl-term">反應速度 / 歷史天數</div><div class="gl-def">反應速度＝用 REL5/20/60 哪個窗口算座標；歷史天數＝尾巴要拉幾天（5/10/20）。</div></div>
   </div>
 </details>
 
