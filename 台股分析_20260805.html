@@ -405,56 +405,53 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
 
 <!-- ═══ 00 名詞與使用說明（靜態·母板固定；每份台股報告皆含）═══ -->
 <style>
-.glossary{margin-bottom:26px;font-family:var(--fb);}
-.gl-lead{font-size:calc(var(--fs)*.8);color:var(--text);background:rgba(0,200,240,.08);border:1px solid rgba(0,200,240,.22);border-left:3px solid var(--accent);border-radius:6px;padding:11px 15px;margin-bottom:18px;line-height:1.7;}
-.gl-lead b{color:var(--accent);}
-.gl-grp{margin-bottom:16px;}
-.gl-h{font-size:calc(var(--fs)*.6);letter-spacing:.06em;color:var(--accent);font-family:var(--fm);text-transform:uppercase;margin:0 0 8px;padding-left:2px;}
-.gl-table{display:grid;grid-template-columns:176px 1fr;border:1px solid var(--border);border-radius:7px;overflow:hidden;}
-.gl-table>div{padding:9px 14px;border-top:1px solid var(--border);font-size:calc(var(--fs)*.72);line-height:1.65;}
-.gl-table>div:nth-child(1),.gl-table>div:nth-child(2){border-top:none;}
-.gl-k{background:rgba(0,200,240,.05);color:var(--accent);font-weight:600;font-family:var(--fm);border-right:1px solid var(--border);display:flex;align-items:flex-start;}
-.gl-v{color:var(--text);}
-.gl-v .warn{color:var(--yellow);}
-.gl-v .zg{color:var(--green);} .gl-v .zr{color:var(--red);} .gl-v .zy{color:var(--yellow);} .gl-v .zo{color:var(--orange);}
-@media(max-width:640px){.gl-table{grid-template-columns:100px 1fr;}.gl-table>div{padding:7px 9px;}}
+/* §00 名詞解釋：兩欄 term｜內容（統一 core-render B-11，對齊美股/MW） */
+.glossary{border:1px solid var(--border);background:var(--surface);margin-bottom:26px;font-family:var(--fb);}
+.glossary>summary{cursor:pointer;padding:11px 16px;font-size:calc(var(--fs)*.82);color:var(--accent);font-weight:600;list-style:none;user-select:none;}
+.glossary>summary::-webkit-details-marker{display:none;}
+.glossary>summary::before{content:"▶ ";font-size:calc(var(--fs)*.7);}
+.glossary[open]>summary::before{content:"▼ ";}
+.glossary[open]>summary{border-bottom:1px solid var(--border);}
+.gl-intro{font-size:calc(var(--fs)*.8);color:var(--text);background:rgba(0,200,240,.08);border:1px solid rgba(0,200,240,.22);border-left:3px solid var(--accent);border-radius:6px;padding:11px 15px;margin-bottom:16px;line-height:1.7;}
+.gl-intro b{color:var(--accent);}
+.gl-body{padding:0;}
+.gl-gh{font-size:calc(var(--fs)*.68);letter-spacing:.18em;text-transform:uppercase;color:#94a3b8;background:var(--surface2);padding:8px 14px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-weight:700;}
+.gl-body .gl-gh:first-child{border-top:none;}
+.gl-row{display:grid;grid-template-columns:176px 1fr;border-bottom:1px solid var(--border);}
+.gl-row:last-child{border-bottom:none;}
+.gl-term{padding:9px 14px;font-size:calc(var(--fs)*.75);font-weight:700;color:var(--text);background:var(--surface2);border-right:1px solid var(--border);word-break:break-word;}
+.gl-def{padding:9px 16px;font-size:calc(var(--fs)*.75);color:var(--dim);line-height:1.75;}
+.gl-def b{color:var(--text);}
+.gl-def .warn{color:var(--yellow);}
+.gl-def .zg{color:var(--green);} .gl-def .zr{color:var(--red);} .gl-def .zy{color:var(--yellow);} .gl-def .zo{color:var(--orange);}
+@media(max-width:640px){.gl-row{grid-template-columns:104px 1fr;}.gl-term{font-size:calc(var(--fs)*.7);}}
 </style>
 <div id="sec-guide" class="section-header">
   <div class="section-num">00</div>
   <div><div class="section-title">名詞與使用說明</div>
   <div class="section-desc">Glossary · 看報告前先讀這裡（口徑、欄位、量價鏡頭怎麼用）</div></div>
 </div>
-<div class="glossary">
-  <div class="gl-lead">📌 <b>資料口徑（最重要）</b>：本報告講的「量」一律是 <b>三大法人（外資＋投信＋自營）買賣超「金額」，單位＝萬元</b>，<b>不是</b>成交張數、也不是成交量。數字為正＝法人淨買超金額、負＝淨賣超；例：「5日(萬) +20,734」＝近 5 個交易日三大法人合計淨買超 2 億 734 萬元。</div>
+<div class="gl-intro">📌 <b>資料口徑（最重要）</b>：本報告講的「量」一律是 <b>三大法人（外資＋投信＋自營）買賣超「金額」，單位＝萬元</b>，<b>不是</b>成交張數、也不是成交量。數字為正＝法人淨買超金額、負＝淨賣超；例：「5日(萬) +20,734」＝近 5 個交易日三大法人合計淨買超 2 億 734 萬元。</div>
+<details class="glossary">
+  <summary>點開名詞對照表（口徑、欄位、位階、量／價／量價綜合 × 短中長怎麼用）</summary>
+  <div class="gl-body">
+    <div class="gl-gh">欄位定義</div>
+    <div class="gl-row"><div class="gl-term">當日/5日/月線/季線(萬)</div><div class="gl-def">近 1／5／20（約 1 月）／60（約 3 月）交易日，三大法人「累計買賣超金額」（萬元）。</div></div>
+    <div class="gl-row"><div class="gl-term">1D%</div><div class="gl-def">當日股價漲跌幅（%）。</div></div>
+    <div class="gl-row"><div class="gl-term">REL5 / REL20 / REL60</div><div class="gl-def">相對強度＝這支「贏大盤（加權指數）幾 %」，正＝跑贏、負＝跑輸（<b>抗跌也算贏</b>），分別是近 5 日／約 1 月／約 3 月。<span class="warn">⚠ 不是「漲多少」，是「比大盤多漲／多跌多少」——漲最多的不一定 REL 最強。</span></div></div>
+    <div class="gl-row"><div class="gl-term">位階</div><div class="gl-def">用「月線 × 5日」兩軸判法人態度：<span class="zg">🔥領先</span>＝月線與 5 日都在買；<span class="zg">🌱回升</span>＝月線還在賣但 5 日翻買（轉折）；<span class="zy">⚠衰退</span>＝月線還在買但 5 日轉賣（動能減弱）；<span class="zr">❄落後</span>＝月線與 5 日都在賣。</div></div>
 
-  <div class="gl-grp">
-    <div class="gl-h">欄位定義</div>
-    <div class="gl-table">
-      <div class="gl-k">當日/5日/月線/季線(萬)</div><div class="gl-v">近 1／5／20（約 1 月）／60（約 3 月）交易日，三大法人「累計買賣超金額」（萬元）。</div>
-      <div class="gl-k">1D%</div><div class="gl-v">當日股價漲跌幅（%）。</div>
-      <div class="gl-k">REL5 / REL20 / REL60</div><div class="gl-v">相對強度＝這支「贏大盤（加權指數）幾 %」，正＝跑贏、負＝跑輸（<b>抗跌也算贏</b>），分別是近 5 日／約 1 月／約 3 月。<span class="warn">⚠ 不是「漲多少」，是「比大盤多漲／多跌多少」——漲最多的不一定 REL 最強。</span></div>
-      <div class="gl-k">位階</div><div class="gl-v">用「月線 × 5日」兩軸判法人態度：<span class="zg">🔥領先</span>＝月線與 5 日都在買；<span class="zg">🌱回升</span>＝月線還在賣但 5 日翻買（轉折）；<span class="zy">⚠衰退</span>＝月線還在買但 5 日轉賣（動能減弱）；<span class="zr">❄落後</span>＝月線與 5 日都在賣。</div>
-    </div>
-  </div>
+    <div class="gl-gh">操作提醒</div>
+    <div class="gl-row"><div class="gl-term">點欄名排序</div><div class="gl-def">所有可展開表格，<b>點欄位名稱可排序</b>（再點一次切升／降）——想看誰賣最凶就點「月線(萬)」、想看誰最強就點「REL5」。卡片點一下展開，同一區塊一次只開一張。</div></div>
 
-  <div class="gl-grp">
-    <div class="gl-h">操作提醒</div>
-    <div class="gl-table">
-      <div class="gl-k">點欄名排序</div><div class="gl-v">所有可展開表格，<b>點欄位名稱可排序</b>（再點一次切升／降）——想看誰賣最凶就點「月線(萬)」、想看誰最強就點「REL5」。卡片點一下展開，同一區塊一次只開一張。</div>
-    </div>
+    <div class="gl-gh">量 / 價 / 量價綜合 × 短中長（§02 三個鏡頭怎麼用）</div>
+    <div class="gl-row"><div class="gl-term">量</div><div class="gl-def">三大法人拿真金白銀在買什麼（買賣超金額）——看<b>籌碼</b>。</div></div>
+    <div class="gl-row"><div class="gl-term">價</div><div class="gl-def">價格相對大盤誰在漲（REL）——跟法人買不買無關，看<b>動能</b>。</div></div>
+    <div class="gl-row"><div class="gl-term">量價綜合</div><div class="gl-def">把量與價擺一起看一不一致：<span class="zg">★共振</span>＝法人買且價也在漲（最高確信）；<span class="zy">⚠背離</span>＝法人買但還沒漲（佈局型）或漲了但法人沒買（追高、缺籌碼支撐）。</div></div>
+    <div class="gl-row"><div class="gl-term">短 / 中 / 長</div><div class="gl-def">相鄰兩尺度交叉看、單一尺度不下結論。<b>量</b>：短＝5日／中＝10日／長＝月線；<b>價</b>：短＝REL5／中＝REL20／長＝REL60；<b>量價綜合</b>：短＝5日量＋REL5／中＝10日量＋REL20／長＝月量＋REL60。</div></div>
+    <div class="gl-row"><div class="gl-term">量優先 / 價優先</div><div class="gl-def">只改排序：<b>量優先</b>＝在法人買的裡面挑價格最強的；<b>價優先</b>＝在漲的裡面挑法人也在買的。</div></div>
   </div>
-
-  <div class="gl-grp">
-    <div class="gl-h">量 / 價 / 量價綜合 × 短中長（§02 三個鏡頭怎麼用）</div>
-    <div class="gl-table">
-      <div class="gl-k">量</div><div class="gl-v">三大法人拿真金白銀在買什麼（買賣超金額）——看<b>籌碼</b>。</div>
-      <div class="gl-k">價</div><div class="gl-v">價格相對大盤誰在漲（REL）——跟法人買不買無關，看<b>動能</b>。</div>
-      <div class="gl-k">量價綜合</div><div class="gl-v">把量與價擺一起看一不一致：<span class="zg">★共振</span>＝法人買且價也在漲（最高確信）；<span class="zy">⚠背離</span>＝法人買但還沒漲（佈局型）或漲了但法人沒買（追高、缺籌碼支撐）。</div>
-      <div class="gl-k">短 / 中 / 長</div><div class="gl-v">相鄰兩尺度交叉看、單一尺度不下結論。<b>量</b>：短＝5日／中＝10日／長＝月線；<b>價</b>：短＝REL5／中＝REL20／長＝REL60；<b>量價綜合</b>：短＝5日量＋REL5／中＝10日量＋REL20／長＝月量＋REL60。</div>
-      <div class="gl-k">量優先 / 價優先</div><div class="gl-v">只改排序：<b>量優先</b>＝在法人買的裡面挑價格最強的；<b>價優先</b>＝在漲的裡面挑法人也在買的。</div>
-    </div>
-  </div>
-</div>
+</details>
 
 <!-- ═══ 01 板塊動態圖（帳本 JSON 由每日流程注入 script#dyn-data；讀者不可見）═══ -->
 <div id="sec-dyn" class="section-header">
