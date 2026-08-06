@@ -356,7 +356,7 @@
         <input id="oldPw" type="password" autocomplete="current-password" placeholder="目前密碼" />
         <button type="button" class="pw-eye" onclick="eyeToggle('oldPw',this)">👁</button>
       </div>
-      <label>新密碼（至少 6 個字，需含英文字母與數字）</label>
+      <label>新密碼（至少 6 個字，需含英文字母與數字；請設一組你沒在別處用過的，避免被 Google 判定外洩）</label>
       <div class="pw-wrap">
         <input id="newPw" type="password" autocomplete="new-password" placeholder="新密碼" />
         <button type="button" class="pw-eye" onclick="eyeToggle('newPw',this)">👁</button>
@@ -479,6 +479,8 @@
     var oldPw=(el('oldPw').value||'').trim(), newPw=(el('newPw').value||'').trim();
     var msg=el('pwMsg'), btn=el('pwBtn'); msg.className='msg';
     if(!oldPw||!newPw){msg.textContent='請輸入目前密碼與新密碼';return;}
+    var COMMON=['password','password1','123456','1234567','12345678','123456789','111111','000000','abc123','abc12345','a123456','qwerty','qwerty123','iloveyou','admin','letmein','welcome','yoda123','yoda1234','test123','test1234'];
+    if(COMMON.indexOf(newPw.toLowerCase())>=0||/^(.)\1{5,}$/.test(newPw)){msg.textContent='這組新密碼太常見、容易被 Google 標記外洩，請換一組你沒用過的';return;}
     btn.disabled=true;msg.className='msg ok';msg.textContent='更新中…';
     fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'changePassword',email:email,oldPassword:oldPw,newPassword:newPw})})
       .then(function(r){return r.json();})
