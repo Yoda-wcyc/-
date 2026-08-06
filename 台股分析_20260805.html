@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yoda 台股分析 | 2026-08-05</title>
 <style>
-:root{--fs:24px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#00c8f0;--green:#00c896;--red:#ff3d5a;--yellow:#f0c040;--orange:#ff8040;--fan-bg:#b8960a;--fan-bg-hover:#ffd700;--fan-text:#1a1200;--fan-text-hover:#000;--fan-glow:rgba(255,215,0,.35);--fan-glow-hover:rgba(255,215,0,.75);--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
+:root{--fs:24px;--bg:#080b10;--surface:#0d1118;--surface2:#121820;--border:#1c2330;--text:#b8c8d8;--dim:#405060;--accent:#7f9fc6;--green:#5cae88;--red:#cf6f72;--yellow:#f0c040;--orange:#ff8040;--fan-bg:#b8960a;--fan-bg-hover:#ffd700;--fan-text:#1a1200;--fan-text-hover:#000;--fan-glow:rgba(255,215,0,.35);--fan-glow-hover:rgba(255,215,0,.75);--fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;--fm:'SF Mono','Consolas','Monaco','Courier New',monospace;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;
   display:grid;grid-template-columns:230px 1fr;min-height:100vh;}
@@ -39,7 +39,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
 .ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
 .ctrl-btn{font-family:var(--fb);font-size:calc(var(--fs)*.5);font-weight:600;color:var(--dim);background:transparent;border:none;border-radius:5px;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
 .ctrl-btn:hover{background:var(--surface2);color:var(--text)}
-.ctrl-btn.active{background:var(--accent);color:#fff;font-weight:600}
+.ctrl-btn.active{background:var(--accent);color:var(--bg);font-weight:600}
 
 /* ===== 舊 Control Bar（保留不影響新版）===== */
 .fc{
@@ -55,7 +55,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
   background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;
 }
 .fb:hover{color:var(--text);background:var(--surface2);}
-.fb.on{color:#00c8f0;background:rgba(0,200,240,.15);}
+.fb.on{color:#7f9fc6;background:rgba(0,200,240,.15);}
 
 /* 粉專按鈕（外殼標準：中性 pill，2026-07-31 由藍改灰對齊 MW/US） */
 .ctrl-fan{
@@ -112,7 +112,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
 /* ── dist-badge ── */
 .dist-row{display:flex;gap:10px;flex-wrap:wrap;padding:10px 0;margin-bottom:8px;}
 .dist-badge{padding:4px 12px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;}
-.dist-badge.a{background:rgba(0,200,150,.15);color:#00c896;}
+.dist-badge.a{background:rgba(0,200,150,.15);color:#5cae88;}
 .dist-badge.b{background:rgba(14,165,233,.15);color:#0ea5e9;}
 .dist-badge.c{background:rgba(240,192,64,.15);color:#f0c040;}
 /* ── AI三層 (ailayer3) ── */
@@ -147,7 +147,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
 .qp-ctrl{display:flex;align-items:center;gap:8px;margin:10px 0 6px;}
 .qp-list{margin:0 0 12px;}
 .qp-list-hdr{font-size:calc(var(--fs)*.8);font-weight:700;padding:8px 4px;border-bottom:1px solid var(--border);margin-bottom:4px;}
-.qp-list-hdr.res{color:#00c896;}
+.qp-list-hdr.res{color:#5cae88;}
 .qp-list-hdr.div{color:#ff8040;}
 .qp-order{display:none;}
 .qp-order.on{display:block;}
@@ -216,7 +216,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
 .ccard{background:var(--bg);display:flex;flex-direction:column;cursor:pointer;align-self:start;}
 .ccard-hdr{padding:10px 12px;transition:filter .12s;border-bottom:1px solid var(--border);}
 .ccard:hover .ccard-hdr{filter:brightness(1.2);}
-.ccard.ca .ccard-hdr{border-left:3px solid #00c896;}
+.ccard.ca .ccard-hdr{border-left:3px solid #5cae88;}
 .ccard.cb .ccard-hdr{border-left:3px solid #0ea5e9;}
 .ccard.cc .ccard-hdr{border-left:3px solid #f0c040;}
 .ccard.cd .ccard-hdr{border-left:3px solid #ff8040;}
@@ -225,7 +225,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
 .ccard.cc.sel .ccard-hdr{background:rgba(240,192,64,.1);border-left-width:4px;}
 .ccard.cd.sel .ccard-hdr{background:rgba(255,128,64,.1);border-left-width:4px;}
 .ccard-pattern{font-size:calc(var(--fs)*.8);font-weight:700;letter-spacing:.05em;margin-bottom:3px;}
-.ccard.ca .ccard-pattern{color:#00c896;}
+.ccard.ca .ccard-pattern{color:#5cae88;}
 .ccard.cb .ccard-pattern{color:#0ea5e9;}
 .ccard.cc .ccard-pattern{color:#f0c040;}
 .ccard.cd .ccard-pattern{color:#ff8040;}
@@ -239,7 +239,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
 .ccard-tri.breathing{animation:breathe 2s ease-in-out infinite;}
 .chip-panel{display:none;background:var(--surface2);border:1px solid var(--border);border-top:2px solid;animation:sd .2s ease;overflow-x:auto;}
 .chip-panel.open{display:block;}
-.chip-panel.pA{border-top-color:#00c896;}
+.chip-panel.pA{border-top-color:#5cae88;}
 .chip-panel.pB{border-top-color:#0ea5e9;}
 .chip-panel.pC{border-top-color:#f0c040;}
 .chip-panel.pD{border-top-color:#ff8040;}
@@ -256,7 +256,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
 .ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
 .ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
 /* ── Light theme ── */
-body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#4a6d94;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
 @media(max-width:900px){.chip4{grid-template-columns:repeat(2,1fr);}.ailayer3{grid-template-columns:1fr;}}
 </style>
   <!-- ══ Copy Protection ══ -->
@@ -274,8 +274,8 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
 .etf-card-ticker{font-size:calc(var(--fs)*.92);font-weight:700;color:var(--text);margin-bottom:3px;font-family:var(--fm);}
 .etf-card-name{font-size:calc(var(--fs)*.78);color:var(--dim);margin-bottom:10px;}
 .etf-signal{display:inline-block;padding:3px 10px;border-radius:4px;font-size:calc(var(--fs)*.82);font-weight:700;margin-bottom:10px;}
-.etf-signal.bull{background:rgba(0,200,150,.15);color:#00c896;}
-.etf-signal.bear{background:rgba(255,61,90,.12);color:#ff3d5a;}
+.etf-signal.bull{background:rgba(0,200,150,.15);color:#5cae88;}
+.etf-signal.bear{background:rgba(255,61,90,.12);color:#cf6f72;}
 .etf-signal.obs{background:rgba(240,192,64,.12);color:#f0c040;}
 .etf-rows{display:flex;flex-direction:column;gap:5px;}
 .etf-row{display:flex;justify-content:space-between;font-size:calc(var(--fs)*.82);}
@@ -294,7 +294,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
 .dyn-ctrl{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
 .dyn-seg{display:inline-flex;background:var(--surface2);border:1px solid var(--border);border-radius:9px;overflow:hidden}
 .dyn-seg button{font-family:var(--fb);font-size:calc(var(--fs)*.5);background:transparent;color:var(--dim);border:none;padding:7px 15px;cursor:pointer;transition:all .15s}
-.dyn-seg button.on{background:var(--accent);color:#fff}
+.dyn-seg button.on{background:var(--accent);color:var(--bg)}
 .dyn-seg-lbl{font-family:var(--fb);font-size:calc(var(--fs)*.44);color:var(--dim);align-self:center;margin-right:2px}
 .dyn-main{display:flex;gap:18px;align-items:stretch}
 .dyn-box{flex:1 1 0;min-width:0;background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:10px}
@@ -567,7 +567,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
       <div class="ccard-pattern">全面吸籌</div>
       <div class="ccard-count">230 檔</div>
       <div class="ccard-brief">月線＋5日同買</div>
-      <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#00c896;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
+      <div class="ccard-hint"><span class="ccard-tri breathing" style="color:#5cae88;">▼</span><span class="ccard-hint-txt">點擊展開</span></div>
     </div>
   </div>
   <div class="ccard cb" data-id="B" onclick="selectChipCard('B')">
@@ -1078,7 +1078,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
   <div class="section-desc">0050 / 00631L / 00632R｜三大法人週線累積方向 × 大盤趨勢研判</div></div>
 </div>
 <div class="etf-signal-wrap">
-<div class="etf-card"><div class="etf-card-ticker">0050</div><div class="etf-card-name">元大台灣50<br><span style="opacity:.6">大盤多空直接代理</span></div><div class="etf-signal obs">🌱轉向回補</div><div class="etf-rows"><div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cg">+8,804</span></div><div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cg">+1,910</span></div><div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cr">-161,224</span></div><div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cr">-323,014</span></div></div></div><div class="etf-card"><div class="etf-card-ticker">00631L</div><div class="etf-card-name">元大台灣50正2<br><span style="opacity:.6">槓桿多頭部位指標</span></div><div class="etf-signal obs">🌱轉向回補</div><div class="etf-rows"><div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cg">+6,152</span></div><div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cg">+4,425</span></div><div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cr">-38,333</span></div><div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cr">-118,613</span></div></div></div><div class="etf-card"><div class="etf-card-ticker">00632R</div><div class="etf-card-name">元大台灣50反1<br><span style="opacity:.6">避險需求指標（買超=實質偏空）</span></div><div class="etf-signal bull">🌱避險縮減（實質偏多）</div><div class="etf-rows"><div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cr">-1,042</span></div><div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cr">-2,362</span></div><div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cg">+2,447</span></div><div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cg">+1,473</span></div></div></div><div class="etf-verdict" style="border-left-color:#00c896;"><div class="verdict-label">綜合研判</div><b style="color:#00c896;font-size:calc(var(--fs)*.95);">🟢 偏多回補</b>　0050／槓桿 00631L 週線同步翻買、避險 00632R 遭賣（避險縮減），月線賣壓收斂中。守法人月線仍為負屬「回補起點」，非「加碼確立」，盯是否延續。</div>
+<div class="etf-card"><div class="etf-card-ticker">0050</div><div class="etf-card-name">元大台灣50<br><span style="opacity:.6">大盤多空直接代理</span></div><div class="etf-signal obs">🌱轉向回補</div><div class="etf-rows"><div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cg">+8,804</span></div><div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cg">+1,910</span></div><div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cr">-161,224</span></div><div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cr">-323,014</span></div></div></div><div class="etf-card"><div class="etf-card-ticker">00631L</div><div class="etf-card-name">元大台灣50正2<br><span style="opacity:.6">槓桿多頭部位指標</span></div><div class="etf-signal obs">🌱轉向回補</div><div class="etf-rows"><div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cg">+6,152</span></div><div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cg">+4,425</span></div><div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cr">-38,333</span></div><div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cr">-118,613</span></div></div></div><div class="etf-card"><div class="etf-card-ticker">00632R</div><div class="etf-card-name">元大台灣50反1<br><span style="opacity:.6">避險需求指標（買超=實質偏空）</span></div><div class="etf-signal bull">🌱避險縮減（實質偏多）</div><div class="etf-rows"><div class="etf-row"><span class="lbl">當日(萬)</span><span class="val cr">-1,042</span></div><div class="etf-row"><span class="lbl">5日(萬)</span><span class="val cr">-2,362</span></div><div class="etf-row"><span class="lbl">月線(萬)</span><span class="val cg">+2,447</span></div><div class="etf-row"><span class="lbl">季線(萬)</span><span class="val cg">+1,473</span></div></div></div><div class="etf-verdict" style="border-left-color:#5cae88;"><div class="verdict-label">綜合研判</div><b style="color:#5cae88;font-size:calc(var(--fs)*.95);">🟢 偏多回補</b>　0050／槓桿 00631L 週線同步翻買、避險 00632R 遭賣（避險縮減），月線賣壓收斂中。守法人月線仍為負屬「回補起點」，非「加碼確立」，盯是否延續。</div>
 </div>
 </div>
 

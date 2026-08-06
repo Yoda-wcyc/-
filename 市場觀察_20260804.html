@@ -17,7 +17,7 @@
   --fs:24px;
   --bg:#080b10; --surface:#0d1118; --surface2:#121820; --border:#1c2330;
   --text:#b8c8d8; --dim:#405060;
-  --accent:#00c8f0; --green:#00c896; --red:#ff3d5a; --yellow:#f0c040; --orange:#ff8040;
+  --accent:#7f9fc6; --green:#5cae88; --red:#cf6f72; --yellow:#f0c040; --orange:#ff8040;
   --fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;
   --fm:'SF Mono','Consolas','Monaco','Courier New',monospace;
 
@@ -87,7 +87,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(
 /* 版面 */
 .wrap{max-width:1200px;margin:0 auto;padding:22px 40px 64px;}
 .sec{margin-bottom:34px;}
-.sec-lbl{background:linear-gradient(90deg,rgba(0,212,170,.14) 0%,transparent 100%);border-left:4px solid var(--teal,#00d4aa);padding:11px 16px;font-size:calc(var(--fs)*1.08);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--text);margin-bottom:2px;}
+.sec-lbl{background:linear-gradient(90deg,rgba(0,212,170,.14) 0%,transparent 100%);border-left:4px solid var(--teal,#6f9d97);padding:11px 16px;font-size:calc(var(--fs)*1.08);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--text);margin-bottom:2px;}
 
 /* 溫度條 */
 .temp-bar-wrap{margin-bottom:20px;}
@@ -137,8 +137,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(
 .det{display:none;background:var(--surface2);border-top:1px solid var(--border);padding:15px 17px;animation:sd .17s ease;grid-column:1/-1;}
 .det.open{display:block;}
 .det-sub{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;margin-top:14px;}
-.sumbox{font-size:calc(var(--fs)*.88);font-weight:700;padding:10px;border-radius:0 4px 4px 0;margin-bottom:12px;border-left:3px solid var(--teal,#00d4aa);}
-.sumbox-g{background:rgba(0,212,170,.07);border-left-color:var(--teal,#00d4aa);}
+.sumbox{font-size:calc(var(--fs)*.88);font-weight:700;padding:10px;border-radius:0 4px 4px 0;margin-bottom:12px;border-left:3px solid var(--teal,#6f9d97);}
+.sumbox-g{background:rgba(0,212,170,.07);border-left-color:var(--teal,#6f9d97);}
 .sumbox-r{background:rgba(239,68,68,.07);border-left-color:var(--red);}
 .rate-box{background:rgba(255,61,90,.05);border:1px solid rgba(255,61,90,.2);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:12px;font-family:var(--fb);font-size:calc(var(--fs)*.92);line-height:1.8;border-radius:4px;}
 
@@ -171,9 +171,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(
 .mini-chart-wrap{margin:8px 0 6px;}
 .mini-chart-legend{display:flex;gap:12px;font-size:calc(var(--fs)*.72);margin-bottom:4px;font-family:var(--fm);}
 .mini-chart-legend span{display:flex;align-items:center;gap:4px;}
-.mini-chart-legend .dot-r{width:8px;height:2px;background:#ff3d5a;display:inline-block;}
+.mini-chart-legend .dot-r{width:8px;height:2px;background:#cf6f72;display:inline-block;}
 .mini-chart-legend .dot-y{width:8px;height:2px;background:#f0c040;display:inline-block;}
-.mini-chart-legend .dot-b{width:8px;height:2px;background:#00c8f0;display:inline-block;}
+.mini-chart-legend .dot-b{width:8px;height:2px;background:#7f9fc6;display:inline-block;}
 .mini-chart-canvas{width:100%;height:54px;display:block;border-radius:4px;background:rgba(255,255,255,.03);}
 .sc-tk{font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);}
 .sc-rk{font-size:calc(var(--fs)*.82);}
@@ -301,7 +301,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(
 .ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
 
 /* 深/淺色 */
-body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;;--nav-light-bg:#ffffff}
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#4a6d94;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;;--nav-light-bg:#ffffff}
 body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
 
 /* 粉專按鈕（總控 B-3） */
@@ -412,7 +412,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
 .dyn-ctrl{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
 .dyn-seg{display:inline-flex;background:var(--surface2);border:1px solid var(--border);border-radius:9px;overflow:hidden}
 .dyn-seg button{font-family:var(--fb);font-size:calc(var(--fs)*.5);background:transparent;color:var(--dim);border:none;padding:7px 15px;cursor:pointer;transition:all .15s}
-.dyn-seg button.on{background:var(--accent);color:#fff}
+.dyn-seg button.on{background:var(--accent);color:var(--bg)}
 .dyn-seg-lbl{font-family:var(--fb);font-size:calc(var(--fs)*.44);color:var(--dim);align-self:center;margin-right:2px}
 .dyn-main{display:flex;gap:18px;align-items:stretch}
 .dyn-box{flex:1 1 0;min-width:0;background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:10px}
@@ -583,7 +583,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
   <div class="temp-bar-wrap">
     <div class="temp-bar-header">
       <span class="temp-bar-name">Risk-on / off</span>
-      <span class="temp-bar-label" style="color:#00d4aa;">偏 Risk-On·但窄（動能週線unwind）</span>
+      <span class="temp-bar-label" style="color:#6f9d97;">偏 Risk-On·但窄（動能週線unwind）</span>
     </div>
     <div class="temp-bar-scale">
       <span>全面防禦避險</span><span>中性</span><span>全面風險偏好</span>
@@ -593,9 +593,9 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
       <div class="t-div" style="left:50%"></div>
       <div class="t-div" style="left:75%"></div>
       <div class="temp-needle" style="left:56%;">
-        <div class="temp-bubble" style="background:#00d4aa;">MAGS獨強</div>
-        <div class="temp-arrow" style="border-top-color:#00d4aa;"></div>
-        <div class="temp-dot temp-pulse" style="border-color:#00d4aa;box-shadow:0 0 10px rgba(0,212,170,.6);"></div>
+        <div class="temp-bubble" style="background:#6f9d97;">MAGS獨強</div>
+        <div class="temp-arrow" style="border-top-color:#6f9d97;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#6f9d97;box-shadow:0 0 10px rgba(0,212,170,.6);"></div>
       </div>
     </div>
     <div class="temp-note">▸ ▸ MAGS REL5 +5.75 唯一領先；SPMO −3.33／SPHB −0.93／SPLV −3.81 週線皆落後 SPY＝資金集中權值、非全面 Risk-On。動能交易「深度 unwind 後找到支撐」（8/3 新聞）</div>
@@ -1050,9 +1050,9 @@ function drawMiniChart(canvas, r5, r20, r60){
   const pts=[[w*0.18,scale(r60)],[w*0.5,scale(r20)],[w*0.82,scale(r5)]];
   // 繪線
   const lines=[[pts[0],pts[1],pts[2]]];
-  const colors=['#ff3d5a','#f0c040','#00c8f0'];
+  const colors=['#cf6f72','#f0c040','#7f9fc6'];
   // REL60→REL20→REL5 各一條從左到右
-  [[r60,'#00c8f0'],[r20,'#f0c040'],[r5,'#ff3d5a']].forEach(([v,col],i)=>{
+  [[r60,'#7f9fc6'],[r20,'#f0c040'],[r5,'#cf6f72']].forEach(([v,col],i)=>{
     const x=pts[i][0],y=pts[i][1];
     // 點
     ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);
@@ -1123,8 +1123,8 @@ function setSize(s){
 function setTheme(t){
   var r=document.documentElement;
   var themes={
-    dark:{'--bg':'#080b10','--surface':'#0d1118','--surface2':'#121820','--border':'#1c2330','--text':'#b8c8d8','--dim':'#405060','--accent':'#00c8f0','--green':'#00c896','--red':'#ff3d5a','--yellow':'#f0c040','--orange':'#ff8040'},
-    light:{'--bg':'#f2f5f9','--surface':'#ffffff','--surface2':'#e8eef5','--border':'#ccd6e2','--text':'#1a2535','--dim':'#6080a0','--accent':'#0070a0','--green':'#006e4a','--red':'#c00030','--yellow':'#7a5500','--orange':'#a03800'}
+    dark:{'--bg':'#080b10','--surface':'#0d1118','--surface2':'#121820','--border':'#1c2330','--text':'#b8c8d8','--dim':'#405060','--accent':'#7f9fc6','--green':'#5cae88','--red':'#cf6f72','--yellow':'#f0c040','--orange':'#ff8040'},
+    light:{'--bg':'#f2f5f9','--surface':'#ffffff','--surface2':'#e8eef5','--border':'#ccd6e2','--text':'#1a2535','--dim':'#6080a0','--accent':'#4a6d94','--green':'#006e4a','--red':'#c00030','--yellow':'#7a5500','--orange':'#a03800'}
   };
   Object.entries(themes[t]||themes.dark).forEach(function(kv){ r.style.setProperty(kv[0],kv[1]); });
   document.body.classList.toggle('light', t==='light');
