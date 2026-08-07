@@ -1370,5 +1370,16 @@ function setSize(sz){document.documentElement.setAttribute('data-size',sz);docum
 function setTheme(th){document.documentElement.setAttribute('data-theme',th);document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>{b.classList.toggle('active',b.textContent=={dark:'深',light:'淺'}[th]);});localStorage.setItem('bubble-theme',th);}
 (function(){var sz=localStorage.getItem('bubble-size')||'md';var th=localStorage.getItem('bubble-theme')||'dark';document.documentElement.setAttribute('data-size',sz);document.documentElement.setAttribute('data-theme',th);document.querySelectorAll('[onclick*="setSize"]').forEach(b=>{b.classList.toggle('active',b.textContent=={sm:'小',md:'中',lg:'大'}[sz])});document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>{b.classList.toggle('active',b.textContent=={dark:'深',light:'淺'}[th])});})();
 </script>
+
+<!-- 流量 beacon（自包含 · 打點到 GAS Traffic）— 正本見 SKILL-core-render §B-10c -->
+<script>
+(function(){try{
+  var K='yr_vid',v=localStorage.getItem(K);
+  if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}
+  var seg=location.pathname.split('/').filter(Boolean).pop()||'home';
+  fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',
+    {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
+}catch(e){}})();
+</script>
 </body>
 </html>

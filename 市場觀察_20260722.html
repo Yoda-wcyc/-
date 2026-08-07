@@ -1390,5 +1390,16 @@ function setTheme(t){
 【P/C 結構變化】
 7/15→7/17→7/18→7/22：0.42→1.47→0.31→0.67（回歸中性，NAAIM 95.64 結構高倉位仍是風險放大器）
 -->
+
+<!-- 流量 beacon（自包含 · 打點到 GAS Traffic）— 正本見 SKILL-core-render §B-10c -->
+<script>
+(function(){try{
+  var K='yr_vid',v=localStorage.getItem(K);
+  if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}
+  var seg=location.pathname.split('/').filter(Boolean).pop()||'home';
+  fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',
+    {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
+}catch(e){}})();
+</script>
 </body>
 </html>

@@ -1414,5 +1414,16 @@ A級新進：ARWR/VYNE/ETON/LQDA/PRE/LBRX/DK/CLMT/PBF/PARR/DINO/FOCL/CBL/UGP/WTT
 三圈狀態：C1 0/7、C2 0/16、C3 0/25
 爆量轉弱名單：無
 -->
+
+<!-- 流量 beacon（自包含 · 打點到 GAS Traffic）— 正本見 SKILL-core-render §B-10c -->
+<script>
+(function(){try{
+  var K='yr_vid',v=localStorage.getItem(K);
+  if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}
+  var seg=location.pathname.split('/').filter(Boolean).pop()||'home';
+  fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',
+    {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
+}catch(e){}})();
+</script>
 </body>
 </html>

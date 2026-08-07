@@ -1071,5 +1071,16 @@ function setTheme(t){
 微結構五掃描：強勢股補跌 有｜弱勢股止跌 有｜高Beta 否｜防禦 領先｜LeaderRotation 有
 爆量轉弱名單：DRAM｜跌幅−8.44%(中線相對−11.63%)｜跌破20日線；SOXX｜−4.80%(中線相對−19.98%)；EWY｜−6.05%(中線相對−23.30%)；TAN −4.77%/REMX −3.83%/URA −3.40% 題材加速趕底
 -->
+
+<!-- 流量 beacon（自包含 · 打點到 GAS Traffic）— 正本見 SKILL-core-render §B-10c -->
+<script>
+(function(){try{
+  var K='yr_vid',v=localStorage.getItem(K);
+  if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}
+  var seg=location.pathname.split('/').filter(Boolean).pop()||'home';
+  fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',
+    {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
+}catch(e){}})();
+</script>
 </body>
 </html>

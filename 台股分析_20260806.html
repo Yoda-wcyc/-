@@ -1441,5 +1441,16 @@ A型新進：（首建當日不列增減）／掉出：（同上）
 D型警示重點：2303 聯電｜月線-31,796萬且5日-14,420萬，中線賣壓未解
 爆量轉弱名單：無（本 CSV 不含成交量，僅列價跌檢核；2458義隆 1D%-8.1、2072世紀風電 -5.59、5347世界 -3.5 收黑，待量能確認）
 -->
+
+<!-- 流量 beacon（自包含 · 打點到 GAS Traffic）— 正本見 SKILL-core-render §B-10c -->
+<script>
+(function(){try{
+  var K='yr_vid',v=localStorage.getItem(K);
+  if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}
+  var seg=location.pathname.split('/').filter(Boolean).pop()||'home';
+  fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',
+    {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
+}catch(e){}})();
+</script>
 </body>
 </html>

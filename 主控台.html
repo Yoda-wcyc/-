@@ -203,6 +203,7 @@ tr:hover td{background:var(--surface2)}
     <button class="tab" data-v="recon">本月對帳 <span class="badge" id="reconBadge"></span></button>
     <button class="tab" data-v="rewards">推薦與獎勵 <span class="badge amber" id="rewardBadge"></span></button>
     <button class="tab" data-v="support">客服工單 <span class="badge" id="supBadge"></span></button>
+    <button class="tab" data-v="traffic">流量</button>
   </div>
 
   <!-- 總覽 -->
@@ -274,6 +275,29 @@ tr:hover td{background:var(--surface2)}
       <button class="btn-done" onclick="loadSupport()">↻ 重新整理</button>
     </div>
     <div id="supList"></div>
+  </div>
+
+  <!-- 流量 -->
+  <div class="view" id="v-traffic">
+    <div class="toolbar">
+      <select class="filter" id="trfDays" onchange="loadTraffic()">
+        <option value="7">近 7 天</option>
+        <option value="30" selected>近 30 天</option>
+        <option value="90">近 90 天</option>
+        <option value="0">全部</option>
+      </select>
+      <button class="btn-done" onclick="loadTraffic()">↻ 重新整理</button>
+    </div>
+    <div id="trfKpis" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:6px"></div>
+    <div class="section-h">每日瀏覽</div>
+    <div id="trfDaily" style="display:flex;align-items:flex-end;gap:3px;height:120px;padding:8px 0"></div>
+    <div class="section-h">各頁流量 <span class="hint">依瀏覽數排序</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>頁面</th><th>瀏覽</th><th>訪客</th><th>最近</th></tr></thead>
+        <tbody id="trfBody"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -499,6 +523,23 @@ function switchView(v){
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('show'));
   $('v-'+v).classList.add('show');
   if(v==='support')loadSupport();
+  if(v==='traffic')loadTraffic();
+}
+
+/* ===== 流量 ===== */
+function loadTraffic(){
+  const days=($('trfDays')&&$('trfDays').value)||'0';
+  return post({action:'adminTraffic',key:KEY,days:Number(days)||0}).then(res=>{
+    if(!res||!res.ok)return false; renderTraffic(res); return true;
+  }).catch(()=>false);
+}
+function trfKpi(label,val){return '<div class="panel" style="flex:1;min-width:120px;padding:14px 16px"><div style="font-size:12px;color:var(--dim)">'+label+'</div><div style="font-size:26px;font-weight:800;margin-top:4px">'+val+'</div></div>';}
+function pageLabel(p){if(p==='home')return '🏠 首頁';return String(p).replace(/\.html$/,'');}
+function renderTraffic(d){
+  $('trfKpis').innerHTML=trfKpi('總瀏覽',d.total||0)+trfKpi('不重複訪客',d.uniq||0)+trfKpi('有流量頁數',(d.pages||[]).length);
+  const daily=d.daily||[],max=Math.max.apply(null,[1].concat(daily.map(x=>x.views)));
+  $('trfDaily').innerHTML=daily.length?daily.map(x=>'<div title="'+x.date+'：'+x.views+' 次" style="flex:1;min-width:4px;background:var(--accent);border-radius:2px 2px 0 0;height:'+Math.max(2,Math.round(x.views/max*100))+'%"></div>').join(''):'<div style="color:var(--dim)">尚無資料</div>';
+  $('trfBody').innerHTML=(d.pages||[]).map(p=>'<tr><td>'+escH(pageLabel(p.page))+'</td><td>'+p.views+'</td><td>'+p.uniq+'</td><td style="color:var(--dim)">'+fmtTs(p.last)+'</td></tr>').join('')||'<tr><td colspan="4" style="color:var(--dim)">尚無資料</td></tr>';
 }
 
 /* ===== 客服工單 ===== */
