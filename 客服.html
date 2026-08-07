@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>客服信箱｜Yoda Research</title>
+<style>
+  :root{ --bg:#0b0e13; --card:#12161d; --border:#252b36; --text:#e8ecf2; --dim:#8b93a1; --gold:#e0a526; --green:#00b894; }
+  *{ box-sizing:border-box }
+  body{ margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;
+    display:flex; align-items:flex-start; justify-content:center; min-height:100vh; padding:48px 16px; line-height:1.6; }
+  .wrap{ width:100%; max-width:560px; }
+  h1{ font-size:24px; margin:0 0 6px; }
+  .lead{ color:var(--dim); font-size:14px; margin:0 0 24px; }
+  .card{ background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px; }
+  label{ display:block; font-size:13px; color:var(--dim); margin:14px 0 6px; font-weight:600; }
+  label:first-child{ margin-top:0; }
+  input,select,textarea{ width:100%; background:#0b0e13; border:1px solid var(--border); border-radius:10px;
+    color:var(--text); font-size:15px; padding:11px 13px; font-family:inherit; }
+  input:focus,select:focus,textarea:focus{ outline:none; border-color:var(--gold); }
+  textarea{ resize:vertical; min-height:120px; }
+  .req{ color:var(--gold); }
+  button{ margin-top:20px; width:100%; background:var(--gold); color:#000; font-weight:700; font-size:16px;
+    border:none; border-radius:9999px; padding:13px; cursor:pointer; transition:transform .12s,opacity .15s; }
+  button:hover{ opacity:.92; } button:active{ transform:scale(.98); }
+  button:disabled{ opacity:.5; cursor:default; }
+  .msg{ margin-top:14px; font-size:14px; text-align:center; min-height:20px; }
+  .fallback{ margin-top:20px; text-align:center; font-size:13px; color:var(--dim); }
+  .fallback a{ color:var(--gold); text-decoration:none; }
+  .ok-box{ text-align:center; padding:16px 0; }
+  .ok-box .ic{ font-size:44px; }
+  .ok-box h2{ font-size:20px; margin:10px 0 6px; color:var(--green); }
+  .ok-box p{ color:var(--dim); font-size:14px; margin:0; }
+  .back{ display:inline-block; margin-top:22px; color:var(--gold); text-decoration:none; font-size:14px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>客服信箱 · 意見回報</h1>
+    <p class="lead">看報告、訂閱、登入或網站有任何問題,填下面表單送出,我們會盡快回覆到你的 email。</p>
+    <div class="card">
+      <div id="formBox">
+        <label>你的 Email <span class="req">*</span></label>
+        <input id="email" type="email" placeholder="name@example.com" autocomplete="email">
+        <label>問題分類</label>
+        <select id="category">
+          <option>報告內容</option>
+          <option>帳號 / 登入</option>
+          <option>訂閱 / 付費</option>
+          <option>網站 / 顯示問題</option>
+          <option>建議 / 其他</option>
+        </select>
+        <label>主旨</label>
+        <input id="subject" type="text" placeholder="一句話說明(選填)">
+        <label>問題內容 <span class="req">*</span></label>
+        <textarea id="message" placeholder="請描述你遇到的狀況,附上報告名稱/日期或截圖說明會更快解決。"></textarea>
+        <button id="submitBtn" onclick="submitForm()">送出</button>
+        <div class="msg" id="msg"></div>
+        <div class="fallback">或直接寄信到 <a href="mailto:iamtwispin@gmail.com">iamtwispin@gmail.com</a></div>
+      </div>
+      <div id="okBox" class="ok-box" style="display:none">
+        <div class="ic">✅</div>
+        <h2>已收到你的回報</h2>
+        <p>我們會盡快處理並回覆到你填的 email。感謝你的耐心。</p>
+      </div>
+    </div>
+    <a class="back" href="https://yoda-research-next.vercel.app/">← 回首頁</a>
+  </div>
+
+<script>
+var GAS_URL='https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec';
+function $(id){return document.getElementById(id);}
+function submitForm(){
+  var email=$('email').value.trim(), message=$('message').value.trim();
+  var msg=$('msg');
+  if(!email||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.style.color='#ff6b6b'; msg.textContent='請填寫正確的 Email'; return; }
+  if(!message){ msg.style.color='#ff6b6b'; msg.textContent='請填寫問題內容'; return; }
+  var btn=$('submitBtn'); btn.disabled=true; msg.style.color='var(--dim)'; msg.textContent='送出中…';
+  fetch(GAS_URL,{method:'POST',body:JSON.stringify({
+    action:'support', source:'form', email:email,
+    category:$('category').value, subject:$('subject').value.trim(), message:message
+  })}).then(function(r){return r.json();}).then(function(res){
+    if(res&&res.ok){ $('formBox').style.display='none'; $('okBox').style.display='block'; }
+    else{ btn.disabled=false; msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)?res.error:'送出失敗,請稍後再試或直接寄信'; }
+  }).catch(function(){ btn.disabled=false; msg.style.color='#ff6b6b'; msg.textContent='連線失敗,請直接寄信 iamtwispin@gmail.com'; });
+}
+</script>
+</body>
+</html>
