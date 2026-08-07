@@ -448,5 +448,25 @@ function setTheme(th){
   document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){b.classList.toggle('active',b.textContent==={dark:'深',light:'淺'}[th])});
 })();
 </script>
+<!-- 平板以上提示（手機置中·點擊關閉·記憶）自包含注入片段 -->
+<script>
+(function(){
+  try{if(localStorage.getItem('hideTabletHint')==='1')return;}catch(e){}
+  if(document.querySelector('.tablet-hint'))return;
+  var css='@media(min-width:768px){.tablet-hint{display:none!important}}'
+    +'.tablet-hint{position:fixed;inset:0;z-index:99998;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,6,10,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}'
+    +'.tablet-hint .th-card{max-width:320px;width:100%;background:#12100a;border:1px solid #3a3320;border-radius:16px;padding:26px 24px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.55)}'
+    +'.tablet-hint .th-ico{font-size:34px;margin-bottom:12px}'
+    +'.tablet-hint .th-t{font-size:17px;font-weight:700;color:#e8c877;margin-bottom:8px;line-height:1.5}'
+    +'.tablet-hint .th-s{font-size:13px;color:#b8b09a;line-height:1.7;margin-bottom:16px}'
+    +'.tablet-hint .th-x{font-family:ui-monospace,monospace;font-size:11px;color:#8a8266;letter-spacing:.08em}';
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  var ov=document.createElement('div');ov.className='tablet-hint';
+  ov.innerHTML='<div class="th-card"><div class="th-ico">📱 → 💻</div><div class="th-t">建議使用平板以上</div><div class="th-s">這份報告資訊密度高，用平板或電腦看，版面才展得開、體驗最佳。手機也能看，只是較擠。</div><div class="th-x">點擊任意處關閉</div></div>';
+  function close(){try{localStorage.setItem('hideTabletHint','1');}catch(e){}if(ov.parentNode)ov.parentNode.removeChild(ov);}
+  ov.addEventListener('click',close);
+  if(document.body)document.body.appendChild(ov);else document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(ov);});
+})();
+</script>
 </body>
 </html>
