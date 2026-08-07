@@ -2420,7 +2420,7 @@ function setTheme(t){
   var TABS=(DATA.tab_order&&DATA.tab_order.length)?DATA.tab_order.slice():Object.keys(DATA.tabsMeta||{});
   var TAB=TABS[0],WIN=5,TAIL=5;
   // ── 播放（時間軸回放）：FRAME＝播放頭（0＝最早快照 … NSNAP-1＝今天，可為小數以平滑插值）──
-  var NSNAP=DATA.snapshots.length,FRAME=NSNAP-1,PLAYING=false,PLAY_MS=850,rafId=null,lastTs=0;
+  var NSNAP=DATA.snapshots.length,FRAME=NSNAP-1,PLAYING=false,PLAY_MS=1200,rafId=null,lastTs=0;
   function capv(a,fl){if(!a.length)return fl;var mxv=a[a.length-1]||fl;return Math.max(mxv*1.12,fl);}
   function ptAt(t,label,f){var i0=Math.max(0,Math.floor(f)),i1=Math.min(i0+1,NSNAP-1),fr=f-i0;
     var s0=DATA.snapshots[i0].data[t],s1=DATA.snapshots[i1].data[t],d0=s0&&s0[label],d1=s1&&s1[label];
@@ -2461,30 +2461,39 @@ function setTheme(t){
   var dd=document.getElementById('dyn-date');if(dd)dd.textContent=latest().date;
   riskToggle();
   [5,20,60].forEach(function(w){var btn=document.getElementById('dyn-w'+w);if(btn)btn.onclick=function(){WIN=w;[5,20,60].forEach(function(x){var b=document.getElementById('dyn-w'+x);if(b)b.classList.remove('on');});btn.classList.add('on');var wl=document.getElementById('dyn-win');if(wl)wl.textContent=w;draw();};});
-  [5,10,20].forEach(function(t){var btn=document.getElementById('dyn-t'+t);if(btn)btn.onclick=function(){TAIL=t;[5,10,20].forEach(function(x){var b=document.getElementById('dyn-t'+x);if(b)b.classList.remove('on');});btn.classList.add('on');draw();};});
-  // ── 播放鈕＋可拖曳進度條：從最早快照走到今天，或拖 thumb 任意跳格（≥2 天才顯示）──
+  var onTailChange=function(){};
+  [5,10,20].forEach(function(t){var btn=document.getElementById('dyn-t'+t);if(btn)btn.onclick=function(){TAIL=t;[5,10,20].forEach(function(x){var b=document.getElementById('dyn-t'+x);if(b)b.classList.remove('on');});btn.classList.add('on');draw();onTailChange();};});
+  // ── 播放鈕＋（右側）日期顯示＋可自由左右滑的拉桿：範圍＝最近 min(TAIL,NSNAP) 天，左最舊右最新（≥2 天才顯示）──
   (function(){
     if(NSNAP<2)return;
+    function shown(){return Math.min(TAIL,NSNAP);}          // 由 5/10/20 天選項決定
+    function startF(){return Math.max(0,NSNAP-shown());}    // 拉桿最左＝這麼多天前
+    function span(){return Math.max(1,(NSNAP-1)-startF());} // 左右總跨度
+    FRAME=NSNAP-1;
     var st=document.createElement('style');st.textContent=
       '.dyn-play{font-family:var(--fm,monospace);font-size:11px;font-weight:600;color:var(--accent,#7f9fc6);background:transparent;border:1px solid var(--accent,#7f9fc6);border-radius:9999px;padding:4px 13px;cursor:pointer;transition:all .15s;white-space:nowrap}'
       +'.dyn-play:hover{background:var(--accent,#7f9fc6);color:var(--bg,#0b0f14)}'
-      +'.dyn-scrub{position:relative;height:6px;border-radius:3px;background:var(--border,#334);margin:12px 4px 4px;cursor:pointer;touch-action:none}'
+      +'.dyn-daylab{font-family:var(--fm,monospace);font-size:11px;font-weight:700;color:var(--text,#cfd8e3);min-width:42px;text-align:center}'
+      +'.dyn-scrub{position:relative;height:6px;width:170px;flex:0 0 auto;border-radius:3px;background:var(--border,#334);cursor:pointer;touch-action:none}'
       +'.dyn-scrub>i{display:block;height:100%;border-radius:3px;background:var(--accent,#7f9fc6);pointer-events:none}'
-      +'.dyn-scrub>b{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--accent,#7f9fc6);border:2px solid var(--bg,#0b0f14);box-shadow:0 0 4px rgba(0,0,0,.45);transform:translate(-50%,-50%);pointer-events:none}';
+      +'.dyn-scrub>b{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--accent,#7f9fc6);border:2px solid var(--bg,#0b0f14);box-shadow:0 0 4px rgba(0,0,0,.45);transform:translate(-50%,-50%);pointer-events:none}'
+      +'@media(max-width:520px){.dyn-scrub{width:120px}}';
     document.head.appendChild(st);
-    var wrap=document.createElement('div');wrap.style.cssText='display:inline-flex;align-items:center;gap:6px';
+    var wrap=document.createElement('div');wrap.style.cssText='display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap';
     var btn=document.createElement('button');btn.className='dyn-play';btn.type='button';btn.textContent='▶ 播放';wrap.appendChild(btn);
+    var dlab=document.createElement('span');dlab.className='dyn-daylab';wrap.appendChild(dlab);       // 播放鈕右邊：當下點點所在那一天
+    var scrub=document.createElement('div');scrub.className='dyn-scrub';var bar=document.createElement('i'),thumb=document.createElement('b');scrub.appendChild(bar);scrub.appendChild(thumb);wrap.appendChild(scrub);
     var ctrl=document.querySelector('.dyn-ctrl');if(ctrl)ctrl.appendChild(wrap);else if(BOX)BOX.parentNode.insertBefore(wrap,BOX);
-    var scrub=document.createElement('div');scrub.className='dyn-scrub';var bar=document.createElement('i'),thumb=document.createElement('b');scrub.appendChild(bar);scrub.appendChild(thumb);if(BOX)BOX.parentNode.insertBefore(scrub,BOX.nextSibling);
-    function upd(){btn.textContent=PLAYING?'⏸ 暫停':'▶ 播放';var f=(NSNAP>1?FRAME/(NSNAP-1):1)*100;bar.style.width=f+'%';thumb.style.left=f+'%';var dd=document.getElementById('dyn-date');if(dd)dd.textContent=frameDate();}
+    function upd(){btn.textContent=PLAYING?'⏸ 暫停':'▶ 播放';var f=Math.max(0,Math.min(100,(FRAME-startF())/span()*100));bar.style.width=f+'%';thumb.style.left=f+'%';dlab.textContent=frameDate();var dd=document.getElementById('dyn-date');if(dd)dd.textContent=frameDate();}
     function step(ts){if(!PLAYING)return;if(!lastTs)lastTs=ts;FRAME+=(ts-lastTs)/PLAY_MS;lastTs=ts;if(FRAME>=NSNAP-1){FRAME=NSNAP-1;PLAYING=false;draw();upd();return;}draw();upd();rafId=requestAnimationFrame(step);}
-    btn.onclick=function(){if(PLAYING){PLAYING=false;if(rafId)cancelAnimationFrame(rafId);upd();return;}if(FRAME>=NSNAP-1)FRAME=0;PLAYING=true;lastTs=0;rafId=requestAnimationFrame(step);upd();};
-    function seek(clientX){var r=scrub.getBoundingClientRect();var t=r.width?(clientX-r.left)/r.width:0;t=Math.max(0,Math.min(1,t));FRAME=t*(NSNAP-1);draw();upd();}
+    btn.onclick=function(){if(PLAYING){PLAYING=false;if(rafId)cancelAnimationFrame(rafId);upd();return;}FRAME=startF();PLAYING=true;lastTs=0;rafId=requestAnimationFrame(step);upd();};
+    function seek(clientX){var r=scrub.getBoundingClientRect();var t=r.width?(clientX-r.left)/r.width:0;t=Math.max(0,Math.min(1,t));FRAME=startF()+t*span();draw();upd();}
     var drag=false;
     scrub.addEventListener('pointerdown',function(e){if(PLAYING){PLAYING=false;if(rafId)cancelAnimationFrame(rafId);}drag=true;try{scrub.setPointerCapture(e.pointerId);}catch(_){}seek(e.clientX);e.preventDefault();});
     scrub.addEventListener('pointermove',function(e){if(drag)seek(e.clientX);});
     scrub.addEventListener('pointerup',function(){drag=false;});
     scrub.addEventListener('pointercancel',function(){drag=false;});
+    onTailChange=function(){if(PLAYING){PLAYING=false;if(rafId)cancelAnimationFrame(rafId);}FRAME=NSNAP-1;upd();}; // 切 5/10/20 天→拉桿範圍重設、回到最新
     upd();
   })();
   var TIP=document.createElement('div');TIP.className='dyn-tip';document.body.appendChild(TIP);
