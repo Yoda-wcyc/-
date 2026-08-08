@@ -225,7 +225,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(
 body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#0070a0;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;}
 body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
 </style>
-</head>
+<style id="mobile-nav-fix">
+@media(max-width:700px){
+ body{grid-template-columns:1fr!important;}
+ nav{position:static!important;width:auto!important;min-width:0!important;height:auto!important;max-height:none!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center;gap:4px 10px;border-right:none!important;border-bottom:1px solid var(--border);padding:11px 15px 9px!important;overflow:visible!important;}
+ .nav-brand{width:100%;border-bottom:none!important;padding:0!important;margin:0 0 4px!important;}
+ .nav-brand-sub{display:none;}
+ .nav-section-label{display:none!important;}
+ nav>a{font-size:calc(var(--fs)*.6);padding:2px 0;white-space:nowrap;}
+ nav>a .nav-dot{display:none;}
+ .nav-game-gold{margin:6px 0 0!important;}
+ .izy-section{display:none!important;}
+}
+</style></head>
 <body>
 
 <!-- ── 工具列 ── -->

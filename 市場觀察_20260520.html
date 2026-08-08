@@ -132,7 +132,19 @@ body.light .def-box{background:rgba(0,130,100,.06);border-color:rgba(0,130,100,.
 .card.open .arr{animation:none;opacity:1;transform:rotate(180deg);text-shadow:none;color:var(--accent);}
 .arr{transition:transform .2s;}
 </style>
-</head>
+<style id="mobile-nav-fix">
+@media(max-width:700px){
+ body{grid-template-columns:1fr!important;}
+ nav{position:static!important;width:auto!important;min-width:0!important;height:auto!important;max-height:none!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center;gap:4px 10px;border-right:none!important;border-bottom:1px solid var(--border);padding:11px 15px 9px!important;overflow:visible!important;}
+ .nav-brand{width:100%;border-bottom:none!important;padding:0!important;margin:0 0 4px!important;}
+ .nav-brand-sub{display:none;}
+ .nav-section-label{display:none!important;}
+ nav>a{font-size:calc(var(--fs)*.6);padding:2px 0;white-space:nowrap;}
+ nav>a .nav-dot{display:none;}
+ .nav-game-gold{margin:6px 0 0!important;}
+ .izy-section{display:none!important;}
+}
+</style></head>
 <body>
 
 <div class="fc">
