@@ -1343,5 +1343,279 @@ function sortTbl(th) {
     {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
 }catch(e){}})();
 </script>
+<style id="tw-viz-css">
+/* tw-viz.css — 台股視覺化元件樣式（配 tw-viz.js） */
+.viz-wrap{margin:16px 0 10px;padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--surface2);}
+.viz-h{font-size:calc(var(--fs)*.88);font-weight:800;color:var(--text);margin-bottom:3px;}
+.viz-sub{font-size:calc(var(--fs)*.68);color:var(--dim);line-height:1.65;margin-bottom:12px;}
+.viz-tag{display:inline-block;font-size:calc(var(--fs)*.58);font-weight:800;padding:1px 8px;border-radius:999px;background:rgba(240,165,0,.16);color:var(--dyn-imp);margin-right:7px;vertical-align:middle;}
+.viz-seg-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.viz-seg-lbl{font-size:calc(var(--fs)*.62);color:var(--dim);font-weight:700;}
+.dyn-seg button:disabled{opacity:.4;cursor:not-allowed;text-decoration:line-through;}
+.hm-head,.hm-row{display:grid;gap:2px;}
+.hm-head>div{font-weight:800;color:var(--dim);text-align:right;padding:5px 6px;font-size:calc(var(--fs)*.56);cursor:pointer;user-select:none;white-space:nowrap;}
+.hm-head>div:first-child{text-align:left;cursor:default;}
+.hm-head>div.dis{cursor:not-allowed;opacity:.5;}
+.hm-head .ar{color:var(--accent);}
+.hm-row{margin-bottom:2px;}
+.hm-row .lbl{color:var(--text);font-weight:600;padding:4px 8px 4px 6px;display:flex;align-items:center;gap:5px;cursor:pointer;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hm-row .lbl:hover{background:rgba(127,159,198,.14);}
+.hm-row .lbl .tw{margin-left:auto;color:var(--dim);font-size:calc(var(--fs)*.5);}
+.hm-cell{padding:4px 6px;text-align:right;border-radius:4px;font-variant-numeric:tabular-nums;font-size:calc(var(--fs)*.6);}
+.hm-cell.on{outline:2px solid var(--accent);outline-offset:-2px;}
+.hm-cell.gap{background:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(127,159,198,.10) 4px,rgba(127,159,198,.10) 8px);color:var(--dim);text-align:center;}
+.hm-exp{grid-column:1/-1;background:var(--bg);border:1px solid var(--border);border-radius:8px;margin:1px 0 6px;padding:8px 10px;overflow-x:auto;}
+.hm-exp table{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.6);}
+.hm-exp th,.hm-exp td{padding:3px 8px;text-align:right;white-space:nowrap;}
+.hm-exp th{color:var(--dim);border-bottom:1px solid var(--border);cursor:pointer;font-weight:700;user-select:none;}
+.hm-exp th.ar{color:var(--accent);}
+.hm-exp td:first-child,.hm-exp th:first-child,.hm-exp td:nth-child(2),.hm-exp th:nth-child(2),.hm-exp td:nth-child(3),.hm-exp th:nth-child(3){text-align:left;}
+.hm-exp tr:hover td{background:rgba(127,159,198,.06);}
+.rh-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.rh-legend{flex:1 1 210px;min-width:190px;display:flex;flex-direction:column;gap:9px;}
+.rh-li{display:flex;align-items:center;gap:9px;font-size:calc(var(--fs)*.66);padding:3px 6px;border-radius:6px;}
+.rh-li:hover{background:rgba(127,159,198,.12);}
+.rh-ring{width:13px;height:13px;border-radius:50%;flex:0 0 auto;border:2px solid var(--dim);}
+.rh-ring.r0{border-color:var(--text);}.rh-ring.r1{border-color:var(--dim);}.rh-ring.r2{border-color:var(--border);}
+.rh-li .nm{color:var(--text);font-weight:700;}.rh-li .mt{color:var(--dim);margin-left:auto;font-variant-numeric:tabular-nums;}
+.rh-note{font-size:calc(var(--fs)*.62);color:var(--dim);line-height:1.6;margin-top:8px;}
+.rh-hint{font-size:calc(var(--fs)*.58);color:var(--accent);font-weight:700;margin-top:6px;}
+.rh-exp{background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-top:10px;padding:10px 12px;display:none;}
+.rh-exp.on{display:block;}
+.rh-exp h4{margin:0 0 8px;font-size:calc(var(--fs)*.68);color:var(--text);}
+.tstk{display:inline-flex;align-items:center;gap:5px;font-size:calc(var(--fs)*.62);padding:3px 9px;margin:3px 5px 3px 0;border-radius:999px;background:var(--surface2);border:1px solid var(--border);}
+.tstk i{width:8px;height:8px;border-radius:50%;display:inline-block;}
+.tgrp-l{font-size:calc(var(--fs)*.6);color:var(--dim);font-weight:700;margin:8px 0 2px;}
+.sc-svg-wrap{text-align:center;}
+.sc-read{display:flex;justify-content:space-around;margin-top:6px;}
+.sc-read .s{text-align:center;}.sc-read .s .v{font-size:calc(var(--fs)*.98);font-weight:800;font-variant-numeric:tabular-nums;}
+.sc-read .bull .v{color:var(--red);}.sc-read .bear .v{color:var(--green);}
+.sc-read .lbl{color:var(--dim);font-size:calc(var(--fs)*.6);margin-top:1px;}
+
+/* 信號流階梯圖 ladder */
+.lad{position:relative;}
+.lad-rail{position:absolute;left:16px;top:16px;bottom:16px;width:2px;background:var(--border);}
+.lad-step{position:relative;display:flex;align-items:center;gap:12px;padding:7px 0;cursor:pointer;border-radius:8px;}
+.lad-step:hover{background:rgba(127,159,198,.08);}
+.lad-num{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:calc(var(--fs)*.6);color:#fff;z-index:1;box-shadow:0 0 0 4px var(--surface2);}
+.lad-mid{flex:0 0 auto;width:150px;min-width:0;}
+.lad-name{font-size:calc(var(--fs)*.7);font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lad-state{font-size:calc(var(--fs)*.58);color:var(--dim);}
+.lad-barwrap{flex:1 1 auto;min-width:70px;height:20px;position:relative;background:var(--bg);border-radius:5px;overflow:hidden;border:1px solid var(--border);}
+.lad-bar{position:absolute;top:0;bottom:0;border-radius:3px;}
+.lad-mid0{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--dim);opacity:.5;}
+.lad-val{flex:0 0 auto;width:70px;text-align:right;font-size:calc(var(--fs)*.62);font-weight:800;font-variant-numeric:tabular-nums;}
+.lad-nh{flex:0 0 auto;font-size:calc(var(--fs)*.52);color:var(--dim);width:58px;text-align:right;}
+.lad-exp{margin:2px 0 8px 46px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:none;overflow-x:auto;}
+.lad-exp.on{display:block;}
+.lad-exp table{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.58);}
+.lad-exp th,.lad-exp td{padding:3px 8px;text-align:right;white-space:nowrap;}
+.lad-exp th:first-child,.lad-exp td:first-child{text-align:left;}
+.lad-exp th{color:var(--dim);border-bottom:1px solid var(--border);}
+@media(max-width:700px){.lad-mid{width:96px;}.lad-nh{display:none;}}
+
+</style>
+<script id="tw-viz-js">
+/* tw-viz.js — 台股報告視覺化元件（資料驅動·解析報告自身 DOM）
+   母版 static 內聯；on load 解析 §02 board-panels / §04·05 位階meta / §07 scmap / §08 etf-cards，
+   渲染 熱力圖 + 徑向熱力圖 + 多空天秤，並隱藏原始來源元件。零生成流程依賴。
+   2026-08-08 Yoda 定案。RRG 四色：領先=洋紅 回升=琥珀 衰退=青 落後=紫。台股慣例：紅=買/漲 綠=賣/跌。*/
+(function(){
+'use strict';
+var RRG={led:'#ec4899',imp:'#f59e0b',wk:'#22d3ee',lag:'#a78bfa'};
+function $(s,r){return (r||document).querySelector(s);}
+function $all(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function txt(e){return e?e.textContent.trim():'';}
+function pf(s){if(s==null)return null;var m=(''+s).match(/-?\d[\d,\.]*/);return m?parseFloat(m[0].replace(/,/g,'')):null;}
+function cleanInd(n){return n.replace(/^[🔥❄️]*\s*(流入|流出)?[　\s]*/,'').trim();}
+
+/* ---------- 幾何 / 徑向 SVG ---------- */
+function polar(cx,cy,r,d){var a=d*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+function ann(cx,cy,ri,ro,a0,a1){var p1=polar(cx,cy,ro,a0),p2=polar(cx,cy,ro,a1),p3=polar(cx,cy,ri,a1),p4=polar(cx,cy,ri,a0);var lg=((a1-a0)%360>180)?1:0;
+ return 'M'+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+' A'+ro+' '+ro+' 0 '+lg+' 1 '+p2[0].toFixed(1)+' '+p2[1].toFixed(1)+' L'+p3[0].toFixed(1)+' '+p3[1].toFixed(1)+' A'+ri+' '+ri+' 0 '+lg+' 0 '+p4[0].toFixed(1)+' '+p4[1].toFixed(1)+' Z';}
+function radialSVG(rings,sectors,ang,clickfn){var cx=128,cy=128,radii=[[34,60],[64,90],[94,120]],ro=120,mx=1;
+ rings.forEach(function(r){sectors.forEach(function(s){mx=Math.max(mx,r.c[s[0]]||0);});});
+ var p='';
+ rings.forEach(function(ring,i){var ri=radii[i][0],ro2=radii[i][1],inner='';
+  sectors.forEach(function(s){var a0=ang[s[0]][0],a1=ang[s[0]][1],cnt=ring.c[s[0]]||0,op=cnt===0?0.05:(0.20+0.80*(cnt/mx));
+   inner+='<path d="'+ann(cx,cy,ri,ro2,a0,a1)+'" fill="'+s[2]+'" fill-opacity="'+op.toFixed(3)+'" stroke="var(--bg)" stroke-width="1.5"/>';
+   if(cnt>0){var m=polar(cx,cy,(ri+ro2)/2,(a0+a1)/2);inner+='<text x="'+m[0].toFixed(1)+'" y="'+m[1].toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="800" fill="#fff" style="pointer-events:none">'+cnt+'</text>';}});
+  p+=clickfn?'<g style="cursor:pointer" onclick="'+clickfn+'('+i+')"><title>點擊展開明細</title>'+inner+'</g>':inner;});
+ sectors.forEach(function(s){var a0=ang[s[0]][0],a1=ang[s[0]][1],l=polar(cx,cy,ro+16,(a0+a1)/2);
+  p+='<text x="'+l[0].toFixed(1)+'" y="'+l[1].toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" fill="'+s[2]+'" style="pointer-events:none">'+s[1]+'</text>';});
+ return '<svg width="288" height="288" viewBox="0 0 256 256" style="max-width:100%;height:auto;flex:0 0 auto;">'+p+'</svg>';}
+var SEC4=[['led','領先',RRG.led],['imp','回升',RRG.imp],['wk','衰退',RRG.wk],['lag','落後',RRG.lag]];
+var ANG4={led:[-90,0],imp:[0,90],wk:[90,180],lag:[180,270]};
+var SEC3=[['s','強',RRG.led],['m','中',RRG.imp],['w','弱',RRG.wk]];
+var ANG3={s:[-90,30],m:[30,150],w:[150,270]};
+function ringLegend(items,clickfn){return '<div class="rh-legend">'+items.map(function(it,i){return '<div class="rh-li" style="cursor:pointer" onclick="'+clickfn+'('+i+')"><span class="rh-ring r'+i+'"></span><span class="nm">'+it[0]+'</span><span class="mt">'+it[1]+'</span></div>';}).join('')+'</div>';}
+
+/* ---------- 解析：§02 量/價 ---------- */
+function parseS02(){
+ var p0=$('#board-panel-0');if(!p0)return null;
+ // 價：code -> {rel5,rel20,rel60}
+ var relBy={};
+ [['p-s','rel5'],['p-m','rel20'],['p-l','rel60']].forEach(function(pr){
+  $all('#board-panel-1 .btf.'+pr[0]+' tbody tr').forEach(function(tr){var td=tr.querySelectorAll('td');if(td.length>=4&&/^\d/.test(txt(td[0]))){(relBy[txt(td[0])]=relBy[txt(td[0])]||{})[pr[1]]=txt(td[3]);}});});
+ var S=[];
+ $all('.cat-card',p0).forEach(function(card){
+  var nm=cleanInd(txt($('.cat-hdr-main',card)));var meta=txt($('.cat-hdr-meta',card));
+  var f=/🔥|流入/.test(txt($('.cat-hdr-main',card)))?'in':'out';
+  function mv(lab){var m=meta.match(lab+'\\s*([+\\-]?[\\d,]+)');return m?pf(m[1]):null;}
+  var v=[mv('5日'),mv('10日'),mv('月線')];
+  var stocks=[],r5=[],r20=[],r60=[];
+  $all('.cat-det tbody tr',card).forEach(function(tr){var td=tr.querySelectorAll('td');if(td.length<6||!/^\d/.test(txt(td[0])))return;
+   var code=txt(td[0]),rr=relBy[code]||{};
+   var rel5=rr.rel5||'—',rel20=rr.rel20||'—',rel60=rr.rel60||'—';
+   stocks.push([code,txt(td[1]),txt(td[2]),txt(td[3]),txt(td[4]),txt(td[5]),rel5,rel20,rel60]);
+   [[rel5,r5],[rel20,r20],[rel60,r60]].forEach(function(x){var n=pf(x[0]);if(n!=null)x[1].push(n);});});
+  function av(a){return a.length?Math.round(a.reduce(function(s,x){return s+x;},0)/a.length*100)/100:null;}
+  S.push({n:nm,f:f,v:v,rv:[av(r5),av(r20),av(r60)],s:stocks});});
+ return S.length?S:null;
+}
+/* ---------- 解析：位階 counts（§04/§05） ---------- */
+function parseCounts(metaTexts){return metaTexts.map(function(t){function c(l){var m=t.match(l+'(\\d+)');return m?+m[1]:0;}return {c:{led:c('領先'),imp:c('回升'),wk:c('衰退'),lag:c('落後')}};});}
+function parseLayerMeta(sel){return parseCounts($all(sel).map(txt));}
+/* §05 三圈：從 circle-panel 表格數位階 */
+function parseCircleCounts(){return [1,2,3].map(function(i){var p=$('#circle-panel-c'+i);var c={led:0,imp:0,wk:0,lag:0};if(p)$all('td',p).forEach(function(td){var s=txt(td);if(/領先/.test(s))c.led++;else if(/回升/.test(s))c.imp++;else if(/衰退/.test(s))c.wk++;else if(/落後/.test(s))c.lag++;});return {c:c};});}
+/* ---------- 解析：§07 供應鏈 ---------- */
+function parseTiers(){var out=[];$all('.scmap-tiers .sctier').forEach(function(t){var stocks=[];$all('.scbox-n',t).forEach(function(b){var dot=$('.scdot',b);var k=dot?(dot.className.match(/scdot\s+([smw])/)||[])[1]:null;var name=txt(b).replace(/\s+/g,'');if(k)stocks.push([name,k]);});out.push({tag:txt($('.sctier-tag',t)),stocks:stocks});});return out;}
+/* ---------- 解析：§08 ETF ---------- */
+function parseETF(){var E=[];$all('.etf-card').forEach(function(c){var nm=txt($('.etf-card-name',c));var rev=/反1|反1|買超\s*=\s*實質偏空|避險/.test(nm)|| /00632R/.test(txt($('.etf-card-ticker',c)));
+ var v={};$all('.etf-row',c).forEach(function(r){var l=txt($('.lbl',r)),val=pf(txt($('.val',r)));if(/當日/.test(l))v.d1=val;else if(/5日/.test(l))v.d5=val;else if(/月線/.test(l))v.d20=val;else if(/季線/.test(l))v.d60=val;});
+ E.push({rev:!!rev,v:v});});return E;}
+
+/* ================= 渲染 ================= */
+var TAG='<span class="viz-tag">視覺化</span>';
+function wrap(html){var d=document.createElement('div');d.className='viz-wrap';d.innerHTML=html;return d;}
+
+/* §02 熱力圖 */
+function renderHeatmap(S,host){
+ var box=wrap('<div class="viz-h">'+TAG+'🔥 全市場產業資金熱力圖</div><div class="viz-sub"><b style="color:var(--red)">紅＝買超/跑贏</b>、<b style="color:var(--green)">綠＝賣超/跑輸</b>。切<b>量／價</b>；<b>點欄名排序</b>；<b>點產業名稱</b>展開個股（全寬、互斥，表內欄位亦可點排序）。</div><div class="viz-seg-row"><span class="viz-seg-lbl">鏡頭</span><div class="dyn-seg" id="hm-mode"><button class="on" data-m="vol">量</button><button data-m="rel">價</button></div><span class="viz-seg-lbl">窗格</span><div class="dyn-seg" id="hm-seg"></div><span class="viz-seg-lbl" id="hm-gapnote" style="opacity:.7"></span></div><div id="hm-box"></div>');
+ host.appendChild(box);
+ var MODE={vol:{cols:[['5日',0,0],['10日',1,0],['月線',2,0],['季線',3,1]],get:function(r,k){return r.v[k];},kind:'num',gap:'季線本期未提供'},
+           rel:{cols:[['REL5',0,0],['REL20',1,0],['REL60',2,0]],get:function(r,k){return r.rv[k];},kind:'pct',gap:'產業平均相對強度（贏大盤幾 %）'}};
+ var mode='vol',sortc=0,dir=-1,openi=-1,esort=-1,edir=-1;
+ var ECOL=[['代號',0,'s'],['名稱',1,'s'],['產業',2,'s'],['5日',3,'n'],['10日',4,'n'],['月線',5,'n'],['REL5',6,'n'],['REL20',7,'n'],['REL60',8,'n']];
+ function maxOf(m){var mx=1;S.forEach(function(r){MODE[m].cols.forEach(function(c){if(c[2])return;var x=MODE[m].get(r,c[1]);if(x!=null)mx=Math.max(mx,Math.abs(x));});});return mx;}
+ function fmtN(x){return x==null?'—':(x>0?'+':'')+x.toLocaleString('en-US');}
+ function fmtP(x){return x==null?'—':(x>0?'+':'')+x.toFixed(2)+'%';}
+ function col(x,mx){if(x==null)return '';var o=Math.pow(Math.min(1,Math.abs(x)/mx),0.5);var c=x>=0?'207,111,114':'92,174,136';return 'background:rgba('+c+','+(0.10+0.82*o).toFixed(2)+');color:'+(o>0.55?'#fff':'var(--text)');}
+ function sval(s){var n=pf(s);return n;}
+ function tcol(s){var n=sval(s);return n==null?'var(--dim)':(n>=0?'var(--red)':'var(--green)');}
+ function expTable(r){var rows=r.s.slice();
+  if(esort>=0){var kind=ECOL[esort][2];rows.sort(function(a,b){var av=a[esort],bv=b[esort];if(kind=='n'){av=sval(av);bv=sval(bv);av=av==null?-1e18:av;bv=bv==null?-1e18:bv;return (bv-av)*(edir<0?1:-1);}return (''+av).localeCompare(''+bv)*(edir<0?-1:1);});}
+  var h='<table><thead><tr>'+ECOL.map(function(c,i){return '<th'+(i==esort?' class="ar"':'')+' data-i="'+i+'">'+c[0]+(i==esort?(edir<0?' ▼':' ▲'):'')+'</th>';}).join('')+'</tr></thead><tbody>';
+  h+=rows.map(function(st){return '<tr>'+ECOL.map(function(c,i){var v=st[i];if(c[2]=='n')return '<td style="color:'+tcol(v)+';font-variant-numeric:tabular-nums">'+v+'</td>';return '<td>'+v+'</td>';}).join('')+'</tr>';}).join('');
+  return h+'</tbody></table>';}
+ function render(){var M=MODE[mode],mx=maxOf(mode),ncol=M.cols.length;
+  $all('#hm-mode button',box).forEach(function(b){b.classList.toggle('on',b.dataset.m===mode);});
+  $('#hm-seg',box).innerHTML=M.cols.map(function(c){return '<button'+(c[2]?' disabled title="本期未提供"':'')+' data-w="'+c[1]+'"'+(c[1]==sortc&&!c[2]?' class="on"':'')+'>'+c[0]+'</button>';}).join('');
+  $('#hm-gapnote',box).textContent=M.gap;
+  var tmpl='minmax(120px,1.5fr) repeat('+ncol+',minmax(52px,1fr))';
+  var head='<div class="hm-head" style="grid-template-columns:'+tmpl+'"><div>產業（點名稱展開）</div>'+M.cols.map(function(c){var on=(c[1]==sortc&&!c[2]);return '<div'+(c[2]?' class="dis"':(on?' class="ar"':''))+' data-w="'+c[1]+'" data-gap="'+(c[2]||0)+'">'+c[0]+(on?(dir<0?' ▼':' ▲'):'')+'</div>';}).join('')+'</div>';
+  var rows=S.slice().sort(function(a,b){var av=M.get(a,sortc),bv=M.get(b,sortc);av=av==null?-1e18:av;bv=bv==null?-1e18:bv;return (bv-av)*(dir<0?1:-1);});
+  var fmt=M.kind=='pct'?fmtP:fmtN;
+  var body=rows.map(function(r){var oi=S.indexOf(r);
+   var cells=M.cols.map(function(c){if(c[2])return '<div class="hm-cell gap'+(c[1]==sortc?' on':'')+'">缺</div>';var x=M.get(r,c[1]);return '<div class="hm-cell'+(c[1]==sortc?' on':'')+'" style="'+col(x,mx)+'">'+fmt(x)+'</div>';}).join('');
+   return '<div class="hm-row" style="grid-template-columns:'+tmpl+'"><div class="lbl" data-oi="'+oi+'"><span>'+(r.f=='in'?'🔥':'❄')+'</span>'+r.n+'<span class="tw">'+r.s.length+' 檔 ▸</span></div>'+cells+(openi==oi?'<div class="hm-exp">'+expTable(r)+'</div>':'')+'</div>';}).join('');
+  $('#hm-box',box).innerHTML=head+body;}
+ box.addEventListener('click',function(e){var t=e.target;
+  var mb=t.closest('#hm-mode button');if(mb){mode=mb.dataset.m;sortc=0;dir=-1;openi=-1;esort=-1;render();return;}
+  var sb=t.closest('#hm-seg button');if(sb&&!sb.disabled){sortc=+sb.dataset.w;dir=-1;render();return;}
+  var hd=t.closest('.hm-head>div[data-w]');if(hd){if(+hd.dataset.gap)return;var i=+hd.dataset.w;if(i==sortc)dir=-dir;else{sortc=i;dir=-1;}render();return;}
+  var lbl=t.closest('.hm-row .lbl');if(lbl){var i=+lbl.dataset.oi;openi=(openi==i?-1:i);esort=-1;edir=-1;render();return;}
+  var th=t.closest('.hm-exp th');if(th){var i=+th.dataset.i;if(i==esort)edir=-edir;else{esort=i;edir=-1;}render();return;}});
+ render();
+}
+/* 徑向：§04/§05/§07 */
+function renderRadial(host,opt){
+ var box=wrap('<div class="viz-h">'+TAG+'◎ '+opt.title+'</div><div class="viz-sub">'+opt.sub+'</div><div class="rh-row">'+radialSVG(opt.rings,opt.sectors,opt.ang,opt.clickfn)+ringLegend(opt.legend,opt.clickfn)+'</div><div class="rh-hint">▸ 點擊環／圖例 → 展開明細</div>'+(opt.expId?'<div class="rh-exp" id="'+opt.expId+'"></div>':'')+'');
+ host.appendChild(box);return box;
+}
+/* §08 天秤 */
+function renderBalance(E,host){
+ var box=wrap('<div class="viz-h">'+TAG+'⚖ 大盤多空天秤（多窗格）</div><div class="viz-sub">三檔 ETF 法人買賣超換算多空力道：0050＋正2 買超=多方，反1 買超=空方（避險）。切窗格看方向。</div><div class="viz-seg-row"><span class="viz-seg-lbl">窗格</span><div class="dyn-seg" id="sc-seg"><button data-w="d1">當日</button><button class="on" data-w="d5">5日</button><button disabled title="ETF 本期資料未含 10日">10日</button><button data-w="d20">月線</button><button data-w="d60">季線</button></div></div><div class="sc-svg-wrap"><svg width="300" height="185" viewBox="0 0 300 185"><rect x="108" y="158" width="84" height="9" rx="3" fill="var(--dim)" opacity=".4"/><polygon points="128,158 172,158 150,120" fill="var(--dim)" opacity=".5"/><line x1="150" y1="122" x2="150" y2="62" stroke="var(--dim)" stroke-width="4"/><g id="scBeam" style="transform-origin:150px 62px;transition:transform .75s cubic-bezier(.34,1.15,.4,1)"><line x1="40" y1="62" x2="260" y2="62" stroke="var(--text)" stroke-width="6" stroke-linecap="round"/><circle cx="150" cy="62" r="7" fill="var(--text)"/><line x1="40" y1="62" x2="40" y2="96" stroke="var(--dim)" stroke-width="2"/><path d="M16 96 A26 12 0 0 0 64 96" fill="rgba(207,111,114,.14)" stroke="var(--red)" stroke-width="3.5"/><text x="40" y="86" text-anchor="middle" font-size="13" fill="var(--red)" font-weight="800">多</text><line x1="260" y1="62" x2="260" y2="96" stroke="var(--dim)" stroke-width="2"/><path d="M236 96 A26 12 0 0 0 284 96" fill="rgba(92,174,136,.14)" stroke="var(--green)" stroke-width="3.5"/><text x="260" y="86" text-anchor="middle" font-size="13" fill="var(--green)" font-weight="800">空</text></g></svg></div><div class="sc-read"><div class="s bull"><div class="v" id="scBull">0</div><div class="lbl">多方力道（萬）</div></div><div class="s"><div class="v" id="scTilt">—</div><div class="lbl">天秤傾向</div></div><div class="s bear"><div class="v" id="scBear">0</div><div class="lbl">空方力道（萬）</div></div></div>');
+ host.appendChild(box);
+ function set(w){var bull=0,bear=0;E.forEach(function(e){var val=e.v[w];if(val==null)return;var bs=e.rev?(val<0):(val>0),mag=Math.abs(val);if(bs)bull+=mag;else bear+=mag;});
+  var tt=bull+bear,tilt=tt?(bull-bear)/tt:0,a=-20*tilt;var b=$('#scBeam',box);if(b)b.style.transform='rotate('+a+'deg)';
+  $('#scBull',box).textContent=Math.round(bull).toLocaleString('en-US');$('#scBear',box).textContent=Math.round(bear).toLocaleString('en-US');
+  var tl=$('#scTilt',box);tl.textContent=tilt>0.02?'偏多':(tilt<-0.02?'偏空':'均衡');tl.style.color=tilt>0.02?'var(--red)':(tilt<-0.02?'var(--green)':'var(--dim)');
+  $all('#sc-seg button',box).forEach(function(x){x.classList.toggle('on',x.dataset.w===w);});}
+ box.addEventListener('click',function(e){var b=e.target.closest('#sc-seg button');if(b&&!b.disabled)set(b.dataset.w);});
+ set('d5');
+}
+
+/* ---------- 信號流階梯圖（§06 sec-ai3；值＝法人月線買賣超） ---------- */
+function ladderRender(sec,stages,cfg){
+ var mx=1;stages.forEach(function(s){if(s.val!=null)mx=Math.max(mx,Math.abs(s.val));});
+ function col(v){return v==null?'var(--dim)':(v>=0?'#cf6f72':'#5cae88');}
+ var box=document.createElement('div');box.className='viz-wrap';var openi=-1;
+ function step(s,i){var v=s.val,c=col(v),half=v==null?0:Math.min(50,50*Math.abs(v)/mx);
+  var bar=v==null?'':'<div class="lad-bar" style="background:'+c+';'+(v>=0?'left:50%;width:'+half+'%':'left:auto;right:50%;width:'+half+'%')+'"></div>';
+  return '<div class="lad-step" data-i="'+i+'"><div class="lad-num" style="background:'+c+'">'+(s.num||(i+1))+'</div><div class="lad-mid"><div class="lad-name">'+s.name+'</div><div class="lad-state">'+s.state+'</div></div><div class="lad-barwrap"><div class="lad-mid0"></div>'+bar+'</div><div class="lad-val" style="color:'+c+'">'+(v==null?'—':cfg.fmt(v))+'</div><div class="lad-nh">'+(s.extra||'')+'</div></div><div class="lad-exp'+(openi==i?' on':'')+'"><table>'+(s.stocks||'')+'</table></div>';}
+ function render(){box.innerHTML='<div class="viz-h"><span class="viz-tag">視覺化</span>⛰ '+cfg.title+'</div><div class="viz-sub">'+cfg.sub+'</div><div class="lad"><div class="lad-rail"></div>'+stages.map(step).join('')+'</div>';}
+ box.addEventListener('click',function(e){var st=e.target.closest('.lad-step');if(!st)return;var i=+st.dataset.i;openi=(openi==i?-1:i);render();});
+ sec.parentNode.insertBefore(box,sec.nextSibling);render();
+}
+function renderLadder(){
+ var sec=document.getElementById('sec-ai3');if(!sec)return;
+ var next=document.getElementById('sec-scmap');
+ var cards=$all('.cat-card').filter(function(c){return (sec.compareDocumentPosition(c)&4)&&(!next||(next.compareDocumentPosition(c)&2));});
+ if(!cards.length)return;
+ var stages=cards.map(function(c){
+  var main=txt($('.cat-hdr-main',c)),meta=txt($('.cat-hdr-meta',c));
+  var num=(main.match(/\d+/)||[''])[0];
+  var rest=main.replace(/^[\d.\s]+/,'');
+  var em=rest.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]|[←-⯿☀-➿⬀-⯿]/);
+  var idx=em?rest.indexOf(em[0]):-1;
+  var name=(idx>0?rest.slice(0,idx):rest).replace(/[｜|　]+$/,'').trim();
+  var state=idx>=0?rest.slice(idx).replace(/[｜|].*$/,'').trim():'';
+  var mparts=meta.split(/[｜|]/).map(function(x){return x.trim();});var val=null,extra='';
+  mparts.forEach(function(p){var mm=p.match(/([+\-]?[\d,]+)\s*萬/);if(mm)val=parseFloat(mm[1].replace(/,/g,''));var cm=p.match(/(\d+)\s*檔/);if(cm)extra=cm[0];});
+  return {num:num,name:name,state:state,val:val,extra:extra,stocks:($('.cat-det',c)||{}).innerHTML||''};});
+ ladderRender(sec,stages,{fmt:function(v){return (v>0?'+':'')+Math.round(v).toLocaleString('en-US');},title:'信號流階梯圖',sub:'8 階段訊號傳導（上游→下游）。條＝該階段法人<b>月線買賣超</b>（<span style="color:#cf6f72">紅=買超</span>／<span style="color:#5cae88">綠=賣超</span>），編號色同。點階展開個股。'});
+ cards.forEach(function(c){c.style.display='none';});
+}
+/* ================= init ================= */
+function init(){
+ try{
+ // §02
+ var secSector=$('#sec-sector');var S=parseS02();
+ if(secSector&&S){var host=secSector.parentNode;var anchor=$('.board-tabbar',host);
+  renderHeatmap(S,(function(){var h=document.createElement('div');host.insertBefore(h,anchor);return h;})());
+  // 隱藏原始 量/價 卡片與 tabbar
+  var tb=$('.board-tabbar',host);if(tb)tb.style.display='none';
+  $all('[id^="board-panel-"]',host).forEach(function(p){p.style.display='none';});}
+ // §04 三層
+ var s04=$('#sec-ai1');if(s04){var m=$all('#sec-ai1',document);}
+ var ai1=document.getElementById('sec-ai1');
+ if(ai1){var host4=ai1.parentNode;var metas4=$all('.ai-lcard-meta',host4);
+  if(metas4.length){var rings4=parseCounts(metas4.map(txt));
+   window.rad04=function(i){var el=document.getElementById('ai-layer-detail-'+(i+1))||document.getElementById('ai-layer-panel');if(typeof selectAILayer==='function')selectAILayer(String(i+1));if(el)el.scrollIntoView({behavior:'smooth',block:'center'});};
+   var b4=renderRadial((function(){var h=document.createElement('div');ai1.parentNode.insertBefore(h,ai1.nextSibling);return h;})(),{title:'三層架構 · 位階徑向熱力圖',sub:'環＝三層（內→外），四象限＝法人位階，愈亮＝該層該位階股票愈多。配色同動態圖。<b>點任一環或圖例</b>展開該層完整個股表（沿用原版）。',rings:rings4,sectors:SEC4,ang:ANG4,legend:metas4.map(function(m,i){var t=txt(m);var mm=t.match(/月線合計([+\-\d,]+)/);return [['內圈 第一層','中圈 第二層','外圈 第三層'][i]||('層'+(i+1)),mm?'月線 '+mm[1]:''];}),clickfn:'rad04'});}}
+ // §05 三圈
+ var ai2=document.getElementById('sec-ai2');
+ if(ai2&&document.getElementById('circle-panel-c1')){var rings5=parseCircleCounts();
+  window.rad05=function(i){var el=document.getElementById('circle-panel-c'+(i+1))||document.getElementById('circle-panel-wrap');if(typeof selectCircle==='function')selectCircle('c'+(i+1));if(el)el.scrollIntoView({behavior:'smooth',block:'center'});};
+  renderRadial((function(){var h=document.createElement('div');ai2.parentNode.insertBefore(h,ai2.nextSibling);return h;})(),{title:'三圈擴散 · 位階徑向熱力圖',sub:'環＝三圈（核心→外溢），四象限＝法人位階。<b>點任一環或圖例</b>展開該圈完整個股表（沿用原版）。',rings:rings5,sectors:SEC4,ang:ANG4,legend:[['內圈 Circle1',''],['中圈 Circle2',''],['外圈 Circle3','']],clickfn:'rad05'});}
+ // §06 信號流階梯
+ renderLadder();
+ // §07 供應鏈
+ var scmap=document.getElementById('sec-scmap');var tiers=parseTiers();
+ if(scmap&&tiers.length){var r7=tiers.map(function(t){var c={s:0,m:0,w:0};t.stocks.forEach(function(x){c[x[1]]++;});return {c:c};});
+  var NM=tiers.map(function(t){return t.tag;});var CO={s:RRG.led,m:RRG.imp,w:RRG.wk},LB={s:'強',m:'中',w:'弱'};var cur=-1;
+  window.rad07=function(i){var b=document.getElementById('rad07-exp');if(cur==i){b.classList.remove('on');cur=-1;return;}cur=i;var st=tiers[i].stocks;var h='<h4>'+NM[i]+'（'+st.length+' 檔）</h4>';if(!st.length){h+='<div style="color:var(--dim);font-size:calc(var(--fs)*.64)">台股較少著墨。</div>';}else{['s','m','w'].forEach(function(k){var a=st.filter(function(x){return x[1]==k;});if(!a.length)return;h+='<div class="tgrp-l" style="color:'+CO[k]+'">'+LB[k]+'　'+a.length+' 檔</div>'+a.map(function(x){return '<span class="tstk"><i style="background:'+CO[k]+'"></i>'+x[0]+'</span>';}).join('');});}b.innerHTML=h;b.classList.add('on');b.scrollIntoView({behavior:'smooth',block:'nearest'});};
+  renderRadial((function(){var h=document.createElement('div');scmap.parentNode.insertBefore(h,scmap.nextSibling);return h;})(),{title:'供應鏈定位 · 徑向熱力圖（配色對齊動態圖）',sub:'環＝上/中/下游，扇區＝籌碼強度（<b style="color:#ec4899">強=洋紅</b>、<b style="color:#f59e0b">中=琥珀</b>、<b style="color:#22d3ee">弱=青</b>）。<b>點任一環或圖例</b>展開該層個股。',rings:r7,sectors:SEC3,ang:ANG3,legend:tiers.map(function(t){return [t.tag,t.stocks.length?t.stocks.length+' 檔':'台股較少'];}),clickfn:'rad07',expId:'rad07-exp'});
+  var sm=$('.scmap');if(sm)sm.style.display='none';}
+ // §08 天秤
+ var etf=document.getElementById('sec-etf');var E=parseETF();
+ if(etf&&E.length){renderBalance(E,(function(){var h=document.createElement('div');etf.parentNode.insertBefore(h,etf.nextSibling);return h;})());}
+ }catch(err){if(window.console)console.error('tw-viz init error:',err);}
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+
+</script>
 </body>
 </html>

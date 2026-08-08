@@ -1488,5 +1488,241 @@ function sortTable(th){
     {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
 }catch(e){}})();
 </script>
+<style id="us-viz-css">
+/* tw-viz.css — 台股視覺化元件樣式（配 tw-viz.js） */
+.viz-wrap{margin:16px 0 10px;padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--surface2);}
+.viz-h{font-size:calc(var(--fs)*.88);font-weight:800;color:var(--text);margin-bottom:3px;}
+.viz-sub{font-size:calc(var(--fs)*.68);color:var(--dim);line-height:1.65;margin-bottom:12px;}
+.viz-tag{display:inline-block;font-size:calc(var(--fs)*.58);font-weight:800;padding:1px 8px;border-radius:999px;background:rgba(240,165,0,.16);color:var(--dyn-imp);margin-right:7px;vertical-align:middle;}
+.viz-seg-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.viz-seg-lbl{font-size:calc(var(--fs)*.62);color:var(--dim);font-weight:700;}
+.dyn-seg button:disabled{opacity:.4;cursor:not-allowed;text-decoration:line-through;}
+.hm-head,.hm-row{display:grid;gap:2px;}
+.hm-head>div{font-weight:800;color:var(--dim);text-align:right;padding:5px 6px;font-size:calc(var(--fs)*.56);cursor:pointer;user-select:none;white-space:nowrap;}
+.hm-head>div:first-child{text-align:left;cursor:default;}
+.hm-head>div.dis{cursor:not-allowed;opacity:.5;}
+.hm-head .ar{color:var(--accent);}
+.hm-row{margin-bottom:2px;}
+.hm-row .lbl{color:var(--text);font-weight:600;padding:4px 8px 4px 6px;display:flex;align-items:center;gap:5px;cursor:pointer;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hm-row .lbl:hover{background:rgba(127,159,198,.14);}
+.hm-row .lbl .tw{margin-left:auto;color:var(--dim);font-size:calc(var(--fs)*.5);}
+.hm-cell{padding:4px 6px;text-align:right;border-radius:4px;font-variant-numeric:tabular-nums;font-size:calc(var(--fs)*.6);}
+.hm-cell.on{outline:2px solid var(--accent);outline-offset:-2px;}
+.hm-cell.gap{background:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(127,159,198,.10) 4px,rgba(127,159,198,.10) 8px);color:var(--dim);text-align:center;}
+.hm-exp{grid-column:1/-1;background:var(--bg);border:1px solid var(--border);border-radius:8px;margin:1px 0 6px;padding:8px 10px;overflow-x:auto;}
+.hm-exp table{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.6);}
+.hm-exp th,.hm-exp td{padding:3px 8px;text-align:right;white-space:nowrap;}
+.hm-exp th{color:var(--dim);border-bottom:1px solid var(--border);cursor:pointer;font-weight:700;user-select:none;}
+.hm-exp th.ar{color:var(--accent);}
+.hm-exp td:first-child,.hm-exp th:first-child,.hm-exp td:nth-child(2),.hm-exp th:nth-child(2),.hm-exp td:nth-child(3),.hm-exp th:nth-child(3){text-align:left;}
+.hm-exp tr:hover td{background:rgba(127,159,198,.06);}
+.rh-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.rh-legend{flex:1 1 210px;min-width:190px;display:flex;flex-direction:column;gap:9px;}
+.rh-li{display:flex;align-items:center;gap:9px;font-size:calc(var(--fs)*.66);padding:3px 6px;border-radius:6px;}
+.rh-li:hover{background:rgba(127,159,198,.12);}
+.rh-ring{width:13px;height:13px;border-radius:50%;flex:0 0 auto;border:2px solid var(--dim);}
+.rh-ring.r0{border-color:var(--text);}.rh-ring.r1{border-color:var(--dim);}.rh-ring.r2{border-color:var(--border);}
+.rh-li .nm{color:var(--text);font-weight:700;}.rh-li .mt{color:var(--dim);margin-left:auto;font-variant-numeric:tabular-nums;}
+.rh-note{font-size:calc(var(--fs)*.62);color:var(--dim);line-height:1.6;margin-top:8px;}
+.rh-hint{font-size:calc(var(--fs)*.58);color:var(--accent);font-weight:700;margin-top:6px;}
+.rh-exp{background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-top:10px;padding:10px 12px;display:none;}
+.rh-exp.on{display:block;}
+.rh-exp h4{margin:0 0 8px;font-size:calc(var(--fs)*.68);color:var(--text);}
+.tstk{display:inline-flex;align-items:center;gap:5px;font-size:calc(var(--fs)*.62);padding:3px 9px;margin:3px 5px 3px 0;border-radius:999px;background:var(--surface2);border:1px solid var(--border);}
+.tstk i{width:8px;height:8px;border-radius:50%;display:inline-block;}
+.tgrp-l{font-size:calc(var(--fs)*.6);color:var(--dim);font-weight:700;margin:8px 0 2px;}
+.sc-svg-wrap{text-align:center;}
+.sc-read{display:flex;justify-content:space-around;margin-top:6px;}
+.sc-read .s{text-align:center;}.sc-read .s .v{font-size:calc(var(--fs)*.98);font-weight:800;font-variant-numeric:tabular-nums;}
+.sc-read .bull .v{color:var(--red);}.sc-read .bear .v{color:var(--green);}
+.sc-read .lbl{color:var(--dim);font-size:calc(var(--fs)*.6);margin-top:1px;}
+/* US §02 強勢股熱力圖：字縮小 */
+.ushm .hm-row .lbl{font-size:calc(var(--fs)*.7);}
+.ushm .hm-row .lbl b{font-size:calc(var(--fs)*.78);font-weight:800;}
+.ushm .hm-cell{font-size:calc(var(--fs)*.66);padding:3px 6px;}
+.ushm .hm-head>div{font-size:calc(var(--fs)*.6);}
+/* US §06 供應鏈：區段 → 成分股 */
+.usseg{display:flex;gap:12px;align-items:baseline;padding:4px 2px;font-size:calc(var(--fs)*.62);border-bottom:1px solid var(--border);}
+.usseg:last-child{border-bottom:none;}
+.usseg-n{flex:0 0 auto;min-width:120px;color:var(--text);font-weight:700;display:flex;align-items:center;gap:6px;}
+.usseg-n i{width:8px;height:8px;border-radius:50%;flex:0 0 auto;}
+.usseg-tk{color:var(--dim);letter-spacing:.02em;}
+
+/* 信號流階梯圖 ladder */
+.lad{position:relative;}
+.lad-rail{position:absolute;left:16px;top:16px;bottom:16px;width:2px;background:var(--border);}
+.lad-step{position:relative;display:flex;align-items:center;gap:12px;padding:7px 0;cursor:pointer;border-radius:8px;}
+.lad-step:hover{background:rgba(127,159,198,.08);}
+.lad-num{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:calc(var(--fs)*.6);color:#fff;z-index:1;box-shadow:0 0 0 4px var(--surface2);}
+.lad-mid{flex:0 0 auto;width:150px;min-width:0;}
+.lad-name{font-size:calc(var(--fs)*.7);font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lad-state{font-size:calc(var(--fs)*.58);color:var(--dim);}
+.lad-barwrap{flex:1 1 auto;min-width:70px;height:20px;position:relative;background:var(--bg);border-radius:5px;overflow:hidden;border:1px solid var(--border);}
+.lad-bar{position:absolute;top:0;bottom:0;border-radius:3px;}
+.lad-mid0{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--dim);opacity:.5;}
+.lad-val{flex:0 0 auto;width:70px;text-align:right;font-size:calc(var(--fs)*.62);font-weight:800;font-variant-numeric:tabular-nums;}
+.lad-nh{flex:0 0 auto;font-size:calc(var(--fs)*.52);color:var(--dim);width:58px;text-align:right;}
+.lad-exp{margin:2px 0 8px 46px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:none;overflow-x:auto;}
+.lad-exp.on{display:block;}
+.lad-exp table{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.58);}
+.lad-exp th,.lad-exp td{padding:3px 8px;text-align:right;white-space:nowrap;}
+.lad-exp th:first-child,.lad-exp td:first-child{text-align:left;}
+.lad-exp th{color:var(--dim);border-bottom:1px solid var(--border);}
+@media(max-width:700px){.lad-mid{width:96px;}.lad-nh{display:none;}}
+
+</style>
+<script id="us-viz-js">
+/* us-viz.js — 美股報告視覺化元件（資料驅動·解析報告自身 DOM）
+   §02 強勢股熱力圖 / §03 三層·§04 三圈 REL期限徑向熱力圖 / §06 供應鏈徑向熱力圖。
+   US 用 REL相對強度＋WtdAlpha（無法人金額·無位階·無ETF）。台股慣例：紅=漲/強、綠=跌/弱。
+   2026-08-08 Yoda 定案。RRG：領先=洋紅 轉強=琥珀 轉弱=青 落後=紫。*/
+(function(){
+'use strict';
+var RRG={led:'#ec4899',imp:'#f59e0b',wk:'#22d3ee',lag:'#a78bfa'};
+function $(s,r){return (r||document).querySelector(s);}
+function $all(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function txt(e){return e?e.textContent.trim():'';}
+function pf(s){if(s==null)return null;var m=(''+s).match(/-?\d[\d,\.]*/);return m?parseFloat(m[0].replace(/,/g,'')):null;}
+
+/* ---------- 幾何 / 徑向 SVG（count 或 value 模式） ---------- */
+function polar(cx,cy,r,d){var a=d*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+function ann(cx,cy,ri,ro,a0,a1){var p1=polar(cx,cy,ro,a0),p2=polar(cx,cy,ro,a1),p3=polar(cx,cy,ri,a1),p4=polar(cx,cy,ri,a0);var lg=((a1-a0)%360>180)?1:0;
+ return 'M'+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+' A'+ro+' '+ro+' 0 '+lg+' 1 '+p2[0].toFixed(1)+' '+p2[1].toFixed(1)+' L'+p3[0].toFixed(1)+' '+p3[1].toFixed(1)+' A'+ri+' '+ri+' 0 '+lg+' 0 '+p4[0].toFixed(1)+' '+p4[1].toFixed(1)+' Z';}
+function fmtPct(x){return x==null?'—':(x>0?'+':'')+x.toFixed(1)+'%';}
+function radialSVG(rings,sectors,ang,clickfn,mode){var cx=128,cy=128,radii=[[34,60],[64,90],[94,120]],ro=120,mx=1;
+ rings.forEach(function(r){sectors.forEach(function(s){var val=mode==='value'?Math.abs(r.v[s[0]]||0):(r.c[s[0]]||0);mx=Math.max(mx,val);});});
+ var p='';
+ rings.forEach(function(ring,i){var ri=radii[i][0],ro2=radii[i][1],inner='';
+  sectors.forEach(function(s){var a0=ang[s[0]][0],a1=ang[s[0]][1],fill,op,label;
+   if(mode==='value'){var v=ring.v[s[0]];if(v==null){fill='var(--dim)';op=0.05;label='';}else{fill=v>=0?'#cf6f72':'#5cae88';op=0.20+0.80*(Math.abs(v)/mx);label=fmtPct(v);}}
+   else{var cnt=ring.c[s[0]]||0;fill=s[2];op=cnt===0?0.05:(0.20+0.80*(cnt/mx));label=cnt>0?cnt:'';}
+   inner+='<path d="'+ann(cx,cy,ri,ro2,a0,a1)+'" fill="'+fill+'" fill-opacity="'+op.toFixed(3)+'" stroke="var(--bg)" stroke-width="1.5"/>';
+   if(label!=='')inner+='<text x="'+polar(cx,cy,(ri+ro2)/2,(a0+a1)/2)[0].toFixed(1)+'" y="'+polar(cx,cy,(ri+ro2)/2,(a0+a1)/2)[1].toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="10" font-weight="800" fill="#fff" style="pointer-events:none">'+label+'</text>';});
+  p+=clickfn?'<g style="cursor:pointer" onclick="'+clickfn+'('+i+')"><title>點擊展開明細</title>'+inner+'</g>':inner;});
+ sectors.forEach(function(s){var a0=ang[s[0]][0],a1=ang[s[0]][1],l=polar(cx,cy,ro+16,(a0+a1)/2),lc=mode==='value'?'var(--dim)':s[2];
+  p+='<text x="'+l[0].toFixed(1)+'" y="'+l[1].toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" fill="'+lc+'" style="pointer-events:none">'+s[1]+'</text>';});
+ return '<svg width="300" height="300" viewBox="-14 -14 284 284" style="max-width:100%;height:auto;flex:0 0 auto;">'+p+'</svg>';}
+var SECREL=[['r5','REL5',''],['r20','REL20',''],['r60','REL60','']];
+var ANG3={r5:[-90,30],r20:[30,150],r60:[150,270],s:[-90,30],m:[30,150],w:[150,270]};
+var SECSTR=[['s','強',RRG.led],['m','中',RRG.imp],['w','弱',RRG.wk]];
+function ringLegend(items,clickfn){return '<div class="rh-legend">'+items.map(function(it,i){return '<div class="rh-li" style="cursor:pointer" onclick="'+clickfn+'('+i+')"><span class="rh-ring r'+i+'"></span><span class="nm">'+it[0]+'</span><span class="mt">'+it[1]+'</span></div>';}).join('')+'</div>';}
+
+var TAG='<span class="viz-tag">視覺化</span>';
+function wrap(html){var d=document.createElement('div');d.className='viz-wrap';d.innerHTML=html;return d;}
+function hostAfter(el){var h=document.createElement('div');el.parentNode.insertBefore(h,el.nextSibling);return h;}
+
+/* ---------- §03/§04：解析 cat-card 層/圈 → 平均 REL5/20/60 ---------- */
+function sectionCards(secId,nextId){var sec=document.getElementById(secId);if(!sec)return [];var next=nextId?document.getElementById(nextId):null;
+ return $all('.cat-card').filter(function(c){var af=sec.compareDocumentPosition(c)&4;var bf=next?(next.compareDocumentPosition(c)&2):true;return af&&bf;});}
+function parseLayers(secId,nextId){var sec=document.getElementById(secId);if(!sec)return null;
+ var cards=sectionCards(secId,nextId).slice(0,3);if(!cards.length)return null;
+ return cards.map(function(card,idx){
+  var title=txt($('.cat-hdr-main',card)).split(/[｜|]/)[0].trim();
+  var r5=[],r20=[],r60=[];var stocks=[];
+  $all('.cat-det tbody tr',card).forEach(function(tr){var td=tr.querySelectorAll('td');if(td.length<5)return;
+   var tk=txt(td[0]);if(!/^[A-Za-z]/.test(tk))return;
+   var a=pf(txt(td[2])),b=pf(txt(td[3])),c=pf(txt(td[4]));
+   if(a!=null)r5.push(a);if(b!=null)r20.push(b);if(c!=null)r60.push(c);
+   stocks.push([tk,txt(td[2]),txt(td[3]),txt(td[4])]);});
+  function av(x){return x.length?Math.round(x.reduce(function(s,y){return s+y;},0)/x.length*10)/10:null;}
+  var tog=card.querySelector('.cat-hdr');var togId=(tog&&tog.getAttribute('onclick')||'').match(/'([^']+)'/);
+  return {card:card,title:title||('第'+(idx+1)+'層'),n:stocks.length,stocks:stocks,v:{r5:av(r5),r20:av(r20),r60:av(r60)}};});
+}
+function renderLayerRadial(secId,nextId,title,sub,clickName){
+ var layers=parseLayers(secId,nextId);var sec=document.getElementById(secId);if(!layers||!sec)return;
+ var rings=layers.map(function(l){return {v:l.v};});
+ var legend=layers.map(function(l){return [['內圈 ','中圈 ','外圈 '][layers.indexOf(l)]+l.title,l.n+' 檔'];});
+ window[clickName]=function(i){var c=layers[i]&&layers[i].card;if(c){var h=c.querySelector('.cat-hdr');if(h&&c.querySelector('.cat-det')&&getComputedStyle(c.querySelector('.cat-det')).display==='none')h.click();c.scrollIntoView({behavior:'smooth',block:'center'});}};
+ var box=wrap('<div class="viz-h">'+TAG+'◎ '+title+'</div><div class="viz-sub">'+sub+'</div><div class="rh-row">'+radialSVG(rings,SECREL,ANG3,clickName,'value')+ringLegend(legend,clickName)+'</div><div class="rh-hint">▸ 格色＝該層該窗格<b style="color:#cf6f72">平均 REL</b>（<span style="color:#cf6f72">紅=跑贏</span>／<span style="color:#5cae88">綠=跑輸</span>大盤）；點環／圖例展開該層明細</div>');
+ sec.parentNode.insertBefore(box,sec.nextSibling);
+}
+
+/* ---------- §06 供應鏈：scbox＝產業區段(scdot 強度)＋sctk 成分股 ---------- */
+function parseTiers(){return $all('.scmap-tiers .sctier').map(function(t){
+ var segs=$all('.scbox',t).map(function(b){var nEl=$('.scbox-n',b);var dot=nEl?$('.scdot',nEl):null;var k=dot?(dot.className.match(/scdot\s+([smw])/)||[])[1]:null;
+  var nm=nEl?nEl.textContent.replace(/[+\-]?\d[\d.]*%/g,'').replace(/[\uD800-\uDFFF☀-➿️　\s]+/g,' ').trim():'';
+  var tkEl=$('.sctk',b);var stocks=tkEl?txt(tkEl).split(/[·・|,\/]/).map(function(x){return x.trim();}).filter(function(x){return /^[A-Za-z]/.test(x);}):[];
+  return {seg:nm,k:k||'m',stocks:stocks};});
+ var ns=segs.reduce(function(a,s){return a+s.stocks.length;},0);
+ return {tag:txt($('.sctier-tag',t)),segs:segs,nstock:ns};});}
+function renderSupplyRadial(){var scmap=document.getElementById('sec-scmap');var tiers=parseTiers();if(!scmap||!tiers.length)return;
+ var rings=tiers.map(function(t){var c={s:0,m:0,w:0};t.segs.forEach(function(s){c[s.k]++;});return {c:c};});
+ var CO={s:RRG.led,m:RRG.imp,w:RRG.wk},LB={s:'強',m:'中',w:'弱'};
+ function tierBlock(t,i){var h='<div id="us06-t'+i+'" style="margin-top:'+(i?12:0)+'px"><h4>'+t.tag+'（'+t.segs.length+' 段 · '+t.nstock+' 檔）</h4>';
+  if(!t.segs.length){h+='<div style="color:var(--dim);font-size:calc(var(--fs)*.64)">此層較少著墨。</div>';}
+  else{h+=t.segs.map(function(s){return '<div class="usseg"><span class="usseg-n"><i style="background:'+CO[s.k]+'"></i>'+s.seg+'</span><span class="usseg-tk">'+(s.stocks.join(' · ')||'—')+'</span></div>';}).join('');}
+  return h+'</div>';}
+ window.usrad06=function(i){var e=document.getElementById('us06-t'+i);if(e)e.scrollIntoView({behavior:'smooth',block:'center'});};
+ var box=wrap('<div class="viz-h">'+TAG+'◎ 供應鏈定位 · 徑向熱力圖（配色對齊動態圖）</div><div class="viz-sub">環＝上/中/下游，扇區＝區段籌碼強度（<b style="color:#ec4899">強=洋紅</b>、<b style="color:#f59e0b">中=琥珀</b>、<b style="color:#22d3ee">弱=青</b>）。下方列各區段成分股。點環／圖例跳到該層。</div><div class="rh-row">'+radialSVG(rings,SECSTR,ANG3,'usrad06','count')+ringLegend(tiers.map(function(t){return [t.tag,t.segs.length+' 段·'+t.nstock+' 檔'];}),'usrad06')+'</div><div class="rh-exp on" id="usrad06-exp" style="margin-top:12px">'+tiers.map(tierBlock).join('')+'</div>');
+ scmap.parentNode.insertBefore(box,scmap.nextSibling);var sm=$('.scmap');if(sm)sm.style.display='none';
+}
+
+/* ---------- §02 強勢股熱力圖 ---------- */
+function parseScreener(){var sec=document.getElementById('sec-screen');if(!sec)return null;var host=sec.parentNode;
+ var tb=$('.us-lens-panel.on table',host)||$('.us-lens-panel table',host)||$('table',host);if(!tb)return null;
+ var head=$all('thead th',tb).map(txt);
+ var idx={wa:head.indexOf('WtdAlpha'),d5:head.indexOf('5D%'),m1:head.indexOf('1M%'),m3:head.indexOf('3M%'),ind:head.indexOf('產業'),nm:1};
+ var rows=[];$all('tbody tr',tb).forEach(function(tr){var td=tr.querySelectorAll('td');if(td.length<5||!/^[A-Za-z]/.test(txt(td[0])))return;
+  rows.push({tk:txt(td[0]),nm:txt(td[1]),ind:idx.ind>=0?txt(td[idx.ind]):'',wa:txt(td[idx.wa]),d5:txt(td[idx.d5]),m1:txt(td[idx.m1]),m3:txt(td[idx.m3])});});
+ return rows.length?rows:null;
+}
+function renderScreenerHeatmap(){var rows=parseScreener();var sec=document.getElementById('sec-screen');if(!rows||!sec)return;
+ var COLS=[['WtdAlpha','wa'],['5D%','d5'],['1M%','m1'],['3M%','m3']];
+ var maxc={};COLS.forEach(function(c){var mx=1;rows.forEach(function(r){var v=pf(r[c[1]]);if(v!=null)mx=Math.max(mx,Math.abs(v));});maxc[c[1]]=mx;});
+ var sortk='wa',dir=-1;
+ function cell(val,key){var v=pf(val);if(v==null)return '<div class="hm-cell">—</div>';var o=Math.pow(Math.min(1,Math.abs(v)/maxc[key]),0.6);var c=v>=0?'207,111,114':'92,174,136';return '<div class="hm-cell'+(key==sortk?' on':'')+'" style="background:rgba('+c+','+(0.10+0.82*o).toFixed(2)+');color:'+(o>0.55?'#fff':'var(--text)')+'">'+val+'</div>';}
+ var box=wrap('<div class="viz-h">'+TAG+'🔥❄ 強勢股／弱勢股熱力圖</div><div class="viz-sub">名單＝三個月新高（強）＋新低（弱）。<b style="color:var(--red)">紅＝強/漲</b>、<b style="color:var(--green)">綠＝弱/跌</b>（每欄各自標準化）。WtdAlpha＝加權年化超額強度；5D/1M/3M＝期間報酬。<b>點欄名排序</b>。</div><div id="ushm-box"></div>');
+ box.classList.add('ushm');
+ sec.parentNode.insertBefore(box,sec.nextSibling);
+ // 刪除（隱藏）原始 screener 表格區塊，只留熱力圖
+ var el=box.nextElementSibling;
+ while(el){var stop=(el.id&&el.id.indexOf('sec-')===0)||(el.matches&&el.matches('.section-header'))||(el.querySelector&&el.querySelector('[id^="sec-"],.section-header'));if(stop)break;var nx=el.nextElementSibling;if(!el.classList.contains('viz-wrap'))el.style.display='none';el=nx;}
+ function render(){var tmpl='minmax(150px,1.6fr) repeat(4,minmax(58px,1fr))';
+  var head='<div class="hm-head" style="grid-template-columns:'+tmpl+'"><div>Ticker（產業）</div>'+COLS.map(function(c){var on=c[1]==sortk;return '<div'+(on?' class="ar"':'')+' data-k="'+c[1]+'">'+c[0]+(on?(dir<0?' ▼':' ▲'):'')+'</div>';}).join('')+'</div>';
+  var rr=rows.slice().sort(function(a,b){var av=pf(a[sortk]),bv=pf(b[sortk]);av=av==null?-1e18:av;bv=bv==null?-1e18:bv;return (bv-av)*(dir<0?1:-1);});
+  var body=rr.map(function(r){return '<div class="hm-row" style="grid-template-columns:'+tmpl+'"><div class="lbl"><b>'+r.tk+'</b><span class="tw">'+(r.ind||r.nm).slice(0,10)+'</span></div>'+cell(r.wa,'wa')+cell(r.d5,'d5')+cell(r.m1,'m1')+cell(r.m3,'m3')+'</div>';}).join('');
+  $('#ushm-box',box).innerHTML=head+body;}
+ box.addEventListener('click',function(e){var h=e.target.closest('.hm-head>div[data-k]');if(h){var k=h.dataset.k;if(k==sortk)dir=-dir;else{sortk=k;dir=-1;}render();}});
+ render();
+}
+
+/* ---------- 信號流階梯圖（共用 render + 各自解析值） ---------- */
+function ladderRender(sec,stages,cfg){
+ var mx=1;stages.forEach(function(s){if(s.val!=null)mx=Math.max(mx,Math.abs(s.val));});
+ function col(v){return v==null?'var(--dim)':(v>=0?'#cf6f72':'#5cae88');}
+ var box=document.createElement('div');box.className='viz-wrap';var openi=-1;
+ function step(s,i){var v=s.val,c=col(v),half=v==null?0:Math.min(50,50*Math.abs(v)/mx);
+  var bar=v==null?'':'<div class="lad-bar" style="background:'+c+';'+(v>=0?'left:50%;width:'+half+'%':'left:auto;right:50%;width:'+half+'%')+'"></div>';
+  return '<div class="lad-step" data-i="'+i+'"><div class="lad-num" style="background:'+c+'">'+(s.num||(i+1))+'</div><div class="lad-mid"><div class="lad-name">'+s.name+'</div><div class="lad-state">'+s.state+'</div></div><div class="lad-barwrap"><div class="lad-mid0"></div>'+bar+'</div><div class="lad-val" style="color:'+c+'">'+(v==null?'—':cfg.fmt(v))+'</div><div class="lad-nh">'+(s.extra||'')+'</div></div><div class="lad-exp'+(openi==i?' on':'')+'"><table>'+(s.stocks||'')+'</table></div>';}
+ function render(){box.innerHTML='<div class="viz-h"><span class="viz-tag">視覺化</span>⛰ '+cfg.title+'</div><div class="viz-sub">'+cfg.sub+'</div><div class="lad"><div class="lad-rail"></div>'+stages.map(step).join('')+'</div>';}
+ box.addEventListener('click',function(e){var st=e.target.closest('.lad-step');if(!st)return;var i=+st.dataset.i;openi=(openi==i?-1:i);render();});
+ sec.parentNode.insertBefore(box,sec.nextSibling);render();
+}
+function renderLadder(){
+ var sec=document.getElementById('sec-ai3');if(!sec)return;
+ var next=document.getElementById('sec-scmap');
+ var cards=$all('.cat-card').filter(function(c){return (sec.compareDocumentPosition(c)&4)&&(!next||(next.compareDocumentPosition(c)&2));});
+ if(!cards.length)return;
+ var stages=cards.map(function(c){
+  var main=txt($('.cat-hdr-main',c)),meta=txt($('.cat-hdr-meta',c));
+  var num=(main.match(/\d+/)||[''])[0];var mm=main.split(/[｜|]/);var name=(mm[1]||mm[0]||'').replace(/^[\d.\s]+/,'').trim();
+  var parts=meta.split(/[｜|]/).map(function(x){return x.trim();});var state=parts[0]||'',val=null,extra='';
+  parts.forEach(function(p){var rm=p.match(/REL5\s*([+\-]?[\d.]+)/);if(rm)val=parseFloat(rm[1]);if(/新高/.test(p))extra=p;});
+  return {num:num,name:name,state:state,val:val,extra:extra,stocks:($('.cat-det',c)||{}).innerHTML||''};});
+ ladderRender(sec,stages,{fmt:function(v){return (v>0?'+':'')+v.toFixed(1)+'%';},title:'信號流階梯圖',sub:'8 階段訊號傳導（上游→下游）。條＝該階段<b>均 REL5</b>（<span style="color:#cf6f72">紅=跑贏</span>／<span style="color:#5cae88">綠=跑輸</span>大盤），編號色同。點階展開個股。'});
+ cards.forEach(function(c){c.style.display='none';});
+}
+/* ================= init ================= */
+function init(){try{
+ renderScreenerHeatmap();
+ renderLayerRadial('sec-ai1','sec-ai2','三層架構 · REL 期限徑向熱力圖','環＝三層（內→外），扇區＝REL5/REL20/REL60，格色＝該層該窗格平均相對強度。US 以 REL／Rank 為軸（無法人位階）。','usrad03');
+ renderLayerRadial('sec-ai2','sec-ai3','三圈擴散 · REL 期限徑向熱力圖','環＝三圈（核心→外溢），扇區＝REL5/REL20/REL60，格色＝平均相對強度。','usrad04');
+ renderLadder();
+ renderSupplyRadial();
+}catch(err){if(window.console)console.error('us-viz init error:',err);}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+
+</script>
 </body>
 </html>

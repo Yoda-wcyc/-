@@ -1759,6 +1759,28 @@ function sortTable(th){
 .usseg-n i{width:8px;height:8px;border-radius:50%;flex:0 0 auto;}
 .usseg-tk{color:var(--dim);letter-spacing:.02em;}
 
+/* 信號流階梯圖 ladder */
+.lad{position:relative;}
+.lad-rail{position:absolute;left:16px;top:16px;bottom:16px;width:2px;background:var(--border);}
+.lad-step{position:relative;display:flex;align-items:center;gap:12px;padding:7px 0;cursor:pointer;border-radius:8px;}
+.lad-step:hover{background:rgba(127,159,198,.08);}
+.lad-num{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:calc(var(--fs)*.6);color:#fff;z-index:1;box-shadow:0 0 0 4px var(--surface2);}
+.lad-mid{flex:0 0 auto;width:150px;min-width:0;}
+.lad-name{font-size:calc(var(--fs)*.7);font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lad-state{font-size:calc(var(--fs)*.58);color:var(--dim);}
+.lad-barwrap{flex:1 1 auto;min-width:70px;height:20px;position:relative;background:var(--bg);border-radius:5px;overflow:hidden;border:1px solid var(--border);}
+.lad-bar{position:absolute;top:0;bottom:0;border-radius:3px;}
+.lad-mid0{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--dim);opacity:.5;}
+.lad-val{flex:0 0 auto;width:70px;text-align:right;font-size:calc(var(--fs)*.62);font-weight:800;font-variant-numeric:tabular-nums;}
+.lad-nh{flex:0 0 auto;font-size:calc(var(--fs)*.52);color:var(--dim);width:58px;text-align:right;}
+.lad-exp{margin:2px 0 8px 46px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:none;overflow-x:auto;}
+.lad-exp.on{display:block;}
+.lad-exp table{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.58);}
+.lad-exp th,.lad-exp td{padding:3px 8px;text-align:right;white-space:nowrap;}
+.lad-exp th:first-child,.lad-exp td:first-child{text-align:left;}
+.lad-exp th{color:var(--dim);border-bottom:1px solid var(--border);}
+@media(max-width:700px){.lad-mid{width:96px;}.lad-nh{display:none;}}
+
 </style>
 <script id="us-viz-js">
 /* us-viz.js — 美股報告視覺化元件（資料驅動·解析報告自身 DOM）
@@ -1875,11 +1897,38 @@ function renderScreenerHeatmap(){var rows=parseScreener();var sec=document.getEl
  render();
 }
 
+/* ---------- 信號流階梯圖（共用 render + 各自解析值） ---------- */
+function ladderRender(sec,stages,cfg){
+ var mx=1;stages.forEach(function(s){if(s.val!=null)mx=Math.max(mx,Math.abs(s.val));});
+ function col(v){return v==null?'var(--dim)':(v>=0?'#cf6f72':'#5cae88');}
+ var box=document.createElement('div');box.className='viz-wrap';var openi=-1;
+ function step(s,i){var v=s.val,c=col(v),half=v==null?0:Math.min(50,50*Math.abs(v)/mx);
+  var bar=v==null?'':'<div class="lad-bar" style="background:'+c+';'+(v>=0?'left:50%;width:'+half+'%':'left:auto;right:50%;width:'+half+'%')+'"></div>';
+  return '<div class="lad-step" data-i="'+i+'"><div class="lad-num" style="background:'+c+'">'+(s.num||(i+1))+'</div><div class="lad-mid"><div class="lad-name">'+s.name+'</div><div class="lad-state">'+s.state+'</div></div><div class="lad-barwrap"><div class="lad-mid0"></div>'+bar+'</div><div class="lad-val" style="color:'+c+'">'+(v==null?'—':cfg.fmt(v))+'</div><div class="lad-nh">'+(s.extra||'')+'</div></div><div class="lad-exp'+(openi==i?' on':'')+'"><table>'+(s.stocks||'')+'</table></div>';}
+ function render(){box.innerHTML='<div class="viz-h"><span class="viz-tag">視覺化</span>⛰ '+cfg.title+'</div><div class="viz-sub">'+cfg.sub+'</div><div class="lad"><div class="lad-rail"></div>'+stages.map(step).join('')+'</div>';}
+ box.addEventListener('click',function(e){var st=e.target.closest('.lad-step');if(!st)return;var i=+st.dataset.i;openi=(openi==i?-1:i);render();});
+ sec.parentNode.insertBefore(box,sec.nextSibling);render();
+}
+function renderLadder(){
+ var sec=document.getElementById('sec-ai3');if(!sec)return;
+ var next=document.getElementById('sec-scmap');
+ var cards=$all('.cat-card').filter(function(c){return (sec.compareDocumentPosition(c)&4)&&(!next||(next.compareDocumentPosition(c)&2));});
+ if(!cards.length)return;
+ var stages=cards.map(function(c){
+  var main=txt($('.cat-hdr-main',c)),meta=txt($('.cat-hdr-meta',c));
+  var num=(main.match(/\d+/)||[''])[0];var mm=main.split(/[｜|]/);var name=(mm[1]||mm[0]||'').replace(/^[\d.\s]+/,'').trim();
+  var parts=meta.split(/[｜|]/).map(function(x){return x.trim();});var state=parts[0]||'',val=null,extra='';
+  parts.forEach(function(p){var rm=p.match(/REL5\s*([+\-]?[\d.]+)/);if(rm)val=parseFloat(rm[1]);if(/新高/.test(p))extra=p;});
+  return {num:num,name:name,state:state,val:val,extra:extra,stocks:($('.cat-det',c)||{}).innerHTML||''};});
+ ladderRender(sec,stages,{fmt:function(v){return (v>0?'+':'')+v.toFixed(1)+'%';},title:'信號流階梯圖',sub:'8 階段訊號傳導（上游→下游）。條＝該階段<b>均 REL5</b>（<span style="color:#cf6f72">紅=跑贏</span>／<span style="color:#5cae88">綠=跑輸</span>大盤），編號色同。點階展開個股。'});
+ cards.forEach(function(c){c.style.display='none';});
+}
 /* ================= init ================= */
 function init(){try{
  renderScreenerHeatmap();
  renderLayerRadial('sec-ai1','sec-ai2','三層架構 · REL 期限徑向熱力圖','環＝三層（內→外），扇區＝REL5/REL20/REL60，格色＝該層該窗格平均相對強度。US 以 REL／Rank 為軸（無法人位階）。','usrad03');
  renderLayerRadial('sec-ai2','sec-ai3','三圈擴散 · REL 期限徑向熱力圖','環＝三圈（核心→外溢），扇區＝REL5/REL20/REL60，格色＝平均相對強度。','usrad04');
+ renderLadder();
  renderSupplyRadial();
 }catch(err){if(window.console)console.error('us-viz init error:',err);}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
