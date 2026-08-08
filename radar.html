@@ -16,6 +16,14 @@ h1{font-size:26px;font-weight:800;margin:6px 0 3px}
 .now .one{font-size:14px;color:var(--dim)}
 .now .date{font-size:11px;color:var(--dim);margin-top:6px}
 h2.sec{font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:800;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+/* 風向球成員參照 */
+.basket{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px}
+.basket .brow{display:grid;grid-template-columns:max-content 1fr;column-gap:12px;row-gap:9px;align-items:start;font-size:12.5px}
+.basket .bg{white-space:nowrap;font-weight:800;color:var(--gold)}
+.basket .bt{color:var(--text);font-weight:700;letter-spacing:.3px}
+.basket .bd{grid-column:2;color:var(--dim);font-size:11.5px;margin-top:-4px}
+.basket .rule{margin-top:12px;padding-top:10px;border-top:1px dashed var(--bd);font-size:11.5px;color:var(--dim);line-height:1.6}
+.basket .rule b{color:#f0d488;font-weight:700}
 /* 循環走位帶 */
 .strip{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px}
 .step{flex:0 0 auto;text-align:center;font-size:11px;color:var(--dim);min-width:92px;position:relative}
@@ -35,8 +43,17 @@ h2.sec{font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:800;margi
 .flag{font-size:12.5px;line-height:1.5;padding-left:16px;position:relative;color:var(--text)}
 .flag.top:before{content:"▲";position:absolute;left:0;color:var(--red);font-size:10px;top:3px}
 .flag.bot:before{content:"▼";position:absolute;left:0;color:var(--green);font-size:10px;top:3px}
-.wind{font-size:12.5px;color:#f0d488;font-style:italic;margin:8px 0;line-height:1.6;border-left:2px solid rgba(224,165,38,.5);padding-left:10px}
-.lead{display:grid;grid-template-columns:max-content 1fr;column-gap:12px;row-gap:5px;align-items:start;margin-top:8px;font-size:12.5px}
+/* 風向球（每期） */
+.wind{margin:8px 0;border-left:2px solid rgba(224,165,38,.5);padding:6px 0 6px 10px}
+.wind .wh{font-size:12.5px;font-weight:800;color:#f0d488;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.wind .wtemp{font-size:12px;font-weight:800}
+.wind .wnote{font-size:12px;color:var(--dim);font-style:italic;margin:3px 0 5px}
+.wind .witems{display:flex;flex-direction:column;gap:3px}
+.wind .wi{font-size:12px;color:var(--text);padding-left:13px;position:relative;line-height:1.5}
+.wind .wi:before{content:"·";position:absolute;left:3px;color:var(--gold);font-weight:800}
+/* 領頭羊 三層 */
+.leadhd{font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1px;margin:10px 0 4px}
+.lead{display:grid;grid-template-columns:max-content 1fr;column-gap:12px;row-gap:5px;align-items:start;font-size:12.5px}
 .lead .k{white-space:nowrap;font-weight:700;color:var(--gold)}
 .lead .v{color:var(--dim);line-height:1.5}
 .one{font-size:13px;color:var(--text);margin-top:9px;padding-top:8px;border-top:1px dashed var(--bd)}
@@ -46,35 +63,72 @@ h2.sec{font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:800;margi
 <header>
   <div class="eyebrow">Yoda Research · 判斷力學校 · 分析層（隱藏頁）</div>
   <h1>轉折雷達 · Radar</h1>
-  <div class="sub">每份報告自動累積的頂底判讀史 · 循環位置 × 訊號疊加 × 領頭羊演變</div>
+  <div class="sub">每份報告自動累積的頂底判讀史 · 風向球 × 訊號疊加 × 領頭羊演變</div>
 </header>
 <div id="app" class="wrap"><div class="err">讀取雷達帳本中…</div></div>
 <script>
 function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
 function chips(arr,cls){return (arr||[]).map(f=>'<div class="flag '+cls+'">'+esc(f)+'</div>').join('');}
 function leadRow(k,arr){if(!arr||!arr.length)return '';return '<div class="k">'+k+'</div><div class="v">'+arr.map(esc).join('　·　')+'</div>';}
+/* 風向球成員參照（固定，來自 meta） */
+function basketBlock(m){
+  var rows=(m.windvane_basket||[]).map(function(b){
+    return '<div class="bg">'+esc(b.g)+'</div><div class="bt">'+esc(b.t)+'</div>'+
+           (b.d?'<div class="bd">'+esc(b.d)+'</div>':'');
+  }).join('');
+  var rule=m.windvane_readrule?'<div class="rule"><b>怎麼讀：</b>'+esc(m.windvane_readrule)+'</div>':'';
+  return '<h2 class="sec">風向球是誰（領先指標籃子）</h2><div class="basket"><div class="brow">'+rows+'</div>'+rule+'</div>';
+}
+/* 風向球（每期逐檔訊號） */
+function windBlock(w){
+  if(!w)return '';
+  if(typeof w==='string')return '<div class="wind"><div class="wh">風向球</div><div class="wnote">'+esc(w)+'</div></div>';
+  var items=(w.items||[]).map(function(x){return '<div class="wi">'+esc(x)+'</div>';}).join('');
+  return '<div class="wind"><div class="wh">風向球<span class="wtemp">'+esc(w.temp||'')+'</span></div>'+
+    (w.note?'<div class="wnote">'+esc(w.note)+'</div>':'')+
+    (items?'<div class="witems">'+items+'</div>':'')+'</div>';
+}
 function render(data){
+  var m=data.meta||{};
   var snaps=(data.snapshots||[]).slice().sort((a,b)=>a.date<b.date?1:-1); // 新→舊
   if(!snaps.length){document.getElementById('app').innerHTML='<div class="err">帳本尚無資料</div>';return;}
   var cur=snaps[0];
   var now='<div class="now"><div class="lbl">目前循環定位</div><div class="cyc">'+esc(cur.cycle)+'</div><div class="one">'+esc(cur.oneliner)+'</div><div class="date">最新：'+esc(cur.date)+' · '+esc(cur.src)+'</div></div>';
+  // 風向球成員參照
+  var basket=basketBlock(m);
   // 循環走位帶（舊→新）
   var chrono=snaps.slice().reverse();
   var strip='<h2 class="sec">循環走位</h2><div class="strip">'+chrono.map((s,i)=>'<div class="step'+(i===chrono.length-1?' cur':'')+'"><div class="d">'+esc(s.date.slice(5))+'</div><div class="c">'+esc(s.cycle)+'</div></div>').join('')+'</div>';
+  var anchor=m.leaders_anchor||'2026-07-31';
   // 快照卡（新→舊）
   var cards='<h2 class="sec">每期快照（新 → 舊）</h2>'+snaps.map(function(s){
+    var post=s.date>=anchor; // 低點後＝最強；低點前＝震央
+    var leadTitle=post?('領頭羊 · 自 '+anchor+' 低點起最強'):'領頭羊 · 下殺期震央';
+    var kC=post?'最強國家':'震央國家',kS=post?'最強類股':'弱勢/避風',kK=post?'最強個股':'指標個股';
     return '<div class="card"><div class="chd"><span class="dt">'+esc(s.date)+'</span><span class="src">'+esc(s.src.toUpperCase())+'</span><span class="cyc-tag">'+esc(s.cycle)+'</span></div>'+
       '<div class="lights"><span class="top-n">頂訊 <b>'+(s.top_lit||0)+'</b></span><span class="bot-n">底訊 <b>'+(s.bottom_lit||0)+'</b></span></div>'+
       '<div class="flags">'+chips(s.top_flags,'top')+chips(s.bottom_flags,'bot')+'</div>'+
-      (s.windvane?'<div class="wind">風向球：'+esc(s.windvane)+'</div>':'')+
-      '<div class="lead">'+leadRow('國家',s.leaders&&s.leaders.country)+leadRow('類股',s.leaders&&s.leaders.sector)+leadRow('個股',s.leaders&&s.leaders.stock)+'</div>'+
+      windBlock(s.windvane)+
+      '<div class="leadhd">'+leadTitle+'</div>'+
+      '<div class="lead">'+leadRow(kC,s.leaders&&s.leaders.country)+leadRow(kS,s.leaders&&s.leaders.sector)+leadRow(kK,s.leaders&&s.leaders.stock)+'</div>'+
       '<div class="one">'+esc(s.oneliner)+'</div></div>';
   }).join('');
-  document.getElementById('app').innerHTML=now+strip+cards+'<div class="foot">頂訊＝頂部訊號疊加亮幾個｜底訊＝底部訊號｜▲頂 ▼底<br>資料源：各期市場研判報告【轉折雷達】· 帳本 radar-data.json（core §G-11b）<br>判斷中立：只研判循環位置與訊號，不喊買賣。</div>';
+  document.getElementById('app').innerHTML=now+basket+strip+cards+'<div class="foot">頂訊＝頂部訊號疊加亮幾個｜底訊＝底部訊號｜▲頂 ▼底<br>領頭羊自 '+esc(anchor)+' 低點起算＝最強國家／最強類股／最強個股（引擎；先漲不動＝頂部預警）<br>資料源：各期市場研判報告【轉折雷達】· 帳本 radar-data.json（core §G-11b）<br>判斷中立：只研判循環位置與訊號，不喊買賣。</div>';
 }
 /* 帳本內嵌（每次 append 後由 radar-data.json 重生；不靠 fetch，file:// 也能開） */
 const RADAR_DATA = {
-  "meta": { "name": "轉折雷達帳本", "spec": "core §G-11b", "note": "每份市場研判報告產出時 append 一筆；同一本、src 區分市場；去重同日、真 append。前 2 筆(6/10、7/30)為《檢討_2026-8》研究回填的頂底錨點。" },
+  "meta": {
+    "name": "轉折雷達帳本", "spec": "core §G-11b",
+    "note": "每份市場研判報告產出時 append 一筆；同一本、src 區分市場；去重同日、真 append。前 2 筆(6/10、7/30)為《檢討_2026-8》研究回填的頂底錨點。",
+    "windvane_basket": [
+      { "g": "加密槓桿股", "t": "MSTR · RIOT · MARA · COIN · CLSK · GLXY", "d": "槓桿比特幣金庫／礦商，beta 4+，情緒最純的一塊" },
+      { "g": "散戶情緒", "t": "HOOD · RDDT", "d": "散戶交易活躍度、迷因情緒——風險胃納溫度計" },
+      { "g": "投機籃子", "t": "DXYZ · MEME · ARKK · IBIT(BTC)", "d": "未上市創投／迷因／破壞式成長／比特幣" }
+    ],
+    "windvane_readrule": "投機相對強度＝情緒溫度計：爆衝到極端＝末升段狂熱、頂部前哨；回升慢／拒絕爆衝＝恐懼未消、底部健康（未過熱）。",
+    "leaders_anchor": "2026-07-31",
+    "leaders_rule": "領頭羊自 7/31 低點起算：記錄最強國家／最強類股／最強個股（漲最多最兇者）。用途＝這些是引擎；一旦它們先漲不動、甚至先跌＝頂部預警。7/31 之前的快照，此欄記的是下殺期的『震央』（韓國），非最強。"
+  },
   "snapshots": [
     {
       "date": "2026-06-10", "src": "mw",
@@ -82,7 +136,11 @@ const RADAR_DATA = {
       "top_lit": 4, "bottom_lit": 0,
       "top_flags": ["情緒極端：P/C 0.23🔴🔴🔴 歷史極端裸奔", "廣度背離：NQ 45.5% vs SP 63.2%，分歧17.7%創新高", "防禦領先：SPLV > SPHB（Risk-off）", "反彈屬技術性、非趨勢性"],
       "bottom_flags": [],
-      "windvane": "投機相對強度 5/23 爆衝到極端（DXYZ REL5 −25%→+39%）後、於此背離轉弱＝末升段狂熱、頂部確認",
+      "windvane": {
+        "temp": "🔴 過熱 → 轉弱",
+        "note": "投機相對強度 5/23 爆衝到極端後、於此背離轉弱＝末升段狂熱、頂部確認",
+        "items": ["DXYZ：5/23 REL5 −25%→+39% 連兩日爆衝(過熱)；6/10 REL20 −26.68% 崩(背離轉弱)", "MEME：5/23 REL20 +27.28%(過熱)", "投機退潮自 6/4 起、DXYZ 6/13 −25% 崩"]
+      },
       "leaders": { "country": ["韓 KOSPI 漲最猛（震央）"], "sector": ["記憶體", "AI 硬體"], "stock": ["三星", "SK 海力士"] },
       "oneliner": "多重頂部訊號同時亮、風險從邊緣先退——頂部就在眼前"
     },
@@ -92,7 +150,11 @@ const RADAR_DATA = {
       "top_lit": 0, "bottom_lit": 1,
       "top_flags": [],
       "bottom_flags": ["半導體崩到極端（SOXX 中線相對 −25%）", "廣度警戒『逼近未破』（SP20 63>60、NQ20 47.6>40）", "情緒分歧（VIX/VXN 怕 vs P/C 0.37 追買）＝方向未定"],
-      "windvane": "投機崩、韓國去槓桿熔斷；最投機的兩塊已倒",
+      "windvane": {
+        "temp": "🩸 崩／恐懼",
+        "note": "最投機的兩塊已倒、韓國去槓桿熔斷",
+        "items": ["BTC：領先破低(最弱端)", "投機/DXYZ：續崩", "韓國：槓桿熔斷、去槓桿風暴"]
+      },
       "leaders": { "country": ["韓 KOSPI 崩（震央）"], "sector": ["半導體崩", "資金轉防禦/能源/中國"], "stock": [] },
       "oneliner": "投降式低點醞釀、極端＋警戒線未破，是底的長相"
     },
@@ -102,8 +164,12 @@ const RADAR_DATA = {
       "top_lit": 0, "bottom_lit": 3,
       "top_flags": [],
       "bottom_flags": ["價：大量長紅吞噬＋站穩", "籌碼：外資空翻多、三 ETF 口徑同日翻向", "記憶體/AI硬體漲停爆買、台積三線同買 +10%"],
-      "windvane": "破底翻確認中，但留一手（日圓變數）",
-      "leaders": { "country": ["台/韓 自崩後強彈"], "sector": ["記憶體", "AI 硬體"], "stock": ["台積電", "華邦電", "南亞科"] },
+      "windvane": {
+        "temp": "❄️ 恐懼中翻",
+        "note": "破底翻確認中，但留一手（日圓變數）",
+        "items": ["BTC：拒絕再破低(最弱端止跌)", "記憶體/AI硬體：漲停爆買(最強端補跌到底後起)"]
+      },
+      "leaders": { "country": ["台灣（記憶體帶動·最強）", "韓國"], "sector": ["記憶體", "AI 硬體"], "stock": ["華邦電", "南亞科", "台積電"] },
       "oneliner": "破底翻成型、記憶體領軍（震央變引擎）"
     },
     {
@@ -112,7 +178,11 @@ const RADAR_DATA = {
       "top_lit": 0, "bottom_lit": 3,
       "top_flags": [],
       "bottom_flags": ["高 Beta 回升（三訊號到齊）", "廣度健康（3月新高 416 > 新低 145，2.87x）", "risk-on 回歸"],
-      "windvane": "risk-on 回歸；AI 硬體(三圈)還沒回來，錢在平台/軟體",
+      "windvane": {
+        "temp": "🌤 回溫中",
+        "note": "risk-on 回歸；AI 硬體(三圈)還沒回來、錢在平台/軟體",
+        "items": ["高 Beta：回升(蓋章第③訊號)", "AI 三圈：C1 0/7 · C2 0/16 · C3 0/25(硬體未回)"]
+      },
       "leaders": { "country": ["美股 broad 回升"], "sector": ["平台/軟體(Mega Cap)", "非必需消費/醫療/工業 啟動→主升"], "stock": ["GOOGL 領頭"] },
       "oneliner": "risk-on 回歸、廣度健康、輪漲擴編"
     },
@@ -122,8 +192,12 @@ const RADAR_DATA = {
       "top_lit": 1, "bottom_lit": 0,
       "top_flags": ["情緒：P/C 0.5→1.13 避險升溫（『無腦樂觀那段結束、該提高警覺』）"],
       "bottom_flags": [],
-      "windvane": "投機回升慢（ARKK −1.58、高Beta SPHB −1.91% 走弱）＝恐懼未消、未過熱——離頂還遠",
-      "leaders": { "country": ["台 +9", "韓 +8", "新興 +1"], "sector": ["軟體/雲/資安(三欄正)", "半導體(週線 +9)", "金礦(近一月 +11)"], "stock": [] },
+      "windvane": {
+        "temp": "🧊 未過熱(恐懼未消)",
+        "note": "投機回升慢＝恐懼未消、未過熱——離頂還遠",
+        "items": ["ARKK：−1.58 回落", "高 Beta SPHB：−1.91% 今日走弱、動能因子同步回落", "DXYZ：回升偏慢(散戶還在 7 月爆倉恐懼)"]
+      },
+      "leaders": { "country": ["台 +9", "韓 +8", "新興 +1"], "sector": ["金礦(近一月+11)", "半導體(週線+9)", "軟體/雲/資安(三欄正)"], "stock": [] },
       "oneliner": "破底翻後復甦初升、結構健康但戒備升高、群眾未跟"
     }
   ]
