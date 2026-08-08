@@ -1,0 +1,78 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>轉折雷達 · Radar · Yoda Research</title>
+<style>
+:root{--bg:#080b12;--card:#0e131d;--bd:rgba(255,255,255,.1);--gold:#e0a526;--dim:#93a0b5;--text:#e8eef8;--red:#f0857a;--green:#7fd6a6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Noto Sans TC','Microsoft JhengHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:0 0 60px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header{padding:30px 16px 18px;text-align:center;background:linear-gradient(180deg,#101826,#080b12)}
+.eyebrow{font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:700;text-transform:uppercase}
+h1{font-size:26px;font-weight:800;margin:6px 0 3px}
+.sub{font-size:12.5px;color:var(--dim)}
+.now{max-width:760px;margin:18px auto 0;padding:16px 18px;background:linear-gradient(135deg,#14243a,#0e1522);border:1px solid rgba(224,165,38,.3);border-radius:14px}
+.now .lbl{font-size:11px;letter-spacing:2px;color:var(--gold);font-weight:700}
+.now .cyc{font-size:22px;font-weight:800;margin:3px 0 6px}
+.now .one{font-size:14px;color:var(--dim)}
+.now .date{font-size:11px;color:var(--dim);margin-top:6px}
+h2.sec{font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:800;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+/* 循環走位帶 */
+.strip{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px}
+.step{flex:0 0 auto;text-align:center;font-size:11px;color:var(--dim);min-width:92px;position:relative}
+.step .d{font-weight:700;color:var(--text);font-size:12px}
+.step .c{margin-top:3px;padding:4px 8px;border-radius:999px;background:var(--card);border:1px solid var(--bd);font-size:11px}
+.step.cur .c{background:var(--gold);color:#1a1200;font-weight:800;border-color:var(--gold)}
+/* 卡片 */
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:15px 16px;margin-bottom:12px}
+.chd{display:flex;align-items:center;gap:9px;margin-bottom:8px;flex-wrap:wrap}
+.chd .dt{font-size:16px;font-weight:800}
+.src{font-size:10px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:6px;background:rgba(224,165,38,.18);color:var(--gold)}
+.cyc-tag{font-size:12px;font-weight:700;color:var(--text);margin-left:auto;padding:3px 10px;border-radius:999px;border:1px solid var(--bd)}
+.lights{display:flex;gap:12px;font-size:12px;margin:4px 0 8px}
+.lights b{font-weight:800}
+.top-n{color:var(--red)}.bot-n{color:var(--green)}
+.flags{display:flex;flex-direction:column;gap:4px;margin:4px 0}
+.flag{font-size:12.5px;line-height:1.5;padding-left:16px;position:relative;color:var(--text)}
+.flag.top:before{content:"▲";position:absolute;left:0;color:var(--red);font-size:10px;top:3px}
+.flag.bot:before{content:"▼";position:absolute;left:0;color:var(--green);font-size:10px;top:3px}
+.wind{font-size:12.5px;color:#f0d488;font-style:italic;margin:8px 0;line-height:1.6;border-left:2px solid rgba(224,165,38,.5);padding-left:10px}
+.lead{display:grid;grid-template-columns:max-content 1fr;column-gap:12px;row-gap:5px;align-items:start;margin-top:8px;font-size:12.5px}
+.lead .k{white-space:nowrap;font-weight:700;color:var(--gold)}
+.lead .v{color:var(--dim);line-height:1.5}
+.one{font-size:13px;color:var(--text);margin-top:9px;padding-top:8px;border-top:1px dashed var(--bd)}
+.foot{text-align:center;font-size:11px;color:var(--dim);margin-top:26px;line-height:1.7}
+.err{text-align:center;color:var(--dim);padding:40px 16px}
+</style>
+<header>
+  <div class="eyebrow">Yoda Research · 判斷力學校 · 分析層（隱藏頁）</div>
+  <h1>轉折雷達 · Radar</h1>
+  <div class="sub">每份報告自動累積的頂底判讀史 · 循環位置 × 訊號疊加 × 領頭羊演變</div>
+</header>
+<div id="app" class="wrap"><div class="err">讀取雷達帳本中…</div></div>
+<script>
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function chips(arr,cls){return (arr||[]).map(f=>'<div class="flag '+cls+'">'+esc(f)+'</div>').join('');}
+function leadRow(k,arr){if(!arr||!arr.length)return '';return '<div class="k">'+k+'</div><div class="v">'+arr.map(esc).join('　·　')+'</div>';}
+function render(data){
+  var snaps=(data.snapshots||[]).slice().sort((a,b)=>a.date<b.date?1:-1); // 新→舊
+  if(!snaps.length){document.getElementById('app').innerHTML='<div class="err">帳本尚無資料</div>';return;}
+  var cur=snaps[0];
+  var now='<div class="now"><div class="lbl">目前循環定位</div><div class="cyc">'+esc(cur.cycle)+'</div><div class="one">'+esc(cur.oneliner)+'</div><div class="date">最新：'+esc(cur.date)+' · '+esc(cur.src)+'</div></div>';
+  // 循環走位帶（舊→新）
+  var chrono=snaps.slice().reverse();
+  var strip='<h2 class="sec">循環走位</h2><div class="strip">'+chrono.map((s,i)=>'<div class="step'+(i===chrono.length-1?' cur':'')+'"><div class="d">'+esc(s.date.slice(5))+'</div><div class="c">'+esc(s.cycle)+'</div></div>').join('')+'</div>';
+  // 快照卡（新→舊）
+  var cards='<h2 class="sec">每期快照（新 → 舊）</h2>'+snaps.map(function(s){
+    return '<div class="card"><div class="chd"><span class="dt">'+esc(s.date)+'</span><span class="src">'+esc(s.src.toUpperCase())+'</span><span class="cyc-tag">'+esc(s.cycle)+'</span></div>'+
+      '<div class="lights"><span class="top-n">頂訊 <b>'+(s.top_lit||0)+'</b></span><span class="bot-n">底訊 <b>'+(s.bottom_lit||0)+'</b></span></div>'+
+      '<div class="flags">'+chips(s.top_flags,'top')+chips(s.bottom_flags,'bot')+'</div>'+
+      (s.windvane?'<div class="wind">風向球：'+esc(s.windvane)+'</div>':'')+
+      '<div class="lead">'+leadRow('國家',s.leaders&&s.leaders.country)+leadRow('類股',s.leaders&&s.leaders.sector)+leadRow('個股',s.leaders&&s.leaders.stock)+'</div>'+
+      '<div class="one">'+esc(s.oneliner)+'</div></div>';
+  }).join('');
+  document.getElementById('app').innerHTML=now+strip+cards+'<div class="foot">頂訊＝頂部訊號疊加亮幾個｜底訊＝底部訊號｜▲頂 ▼底<br>資料源：各期市場研判報告【轉折雷達】· 帳本 radar-data.json（core §G-11b）<br>判斷中立：只研判循環位置與訊號，不喊買賣。</div>';
+}
+fetch('radar-data.json?t='+Date.now()).then(r=>r.json()).then(render).catch(function(e){
+  document.getElementById('app').innerHTML='<div class="err">讀不到 radar-data.json（'+esc(e.message||e)+'）<br>請確認同目錄下有帳本檔。</div>';
+});
+</script>
