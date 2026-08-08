@@ -321,8 +321,8 @@ body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--
 .etf-verdict .verdict-label{font-size:calc(var(--fs)*.77);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
 @media(max-width:700px){.etf-signal-wrap{grid-template-columns:1fr;}}
 /* ============ 板塊動態圖（dyn- 前綴）============ */
-:root{--dyn-imp:#22d3ee;--dyn-led:#ec4899;--dyn-lag:#a78bfa;--dyn-wk:#f59e0b}
-body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b45309}
+:root{--dyn-imp:#f59e0b;--dyn-led:#ec4899;--dyn-lag:#a78bfa;--dyn-wk:#22d3ee}
+body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b2}
 #sec-dyn-body{margin:12px 0 6px}
 .dyn-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:12px}
 .dyn-t{font-family:var(--fb);font-weight:800;font-size:calc(var(--fs)*1.05);color:var(--text)}
@@ -476,7 +476,7 @@ body.light{--dyn-imp:#0891b2;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#b4530
     <div class="gl-row"><div class="gl-term">當日/5日/月線/季線(萬)</div><div class="gl-def">近 1／5／20（約 1 月）／60（約 3 月）交易日，三大法人「累計買賣超金額」（萬元）。</div></div>
     <div class="gl-row"><div class="gl-term">1D%</div><div class="gl-def">當日股價漲跌幅（%）。</div></div>
     <div class="gl-row"><div class="gl-term">REL5 / REL20 / REL60</div><div class="gl-def">相對強度＝這支「贏大盤（加權指數）幾 %」，正＝跑贏、負＝跑輸（<b>抗跌也算贏</b>），分別是近 5 日／約 1 月／約 3 月。<span class="warn">⚠ 不是「漲多少」，是「比大盤多漲／多跌多少」——漲最多的不一定 REL 最強。</span></div></div>
-    <div class="gl-row"><div class="gl-term">位階</div><div class="gl-def">用「月線 × 5日」兩軸判法人態度：<span class="zg">🔥領先</span>＝月線與 5 日都在買；<span class="zg">🌱回升</span>＝月線還在賣但 5 日翻買（轉折）；<span class="zy">⚠衰退</span>＝月線還在買但 5 日轉賣（動能減弱）；<span class="zr">❄落後</span>＝月線與 5 日都在賣。</div></div>
+    <div class="gl-row"><div class="gl-term">位階</div><div class="gl-def">用「月線 × 5日」兩軸判法人態度：<span class="qn-led">🔥領先</span>＝月線與 5 日都在買；<span class="qn-imp">🌱回升</span>＝月線還在賣但 5 日翻買（轉折）；<span class="qn-wk">⚠衰退</span>＝月線還在買但 5 日轉賣（動能減弱）；<span class="qn-lag">❄落後</span>＝月線與 5 日都在賣。</div></div>
 
     <div class="gl-gh">操作提醒</div>
     <div class="gl-row"><div class="gl-term">點欄名排序</div><div class="gl-def">所有可展開表格，<b>點欄位名稱可排序</b>（再點一次切升／降）——想看誰賣最凶就點「月線(萬)」、想看誰最強就點「REL5」。卡片點一下展開，同一區塊一次只開一張。</div></div>
