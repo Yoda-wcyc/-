@@ -72,7 +72,61 @@ function render(data){
   }).join('');
   document.getElementById('app').innerHTML=now+strip+cards+'<div class="foot">頂訊＝頂部訊號疊加亮幾個｜底訊＝底部訊號｜▲頂 ▼底<br>資料源：各期市場研判報告【轉折雷達】· 帳本 radar-data.json（core §G-11b）<br>判斷中立：只研判循環位置與訊號，不喊買賣。</div>';
 }
-fetch('radar-data.json?t='+Date.now()).then(r=>r.json()).then(render).catch(function(e){
-  document.getElementById('app').innerHTML='<div class="err">讀不到 radar-data.json（'+esc(e.message||e)+'）<br>請確認同目錄下有帳本檔。</div>';
-});
+/* 帳本內嵌（每次 append 後由 radar-data.json 重生；不靠 fetch，file:// 也能開） */
+const RADAR_DATA = {
+  "meta": { "name": "轉折雷達帳本", "spec": "core §G-11b", "note": "每份市場研判報告產出時 append 一筆；同一本、src 區分市場；去重同日、真 append。前 2 筆(6/10、7/30)為《檢討_2026-8》研究回填的頂底錨點。" },
+  "snapshots": [
+    {
+      "date": "2026-06-10", "src": "mw",
+      "cycle": "榮景末 · 派發",
+      "top_lit": 4, "bottom_lit": 0,
+      "top_flags": ["情緒極端：P/C 0.23🔴🔴🔴 歷史極端裸奔", "廣度背離：NQ 45.5% vs SP 63.2%，分歧17.7%創新高", "防禦領先：SPLV > SPHB（Risk-off）", "反彈屬技術性、非趨勢性"],
+      "bottom_flags": [],
+      "windvane": "投機相對強度 5/23 爆衝到極端（DXYZ REL5 −25%→+39%）後、於此背離轉弱＝末升段狂熱、頂部確認",
+      "leaders": { "country": ["韓 KOSPI 漲最猛（震央）"], "sector": ["記憶體", "AI 硬體"], "stock": ["三星", "SK 海力士"] },
+      "oneliner": "多重頂部訊號同時亮、風險從邊緣先退——頂部就在眼前"
+    },
+    {
+      "date": "2026-07-30", "src": "mw",
+      "cycle": "下殺 · 投降式低點醞釀",
+      "top_lit": 0, "bottom_lit": 1,
+      "top_flags": [],
+      "bottom_flags": ["半導體崩到極端（SOXX 中線相對 −25%）", "廣度警戒『逼近未破』（SP20 63>60、NQ20 47.6>40）", "情緒分歧（VIX/VXN 怕 vs P/C 0.37 追買）＝方向未定"],
+      "windvane": "投機崩、韓國去槓桿熔斷；最投機的兩塊已倒",
+      "leaders": { "country": ["韓 KOSPI 崩（震央）"], "sector": ["半導體崩", "資金轉防禦/能源/中國"], "stock": [] },
+      "oneliner": "投降式低點醞釀、極端＋警戒線未破，是底的長相"
+    },
+    {
+      "date": "2026-08-01", "src": "tw",
+      "cycle": "落底 → 破底翻",
+      "top_lit": 0, "bottom_lit": 3,
+      "top_flags": [],
+      "bottom_flags": ["價：大量長紅吞噬＋站穩", "籌碼：外資空翻多、三 ETF 口徑同日翻向", "記憶體/AI硬體漲停爆買、台積三線同買 +10%"],
+      "windvane": "破底翻確認中，但留一手（日圓變數）",
+      "leaders": { "country": ["台/韓 自崩後強彈"], "sector": ["記憶體", "AI 硬體"], "stock": ["台積電", "華邦電", "南亞科"] },
+      "oneliner": "破底翻成型、記憶體領軍（震央變引擎）"
+    },
+    {
+      "date": "2026-08-04", "src": "us",
+      "cycle": "復甦初升",
+      "top_lit": 0, "bottom_lit": 3,
+      "top_flags": [],
+      "bottom_flags": ["高 Beta 回升（三訊號到齊）", "廣度健康（3月新高 416 > 新低 145，2.87x）", "risk-on 回歸"],
+      "windvane": "risk-on 回歸；AI 硬體(三圈)還沒回來，錢在平台/軟體",
+      "leaders": { "country": ["美股 broad 回升"], "sector": ["平台/軟體(Mega Cap)", "非必需消費/醫療/工業 啟動→主升"], "stock": ["GOOGL 領頭"] },
+      "oneliner": "risk-on 回歸、廣度健康、輪漲擴編"
+    },
+    {
+      "date": "2026-08-07", "src": "mw",
+      "cycle": "復甦初升 · 戒備升高",
+      "top_lit": 1, "bottom_lit": 0,
+      "top_flags": ["情緒：P/C 0.5→1.13 避險升溫（『無腦樂觀那段結束、該提高警覺』）"],
+      "bottom_flags": [],
+      "windvane": "投機回升慢（ARKK −1.58、高Beta SPHB −1.91% 走弱）＝恐懼未消、未過熱——離頂還遠",
+      "leaders": { "country": ["台 +9", "韓 +8", "新興 +1"], "sector": ["軟體/雲/資安(三欄正)", "半導體(週線 +9)", "金礦(近一月 +11)"], "stock": [] },
+      "oneliner": "破底翻後復甦初升、結構健康但戒備升高、群眾未跟"
+    }
+  ]
+};
+render(RADAR_DATA);
 </script>
