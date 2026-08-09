@@ -205,6 +205,7 @@ tr:hover td{background:var(--surface2)}
     <button class="tab" data-v="recon">本月對帳 <span class="badge" id="reconBadge"></span></button>
     <button class="tab" data-v="rewards">推薦與獎勵 <span class="badge amber" id="rewardBadge"></span></button>
     <button class="tab" data-v="support">客服工單 <span class="badge" id="supBadge"></span></button>
+    <button class="tab" data-v="waitlist">創始搶先 <span class="badge amber" id="vipBadge"></span></button>
     <button class="tab" data-v="traffic">流量</button>
   </div>
 
@@ -277,6 +278,21 @@ tr:hover td{background:var(--surface2)}
       <button class="btn-done" onclick="loadSupport()">↻ 重新整理</button>
     </div>
     <div id="supList"></div>
+  </div>
+
+  <!-- 創始搶先名單 -->
+  <div class="view" id="v-waitlist">
+    <div class="toolbar">
+      <input class="search" id="wlSearch" placeholder="搜尋 Email…" oninput="renderWaitlist()">
+      <button class="btn-done" onclick="loadWaitlist()">↻ 重新整理</button>
+    </div>
+    <div class="hintbox">創始搶先頁登記者（email＋公開分享貼文連結）。名單上的人保證創始早鳥資格；開放後可在此逐一核對貼文連結。</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>登記時間</th><th>Email（會員帳號）</th><th>分享貼文連結</th><th>已通知</th></tr></thead>
+        <tbody id="wlBody"></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- 流量 -->
@@ -526,6 +542,30 @@ function switchView(v){
   $('v-'+v).classList.add('show');
   if(v==='support')loadSupport();
   if(v==='traffic')loadTraffic();
+  if(v==='waitlist')loadWaitlist();
+}
+
+/* ===== 創始搶先名單 ===== */
+let waitlist=[];
+function loadWaitlist(){
+  return post({action:'adminWaitlist',key:KEY}).then(res=>{
+    if(res&&res.ok){waitlist=res.rows||[];renderWaitlist();updateVipBadge();return true;}
+    const b=$('wlBody');if(b)b.innerHTML='<tr><td colspan="4" style="color:var(--amber)">讀取失敗：'+escH((res&&res.error)||'後端尚未支援 adminWaitlist，請重新部署 Code.gs')+'</td></tr>';
+    return false;
+  }).catch(()=>{const b=$('wlBody');if(b)b.innerHTML='<tr><td colspan="4" style="color:var(--red)">連線失敗</td></tr>';return false;});
+}
+function updateVipBadge(){const b=$('vipBadge');if(b){b.textContent=waitlist.length||'';b.style.display=waitlist.length?'inline-block':'none';}}
+function renderWaitlist(){
+  const body=$('wlBody');if(!body)return;
+  const q=(($('wlSearch')&&$('wlSearch').value)||'').trim().toLowerCase();
+  const list=waitlist.filter(r=>!q||String(r.email||'').toLowerCase().includes(q));
+  if(!list.length){body.innerHTML='<tr><td colspan="4" style="color:var(--dim)">'+(q?'查無符合的 Email。':'目前還沒有人登記創始搶先。')+'</td></tr>';return;}
+  body.innerHTML=list.map(r=>{
+    const isUrl=/^https?:\/\//i.test(r.post||'');
+    const link=r.post?(isUrl?('<a href="'+escH(r.post)+'" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all">'+escH(r.post)+'</a>'):escH(r.post)):'<span style="color:var(--dim)">—</span>';
+    const notified=r.notified?('<span style="color:var(--green)">✓ '+escH(r.notified)+'</span>'):'<span style="color:var(--dim)">未</span>';
+    return '<tr><td style="color:var(--dim);white-space:nowrap">'+fmtTs(r.ts)+'</td><td>'+escH(r.email)+'</td><td>'+link+'</td><td>'+notified+'</td></tr>';
+  }).join('');
 }
 
 /* ===== 流量 ===== */
@@ -599,7 +639,7 @@ $('tabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t)swi
 function setTheme(t){document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>b.classList.toggle('active',b.textContent===({dark:'深',light:'淺'})[t]));}
 let toastTimer;
 function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2200);}
-function renderAll(){renderDash();renderMembers();renderRecon();renderRewards();loadSupport();}
+function renderAll(){renderDash();renderMembers();renderRecon();renderRewards();loadSupport();loadWaitlist();}
 function logout(){try{localStorage.removeItem('yoda_admin_key');}catch(e){}location.reload();}
 // 記住密碼：開頁時若已存過就自動登入
 (function(){try{var s=localStorage.getItem('yoda_admin_key');if(s){$('adminKey').value=s;login();}}catch(e){}})();
