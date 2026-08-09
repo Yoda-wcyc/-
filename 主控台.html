@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>訂閱名單主控台 · Yoda Research</title>
+<title>主控台 · Yoda Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#000; --surface:#1d1d1f; --surface2:#272729;
@@ -162,6 +164,93 @@ tr:hover td{background:var(--surface2)}
 .hintbox{font-size:11.5px;color:var(--dim);background:var(--surface2);border-radius:9px;padding:9px 11px;margin-bottom:14px;line-height:1.6}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--green);color:#04210f;font-size:13px;font-weight:700;padding:10px 20px;border-radius:9999px;opacity:0;transition:opacity .3s;z-index:10001}
 .toast.show{opacity:1}
+
+/* ===== 付費牆斷點編輯器（全部 scope 在 #v-paywall,不污染主控台）===== */
+#v-paywall{
+  --serif:'Noto Serif TC',serif;--mono:'IBM Plex Mono',monospace;--sans:'Noto Sans TC',sans-serif;
+  --bg:#09090b;--bg2:#0f0f12;--bg3:#151519;--bg4:#1d1d24;--border:#26262e;--border2:#34343f;
+  --accent:#f0a500;--accent-dim:#b8860b;--accent3:#4d9fff;
+  --text:#d8d2c4;--text2:#9a927f;--text3:#6a6457;--header:#f5efe2;
+  --gold:#f0a500;--pos:#00c8a0;--danger:#ff4d6d;
+  --free:#00c8a0;--paid:#f0a500;--protect:#4d9fff;
+  font-family:var(--sans);line-height:1.6;color:var(--text);padding:2px 0 24px
+}
+#v-paywall .head{margin:0 0 16px}
+#v-paywall .head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--accent);margin-bottom:7px}
+#v-paywall .head h1{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--header);margin-bottom:8px;letter-spacing:normal}
+#v-paywall .head p{font-size:13px;color:var(--text2);line-height:1.75;max-width:920px}
+#v-paywall .head code{font-family:var(--mono);background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--accent);font-size:12px}
+#v-paywall .toolbar{margin:0 0 12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:16px 18px}
+#v-paywall .bigbtn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:10px;font-family:var(--sans);font-weight:700;font-size:15.5px;cursor:pointer;border:none;transition:.15s;white-space:nowrap;letter-spacing:.02em}
+#v-paywall .bigbtn .ic{font-size:18px}
+#v-paywall .bigbtn:disabled{opacity:.4;cursor:not-allowed}
+#v-paywall .bigbtn.primary{background:var(--gold);color:#1a1200;box-shadow:0 3px 14px rgba(240,165,0,.35)}
+#v-paywall .bigbtn.primary:hover:not(:disabled){background:#ffcb2e;box-shadow:0 4px 20px rgba(240,165,0,.55);transform:translateY(-1px)}
+#v-paywall .bigbtn.free{background:transparent;color:var(--free);border:2px solid var(--free)}
+#v-paywall .bigbtn.free:hover:not(:disabled){background:rgba(0,200,160,.12);box-shadow:0 3px 14px rgba(0,200,160,.25)}
+#v-paywall .bigbtn.paid{background:transparent;color:var(--paid);border:2px solid var(--accent-dim)}
+#v-paywall .bigbtn.paid:hover:not(:disabled){background:rgba(240,165,0,.12);border-color:var(--accent)}
+#v-paywall .tb-status{font-family:var(--mono);font-size:12px;color:var(--text3);margin-left:auto;text-align:right;line-height:1.5}
+#v-paywall .tb-status b{color:var(--header)}
+#v-paywall .ctrls{margin:0 0 12px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 18px}
+#v-paywall .ctrls label{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--text2);font-weight:600}
+#v-paywall .ctrls input[type=range]{width:200px;accent-color:var(--gold)}
+#v-paywall .ctrls input[type=text]{background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;padding:6px 9px}
+#v-paywall #blur-val{font-family:var(--mono);font-size:12px;color:var(--gold);min-width:38px}
+#v-paywall .ctrls .demo{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--text3);margin-left:auto}
+#v-paywall .frost-sample{font-family:var(--mono);letter-spacing:.1em;color:var(--text2);background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:3px 10px}
+#v-paywall .empty{margin:40px 0;text-align:center;padding:60px 20px;border:2px dashed var(--border2);border-radius:16px;color:var(--text3)}
+#v-paywall .empty .big{font-size:46px;margin-bottom:16px;opacity:.6}
+#v-paywall .empty h2{font-family:var(--serif);font-size:20px;color:var(--text2);font-weight:700;margin-bottom:10px}
+#v-paywall .empty p{font-size:13px;line-height:1.9;max-width:580px;margin:0 auto}
+#v-paywall .empty code{font-family:var(--mono);background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--accent);font-size:12px}
+#v-paywall .legend{margin:8px 0 6px;display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:var(--text2)}
+#v-paywall .legend span{display:inline-flex;align-items:center;gap:7px}
+#v-paywall .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+#v-paywall .dot.f{background:var(--free)}#v-paywall .dot.p{background:var(--paid)}#v-paywall .dot.pr{background:var(--protect)}
+#v-paywall .stage{margin:0;display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start}
+#v-paywall .panel{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;padding:0}
+#v-paywall .panel-head{padding:13px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}
+#v-paywall .panel-head .name{font-family:var(--serif);font-weight:700;font-size:15px;color:var(--header)}
+#v-paywall .panel-head .hint{font-family:var(--mono);font-size:10.5px;color:var(--text3);font-weight:400}
+#v-paywall #editor{position:relative;padding:14px 16px}
+#v-paywall .blk{position:relative;border:1px solid var(--border);border-radius:9px;padding:11px 14px 11px 16px;margin-bottom:9px;transition:background .12s,border-color .12s,opacity .12s}
+#v-paywall .blk .cat{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;margin-bottom:5px;display:inline-flex;align-items:center;gap:6px}
+#v-paywall .blk .t{font-size:13px;font-weight:700;color:var(--header);margin-bottom:4px}
+#v-paywall .blk .b{font-size:11.5px;color:var(--text2);line-height:1.7;max-height:44px;overflow:hidden}
+#v-paywall .blk::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:9px 0 0 9px}
+#v-paywall .blk.free{background:rgba(0,200,160,.05);border-color:rgba(0,200,160,.22)}#v-paywall .blk.free::before{background:var(--free)}#v-paywall .blk.free .cat{color:var(--free)}
+#v-paywall .blk.protect{background:rgba(77,159,255,.06);border-color:rgba(77,159,255,.28)}#v-paywall .blk.protect::before{background:var(--protect)}#v-paywall .blk.protect .cat{color:var(--protect)}
+#v-paywall .blk.masked{background:rgba(240,165,0,.05);border-color:rgba(240,165,0,.3)}#v-paywall .blk.masked::before{background:var(--paid)}#v-paywall .blk.masked .cat{color:var(--paid)}
+#v-paywall .blk-toggles{display:flex;gap:7px;margin-top:8px}
+#v-paywall .tg{font-family:var(--mono);font-size:10.5px;font-weight:600;padding:4px 12px;border-radius:999px;border:1px solid var(--border2);background:var(--bg3);color:var(--text3);cursor:pointer;transition:.12s;user-select:none}
+#v-paywall .tg:hover{border-color:var(--accent-dim);color:var(--text2)}
+#v-paywall .tg.on{background:var(--paid);color:#1a1200;border-color:var(--paid)}
+#v-paywall .tg:disabled{opacity:.35;cursor:not-allowed}
+#v-paywall #divider{position:absolute;left:8px;right:8px;height:0;z-index:20;pointer-events:none}
+#v-paywall #divider .line{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold) 12%,var(--gold) 88%,transparent);box-shadow:0 0 8px rgba(240,165,0,.6)}
+#v-paywall #divider .handle{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);background:var(--gold);color:#1a1200;font-family:var(--mono);font-size:11px;font-weight:700;padding:5px 14px;border-radius:999px;cursor:grab;pointer-events:auto;white-space:nowrap;box-shadow:0 2px 10px rgba(240,165,0,.5);user-select:none;touch-action:none;display:flex;align-items:center;gap:7px}
+#v-paywall #divider .handle:active{cursor:grabbing}
+#v-paywall #divider .handle .grip{letter-spacing:2px;opacity:.7}
+#v-paywall #divider.dragging .handle{transform:translate(-50%,-50%) scale(1.05)}
+#v-paywall #preview{padding:16px;font-size:12.5px;line-height:1.8}
+#v-paywall .pv-sec{margin-bottom:12px}
+#v-paywall .pv-sec .ph{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--free);margin-bottom:4px}
+#v-paywall .pv-sec .pt{font-size:13px;font-weight:700;color:var(--header);margin-bottom:3px}
+#v-paywall .pv-sec .pb{font-size:12px;color:var(--text2);line-height:1.7}
+#v-paywall .pv-frost{font-family:var(--mono);letter-spacing:.12em;line-height:1.9;color:var(--text2);word-break:break-all;user-select:none}
+#v-paywall .pv-lock{display:inline-block;margin-top:6px;font-size:11px;color:var(--gold);font-weight:700}
+#v-paywall .summary{margin:16px 0 0;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:15px 18px}
+#v-paywall .summary .sh{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--text3);margin-bottom:11px}
+#v-paywall .sbars{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+#v-paywall .sbar{flex:1 1 200px}#v-paywall .sbar .lab{font-size:11px;color:var(--text2);margin-bottom:4px;display:flex;justify-content:space-between}#v-paywall .sbar .lab b{font-family:var(--mono)}
+#v-paywall .sbar .track{height:8px;border-radius:5px;background:var(--bg4);overflow:hidden}#v-paywall .sbar .fill.f{height:100%;background:var(--free)}#v-paywall .sbar .fill.p{height:100%;background:var(--paid)}
+#v-paywall .slist{font-size:11.5px;color:var(--text3);line-height:1.9}#v-paywall .slist b{color:var(--text2)}#v-paywall .slist .fg{color:var(--free)}#v-paywall .slist .pg{color:var(--paid)}
+#v-paywall #verify-out{font-size:12px;line-height:1.9;color:var(--text2);margin-top:8px}
+#v-paywall .hint2{font-size:11.5px;color:var(--text3);line-height:1.8;margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
+#v-paywall .hint2 code{font-family:var(--mono);background:var(--bg3);padding:1px 5px;border-radius:4px;color:var(--accent);font-size:11px}
+#v-paywall .hidden{display:none!important}
+@media(max-width:900px){#v-paywall .stage{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -178,7 +267,7 @@ tr:hover td{background:var(--surface2)}
 <!-- 登入 -->
 <div id="login">
   <div class="login-card">
-    <h2>訂閱名單主控台</h2>
+    <h2>主控台</h2>
     <p>輸入後台管理密碼（Code.gs 裡的 <b>ADMIN_KEY</b>）。資料即時來自你的 Google Sheet。</p>
     <input id="adminKey" type="password" placeholder="管理密碼" autocomplete="off">
     <button id="loginBtn">登入</button>
@@ -189,7 +278,7 @@ tr:hover td{background:var(--surface2)}
 <!-- 主畫面 -->
 <div class="wrap" id="app" style="display:none">
   <div class="head">
-    <h1>訂閱名單主控台</h1>
+    <h1>主控台</h1>
     <span class="sub">Yoda Research · 對帳月 2026-08</span>
     <button onclick="logout()" style="margin-left:auto;font-size:12px;color:var(--dim);background:none;border:1px solid var(--border);border-radius:8px;padding:5px 12px;cursor:pointer">登出</button>
   </div>
@@ -207,6 +296,7 @@ tr:hover td{background:var(--surface2)}
     <button class="tab" data-v="support">客服工單 <span class="badge" id="supBadge"></span></button>
     <button class="tab" data-v="waitlist">創始搶先 <span class="badge amber" id="vipBadge"></span></button>
     <button class="tab" data-v="traffic">流量</button>
+    <button class="tab" data-v="paywall">付費牆</button>
   </div>
 
   <!-- 總覽 -->
@@ -317,6 +407,66 @@ tr:hover td{background:var(--surface2)}
         <thead><tr><th>頁面</th><th>瀏覽</th><th>訪客</th><th>最近</th></tr></thead>
         <tbody id="trfBody"></tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- 付費牆斷點編輯器 -->
+  <div class="view" id="v-paywall">
+    <div class="head">
+      <div class="tag">YODA · 付費牆斷點編輯器 v3</div>
+      <h1>匯入報告 → 逐段遮標題/遮內容 + 調模糊 → 匯出兩份檔</h1>
+      <p>遮＝真內容<b>實體刪除</b>換成<b style="color:var(--gold)">馬賽克填充塊</b>再套模糊，模糊底下是假填充、不是真字（View Source 也沒真內容，符合 §9-4/§9-5）。<code>.paywall</code> 前的段是 §9-5 保護區、不可遮。</p>
+    </div>
+
+    <div class="toolbar">
+      <input type="file" id="file-input" accept=".html,.htm,text/html" class="hidden">
+      <button class="bigbtn primary" id="btn-import"><span class="ic">📥</span>匯入要編輯的檔案</button>
+      <button class="bigbtn free" id="btn-free" disabled><span class="ic">⬇</span>匯出免費檔</button>
+      <button class="bigbtn paid" id="btn-paid" disabled><span class="ic">🔒</span>匯出付費檔</button>
+      <div class="tb-status" id="tb-status">尚未匯入檔案</div>
+    </div>
+
+    <div class="ctrls hidden" id="ctrls">
+      <label>模糊程度 <input type="range" id="blur-range" min="0" max="14" value="6"><span id="blur-val">6px</span></label>
+      <span class="demo">預覽：<span class="frost-sample" id="frost-sample">░▒▓█░▒▓█░▒</span></span>
+      <label style="flex:1 1 100%;margin-top:2px">🔓 頂端解鎖鈕連結 <input type="text" id="cta-url" value="https://yoda-wcyc.github.io/-/subscribe.html" style="flex:1;min-width:220px"></label>
+      <label>按鈕文字 <input type="text" id="cta-label" value="🔓 解鎖完整版" style="width:150px"></label>
+      <span class="demo" style="color:var(--pos)">✔ 匯出免費檔時自動強制注入文章頂端</span>
+      <label style="flex:1 1 100%;margin-top:2px"><input type="checkbox" id="wm-bake" checked style="width:16px;height:16px;accent-color:var(--gold)"> 付費檔烤入浮水印底層（每頁重複 <code style="font-family:var(--mono);color:var(--accent)">{{WATERMARK}}</code>，由會員系統 GAS 逐會員填入「編號 · mail」）</label>
+    </div>
+
+    <div class="empty" id="empty">
+      <div class="big">📄</div>
+      <h2>請先「匯入要編輯的檔案」</h2>
+      <p>選一份關鍵報告 HTML（例如 <code>關鍵報告_YYYYMMDD.html</code>）。工具會依 <code>.paywall</code> 與各 <code>.section</code> 把報告切段。<br>拖金軸＝粗調（線以下整批遮內容）；每段下方 <b>［標題］［內容］</b> 鈕＝逐段自由開關；上方滑桿調馬賽克模糊強弱。</p>
+    </div>
+
+    <div id="workspace" class="hidden">
+      <div class="legend">
+        <span><i class="dot f"></i>免費照給</span>
+        <span><i class="dot pr"></i>§9-5 保護·不可遮</span>
+        <span><i class="dot p"></i>已遮（馬賽克模糊）</span>
+      </div>
+      <div class="stage">
+        <div class="panel">
+          <div class="panel-head"><span class="name">📄 報告段落</span><span class="hint">拖金軸粗調 · 每段鈕細調</span></div>
+          <div id="editor"><div id="divider"><div class="line"></div><div class="handle"><span class="grip">⣿</span><span id="handle-label">斷點</span></div></div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="name">👁 免費版讀者看到</span><span class="hint">即時預覽</span></div>
+          <div id="preview"></div>
+        </div>
+      </div>
+      <div class="summary">
+        <div class="sh">分版摘要＋安全驗證</div>
+        <div class="sbars">
+          <div class="sbar"><div class="lab"><span>免費全開</span><b id="free-count" style="color:var(--free)">–</b></div><div class="track"><div class="fill f" id="free-bar" style="width:0"></div></div></div>
+          <div class="sbar"><div class="lab"><span>已遮（進牆）</span><b id="paid-count" style="color:var(--paid)">–</b></div><div class="track"><div class="fill p" id="paid-bar" style="width:0"></div></div></div>
+        </div>
+        <div class="slist" id="split-list"></div>
+        <div id="verify-out"></div>
+        <div class="hint2">匯出前自動驗：被遮段的<b>真內容 0 字進免費檔</b>（模糊底下是馬賽克填充）。<code>免費檔</code>保留報告完整 CSS／外觀；<code>付費檔</code>是被遮段內容包，給 <code>會員系統\report-shell.html</code>。標題敏感度低、可能出現在 §01 導讀大綱，故驗證以「內容」為準。</div>
+      </div>
     </div>
   </div>
 </div>
@@ -714,6 +864,252 @@ function renderAll(){renderDash();renderMembers();renderRecon();renderRewards();
 function logout(){try{localStorage.removeItem('yoda_admin_key');}catch(e){}location.reload();}
 // 記住密碼：開頁時若已存過就自動登入
 (function(){try{var s=localStorage.getItem('yoda_admin_key');if(s){$('adminKey').value=s;login();}}catch(e){}})();
+
+/* ============================================================
+   付費牆斷點編輯器（v3）— 併入主控台「付費牆」分頁
+   全部作用在 #v-paywall 內的元素；純前端，不呼叫 GAS。
+   ============================================================ */
+var doc=null, BLOCKS=[], BLOCK_SEL='.track-box, .conclusion-box, .section';
+var N=0, minCut=0, cut=0, srcName='關鍵報告', blurPx=6, blockEls=[], dragging=false;
+var SUBSCRIBE_URL='https://yoda-wcyc.github.io/-/subscribe.html', CTA_LABEL='🔓 解鎖完整版', WM_BAKE=true;
+var editor=document.getElementById('editor'), divider=document.getElementById('divider');
+var handle=divider.querySelector('.handle'), handleLabel=document.getElementById('handle-label');
+
+// ── 匯入 ──
+document.getElementById('btn-import').onclick=function(){document.getElementById('file-input').click();};
+document.getElementById('file-input').onchange=function(e){
+  var f=e.target.files[0]; if(!f) return;
+  srcName=f.name.replace(/\.html?$/i,'');
+  var rd=new FileReader(); rd.onload=function(){ importHTML(rd.result); }; rd.readAsText(f,'utf-8');
+};
+function textOf(node){
+  var titEl=node.querySelector('.sec-title, .track-label, .conclusion-box-title');
+  var title=titEl?titEl.textContent.trim():'(未命名段)';
+  var bodyEl=node.querySelector('.sec-body, .conclusion-box-text');
+  var text=(bodyEl?bodyEl.textContent:node.textContent).replace(/\s+/g,' ').trim();
+  if(!bodyEl && title && text.indexOf(title)===0) text=text.slice(title.length).trim(); // 無 .sec-body 段：去掉開頭標題，text 只留 body（驗證用得到）
+  return {title:title, text:text};
+}
+var PROTECT_KW=['導讀','發生什麼','為什麼','所以我該怎麼想','成績單','track'];
+function importHTML(html){
+  doc=new DOMParser().parseFromString(html,'text/html');
+  var main=doc.querySelector('main')||doc.body;
+  var nodes=Array.from(main.querySelectorAll(BLOCK_SEL));
+  if(!nodes.length){ alert('找不到可切的段落（.section／.track-box／.conclusion-box）。請確認是關鍵報告母板產出的檔。'); return; }
+  var paywall=doc.querySelector('.paywall');
+  BLOCKS=nodes.map(function(node){
+    var m=textOf(node);
+    var before = paywall ? (node.compareDocumentPosition(paywall) & Node.DOCUMENT_POSITION_FOLLOWING) : false;
+    var kw = PROTECT_KW.some(function(k){return m.title.indexOf(k)>=0;});
+    return {title:m.title, text:m.text, protect:!!(before||kw), maskTitle:false, maskContent:false};
+  });
+  N=BLOCKS.length;
+  minCut=0; BLOCKS.forEach(function(b,i){ if(b.protect) minCut=i+1; });
+  applyCut(minCut); // 預設：保護區外全遮內容
+  buildEditor();
+  document.getElementById('empty').classList.add('hidden');
+  document.getElementById('workspace').classList.remove('hidden');
+  document.getElementById('ctrls').classList.remove('hidden');
+  document.getElementById('btn-free').disabled=false;
+  document.getElementById('btn-paid').disabled=false;
+  document.getElementById('tb-status').innerHTML='已匯入 <b>'+srcName+'</b>　共 <b>'+N+'</b> 段（保護 '+minCut+'）';
+}
+
+// ── 拖曳粗調：線以下整批遮內容，線以上全開 ──
+function applyCut(k){
+  cut=Math.max(minCut,Math.min(N,k));
+  BLOCKS.forEach(function(b,i){
+    if(b.protect){ b.maskTitle=false; b.maskContent=false; return; }
+    if(i<cut){ b.maskTitle=false; b.maskContent=false; }
+    else { b.maskContent=true; b.maskTitle=false; }
+  });
+}
+function setCut(k){ k=Math.max(minCut,Math.min(N,k)); if(k!==cut){ applyCut(k); render(); } }
+
+// ── 逐段細調 ──
+function toggleMask(i,part){
+  var b=BLOCKS[i]; if(!b||b.protect) return;
+  if(part==='title') b.maskTitle=!b.maskTitle; else b.maskContent=!b.maskContent;
+  render();
+}
+
+function buildEditor(){
+  blockEls.forEach(function(el){el.remove();}); blockEls=[];
+  BLOCKS.forEach(function(b,i){
+    var d=document.createElement('div'); d.className='blk'; d.dataset.i=i;
+    var toggles=b.protect?'' :
+      '<div class="blk-toggles">'
+      +'<button class="tg" data-part="title">標題</button>'
+      +'<button class="tg" data-part="content">內容</button></div>';
+    d.innerHTML='<span class="cat">'+(b.protect?'🔵 §9-5 保護':'段 '+(i+1))+'</span>'
+      +'<div class="t">'+esc(b.title)+'</div><div class="b">'+esc(b.text.slice(0,80))+'</div>'+toggles;
+    if(!b.protect){
+      d.querySelectorAll('.tg').forEach(function(btn){
+        btn.addEventListener('click',function(ev){ ev.stopPropagation(); toggleMask(i, btn.dataset.part); });
+      });
+    }
+    editor.appendChild(d); blockEls.push(d);
+  });
+  render();
+}
+function isMasked(b){ return b.maskTitle||b.maskContent; }
+function classFor(i){ var b=BLOCKS[i]; if(b.protect) return 'protect'; return isMasked(b)?'masked':'free'; }
+function positionDivider(){
+  var top; if(cut>=N){ top=editor.scrollHeight-14; } else { top=blockEls[cut].offsetTop; }
+  divider.style.top=top+'px';
+  handleLabel.textContent='斷點（粗調）';
+}
+function render(){
+  blockEls.forEach(function(el,i){
+    el.className='blk '+classFor(i);
+    el.querySelectorAll('.tg').forEach(function(btn){
+      var on = btn.dataset.part==='title' ? BLOCKS[i].maskTitle : BLOCKS[i].maskContent;
+      btn.classList.toggle('on', on);
+    });
+  });
+  positionDivider(); renderPreview(); renderSummary();
+}
+function renderPreview(){
+  var pv=document.getElementById('preview');
+  var h='';
+  BLOCKS.forEach(function(b){
+    if(b.protect || !isMasked(b)){
+      h+='<div class="pv-sec"><div class="ph">'+(b.protect?'免費·保護':'免費')+'</div><div class="pt">'+esc(b.title)+'</div><div class="pb">'+esc(b.text.slice(0,110))+(b.text.length>110?'…':'')+'</div></div>';
+    } else {
+      var titHTML = b.maskTitle ? '<span class="pv-frost" style="filter:blur('+Math.max(2,blurPx-2)+'px)">'+frostFiller(Math.min(b.title.length,10))+'</span>' : esc(b.title);
+      var conHTML = b.maskContent ? '<div class="pv-frost" style="filter:blur('+blurPx+'px)">'+frostFiller(Math.min(b.text.length,120))+'</div>' : '<div class="pb">'+esc(b.text.slice(0,110))+'…</div>';
+      h+='<div class="pv-sec"><div class="ph" style="color:var(--paid)">已遮</div><div class="pt">'+titHTML+'</div>'+conHTML+'<span class="pv-lock">🔒 完整內容為付費版</span></div>';
+    }
+  });
+  // 免費檔那顆【解鎖完整版】＝固定畫面最下方、寬約 1/3；預覽用 sticky 底部示意
+  h+='<div style="position:sticky;bottom:0;margin-top:16px;padding:10px 0 4px;text-align:center;background:linear-gradient(180deg,transparent,var(--bg2) 45%)">'
+    +'<a style="display:inline-block;width:60%;max-width:210px;text-align:center;background:var(--gold);color:#1a1200;font-weight:700;font-size:12.5px;padding:11px;border-radius:9999px;text-decoration:none;box-shadow:0 3px 12px rgba(240,165,0,.5)" href="'+esc(SUBSCRIBE_URL||'#')+'" target="_blank" rel="noopener">'+esc(CTA_LABEL||'🔓 解鎖完整版')+'</a>'
+    +'<div style="font-size:9.5px;color:var(--text3);margin-top:5px">↑ 免費檔實際會固定畫面最下方、寬約 1/3、捲到哪都在</div></div>';
+  pv.innerHTML=h;
+}
+function renderSummary(){
+  var freeN=0, paidN=0;
+  BLOCKS.forEach(function(b){ if(b.protect|| !isMasked(b)) freeN++; else paidN++; });
+  document.getElementById('free-count').textContent=freeN+' 段';
+  document.getElementById('paid-count').textContent=paidN+' 段';
+  document.getElementById('free-bar').style.width=(N?freeN/N*100:0)+'%';
+  document.getElementById('paid-bar').style.width=(N?paidN/N*100:0)+'%';
+  document.getElementById('split-list').innerHTML=
+    '<b class="fg">免費全開（'+freeN+'）：</b>'+(BLOCKS.filter(function(b){return b.protect||!isMasked(b);}).map(function(b){return esc(b.title);}).join('、')||'（無）')
+    +'<br><b class="pg">已遮（'+paidN+'）：</b>'+(BLOCKS.filter(function(b){return !b.protect&&isMasked(b);}).map(function(b){return esc(b.title)+(b.maskTitle&&b.maskContent?'(標題+內容)':b.maskTitle?'(標題)':'(內容)');}).join('、')||'（無）');
+  var leaks=verifyFree(), out=document.getElementById('verify-out');
+  if(paidN===0){ out.innerHTML='<span style="color:var(--text3)">（沒有已遮的段）</span>'; }
+  else if(leaks.length===0){ out.innerHTML='<span style="color:var(--pos);font-weight:700">✅ 安全</span>：被遮段真內容 0 字進免費檔（模糊底下是馬賽克填充）。'; }
+  else{ out.innerHTML='<span style="color:var(--danger);font-weight:700">⚠ 洩漏</span>：'+leaks.map(esc).join('、'); }
+}
+
+// 拖曳
+handle.addEventListener('pointerdown',function(e){dragging=true;divider.classList.add('dragging');handle.setPointerCapture(e.pointerId);e.preventDefault();});
+handle.addEventListener('pointermove',function(e){ if(!dragging) return;
+  var rect=editor.getBoundingClientRect(), y=e.clientY-rect.top+editor.scrollTop, best=cut, bestd=Infinity;
+  for(var k=minCut;k<=N;k++){ var by=k>=N?(editor.scrollHeight-14):blockEls[k].offsetTop, d=Math.abs(by-y); if(d<bestd){bestd=d;best=k;} }
+  setCut(best);
+});
+handle.addEventListener('pointerup',function(){dragging=false;divider.classList.remove('dragging');});
+handle.addEventListener('pointercancel',function(){dragging=false;divider.classList.remove('dragging');});
+window.addEventListener('resize',function(){ if(blockEls.length) positionDivider(); });
+
+// 模糊滑桿
+document.getElementById('blur-range').oninput=function(){
+  blurPx=+this.value; document.getElementById('blur-val').textContent=blurPx+'px';
+  document.getElementById('frost-sample').style.filter='blur('+Math.min(blurPx,8)+'px)';
+  if(doc) render();
+};
+document.getElementById('cta-url').oninput=function(){ SUBSCRIBE_URL=this.value.trim(); };
+document.getElementById('cta-label').oninput=function(){ CTA_LABEL=this.value; if(doc) renderPreview(); };
+document.getElementById('wm-bake').onchange=function(){ WM_BAKE=this.checked; };
+
+// ── 工具 ──
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+function frostFiller(len){
+  var pool='░▒▓█', n=Math.max(10,Math.min(len||40,240)), s='';
+  for(var i=0;i<n;i++){ s+= (Math.random()<0.14?' ':pool[Math.floor(Math.random()*pool.length)]); }
+  return s;
+}
+
+// ── 匯出：就地 DOM 手術（遮＝刪真內容＋馬賽克填充＋模糊）──
+function buildFreeDoc(){
+  var clone=doc.cloneNode(true), main=clone.querySelector('main')||clone.body;
+  var nodes=Array.from(main.querySelectorAll(BLOCK_SEL));
+  for(var i=0;i<nodes.length;i++){
+    var b=BLOCKS[i]; if(!b||b.protect||!isMasked(b)) continue;
+    var node=nodes[i];
+    if(b.maskContent){
+      var head=node.querySelector('.sec-head');
+      Array.from(node.childNodes).forEach(function(ch){ if(ch!==head) node.removeChild(ch); }); // 掃 childNodes：連純文字節點({{...}})一併刪，不只元素
+      var d=clone.createElement('div');
+      d.setAttribute('class','sec-body');
+      d.setAttribute('aria-hidden','true');
+      d.setAttribute('style','filter:blur('+blurPx+'px);-webkit-filter:blur('+blurPx+'px);user-select:none;color:var(--text3,#888);letter-spacing:.12em;line-height:2;word-break:break-all;font-family:monospace');
+      d.textContent=frostFiller(b.text.length);
+      node.appendChild(d);
+      var lk=clone.createElement('p');
+      lk.setAttribute('style','margin-top:10px;font-size:.85em;color:var(--accent,#f0a500);font-weight:700');
+      lk.textContent='🔒 完整內容為付費版 → 解鎖完整版';
+      node.appendChild(lk);
+    }
+    if(b.maskTitle){
+      var t=node.querySelector('.sec-title');
+      if(t){ t.setAttribute('style','filter:blur('+Math.max(3,blurPx)+'px);user-select:none;color:var(--text3,#888);font-family:monospace'); t.textContent=frostFiller(Math.min(b.title.length,12)); }
+    }
+  }
+  // ── 強制注入【解鎖完整版】CTA → subscribe（固定畫面最下方、寬約 1/3、捲動恆顯示）──
+  var head=clone.querySelector('head');
+  if(head){
+    var st=clone.createElement('style');
+    st.textContent='@keyframes yodaUnlockPulse{0%,100%{box-shadow:0 4px 14px rgba(240,165,0,.4)}50%{box-shadow:0 6px 26px rgba(240,165,0,.8)}}'
+      +'.yoda-unlock-cta{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:99999;width:33%;min-width:190px;max-width:340px;box-sizing:border-box;text-align:center;background:#f0a500;color:#1a1200;font-weight:700;font-size:15px;font-family:"Noto Sans TC",sans-serif;padding:13px 20px;border-radius:9999px;text-decoration:none;letter-spacing:.03em;animation:yodaUnlockPulse 1.8s ease-in-out infinite}'
+      +'.yoda-unlock-cta:hover{background:#ffcb2e}'
+      +'@media(max-width:520px){.yoda-unlock-cta{width:72%;max-width:none}}';
+    head.appendChild(st);
+  }
+  var cta=clone.createElement('a');
+  cta.className='yoda-unlock-cta';
+  cta.setAttribute('href', SUBSCRIBE_URL||'#');
+  cta.setAttribute('target','_blank'); cta.setAttribute('rel','noopener');
+  cta.setAttribute('data-unlock-cta','');
+  cta.textContent=CTA_LABEL||'🔓 解鎖完整版';
+  (clone.body||main).appendChild(cta);           // 固定定位，掛在 body 尾端即可
+  return '<!DOCTYPE html>\n'+clone.documentElement.outerHTML;
+}
+// 付費檔＝完整整份報告（含 head/CSS，會員看全文，塞進 report-shell iframe 才不會亂）＋浮水印底層
+function buildPaidDoc(){
+  var clone=doc.cloneNode(true);
+  var pw=clone.querySelector('.paywall'); if(pw) pw.remove();               // 會員已付費，拿掉中段訂閱 CTA
+  var topCta=clone.querySelector('.yoda-unlock-cta'); if(topCta) topCta.remove();
+  if(WM_BAKE && clone.body){
+    // 烤入每頁重複的斜向浮水印層；{{WATERMARK}} 由會員系統 GAS getReport 逐會員置換成「編號 · mail」
+    var wm=clone.createElement('div'); wm.setAttribute('aria-hidden','true');
+    var spans=''; for(var i=0;i<66;i++){ spans+='<span style="margin:0 8px">{{WATERMARK}}</span>'; }
+    wm.setAttribute('style','position:fixed;inset:-25%;z-index:99999;pointer-events:none;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;transform:rotate(-24deg);font-family:sans-serif;font-size:15px;line-height:5;color:rgba(210,190,130,.11);white-space:nowrap;user-select:none;overflow:hidden');
+    wm.innerHTML=spans; clone.body.appendChild(wm);
+  }
+  return '<!DOCTYPE html>\n'+clone.documentElement.outerHTML;
+}
+// 驗證：被遮段的真內容是否出現在免費檔（以內容為準；標題敏感度低、可能在導讀大綱）
+function verifyFree(){
+  if(!doc) return [];
+  var free=buildFreeDoc().replace(/\s+/g,''), leaks=[];
+  for(var i=0;i<N;i++){
+    var b=BLOCKS[i]; if(!b||b.protect||!b.maskContent) continue;
+    var p=b.text.replace(/\s+/g,'').slice(0,24);
+    if(p.length>=6 && free.indexOf(p)>=0) leaks.push(b.title+'(內容)');
+  }
+  return leaks;
+}
+function download(name,txt){var bl=new Blob([txt],{type:'text/html;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},2000);}
+document.getElementById('btn-free').onclick=function(){
+  if(!doc) return;
+  var leaks=verifyFree();
+  if(leaks.length){ if(!confirm('⚠ 偵測到被遮內容可能外露：'+leaks.join('、')+'\n仍要匯出嗎？')) return; }
+  download(srcName+'_免費精簡版.html', buildFreeDoc());
+};
+document.getElementById('btn-paid').onclick=function(){ if(!doc) return; download(srcName+'_付費內容.html', buildPaidDoc()); };
 </script>
 <!-- 平板以上提示（手機置中·點擊關閉·記憶）自包含注入片段 -->
 <script>
