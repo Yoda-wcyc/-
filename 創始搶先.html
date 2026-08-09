@@ -16,7 +16,7 @@
 <meta name="description" content="Yoda Research 創始會員搶先禮遇：對外開放前，最前面的位置與最好的價格，留給最早相信的朋友。">
 <!--
   VIP 搶先禮遇頁 · 給種子朋友散的專屬連結（無密碼）。
-  收登記 → GAS joinVip → Sheet「Waitlist」分頁（時間/email/稱呼/介紹人/想拉幾人）。
+  收登記 → GAS joinVip → Sheet「Waitlist」分頁（時間/email/分享貼文連結/notified）。
   ★ 承諾：名單上的人保證創始早鳥資格，開放後前 50 若滿，另增設名額。
 -->
 <style>
@@ -121,13 +121,20 @@
     最前面的位置、最好的價格，<span class="em">只給願意相信我的人</span>。</p>
   </div>
 
+  <!-- 預告片：分享即創始資格 -->
+  <div class="card">
+    <h2>先看這支預告片</h2>
+    <video controls playsinline preload="metadata" style="width:100%;border-radius:14px;display:block;background:#000" src="https://yoda-wcyc.github.io/game/%E5%AE%A3%E5%82%B3%E7%89%87-%E5%88%A4%E6%96%B7%E5%8A%9B%E5%AD%B8%E6%A0%A1.mp4"></video>
+    <p style="margin-top:12px;font-size:14.5px;line-height:1.7;color:var(--dim)">喜歡的話，<b style="color:var(--gold)">公開分享它</b>，再把你的分享貼文連結貼到下面 → 就完成創始資格登記。</p>
+  </div>
+
   <!-- ① 卡位 -->
   <div class="card">
     <h2><span class="num">1</span>現在你能做的：卡位</h2>
     <ul class="pts">
       <li>登記＝<b>鎖住早鳥 NT$459／月</b>（額滿之後恢復一般價，你這批永遠停在 459）</li>
       <li>創始名額<b>限量 50</b>，登記者<b>開放第一時間通知、優先進場</b></li>
-      <li>介紹獎勵於<b>正式開放後結算</b>——所以下面先記下「是誰介紹你來的」，開放時就接得上</li>
+      <li>創始資格＝<b>公開分享這則預告片</b>——下面貼上你的分享貼文連結當憑證，開放時就接得上</li>
     </ul>
     <div class="promise">
       <b>✦ 給你們的承諾：</b>只要你在這份搶先名單上，就算開放後前 50 個位置滿了，<b>創始早鳥價我也一定為你保留</b>——我會為名單上的你們，另外增設創始早鳥名額。
@@ -162,22 +169,13 @@
   <div class="card gold">
     <h2><span class="num">3</span>搶先登記，為你卡位</h2>
     <div id="form">
-      <label>Email（開放通知寄這裡）</label>
+      <label>Email（你的會員帳號 · 開放通知寄這裡）</label>
       <input id="v-email" type="email" placeholder="you@example.com" autocomplete="email" />
-      <label>你的稱呼</label>
-      <input id="v-name" type="text" placeholder="怎麼稱呼你" autocomplete="off" />
-      <label>是誰介紹你來的？（填他的名字／暱稱，沒有可留空）</label>
-      <input id="v-ref" type="text" placeholder="介紹人的名字／暱稱" autocomplete="off" />
-      <label>你想拉幾個朋友一起？</label>
-      <select id="v-scale">
-        <option value="">還不確定</option>
-        <option value="1-2">1～2 個</option>
-        <option value="3-5">3～5 個</option>
-        <option value="5+">5 個以上</option>
-      </select>
+      <label>你分享貼文的連結（公開分享這則貼文，貼上網址當創始資格憑證）</label>
+      <input id="v-post" type="url" placeholder="https://www.facebook.com/…你的分享貼文網址" autocomplete="off" />
       <button class="btn" id="v-btn" onclick="submitVip()">送出，為我卡位 →</button>
       <div class="msg" id="v-msg"></div>
-      <div class="hint">我們只用這個 email 通知你開放與名額，不會外流。介紹獎勵於正式開放後結算。</div>
+      <div class="hint">我們只用這個 email 通知你開放與名額，不會外流。分享貼文即完成創始資格登記；介紹獎勵於正式開放後結算。</div>
     </div>
     <div id="done">
       <div class="big">✦</div>
@@ -200,13 +198,12 @@
   (function(){try{var t=localStorage.getItem('vip-theme');if(t)setTheme(t);}catch(e){}})();
 
   function submitVip(){
-    var email=(el('v-email').value||'').trim(), name=(el('v-name').value||'').trim();
-    var ref=(el('v-ref').value||'').trim(), scale=el('v-scale').value;
+    var email=(el('v-email').value||'').trim(), post=(el('v-post').value||'').trim();
     var msg=el('v-msg');
     if(!email||!/.+@.+\..+/.test(email)){msg.style.color='#f08a8a';msg.textContent='請填一個正確的 email';return;}
-    if(!name){msg.style.color='#f08a8a';msg.textContent='留個稱呼，我好認得你';return;}
+    if(!post||!/^https?:\/\/.+/.test(post)){msg.style.color='#f08a8a';msg.textContent='貼上你公開分享貼文的連結（要 http 開頭）';return;}
     var btn=el('v-btn');btn.disabled=true;msg.style.color='var(--dim)';msg.textContent='登記中…';
-    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'joinVip',email:email,name:name,referrer:ref,scale:scale})})
+    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'joinVip',email:email,post:post})})
       .then(function(r){return r.json();})
       .then(function(res){
         btn.disabled=false;
@@ -220,7 +217,8 @@
       })
       .catch(function(){btn.disabled=false;msg.style.color='#f08a8a';msg.textContent='連線失敗，請稍後再試';});
   }
-  el('v-email').addEventListener('keydown',function(e){if(e.key==='Enter')el('v-name').focus();});
+  el('v-email').addEventListener('keydown',function(e){if(e.key==='Enter')el('v-post').focus();});
+  el('v-post').addEventListener('keydown',function(e){if(e.key==='Enter')submitVip();});
 </script>
 <script>(function(){try{var K='yr_vid',v=localStorage.getItem(K);if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}var seg=location.pathname.split('/').filter(Boolean).pop()||'home';fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',{method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});}catch(e){}})();</script>
 <img alt="Yoda" src="https://yoda-research-next.vercel.app/yoda-logo.png" style="position:fixed;right:14px;bottom:12px;height:52px;width:auto;opacity:.5;z-index:9990;pointer-events:none">
