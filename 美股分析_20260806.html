@@ -1474,10 +1474,12 @@ function sortTable(th){
   function seriesFor(t,label){var a=[];DATA.snapshots.forEach(function(s){var o=s.data[t]&&s.data[t][label];if(o)a.push(xy(o));});return a.slice(-TAIL);}
   function colorOf(t,label,idx){return (COL[t]||{})[label]||PAL[idx%PAL.length];}
   function mkMarker(g,ty,cx,cy,r,fill){
-    function shp(rr){return el('circle',{cx:cx,cy:cy,r:rr});}
-    var gl=shp(r+1);gl.setAttribute('fill',fill);gl.setAttribute('opacity',.5);gl.setAttribute('filter','url(#dyn-glow)');g.appendChild(gl);
-    var m=shp(r);m.setAttribute('fill',fill);m.setAttribute('stroke',cvar('--bg'));m.setAttribute('stroke-width',1.6);g.appendChild(m);
-    g.appendChild(el('circle',{cx:cx-r*0.34,cy:cy-r*0.36,r:r*0.36,fill:'#ffffff',opacity:.6}));
+    // 玻璃/水質感泡泡：彩色柔光暈 → 半透明球體 → 彩色亮邊 → 白色玻璃反光罩 → 水珠高光
+    g.appendChild(el('circle',{cx:cx,cy:cy,r:r+2,fill:fill,opacity:.22,filter:'url(#dyn-glow)'}));
+    g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:fill,'fill-opacity':.30}));
+    g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'none',stroke:fill,'stroke-width':1.5,opacity:.92}));
+    g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'url(#dyn-gloss)'}));
+    g.appendChild(el('ellipse',{cx:cx-r*0.30,cy:cy-r*0.40,rx:r*0.34,ry:r*0.22,fill:'#ffffff',opacity:.55}));
   }
   // ── 頁籤（相容 mw 靜態 data-tab 與 us/tw 動態建立）＋ 反應速度／歷史天數按鈕 ──
   var tabseg=document.getElementById('dyn-tabseg');
@@ -1559,7 +1561,9 @@ function sortTable(th){
   }
   function draw(){
     while(SVG.firstChild)SVG.removeChild(SVG.firstChild);
-    var _defs=el('defs',{});var _f=el('filter',{id:'dyn-glow',x:'-60%',y:'-60%',width:'220%',height:'220%'});_f.appendChild(el('feGaussianBlur',{stdDeviation:'2.4'}));_defs.appendChild(_f);SVG.appendChild(_defs);
+    var _defs=el('defs',{});var _f=el('filter',{id:'dyn-glow',x:'-60%',y:'-60%',width:'220%',height:'220%'});_f.appendChild(el('feGaussianBlur',{stdDeviation:'2.4'}));_defs.appendChild(_f);
+    var _gg=el('radialGradient',{id:'dyn-gloss',cx:'0.35',cy:'0.28',r:'0.8'});_gg.appendChild(el('stop',{offset:'0','stop-color':'#ffffff','stop-opacity':'0.5'}));_gg.appendChild(el('stop',{offset:'0.45','stop-color':'#ffffff','stop-opacity':'0.06'}));_gg.appendChild(el('stop',{offset:'1','stop-color':'#ffffff','stop-opacity':'0'}));_defs.appendChild(_gg);
+    SVG.appendChild(_defs);
     var lg=document.getElementById('dyn-legend');
     var labels=labelsFor(TAB);
     if(!labels.length){var tx=el('text',{x:360,y:300,fill:cvar('--dim'),'font-size':16,'text-anchor':'middle','font-family':cvar('--fb')});tx.textContent=EMPTY;SVG.appendChild(tx);if(lg)lg.innerHTML='';return;}
