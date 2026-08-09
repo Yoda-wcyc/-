@@ -232,7 +232,7 @@ tr:hover td{background:var(--surface2)}
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th>編號</th><th>會員</th><th>狀態</th><th>連續期數</th>
+          <th>編號</th><th>會員</th><th>方案</th><th>狀態</th><th>連續期數</th>
           <th>下次扣款</th><th>推薦人</th><th>帶進付費</th><th>應送月</th><th></th>
         </tr></thead>
         <tbody id="memBody"></tbody>
@@ -285,11 +285,12 @@ tr:hover td{background:var(--surface2)}
     <div class="toolbar">
       <input class="search" id="wlSearch" placeholder="搜尋 Email…" oninput="renderWaitlist()">
       <button class="btn-done" onclick="loadWaitlist()">↻ 重新整理</button>
+      <span id="wlStat" style="margin-left:auto;color:var(--dim);font-size:13px"></span>
     </div>
-    <div class="hintbox">創始搶先頁登記者（email＋公開分享貼文連結）。名單上的人保證創始早鳥資格；開放後可在此逐一核對貼文連結。</div>
+    <div class="hintbox">創始搶先頁登記者（email＋公開分享貼文連結）。點連結核對他真的公開分享後，按「✓ 確認送進創始名單」——<b>此確認不可撤銷</b>。</div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>登記時間</th><th>Email（會員帳號）</th><th>分享貼文連結</th><th>已通知</th></tr></thead>
+        <thead><tr><th>登記時間</th><th>Email（會員帳號）</th><th>分享貼文連結</th><th>已通知</th><th>創始確認</th></tr></thead>
         <tbody id="wlBody"></tbody>
       </table>
     </div>
@@ -328,6 +329,7 @@ tr:hover td{background:var(--surface2)}
     <div class="fld"><label>會員密碼（≥6 字，需含英文與數字）</label><div class="pw-wrap"><input id="f-pw" type="password" placeholder="yoda123456"><button type="button" class="pw-eye" id="fpwEye" aria-label="顯示或隱藏密碼">👁</button></div></div>
     <div class="fld"><label>推薦人代碼（可留空,例 R7K3P）</label><input id="f-ref" placeholder="R7K3P"></div>
     <div class="fld"><label>首次扣款日（預設今天;留空＝待綠界）</label><input id="f-first" type="date"></div>
+    <div class="fld"><label>方案</label><select id="f-plan"><option value="創始">創始（早鳥 459）</option><option value="一般">一般（589）</option></select></div>
     <div class="modal-btns">
       <button class="btn-ghost" onclick="closeAdd()">取消</button>
       <button class="btn-primary" onclick="saveAdd()">加入名單</button>
@@ -368,7 +370,7 @@ function login(){
 function mapMember(g){
   const st=g.status==='active'?'有效':g.status==='cancelled'?'已取消':(g.status==='expired'||g.status==='late')?'逾期':(g.status||'有效');
   return {id:g.member_id, name:(String(g.email||'').split('@')[0]||g.member_id), email:g.email||'',
-    plan:'創始', next:g.next_charge_date||'', status:st,
+    plan:(g.plan==='一般'?'一般':'創始'), next:g.next_charge_date||'', status:st,
     streak:Number(g.paid_periods)||0, ref:g.referred_by||'', refCode:g.ref_code||'',
     comp:Number(g.granted)||0, paidRefs:Number(g.referred_paid_count)||0};
 }
@@ -462,6 +464,7 @@ function renderMembers(){
     return `<tr>
       <td><span class="id">${m.id}</span></td>
       <td><div>${m.name}</div><div class="email">${m.email}</div></td>
+      <td>${planBadge(m)}</td>
       <td><span class="pill ${stCls}">${m.status}</span></td>
       <td>${m.status==='已取消'?'—':dots(m.streak)+' <span class="id">'+m.streak+'</span>'}</td>
       <td>${m.status==='已取消'?'—':(m.next||'—')}</td>
@@ -469,7 +472,19 @@ function renderMembers(){
       <td><span class="id">${m.paidRefs}</span></td>
       <td>${m.comp?'<span class="id" style="color:var(--gold)">'+m.comp+'</span>':'<span class="email">0</span>'}</td>
       <td>${m.status==='已取消'?'':`<button class="mini-act" onclick="giftMonth('${m.id}')">贈送月</button> `}<button class="mini-act" style="color:#ff6b6b;border-color:#ff6b6b" onclick="deleteMember('${m.id}')">刪除</button></td>
-    </tr>`;}).join('') || `<tr><td colspan="9"><div class="empty">沒有符合的會員</div></td></tr>`;
+    </tr>`;}).join('') || `<tr><td colspan="10"><div class="empty">沒有符合的會員</div></td></tr>`;
+}
+function planBadge(m){
+  const isF=m.plan!=='一般';
+  return `<span class="pill ${isF?'plan-f':'plan-n'}" style="cursor:pointer" title="點擊切換方案（會再確認）" onclick="askSetPlan('${m.id}','${isF?'創始':'一般'}')">${isF?'創始':'一般'}</span>`;
+}
+function askSetPlan(id,cur){
+  const to=cur==='創始'?'一般':'創始';
+  if(!confirm('把會員 '+id+' 的方案從「'+cur+'」改成「'+to+'」？'))return;
+  toast('寫入中…');
+  post({action:'adminSetPlan',key:KEY,memberId:id,plan:to}).then(res=>{
+    if(res&&res.ok){toast('已改為 '+to);loadFromGAS();}else{toast((res&&res.error)||'失敗');}
+  }).catch(()=>toast('連線失敗'));
 }
 function giftMonth(id){
   toast('寫入中…');
@@ -523,13 +538,13 @@ function renderRewards(){
 }
 
 /* ===== 新增會員（寫入 GAS）===== */
-function openAdd(){$('f-first').value=new Date().toISOString().slice(0,10);$('addModal').classList.add('show');}
+function openAdd(){$('f-first').value=new Date().toISOString().slice(0,10);if($('f-plan'))$('f-plan').value='創始';$('addModal').classList.add('show');}
 function closeAdd(){$('addModal').classList.remove('show');}
 function saveAdd(){
-  const email=$('f-email').value.trim(),pw=$('f-pw').value.trim(),ref=$('f-ref').value.trim(),first=$('f-first').value;
+  const email=$('f-email').value.trim(),pw=$('f-pw').value.trim(),ref=$('f-ref').value.trim(),first=$('f-first').value,plan=($('f-plan')&&$('f-plan').value)||'創始';
   if(!email||!pw){toast('請填 Email 與密碼');return;}
   toast('寫入中…');
-  post({action:'adminAdd',key:KEY,email:email,password:pw,referredBy:ref,firstCharge:first}).then(res=>{
+  post({action:'adminAdd',key:KEY,email:email,password:pw,referredBy:ref,firstCharge:first,plan:plan}).then(res=>{
     if(res.ok){closeAdd();['f-email','f-pw','f-ref','f-first'].forEach(i=>$(i).value='');toast(`已加入 ${res.memberId}`);loadFromGAS();}
     else{toast(res.error||'失敗');}
   }).catch(()=>toast('連線失敗'));
@@ -558,14 +573,28 @@ function updateVipBadge(){const b=$('vipBadge');if(b){b.textContent=waitlist.len
 function renderWaitlist(){
   const body=$('wlBody');if(!body)return;
   const q=(($('wlSearch')&&$('wlSearch').value)||'').trim().toLowerCase();
+  const confN=waitlist.filter(r=>r.confirmed).length;
+  const stat=$('wlStat');if(stat)stat.textContent=waitlist.length?('已確認創始 '+confN+' / 登記 '+waitlist.length):'';
   const list=waitlist.filter(r=>!q||String(r.email||'').toLowerCase().includes(q));
-  if(!list.length){body.innerHTML='<tr><td colspan="4" style="color:var(--dim)">'+(q?'查無符合的 Email。':'目前還沒有人登記創始搶先。')+'</td></tr>';return;}
+  if(!list.length){body.innerHTML='<tr><td colspan="5" style="color:var(--dim)">'+(q?'查無符合的 Email。':'目前還沒有人登記創始搶先。')+'</td></tr>';return;}
   body.innerHTML=list.map(r=>{
     const isUrl=/^https?:\/\//i.test(r.post||'');
     const link=r.post?(isUrl?('<a href="'+escH(r.post)+'" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all">'+escH(r.post)+'</a>'):escH(r.post)):'<span style="color:var(--dim)">—</span>';
     const notified=r.notified?('<span style="color:var(--green)">✓ '+escH(r.notified)+'</span>'):'<span style="color:var(--dim)">未</span>';
-    return '<tr><td style="color:var(--dim);white-space:nowrap">'+fmtTs(r.ts)+'</td><td>'+escH(r.email)+'</td><td>'+link+'</td><td>'+notified+'</td></tr>';
+    const eArg=String(r.email||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    const confirm=r.confirmed
+      ?('<span class="pill plan-f">✓ 已確認 '+escH(r.confirmed)+'</span>')
+      :(r.email?('<button class="mini-act" style="color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:4px 8px" onclick="confirmFounding(\''+eArg+'\')">✓ 確認送進創始名單</button>'):'<span style="color:var(--dim)">—</span>');
+    return '<tr><td style="color:var(--dim);white-space:nowrap">'+fmtTs(r.ts)+'</td><td>'+escH(r.email)+'</td><td>'+link+'</td><td>'+notified+'</td><td>'+confirm+'</td></tr>';
   }).join('');
+}
+function confirmFounding(email){
+  if(!confirm('確認「'+email+'」已公開分享，送進創始名單？\n\n⚠️ 此動作不可撤銷。'))return;
+  toast('寫入中…');
+  post({action:'adminConfirmFounding',key:KEY,email:email}).then(res=>{
+    if(res&&res.ok){toast(res.already?'先前已確認過':'已確認創始 '+email);loadWaitlist();}
+    else{toast((res&&res.error)||'失敗');}
+  }).catch(()=>toast('連線失敗'));
 }
 
 /* ===== 流量 ===== */
