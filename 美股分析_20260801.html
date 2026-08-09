@@ -1497,7 +1497,7 @@ function sortTable(th){
       s.forEach(function(p,i){if(i===s.length-1)return;var frac=s.length>1?i/(s.length-1):1;SVG.appendChild(el('circle',{cx:mx(p.x),cy:my(p.y),r:2+1.2*frac,fill:col,opacity:(.28+.42*frac)}));});
     });
     // 頭點 + 標籤佈局
-    var nodes=labels.map(function(l,idx){var s=series[l],h=s[s.length-1];var off=(Math.abs(h.x)>hx||Math.abs(h.y)>hy);return{x:mx(h.x),y:my(h.y),label:l,col:colorOf(TAB,l,idx),hx:h.x,hy:h.y,n:latest().data[TAB][l].n,off:off};});
+    var nodes=labels.map(function(l,idx){var s=series[l],h=s[s.length-1];var off=(Math.abs(h.x)>hx||Math.abs(h.y)>hy);return{x:mx(h.x),y:my(h.y),label:l,col:colorOf(TAB,l,idx),hx:h.x,hy:h.y,n:latest().data[TAB][l].n,o:latest().data[TAB][l],off:off};});
     var hero=null;nodes.forEach(function(n){if(!n.off&&(!hero||n.hx>hero.hx))hero=n;});
     var maxN=1;nodes.forEach(function(n){if((n.n||1)>maxN)maxN=n.n;});
     function bubR(n){return 7+9*Math.sqrt((n.n||1)/maxN);}
@@ -1505,7 +1505,15 @@ function sortTable(th){
     L.forEach(function(l){SVG.appendChild(el('line',{x1:l.n.x,y1:l.n.y,x2:l.lx,y2:l.ly,stroke:cvar('--dim'),'stroke-width':.5,opacity:.35}));});
     if(hero){SVG.appendChild(el('circle',{cx:hero.x,cy:hero.y,r:bubR(hero)+6,fill:'none',stroke:hero.col,'stroke-width':1.4,'stroke-dasharray':'3 3',opacity:.95,filter:'url(#dyn-glow)'}));}
     nodes.forEach(function(n,ni){var g=el('g',{});g.style.cursor='pointer';if(n.off){g.appendChild(el('polygon',{points:n.x+','+(n.y-9)+' '+(n.x+8)+','+(n.y+6)+' '+(n.x-8)+','+(n.y+6),fill:n.col,stroke:cvar('--bg'),'stroke-width':1.4}));}else{mkMarker(g,'circle',n.x,n.y,bubR(n),n.col);}
-      g.addEventListener('mousemove',function(ev){var q=(n.hy>=0?(n.hx>=0?'領先':'轉強'):(n.hx>=0?'轉弱':'落後'));TIP.innerHTML='<b>'+n.label+'</b>'+(n.n?'（'+n.n+'支）':'')+'　'+q+'<br>REL'+WIN+' '+(n.hx>=0?'+':'')+n.hx.toFixed(2)+'%　動能 '+(n.hy>=0?'+':'')+n.hy.toFixed(2);TIP.style.left=(ev.clientX+14)+'px';TIP.style.top=(ev.clientY+14)+'px';TIP.style.opacity=1;});
+      g.addEventListener('mousemove',function(ev){var o=n.o||{};
+        var q=(n.hy>=0?(n.hx>=0?'領先':'轉強'):(n.hx>=0?'轉弱':'落後'));
+        var qc=(n.hy>=0?(n.hx>=0?qf.led:qf.imp):(n.hx>=0?qf.wk:qf.lag));
+        function rr(v){if(v==null||isNaN(v))return '<span style="color:var(--dim)">—</span>';var c=v>=0?'#cf6f72':'#5cae88';return '<span style="color:'+c+'">'+(v>=0?'+':'')+v.toFixed(1)+'%</span>';}
+        var mom=n.hy,momT=mom>=0?'加速':'減速',momc=mom>=0?'#cf6f72':'#5cae88';
+        TIP.innerHTML='<b style="font-size:1.08em">'+n.label+'</b>'+(n.n?' · '+n.n+' 支':'')+' · <b style="color:'+qc+'">'+q+'</b>'
+          +'<br><span style="color:var(--dim)">相對強度</span>　REL5 '+rr(o.rel5)+'　REL20 '+rr(o.rel20)+'　REL60 '+rr(o.rel60)
+          +'<br><span style="color:var(--dim)">動能(加速度)</span>　<b style="color:'+momc+'">'+(mom>=0?'+':'')+mom.toFixed(1)+'</b> <span style="color:var(--dim)">'+momT+'（REL'+WIN+'－下一檔）</span>';
+        TIP.style.left=(ev.clientX+14)+'px';TIP.style.top=(ev.clientY+14)+'px';TIP.style.opacity=1;});
       g.addEventListener('mouseleave',function(){TIP.style.opacity=0;});SVG.appendChild(g);});
     L.forEach(function(l){var val=(l.n.hx>=0?'+':'')+Math.round(l.n.hx)+'%';var t=el('text',{x:l.lx,y:l.ly+4,'text-anchor':'middle','font-family':cvar('--fb')});var a=el('tspan',{fill:cvar('--text'),'font-size':11,'font-weight':600});a.textContent=l.n.label;var b=el('tspan',{fill:cvar('--dim'),'font-size':9.5,'font-weight':400});b.textContent=' '+val;t.appendChild(a);t.appendChild(b);SVG.appendChild(t);});
     if(lg){var note=NOTES[TAB]||'';lg.innerHTML='<span style="color:var(--dim)">'+(note?note+'；':'')+'泡泡大小＝成分股數(規模)·滑鼠移上看明細·滾輪縮放／拖曳／雙擊還原</span>';}
@@ -1808,6 +1816,25 @@ function init(){try{
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
+</script>
+<style id="yoda-install-css">
+.yoda-install{display:block;width:-moz-fit-content;width:fit-content;margin:10px 0 4px;padding:5px 14px;font-family:var(--fb,'Noto Sans TC',system-ui,sans-serif);font-size:12px;font-weight:700;letter-spacing:.02em;color:#fff;background:linear-gradient(135deg,#7c5cff 0%,#4f7bff 100%);border:none;border-radius:9999px;text-decoration:none;box-shadow:0 3px 12px rgba(96,84,240,.42);white-space:nowrap;transition:filter .15s,transform .15s;z-index:60;cursor:pointer}
+.yoda-install:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.yoda-install .ic{margin-right:5px;font-weight:800}
+.yoda-install-fix{position:fixed;bottom:14px;left:14px;top:auto;right:auto;margin:0;font-size:11px;padding:5px 12px;opacity:.9}
+.yoda-install-fix:hover{opacity:1}
+@media(max-width:700px){.yoda-install-fix{bottom:10px;left:10px;font-size:10px;padding:4px 11px}}
+</style>
+<script id="yoda-install-js">
+(function(){
+  if(document.querySelector('.yoda-install'))return;
+  var a=document.createElement('a');
+  a.href='https://yoda-research-next.vercel.app/?from=install';a.target='_blank';a.rel='noopener';
+  a.innerHTML='<span class="ic">⊕</span>安裝 Yoda Research';
+  var cb=document.querySelector('.controls-bar');
+  if(cb&&cb.parentNode){a.className='yoda-install';cb.parentNode.insertBefore(a,cb.nextSibling);}
+  else{a.className='yoda-install yoda-install-fix';document.body.appendChild(a);}
+})();
 </script>
 </body>
 </html>

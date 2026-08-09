@@ -899,5 +899,24 @@ D型警示重點：台積電｜月線-323,205萬/5日-90,412萬，外資整批�
   if(document.body)document.body.appendChild(ov);else document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(ov);});
 })();
 </script>
+<style id="yoda-install-css">
+.yoda-install{display:block;width:-moz-fit-content;width:fit-content;margin:10px 0 4px;padding:5px 14px;font-family:var(--fb,'Noto Sans TC',system-ui,sans-serif);font-size:12px;font-weight:700;letter-spacing:.02em;color:#fff;background:linear-gradient(135deg,#7c5cff 0%,#4f7bff 100%);border:none;border-radius:9999px;text-decoration:none;box-shadow:0 3px 12px rgba(96,84,240,.42);white-space:nowrap;transition:filter .15s,transform .15s;z-index:60;cursor:pointer}
+.yoda-install:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.yoda-install .ic{margin-right:5px;font-weight:800}
+.yoda-install-fix{position:fixed;bottom:14px;left:14px;top:auto;right:auto;margin:0;font-size:11px;padding:5px 12px;opacity:.9}
+.yoda-install-fix:hover{opacity:1}
+@media(max-width:700px){.yoda-install-fix{bottom:10px;left:10px;font-size:10px;padding:4px 11px}}
+</style>
+<script id="yoda-install-js">
+(function(){
+  if(document.querySelector('.yoda-install'))return;
+  var a=document.createElement('a');
+  a.href='https://yoda-research-next.vercel.app/?from=install';a.target='_blank';a.rel='noopener';
+  a.innerHTML='<span class="ic">⊕</span>安裝 Yoda Research';
+  var cb=document.querySelector('.controls-bar');
+  if(cb&&cb.parentNode){a.className='yoda-install';cb.parentNode.insertBefore(a,cb.nextSibling);}
+  else{a.className='yoda-install yoda-install-fix';document.body.appendChild(a);}
+})();
+</script>
 </body>
 </html>
