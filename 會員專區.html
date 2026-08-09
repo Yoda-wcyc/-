@@ -181,6 +181,9 @@
 
 <div class="bar">
   <a class="home" href="https://yoda-research-next.vercel.app/">Yoda Research</a>
+  <button onclick="setSize('sm')" id="szS">小</button>
+  <button onclick="setSize('md')" id="szM" class="on">中</button>
+  <button onclick="setSize('lg')" id="szL">大</button>
   <button onclick="setTheme('dark')" id="thD" class="on">深</button>
   <button onclick="setTheme('light')" id="thL">淺</button>
 </div>
@@ -408,7 +411,9 @@
   /* 主題 */
   function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('member-theme',t);}catch(e){}
     el('thD').classList.toggle('on',t==='dark');el('thL').classList.toggle('on',t==='light');}
-  (function(){try{var t=localStorage.getItem('member-theme');if(t)setTheme(t);}catch(e){}})();
+  /* 字級（zoom 縮放 .wrap 內容，工具列不動，與全站一致） */
+  function setSize(s){var z={sm:.9,md:1,lg:1.12}[s]||1;var w=document.querySelector('.wrap');if(w)w.style.zoom=z;try{localStorage.setItem('member-size',s);}catch(e){}var ids={sm:'szS',md:'szM',lg:'szL'};['szS','szM','szL'].forEach(function(id){var b=el(id);if(b)b.classList.toggle('on',id===ids[s]);});}
+  (function(){try{var t=localStorage.getItem('member-theme');if(t)setTheme(t);var s=localStorage.getItem('member-size');if(s)setSize(s);}catch(e){}})();
 
   function eyeToggle(id,btn){var p=el(id);if(p.type==='password'){p.type='text';btn.textContent='🙈';}else{p.type='password';btn.textContent='👁';}}
   function showForgot(){var b=el('forgotBox');b.style.display=b.style.display==='none'?'block':'none';}
