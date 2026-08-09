@@ -290,7 +290,7 @@ tr:hover td{background:var(--surface2)}
     <div class="hintbox">創始搶先頁登記者（email＋公開分享貼文連結）。點連結核對他真的公開分享後，按「✓ 確認送進創始名單」——<b>此確認不可撤銷</b>。</div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>登記時間</th><th>Email（會員帳號）</th><th>分享貼文連結</th><th>已通知</th><th>創始確認</th></tr></thead>
+        <thead><tr><th>登記時間</th><th>Email（會員帳號）</th><th>臉書名稱</th><th>分享貼文連結</th><th>已通知</th><th>創始確認</th></tr></thead>
         <tbody id="wlBody"></tbody>
       </table>
     </div>
@@ -576,7 +576,7 @@ function renderWaitlist(){
   const confN=waitlist.filter(r=>r.confirmed).length;
   const stat=$('wlStat');if(stat)stat.textContent=waitlist.length?('已確認創始 '+confN+' / 登記 '+waitlist.length):'';
   const list=waitlist.filter(r=>!q||String(r.email||'').toLowerCase().includes(q));
-  if(!list.length){body.innerHTML='<tr><td colspan="5" style="color:var(--dim)">'+(q?'查無符合的 Email。':'目前還沒有人登記創始搶先。')+'</td></tr>';return;}
+  if(!list.length){body.innerHTML='<tr><td colspan="6" style="color:var(--dim)">'+(q?'查無符合的 Email。':'目前還沒有人登記創始搶先。')+'</td></tr>';return;}
   body.innerHTML=list.map(r=>{
     const isUrl=/^https?:\/\//i.test(r.post||'');
     const link=r.post?(isUrl?('<a href="'+escH(r.post)+'" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all">'+escH(r.post)+'</a>'):escH(r.post)):'<span style="color:var(--dim)">—</span>';
@@ -585,7 +585,8 @@ function renderWaitlist(){
     const confirm=r.confirmed
       ?('<span class="pill plan-f">✓ 已確認 '+escH(r.confirmed)+'</span>')
       :(r.email?('<button class="mini-act" style="color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:4px 8px" onclick="confirmFounding(\''+eArg+'\')">✓ 確認送進創始名單</button>'):'<span style="color:var(--dim)">—</span>');
-    return '<tr><td style="color:var(--dim);white-space:nowrap">'+fmtTs(r.ts)+'</td><td>'+escH(r.email)+'</td><td>'+link+'</td><td>'+notified+'</td><td>'+confirm+'</td></tr>';
+    const fb=r.fbName?escH(r.fbName):'<span style="color:var(--dim)">—</span>';
+    return '<tr><td style="color:var(--dim);white-space:nowrap">'+fmtTs(r.ts)+'</td><td>'+escH(r.email)+'</td><td>'+fb+'</td><td>'+link+'</td><td>'+notified+'</td><td>'+confirm+'</td></tr>';
   }).join('');
 }
 function confirmFounding(email){
