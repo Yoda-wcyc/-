@@ -204,6 +204,7 @@
       .then(function(res){
         btn.disabled=false;
         if(res&&res.ok){
+          alert(res.already?'✦ 你先前已經完成卡位了！\n位置幫你留著，開放第一時間會 email 通知你。':'✦ 完成卡位！\n開放第一時間，我會用 email 通知你——最前面的位置，留給你。');
           if(res.already){el('done-txt').textContent='你先前已經登記過了——放心，位置幫你留著，開放第一時間通知你。';}
           el('form').style.display='none'; el('done').style.display='block';
           window.scrollTo({top:0,behavior:'smooth'});

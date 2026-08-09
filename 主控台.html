@@ -232,7 +232,7 @@ tr:hover td{background:var(--surface2)}
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th>編號</th><th>會員</th><th>方案</th><th>狀態</th><th>連續期數</th>
+          <th>編號</th><th>會員</th><th>臉書名稱</th><th>方案</th><th>狀態</th><th>連續期數</th>
           <th>下次扣款</th><th>推薦人</th><th>帶進付費</th><th>應送月</th><th></th>
         </tr></thead>
         <tbody id="memBody"></tbody>
@@ -326,6 +326,7 @@ tr:hover td{background:var(--surface2)}
     <h3>新增會員</h3>
     <div class="hintbox">會即時寫入 Sheet。目前 GAS 只存 Email／密碼／推薦人（暱稱、方案是下一步再加的欄位）。</div>
     <div class="fld"><label>Email（唯一識別）</label><input id="f-email" placeholder="name@example.com"></div>
+    <div class="fld"><label>臉書名稱（可留空）</label><input id="f-fbname" placeholder="他在臉書顯示的名字"></div>
     <div class="fld"><label>會員密碼（≥6 字，需含英文與數字）</label><div class="pw-wrap"><input id="f-pw" type="password" placeholder="yoda123456"><button type="button" class="pw-eye" id="fpwEye" aria-label="顯示或隱藏密碼">👁</button></div></div>
     <div class="fld"><label>推薦人代碼（可留空,例 R7K3P）</label><input id="f-ref" placeholder="R7K3P"></div>
     <div class="fld"><label>首次扣款日（預設今天;留空＝待綠界）</label><input id="f-first" type="date"></div>
@@ -370,7 +371,7 @@ function login(){
 function mapMember(g){
   const st=g.status==='active'?'有效':g.status==='cancelled'?'已取消':(g.status==='expired'||g.status==='late')?'逾期':(g.status||'有效');
   return {id:g.member_id, name:(String(g.email||'').split('@')[0]||g.member_id), email:g.email||'',
-    plan:(g.plan==='一般'?'一般':'創始'), next:g.next_charge_date||'', status:st,
+    plan:(g.plan==='一般'?'一般':'創始'), fb:g.fb_name||'', next:g.next_charge_date||'', status:st,
     streak:Number(g.paid_periods)||0, ref:g.referred_by||'', refCode:g.ref_code||'',
     comp:Number(g.granted)||0, paidRefs:Number(g.referred_paid_count)||0};
 }
@@ -464,6 +465,7 @@ function renderMembers(){
     return `<tr>
       <td><span class="id">${m.id}</span></td>
       <td><div>${m.name}</div><div class="email">${m.email}</div></td>
+      <td>${fbCell(m)}</td>
       <td>${planBadge(m)}</td>
       <td><span class="pill ${stCls}">${m.status}</span></td>
       <td>${m.status==='已取消'?'—':dots(m.streak)+' <span class="id">'+m.streak+'</span>'}</td>
@@ -472,7 +474,20 @@ function renderMembers(){
       <td><span class="id">${m.paidRefs}</span></td>
       <td>${m.comp?'<span class="id" style="color:var(--gold)">'+m.comp+'</span>':'<span class="email">0</span>'}</td>
       <td>${m.status==='已取消'?'':`<button class="mini-act" onclick="giftMonth('${m.id}')">贈送月</button> `}<button class="mini-act" style="color:#ff6b6b;border-color:#ff6b6b" onclick="deleteMember('${m.id}')">刪除</button></td>
-    </tr>`;}).join('') || `<tr><td colspan="10"><div class="empty">沒有符合的會員</div></td></tr>`;
+    </tr>`;}).join('') || `<tr><td colspan="11"><div class="empty">沒有符合的會員</div></td></tr>`;
+}
+function fbCell(m){
+  const v=m.fb?escH(m.fb):'<span style="color:var(--dim)">—</span>';
+  return `<span style="cursor:pointer;border-bottom:1px dotted var(--border)" title="點擊編輯臉書名稱" onclick="editFb('${m.id}')">${v}</span>`;
+}
+function editFb(id){
+  const m=mById(id);if(!m)return;
+  const v=prompt('會員 '+id+' 的臉書名稱：',m.fb||'');
+  if(v===null)return;
+  toast('寫入中…');
+  post({action:'adminSetMemberFb',key:KEY,memberId:id,fbName:v.trim()}).then(res=>{
+    if(res&&res.ok){toast('已更新臉書名稱');loadFromGAS();}else{toast((res&&res.error)||'失敗');}
+  }).catch(()=>toast('連線失敗'));
 }
 function planBadge(m){
   const isF=m.plan!=='一般';
@@ -541,11 +556,11 @@ function renderRewards(){
 function openAdd(){$('f-first').value=new Date().toISOString().slice(0,10);if($('f-plan'))$('f-plan').value='創始';$('addModal').classList.add('show');}
 function closeAdd(){$('addModal').classList.remove('show');}
 function saveAdd(){
-  const email=$('f-email').value.trim(),pw=$('f-pw').value.trim(),ref=$('f-ref').value.trim(),first=$('f-first').value,plan=($('f-plan')&&$('f-plan').value)||'創始';
+  const email=$('f-email').value.trim(),pw=$('f-pw').value.trim(),ref=$('f-ref').value.trim(),first=$('f-first').value,plan=($('f-plan')&&$('f-plan').value)||'創始',fbname=($('f-fbname')&&$('f-fbname').value.trim())||'';
   if(!email||!pw){toast('請填 Email 與密碼');return;}
   toast('寫入中…');
-  post({action:'adminAdd',key:KEY,email:email,password:pw,referredBy:ref,firstCharge:first,plan:plan}).then(res=>{
-    if(res.ok){closeAdd();['f-email','f-pw','f-ref','f-first'].forEach(i=>$(i).value='');toast(`已加入 ${res.memberId}`);loadFromGAS();}
+  post({action:'adminAdd',key:KEY,email:email,password:pw,referredBy:ref,firstCharge:first,plan:plan,fbName:fbname}).then(res=>{
+    if(res.ok){closeAdd();['f-email','f-pw','f-ref','f-first','f-fbname'].forEach(i=>$(i).value='');toast(`已加入 ${res.memberId}`);loadFromGAS();}
     else{toast(res.error||'失敗');}
   }).catch(()=>toast('連線失敗'));
 }
@@ -627,7 +642,7 @@ function updateSupBadge(){
   const n=tickets.filter(t=>t.status==='new').length, b=$('supBadge');
   if(b){b.textContent=n||'';b.style.display=n?'inline-block':'none';}
 }
-function fmtTs(v){if(!v)return '';const d=new Date(v);return isNaN(d)?String(v):d.toISOString().slice(0,16).replace('T',' ');}
+function fmtTs(v){if(!v)return '';const d=new Date(v);return isNaN(d)?String(v):d.toLocaleString('sv-SE',{timeZone:'Asia/Taipei'}).slice(0,16);}
 function renderSupport(){
   const box=$('supList');if(!box)return;
   const f=($('supFilter')&&$('supFilter').value)||'all';
