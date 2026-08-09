@@ -285,12 +285,13 @@ tr:hover td{background:var(--surface2)}
     <div class="toolbar">
       <input class="search" id="wlSearch" placeholder="搜尋 Email…" oninput="renderWaitlist()">
       <button class="btn-done" onclick="loadWaitlist()">↻ 重新整理</button>
+      <button class="btn-done" style="color:#ff6b6b" onclick="deleteSelectedWaitlist()">🗑 刪除勾選</button>
       <span id="wlStat" style="margin-left:auto;color:var(--dim);font-size:13px"></span>
     </div>
-    <div class="hintbox">創始搶先頁登記者（email＋公開分享貼文連結）。點連結核對他真的公開分享後，按「✓ 確認送進創始名單」——<b>此確認不可撤銷</b>。</div>
+    <div class="hintbox">創始搶先頁登記者（email＋公開分享貼文連結）。點「連結 ↗」核對他真的公開分享後，按「✓ 確認送進創始名單」——<b>此確認不可撤銷</b>。要移除的登記，勾右側方塊後按「刪除勾選」。</div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>登記時間</th><th>Email（會員帳號）</th><th>臉書名稱</th><th>分享貼文連結</th><th>已通知</th><th>創始確認</th></tr></thead>
+        <thead><tr><th>登記時間</th><th>Email（會員帳號）</th><th>臉書名稱</th><th>貼文</th><th>已通知</th><th style="white-space:nowrap">創始確認<br><button class="mini-act" style="color:var(--gold);border:1px solid var(--gold);border-radius:6px;padding:2px 6px;margin-top:3px" onclick="confirmAllWaitlist()">全部確認</button></th><th style="width:1%;text-align:center;white-space:nowrap"><input type="checkbox" id="wlChkAll" onclick="toggleAllWaitlist(this)" title="全部選取"> 全選</th></tr></thead>
         <tbody id="wlBody"></tbody>
       </table>
     </div>
@@ -580,9 +581,9 @@ let waitlist=[];
 function loadWaitlist(){
   return post({action:'adminWaitlist',key:KEY}).then(res=>{
     if(res&&res.ok){waitlist=res.rows||[];renderWaitlist();updateVipBadge();return true;}
-    const b=$('wlBody');if(b)b.innerHTML='<tr><td colspan="4" style="color:var(--amber)">讀取失敗：'+escH((res&&res.error)||'後端尚未支援 adminWaitlist，請重新部署 Code.gs')+'</td></tr>';
+    const b=$('wlBody');if(b)b.innerHTML='<tr><td colspan="7" style="color:var(--amber)">讀取失敗：'+escH((res&&res.error)||'後端尚未支援 adminWaitlist，請重新部署 Code.gs')+'</td></tr>';
     return false;
-  }).catch(()=>{const b=$('wlBody');if(b)b.innerHTML='<tr><td colspan="4" style="color:var(--red)">連線失敗</td></tr>';return false;});
+  }).catch(()=>{const b=$('wlBody');if(b)b.innerHTML='<tr><td colspan="7" style="color:var(--red)">連線失敗</td></tr>';return false;});
 }
 function updateVipBadge(){const b=$('vipBadge');if(b){b.textContent=waitlist.length||'';b.style.display=waitlist.length?'inline-block':'none';}}
 function renderWaitlist(){
@@ -591,18 +592,43 @@ function renderWaitlist(){
   const confN=waitlist.filter(r=>r.confirmed).length;
   const stat=$('wlStat');if(stat)stat.textContent=waitlist.length?('已確認創始 '+confN+' / 登記 '+waitlist.length):'';
   const list=waitlist.filter(r=>!q||String(r.email||'').toLowerCase().includes(q));
-  if(!list.length){body.innerHTML='<tr><td colspan="6" style="color:var(--dim)">'+(q?'查無符合的 Email。':'目前還沒有人登記創始搶先。')+'</td></tr>';return;}
+  const chkAll=$('wlChkAll');if(chkAll)chkAll.checked=false;
+  if(!list.length){body.innerHTML='<tr><td colspan="7" style="color:var(--dim)">'+(q?'查無符合的 Email。':'目前還沒有人登記創始搶先。')+'</td></tr>';return;}
   body.innerHTML=list.map(r=>{
     const isUrl=/^https?:\/\//i.test(r.post||'');
-    const link=r.post?(isUrl?('<a href="'+escH(r.post)+'" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all">'+escH(r.post)+'</a>'):escH(r.post)):'<span style="color:var(--dim)">—</span>';
+    const link=r.post?(isUrl?('<a href="'+escH(r.post)+'" target="_blank" rel="noopener" style="color:var(--accent);white-space:nowrap">連結 ↗</a>'):('<span title="'+escH(r.post)+'" style="color:var(--dim)">'+escH(String(r.post).slice(0,16))+'</span>')):'<span style="color:var(--dim)">—</span>';
     const notified=r.notified?('<span style="color:var(--green)">✓ '+escH(r.notified)+'</span>'):'<span style="color:var(--dim)">未</span>';
     const eArg=String(r.email||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     const confirm=r.confirmed
       ?('<span class="pill plan-f">✓ 已確認 '+escH(r.confirmed)+'</span>')
       :(r.email?('<button class="mini-act" style="color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:4px 8px" onclick="confirmFounding(\''+eArg+'\')">✓ 確認送進創始名單</button>'):'<span style="color:var(--dim)">—</span>');
     const fb=r.fbName?escH(r.fbName):'<span style="color:var(--dim)">—</span>';
-    return '<tr><td style="color:var(--dim);white-space:nowrap">'+fmtTs(r.ts)+'</td><td>'+escH(r.email)+'</td><td>'+fb+'</td><td>'+link+'</td><td>'+notified+'</td><td>'+confirm+'</td></tr>';
+    const chk=r.email?('<input type="checkbox" class="wl-chk" data-email="'+escH(r.email)+'">'):'';
+    return '<tr><td style="color:var(--dim);white-space:nowrap">'+fmtTs(r.ts)+'</td><td>'+escH(r.email)+'</td><td>'+fb+'</td><td>'+link+'</td><td>'+notified+'</td><td>'+confirm+'</td><td style="text-align:center">'+chk+'</td></tr>';
   }).join('');
+}
+function toggleAllWaitlist(cb){document.querySelectorAll('#wlBody .wl-chk').forEach(c=>{c.checked=cb.checked;});}
+function confirmAllWaitlist(){
+  const emails=waitlist.filter(r=>r.email&&!r.confirmed).map(r=>r.email);
+  if(!emails.length){toast('沒有待確認的登記');return;}
+  if(!confirm('把全部 '+emails.length+' 筆未確認的登記送進創始名單？\n\n⚠️ 此確認不可撤銷。'))return;
+  toast('確認中…');
+  (async()=>{
+    let ok=0;
+    for(const email of emails){try{const res=await post({action:'adminConfirmFounding',key:KEY,email:email});if(res&&res.ok)ok++;}catch(e){}}
+    toast('已確認 '+ok+' / '+emails.length+' 筆');loadWaitlist();
+  })();
+}
+function deleteSelectedWaitlist(){
+  const emails=Array.from(document.querySelectorAll('#wlBody .wl-chk:checked')).map(c=>c.dataset.email).filter(Boolean);
+  if(!emails.length){toast('先勾選要刪除的登記');return;}
+  if(!confirm('確定刪除勾選的 '+emails.length+' 筆登記？\n此動作會從 Waitlist 永久移除，無法復原。'))return;
+  toast('刪除中…');
+  (async()=>{
+    let ok=0;
+    for(const email of emails){try{const res=await post({action:'adminDeleteWaitlist',key:KEY,email:email});if(res&&res.ok)ok++;}catch(e){}}
+    toast('已刪除 '+ok+' / '+emails.length+' 筆');loadWaitlist();
+  })();
 }
 function confirmFounding(email){
   if(!confirm('確認「'+email+'」已公開分享，送進創始名單？\n\n⚠️ 此動作不可撤銷。'))return;
