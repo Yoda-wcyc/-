@@ -1,0 +1,2659 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-size="md">
+<head>
+<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-DFFP3JL6EY"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DFFP3JL6EY');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoda 市場觀察 | 2026/08/07</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   已對齊 Skill-總控-merged.md（B-2 / B-3 / E 段）
+   - 首頁連結改為 https://yoda-research-next.vercel.app/
+   - 粉專按鈕使用總控 CSS 變數
+   - 左側 NAV 結構對齊 AI泡沫評估表
+   - 陰影、圓角、元件規範逐步對齊
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --fs:24px;
+  --bg:#080b10; --surface:#0d1118; --surface2:#121820; --border:#1c2330;
+  --text:#b8c8d8; --dim:#405060;
+  --accent:#7f9fc6; --green:#5cae88; --red:#cf6f72; --yellow:#f0c040; --orange:#ff8040;
+  --fb:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Segoe UI',sans-serif;
+  --fm:'SF Mono','Consolas','Monaco','Courier New',monospace;
+
+  /* 粉專按鈕 — 總控 B-3 唯一正本 */
+  --fan-bg:#b8960a;
+  --fan-bg-hover:#ffd700;
+  --fan-text:#1a1200;
+  --fan-text-hover:#000;
+  --fan-glow:rgba(255,215,0,.35);
+  --fan-glow-hover:rgba(255,215,0,.75);
+  /* controls-bar 對齊 Version A */
+  --ctrl-bg:rgba(245,245,247,.8);--ctrl-border:#e0e0e0;--ctrl-hover:#fafafc;
+  --ctrl-act-bg:#0066cc;--ctrl-act-txt:#ffffff;
+  --ctrl-border:rgba(255,255,255,.12);
+  --ctrl-hover:rgba(255,255,255,.06);
+  --ctrl-act-txt:#080b10;
+  .ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
+@keyframes fan-breathe{
+  0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}
+  50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}
+}
+.ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-size:11px;font-family:'SF Mono','Consolas','Monaco','Courier New',monospace;color:#e8f2ff;text-decoration:none;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;transition:all 0.15s ease;white-space:nowrap;}
+.ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0;}
+.ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;transform:scale(1.02);}
+.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-family:var(--sans);font-size:calc(12px * var(--fs-scale));font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite;white-space:nowrap;margin-left:1px;transition:all .15s}
+.ctrl-home:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none}
+.ctrl-fan:hover{animation:none;background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75)}
+
+  /* nav 對齊 Version A */
+  --nav-bg:#0d1118;
+  --scroll-thumb:rgba(255,255,255,.18);
+  --fs-scale:1.16667;
+}
+[data-size="sm"]{--fs-scale:1}
+[data-size="md"]{--fs-scale:1.16667}
+[data-size="lg"]{--fs-scale:1.33333}
+
+/* 左側導覽 NAV（對齊 AI泡沫評估表） */
+body {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+nav{width:230px;min-width:230px;background:#1d1d1f;border-right:1px solid rgba(255,255,255,.14);position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 0 40px;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:var(--scroll-thumb,rgba(255,255,255,.22)) transparent;transition:background .25s,border-color .25s}
+
+
+/* 主內容區 */
+.main {
+  min-width: 0;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);font-size:var(--fs);line-height:1.65;user-select:none;-webkit-user-select:none;}
+
+/* 工具列 */
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
+.fb{padding:4px 10px;font-size:11px;font-family:var(--fm);background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb:hover{color:var(--text);background:var(--surface2);}.fb.on{color:var(--accent);background:rgba(0,200,240,.15);}
+
+/* 頁首 */
+.hdr{padding:26px 40px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);flex-wrap:wrap;gap:12px;}
+.hdr-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.hdr-title{font-family:var(--fb);font-size:calc(var(--fs)*3);font-weight:900;color:var(--text);line-height:1;}
+.hdr-title span{color:var(--accent);}
+.hdr-r{text-align:right;}
+
+/* 版面 */
+.wrap{max-width:1200px;margin:0 auto;padding:22px 40px 64px;}
+.sec{margin-bottom:34px;}
+.sec-lbl{background:linear-gradient(90deg,rgba(0,212,170,.14) 0%,transparent 100%);border-left:4px solid var(--teal,#6f9d97);padding:11px 16px;font-size:calc(var(--fs)*1.08);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--text);margin-bottom:2px;}
+
+/* 溫度條 */
+.temp-bar-wrap{margin-bottom:20px;}
+.temp-bar-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.temp-bar-name{font-family:var(--fb);font-size:calc(var(--fs)*.75);letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--dim);}
+.temp-bar-label{font-family:var(--fb);font-size:calc(var(--fs)*.82);font-weight:700;}
+.temp-bar-scale{display:flex;justify-content:space-between;margin-bottom:5px;}
+.temp-bar-scale span{font-family:var(--fb);font-size:calc(var(--fs)*.72);color:var(--dim);}
+.temp-track{position:relative;height:13px;border-radius:7px;overflow:visible;background:linear-gradient(90deg,#22c55e 0%,#84cc16 20%,#f59e0b 50%,#f97316 75%,#ef4444 100%);box-shadow:0 2px 10px rgba(0,0,0,.25);}
+.temp-track .t-div{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18);}
+.temp-needle{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:10;cursor:default;}
+.temp-bubble{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--fb);font-size:calc(var(--fs)*.72);font-weight:700;padding:2px 8px;border-radius:3px;white-space:nowrap;color:#080b10;}
+.temp-arrow{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);border:4px solid transparent;}
+.temp-dot{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid;box-shadow:0 0 10px;margin-top:4px;}
+.temp-note{font-family:var(--fb);font-size:calc(var(--fs)*.72);color:var(--dim);margin-top:6px;}
+.temp-divider{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);}
+
+/* 動畫 */
+@keyframes tempPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.6);transform:scale(.88);}50%{box-shadow:0 0 0 7px rgba(255,255,255,0);transform:scale(1.05);}}
+.temp-pulse{animation:tempPulse 1.6s ease-out infinite;}
+@keyframes breathe{0%,100%{opacity:.3;text-shadow:none}50%{opacity:1;text-shadow:0 0 10px var(--yellow),0 0 20px var(--yellow)}}
+@keyframes breathe-bull{0%,100%{opacity:.25;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--green),0 0 18px var(--green),0 0 30px rgba(0,200,150,.4)}}
+@keyframes breathe-bear{0%,100%{opacity:.25;text-shadow:none}50%{opacity:1;text-shadow:0 0 8px var(--red),0 0 18px var(--red),0 0 30px rgba(255,61,90,.4)}}
+.arr,.breath{animation:breathe 1.8s ease-in-out infinite;display:inline-block;color:var(--yellow);}
+.trig-bull{color:var(--green);animation:breathe-bull 0.85s ease-in-out infinite;}
+.trig-bear{color:var(--red);animation:breathe-bear 0.85s ease-in-out infinite;}
+
+/* 卡片 */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.card{background:var(--surface);padding:17px 19px;border:1px solid var(--border);border-radius:8px;}
+.card.clk{cursor:pointer;transition:background .12s;}
+.card.clk:hover{background:var(--surface2);}
+.c-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;}
+.arr{transition:transform .2s;}.card.open .arr{transform:rotate(180deg);animation:none;opacity:1;text-shadow:none;color:var(--accent);}
+.c-val{font-family:var(--fb);font-size:calc(var(--fs)*2.1);font-weight:900;line-height:1;margin-bottom:4px;}
+.c-val.gr{color:var(--green);}.c-val.rd{color:var(--red);}.c-val.ye{color:var(--yellow);}.c-val.ac{color:var(--accent);}
+.c-sub{font-size:calc(var(--fs)*.85);color:var(--dim);margin-top:3px;line-height:1.5;}
+.c-tr{font-size:calc(var(--fs)*.85);margin-top:5px;}
+.c-tr.up{color:var(--green);}.c-tr.dn{color:var(--red);}.c-tr.wn{color:var(--yellow);}.c-tr.fl{color:var(--dim);}
+.sit{display:inline-block;padding:4px 11px;font-family:var(--fb);font-size:calc(var(--fs)*1.05);font-weight:700;border-radius:3px;margin-bottom:7px;}
+.sit-ok{background:rgba(0,200,150,.12);color:var(--green);border:1px solid rgba(0,200,150,.3);}
+.sit-wn{background:rgba(240,192,64,.12);color:var(--yellow);border:1px solid rgba(240,192,64,.3);}
+.sit-bad{background:rgba(255,61,90,.12);color:var(--red);border:1px solid rgba(255,61,90,.3);}
+
+/* 展開區 */
+.det{display:none;background:var(--surface2);border-top:1px solid var(--border);padding:15px 17px;animation:sd .17s ease;grid-column:1/-1;}
+.det.open{display:block;}
+.det-sub{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;margin-top:14px;}
+.sumbox{font-size:calc(var(--fs)*.88);font-weight:700;padding:10px;border-radius:0 4px 4px 0;margin-bottom:12px;border-left:3px solid var(--teal,#6f9d97);}
+.sumbox-g{background:rgba(0,212,170,.07);border-left-color:var(--teal,#6f9d97);}
+.sumbox-r{background:rgba(239,68,68,.07);border-left-color:var(--red);}
+.rate-box{background:rgba(255,61,90,.05);border:1px solid rgba(255,61,90,.2);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:12px;font-family:var(--fb);font-size:calc(var(--fs)*.92);line-height:1.8;border-radius:4px;}
+
+/* 表格 */
+.tbl{width:100%;border-collapse:collapse;font-size:calc(var(--fs)*.92);}
+.tbl th{padding:6px 9px;font-size:calc(var(--fs)*.77);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+.tbl th.c{text-align:center;}.tbl td{padding:6px 9px;border-bottom:1px solid var(--border);font-family:var(--fm);}
+.tbl td.c{text-align:center;}.tbl tr:last-child td{border-bottom:none;}
+.tbl tr.hl td{background:rgba(0,200,150,.07);font-weight:600;}
+.cr{color:var(--red);}.cg{color:var(--green);}.cy{color:var(--yellow);}.cd{color:var(--dim);}.cw{color:var(--text);font-weight:600;}
+
+/* 板塊四象限 */
+.sec4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.sc-hdr{padding:9px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.25em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.sc.s .sc-hdr{color:var(--green);background:rgba(0,200,150,.06);}
+.sc.w .sc-hdr{color:var(--yellow);background:rgba(240,192,64,.06);}
+.sc.tw .sc-hdr{color:var(--orange);background:rgba(255,140,64,.06);}
+.sc.x .sc-hdr{color:var(--red);background:rgba(255,61,90,.06);}
+.sc-item{padding:8px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .12s;}
+.sc-item:last-child{border-bottom:none;}
+.sc-item:hover{background:var(--surface2);}
+.sc-item.open{background:var(--surface2);}
+.sc-item .sc-arr{font-size:calc(var(--fs)*.8);color:var(--dim);margin-left:6px;transition:transform .2s;flex-shrink:0;}
+.sc-item.open .sc-arr{transform:rotate(180deg);color:var(--accent);}
+.sc-det{display:none;padding:9px 13px 11px;background:var(--surface2);font-size:calc(var(--fs)*.85);line-height:1.75;border-top:1px solid var(--border);border-bottom:1px solid var(--border);animation:sd .15s ease;}
+.sc-det.open{display:block;}
+
+/* Mini Chart（取代 REL 溫度條）*/
+.mini-chart-wrap{margin:8px 0 6px;}
+.mini-chart-legend{display:flex;gap:12px;font-size:calc(var(--fs)*.72);margin-bottom:4px;font-family:var(--fm);}
+.mini-chart-legend span{display:flex;align-items:center;gap:4px;}
+.mini-chart-legend .dot-r{width:8px;height:2px;background:#cf6f72;display:inline-block;}
+.mini-chart-legend .dot-y{width:8px;height:2px;background:#f0c040;display:inline-block;}
+.mini-chart-legend .dot-b{width:8px;height:2px;background:#7f9fc6;display:inline-block;}
+.mini-chart-canvas{width:100%;height:54px;display:block;border-radius:4px;background:rgba(255,255,255,.03);}
+.sc-tk{font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);}
+.sc-rk{font-size:calc(var(--fs)*.82);}
+.sc.s .sc-rk{color:var(--green);}.sc.w .sc-rk{color:var(--yellow);}
+.sc.tw .sc-rk{color:var(--orange);}.sc.x .sc-rk{color:var(--red);}
+
+/* 板塊小結 */
+.rotation-verdict{background:rgba(255,61,90,.05);border:1px solid rgba(255,61,90,.2);border-left:3px solid var(--orange);padding:12px 18px;margin-top:10px;margin-bottom:34px;border-radius:6px;}
+.rv-title{font-size:calc(var(--fs)*1.08);letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.rv-snapshot{font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.75;margin-bottom:10px;}
+.rv-snapshot strong{color:var(--yellow);}
+.rv-snapshot .snap-row{display:flex;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px solid rgba(240,192,64,.1);font-size:calc(var(--fs)*.85);}
+.rv-snapshot .snap-row:last-child{border-bottom:none;}
+.rv-snapshot .snap-etf{font-family:var(--fm);font-weight:700;min-width:60px;color:var(--text);}
+.rv-snapshot .snap-tag{padding:2px 8px;border-radius:2px;font-size:calc(var(--fs)*.77);font-weight:700;white-space:nowrap;}
+.rv-snapshot .snap-tag-warn{background:rgba(240,192,64,.15);color:var(--yellow);}
+.rv-snapshot .snap-tag-ok{background:rgba(0,200,150,.15);color:var(--green);}
+.rv-snapshot .snap-tag-fail{background:rgba(255,61,90,.15);color:var(--red);}
+.rv-snapshot .snap-desc{color:var(--dim);font-size:calc(var(--fs)*.82);}
+.rv-divider{border:none;border-top:1px solid rgba(255,128,64,.25);margin:10px 0;}
+.rv-txt{font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.8;}
+.rv-txt strong{color:var(--orange);}
+
+/* 廣度卡 */
+.bc{background:var(--surface);padding:14px 16px;cursor:pointer;transition:background .12s;border:1px solid var(--border);border-radius:8px;}
+.bc:hover{background:var(--surface2);}
+.bc-lbl{font-size:calc(var(--fs)*.77);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+.bc-val{font-family:var(--fb);font-size:calc(var(--fs)*2.1);font-weight:900;line-height:1;}
+.bc-tr{font-size:calc(var(--fs)*.85);margin-top:4px;}
+.bc-det{display:none;background:var(--surface2);border-top:1px solid var(--border);padding:12px 14px;animation:sd .17s ease;grid-column:1/-1;border-radius:0 0 8px 8px;}
+.bc-det.open{display:block;}
+.bc-sum{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.15);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:10px;font-family:var(--fb);color:var(--text);font-size:calc(var(--fs)*.92);line-height:1.7;border-radius:4px;}
+
+/* 廣度總結 */
+.breadth-verdict{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.15);padding:10px 15px;margin-bottom:34px;font-family:var(--fb);color:var(--text);font-size:calc(var(--fs)*.92);line-height:1.7;border-radius:6px;}
+
+/* Gamma 防線 */
+.pbar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 17px;margin-bottom:0;cursor:pointer;border-bottom:none;border-radius:8px 8px 0 0;}
+.pbi .pbl{font-size:calc(var(--fs)*.77);letter-spacing:.22em;text-transform:uppercase;color:var(--dim);}
+.pbi .pbv{font-family:var(--fb);font-size:calc(var(--fs)*1.5);font-weight:900;margin-top:2px;}
+.gamma-det{display:none;background:var(--surface2);border:1px solid var(--border);border-top:none;padding:16px 18px;margin-bottom:34px;animation:sd .17s ease;border-radius:0 0 8px 8px;}
+.gamma-det-note{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
+.gtbl{width:100%;border-collapse:collapse;margin-bottom:12px;}
+.gtbl th{padding:7px 12px;font-size:calc(var(--fs)*.77);letter-spacing:.25em;text-transform:uppercase;color:var(--dim);text-align:left;border-bottom:1px solid var(--border);background:var(--surface);}
+.gtbl td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.92);background:var(--surface);}
+.gtbl tr:last-child td{border-bottom:none;}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:middle;}
+.d-r{background:var(--red);}.d-o{background:var(--orange);}.d-w{background:var(--dim);}.d-g{background:var(--green);}.d-b{background:var(--accent);}
+.g-mech{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:12px 16px;margin-bottom:10px;border-radius:6px;}
+.g-mech.yel{border-left-color:var(--yellow);}
+.g-mech-title{font-size:calc(var(--fs)*1.08);letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.g-mech.yel .g-mech-title{color:var(--yellow);}
+.g-mech-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);font-weight:300;color:var(--text);line-height:1.8;}
+.g-mech-txt strong{font-weight:600;}.g-mech-txt em{color:var(--yellow);font-style:normal;}
+
+/* 完整研判 */
+.syn{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);padding:26px 30px;margin-bottom:30px;border-radius:8px;}
+.syn-title{font-size:calc(var(--fs)*1.08);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;border-left:4px solid var(--accent);padding-left:14px;}
+.syn-blk{margin-bottom:20px;}.syn-blk:last-child{margin-bottom:0;}
+.syn-h{font-size:calc(var(--fs)*.77);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.syn-txt{font-family:var(--fb);font-size:calc(var(--fs)*1.0);font-weight:300;color:var(--text);line-height:1.85;}
+.syn-txt strong{font-weight:700;}.syn-txt em{color:var(--yellow);font-style:normal;}
+
+/* 預期 vs 底線 */
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:16px;border-radius:8px;overflow:hidden;}
+.sc-bull{background:rgba(0,200,150,.04);border:1px solid rgba(0,200,150,.2);border-top:2px solid var(--green);padding:14px 18px;}
+.sc-bear{background:rgba(255,61,90,.04);border:1px solid rgba(255,61,90,.2);border-top:2px solid var(--red);padding:14px 18px;}
+.sc-s-title{font-size:calc(var(--fs)*1.08);letter-spacing:.3em;text-transform:uppercase;margin-bottom:10px;}
+.sc-bull .sc-s-title{color:var(--green);}.sc-bear .sc-s-title{color:var(--red);}
+.sc-s-txt{font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.85;}
+.sc-s-txt strong{font-weight:700;}
+.sc-s-txt .trigger{color:var(--yellow);}
+.sc-s-txt .target{color:var(--accent);font-family:var(--fm);}
+
+/* 輔助 */
+.tag{display:inline-block;padding:2px 8px;font-size:calc(var(--fs)*.77);border-radius:2px;margin:2px;font-family:var(--fm);}
+.tag-r{background:rgba(255,61,90,.12);color:var(--red);border:1px solid rgba(255,61,90,.3);}
+.tag-y{background:rgba(240,192,64,.12);color:var(--yellow);border:1px solid rgba(240,192,64,.3);}
+.tag-g{background:rgba(0,200,150,.12);color:var(--green);border:1px solid rgba(0,200,150,.3);}
+.ht{overflow-x:auto;}.ht table{min-width:900px;}
+
+/* 指標列表 */
+.irow-list{display:flex;flex-direction:column;gap:0;}
+.irow{display:flex;align-items:baseline;gap:0;padding:3px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.85);font-family:var(--fm);}
+.irow:last-child{border-bottom:none;}
+.irow-name{color:var(--dim);min-width:88px;flex-shrink:0;letter-spacing:.04em;}
+.irow-val{color:var(--text);font-weight:600;}
+.irow-val.g{color:var(--green);}
+.irow-val.r{color:var(--red);}
+.irow-val.y{color:var(--yellow);}
+.irow-val.d{color:var(--dim);}
+
+/* 歷史快照 */
+.snap-override{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.3);border-left:3px solid var(--yellow);padding:11px 16px;margin-bottom:10px;border-radius:6px;}
+.snap-override-title{font-size:calc(var(--fs)*1.08);letter-spacing:.28em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;}
+.snap-row{display:flex;align-items:baseline;gap:10px;padding:4px 0;border-bottom:1px solid rgba(240,192,64,.1);font-size:calc(var(--fs)*.85);}
+.snap-row:last-child{border-bottom:none;}
+.snap-etf{font-family:var(--fm);font-weight:700;min-width:60px;color:var(--text);}
+.snap-tag{padding:2px 8px;border-radius:2px;font-size:calc(var(--fs)*.77);font-weight:700;white-space:nowrap;}
+.snap-tag-warn{background:rgba(240,192,64,.15);color:var(--yellow);}
+.snap-tag-ok{background:rgba(0,200,150,.15);color:var(--green);}
+.snap-tag-fail{background:rgba(255,61,90,.15);color:var(--red);}
+.snap-desc{color:var(--dim);font-size:calc(var(--fs)*.82);}
+
+/* 未來一個月事件 */
+.ev-list{display:flex;flex-direction:column;gap:1px;margin-bottom:16px;}
+.ev-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.ev-item-hdr{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;transition:background .12s;}
+.ev-item-hdr:hover{background:var(--surface2);}
+.ev-date{font-family:var(--fm);font-size:calc(var(--fs)*.82);color:var(--dim);min-width:72px;flex-shrink:0;}
+.ev-grade{font-size:calc(var(--fs)*.82);flex-shrink:0;}
+.ev-name{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:600;color:var(--text);flex:1;}
+.ev-arr{font-size:calc(var(--fs)*.8);color:var(--dim);transition:transform .2s;flex-shrink:0;}
+.ev-item.open .ev-arr{transform:rotate(180deg);color:var(--accent);}
+.ev-det{display:none;padding:10px 14px 12px 98px;background:var(--surface2);border-top:1px solid var(--border);font-family:var(--fb);font-size:calc(var(--fs)*.88);line-height:1.75;}
+.ev-det.open{display:block;}
+.ev-det .ev-bull{color:var(--green);margin-bottom:4px;}
+.ev-det .ev-bear{color:var(--red);margin-bottom:4px;}
+.ev-det .ev-rule{color:var(--yellow);font-size:calc(var(--fs)*.82);margin-top:6px;border-top:1px solid var(--border);padding-top:6px;}
+.ev-note{background:rgba(0,200,240,.04);border:1px solid rgba(0,200,240,.15);border-left:3px solid var(--accent);padding:12px 16px;border-radius:6px;font-family:var(--fb);font-size:calc(var(--fs)*.88);color:var(--text);line-height:1.8;}
+
+/* 頁尾 */
+.ftr{border-top:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.ftr .disc{font-size:calc(var(--fs)*.77);color:var(--dim);}
+.ftr .brand{font-family:var(--fb);font-size:calc(var(--fs)*.92);font-weight:900;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;}
+
+/* 深/淺色 */
+body.light{--bg:#f2f5f9;--surface:#ffffff;--surface2:#e8eef5;--border:#ccd6e2;--text:#1a2535;--dim:#6080a0;--accent:#4a6d94;--green:#006e4a;--red:#c00030;--yellow:#7a5500;--orange:#a03800;;--nav-light-bg:#ffffff}
+body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
+
+/* 粉專按鈕（總控 B-3） */
+@keyframes fan-breathe {
+  0%,100% { background:var(--fan-bg); box-shadow:0 0 4px 1px var(--fan-glow); color:var(--fan-text); }
+  50%      { background:var(--fan-bg-hover); box-shadow:0 0 10px 3px var(--fan-glow-hover); color:var(--fan-text-hover); }
+}
+/* ========== 效果對調後 ========== */
+
+/* 粉專按鈕（改為低調版） */
+/* 粉專按鈕（藍底白字） */
+/* 粉專按鈕（藍底白字） */
+/* 粉專按鈕（藍底白字） */
+.ctrl-fan {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  font-size: calc(11px*var(--fs-scale));
+  font-family: var(--mono);
+  color: #ffffff;
+  text-decoration: none;
+  background: #1877f2;
+  border: 1px solid #1877f2;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.ctrl-fan:hover {
+  background: #166fe5;
+  border-color: #166fe5;
+  color: #ffffff;
+}
+.ctrl-fan:hover {
+  background: #166fe5;
+  border-color: #166fe5;
+  color: #ffffff;
+}
+
+.ctrl-fan svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+
+/* 研究報告中心按鈕（改為金色呼吸動畫版） */
+.ctrl-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: var(--fm);
+  color: #1a1200;
+  font-weight: 700;
+  text-decoration: none;
+  background: #b8960a;
+  border-radius: 9999px;
+  animation: fan-breathe 1.8s ease-in-out infinite;
+  white-space: nowrap;
+  margin-left: 1px;
+  transition: all 0.15s ease;
+}
+.ctrl-home:hover {
+  background: #ffd700;
+  color: #000;
+  box-shadow: 0 0 10px 3px rgba(255, 215, 0, .75);
+  animation: none;
+}
+.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-family:var(--fb);font-size:calc(12px * var(--fs-scale));font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite;white-space:nowrap;margin-left:1px;transition:all .15s}
+.ctrl-home:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none}
+
+.plain-fan{animation:none!important;background:#272729;color:#a1a1a6;border:1px solid rgba(255,255,255,.14)}
+.plain-fan:hover{background:#2a2a2c;color:#f5f5f7;border-color:rgba(255,255,255,.22)}
+.controls-bar{position:fixed;top:14px;right:20px;z-index:9999;display:flex;align-items:center;gap:6px;background:rgba(29,29,31,.72);border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:5px 8px;backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(0,0,0,.18)}
+.ctrl-group{display:flex;gap:2px}
+.ctrl-sep{width:1px;height:18px;background:rgba(255,255,255,.14);margin:0 2px}
+.ctrl-btn{font-family:var(--fb);font-size:calc(12px * var(--fs-scale));font-weight:600;color:#a1a1a6;background:transparent;border:none;border-radius:5px;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.ctrl-btn:hover{background:#2a2a2c;color:#f5f5f7}
+.ctrl-btn.active{background:#0071e3;color:#ffffff;font-weight:600}
+/* NAV - 強制對齊 AI泡沫評估表 */
+.nav-brand{padding:0 18px 22px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.nav-brand-title{font-family:var(--fb);font-size:calc(24px * var(--fs-scale))!important;color:#ff9f0a!important;font-weight:600;line-height:1.2}
+.nav-brand-sub{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:#2997ff;letter-spacing:.1em;margin-top:6px;text-transform:uppercase}
+.nav-section-label{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:#6e6e73;padding:12px 18px 5px}
+nav a{display:flex;align-items:center;gap:9px;padding:7px 18px;color:#a1a1a6;text-decoration:none;font-size:calc(12.5px * var(--fs-scale));transition:all .14s;border-left:2px solid transparent}
+nav a:hover{color:var(--text);background:var(--surface2);border-left-color:var(--accent)}
+.nav-num{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:#6e6e73;min-width:16px}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--border);min-width:5px}
+/* ── Bible section-header (2026-07-16) ── */
+.content-section{padding:38px 48px;border-bottom:1px solid var(--border)}
+.section-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.section-num{font-family:var(--mono,var(--fm));font-size:calc(10.5px * var(--fs-scale,1));color:var(--accent);background:rgba(48,209,88,.08);border:1px solid rgba(48,209,88,.22);border-radius:4px;padding:4px 10px;white-space:nowrap;margin-top:4px}
+.section-title{font-family:var(--fb);font-size:calc(21px * var(--fs-scale,1));font-weight:600;color:var(--header,var(--text));line-height:1.3;letter-spacing:-.01em}
+.section-desc{font-family:var(--mono,var(--fm));font-size:calc(11px * var(--fs-scale,1));color:var(--text3,var(--dim));margin-top:4px;letter-spacing:.05em}
+.izy-section{margin-top:auto;padding:18px;border-top:1px solid var(--border)}
+.izy-badge{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:11px 13px}
+.izy-badge-label{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.izy-badge-text{font-size:calc(11px * var(--fs-scale));color:var(--dim);line-height:1.5}
+/* ============ 板塊動態圖（dyn- 前綴）============ */
+:root{--dyn-imp:#f59e0b;--dyn-led:#ec4899;--dyn-lag:#a78bfa;--dyn-wk:#22d3ee}
+body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b2}
+#sec-dyn-body{margin:12px 0 6px}
+.dyn-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.dyn-t{font-family:var(--fb);font-weight:800;font-size:calc(var(--fs)*1.05);color:var(--text)}
+.dyn-tag{font-family:var(--fm);font-size:calc(var(--fs)*.42);letter-spacing:.26em;color:var(--accent);text-transform:uppercase;margin-bottom:5px}
+.dyn-ctrl{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.dyn-seg{display:inline-flex;background:var(--surface2);border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.dyn-seg button{font-family:var(--fb);font-size:calc(var(--fs)*.5);background:transparent;color:var(--dim);border:none;padding:7px 15px;cursor:pointer;transition:all .15s}
+.dyn-seg button.on{background:var(--accent);color:var(--bg)}
+.dyn-seg-lbl{font-family:var(--fb);font-size:calc(var(--fs)*.44);color:var(--dim);align-self:center;margin-right:2px}
+.dyn-main{display:flex;gap:18px;align-items:stretch}
+.dyn-box{flex:1 1 0;min-width:0;background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:10px}
+#dyn-svg{width:100%;height:auto;display:block}
+.dyn-legend{text-align:center;margin-top:10px;font-family:var(--fb);font-size:calc(var(--fs)*.46);color:var(--dim)}
+.dyn-empty{padding:46px;text-align:center;color:var(--dim);font-family:var(--fb);font-size:calc(var(--fs)*.6)}
+.dyn-guide{flex:0 0 268px;background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:16px 16px 14px;font-family:var(--fb)}
+.dyn-guide .g-h{font-weight:800;font-size:calc(var(--fs)*.68);color:var(--text);margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.dyn-guide .g-h::before{content:"";width:3px;height:14px;background:var(--accent);border-radius:2px}
+.dyn-guide .g-row{margin-bottom:11px}
+.dyn-guide .g-k{font-weight:700;font-size:calc(var(--fs)*.52);margin-bottom:2px;color:var(--accent)}
+.dyn-guide .g-k.y{color:var(--dyn-imp)}.dyn-guide .g-k.c{color:var(--dim)}
+.dyn-guide .g-v{font-size:calc(var(--fs)*.48);color:var(--text);line-height:1.5}
+.dyn-guide .g-v .dim{color:var(--dim)}
+.dyn-guide .g-quad{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:6px 0 3px}
+.dyn-guide .g-q{border-radius:7px;padding:6px 8px;background:var(--surface);border:1px solid var(--border)}
+.dyn-guide .g-q .qn{font-weight:800;font-size:calc(var(--fs)*.5)}
+.dyn-guide .g-q .qd{font-size:calc(var(--fs)*.4);color:var(--dim);margin-top:1px}
+.dyn-guide .qn-imp{color:var(--dyn-imp)}.dyn-guide .qn-led{color:var(--dyn-led)}.dyn-guide .qn-lag{color:var(--dyn-lag)}.dyn-guide .qn-wk{color:var(--dyn-wk)}
+.dyn-guide .g-flow{font-size:calc(var(--fs)*.42);color:var(--dim);margin-top:5px;line-height:1.5}
+.dyn-guide .g-div{height:1px;background:var(--border);margin:11px 0}
+.dyn-guide .g-use{list-style:none;margin-top:3px}
+.dyn-guide .g-use li{font-size:calc(var(--fs)*.46);color:var(--text);line-height:1.5;padding-left:13px;position:relative;margin-bottom:5px}
+.dyn-guide .g-use li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+.dyn-tip{position:fixed;pointer-events:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-family:var(--fb);font-size:calc(var(--fs)*.46);color:var(--text);opacity:0;transition:opacity .1s;z-index:99;box-shadow:0 6px 24px rgba(0,0,0,.4);white-space:nowrap}
+@media(max-width:820px){.dyn-main{flex-direction:column}.dyn-guide{flex:auto}}
+/* §05 廣度歷史折線圖 */
+.breadth-charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.bch-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.bch-t{font-size:calc(var(--fs)*.78);color:var(--dim);letter-spacing:.04em;margin-bottom:8px;font-family:var(--fb)}
+.bch-canvas{width:100%;height:150px;display:block}
+@media(max-width:720px){.breadth-charts{grid-template-columns:1fr}}
+/* §04 三線歷史 mini chart 加高 */
+.mini-chart-canvas{height:92px !important}
+/* §06 Gamma 簡圖 */
+.gamma-diagram{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:14px;display:flex;justify-content:center}
+.gamma-diagram svg{width:100%;max-width:480px;height:auto}
+.gamma-terms{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:14px 18px;margin-bottom:34px;font-family:var(--fb);font-size:calc(var(--fs)*.88);line-height:1.9;color:var(--text)}
+.gamma-terms b{color:var(--accent)}
+.gamma-terms .gt-row{margin-bottom:6px}
+</style>
+<style id="mobile-nav-fix">
+@media(max-width:700px){
+ body{grid-template-columns:1fr!important;}
+ nav{position:static!important;width:auto!important;min-width:0!important;height:auto!important;max-height:none!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center;gap:4px 10px;border-right:none!important;border-bottom:1px solid var(--border);padding:11px 15px 9px!important;overflow:visible!important;}
+ .nav-brand{width:100%;border-bottom:none!important;padding:0!important;margin:0 0 4px!important;}
+ .nav-brand-sub{display:none;}
+ .nav-section-label{display:none!important;}
+ nav>a{font-size:calc(var(--fs)*.6);padding:2px 0;white-space:nowrap;}
+ nav>a .nav-dot{display:none;}
+ .nav-game-gold{margin:6px 0 0!important;}
+ .izy-section{display:none!important;}
+}
+</style></head>
+<body>
+
+<!-- NAV - 修正重複項目 -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-title"><span style="display:inline-flex;align-items:center;gap:6px;line-height:1">Yoda <img src="https://yoda-research-next.vercel.app/yoda-logo.png" alt="" style="height:1.5em;width:auto;opacity:.9;vertical-align:middle"></span><br>市場觀察</div>
+    <div class="nav-brand-sub">▸ 2026 · AUGUST</div>
+  </div>
+  <div class="nav-section-label">市場觀察</div>
+  <a href="#sec-overview"><span class="nav-num">01</span><div class="nav-dot"></div>市場概覽</a>
+  <a href="#sec-core"><span class="nav-num">02</span><div class="nav-dot"></div>核心指標</a>
+  <a href="#sec-dyn"><span class="nav-num">03</span><div class="nav-dot"></div>板塊動態圖</a>
+  <a href="#sec-rotation"><span class="nav-num">04</span><div class="nav-dot"></div>板塊強弱對位</a>
+  <a href="#sec-breadth"><span class="nav-num">05</span><div class="nav-dot"></div>市場廣度</a>
+  <a href="#sec-gamma"><span class="nav-num">06</span><div class="nav-dot"></div>Gamma 防線</a>
+  <a href="#sec-events"><span class="nav-num">07</span><div class="nav-dot"></div>未來一個月事件</a>
+  <a href="#sec-judgment"><span class="nav-num">08</span><div class="nav-dot"></div>Yoda 完整研判</a>
+  <!-- 看懂市場觀察 遊戲（置於「完整研判」下方，規格同 Yoda Research 金色呼吸鈕） -->
+  <style>
+  .nav-game-gold{align-self:center;display:inline-flex;align-items:center;justify-content:center;margin:14px 18px 4px;padding:4px 14px;font-family:var(--fb);font-size:11px;font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite;white-space:nowrap;transition:all .15s}
+  .nav-game-gold:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none}
+  </style>
+  <a href="https://yoda-wcyc.github.io/game/%E7%9C%8B%E6%87%82%E5%B8%82%E5%A0%B4%E8%A7%80%E5%AF%9F-%E4%B8%83%E6%AE%B5%E5%B0%8E%E8%A6%BD.html" target="_blank" rel="noopener" class="nav-game-gold">🎮 看懂市場觀察</a>
+  <div class="izy-section">
+    <div class="izy-badge">
+      <div class="izy-badge-label">Yoda Research</div>
+      <div class="izy-badge-text">市場觀察報告<br>每週三次更新</div>
+    </div>
+  </div>
+</nav>
+
+<!-- 主內容 -->
+<div class="main">
+
+<!-- CONTROLS -->
+<style>
+/* ── 控制列統一覆寫 2026-07-31：粉專＝MW藍、字級固定 11px（對齊 MD） ── */
+.controls-bar .ctrl-fan{background:#1a3a5c;border:1px solid #2a4a6c;color:#e8f2ff;font-size:11px}
+.controls-bar .ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;color:#e8f2ff}
+.controls-bar .ctrl-btn{font-size:11px}
+.controls-bar .ctrl-home{font-size:11px}
+</style>
+<div class="controls-bar">
+  
+  <!-- 粉專：普通樣式 -->
+  <a href="https://www.facebook.com/profile.php?id=100069223220386" 
+     class="ctrl-fan plain-fan" 
+     target="_blank" 
+     rel="noopener"
+     title="Facebook粉專">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.49 0-1.955.928-1.955 1.879v2.256h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+    </svg>粉專
+  </a>
+
+  <!-- Yoda Research：金色呼吸 -->
+  <a href="https://yoda-research-next.vercel.app/" 
+     class="ctrl-home" 
+     title="Yoda Research">Yoda Research</a>
+
+  <div class="ctrl-sep"></div>
+  
+  <div class="ctrl-group">
+    <button class="ctrl-btn" onclick="setSize('sm')">小</button>
+    <button class="ctrl-btn active" onclick="setSize('md')">中</button>
+    <button class="ctrl-btn" onclick="setSize('lg')">大</button>
+  </div>
+  
+  <div class="ctrl-sep"></div>
+  
+  <div class="ctrl-group">
+    <button class="ctrl-btn active" onclick="setTheme('dark')">深</button>
+    <button class="ctrl-btn" onclick="setTheme('light')">淺</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ 00 名詞解釋（靜態·翻譯優先 §0-1；兩欄 term｜內容 依 core-render B-11；可折疊）═══ -->
+<style>
+.glossary{border:1px solid var(--border);background:var(--surface);margin-bottom:22px;}
+.glossary>summary{cursor:pointer;padding:11px 16px;font-size:calc(var(--fs)*.82);color:var(--accent);font-weight:600;list-style:none;user-select:none;}
+.glossary>summary::-webkit-details-marker{display:none;}
+.glossary>summary::before{content:"▶ ";font-size:calc(var(--fs)*.7);}
+.glossary[open]>summary::before{content:"▼ ";}
+.glossary[open]>summary{border-bottom:1px solid var(--border);}
+.gl-intro{font-size:calc(var(--fs)*.82);color:var(--dim);line-height:1.7;margin:2px 0 12px;}
+.gl-body{padding:0;}
+.gl-gh{font-size:calc(var(--fs)*.68);letter-spacing:.18em;text-transform:uppercase;color:#94a3b8;background:var(--surface2);padding:8px 14px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-weight:700;}
+.gl-body .gl-gh:first-child{border-top:none;}
+.gl-row{display:grid;grid-template-columns:170px 1fr;border-bottom:1px solid var(--border);}
+.gl-row:last-child{border-bottom:none;}
+.gl-term{padding:9px 14px;font-size:calc(var(--fs)*.75);font-weight:700;color:var(--text);background:var(--surface2);border-right:1px solid var(--border);word-break:break-word;}
+.gl-def{padding:9px 16px;font-size:calc(var(--fs)*.75);color:var(--dim);line-height:1.75;}
+.gl-def b{color:var(--text);}
+@media(max-width:640px){.gl-row{grid-template-columns:110px 1fr;}.gl-term{font-size:calc(var(--fs)*.7);}}
+</style>
+<div id="sec-glossary">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">00</div>
+  <div>
+    <div class="section-title">名詞解釋</div>
+    <div class="section-desc">GLOSSARY · 看不懂的詞，先點這裡對照</div>
+  </div>
+</div>
+<details class="glossary">
+  <summary>點開名詞對照表（多空溫度、VIX、三道防線、市場廣度、Gamma/Max Pain、板塊生命週期…）</summary>
+  <div class="gl-body">
+    <div class="gl-intro">報告裡的專有名詞都收在這——<b style="color:var(--text)">第一次看先展開對照，把數字背後的意思講白，沒有財經底子也能看懂。</b></div>
+    <div class="gl-gh">多空溫度與情緒</div>
+    <div class="gl-row"><div class="gl-term">資金流判定</div><div class="gl-def">綜合各面向判斷「錢整體偏多買、還是偏空賣」的溫度：越右＝越偏多方。</div></div>
+    <div class="gl-row"><div class="gl-term">情緒過熱觸發</div><div class="gl-def">市場情緒是冷靜還是過熱：越右＝越過熱、要提高警戒（過熱常是回檔前兆）。</div></div>
+    <div class="gl-row"><div class="gl-term">Risk-on / Risk-off</div><div class="gl-def">錢在「追風險資產（risk-on）」還是「躲進避險（risk-off）」。</div></div>
+    <div class="gl-row"><div class="gl-term">VIX（恐慌指數）</div><div class="gl-def">選擇權隱含波動率，市場對未來震盪的預期。低＝安逸、高＝恐慌，通常與股市反向。</div></div>
+    <div class="gl-row"><div class="gl-term">Put / Call（P/C 比）</div><div class="gl-def">買賣權成交量比。偏低＝大家搶買 Call、偏貪；偏高＝搶買 Put、偏空避險。</div></div>
+
+    <div class="gl-gh">三道防線與天秤</div>
+    <div class="gl-row"><div class="gl-term">三道防線</div><div class="gl-def">這波多頭要守的三個關鍵防守點（如某價位、殖利率、VIX 門檻）——一道道被跌破＝防線失守、風險升高。</div></div>
+    <div class="gl-row"><div class="gl-term">多空天秤</div><div class="gl-def">看市場「如何消化消息」：利多不漲/利空不跌，價格的反應才是最終公斷（不預測消息、只稱重反應）。</div></div>
+
+    <div class="gl-gh">市場廣度</div>
+    <div class="gl-row"><div class="gl-term">市場廣度</div><div class="gl-def">上漲的股票面有多寬（不是只看指數）。廣度健康＝多數股票參與；指數漲但廣度窄＝靠少數權值撐。</div></div>
+    <div class="gl-row"><div class="gl-term">NQ / SP 20MA%<br>· 50MA%</div><div class="gl-def">那斯達克（NQ）／標普（SP）成分股中，站上 20 日／50 日均線的比例。&gt;50% 偏多、&lt;30% 偏弱。</div></div>
+    <div class="gl-row"><div class="gl-term">NDTW / S5TW</div><div class="gl-def">那斯達克100／標普500 站上均線家數的廣度指標（TradingView 代碼），同樣看多空參與度。</div></div>
+
+    <div class="gl-gh">Gamma 防線（選擇權結構）</div>
+    <div class="gl-row"><div class="gl-term">Max Pain</div><div class="gl-def">選擇權到期時「讓最多買方賠錢」的價位，到期前價格常被磁吸靠近。</div></div>
+    <div class="gl-row"><div class="gl-term">Gamma Flip</div><div class="gl-def">做市商避險由「壓波動」翻成「放大波動」的分界價；之上通常盤穩、之下容易加速下殺。</div></div>
+    <div class="gl-row"><div class="gl-term">Call 牆 / Put 牆</div><div class="gl-def">Call／Put 未平倉最厚的價位，常形成上方壓力／下方支撐。</div></div>
+
+    <div class="gl-gh">板塊輪動與動態圖</div>
+    <div class="gl-row"><div class="gl-term">REL5 / REL20</div><div class="gl-def">板塊近 5／20 日相對大盤的強弱（報酬減掉大盤）。正＝跑贏、負＝跑輸。</div></div>
+    <div class="gl-row"><div class="gl-term">板塊生命週期</div><div class="gl-def">👑主升（成熟領漲）／⚠出貨（動能高檔鈍化、退出警戒）／💥崩解（主線結束）／🔄加速（新資金剛進場）。</div></div>
+    <div class="gl-row"><div class="gl-term">動態圖象限 / 尾巴</div><div class="gl-def">右＝比大盤強、左＝弱；上＝動能加速、下＝減速。尾巴（半透明點）＝前幾天的位置，看往哪移動。</div></div>
+  </div>
+</details>
+</div>
+</div>
+<!-- ═══ /00 名詞解釋 ═══ -->
+
+<!-- 市場概覽 -->
+<div id="sec-overview">
+<div class="content-section">
+<div class="section-header" style="display:flex;align-items:center;">
+  <div class="section-num">01</div>
+  <div>
+    <div class="section-title">市場概覽</div>
+    <div class="section-desc">MARKET OVERVIEW</div>
+  </div>
+  <a href="#sec-judgment" title="跳至 07 完整研判"
+     style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:5px 11px;
+            font-family:var(--fm);font-size:calc(var(--fs)*.72);font-weight:700;
+            color:var(--bg);background:var(--red);border-radius:4px;text-decoration:none;
+            box-shadow:0 0 8px rgba(0,200,240,.35);transition:transform .12s,box-shadow .12s;white-space:nowrap;"
+     onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 0 14px rgba(0,200,240,.6)';"
+     onmouseout="this.style.transform='';this.style.boxShadow='0 0 8px rgba(0,200,240,.35)';">直接看結論 ↓</a>
+</div>
+
+  <!-- 四條溫度條 -->
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">資金流判定</span>
+      <span class="temp-bar-label" style="color:#4da8e0;">偏多方 · 戒備升高</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面空方</span><span>中性</span><span>全面多方</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:57%;">
+        <div class="temp-bubble" style="background:#4da8e0;">57</div>
+        <div class="temp-arrow" style="border-top-color:#4da8e0;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#4da8e0;box-shadow:0 0 10px rgba(77,168,224,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ 龍頭撐、半導體週線續強，結構未破；但避險情緒升溫（P/C 0.5→1.13）＋油急彈＝多頭中戒備升高</div>
+  </div>
+
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">情緒過熱觸發</span>
+      <span class="temp-bar-label" style="color:#f59e0b;">避險情緒升溫</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>極度低迷冷靜</span><span>正常情緒</span><span>極端過熱警戒</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:42%;">
+        <div class="temp-bubble" style="background:#f59e0b;">42</div>
+        <div class="temp-arrow" style="border-top-color:#f59e0b;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#f59e0b;box-shadow:0 0 10px rgba(245,158,11,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ Put/Call 0.5→1.13 開始買保險；VIX 15.14 仍平靜——是避險升溫、非過熱</div>
+  </div>
+
+  <div class="temp-bar-wrap">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">Risk-on / off</span>
+      <span class="temp-bar-label" style="color:#6f9d97;">中性偏謹慎</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面防禦避險</span><span>中性</span><span>全面風險偏好</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:25%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:50%;">
+        <div class="temp-bubble" style="background:#6f9d97;">50</div>
+        <div class="temp-arrow" style="border-top-color:#6f9d97;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#6f9d97;box-shadow:0 0 10px rgba(0,212,170,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ 高 Beta 今日走弱、動能因子回落；股未離場、龍頭撐——謹慎但結構未破</div>
+  </div>
+
+  <div class="temp-bar-wrap temp-divider">
+    <div class="temp-bar-header">
+      <span class="temp-bar-name">市場廣度</span>
+      <span class="temp-bar-label" style="color:#a855f7;">健康 · 未擴散</span>
+    </div>
+    <div class="temp-bar-scale">
+      <span>全面崩跌（&lt;30%）</span><span>健康區間</span><span>全面強勢（&gt;75%）</span>
+    </div>
+    <div class="temp-track">
+      <div class="t-div" style="left:30%"></div>
+      <div class="t-div" style="left:50%"></div>
+      <div class="t-div" style="left:75%"></div>
+      <div class="temp-needle" style="left:65%;">
+        <div class="temp-bubble" style="background:#a855f7;color:#fff;">65</div>
+        <div class="temp-arrow" style="border-top-color:#a855f7;"></div>
+        <div class="temp-dot temp-pulse" style="border-color:#a855f7;box-shadow:0 0 10px rgba(168,85,247,.6);"></div>
+      </div>
+    </div>
+    <div class="temp-note">▸ 站上月線約 65%，長線廣度未破；短中線仍是大資金先行、群眾未跟</div>
+  </div>
+</div>
+</div><!-- /content-section -->
+<!-- /市場概覽 -->
+
+
+<!-- 核心指標 -->
+<div id="sec-core" class="sec">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">02</div>
+  <div>
+    <div class="section-title">核心指標</div>
+    <div class="section-desc">CORE INDICATORS</div>
+  </div>
+</div>
+  <div style="display:grid;gap:1px;background:var(--border);">
+    <div class="g3">
+
+      <div class="card clk" id="cSit" onclick="tog('dSit','cSit')">
+        <div class="c-lbl">資金流判定 <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">多方 · 戒備升高</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">結構仍多頭（龍頭撐、半導體週線續強、大盤小跌）；但今天多了避險擾動——選擇權轉避險、油急彈、動能走弱。殖利率大致平穩（2Y 4.25），壓力不在利率、在避險情緒。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">US2Y</span><span class="irow-val d">4.25 平穩</span></div><div class="irow"><span class="irow-name">US10Y</span><span class="irow-val y">4.67🟡</span></div><div class="irow"><span class="irow-name">油價 USO</span><span class="irow-val y">+3.47% 急彈🟡</span></div><div class="irow"><span class="irow-name">SOFR-IORB</span><span class="irow-val g">-1bp 🟢</span></div><div class="irow"><span class="irow-name">半導體</span><span class="irow-val g">週線相對 +9 強</span></div></div>
+      </div>
+
+      <div class="card clk" id="cTrg" onclick="tog('dTrg','cTrg')">
+        <div class="c-lbl">情緒過熱觸發 <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">避險情緒升溫</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">恐慌指標仍平靜（VIX 15.14），但避險在回來：Put/Call 從 0.5 跳到 1.13＝選擇權市場開始買保險，配動能因子走弱——『無腦樂觀』那段結束、該提高警覺。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">VIX</span><span class="irow-val g">15.14 平靜</span></div><div class="irow"><span class="irow-name">VXN</span><span class="irow-val d">23.95 中段</span></div><div class="irow"><span class="irow-name">MOVE</span><span class="irow-val y">76.11 略升</span></div><div class="irow"><span class="irow-name">P/C Ratio</span><span class="irow-val r">1.13 轉避險🔴</span></div><div class="irow"><span class="irow-name">HY_OAS</span><span class="irow-val g">2.75% 緊</span></div></div>
+      </div>
+
+      <div class="card clk" id="cRsk" onclick="tog('dRsk','cRsk')">
+        <div class="c-lbl">Risk-on / Risk-off <span class="arr">▼</span></div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">中性 · 偏謹慎</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">高 Beta、動能因子今日同步走弱，避險情緒升溫——偏謹慎；但股僅小跌、龍頭撐、半導體週線續強，結構沒翻。是多頭中的戒備，不是 Risk-Off 潮。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">高Beta SPHB</span><span class="irow-val r">-1.91% 今日走弱</span></div><div class="irow"><span class="irow-name">動能因子</span><span class="irow-val r">同步回落</span></div><div class="irow"><span class="irow-name">防禦股</span><span class="irow-val d">非全面領先</span></div><div class="irow"><span class="irow-name">半導體</span><span class="irow-val g">站住、週線強</span></div><div class="irow"><span class="irow-name">大盤</span><span class="irow-val d">小跌、龍頭撐</span></div></div>
+      </div>
+    </div>
+
+    <div class="det" id="dSit">
+      <div class="sumbox sumbox-g">三道防線大致穩定（殖利率 2Y 4.25 平穩、10Y 4.67 高檔屬背景摩擦）——今天戒備升高的是避險情緒，不是利率。</div>
+      <div class="det-sub">三道防線</div>
+      <table class="tbl">
+        <thead><tr><th>防線</th><th>指標</th><th class="c">狀態</th><th>說明</th></tr></thead>
+        <tbody><tr><td>第一道</td><td>油價 USO +3.47%</td><td class="c">🟡</td><td>單日急彈（近一週相對仍 -13 弱），通膨這道由綠轉黃、待確認</td></tr><tr><td>第二道</td><td>美債殖利率 2Y 4.25／10Y 4.67</td><td class="c">🟡</td><td>大致平穩；10Y 4.67 高檔是估值背景摩擦、非跳升</td></tr><tr><td>第三道</td><td>流動性 SOFR-IORB -1bp</td><td class="c">🟢</td><td>MOVE 76 低，資金面沒惡化</td></tr></tbody>
+      </table>
+      <div class="det-sub">利率細項</div>
+      <div class="rate-box">US2Y 4.25%（前份 4.18，小升）　｜　US10Y 4.67%　｜　10Y-2Y 利差 +0.42%<br>SOFR 3.64% vs IORB 3.65%（-1bp，貨幣市場寬鬆）<br>殖利率大致平穩、降息預期未明顯變動；明天就業數據（NFP，共識約 8.6 萬）為方向檢驗點（CPI 8/12、FOMC 9/16）</div>
+    </div>
+
+    <div class="det" id="dTrg">
+      <div class="sumbox sumbox-r">今天情緒面最明確的變化是避險回來：Put/Call 0.5→1.13，選擇權市場開始買保險——不代表要跌，但代表無腦樂觀段結束、該提高警覺。</div>
+      <div class="lyr-hdr">🔴 結構情緒警示（中長期）</div>
+      <div class="irow"><span class="irow-name">NAAIM 基金持倉</span><span class="irow-val d">沿用前次（無新讀數）</span></div><div class="irow"><span class="irow-name">投機客淨持倉</span><span class="irow-val d">負向極端（潛在軋空）沿用</span></div><div class="irow"><span class="irow-name">樂活通道 ^NDX</span><span class="irow-val d">位階「貪婪」沿用</span></div><div class="irow"><span class="irow-name">Excess Liquidity</span><span class="irow-val d">轉負惡化，沿用</span></div><div class="irow"><span class="irow-name">GS 投機指標</span><span class="irow-val d">沿用前次</span></div>
+      <div class="lyr-hdr" style="margin-top:10px;">🟡 短期情緒警示（即時行為）</div>
+      <div class="irow"><span class="irow-name">VIX</span><span class="irow-val g">15.14 平靜</span></div><div class="irow"><span class="irow-name">VXN</span><span class="irow-val d">23.95 中段偏低</span></div><div class="irow"><span class="irow-name">MOVE</span><span class="irow-val y">76.11 略升仍低</span></div><div class="irow"><span class="irow-name">P/C Ratio</span><span class="irow-val r">1.13 偏避險（0.5→1.13）</span></div><div class="irow"><span class="irow-name">VX1<VX2</span><span class="irow-val g">17.2 < 18.6 正價差</span></div>
+      <div style="font-size:calc(var(--fs)*.8);padding:10px;background:rgba(239,68,68,.07);border-radius:5px;border-left:3px solid var(--red);line-height:1.6;margin-top:10px;">投機溫度計三項本日無新讀數、沿用前次不計入加權。今天結構性訊號是『避險升溫（P/C 0.5→1.13）＋動能走弱』同現——多頭裡的集體戒備，不是過熱、也不是轉空。</div>
+    </div>
+
+    <div class="det" id="dRsk">
+      <div class="sumbox sumbox-g">風格因子今日同步回落（那指動能 -3.38、高 Beta -1.91）；但半導體近一週相對站回 +9——中期主線動能回溫，短線獲利了結，兩件事分開看。</div>
+      <div class="det-sub">風格因子驗證</div>
+      <table class="tbl">
+        <thead><tr><th>ETF</th><th>中文名稱</th><th class="c">Rank</th><th class="c">REL5</th><th class="c">REL20</th><th class="c">REL60</th><th>判讀</th></tr></thead>
+        <tbody><tr><td>SPMO</td><td>標普動能</td><td class="c">35</td><td class="c cg">+3.97%</td><td class="c cr">-4.08%</td><td class="c cr">-0.90%</td><td>今日回落，近一週相對仍正</td></tr><tr><td>QQQA</td><td>那指動能</td><td class="c">27</td><td class="c cr">-1.31%</td><td class="c cr">-9.51%</td><td class="c cr">-3.65%</td><td>今日 -3.38，短中線皆弱</td></tr><tr><td>SPHB</td><td>高Beta</td><td class="c">38</td><td class="c cg">+2.77%</td><td class="c cr">-3.07%</td><td class="c cr">-0.32%</td><td>今日 -1.91 走弱，近一週仍正</td></tr><tr><td>SPHQ</td><td>品質</td><td class="c">28</td><td class="c cr">-2.24%</td><td class="c cr">-4.04%</td><td class="c cr">-0.20%</td><td>中性偏弱</td></tr><tr><td>SPLV</td><td>低波動</td><td class="c">32</td><td class="c cr">-7.01%</td><td class="c cr">-2.58%</td><td class="c cg">+0.21%</td><td>防禦近一週落後</td></tr></tbody>
+      </table>
+      <div class="det-sub">廣度因子（寬基指數 REL 對比）</div>
+      <table class="tbl">
+        <thead><tr><th>ETF</th><th>中文名稱</th><th class="c">Rank</th><th class="c">REL5</th><th class="c">REL20</th><th class="c">REL60</th><th>廣度層級判讀</th></tr></thead>
+        <tbody><tr><td>RSP</td><td>等權標普</td><td class="c">69</td><td class="c cr">-4.04%</td><td class="c cr">-0.10%</td><td class="c cg">+3.13%</td><td>長線正、短中線落後＝大資金先行卡位</td></tr><tr><td>IWM</td><td>小型股</td><td class="c">58</td><td class="c cr">-2.01%</td><td class="c cr">-1.48%</td><td class="c cg">+1.43%</td><td>長線正、中線待翻正（廣度擴散確認點）</td></tr><tr><td>MDY</td><td>中型股</td><td class="c">57</td><td class="c cr">-2.66%</td><td class="c cr">-0.45%</td><td class="c cg">+0.45%</td><td>長線持平、短中線落後</td></tr><tr><td>IWC</td><td>微型股</td><td class="c">54</td><td class="c cg">+0.20%</td><td class="c cr">-2.16%</td><td class="c cg">+1.94%</td><td>近一週已翻正、長線正</td></tr><tr><td>QQQ</td><td>那斯達克100</td><td class="c">37</td><td class="c cg">+2.64%</td><td class="c cr">-2.66%</td><td class="c cr">-3.07%</td><td>科技短線相對仍正、今日小回</td></tr></tbody>
+      </table>
+      <div class="det-sub">宏觀背景事件（今日關注）</div>
+      <table class="tbl">
+        <thead><tr><th>事件</th><th class="c">影響層級</th><th>說明</th></tr></thead>
+        <tbody><tr><td>殖利率（2Y 4.25／10Y 4.67 高檔）</td><td class="c">🟡 中</td><td>大致平穩，10Y 高檔是估值背景摩擦</td></tr><tr><td>NFP 非農就業（8/7–8/8，共識 ~8.6 萬）</td><td class="c">🔴 高</td><td>即將公布，是降息路徑的檢驗點；落差大當日不追價</td></tr><tr><td>油價急彈（USO +3.47%）</td><td class="c">🟡 中</td><td>單日反彈（近一週相對仍弱），通膨這道轉黃、待確認</td></tr><tr><td>CPI 消費者物價（8/12）</td><td class="c">🔴 高</td><td>下週三，通膨數據定調降息路徑</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div><!-- /content-section -->
+<!-- /核心指標 -->
+
+<!-- ═══ 03 板塊動態圖（帳本 JSON 由每日流程注入 script#dyn-data；讀者不可見）═══ -->
+<div id="sec-dyn">
+<div class="section-header">
+  <div class="section-num">03</div>
+  <div><div class="section-title">板塊動態圖</div></div>
+</div>
+</div>
+<div id="sec-dyn-body">
+  <div class="dyn-head"><div><div class="dyn-tag">LIVE · <span id="dyn-date"></span></div><div class="dyn-t" id="dyn-title">跨資產</div></div></div>
+  <div class="dyn-ctrl">
+    <div class="dyn-seg" id="dyn-tabseg"><button class="on" data-tab="asset">跨資產</button><button data-tab="sector">產業輪動</button></div>
+    <div style="display:inline-flex;align-items:center;gap:6px"><span class="dyn-seg-lbl">反應速度</span>
+      <div class="dyn-seg"><button id="dyn-w5" class="on">快 5</button><button id="dyn-w20">中 20</button><button id="dyn-w60">慢 60</button></div>
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:6px"><span class="dyn-seg-lbl">歷史天數</span>
+      <div class="dyn-seg"><button id="dyn-t5" class="on">5</button><button id="dyn-t10">10</button><button id="dyn-t20">20</button><button id="dyn-t60">60</button><button id="dyn-t120">120</button></div>
+    </div>
+  </div>
+  <div class="dyn-main">
+    <div class="dyn-box"><svg id="dyn-svg" viewBox="0 0 720 620" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="dyn-legend" id="dyn-legend" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap"></div>
+    </div>
+    <aside class="dyn-guide">
+      <div class="g-h">怎麼看這張圖</div>
+      <div class="g-row"><div class="g-k">橫軸 · 相對強弱</div><div class="g-v">跟大盤 SPY 比。<br>越<b>右</b>邊＝比大盤強，越<b>左</b>邊＝比大盤弱。<span class="dim">（用 REL<span id="dyn-win">5</span>）</span></div></div>
+      <div class="g-row"><div class="g-k y">縱軸 · 動能</div><div class="g-v">這個強弱正在加速還是減速。<br>越<b>上</b>＝在加速轉強，越<b>下</b>＝在減速鈍化。</div></div>
+      <div class="g-row"><div class="g-k c">中心 · SPY 基準</div><div class="g-v">正中心就是大盤本身。<br>落在中心＝跟大盤同步；離中心越遠＝偏離大盤越多。</div></div>
+      <div class="g-div"></div>
+      <div class="g-k" style="color:var(--text);font-weight:700;margin-bottom:5px">四個象限</div>
+      <div class="g-quad">
+        <div class="g-q"><div class="qn qn-imp">轉強</div><div class="qd">弱但轉強</div></div>
+        <div class="g-q"><div class="qn qn-led">領先</div><div class="qd">強且加速</div></div>
+        <div class="g-q"><div class="qn qn-lag">落後</div><div class="qd">弱且續弱</div></div>
+        <div class="g-q"><div class="qn qn-wk">轉弱</div><div class="qd">強但減速</div></div>
+      </div>
+      <div class="g-flow">資金輪動多半順時針：轉強 → 領先 → 轉弱 → 落後 → 再回轉強。</div>
+      <div class="g-div"></div>
+      <div class="g-k" style="color:var(--text);font-weight:700;margin-bottom:5px">能幫你判斷</div>
+      <ul class="g-use">
+        <li>資金正流入哪些（往右上跑）、流出哪些（往左下掉）。</li>
+        <li>看尾巴方向：往右上＝正走進領先，可留意布局；往右下轉＝強度在退。</li>
+        <li id="dyn-guse-risk">跨資產頁籤：整體偏 risk-on（風險資產領先）還是 risk-off（債金避險領先）。</li>
+      </ul>
+    </aside>
+  </div>
+  <script id="dyn-data" type="application/json">{
+  "tail": 20,
+  "tabsMeta": {
+    "asset": {
+      "name": "跨資產"
+    },
+    "sector": {
+      "name": "產業輪動"
+    }
+  },
+  "snapshots": [
+    {
+      "date": "07/31",
+      "data": {
+        "asset": {
+          "股": {
+            "rel5": 0.16,
+            "rel20": -0.12,
+            "rel60": -1.14,
+            "grp": "asset",
+            "ticker": "ACWI"
+          },
+          "債": {
+            "rel5": -1.17,
+            "rel20": -1.56,
+            "rel60": -3.63,
+            "grp": "asset",
+            "ticker": "AGG"
+          },
+          "商品": {
+            "rel5": -4.04,
+            "rel20": 10.54,
+            "rel60": -4.31,
+            "grp": "asset",
+            "ticker": "DBC"
+          },
+          "匯": {
+            "rel5": -1.13,
+            "rel20": 0.46,
+            "rel60": 2.2,
+            "grp": "asset",
+            "ticker": "UUP"
+          },
+          "幣": {
+            "rel5": -3.95,
+            "rel20": 1.91,
+            "rel60": -24.64,
+            "grp": "asset",
+            "ticker": "IBIT"
+          },
+          "台": {
+            "rel5": -4.49,
+            "rel20": -8.23,
+            "rel60": -0.01,
+            "grp": "region",
+            "ticker": "EWT"
+          },
+          "韓": {
+            "rel5": -10.84,
+            "rel20": -13.09,
+            "rel60": -15.47,
+            "grp": "region",
+            "ticker": "EWY"
+          },
+          "成熟": {
+            "rel5": 1.41,
+            "rel20": 0.86,
+            "rel60": -1.06,
+            "grp": "region",
+            "ticker": "EFA"
+          },
+          "新興": {
+            "rel5": -1.99,
+            "rel20": -2.75,
+            "rel60": -6.84,
+            "grp": "region",
+            "ticker": "EEM"
+          },
+          "金": {
+            "rel5": -1.19,
+            "rel20": -2.04,
+            "rel60": -15.59,
+            "grp": "commod",
+            "ticker": "GLD"
+          },
+          "油": {
+            "rel5": -8.6,
+            "rel20": 23.92,
+            "rel60": -5.37,
+            "grp": "commod",
+            "ticker": "USO"
+          },
+          "銅": {
+            "rel5": 2.25,
+            "rel20": 5.79,
+            "rel60": 3.58,
+            "grp": "commod",
+            "ticker": "CPER"
+          },
+          "銀": {
+            "rel5": -0.62,
+            "rel20": -5.14,
+            "rel60": -27.14,
+            "grp": "commod",
+            "ticker": "SLV"
+          },
+          "鈾": {
+            "rel5": -6.21,
+            "rel20": -9.93,
+            "rel60": -34.74,
+            "grp": "commod",
+            "ticker": "URA"
+          },
+          "金礦": {
+            "rel5": -2.43,
+            "rel20": -5.82,
+            "rel60": -21.64,
+            "grp": "commod",
+            "ticker": "GDX"
+          }
+        },
+        "sector": {
+          "通訊服務": {
+            "rel5": 1.52,
+            "rel20": -1.54,
+            "rel60": -9.56,
+            "grp": "sector",
+            "ticker": "XLC"
+          },
+          "非必需消費": {
+            "rel5": 5.54,
+            "rel20": -1.18,
+            "rel60": -4.95,
+            "grp": "sector",
+            "ticker": "XLY"
+          },
+          "必需消費": {
+            "rel5": 1.01,
+            "rel20": -0.23,
+            "rel60": -0.84,
+            "grp": "sector",
+            "ticker": "XLP"
+          },
+          "能源": {
+            "rel5": -0.91,
+            "rel20": 11.59,
+            "rel60": 2.67,
+            "grp": "sector",
+            "ticker": "XLE"
+          },
+          "金融": {
+            "rel5": 0.79,
+            "rel20": 2.07,
+            "rel60": 8.04,
+            "grp": "sector",
+            "ticker": "XLF"
+          },
+          "醫療保健": {
+            "rel5": -0.51,
+            "rel20": -1.03,
+            "rel60": 10.0,
+            "grp": "sector",
+            "ticker": "XLV"
+          },
+          "工業": {
+            "rel5": -2.35,
+            "rel20": -2.52,
+            "rel60": -0.12,
+            "grp": "sector",
+            "ticker": "XLI"
+          },
+          "原材料": {
+            "rel5": -0.92,
+            "rel20": -3.34,
+            "rel60": -5.58,
+            "grp": "sector",
+            "ticker": "XLB"
+          },
+          "房地產": {
+            "rel5": -0.93,
+            "rel20": 0.57,
+            "rel60": -1.06,
+            "grp": "sector",
+            "ticker": "XLRE"
+          },
+          "資訊科技": {
+            "rel5": -2.94,
+            "rel20": -3.2,
+            "rel60": 1.33,
+            "grp": "sector",
+            "ticker": "XLK"
+          },
+          "公用事業": {
+            "rel5": -3.41,
+            "rel20": 0.37,
+            "rel60": -1.86,
+            "grp": "sector",
+            "ticker": "XLU"
+          }
+        }
+      }
+    },
+    {
+      "date": "08/04",
+      "data": {
+        "asset": {
+          "股": {
+            "rel5": -0.47,
+            "rel20": -0.98,
+            "rel60": -1.19,
+            "grp": "asset",
+            "ticker": "ACWI"
+          },
+          "債": {
+            "rel5": -4.39,
+            "rel20": -3.68,
+            "rel60": -6.1,
+            "grp": "asset",
+            "ticker": "AGG"
+          },
+          "商品": {
+            "rel5": -6.78,
+            "rel20": 2.18,
+            "rel60": -11.14,
+            "grp": "asset",
+            "ticker": "DBC"
+          },
+          "匯": {
+            "rel5": -3.51,
+            "rel20": -1.97,
+            "rel60": -1.63,
+            "grp": "asset",
+            "ticker": "UUP"
+          },
+          "幣": {
+            "rel5": -5.4,
+            "rel20": -1.92,
+            "rel60": -24.5,
+            "grp": "asset",
+            "ticker": "IBIT"
+          },
+          "台": {
+            "rel5": 0.14,
+            "rel20": -7.39,
+            "rel60": 1.78,
+            "grp": "region",
+            "ticker": "EWT"
+          },
+          "韓": {
+            "rel5": 1.8,
+            "rel20": -12.52,
+            "rel60": -14.59,
+            "grp": "region",
+            "ticker": "EWY"
+          },
+          "成熟": {
+            "rel5": -1.08,
+            "rel20": -0.91,
+            "rel60": -1.34,
+            "grp": "region",
+            "ticker": "EFA"
+          },
+          "新興": {
+            "rel5": -0.62,
+            "rel20": -4.99,
+            "rel60": -7.43,
+            "grp": "region",
+            "ticker": "EEM"
+          },
+          "金": {
+            "rel5": -4.49,
+            "rel20": -4.75,
+            "rel60": -18.31,
+            "grp": "commod",
+            "ticker": "GLD"
+          },
+          "油": {
+            "rel5": -11.56,
+            "rel20": 8.28,
+            "rel60": -17.9,
+            "grp": "commod",
+            "ticker": "USO"
+          },
+          "銅": {
+            "rel5": -0.83,
+            "rel20": 3.41,
+            "rel60": 0.32,
+            "grp": "commod",
+            "ticker": "CPER"
+          },
+          "銀": {
+            "rel5": -2.64,
+            "rel20": -6.71,
+            "rel60": -30.83,
+            "grp": "commod",
+            "ticker": "SLV"
+          },
+          "鈾": {
+            "rel5": 1.02,
+            "rel20": -5.84,
+            "rel60": -27.57,
+            "grp": "commod",
+            "ticker": "URA"
+          },
+          "金礦": {
+            "rel5": -1.47,
+            "rel20": -3.71,
+            "rel60": -22.19,
+            "grp": "commod",
+            "ticker": "GDX"
+          }
+        },
+        "sector": {
+          "通訊服務": {
+            "rel5": -0.29,
+            "rel20": -1.01,
+            "rel60": -8.76,
+            "grp": "sector",
+            "ticker": "XLC"
+          },
+          "非必需消費": {
+            "rel5": 2.36,
+            "rel20": -2.43,
+            "rel60": -6.16,
+            "grp": "sector",
+            "ticker": "XLY"
+          },
+          "必需消費": {
+            "rel5": -4.35,
+            "rel20": -1.16,
+            "rel60": -3.16,
+            "grp": "sector",
+            "ticker": "XLP"
+          },
+          "能源": {
+            "rel5": -4.09,
+            "rel20": 7.48,
+            "rel60": 0.49,
+            "grp": "sector",
+            "ticker": "XLE"
+          },
+          "金融": {
+            "rel5": -2.6,
+            "rel20": 0.43,
+            "rel60": 8.39,
+            "grp": "sector",
+            "ticker": "XLF"
+          },
+          "醫療保健": {
+            "rel5": -5.16,
+            "rel20": -2.58,
+            "rel60": 8.4,
+            "grp": "sector",
+            "ticker": "XLV"
+          },
+          "工業": {
+            "rel5": -2.62,
+            "rel20": -2.22,
+            "rel60": 3.05,
+            "grp": "sector",
+            "ticker": "XLI"
+          },
+          "原材料": {
+            "rel5": -3.18,
+            "rel20": -2.63,
+            "rel60": -3.78,
+            "grp": "sector",
+            "ticker": "XLB"
+          },
+          "房地產": {
+            "rel5": -5.65,
+            "rel20": -0.68,
+            "rel60": -2.86,
+            "grp": "sector",
+            "ticker": "XLRE"
+          },
+          "資訊科技": {
+            "rel5": 2.87,
+            "rel20": -0.85,
+            "rel60": 1.91,
+            "grp": "sector",
+            "ticker": "XLK"
+          },
+          "公用事業": {
+            "rel5": -9.55,
+            "rel20": -2.77,
+            "rel60": -3.14,
+            "grp": "sector",
+            "ticker": "XLU"
+          }
+        }
+      }
+    },
+    {
+      "date": "08/06",
+      "data": {
+        "asset": {
+          "股": {
+            "rel5": -0.05,
+            "rel20": -0.37,
+            "rel60": -0.93,
+            "grp": "asset",
+            "ticker": "ACWI"
+          },
+          "債": {
+            "rel5": -4.12,
+            "rel20": -3.46,
+            "rel60": -5.35,
+            "grp": "asset",
+            "ticker": "AGG"
+          },
+          "商品": {
+            "rel5": -4.32,
+            "rel20": 1.18,
+            "rel60": -12.43,
+            "grp": "asset",
+            "ticker": "DBC"
+          },
+          "匯": {
+            "rel5": -3.01,
+            "rel20": -3.11,
+            "rel60": -1.5,
+            "grp": "asset",
+            "ticker": "UUP"
+          },
+          "幣": {
+            "rel5": -2.24,
+            "rel20": -1.32,
+            "rel60": -25.06,
+            "grp": "asset",
+            "ticker": "IBIT"
+          },
+          "台": {
+            "rel5": 4.34,
+            "rel20": -3.13,
+            "rel60": 0.56,
+            "grp": "region",
+            "ticker": "EWT"
+          },
+          "韓": {
+            "rel5": 7.78,
+            "rel20": -9.65,
+            "rel60": -16.42,
+            "grp": "region",
+            "ticker": "EWY"
+          },
+          "成熟": {
+            "rel5": -0.5,
+            "rel20": 0.19,
+            "rel60": -0.57,
+            "grp": "region",
+            "ticker": "EFA"
+          },
+          "新興": {
+            "rel5": 1.48,
+            "rel20": -2.95,
+            "rel60": -7.32,
+            "grp": "region",
+            "ticker": "EEM"
+          },
+          "金": {
+            "rel5": 1.58,
+            "rel20": 0.27,
+            "rel60": -14.48,
+            "grp": "commod",
+            "ticker": "GLD"
+          },
+          "油": {
+            "rel5": -8.56,
+            "rel20": 2.52,
+            "rel60": -21.27,
+            "grp": "commod",
+            "ticker": "USO"
+          },
+          "銅": {
+            "rel5": 2.67,
+            "rel20": 6.3,
+            "rel60": -0.42,
+            "grp": "commod",
+            "ticker": "CPER"
+          },
+          "銀": {
+            "rel5": 4.55,
+            "rel20": 0.0,
+            "rel60": -32.24,
+            "grp": "commod",
+            "ticker": "SLV"
+          },
+          "鈾": {
+            "rel5": 6.21,
+            "rel20": -0.22,
+            "rel60": -29.18,
+            "grp": "commod",
+            "ticker": "URA"
+          },
+          "金礦": {
+            "rel5": 8.86,
+            "rel20": 7.5,
+            "rel60": -18.39,
+            "grp": "commod",
+            "ticker": "GDX"
+          }
+        },
+        "sector": {
+          "通訊服務": {
+            "rel5": -2.81,
+            "rel20": -3.09,
+            "rel60": -8.2,
+            "grp": "sector",
+            "ticker": "XLC"
+          },
+          "非必需消費": {
+            "rel5": 1.57,
+            "rel20": -1.89,
+            "rel60": -4.74,
+            "grp": "sector",
+            "ticker": "XLY"
+          },
+          "必需消費": {
+            "rel5": -5.89,
+            "rel20": -2.4,
+            "rel60": -1.77,
+            "grp": "sector",
+            "ticker": "XLP"
+          },
+          "能源": {
+            "rel5": -4.36,
+            "rel20": 1.93,
+            "rel60": -3.88,
+            "grp": "sector",
+            "ticker": "XLE"
+          },
+          "金融": {
+            "rel5": -3.21,
+            "rel20": 0.53,
+            "rel60": 9.2,
+            "grp": "sector",
+            "ticker": "XLF"
+          },
+          "醫療保健": {
+            "rel5": -5.76,
+            "rel20": -3.12,
+            "rel60": 10.64,
+            "grp": "sector",
+            "ticker": "XLV"
+          },
+          "工業": {
+            "rel5": -1.79,
+            "rel20": -0.78,
+            "rel60": 2.34,
+            "grp": "sector",
+            "ticker": "XLI"
+          },
+          "原材料": {
+            "rel5": -3.33,
+            "rel20": -0.76,
+            "rel60": -3.4,
+            "grp": "sector",
+            "ticker": "XLB"
+          },
+          "房地產": {
+            "rel5": -5.67,
+            "rel20": -2.26,
+            "rel60": -2.71,
+            "grp": "sector",
+            "ticker": "XLRE"
+          },
+          "資訊科技": {
+            "rel5": 4.76,
+            "rel20": 0.8,
+            "rel60": 0.39,
+            "grp": "sector",
+            "ticker": "XLK"
+          },
+          "公用事業": {
+            "rel5": -7.99,
+            "rel20": -7.42,
+            "rel60": -7.4,
+            "grp": "sector",
+            "ticker": "XLU"
+          }
+        }
+      }
+    },
+    {
+      "date": "08/07",
+      "data": {
+        "asset": {
+          "股": {
+            "rel5": -0.36,
+            "rel20": -0.41,
+            "rel60": -0.59,
+            "grp": "asset",
+            "ticker": "ACWI"
+          },
+          "債": {
+            "rel5": -5.48,
+            "rel20": -3.73,
+            "rel60": -5.33,
+            "grp": "asset",
+            "ticker": "AGG"
+          },
+          "商品": {
+            "rel5": -7.26,
+            "rel20": 0.71,
+            "rel60": -13.05,
+            "grp": "asset",
+            "ticker": "DBC"
+          },
+          "匯": {
+            "rel5": -3.51,
+            "rel20": -3.26,
+            "rel60": -1.87,
+            "grp": "asset",
+            "ticker": "UUP"
+          },
+          "幣": {
+            "rel5": -4.0,
+            "rel20": 0.47,
+            "rel60": -24.44,
+            "grp": "asset",
+            "ticker": "IBIT"
+          },
+          "台": {
+            "rel5": 8.7,
+            "rel20": -4.95,
+            "rel60": 4.64,
+            "grp": "region",
+            "ticker": "EWT"
+          },
+          "韓": {
+            "rel5": 8.45,
+            "rel20": -13.29,
+            "rel60": -12.17,
+            "grp": "region",
+            "ticker": "EWY"
+          },
+          "成熟": {
+            "rel5": -1.5,
+            "rel20": 0.76,
+            "rel60": -0.02,
+            "grp": "region",
+            "ticker": "EFA"
+          },
+          "新興": {
+            "rel5": 1.11,
+            "rel20": -4.93,
+            "rel60": -5.33,
+            "grp": "region",
+            "ticker": "EEM"
+          },
+          "金": {
+            "rel5": -0.35,
+            "rel20": 0.96,
+            "rel60": -14.11,
+            "grp": "commod",
+            "ticker": "GLD"
+          },
+          "油": {
+            "rel5": -13.43,
+            "rel20": 2.83,
+            "rel60": -21.74,
+            "grp": "commod",
+            "ticker": "USO"
+          },
+          "銅": {
+            "rel5": 0.92,
+            "rel20": 6.85,
+            "rel60": -3.32,
+            "grp": "commod",
+            "ticker": "CPER"
+          },
+          "銀": {
+            "rel5": 2.52,
+            "rel20": 2.61,
+            "rel60": -33.01,
+            "grp": "commod",
+            "ticker": "SLV"
+          },
+          "鈾": {
+            "rel5": 9.78,
+            "rel20": 0.59,
+            "rel60": -24.63,
+            "grp": "commod",
+            "ticker": "URA"
+          },
+          "金礦": {
+            "rel5": 8.71,
+            "rel20": 11.02,
+            "rel60": -17.72,
+            "grp": "commod",
+            "ticker": "GDX"
+          }
+        },
+        "sector": {
+          "通訊服務": {
+            "rel5": -3.84,
+            "rel20": -1.54,
+            "rel60": -8.15,
+            "grp": "sector",
+            "ticker": "XLC"
+          },
+          "非必需消費": {
+            "rel5": 0.45,
+            "rel20": -0.68,
+            "rel60": -4.28,
+            "grp": "sector",
+            "ticker": "XLY"
+          },
+          "必需消費": {
+            "rel5": -7.94,
+            "rel20": -2.25,
+            "rel60": -3.32,
+            "grp": "sector",
+            "ticker": "XLP"
+          },
+          "能源": {
+            "rel5": -6.2,
+            "rel20": 1.5,
+            "rel60": -3.09,
+            "grp": "sector",
+            "ticker": "XLE"
+          },
+          "金融": {
+            "rel5": -3.37,
+            "rel20": 2.06,
+            "rel60": 7.96,
+            "grp": "sector",
+            "ticker": "XLF"
+          },
+          "醫療保健": {
+            "rel5": -6.44,
+            "rel20": -1.78,
+            "rel60": 8.64,
+            "grp": "sector",
+            "ticker": "XLV"
+          },
+          "工業": {
+            "rel5": -0.78,
+            "rel20": -0.7,
+            "rel60": 1.86,
+            "grp": "sector",
+            "ticker": "XLI"
+          },
+          "原材料": {
+            "rel5": -4.53,
+            "rel20": 0.9,
+            "rel60": -4.06,
+            "grp": "sector",
+            "ticker": "XLB"
+          },
+          "房地產": {
+            "rel5": -7.86,
+            "rel20": -1.61,
+            "rel60": -3.6,
+            "grp": "sector",
+            "ticker": "XLRE"
+          },
+          "資訊科技": {
+            "rel5": 5.9,
+            "rel20": -0.94,
+            "rel60": 1.67,
+            "grp": "sector",
+            "ticker": "XLK"
+          },
+          "公用事業": {
+            "rel5": -8.77,
+            "rel20": -7.47,
+            "rel60": -8.12,
+            "grp": "sector",
+            "ticker": "XLU"
+          }
+        }
+      }
+    }
+  ],
+  "benchmark": "SPY",
+  "tab_order": [
+    "asset",
+    "sector"
+  ],
+  "riskNoteTab": "asset",
+  "emptyMsg": "此分頁成分待定義，補上後即接入",
+  "COL": {
+    "asset": {
+      "股": "#ec4899",
+      "債": "#3b82f6",
+      "商品": "#f59e0b",
+      "匯": "#22d3ee",
+      "幣": "#a78bfa",
+      "台": "#ef4444",
+      "韓": "#fb7185",
+      "成熟": "#38bdf8",
+      "新興": "#a3e635",
+      "金": "#fbbf24",
+      "油": "#f97316",
+      "銅": "#d97706",
+      "銀": "#94a3b8",
+      "鈾": "#4ade80",
+      "金礦": "#facc15"
+    },
+    "sector": {
+      "通訊服務": "#ec4899",
+      "非必需消費": "#f59e0b",
+      "必需消費": "#34d399",
+      "能源": "#ef4444",
+      "金融": "#3b82f6",
+      "醫療保健": "#22d3ee",
+      "工業": "#a78bfa",
+      "原材料": "#a3e635",
+      "房地產": "#f472b6",
+      "資訊科技": "#38bdf8",
+      "公用事業": "#fbbf24"
+    }
+  },
+  "notes": {}
+}</script>
+</div>
+<!-- ═══ /03 板塊動態圖 ═══ -->
+
+
+
+<!-- 板塊強弱對位 -->
+<div id="sec-rotation">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">04</div>
+  <div>
+    <div class="section-title">板塊強弱對位</div>
+    <div class="section-desc">SECTOR ROTATION</div>
+  </div>
+</div>
+  <div style="font-family:var(--fb);font-size:calc(var(--fs)*.8);color:var(--dim);background:var(--surface2);border-left:2px solid var(--accent);padding:9px 13px;margin-bottom:12px;border-radius:0 4px 4px 0;line-height:1.75;">
+    <b style="color:var(--text);">看板說明：</b>「<b style="color:var(--green);">三欄全正</b>」＝近一週、近一月、近三月<b>相對大盤（SPY）都為正</b>，也就是短、中、長線都領先大盤。四欄由左至右：<b style="color:var(--green);">強勢</b>（三欄全正）→ <b style="color:var(--yellow);">轉強觀察</b>（短線翻正、中線待確認）→ <b style="color:var(--orange);">轉弱</b>（短線落後、長線多仍在）→ <b style="color:var(--red);">弱勢</b>（三欄全負）。點卡片看個股三線歷史圖。
+  </div>
+  <div class="sec4" style="margin-bottom:0">
+
+    <div class="sc s">
+      <div class="sc-hdr">▲ 強勢（三欄同向確立）</div>
+      <div class="sc-item" onclick="togSC('s1',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>IGV 軟體</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">&#9660;</span></span></div><div id="s1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="IGV"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">軟體短中長皆領先大盤，主升續強</div></div>
+<div class="sc-item" onclick="togSC('s2',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>SKYY 雲端</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank96</span><span class="sc-arr">&#9660;</span></span></div><div id="s2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="SKYY"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">雲端最強，三尺度全領先（REL60 +16）</div></div>
+<div class="sc-item" onclick="togSC('s3',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>CIBR 資安</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank90</span><span class="sc-arr">&#9660;</span></span></div><div id="s3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="CIBR"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">資安長線主線，REL60 +25</div></div>
+<div class="sc-item" onclick="togSC('s4',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>HACK 資安</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank85</span><span class="sc-arr">&#9660;</span></span></div><div id="s4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="HACK"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">資安雙 ETF 同強，REL60 +30</div></div>
+<div class="sc-item" onclick="togSC('s5',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>FDN 網路</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank77</span><span class="sc-arr">&#9660;</span></span></div><div id="s5" class="sc-det"><canvas class="mini-chart-canvas" data-tk="FDN"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">網路平台三欄全正</div></div>
+<div class="sc-item" onclick="togSC('s6',this)"><span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">🔥強勢</span>XLK 科技</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank63</span><span class="sc-arr">&#9660;</span></span></div><div id="s6" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLK"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對 +5.9、長線正；今日小回，中線近零觀察</div></div>
+    </div>
+
+    <div class="sc w">
+      <div class="sc-hdr">◎ 轉強觀察（短線翻正，中線待確認）</div>
+      <div class="sc-item" onclick="togSC('u1',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>GDX 金礦</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank54</span><span class="sc-arr">&#9660;</span></span></div><div id="u1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="GDX"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">主升消化：近一週+8.7、近一月+11 仍強，今日持平，趨勢未破</div></div>
+<div class="sc-item" onclick="togSC('u2',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>COPX 銅礦</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank63</span><span class="sc-arr">&#9660;</span></span></div><div id="u2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="COPX"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">銅礦中期強（近一月+14.8），今日小回消化</div></div>
+<div class="sc-item" onclick="togSC('u3',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>XME 金屬礦業</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank56</span><span class="sc-arr">&#9660;</span></span></div><div id="u3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XME"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">金屬礦業近一週/近一月仍正，跌深回補延續</div></div>
+<div class="sc-item" onclick="togSC('u4',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>SOXX 費半</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank39</span><span class="sc-arr">&#9660;</span></span></div><div id="u4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="SOXX"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對 +9.16 領先、半年 +37 最強；中線仍負，動能回溫</div></div>
+<div class="sc-item" onclick="togSC('u5',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>SMH 半導體</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank42</span><span class="sc-arr">&#9660;</span></span></div><div id="u5" class="sc-det"><canvas class="mini-chart-canvas" data-tk="SMH"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對 +7.98，中線整理後動能回溫</div></div>
+<div class="sc-item" onclick="togSC('u6',this)"><span class="sc-tk"><span class="tag tag-c" style="margin-right:5px;">◎轉強觀察</span>XLY 非必需消費</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank44</span><span class="sc-arr">&#9660;</span></span></div><div id="u6" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLY"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週翻正，消費補漲一環</div></div>
+    </div>
+
+    <div class="sc tw">
+      <div class="sc-hdr">△ 轉弱（短線惡化，投機退潮）</div>
+      <div class="sc-item" onclick="togSC('d1',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLV 醫療</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank54</span><span class="sc-arr">&#9660;</span></span></div><div id="d1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLV"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對落後，但長線 REL60 +8.6 仍強；今日 +0.18，觀察</div></div>
+<div class="sc-item" onclick="togSC('d2',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLE 能源</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank64</span><span class="sc-arr">&#9660;</span></span></div><div id="d2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLE"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">今日油帶動 +1.48，但近一週相對仍 -6.2，單日彈待確認</div></div>
+<div class="sc-item" onclick="togSC('d3',this)"><span class="sc-tk"><span class="tag tag-o" style="margin-right:5px;">△轉弱觀察</span>XLB 原材料</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank52</span><span class="sc-arr">&#9660;</span></span></div><div id="d3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLB"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">近一週相對小回，中期在拉鋸</div></div>
+    </div>
+
+    <div class="sc x">
+      <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+      <div class="sc-item" onclick="togSC('w1',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLU 公用</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank17</span><span class="sc-arr">&#9660;</span></span></div><div id="w1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLU"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">防禦退位，三欄全負</div></div>
+<div class="sc-item" onclick="togSC('w2',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLC 通訊</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank36</span><span class="sc-arr">&#9660;</span></span></div><div id="w2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLC"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">通訊三欄全負，落後</div></div>
+<div class="sc-item" onclick="togSC('w3',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLP 必需消費</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank35</span><span class="sc-arr">&#9660;</span></span></div><div id="w3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLP"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">必需消費落後</div></div>
+<div class="sc-item" onclick="togSC('w4',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLRE 房地產</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank41</span><span class="sc-arr">&#9660;</span></span></div><div id="w4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLRE"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">利率高檔下承壓，三欄轉弱</div></div>
+    </div>
+  </div>
+  <script id="sc-hist" type="application/json">{
+ "cap": 60,
+ "tickers": {
+  "IGV": [
+   {
+    "d": "08/06",
+    "r5": 6.48,
+    "r20": 4.67,
+    "r60": 7.59
+   },
+   {
+    "d": "08/07",
+    "r5": 2.27,
+    "r20": 4.4,
+    "r60": 7.04
+   }
+  ],
+  "SKYY": [
+   {
+    "d": "08/06",
+    "r5": 7.39,
+    "r20": 7.46,
+    "r60": 15.63
+   },
+   {
+    "d": "08/07",
+    "r5": 3.32,
+    "r20": 5.35,
+    "r60": 15.79
+   }
+  ],
+  "CIBR": [
+   {
+    "d": "08/06",
+    "r5": 5.38,
+    "r20": 2.86,
+    "r60": 25.23
+   },
+   {
+    "d": "08/07",
+    "r5": 3.2,
+    "r20": 2.05,
+    "r60": 24.68
+   }
+  ],
+  "HACK": [
+   {
+    "d": "08/06",
+    "r5": 4.55,
+    "r20": 1.54,
+    "r60": 30.21
+   },
+   {
+    "d": "08/07",
+    "r5": 3.6,
+    "r20": 0.88,
+    "r60": 30.17
+   }
+  ],
+  "FDN": [
+   {
+    "d": "08/06",
+    "r5": 3.23,
+    "r20": 2.83,
+    "r60": 4.83
+   },
+   {
+    "d": "08/07",
+    "r5": 0.5,
+    "r20": 1.52,
+    "r60": 3.7
+   }
+  ],
+  "XLK": [
+   {
+    "d": "07/31",
+    "r5": -2.94,
+    "r20": -3.2,
+    "r60": 1.33
+   },
+   {
+    "d": "08/04",
+    "r5": 2.87,
+    "r20": -0.85,
+    "r60": 1.91
+   },
+   {
+    "d": "08/06",
+    "r5": 4.76,
+    "r20": 0.8,
+    "r60": 0.39
+   },
+   {
+    "d": "08/07",
+    "r5": 5.9,
+    "r20": -0.94,
+    "r60": 1.67
+   }
+  ],
+  "GDX": [
+   {
+    "d": "07/31",
+    "r5": -2.43,
+    "r20": -5.82,
+    "r60": -21.64
+   },
+   {
+    "d": "08/04",
+    "r5": -1.47,
+    "r20": -3.71,
+    "r60": -22.19
+   },
+   {
+    "d": "08/06",
+    "r5": 8.86,
+    "r20": 7.5,
+    "r60": -18.39
+   },
+   {
+    "d": "08/07",
+    "r5": 8.71,
+    "r20": 11.02,
+    "r60": -17.72
+   }
+  ],
+  "COPX": [
+   {
+    "d": "08/06",
+    "r5": 9.42,
+    "r20": 13.25,
+    "r60": -5.12
+   },
+   {
+    "d": "08/07",
+    "r5": 7.71,
+    "r20": 14.76,
+    "r60": -9.27
+   }
+  ],
+  "XME": [
+   {
+    "d": "08/06",
+    "r5": 6.43,
+    "r20": 6.27,
+    "r60": -14.26
+   },
+   {
+    "d": "08/07",
+    "r5": 7.73,
+    "r20": 5.14,
+    "r60": -14.84
+   }
+  ],
+  "SOXX": [
+   {
+    "d": "08/06",
+    "r5": 4.08,
+    "r20": -6.76,
+    "r60": -4.51
+   },
+   {
+    "d": "08/07",
+    "r5": 9.16,
+    "r20": -8.36,
+    "r60": -0.91
+   }
+  ],
+  "SMH": [
+   {
+    "d": "08/06",
+    "r5": 3.67,
+    "r20": -4.97,
+    "r60": -5.27
+   },
+   {
+    "d": "08/07",
+    "r5": 7.98,
+    "r20": -6.74,
+    "r60": -2.29
+   }
+  ],
+  "XLY": [
+   {
+    "d": "07/31",
+    "r5": 5.54,
+    "r20": -1.18,
+    "r60": -4.95
+   },
+   {
+    "d": "08/04",
+    "r5": 2.36,
+    "r20": -2.43,
+    "r60": -6.16
+   },
+   {
+    "d": "08/06",
+    "r5": 1.57,
+    "r20": -1.89,
+    "r60": -4.74
+   },
+   {
+    "d": "08/07",
+    "r5": 0.45,
+    "r20": -0.68,
+    "r60": -4.28
+   }
+  ],
+  "XLV": [
+   {
+    "d": "07/31",
+    "r5": -0.51,
+    "r20": -1.03,
+    "r60": 10.0
+   },
+   {
+    "d": "08/04",
+    "r5": -5.16,
+    "r20": -2.58,
+    "r60": 8.4
+   },
+   {
+    "d": "08/06",
+    "r5": -5.76,
+    "r20": -3.12,
+    "r60": 10.64
+   },
+   {
+    "d": "08/07",
+    "r5": -6.44,
+    "r20": -1.78,
+    "r60": 8.64
+   }
+  ],
+  "XLE": [
+   {
+    "d": "07/31",
+    "r5": -0.91,
+    "r20": 11.59,
+    "r60": 2.67
+   },
+   {
+    "d": "08/04",
+    "r5": -4.09,
+    "r20": 7.48,
+    "r60": 0.49
+   },
+   {
+    "d": "08/06",
+    "r5": -4.36,
+    "r20": 1.93,
+    "r60": -3.88
+   },
+   {
+    "d": "08/07",
+    "r5": -6.2,
+    "r20": 1.5,
+    "r60": -3.09
+   }
+  ],
+  "XLB": [
+   {
+    "d": "07/31",
+    "r5": -0.92,
+    "r20": -3.34,
+    "r60": -5.58
+   },
+   {
+    "d": "08/04",
+    "r5": -3.18,
+    "r20": -2.63,
+    "r60": -3.78
+   },
+   {
+    "d": "08/06",
+    "r5": -3.33,
+    "r20": -0.76,
+    "r60": -3.4
+   },
+   {
+    "d": "08/07",
+    "r5": -4.53,
+    "r20": 0.9,
+    "r60": -4.06
+   }
+  ],
+  "XLU": [
+   {
+    "d": "07/31",
+    "r5": -3.41,
+    "r20": 0.37,
+    "r60": -1.86
+   },
+   {
+    "d": "08/04",
+    "r5": -9.55,
+    "r20": -2.77,
+    "r60": -3.14
+   },
+   {
+    "d": "08/06",
+    "r5": -7.99,
+    "r20": -7.42,
+    "r60": -7.4
+   },
+   {
+    "d": "08/07",
+    "r5": -8.77,
+    "r20": -7.47,
+    "r60": -8.12
+   }
+  ],
+  "XLC": [
+   {
+    "d": "07/31",
+    "r5": 1.52,
+    "r20": -1.54,
+    "r60": -9.56
+   },
+   {
+    "d": "08/04",
+    "r5": -0.29,
+    "r20": -1.01,
+    "r60": -8.76
+   },
+   {
+    "d": "08/06",
+    "r5": -2.81,
+    "r20": -3.09,
+    "r60": -8.2
+   },
+   {
+    "d": "08/07",
+    "r5": -3.84,
+    "r20": -1.54,
+    "r60": -8.15
+   }
+  ],
+  "XLP": [
+   {
+    "d": "07/31",
+    "r5": 1.01,
+    "r20": -0.23,
+    "r60": -0.84
+   },
+   {
+    "d": "08/04",
+    "r5": -4.35,
+    "r20": -1.16,
+    "r60": -3.16
+   },
+   {
+    "d": "08/06",
+    "r5": -5.89,
+    "r20": -2.4,
+    "r60": -1.77
+   },
+   {
+    "d": "08/07",
+    "r5": -7.94,
+    "r20": -2.25,
+    "r60": -3.32
+   }
+  ],
+  "XLRE": [
+   {
+    "d": "07/31",
+    "r5": -0.93,
+    "r20": 0.57,
+    "r60": -1.06
+   },
+   {
+    "d": "08/04",
+    "r5": -5.65,
+    "r20": -0.68,
+    "r60": -2.86
+   },
+   {
+    "d": "08/06",
+    "r5": -5.67,
+    "r20": -2.26,
+    "r60": -2.71
+   },
+   {
+    "d": "08/07",
+    "r5": -7.86,
+    "r20": -1.61,
+    "r60": -3.6
+   }
+  ]
+ }
+}</script>
+
+  <div class="rotation-verdict">
+    <div class="rv-title">⚡ 板塊強弱對位小結：<strong>主線消化、油單日彈——利率擾動下的健康輪動</strong></div>
+    <div class="rv-snapshot">強勢＝軟體/雲端/資安/科技（三欄正）｜轉強觀察＝金礦/銅礦/金屬/半導體（中期強、今日消化）｜轉弱＝醫療/能源/原材料（短線落後）｜弱勢＝公用/通訊/必需/房地產（防禦與利率敏感落後）</div>
+    <div class="rv-divider"></div>
+    <div class="rv-txt">今天多數板塊小回、只有能源紅（油急彈 +3.5%）。但要分清楚：能源是<strong>弱勢後的單日彈</strong>（近一週相對仍 -6.2），不是新趨勢。中期真正在流動的錢還在<strong>軟體/雲/資安</strong>（三欄正）、<strong>金礦/銅礦</strong>（中期相對強、今日消化）、<strong>半導體</strong>（近一週相對站回 +9）這幾條主線上，今天只是消化。防禦（公用/必需/房地產）墊底、利率敏感承壓。<div style="font-family:var(--fm);font-size:calc(var(--fs)*.82);color:var(--text);background:rgba(0,200,240,.06);border-left:2px solid var(--accent);padding:9px 13px;margin-top:12px;line-height:1.95;border-radius:0 4px 4px 0;">油單日 +3.5%，但近一週相對仍 -6.2（超跌反彈） &darr;<br>中期主線（半導體週線+9/金礦近一月+11/軟體三欄正）只是消化、未破 &darr;<br>含意：這是利率擾動下的『健康輪動＋主線消化』，不是資金轉進通膨——別追油這根單日彈</div></div>
+  </div>
+</div>
+</div><!-- /content-section -->
+<!-- /板塊強弱對位 -->
+
+
+<!-- 市場廣度 -->
+<div id="sec-breadth">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">05</div>
+  <div>
+    <div class="section-title">市場廣度</div>
+    <div class="section-desc">MARKET BREADTH</div>
+  </div>
+</div>
+  <div class="g4" style="margin-bottom:14px;background:var(--border);gap:1px;display:grid;grid-template-columns:repeat(4,1fr);">
+    <div class="bc" style="cursor:default">
+      <div class="bc-lbl">NQ 20MA 以上 %</div>
+      <div class="bc-val cg">65%</div>
+      <div class="bc-tr cg">▲ 健康區間</div>
+    </div>
+    <div class="bc" style="cursor:default">
+      <div class="bc-lbl">SP 20MA 以上 %</div>
+      <div class="bc-val cg">64.8%</div>
+      <div class="bc-tr cg">▲ 健康區間</div>
+    </div>
+    <div class="bc" style="cursor:default">
+      <div class="bc-lbl">NQ 50MA 以上 %</div>
+      <div class="bc-val cy">56.3%</div>
+      <div class="bc-tr cy">◎ 中性偏多</div>
+    </div>
+    <div class="bc" style="cursor:default">
+      <div class="bc-lbl">SP 50MA 以上 %</div>
+      <div class="bc-val cg">66.8%</div>
+      <div class="bc-tr cg">▲ 底盤紮實</div>
+    </div>
+  </div>
+
+  <div class="breadth-charts">
+    <div class="bch-box"><div class="bch-t">20MA 寬度歷史 · <span style="color:#ff3d5a">紅 NQ</span> / <span style="color:#f0c040">黃 SP</span>（X=時間, Y=%, 上限60日）</div><canvas id="bch20" class="bch-canvas"></canvas></div>
+    <div class="bch-box"><div class="bch-t">50MA 寬度歷史 · <span style="color:#ff3d5a">紅 NQ</span> / <span style="color:#f0c040">黃 SP</span>（X=時間, Y=%, 上限60日）</div><canvas id="bch50" class="bch-canvas"></canvas></div>
+  </div>
+  <script id="breadth-hist" type="application/json">{
+ "cap": 60,
+ "series": [
+  {
+   "d": "08/06",
+   "nq20": 65,
+   "sp20": 64.8,
+   "nq50": 56.3,
+   "sp50": 66.8
+  },
+  {
+   "d": "08/07",
+   "nq20": 65,
+   "sp20": 64.8,
+   "nq50": 56.3,
+   "sp50": 66.8
+  }
+ ]
+}</script>
+
+  <div class="breadth-verdict">長線廣度未破、短中線是大資金先行卡位。站上月線約 65%（標普 64.8/那指 65）健康；站上季線標普 66.8% 強於那指 56.3%，底盤紮實。<b>廣度擴散確認點：小型股中線由弱轉強、且高 Beta 同步翻正</b>——今天高 Beta 反走弱，代表擴散尚未開始。</div>
+</div>
+</div><!-- /content-section -->
+<!-- /市場廣度 -->
+
+
+<!-- Gamma 防線 -->
+<div id="sec-gamma">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">06</div>
+  <div>
+    <div class="section-title">Gamma 防線</div>
+    <div class="section-desc">GAMMA DEFENSE</div>
+  </div>
+</div>
+
+  <div class="gamma-diagram"><svg viewBox="0 0 460 212" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="460" height="212" rx="8" fill="#0d1118"/><line x1="92" y1="30" x2="430" y2="30" stroke="#ff3d5a" stroke-width="2.5"/><text x="92" y="23" fill="#ff8a80" font-size="12.5" font-family="monospace">壓力 · Call 牆</text><text x="436" y="34" fill="#ff8a80" font-size="13" font-family="monospace" text-anchor="end">750</text><line x1="92" y1="91" x2="430" y2="91" stroke="#ffffff" stroke-width="2.5"/><circle cx="240" cy="91" r="5" fill="#ffffff"/><text x="92" y="84" fill="#ffffff" font-size="12.5" font-family="monospace">現價 QQQ（近價 710C 亦厚）</text><text x="436" y="95" fill="#ffffff" font-size="13" font-family="monospace" text-anchor="end">715</text><line x1="92" y1="143" x2="430" y2="143" stroke="#f0c040" stroke-width="2" stroke-dasharray="4 3"/><text x="92" y="136" fill="#e0a526" font-size="12.5" font-family="monospace">Max Pain（磁吸中樞）</text><text x="436" y="147" fill="#e0a526" font-size="13" font-family="monospace" text-anchor="end">685</text><line x1="92" y1="186" x2="430" y2="186" stroke="#5b8def" stroke-width="3.5"/><text x="92" y="203" fill="#8fb3ff" font-size="12.5" font-family="monospace">支撐 · Put 牆（最厚，下移）</text><text x="436" y="190" fill="#8fb3ff" font-size="13" font-family="monospace" text-anchor="end">660</text></svg></div>
+  <div class="gamma-terms"><div class="gt-row"><b>Call 牆（壓力／天花板）</b>：大量買權堆積的價位，上檔壓力。今日 <b>750</b>；近價 <b>710C</b> 未平倉也厚（4.1 萬張），是短線上方黏著帶。</div><div class="gt-row"><b>Put 牆（支撐）</b>：大量賣權堆積的價位，下方支撐；跌破常引爆賣壓（負 Gamma：做市商被迫追跌殺、放大波動）。今日最厚的 Put 牆<b>下移到 660</b>（5.5 萬張），前一份 700 那道轉薄。</div><div class="gt-row"><b>Max Pain（磁吸中樞）</b>：到期時讓多數選擇權變壁紙的價位，股價常被吸過去。今日 <b>685</b>。</div><div class="gt-row"><b>怎麼看</b>：現價 QQQ <b>715</b>，上有 750 與近價 710C 壓、下檔最厚撐退到 660 → 短線區間偏 <b>710–750</b> 黏著、下方緩衝拉大。（QQQ Sep 18 到期，適逢 9/18 四巫日結算）</div></div>
+</div>
+<!-- /Gamma 防線 -->
+
+<div style="margin-top:48px;"></div>
+</div><!-- /content-section -->
+
+<!-- 未來一個月事件 -->
+<div id="sec-events">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">07</div>
+  <div>
+    <div class="section-title">未來一個月事件</div>
+    <div class="section-desc">UPCOMING EVENTS · 30-DAY CALENDAR</div>
+  </div>
+</div>
+
+  <div class="ev-list"><div class="ev-item"><div class="ev-item-hdr" onclick="togEv('ev1')"><span class="ev-date">08/07</span><span class="ev-grade">🔴</span><span class="ev-name">非農就業 NFP（即將，共識 ~8.6 萬）</span><span class="ev-arr">&#9660;</span></div><div id="ev1" class="ev-det"><div class="ev-bull">利多方：就業放緩→降息預期回升→利率壓力鬆</div><div class="ev-bear">利空方：就業過熱→降息預期降溫→殖利率回升壓估值</div><div class="ev-rule">觀察：降息路徑檢驗點，落差大當日不追價</div></div></div><div class="ev-item"><div class="ev-item-hdr" onclick="togEv('ev2')"><span class="ev-date">08/12</span><span class="ev-grade">🔴</span><span class="ev-name">CPI 消費者物價</span><span class="ev-arr">&#9660;</span></div><div id="ev2" class="ev-det"><div class="ev-bull">利多方：通膨續降→降息敘事回來</div><div class="ev-bear">利空方：通膨反彈→打斷降息預期、壓成長</div><div class="ev-rule">觀察：核心 CPI 月增是關鍵</div></div></div><div class="ev-item"><div class="ev-item-hdr" onclick="togEv('ev3')"><span class="ev-date">08/20</span><span class="ev-grade">🟡</span><span class="ev-name">Jackson Hole 全球央行年會（8 月底）</span><span class="ev-arr">&#9660;</span></div><div id="ev3" class="ev-det"><div class="ev-bull">利多方：Fed 偏鴿引導→流動性預期改善</div><div class="ev-bear">利空方：鷹派引導→殖利率與波動率跳升</div><div class="ev-rule">觀察：Fed 主席談話定調秋季政策</div></div></div><div class="ev-item"><div class="ev-item-hdr" onclick="togEv('ev4')"><span class="ev-date">09/16</span><span class="ev-grade">🔴</span><span class="ev-name">FOMC 利率決策（8 月無會）</span><span class="ev-arr">&#9660;</span></div><div id="ev4" class="ev-det"><div class="ev-bull">利多方：降息或鴿派點陣圖→估值鬆綁</div><div class="ev-bear">利空方：按兵不動＋鷹派→降息預期落空</div><div class="ev-rule">觀察：與 8/7 NFP、8/12 CPI 連動</div></div></div><div class="ev-item"><div class="ev-item-hdr" onclick="togEv('ev5')"><span class="ev-date">09/18</span><span class="ev-grade">🟡</span><span class="ev-name">四巫日（季度到期，QQQ 本期到期日）</span><span class="ev-arr">&#9660;</span></div><div id="ev5" class="ev-det"><div class="ev-bull">利多方：對沖到期、換股後籌碼轉輕</div><div class="ev-bear">利空方：尾盤爆量、權重調整帶來波動</div><div class="ev-rule">觀察：QQQ Max Pain 685、Put 牆 660、Call 牆 750 在此日結算</div></div></div></div>
+
+  <div class="ev-note">本月無 FOMC（下次 9/16）；重心在 8/7 NFP 與 8/12 CPI——兩者定調降息路徑，是降息路徑的檢驗點。四巫日 9/18 正好是 QQQ 本期選擇權到期日，屆時 660/685/750 三道結算。</div>
+</div>
+</div><!-- /未來一個月事件 -->
+
+<!-- Yoda 完整研判 -->
+<div id="sec-judgment">
+<div class="content-section">
+<div class="section-header">
+  <div class="section-num">08</div>
+  <div>
+    <div class="section-title">Yoda 完整研判</div>
+    <div class="section-desc">FULL JUDGMENT</div>
+  </div>
+</div>
+  <div class="syn">
+    <div class="syn-title">完整研判｜2026/08/07（08/07 Close）</div>
+    <div style="font-family:var(--fb);font-size:calc(var(--fs)*1.15);font-weight:800;color:var(--accent);letter-spacing:.12em;margin-bottom:18px;margin-top:-8px;">避險情緒回來、動能走弱——多頭沒破，戒備升高</div>
+
+    <div class="syn-blk">
+      <div class="syn-h">一、核心要點</div>
+      <div class="syn-txt"><p style='margin:0 0 14px;'><b>定調：</b>多頭結構未破的一次<strong>避險擾動</strong>。龍頭撐、半導體週線續強、大盤僅小跌；但避險情緒回來（Put/Call 0.5→1.13）、油急彈、動能走弱；殖利率大致平穩（2Y 4.25）。</p><p style='margin:0 0 14px;'><b>所以我該怎麼想：</b>這份幫你「抓大盤方向」。今天不是變盤，是多頭裡的一次戒備升高。半導體、韓台的單日黑K，近一週相對仍領先，是消化不是離場。盯的是「利率與避險會不會擴大」。</p><p style='margin:0 0 14px;'><b>唯一升級的：</b>避險情緒與動能走弱；殖利率大致平穩。明天就業數據（NFP）是方向檢驗點。</p><p style='margin:0;'><b>就業數據怎麼看：</b>別急著猜 NFP 數字——<strong>重點是看市場『怎麼消化』這則消息</strong>：利多不漲／利空不跌，價格的反應才是天秤真正的指針。想練「怎麼從市場反應讀落底與轉折訊號」，去玩 🎮 <a href="https://yoda-wcyc.github.io/game/%E8%90%BD%E5%BA%95%E8%A8%8A%E8%99%9F-20260729.html" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:underline;">【落底訊號】</a>。</p><div style="font-family:var(--fm);font-size:calc(var(--fs)*.82);color:var(--text);background:rgba(0,200,240,.06);border-left:2px solid var(--accent);padding:9px 13px;margin-top:12px;line-height:1.95;border-radius:0 4px 4px 0;">NFP 公布 → 不看數字本身，看價格『怎麼消化』 &darr;<br>利多不漲／利空不跌＝賣壓或買盤的真實方向（天秤） &darr;<br>含意：市場對消息的反應，比消息本身更準；盯反應、別預測數字</div></div>
+    </div>
+
+    <div class="syn-blk">
+      <div class="syn-h">二、大盤驅動力分解｜MAGS × 廣度 × 主線聚焦</div>
+      <div class="syn-txt"><p style='margin:0 0 14px;'><b>七巨頭與集中度：</b>MAGS 今日 +0.23%、逆勢收紅，半導體站住——龍頭沒有系統性轉弱，集中度未崩。</p><p style='margin:0;'><b>驅動力：</b>今天撐盤的是龍頭與半導體，等權（-0.52%）落後——資金仍集中頭部主線，廣度未擴散，屬③輪動／龍頭撐盤。</p><div style="font-family:var(--fm);font-size:calc(var(--fs)*.82);color:var(--text);background:rgba(0,200,240,.06);border-left:2px solid var(--accent);padding:9px 13px;margin-top:12px;line-height:1.95;border-radius:0 4px 4px 0;">龍頭 MAGS +0.23 撐 ＋ 半導體站住 ＋ 等權 -0.52 落後 &darr;<br>資金仍集中頭部主線、廣度未擴散（大資金先行） &darr;<br>含意：多頭續行但偏窄，盯小型股與高 Beta 何時一起翻正＝廣度變厚</div></div>
+    </div>
+
+    <div class="syn-blk">
+      <div class="syn-h">三、市場結構快照｜廣度拉鋸動態分析</div>
+      <div class="syn-txt"><p style='margin:0 0 14px;'><b>寬基強弱：</b>標普 -0.16%、那斯達克 -0.37%、等權 -0.52%；龍頭撐、等權小型弱，弱勢集中在利率敏感與中小型。</p><p style='margin:0;'><b>廣度三層：</b>長線（近三月）等權、小型、微型相對都還在正值＝地基完整；短中線落後＝卡位期未擴散。站上季線標普 66.8% 明顯高於那指 56.3%，底盤紮實、弱點在科技側。</p><div style="font-family:var(--fm);font-size:calc(var(--fs)*.82);color:var(--text);background:rgba(0,200,240,.06);border-left:2px solid var(--accent);padding:9px 13px;margin-top:12px;line-height:1.95;border-radius:0 4px 4px 0;">短中線落後大盤（S-/M-）＋ 長線仍正（L+） &darr;<br>回調而非趨勢逆轉；廣度是大資金先行、群眾未跟 &darr;<br>含意：長線未破前屬多頭回調，盯小型股中線翻正＝廣度重建訊號</div></div>
+    </div>
+
+    <div class="syn-blk">
+      <div class="syn-h">預期 vs 底線</div>
+      <div class="scenario-grid">
+
+        <div class="sc-bull">
+          <div class="sc-s-title">📈 預期：有利多方的條件</div>
+          <div class="sc-s-txt">
+            <strong>觸發條件（觀察以下何時成立）：</strong><br><br>
+            <span class='trigger'>▸ NFP／CPI 落在降息友善區間</span>＝利率壓力鬆、估值回穩。<br><br><span class='trigger'>▸ 小型股近一週/近一月相對由弱轉強、高 Beta 同步翻正</span>＝廣度從卡位擴散到全面參與。<br><br><span class='trigger'>▸ 半導體近一週相對守住 +9 強勢</span>＝成長主線延續。<br><br><span class='trigger'>▸ Put/Call 回落</span>＝避險情緒退、風險偏好回。
+          </div>
+        </div>
+
+        <div class="sc-bear">
+          <div class="sc-s-title">📉 底線：有利空方的條件</div>
+          <div class="sc-s-txt">
+            <strong>觸發條件（觀察以下何時成立）：</strong><br><br><span class='trigger'>▸ 2Y／10Y 續升破前高</span>＝利率壓力升級，成長股節奏轉慢。<br><br><span class='trigger'>▸ Put/Call 續升、動能因子續弱</span>＝避險擴大，降警戒。<br><br><span class='trigger'>▸ QQQ 跌破 <span class='target'>660</span> Put 牆</span>＝下檔最厚撐失守，重估。<br><br><span class='trigger'>▸ 爆量跌破重要型態、防禦股全面領先</span>＝把『健康輪動』改判的門檻。
+          </div>
+        </div>
+
+      </div>
+
+      <div style="background:rgba(0,200,240,.04);border:1px solid rgba(0,200,240,.2);border-radius:3px;padding:14px 16px;margin-top:16px;">
+        <div style="font-size:calc(var(--fs)*.77);letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">總結</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.85;"><p style='margin:0 0 14px;'><b>主劇本定性：</b>多頭結構未破的一次<b>避險擾動</b>——龍頭撐、半導體週線續強、大盤小跌，但避險情緒回來、油急彈、動能走弱；殖利率大致平穩。多頭中戒備升高，不是變盤。</p><p style='margin:0 0 14px;'><b>市場在交易什麼：</b>主角是避險情緒回來（Put/Call 0.5→1.13），配油的單日急彈。油近一週相對仍深負（超跌反彈非趨勢）、股僅小跌、流動性沒壞——別讀成通膨失控或系統風險。</p><p style='margin:0 0 14px;'><b>底層該盯的裂縫：</b>Put/Call 0.5→1.13、動能因子走弱、殖利率上行三者同現＝『無腦樂觀那段結束、提高警覺』；但長線廣度未破，仍屬多頭回調。</p><p style='margin:0;'><b>操作主軸：</b>中期資金仍在半導體/金屬/軟體主線；今日能源是弱勢後的單日超跌反彈。</p><div style="font-family:var(--fm);font-size:calc(var(--fs)*.82);color:var(--text);background:rgba(0,200,240,.06);border-left:2px solid var(--accent);padding:9px 13px;margin-top:12px;line-height:1.95;border-radius:0 4px 4px 0;">P/C 0.5→1.13轉避險＋油彈＋動能走弱（裂縫變多） &darr;<br>但龍頭撐、半導體週線+9、長線廣度未破（結構未破） &darr;<br>含意：多頭續行、戒備升高；退場線＝2Y/10Y 破前高｜P/C 續升+動能續弱｜QQQ 660 失守｜爆量破型態 &darr;<br>一句話：守紀律、留退場線——活下來比多賺一段重要</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /完整研判 -->
+
+</div>
+</div><!-- /content-section --><!-- /wrap -->
+
+<!-- 頁尾 -->
+<div class="ftr">
+  <div class="disc">本報告僅供研究參考，不構成任何投資建議。數據來源：FRED、Trading Economics、CNBC、CME、ChartExchange、TheMarketMemo。</div>
+  <div class="brand">Yoda Research｜Market Watch v1</div>
+</div>
+</div><!-- /main -->
+
+<script>
+/* 控制列字級/主題：邏輯統一至下方 setSize / setTheme
+   （2026-07-31 外殼統一：已移除死碼 setFS 與重複的 setTheme 定義）*/
+
+/* 手風琴 */
+function tog(pid,cid){
+  const p=document.getElementById(pid),c=document.getElementById(cid);
+  const was=p.classList.contains('open');
+  document.querySelectorAll('.det').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.card.clk').forEach(x=>x.classList.remove('open'));
+  if(!was){p.classList.add('open');c.classList.add('open');}
+}
+
+function togBC(did,bid){
+  const d=document.getElementById(did),b=document.getElementById(bid);
+  const was=d.classList.contains('open');
+  document.querySelectorAll('.bc-det').forEach(x=>x.classList.remove('open'));
+  if(!was){
+    d.classList.add('open');
+    const arr=b.querySelector('.arr');
+    if(arr) arr.style.transform='rotate(180deg)';
+  }
+}
+
+function togSC(id,item){
+  const d=document.getElementById(id);
+  const was=d.classList.contains('open');
+  document.querySelectorAll('.sc-det').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.sc-item').forEach(x=>x.classList.remove('open'));
+  if(!was){d.classList.add('open');item.classList.add('open');}
+}
+
+function togGamma(){
+  const d=document.getElementById('gammaDet'),a=document.getElementById('gArrow');
+  const was=d.style.display!=='none'&&d.style.display!=='';
+  d.style.display=was?'none':'block';
+  a.textContent=was?'▼':'▲';
+}
+
+/* 初始化（防呆：控制列改版後改用 setSize/setTheme + HTML class=active，舊 id 可能不存在）*/
+document.getElementById('btn-dark')?.classList.add('on');
+document.getElementById('fs-normal')?.classList.add('on');
+
+/* ── §04 板塊三線歷史 + §05 廣度雙圖（X=時間, Y=%, 上限60日）── */
+var SC_HIST=(function(){try{return JSON.parse(document.getElementById('sc-hist').textContent);}catch(e){return{tickers:{}};}})();
+var BREADTH_HIST=(function(){try{return JSON.parse(document.getElementById('breadth-hist').textContent);}catch(e){return{series:[]};}})();
+function seriesChart(canvas,series,defs,opts){
+  opts=opts||{};var h=opts.h||90;var ctx=canvas.getContext('2d');
+  var w=canvas.offsetWidth||300;canvas.width=w*2;canvas.height=h*2;ctx.setTransform(2,0,0,2,0,0);
+  ctx.clearRect(0,0,w,h);
+  var x0=8,x1=w-8,y0=16,y1=h-14,n=series.length;
+  var vmin,vmax;
+  if(opts.ymin!=null){vmin=opts.ymin;vmax=opts.ymax;}
+  else{var m=opts.minRange||10;series.forEach(function(p){defs.forEach(function(d){var v=p[d[0]];if(v!=null)m=Math.max(m,Math.abs(v));});});vmin=-m*1.12;vmax=m*1.12;}
+  function X(i){return n<=1?(x0+x1)/2:x0+(x1-x0)*i/(n-1);}
+  function Y(v){return y1-(v-vmin)/((vmax-vmin)||1)*(y1-y0);}
+  var refv=(opts.ref!=null)?opts.ref:((vmin<0&&vmax>0)?0:null);
+  if(refv!=null){ctx.strokeStyle='rgba(255,255,255,.16)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x0,Y(refv));ctx.lineTo(x1,Y(refv));ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,.32)';ctx.font='8px monospace';ctx.textAlign='left';ctx.fillText(opts.refLabel!=null?opts.refLabel:String(refv),x0,Y(refv)-2);}
+  defs.forEach(function(d){var key=d[0],col=d[1];ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=1.7;ctx.beginPath();var started=false;
+    series.forEach(function(p,i){var v=p[key];if(v==null)return;var x=X(i),y=Y(v);if(!started){ctx.moveTo(x,y);started=true;}else ctx.lineTo(x,y);});ctx.stroke();
+    series.forEach(function(p,i){var v=p[key];if(v==null)return;ctx.beginPath();ctx.arc(X(i),Y(v),2.1,0,Math.PI*2);ctx.fill();});});
+  ctx.font='bold 9px monospace';ctx.textAlign='left';var lx=x0;
+  defs.forEach(function(d){ctx.fillStyle=d[1];ctx.fillText(d[2],lx,10);lx+=d[2].length*6.6+14;});
+  if(n){ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='8px monospace';ctx.textAlign='left';ctx.fillText(series[0].d,x0,h-3);if(n>1){ctx.textAlign='right';ctx.fillText(series[n-1].d,x1,h-3);}}
+}
+function drawMiniChart(canvas){var tk=canvas.dataset.tk;var ser=(SC_HIST.tickers&&SC_HIST.tickers[tk])||[];
+  seriesChart(canvas,ser,[['r5','#ff3d5a','REL5'],['r20','#f0c040','REL20'],['r60','#00c8f0','REL60']],{h:92});}
+function initMiniCharts(){document.querySelectorAll('.mini-chart-canvas').forEach(function(c){drawMiniChart(c);});}
+function drawBreadthCharts(){var s=BREADTH_HIST.series||[];
+  var c20=document.getElementById('bch20'),c50=document.getElementById('bch50');
+  if(c20)seriesChart(c20,s,[['nq20','#ff3d5a','NQ'],['sp20','#f0c040','SP']],{h:150,ymin:0,ymax:100,ref:50,refLabel:'50%'});
+  if(c50)seriesChart(c50,s,[['nq50','#ff3d5a','NQ'],['sp50','#f0c040','SP']],{h:150,ymin:0,ymax:100,ref:50,refLabel:'50%'});}
+var scDetObs=new MutationObserver(function(muts){muts.forEach(function(m){if(m.target.classList.contains('open')){m.target.querySelectorAll('.mini-chart-canvas').forEach(function(c){drawMiniChart(c);});}});});
+document.querySelectorAll('.sc-det').forEach(function(d){scDetObs.observe(d,{attributeFilter:['class']});});
+window.addEventListener('resize',function(){initMiniCharts();drawBreadthCharts();});
+drawBreadthCharts();
+
+/* 事件展開 */
+function togEv(id){
+  const d=document.getElementById(id);
+  const item=d.previousElementSibling.closest('.ev-item')||d.parentElement;
+  const was=d.classList.contains('open');
+  document.querySelectorAll('.ev-det').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.ev-item').forEach(x=>x.classList.remove('open'));
+  if(!was){d.classList.add('open');d.closest('.ev-item').classList.add('open');}
+}
+
+/* ── 控制列：字級（sm/md/lg）+ 主題（dark/light）｜外殼標準·事件無關·可程式化測試 ── */
+function setSize(s){
+  var map={sm:1,md:1.16667,lg:1.33333};
+  document.documentElement.style.setProperty('--fs-scale',map[s]||1.16667);
+  document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={sm:'小',md:'中',lg:'大'}[s]);
+  });
+}
+function setTheme(t){
+  var r=document.documentElement;
+  var themes={
+    dark:{'--bg':'#080b10','--surface':'#0d1118','--surface2':'#121820','--border':'#1c2330','--text':'#b8c8d8','--dim':'#405060','--accent':'#7f9fc6','--green':'#5cae88','--red':'#cf6f72','--yellow':'#f0c040','--orange':'#ff8040'},
+    light:{'--bg':'#f2f5f9','--surface':'#ffffff','--surface2':'#e8eef5','--border':'#ccd6e2','--text':'#1a2535','--dim':'#6080a0','--accent':'#4a6d94','--green':'#006e4a','--red':'#c00030','--yellow':'#7a5500','--orange':'#a03800'}
+  };
+  Object.entries(themes[t]||themes.dark).forEach(function(kv){ r.style.setProperty(kv[0],kv[1]); });
+  document.body.classList.toggle('light', t==='light');
+  document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){
+    b.classList.toggle('active', b.textContent==={dark:'深',light:'淺'}[t]);
+  });
+}
+</script>
+<!-- 關鍵報告摘要
+日期：2026/08/07（08/07 Close）
+當日主劇本：Healthy Rotation ＋ 利率/避險擾動背景；多頭結構未破、非變盤
+跨資產：殖利率大致平穩(2Y 4.25/10Y 4.67高檔);戒備升高的是避險情緒(P/C 0.5→1.13)+動能走弱;油單日急彈(USO+3.47,週線-13弱);流動性未惡化(SOFR-IORB -1bp/MOVE76)
+市場型態：③Rotation/龍頭撐盤(MAGS+0.23、半導體站住、等權-0.52落後);大盤小跌無爆量破位
+廣度：短中線落後、長線未破(卡位期);SP季線66.8%>NQ56.3%;高Beta今日走弱＝擴散未開始
+情緒關鍵：Put/Call 0.5→1.13轉避險 + 動能因子走弱＝無腦樂觀段結束、提高警覺
+生命週期：半導體🔄/👑(近一週+9回溫)、金礦👑(主升消化REL5+8.7/REL20+11)、能源🔄(單日彈待確認)
+選擇權(QQQ Sep18)：Max Pain685、Call牆750+近價710C厚(4.1萬)、下檔最厚Put退到660(5.5萬)/600/570;現價715區間710-750
+多窗校正：韓/台今日1D%黑(韓-2.97)但近一週相對+8強＝單日回檔;油今日+3.5但週線-13＝超跌反彈非趨勢
+日曆：NFP 8/7-8/8(共識8.6萬)、CPI 8/12、FOMC 9/16、四巫日9/18
+確認/退出線：2Y/10Y破前高 / P-C續升+動能續弱 / 半導體週線強度 / QQQ660下厚撐失守 / NFP落差大當日不追
+方向判讀(免費版止於方向)：多頭未破、戒備升高;中期主線半導體/金屬/軟體仍在
+-->
+<!-- 微結構摘要（只列訊號+證據+多窗，不判讀，依 core §G-8）
+① 強勢股補跌？無——半導體今日站住(SOXX+0.34/SMH+0.31)、近一週相對+9.16/+7.98領先。
+② 弱勢股止跌？混合——太陽能TAN-0.04近平/ICLN+0.11小紅;ARKK-1.58回落。
+③ 高Beta領先？無、反走弱——SPHB-1.91%今日落後(SPY-0.16);近一週相對+2.77。
+④ 防禦領先？非全面——醫療XLV+0.18小紅,公用XLU-0.64/必需XLP-0.26跌。
+⑤ Leader Rotation？今日能源短暫接棒(XLE+1.48/油USO+3.47);中期主線半導體(週線+9)/金屬(GDX REL5+8.71)/軟體並行未變。
+-->
+
+<!-- ═══ 板塊動態圖腳本（共用 dyn-chart.js，注入時填入）═══ -->
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Yoda 板塊動態圖· 共用唯一正本 draw 腳本（2026-08-06 抽出）
+   mw / us / tw 三報告共用；差異一律由各自 dyn-data JSON 頂層帶：
+     benchmark(中心標籤字) / tab_order / tabsMeta{tab:{name}}
+     COL{tab:{label:色}} / notes{tab:文字} / riskNoteTab / emptyMsg
+   視覺規格＝ SKILL-core-render §B-7（虛線連軌跡＋座標軸自動縮放）。
+   任何動態圖改動：改這一支，三報告注入該 placeholder 自動同步。
+   ══════════════════════════════════════════════════════════════ */
+(function(){
+  var NS='http://www.w3.org/2000/svg',SVG=document.getElementById('dyn-svg'),BOX=SVG&&SVG.parentNode;
+  if(!SVG)return;
+  var raw=document.getElementById('dyn-data').textContent.trim(),DATA=null;
+  try{if(raw&&raw.indexOf('{{')!==0)DATA=JSON.parse(raw);}catch(e){DATA=null;}
+  if(!DATA||!DATA.snapshots||!DATA.snapshots.length){BOX.innerHTML='<div class="dyn-empty">資料累積中，明日起每日更新。</div>';return;}
+  var COL=DATA.COL||{},NOTES=DATA.notes||{},BM=DATA.benchmark||'基準',EMPTY=DATA.emptyMsg||'此分頁成分待定義，補上後即接入';
+  var TABS=(DATA.tab_order&&DATA.tab_order.length)?DATA.tab_order.slice():Object.keys(DATA.tabsMeta||{});
+  var TAB=TABS[0],WIN=5,TAIL=5;
+  // ── 播放（時間軸回放）：FRAME＝播放頭（0＝最早快照 … NSNAP-1＝今天，可為小數以平滑插值）──
+  var NSNAP=DATA.snapshots.length,FRAME=NSNAP-1,PLAYING=false,PLAY_MS=1200,rafId=null,lastTs=0;
+  function capv(a,fl){if(!a.length)return fl;var mxv=a[a.length-1]||fl;return Math.max(mxv*1.12,fl);}
+  function ptAt(t,label,f){var i0=Math.max(0,Math.floor(f)),i1=Math.min(i0+1,NSNAP-1),fr=f-i0;
+    var s0=DATA.snapshots[i0].data[t],s1=DATA.snapshots[i1].data[t],d0=s0&&s0[label],d1=s1&&s1[label];
+    if(!d0&&!d1)return null;if(!d0)d0=d1;if(!d1)d1=d0;var p0=xy(d0),p1=xy(d1);
+    return{x:p0.x+(p1.x-p0.x)*fr,y:p0.y+(p1.y-p0.y)*fr};}
+  function trailTo(t,label,f){var arr=[],i0=Math.floor(f);
+    for(var i=0;i<=i0;i++){var s=DATA.snapshots[i].data[t],o=s&&s[label];if(o)arr.push(xy(o));}
+    var h=ptAt(t,label,f);if(h)arr.push(h);return arr.slice(-TAIL);}
+  function fixedAxis(t){var ax=[],ay=[];DATA.snapshots.forEach(function(s){var dd=s.data[t]||{};for(var l in dd){var p=xy(dd[l]);ax.push(Math.abs(p.x));ay.push(Math.abs(p.y));}});
+    ax.sort(function(a,b){return a-b;});ay.sort(function(a,b){return a-b;});return{hx:capv(ax,6),hy:capv(ay,5)};}
+  function frameDate(){return DATA.snapshots[Math.max(0,Math.min(NSNAP-1,Math.round(FRAME)))].date;}
+  var PAL=['#38bdf8','#ec4899','#f59e0b','#34d399','#a78bfa','#ef4444','#22d3ee','#84cc16','#f472b6','#fbbf24','#fb923c'];
+  function cvar(n){return getComputedStyle(document.body).getPropertyValue(n).trim();}
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function latest(){return DATA.snapshots[DATA.snapshots.length-1];}
+  function labelsFor(t){return Object.keys(latest().data[t]||{});}
+  function xy(o){if(WIN===5)return{x:o.rel5,y:o.rel5-o.rel20};if(WIN===20)return{x:o.rel20,y:o.rel20-o.rel60};return{x:o.rel60,y:o.rel20-o.rel60};}
+  function seriesFor(t,label){var a=[];DATA.snapshots.forEach(function(s){var o=s.data[t]&&s.data[t][label];if(o)a.push(xy(o));});return a.slice(-TAIL);}
+  function colorOf(t,label,idx){return (COL[t]||{})[label]||PAL[idx%PAL.length];}
+  function mkMarker(g,ty,cx,cy,r,fill){
+    // 玻璃/水質感泡泡：彩色柔光暈 → 半透明球體 → 彩色亮邊 → 白色玻璃反光罩 → 水珠高光
+    g.appendChild(el('circle',{cx:cx,cy:cy,r:r+2,fill:fill,opacity:.22,filter:'url(#dyn-glow)'}));
+    g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:fill,'fill-opacity':.30}));
+    g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'none',stroke:fill,'stroke-width':1.5,opacity:.92}));
+    g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'url(#dyn-gloss)'}));
+    g.appendChild(el('ellipse',{cx:cx-r*0.30,cy:cy-r*0.40,rx:r*0.34,ry:r*0.22,fill:'#ffffff',opacity:.55}));
+  }
+  // ── 頁籤（相容 mw 靜態 data-tab 與 us/tw 動態建立）＋ 反應速度／歷史天數按鈕 ──
+  var tabseg=document.getElementById('dyn-tabseg');
+  function riskToggle(){var rk=document.getElementById('dyn-guse-risk');if(rk&&DATA.riskNoteTab)rk.style.display=(TAB===DATA.riskNoteTab)?'':'none';}
+  function selTab(t,btn){TAB=t;if(tabseg)[].forEach.call(tabseg.querySelectorAll('button'),function(c){c.classList.remove('on');});if(btn)btn.classList.add('on');var tt=document.getElementById('dyn-title');if(tt&&DATA.tabsMeta&&DATA.tabsMeta[t])tt.textContent=DATA.tabsMeta[t].name;riskToggle();draw();}
+  var staticBtns=tabseg?tabseg.querySelectorAll('button'):[];
+  if(staticBtns.length){
+    var onb=tabseg.querySelector('button.on')||staticBtns[0];TAB=onb.getAttribute('data-tab')||TABS[0];
+    [].forEach.call(staticBtns,function(b){b.onclick=function(){selTab(b.getAttribute('data-tab'),b);};});
+  }else if(tabseg){
+    TABS.forEach(function(t,i){var btn=document.createElement('button');btn.textContent=(DATA.tabsMeta&&DATA.tabsMeta[t]?DATA.tabsMeta[t].name:t);btn.className=i===0?'on':'';btn.onclick=function(){selTab(t,btn);};tabseg.appendChild(btn);});
+  }
+  var tt0=document.getElementById('dyn-title');if(tt0&&DATA.tabsMeta&&DATA.tabsMeta[TAB])tt0.textContent=DATA.tabsMeta[TAB].name;
+  var dd=document.getElementById('dyn-date');if(dd)dd.textContent=latest().date;
+  riskToggle();
+  [5,20,60].forEach(function(w){var btn=document.getElementById('dyn-w'+w);if(btn)btn.onclick=function(){WIN=w;[5,20,60].forEach(function(x){var b=document.getElementById('dyn-w'+x);if(b)b.classList.remove('on');});btn.classList.add('on');var wl=document.getElementById('dyn-win');if(wl)wl.textContent=w;draw();};});
+  var onTailChange=function(){};
+  [5,10,20,60,120].forEach(function(t){var btn=document.getElementById('dyn-t'+t);if(btn)btn.onclick=function(){TAIL=t;[5,10,20,60,120].forEach(function(x){var b=document.getElementById('dyn-t'+x);if(b)b.classList.remove('on');});btn.classList.add('on');draw();onTailChange();};});
+  // ── 播放鈕＋（右側）日期顯示＋可自由左右滑的拉桿：範圍＝最近 min(TAIL,NSNAP) 天，左最舊右最新（≥2 天才顯示）──
+  (function(){
+    if(NSNAP<2)return;
+    function shown(){return Math.min(TAIL,NSNAP);}          // 由 5/10/20 天選項決定
+    function startF(){return Math.max(0,NSNAP-shown());}    // 拉桿最左＝這麼多天前
+    function span(){return Math.max(1,(NSNAP-1)-startF());} // 左右總跨度
+    FRAME=NSNAP-1;
+    var st=document.createElement('style');st.textContent=
+      '.dyn-play{font-family:var(--fm,monospace);font-size:11px;font-weight:600;color:var(--accent,#7f9fc6);background:transparent;border:1px solid var(--accent,#7f9fc6);border-radius:9999px;padding:4px 13px;cursor:pointer;transition:all .15s;white-space:nowrap}'
+      +'.dyn-play:hover{background:var(--accent,#7f9fc6);color:var(--bg,#0b0f14)}'
+      +'.dyn-daylab{font-family:var(--fm,monospace);font-size:11px;font-weight:700;color:var(--text,#cfd8e3);min-width:42px;text-align:center}'
+      +'.dyn-scrub{position:relative;height:6px;width:170px;flex:0 0 auto;border-radius:3px;background:var(--border,#334);cursor:pointer;touch-action:none}'
+      +'.dyn-scrub>i{display:block;height:100%;border-radius:3px;background:var(--accent,#7f9fc6);pointer-events:none}'
+      +'.dyn-scrub>b{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--accent,#7f9fc6);border:2px solid var(--bg,#0b0f14);box-shadow:0 0 4px rgba(0,0,0,.45);transform:translate(-50%,-50%);pointer-events:none}'
+      +'@media(max-width:520px){.dyn-scrub{width:120px}}';
+    document.head.appendChild(st);
+    var wrap=document.createElement('div');wrap.style.cssText='display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap';
+    var btn=document.createElement('button');btn.className='dyn-play';btn.type='button';btn.textContent='▶ 播放';wrap.appendChild(btn);
+    var dlab=document.createElement('span');dlab.className='dyn-daylab';wrap.appendChild(dlab);       // 播放鈕右邊：當下點點所在那一天
+    var scrub=document.createElement('div');scrub.className='dyn-scrub';var bar=document.createElement('i'),thumb=document.createElement('b');scrub.appendChild(bar);scrub.appendChild(thumb);wrap.appendChild(scrub);
+    var ctrl=document.querySelector('.dyn-ctrl');if(ctrl)ctrl.appendChild(wrap);else if(BOX)BOX.parentNode.insertBefore(wrap,BOX);
+    function upd(){btn.textContent=PLAYING?'⏸ 暫停':'▶ 播放';var f=Math.max(0,Math.min(100,(FRAME-startF())/span()*100));bar.style.width=f+'%';thumb.style.left=f+'%';dlab.textContent=frameDate();var dd=document.getElementById('dyn-date');if(dd)dd.textContent=frameDate();}
+    function step(ts){if(!PLAYING)return;if(!lastTs)lastTs=ts;FRAME+=(ts-lastTs)/PLAY_MS;lastTs=ts;if(FRAME>=NSNAP-1){FRAME=NSNAP-1;PLAYING=false;draw();upd();return;}draw();upd();rafId=requestAnimationFrame(step);}
+    btn.onclick=function(){if(PLAYING){PLAYING=false;if(rafId)cancelAnimationFrame(rafId);upd();return;}FRAME=startF();PLAYING=true;lastTs=0;rafId=requestAnimationFrame(step);upd();};
+    function seek(clientX){var r=scrub.getBoundingClientRect();var t=r.width?(clientX-r.left)/r.width:0;t=Math.max(0,Math.min(1,t));FRAME=startF()+t*span();draw();upd();}
+    var drag=false;
+    scrub.addEventListener('pointerdown',function(e){if(PLAYING){PLAYING=false;if(rafId)cancelAnimationFrame(rafId);}drag=true;try{scrub.setPointerCapture(e.pointerId);}catch(_){}seek(e.clientX);e.preventDefault();});
+    scrub.addEventListener('pointermove',function(e){if(drag)seek(e.clientX);});
+    scrub.addEventListener('pointerup',function(){drag=false;});
+    scrub.addEventListener('pointercancel',function(){drag=false;});
+    onTailChange=function(){if(PLAYING){PLAYING=false;if(rafId)cancelAnimationFrame(rafId);}FRAME=NSNAP-1;upd();}; // 切 5/10/20 天→拉桿範圍重設、回到最新
+    upd();
+  })();
+  // ── 滾輪縮放 ＋ 拖曳平移 ＋ 雙擊還原（改 viewBox·不動繪製與資料定位）──
+  (function(){
+    var vb=(SVG.getAttribute('viewBox')||'0 0 720 620').split(/\s+/).map(Number);
+    var W0=vb[2]||720,H0=vb[3]||620,VB={x:vb[0]||0,y:vb[1]||0,w:W0,h:H0};
+    function apply(){SVG.setAttribute('viewBox',VB.x.toFixed(1)+' '+VB.y.toFixed(1)+' '+VB.w.toFixed(1)+' '+VB.h.toFixed(1));}
+    SVG.style.touchAction='none';SVG.style.cursor='grab';
+    SVG.addEventListener('wheel',function(e){e.preventDefault();var r=SVG.getBoundingClientRect();if(!r.width)return;
+      var rx=(e.clientX-r.left)/r.width,ry=(e.clientY-r.top)/r.height,px=VB.x+rx*VB.w,py=VB.y+ry*VB.h;
+      var f=e.deltaY<0?1/1.15:1.15,nw=Math.max(W0/6,Math.min(W0,VB.w*f)),nh=nw*(H0/W0);
+      VB.x=px-rx*nw;VB.y=py-ry*nh;VB.w=nw;VB.h=nh;
+      if(VB.w>=W0-0.5){VB={x:0,y:0,w:W0,h:H0};}apply();},{passive:false});
+    var dg=false,lx,ly;
+    SVG.addEventListener('pointerdown',function(e){dg=true;lx=e.clientX;ly=e.clientY;SVG.style.cursor='grabbing';TIP.style.opacity=0;});
+    window.addEventListener('pointermove',function(e){if(!dg)return;var r=SVG.getBoundingClientRect();if(!r.width)return;
+      VB.x-=(e.clientX-lx)*(VB.w/r.width);VB.y-=(e.clientY-ly)*(VB.h/r.height);lx=e.clientX;ly=e.clientY;apply();});
+    window.addEventListener('pointerup',function(){if(dg){dg=false;SVG.style.cursor='grab';}});
+    SVG.addEventListener('dblclick',function(){VB={x:0,y:0,w:W0,h:H0};apply();});
+  })();
+  var TIP=document.createElement('div');TIP.className='dyn-tip';document.body.appendChild(TIP);
+  function layout(nodes,ccx,ccy){
+    var L=nodes.map(function(n){var dx=n.x-ccx,dy=n.y-ccy,d=Math.hypot(dx,dy)||1;return{n:n,ux:dx/d,uy:dy/d,w:n.label.length*12+4,lx:n.x+dx/d*34,ly:n.y+dy/d*34};});
+    for(var it=0;it<260;it++)for(var i=0;i<L.length;i++){var a=L[i];a.lx+=((a.n.x+a.ux*34)-a.lx)*.05;a.ly+=((a.n.y+a.uy*34)-a.ly)*.05;
+      var ddx=a.lx-a.n.x,ddy=a.ly-a.n.y,dd2=Math.hypot(ddx,ddy)||1;if(dd2<24){a.lx=a.n.x+ddx/dd2*24;a.ly=a.n.y+ddy/dd2*24;}
+      for(var j=0;j<L.length;j++){if(i===j)continue;var b=L[j];var minx=(a.w+b.w)/2+5,dxl=a.lx-b.lx,dyl=a.ly-b.ly;
+        if(Math.abs(dxl)<minx&&Math.abs(dyl)<16){var py=(16-Math.abs(dyl))/2+.6;if(dyl<=0){a.ly-=py;b.ly+=py;}else{a.ly+=py;b.ly-=py;}var px=(minx-Math.abs(dxl))/8;if(dxl<=0){a.lx-=px;b.lx+=px;}else{a.lx+=px;b.lx-=px;}}}}
+    L.forEach(function(l){l.lx=Math.max(l.w/2+6,Math.min(720-l.w/2-6,l.lx));l.ly=Math.max(16,Math.min(592,l.ly));});
+    return L;
+  }
+  function draw(){
+    while(SVG.firstChild)SVG.removeChild(SVG.firstChild);
+    var _defs=el('defs',{});var _f=el('filter',{id:'dyn-glow',x:'-60%',y:'-60%',width:'220%',height:'220%'});_f.appendChild(el('feGaussianBlur',{stdDeviation:'2.4'}));_defs.appendChild(_f);
+    var _gg=el('radialGradient',{id:'dyn-gloss',cx:'0.35',cy:'0.28',r:'0.8'});_gg.appendChild(el('stop',{offset:'0','stop-color':'#ffffff','stop-opacity':'0.5'}));_gg.appendChild(el('stop',{offset:'0.45','stop-color':'#ffffff','stop-opacity':'0.06'}));_gg.appendChild(el('stop',{offset:'1','stop-color':'#ffffff','stop-opacity':'0'}));_defs.appendChild(_gg);
+    SVG.appendChild(_defs);
+    var lg=document.getElementById('dyn-legend');
+    var labels=labelsFor(TAB);
+    if(!labels.length){var tx=el('text',{x:360,y:300,fill:cvar('--dim'),'font-size':16,'text-anchor':'middle','font-family':cvar('--fb')});tx.textContent=EMPTY;SVG.appendChild(tx);if(lg)lg.innerHTML='';return;}
+    var series={};labels.forEach(function(l){series[l]=trailTo(TAB,l,FRAME);});
+    var TAILF=0.5;var disp={};labels.forEach(function(l){var s=series[l];if(s.length<2){disp[l]=s;return;}var h=s[s.length-1];disp[l]=s.map(function(p,i){return i===s.length-1?p:{x:h.x+(p.x-h.x)*TAILF,y:h.y+(p.y-h.y)*TAILF};});});
+    var W=720,H=600,pad=52,x0=pad,x1=W-pad,y0=pad,y1=H-pad;
+    var _fa=fixedAxis(TAB),hx=_fa.hx,hy=_fa.hy;
+    var mx=function(v){return x0+(Math.max(-hx,Math.min(hx,v))+hx)/(2*hx)*(x1-x0);},my=function(v){return y1-(Math.max(-hy,Math.min(hy,v))+hy)/(2*hy)*(y1-y0);};
+    var cx=mx(0),cy=my(0),qf={imp:cvar('--dyn-imp'),led:cvar('--dyn-led'),lag:cvar('--dyn-lag'),wk:cvar('--dyn-wk')};
+    [['imp',x0,y0,cx-x0,cy-y0],['led',cx,y0,x1-cx,cy-y0],['lag',x0,cy,cx-x0,y1-cy],['wk',cx,cy,x1-cx,y1-cy]].forEach(function(r){SVG.appendChild(el('rect',{x:r[1],y:r[2],width:r[3],height:r[4],fill:qf[r[0]],opacity:.055}));});
+    SVG.appendChild(el('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:'none',stroke:cvar('--border')}));
+    SVG.appendChild(el('line',{x1:cx,y1:y0,x2:cx,y2:y1,stroke:cvar('--border'),'stroke-width':.6,'stroke-dasharray':'2 5',opacity:.32}));
+    SVG.appendChild(el('line',{x1:x0,y1:cy,x2:x1,y2:cy,stroke:cvar('--border'),'stroke-width':.6,'stroke-dasharray':'2 5',opacity:.32}));
+    [['落後',x0-6,cy+5,'lag','end'],['領先',x1+6,cy+5,'led','start'],['轉強',cx,y0-10,'imp','middle'],['轉弱',cx,y1+21,'wk','middle']].forEach(function(l){var t=el('text',{x:l[1],y:l[2],fill:qf[l[3]],'font-size':18,'font-weight':700,'text-anchor':l[4],'font-family':cvar('--fb')});t.textContent=l[0];SVG.appendChild(t);});
+    SVG.appendChild(el('circle',{cx:cx,cy:cy,r:3.5,fill:cvar('--dim')}));
+    var sp=el('text',{x:cx+7,y:cy-7,fill:cvar('--dim'),'font-size':11,'font-family':cvar('--fm')});sp.textContent=BM;SVG.appendChild(sp);
+    var ri=el('text',{x:x0+5,y:y1-6,fill:cvar('--dim'),'font-size':10.5,'font-family':cvar('--fm')});ri.textContent='REL'+WIN;SVG.appendChild(ri);
+    // 尾巴：歷史各日一小點，並用半透明虛線把「昨天→今天」串起來（座標軸自動縮放，虛線不過長）
+    labels.forEach(function(l,idx){var s=disp[l];if(!s.length)return;var col=colorOf(TAB,l,idx);
+      if(s.length>1){var d='';s.forEach(function(p,i){d+=(i?' L':'M')+mx(p.x).toFixed(1)+','+my(p.y).toFixed(1);});
+        SVG.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':1.3,'stroke-dasharray':'3 4',opacity:.5,'stroke-linejoin':'round'}));}
+      s.forEach(function(p,i){if(i===s.length-1)return;var frac=s.length>1?i/(s.length-1):1;SVG.appendChild(el('circle',{cx:mx(p.x),cy:my(p.y),r:2+1.2*frac,fill:col,opacity:(.28+.42*frac)}));});
+    });
+    // 頭點 + 標籤佈局
+    var nodes=labels.map(function(l,idx){var s=series[l],h=s[s.length-1];var off=(Math.abs(h.x)>hx||Math.abs(h.y)>hy);return{x:mx(h.x),y:my(h.y),label:l,col:colorOf(TAB,l,idx),hx:h.x,hy:h.y,n:latest().data[TAB][l].n,o:latest().data[TAB][l],off:off};});
+    var hero=null;nodes.forEach(function(n){if(!n.off&&(!hero||n.hx>hero.hx))hero=n;});
+    var maxN=1;nodes.forEach(function(n){if((n.n||1)>maxN)maxN=n.n;});
+    function bubR(n){return 7+9*Math.sqrt((n.n||1)/maxN);}
+    var L=layout(nodes,cx,cy);
+    L.forEach(function(l){SVG.appendChild(el('line',{x1:l.n.x,y1:l.n.y,x2:l.lx,y2:l.ly,stroke:cvar('--dim'),'stroke-width':.5,opacity:.35}));});
+    if(hero){SVG.appendChild(el('circle',{cx:hero.x,cy:hero.y,r:bubR(hero)+6,fill:'none',stroke:hero.col,'stroke-width':1.4,'stroke-dasharray':'3 3',opacity:.95,filter:'url(#dyn-glow)'}));}
+    nodes.forEach(function(n,ni){var g=el('g',{});g.style.cursor='pointer';if(n.off){g.appendChild(el('polygon',{points:n.x+','+(n.y-9)+' '+(n.x+8)+','+(n.y+6)+' '+(n.x-8)+','+(n.y+6),fill:n.col,stroke:cvar('--bg'),'stroke-width':1.4}));}else{mkMarker(g,'circle',n.x,n.y,bubR(n),n.col);}
+      g.addEventListener('mousemove',function(ev){var o=n.o||{};
+        var q=(n.hy>=0?(n.hx>=0?'領先':'轉強'):(n.hx>=0?'轉弱':'落後'));
+        var qc=(n.hy>=0?(n.hx>=0?qf.led:qf.imp):(n.hx>=0?qf.wk:qf.lag));
+        function rr(v){if(v==null||isNaN(v))return '<span style="color:var(--dim)">—</span>';var c=v>=0?'#cf6f72':'#5cae88';return '<span style="color:'+c+'">'+(v>=0?'+':'')+v.toFixed(1)+'%</span>';}
+        var mom=n.hy,momT=mom>=0?'加速':'減速',momc=mom>=0?'#cf6f72':'#5cae88';
+        TIP.innerHTML='<b style="font-size:1.08em">'+n.label+'</b>'+(n.n?' · '+n.n+' 支':'')+' · <b style="color:'+qc+'">'+q+'</b>'
+          +'<br><span style="color:var(--dim)">相對強度</span>　REL5 '+rr(o.rel5)+'　REL20 '+rr(o.rel20)+'　REL60 '+rr(o.rel60)
+          +'<br><span style="color:var(--dim)">動能(加速度)</span>　<b style="color:'+momc+'">'+(mom>=0?'+':'')+mom.toFixed(1)+'</b> <span style="color:var(--dim)">'+momT+'（REL'+WIN+'－下一檔）</span>';
+        TIP.style.left=(ev.clientX+14)+'px';TIP.style.top=(ev.clientY+14)+'px';TIP.style.opacity=1;});
+      g.addEventListener('mouseleave',function(){TIP.style.opacity=0;});SVG.appendChild(g);});
+    L.forEach(function(l){var val=(l.n.hx>=0?'+':'')+Math.round(l.n.hx)+'%';var t=el('text',{x:l.lx,y:l.ly+4,'text-anchor':'middle','font-family':cvar('--fb')});var a=el('tspan',{fill:cvar('--text'),'font-size':11,'font-weight':600});a.textContent=l.n.label;var b=el('tspan',{fill:cvar('--dim'),'font-size':9.5,'font-weight':400});b.textContent=' '+val;t.appendChild(a);t.appendChild(b);SVG.appendChild(t);});
+    if(lg){var note=NOTES[TAB]||'';lg.innerHTML='<span style="color:var(--dim)">'+(note?note+'；':'')+'泡泡大小＝成分股數(規模)·滑鼠移上看明細·滾輪縮放／拖曳／雙擊還原</span>';}
+  }
+  new MutationObserver(function(){draw();}).observe(document.body,{attributes:true,attributeFilter:['class']});
+  draw();
+})();
+</script>
+
+
+<!-- ═══ 分享列（固定畫面最下方、永遠可見、不閃爍）自包含注入片段；未來每份報告標配。正本規格見 SKILL-core-render ═══ -->
+<script>
+(function(){
+  if(document.querySelector('.share-bar'))return;
+  var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
+    +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8860b;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
+    +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
+    +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
+    +"body{padding-bottom:64px !important}";
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  var bar=document.createElement('div');bar.className='share-bar';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
+  function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
+  if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
+  function showToast(){toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1800);}
+  bar.querySelector('.share-btn').addEventListener('click',function(){
+    var url=location.href,title=document.title;
+    if(navigator.share){navigator.share({title:title,url:url}).catch(function(){});}
+    else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(showToast).catch(showToast);}
+    else{showToast();}
+  });
+})();
+</script>
+
+<!-- 平板以上提示（手機置中·點擊關閉·記憶）自包含注入片段 -->
+<script>
+(function(){
+  try{if(localStorage.getItem('hideTabletHint')==='1')return;}catch(e){}
+  if(document.querySelector('.tablet-hint'))return;
+  var css='@media(min-width:768px){.tablet-hint{display:none!important}}'
+    +'.tablet-hint{position:fixed;inset:0;z-index:99998;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,6,10,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}'
+    +'.tablet-hint .th-card{max-width:320px;width:100%;background:#12100a;border:1px solid #3a3320;border-radius:16px;padding:26px 24px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.55)}'
+    +'.tablet-hint .th-ico{font-size:34px;margin-bottom:12px}'
+    +'.tablet-hint .th-t{font-size:17px;font-weight:700;color:#e8c877;margin-bottom:8px;line-height:1.5}'
+    +'.tablet-hint .th-s{font-size:13px;color:#b8b09a;line-height:1.7;margin-bottom:16px}'
+    +'.tablet-hint .th-x{font-family:ui-monospace,monospace;font-size:11px;color:#8a8266;letter-spacing:.08em}';
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  var ov=document.createElement('div');ov.className='tablet-hint';
+  ov.innerHTML='<div class="th-card"><div class="th-ico">📱 → 💻</div><div class="th-t">建議使用平板以上</div><div class="th-s">這份報告資訊密度高，用平板或電腦看，版面才展得開、體驗最佳。手機也能看，只是較擠。</div><div class="th-x">點擊任意處關閉</div></div>';
+  function close(){try{localStorage.setItem('hideTabletHint','1');}catch(e){}if(ov.parentNode)ov.parentNode.removeChild(ov);}
+  ov.addEventListener('click',close);
+  if(document.body)document.body.appendChild(ov);else document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(ov);});
+})();
+</script>
+
+
+<!-- 流量 beacon（自包含 · 打點到 GAS Traffic）— 正本見 SKILL-core-render §B-10c -->
+<script>
+(function(){try{
+  var K='yr_vid',v=localStorage.getItem(K);
+  if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}
+  var seg=location.pathname.split('/').filter(Boolean).pop()||'home';
+  fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',
+    {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
+}catch(e){}})();
+</script>
+<script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
+</body>
+</html>
