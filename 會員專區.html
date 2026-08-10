@@ -392,6 +392,16 @@
       <button class="btn" id="pwBtn" onclick="doChangePw()" style="margin-top:16px;background:linear-gradient(135deg,#30d158,#0fb885);color:#04220f;box-shadow:0 6px 18px rgba(48,209,88,.32)">更新密碼</button>
       <div class="msg" id="pwMsg"></div>
       <div style="border-top:1px solid var(--divider);margin-top:18px;padding-top:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <div>
+            <div style="font-weight:600">新報告 email 通知</div>
+            <div style="font-size:13px;color:var(--dim);margin-top:2px">開啟時，每有新付費報告上線會寄信提醒你。關閉不影響訂閱與閱讀權限。</div>
+          </div>
+          <button class="btn" id="notifyBtn" onclick="doToggleNotify()" style="flex:0 0 auto;min-width:96px;padding:9px 16px">—</button>
+        </div>
+        <div class="msg" id="notifyMsg"></div>
+      </div>
+      <div style="border-top:1px solid var(--divider);margin-top:18px;padding-top:16px">
         <button class="btn" style="background:linear-gradient(135deg,#c0392b,#ff5a4d);color:#fff;box-shadow:0 6px 18px rgba(192,57,43,.35)" onclick="var c=document.getElementById('cancelBox');c.style.display=(c.style.display==='none'||!c.style.display)?'block':'none'">取消訂閱</button>
         <div id="cancelBox" style="display:none;font-size:13px;color:var(--dim);line-height:1.85;margin-top:12px">
           取消訂閱採人工確認：請來信 <a href="mailto:iamtwispin@gmail.com?subject=取消訂閱">iamtwispin@gmail.com</a> 或 <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">私訊粉專</a>，附上你的訂閱 email。我們會在<b style="color:var(--text)">下一期起停止扣款</b>，當期已開通的內容仍可使用到期末。
@@ -503,8 +513,31 @@
     el('dProg').innerHTML=progText(d);
     renderLadder(d);
     renderCerts(d.certified);
+    setNotifyBtn(!!d.notifyOff);
     loadPaidList();
     window.scrollTo(0,0);
+  }
+  // 電子報通知開關（off=true 代表退訂）
+  var curNotifyOff=false;
+  function setNotifyBtn(off){
+    curNotifyOff=!!off;
+    var b=el('notifyBtn'); if(!b)return;
+    b.textContent=off?'已關閉 · 開啟':'已開啟 · 關閉';
+    b.style.background=off?'var(--divider)':'linear-gradient(135deg,#e0a526,#c8901c)';
+    b.style.color=off?'var(--text)':'#080b10';
+    b.style.fontWeight='700';
+  }
+  function doToggleNotify(){
+    var next=!curNotifyOff, m=el('notifyMsg'), b=el('notifyBtn');
+    m.className='msg ok'; m.textContent='更新中…'; b.disabled=true;
+    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'setNotifyPref',email:curEmail,password:curPw,off:next})})
+      .then(function(r){return r.json();})
+      .then(function(res){
+        b.disabled=false;
+        if(res&&res.ok){ setNotifyBtn(res.notifyOff); m.className='msg ok'; m.textContent=res.notifyOff?'已關閉通知，之後不再收到新報告 email':'已開啟通知'; }
+        else { m.className='msg'; m.textContent=(res&&res.error)||'更新失敗'; }
+      })
+      .catch(function(){b.disabled=false;m.className='msg';m.textContent='連線失敗，請稍後再試';});
   }
   function progText(d){
     var ns=d.nextStep;

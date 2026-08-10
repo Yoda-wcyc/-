@@ -942,6 +942,7 @@ function renderReports(){
       +'<td style="white-space:nowrap">'
         +'<button class="mini-act" onclick="saveReport('+i+')">存標題</button> '
         +'<button class="mini-act" onclick="toggleHide('+i+')" style="color:'+(hidden?'var(--green)':'#ff6b6b')+'">'+(hidden?'上架':'下架')+'</button>'
+        +(hasPaid?' <button class="mini-act" onclick="notifyPaid('+i+')" style="color:var(--gold)">寄通知</button>':'')
         +(hasPaid?' <button class="mini-act" onclick="deletePaid('+i+')" style="color:#ff6b6b">刪付費檔</button>':'')
       +'</td></tr>';
   }).join('')||'<tr><td colspan="7"><div class="empty">沒有符合的報告</div></td></tr>';
@@ -970,6 +971,28 @@ function deletePaid(i){
   post({action:'adminDeleteReport',key:KEY,reportId:paidId}).then(function(res){
     if(res&&res.ok){ delete paidSet[paidId]; renderReports(); toast('已刪付費檔(垃圾桶可救回)'); }
     else toast((res&&res.error)||'失敗');
+  }).catch(function(){toast('連線失敗');});
+}
+/* 手動寄「新報告上線」email 給 active 會員（同報告預設只寄一次；已寄過會問是否強制重寄）*/
+function notifyPaid(i){
+  var r=reportRows[i]; if(!r)return;
+  var paidId='付費_'+String(r.file).replace(/\.html?$/i,'');
+  if(!confirm('寄「新付費報告上線」email 給所有 active 會員?\n\n報告：'+paidId+'\n(已在會員專區關閉通知的人不寄；同一報告預設只寄一次)'))return;
+  toast('寄送中…');
+  post({action:'adminNotifyReport',key:KEY,reportId:paidId}).then(function(res){
+    if(!res||!res.ok){ toast((res&&res.error)||'寄送失敗'); return; }
+    if(res.skipped){
+      if(confirm('這份先前已通知過。要「強制重寄」給所有 active 會員嗎?\n(會再寄一次，含先前已收到的人)')) forceNotify(paidId);
+      else toast('已取消，未重寄');
+      return;
+    }
+    toast('已寄：成功 '+res.sent+' / 可寄 '+res.total+(res.failed?'（失敗 '+res.failed+'）':'')+(res.optedOut?'｜退訂 '+res.optedOut:''));
+  }).catch(function(){toast('連線失敗');});
+}
+function forceNotify(paidId){
+  toast('重寄中…');
+  post({action:'adminNotifyReport',key:KEY,reportId:paidId,force:true}).then(function(res){
+    if(res&&res.ok) toast('已重寄：成功 '+res.sent+' / 可寄 '+res.total); else toast((res&&res.error)||'重寄失敗');
   }).catch(function(){toast('連線失敗');});
 }
 
