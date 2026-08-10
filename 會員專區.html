@@ -448,7 +448,10 @@
       .then(function(d){
         btn.disabled=false;
         if(d&&d.sent){ msg.style.color='#34c759'; msg.textContent='若這是有效的會員 email，新密碼已寄出，請到信箱（含垃圾信匣）查收。'; }
-        else{ msg.style.color='#ff6b6b'; msg.textContent=(d&&d.error)||'處理失敗，請稍後再試或私訊粉專。'; }
+        else{ var e=(d&&d.error)||''; msg.style.color='#ff6b6b';
+          msg.textContent = /unknown action/i.test(e)
+            ? '這項功能正在更新中，請稍後再試；急用請私訊粉專或來信 iamtwispin@gmail.com，我們立刻幫你重設。'
+            : (e||'處理失敗，請稍後再試或私訊粉專。'); }
       })
       .catch(function(){btn.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試。';});
   }
