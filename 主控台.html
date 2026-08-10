@@ -536,6 +536,15 @@ tr:hover td{background:var(--surface2)}
   </div>
 </div>
 
+<!-- 通用彈窗（名單檢視等）-->
+<div class="modal-bg" id="genModal">
+  <div class="modal" style="max-width:640px">
+    <h3 id="genModalTitle"></h3>
+    <div id="genModalBody"></div>
+    <div class="modal-btns" id="genModalFoot"><button class="btn-ghost" onclick="closeModal()" style="flex:1;padding:11px">關閉</button></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -753,6 +762,14 @@ function renderRewards(){
 /* ===== 新增會員（寫入 GAS）===== */
 function openAdd(){$('f-first').value=new Date().toISOString().slice(0,10);if($('f-plan'))$('f-plan').value='創始';$('addModal').classList.add('show');}
 function closeAdd(){$('addModal').classList.remove('show');}
+/* 通用彈窗：title 標題、bodyHtml 內容、footHtml 額外按鈕（會附「關閉」）*/
+function openModal(title,bodyHtml,footHtml){
+  $('genModalTitle').innerHTML=title||'';
+  $('genModalBody').innerHTML=bodyHtml||'';
+  $('genModalFoot').innerHTML=(footHtml||'')+'<button class="btn-ghost" onclick="closeModal()" style="flex:1;padding:11px">關閉</button>';
+  $('genModal').classList.add('show');
+}
+function closeModal(){$('genModal').classList.remove('show');}
 function saveAdd(){
   const email=$('f-email').value.trim(),pw=$('f-pw').value.trim(),ref=$('f-ref').value.trim(),first=$('f-first').value,plan=($('f-plan')&&$('f-plan').value)||'創始',fbname=($('f-fbname')&&$('f-fbname').value.trim())||'';
   if(!email||!pw){toast('請填 Email 與密碼');return;}
@@ -1007,12 +1024,21 @@ function renderPaidFiles(pd){
   if(!paidFiles.length){ box.innerHTML='<tr><td colspan="5"><div class="empty">Drive 目前沒有付費檔</div></td></tr>'; return; }
   box.innerHTML=paidFiles.slice().sort(function(a,b){return String(b.reportId).localeCompare(String(a.reportId));}).map(function(x){
     var up=x.updated?String(x.updated).slice(0,10):'';
-    var notified=x.notified?('<span class="pill plan-f">✓ 已寄'+(x.notifiedAt?(' '+escH(x.notifiedAt)):'')+'</span>'):'<span style="color:var(--dim)">未寄</span>';
+    var sc=x.sentCount||0, at=(x.activeTotal!=null?x.activeTotal:0), un=(x.unsentCount!=null?x.unsentCount:Math.max(0,at-sc));
+    var notified = at===0
+      ? '<span style="color:var(--dim)">目前無 active 會員</span>'
+      : (sc===0
+          ? '<span style="color:var(--dim)">未寄</span>'
+          : '<span class="pill '+(un===0?'plan-f':'')+'">已寄 '+sc+' · 未寄 '+un+'</span>'
+            + (x.notifiedAt?' <span style="color:var(--dim);font-size:11px">'+escH(x.notifiedAt)+'</span>':''));
+    var notifyBtn = un>0
+      ? '<button class="mini-act" onclick="doNotify(\''+escJs(x.reportId)+'\')" style="color:var(--gold)">補寄未收到（'+un+'）</button>'
+      : '<span style="color:var(--dim);font-size:12px">全員已收</span>';
     return '<tr>'
       +'<td><span class="email">'+escH(x.reportId)+'</span></td>'
       +'<td>'+escH(up)+'</td>'
       +'<td>'+notified+'</td>'
-      +'<td style="white-space:nowrap"><button class="mini-act" onclick="doNotify(\''+escJs(x.reportId)+'\')" style="color:var(--gold)">寄通知</button></td>'
+      +'<td style="white-space:nowrap">'+notifyBtn+' <button class="mini-act" onclick="viewRecipients(\''+escJs(x.reportId)+'\')" style="color:var(--dim)">名單</button></td>'
       +'<td style="text-align:center"><input type="checkbox" class="paid-chk" data-id="'+escH(x.reportId)+'"></td>'
       +'</tr>';
   }).join('');
@@ -1031,24 +1057,41 @@ function deleteSelectedPaid(){
   })();
 }
 
-/* 手動寄「新報告上線」email 給 active 會員（同報告預設只寄一次；已寄過會問是否強制重寄）*/
+/* 逐會員去重：只補寄給「還沒收過這份」的 active 會員。之後有新會員加入，再按一次只補寄他們 */
 function doNotify(paidId){
-  if(!confirm('寄「新付費報告上線」email 給所有 active 會員?\n\n報告：'+paidId+'\n(已在會員專區關閉通知的人不寄；同一報告預設只寄一次)'))return;
+  if(!confirm('補寄「新付費報告上線」email 給【還沒收過這份】的 active 會員?\n\n報告：'+paidId+'\n(已收過的人不會再收到；已在會員專區關閉通知的人不寄)'))return;
   toast('寄送中…');
   post({action:'adminNotifyReport',key:KEY,reportId:paidId}).then(function(res){
     if(!res||!res.ok){ toast((res&&res.error)||'寄送失敗'); return; }
-    if(res.skipped){
-      if(confirm('這份先前已通知過。要「強制重寄」給所有 active 會員嗎?\n(會再寄一次，含先前已收到的人)')) forceNotify(paidId);
-      else toast('已取消，未重寄');
-      return;
+    if((res.sent||0)===0 && (res.alreadySent||0)>0){
+      if(confirm('所有 active 會員都已收過這份（'+res.alreadySent+' 位）。\n要「強制重寄」給全部人嗎?（含已收過的人）')) forceNotify(paidId);
+      else toast('沒有需要補寄的人');
+    }else{
+      toast('已補寄 '+res.sent+' 位新會員｜先前已寄 '+(res.alreadySent||0)+(res.failed?'（失敗 '+res.failed+'）':'')+(res.skippedQuota?'｜配額略過 '+res.skippedQuota:''));
     }
-    toast('已寄：成功 '+res.sent+' / 可寄 '+res.total+(res.failed?'（失敗 '+res.failed+'）':'')+(res.optedOut?'｜退訂 '+res.optedOut:''));
+    loadPaidReports();
   }).catch(function(){toast('連線失敗');});
 }
 function forceNotify(paidId){
   toast('重寄中…');
   post({action:'adminNotifyReport',key:KEY,reportId:paidId,force:true}).then(function(res){
-    if(res&&res.ok) toast('已重寄：成功 '+res.sent+' / 可寄 '+res.total); else toast((res&&res.error)||'重寄失敗');
+    if(res&&res.ok){ toast('已重寄：成功 '+res.sent+' / 共 '+res.total); loadPaidReports(); }
+    else toast((res&&res.error)||'重寄失敗');
+  }).catch(function(){toast('連線失敗');});
+}
+/* 查這份報告的已寄/未寄名單，並可對未寄的人一鍵補寄 */
+function viewRecipients(paidId){
+  toast('讀取名單…');
+  post({action:'adminReportRecipients',key:KEY,reportId:paidId}).then(function(res){
+    if(!res||!res.ok){ toast((res&&res.error)||'讀取失敗（GAS 可能尚未部署新版本）'); return; }
+    var sent=res.sent||[], unsent=res.unsent||[];
+    var fmt=function(a){ return a.length? a.map(function(m){ var n=(m.name?(' <span style="color:var(--dim)">('+escH(m.name)+')</span>'):''); return '<div style="padding:3px 0;border-bottom:1px solid var(--border)">'+escH(m.email)+n+'</div>'; }).join('') : '<div style="color:var(--dim);padding:6px 0">（無）</div>'; };
+    var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'
+      +'<div><div style="font-weight:700;margin-bottom:6px;color:#e08">🔴 還沒寄（'+unsent.length+'）</div>'+fmt(unsent)+'</div>'
+      +'<div><div style="font-weight:700;margin-bottom:6px;color:#4c9">🟢 已經寄（'+sent.length+'）</div>'+fmt(sent)+'</div>'
+      +'</div>';
+    var foot = unsent.length? '<button class="btn-primary" onclick="closeModal();doNotify(\''+escJs(paidId)+'\')">只補寄給還沒寄的 '+unsent.length+' 位</button>' : '';
+    openModal('已寄／未寄名單 · '+escH(paidId), html, foot);
   }).catch(function(){toast('連線失敗');});
 }
 
