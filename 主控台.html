@@ -578,7 +578,7 @@ function login(){
 }
 function mapMember(g){
   const st=g.status==='active'?'有效':g.status==='cancelled'?'已取消':(g.status==='expired'||g.status==='late')?'逾期':(g.status||'有效');
-  return {id:g.member_id, name:(String(g.email||'').split('@')[0]||g.member_id), email:g.email||'',
+  return {id:g.member_id, pub:g.pub_id||'', name:(String(g.email||'').split('@')[0]||g.member_id), email:g.email||'',
     plan:(g.plan==='一般'?'一般':'創始'), fb:g.fb_name||'', next:g.next_charge_date||'', status:st,
     streak:Number(g.paid_periods)||0, ref:g.referred_by||'', refCode:g.ref_code||'',
     comp:Number(g.granted)||0, paidRefs:Number(g.referred_paid_count)||0};
@@ -664,14 +664,14 @@ function renderMembers(){
   const sf=$('memFilter').value;
   const rows=members.filter(m=>{
     if(sf!=='all'&&m.status!==sf)return false;
-    if(q&&!(m.name.toLowerCase().includes(q)||m.email.toLowerCase().includes(q)||m.id.toLowerCase().includes(q)))return false;
+    if(q&&!(m.name.toLowerCase().includes(q)||m.email.toLowerCase().includes(q)||m.id.toLowerCase().includes(q)||(m.pub||'').toLowerCase().includes(q)))return false;
     return true;
   });
   const dots=n=>Array.from({length:Math.max(3,n)},(_,i)=>`<span class="streak-dot ${i<n?'':'off'}"></span>`).join('');
   $('memBody').innerHTML=rows.map(m=>{
     const stCls=m.status==='有效'?'ok':m.status==='逾期'?'late':'cancel';
     return `<tr>
-      <td><span class="id">${m.id}</span></td>
+      <td><span class="id">${m.id}</span>${m.pub?`<div class="email" style="color:var(--gold)" title="會員端看到的公開亂碼編號">${m.pub}</div>`:''}</td>
       <td><div>${m.name}</div><div class="email">${m.email}</div></td>
       <td>${fbCell(m)}</td>
       <td>${planBadge(m)}</td>
