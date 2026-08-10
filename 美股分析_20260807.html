@@ -1771,6 +1771,8 @@ function sortTable(th){
 .rh-exp{background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-top:10px;padding:10px 12px;display:none;}
 .rh-exp.on{display:block;}
 .rh-exp h4{margin:0 0 8px;font-size:calc(var(--fs)*.68);color:var(--text);}
+.rh-exp-tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.rh-exp-tbl table{width:100%;border-collapse:collapse;}
 .tstk{display:inline-flex;align-items:center;gap:5px;font-size:calc(var(--fs)*.62);padding:3px 9px;margin:3px 5px 3px 0;border-radius:999px;background:var(--surface2);border:1px solid var(--border);}
 .tstk i{width:8px;height:8px;border-radius:50%;display:inline-block;}
 .tgrp-l{font-size:calc(var(--fs)*.6);color:var(--dim);font-weight:700;margin:8px 0 2px;}
@@ -1853,6 +1855,8 @@ function ringLegend(items,clickfn){return '<div class="rh-legend">'+items.map(fu
 var TAG='<span class="viz-tag">視覺化</span>';
 function wrap(html){var d=document.createElement('div');d.className='viz-wrap';d.innerHTML=html;return d;}
 function hostAfter(el){var h=document.createElement('div');el.parentNode.insertBefore(h,el.nextSibling);return h;}
+/* 視覺化插在「章節說明 .sec-note」之後（標題/說明保持在圖上方），找不到 note 才退回 header 之後 */
+function afterNote(sec){var n=sec.nextElementSibling;while(n){if(n.classList&&n.classList.contains('sec-note'))return n.nextSibling;if(n.classList&&(n.classList.contains('ailayer3')||n.classList.contains('scmap')||n.classList.contains('stage-ladder')||n.classList.contains('cat-card')))break;n=n.nextElementSibling;}return sec.nextSibling;}
 
 /* ---------- §03/§04：解析 cat-card 層/圈 → 平均 REL5/20/60 ---------- */
 function sectionCards(secId,nextId){var sec=document.getElementById(secId);if(!sec)return [];var next=nextId?document.getElementById(nextId):null;
@@ -1875,9 +1879,9 @@ function renderLayerRadial(secId,nextId,title,sub,clickName){
  var layers=parseLayers(secId,nextId);var sec=document.getElementById(secId);if(!layers||!sec)return;
  var rings=layers.map(function(l){return {v:l.v};});
  var legend=layers.map(function(l){return [['內圈 ','中圈 ','外圈 '][layers.indexOf(l)]+l.title,l.n+' 檔'];});
- window[clickName]=function(i){var c=layers[i]&&layers[i].card;if(c){var h=c.querySelector('.cat-hdr');if(h&&c.querySelector('.cat-det')&&getComputedStyle(c.querySelector('.cat-det')).display==='none')h.click();c.scrollIntoView({behavior:'smooth',block:'center'});}};
- var box=wrap('<div class="viz-h">'+TAG+'◎ '+title+'</div><div class="viz-sub">'+sub+'</div><div class="rh-row">'+radialSVG(rings,SECREL,ANG3,clickName,'value')+ringLegend(legend,clickName)+'</div><div class="rh-hint">▸ 格色＝該層該窗格<b style="color:#cf6f72">平均 REL</b>（<span style="color:#cf6f72">紅=跑贏</span>／<span style="color:#5cae88">綠=跑輸</span>大盤）；點環／圖例展開該層明細</div>');
- sec.parentNode.insertBefore(box,sec.nextSibling);
+ window[clickName]=function(i){var exp=document.getElementById(clickName+'-exp');if(!exp)return;if(exp.getAttribute('data-open')===String(i)){exp.classList.remove('on');exp.setAttribute('data-open','');exp.innerHTML='';return;}var L=layers[i];var det=L&&L.card?L.card.querySelector('.cat-det'):null;exp.innerHTML='<h4>'+(L?L.title:('第'+(i+1)+'層'))+'</h4>'+(det?'<div class="rh-exp-tbl">'+det.innerHTML+'</div>':'<div style="color:var(--dim)">無資料</div>');exp.classList.add('on');exp.setAttribute('data-open',String(i));};
+ var box=wrap('<div class="viz-h">'+TAG+'◎ '+title+'</div><div class="viz-sub">'+sub+'</div><div class="rh-row">'+radialSVG(rings,SECREL,ANG3,clickName,'value')+ringLegend(legend,clickName)+'</div><div class="rh-hint">▸ 格色＝該層該窗格<b style="color:#cf6f72">平均 REL</b>（<span style="color:#cf6f72">紅=跑贏</span>／<span style="color:#5cae88">綠=跑輸</span>大盤）；點環／圖例 → 明細直接從圖下方展開</div><div class="rh-exp" id="'+clickName+'-exp"></div>');
+ sec.parentNode.insertBefore(box,afterNote(sec));
 }
 
 /* ---------- §06 供應鏈：scbox＝產業區段(scdot 強度)＋sctk 成分股 ---------- */
@@ -1895,9 +1899,9 @@ function renderSupplyRadial(){var scmap=document.getElementById('sec-scmap');var
   if(!t.segs.length){h+='<div style="color:var(--dim);font-size:calc(var(--fs)*.64)">此層較少著墨。</div>';}
   else{h+=t.segs.map(function(s){return '<div class="usseg"><span class="usseg-n"><i style="background:'+CO[s.k]+'"></i>'+s.seg+'</span><span class="usseg-tk">'+(s.stocks.join(' · ')||'—')+'</span></div>';}).join('');}
   return h+'</div>';}
- window.usrad06=function(i){var e=document.getElementById('us06-t'+i);if(e)e.scrollIntoView({behavior:'smooth',block:'center'});};
+ window.usrad06=function(i){var e=document.getElementById('us06-t'+i);if(!e)return;[].forEach.call(document.querySelectorAll('#usrad06-exp [id^="us06-t"]'),function(x){x.style.background='';});e.style.background='rgba(255,255,255,.045)';};
  var box=wrap('<div class="viz-h">'+TAG+'◎ 供應鏈定位 · 徑向熱力圖（配色對齊動態圖）</div><div class="viz-sub">環＝上/中/下游，扇區＝區段籌碼強度（<b style="color:#ec4899">強=洋紅</b>、<b style="color:#f59e0b">中=琥珀</b>、<b style="color:#22d3ee">弱=青</b>）。下方列各區段成分股。點環／圖例跳到該層。</div><div class="rh-row">'+radialSVG(rings,SECSTR,ANG3,'usrad06','count')+ringLegend(tiers.map(function(t){return [t.tag,t.segs.length+' 段·'+t.nstock+' 檔'];}),'usrad06')+'</div><div class="rh-exp on" id="usrad06-exp" style="margin-top:12px">'+tiers.map(tierBlock).join('')+'</div>');
- scmap.parentNode.insertBefore(box,scmap.nextSibling);var sm=$('.scmap');if(sm)sm.style.display='none';
+ scmap.parentNode.insertBefore(box,afterNote(scmap));var sm=$('.scmap');if(sm)sm.style.display='none';
 }
 
 /* ---------- §02 強勢股熱力圖 ---------- */
@@ -1916,7 +1920,7 @@ function renderScreenerHeatmap(){var rows=parseScreener();var sec=document.getEl
  function cell(val,key){var v=pf(val);if(v==null)return '<div class="hm-cell">—</div>';var o=Math.pow(Math.min(1,Math.abs(v)/maxc[key]),0.6);var c=v>=0?'207,111,114':'92,174,136';return '<div class="hm-cell'+(key==sortk?' on':'')+'" style="background:rgba('+c+','+(0.10+0.82*o).toFixed(2)+');color:'+(o>0.55?'#fff':'var(--text)')+'">'+val+'</div>';}
  var box=wrap('<div class="viz-h">'+TAG+'🔥❄ 強勢股／弱勢股熱力圖</div><div class="viz-sub">名單＝三個月新高（強）＋新低（弱）。<b style="color:var(--red)">紅＝強/漲</b>、<b style="color:var(--green)">綠＝弱/跌</b>（每欄各自標準化）。WtdAlpha＝加權年化超額強度；5D/1M/3M＝期間報酬。<b>點欄名排序</b>。</div><div id="ushm-box"></div>');
  box.classList.add('ushm');
- sec.parentNode.insertBefore(box,sec.nextSibling);
+ sec.parentNode.insertBefore(box,afterNote(sec));
  // 刪除（隱藏）原始 screener 表格區塊，只留熱力圖
  var el=box.nextElementSibling;
  while(el){var stop=(el.id&&el.id.indexOf('sec-')===0)||(el.matches&&el.matches('.section-header'))||(el.querySelector&&el.querySelector('[id^="sec-"],.section-header'));if(stop)break;var nx=el.nextElementSibling;if(!el.classList.contains('viz-wrap'))el.style.display='none';el=nx;}
@@ -1939,7 +1943,7 @@ function ladderRender(sec,stages,cfg){
   return '<div class="lad-step" data-i="'+i+'"><div class="lad-num" style="background:'+c+'">'+(s.num||(i+1))+'</div><div class="lad-mid"><div class="lad-name">'+s.name+'</div><div class="lad-state">'+s.state+'</div></div><div class="lad-barwrap"><div class="lad-mid0"></div>'+bar+'</div><div class="lad-val" style="color:'+c+'">'+(v==null?'—':cfg.fmt(v))+'</div><div class="lad-nh">'+(s.extra||'')+'</div></div><div class="lad-exp'+(openi==i?' on':'')+'"><table>'+(s.stocks||'')+'</table></div>';}
  function render(){box.innerHTML='<div class="viz-h"><span class="viz-tag">視覺化</span>⛰ '+cfg.title+'</div><div class="viz-sub">'+cfg.sub+'</div><div class="lad"><div class="lad-rail"></div>'+stages.map(step).join('')+'</div>';}
  box.addEventListener('click',function(e){var st=e.target.closest('.lad-step');if(!st)return;var i=+st.dataset.i;openi=(openi==i?-1:i);render();});
- sec.parentNode.insertBefore(box,sec.nextSibling);render();
+ sec.parentNode.insertBefore(box,afterNote(sec));render();
 }
 function renderLadder(){
  var sec=document.getElementById('sec-ai3');if(!sec)return;
