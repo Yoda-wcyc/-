@@ -211,8 +211,13 @@
         <div class="msg" id="loginMsg"></div>
         <span class="link-sm" onclick="showForgot()">忘記密碼？</span>
         <div class="hint" id="forgotBox" style="display:none;margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:10px">
-          密碼採不可還原加密，我們看不到你的原密碼、無法自動寄回。請來信 <a href="mailto:iamtwispin@gmail.com?subject=會員密碼重設">iamtwispin@gmail.com</a> 或
-          <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">私訊粉專</a>，附上你的訂閱 email，我們會協助你重設。
+          密碼採不可還原加密，我們看不到你的原密碼。輸入你的<b>訂閱 email</b>，系統會<b>寄一組新密碼到你信箱</b>；用它登入後，可到下方「帳戶設定」改成好記的。
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <input id="forgotEmail" type="email" autocomplete="email" placeholder="你的訂閱 email" style="flex:1;min-width:0" onkeydown="if(event.key==='Enter')doForgot()" />
+            <button class="btn" id="forgotBtn" onclick="doForgot()" style="white-space:nowrap;background:linear-gradient(135deg,#e0a526,#b8860b);color:#1a1200">寄新密碼</button>
+          </div>
+          <div class="msg" id="forgotMsg" style="margin-top:8px"></div>
+          <div style="margin-top:8px;font-size:12px;color:var(--dim)">收不到？先看垃圾信匣；仍沒有再來信 <a href="mailto:iamtwispin@gmail.com?subject=會員密碼重設">iamtwispin@gmail.com</a> 或 <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">私訊粉專</a>。</div>
         </div>
       </div>
       <div class="not-yet">
@@ -432,7 +437,21 @@
   (function(){try{var t=localStorage.getItem('member-theme');if(t)setTheme(t);var s=localStorage.getItem('member-size');if(s)setSize(s);}catch(e){}})();
 
   function eyeToggle(id,btn){var p=el(id);if(p.type==='password'){p.type='text';btn.textContent='🙈';}else{p.type='password';btn.textContent='👁';}}
-  function showForgot(){var b=el('forgotBox');b.style.display=b.style.display==='none'?'block':'none';}
+  function showForgot(){var b=el('forgotBox');b.style.display=b.style.display==='none'?'block':'none';if(b.style.display==='block'){var fe=el('forgotEmail'); if(fe&&!fe.value)fe.value=(el('email').value||'').trim();}}
+  function doForgot(){
+    var email=((el('forgotEmail')||{}).value||'').trim();
+    var btn=el('forgotBtn'), msg=el('forgotMsg'); msg.className='msg';
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg.style.color='#ff6b6b';msg.textContent='請輸入正確的 email';return;}
+    btn.disabled=true; msg.style.color='var(--dim)'; msg.textContent='處理中…';
+    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'resetPassword',email:email})})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        btn.disabled=false;
+        if(d&&d.sent){ msg.style.color='#34c759'; msg.textContent='若這是有效的會員 email，新密碼已寄出，請到信箱（含垃圾信匣）查收。'; }
+        else{ msg.style.color='#ff6b6b'; msg.textContent=(d&&d.error)||'處理失敗，請稍後再試或私訊粉專。'; }
+      })
+      .catch(function(){btn.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試。';});
+  }
 
   /* 登入 */
   function doLogin(){
