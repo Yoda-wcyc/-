@@ -415,7 +415,7 @@ tr:hover td{background:var(--surface2)}
     <div class="head">
       <div class="tag">YODA · 付費牆斷點編輯器 v3</div>
       <h1>匯入報告 → 逐段遮標題/遮內容 + 調模糊 → 匯出兩份檔</h1>
-      <p>遮＝真內容<b>實體刪除</b>換成<b style="color:var(--gold)">馬賽克填充塊</b>再套模糊，模糊底下是假填充、不是真字（View Source 也沒真內容，符合 §9-4/§9-5）。<code>.paywall</code> 前的段是 §9-5 保護區、不可遮。</p>
+      <p>遮＝真內容<b>實體刪除</b>換成<b style="color:var(--gold)">馬賽克填充塊</b>再套模糊，模糊底下是假填充、不是真字（View Source 也沒真內容，符合 §9-4/§9-5）。關鍵報告 <code>.paywall</code> 前為 §9-5 保護區不可遮；其餘報告無保護區，分界全由你拖斷點決定。</p>
     </div>
 
     <div class="toolbar">
@@ -438,7 +438,7 @@ tr:hover td{background:var(--surface2)}
     <div class="empty" id="empty">
       <div class="big">📄</div>
       <h2>請先「匯入要編輯的檔案」</h2>
-      <p>選一份關鍵報告 HTML（例如 <code>關鍵報告_YYYYMMDD.html</code>）。工具會依 <code>.paywall</code> 與各 <code>.section</code> 把報告切段。<br>拖金軸＝粗調（線以下整批遮內容）；每段下方 <b>［標題］［內容］</b> 鈕＝逐段自由開關；上方滑桿調馬賽克模糊強弱。</p>
+      <p>選任一份報告 HTML：<b>關鍵報告 / 簡報 / 市場觀察 / 美股 / 台股 / AI泡沫 / 總經</b> 都支援，匯入時自動判母板類型並切段。<br>拖金軸＝粗調（線以下整批遮內容）；每段下方 <b>［標題］［內容］</b> 鈕＝逐段自由開關；上方滑桿調馬賽克模糊強弱。<br>付費報告免費分享時,自由拖斷點決定放行到哪。</p>
     </div>
 
     <div id="workspace" class="hidden">
@@ -869,11 +869,70 @@ function logout(){try{localStorage.removeItem('yoda_admin_key');}catch(e){}locat
    付費牆斷點編輯器（v3）— 併入主控台「付費牆」分頁
    全部作用在 #v-paywall 內的元素；純前端，不呼叫 GAS。
    ============================================================ */
-var doc=null, BLOCKS=[], BLOCK_SEL='.track-box, .conclusion-box, .section';
-var N=0, minCut=0, cut=0, srcName='關鍵報告', blurPx=6, blockEls=[], dragging=false;
+var doc=null, BLOCKS=[], PROFILE=null;
+var N=0, minCut=0, cut=0, srcName='報告', blurPx=6, blockEls=[], dragging=false;
 var SUBSCRIBE_URL='https://yoda-wcyc.github.io/-/subscribe.html', CTA_LABEL='🔓 解鎖完整版', WM_BAKE=true;
 var editor=document.getElementById('editor'), divider=document.getElementById('divider');
 var handle=divider.querySelector('.handle'), handleLabel=document.getElementById('handle-label');
+
+/* ── 母板 profile 表:支援全報告類型 ──
+   三種切段模式:
+   • element  一段=一個容器元素(遮＝清容器內容、留表頭、塞馬賽克)
+   • delimited 一段=分隔標記 + 其後兄弟節點直到下一個標記(us/tw 扁平結構)  */
+var PROFILES={
+  key:{ label:'關鍵報告 / 簡報', mode:'element',
+    blockSel:'.track-box, .conclusion-box, .section',
+    titleSel:'.sec-title, .track-label, .conclusion-box-title',
+    bodySel:'.sec-body, .conclusion-box-text',
+    headKeepSel:'.sec-head', paywallSel:'.paywall',
+    protectKW:['導讀','發生什麼','為什麼','所以我該怎麼想','成績單','track'] },
+  wrapped:{ label:'市場觀察 / AI泡沫 / 總經', mode:'element',
+    blockSel:'.content-section',
+    titleSel:'.section-title', bodySel:'.section-desc',
+    headKeepSel:'.section-header', paywallSel:null, protectKW:[] },
+  flat:{ label:'美股 / 台股', mode:'delimited',
+    headerSel:'.section-header',
+    titleSel:'.section-title', bodySel:'.section-desc',
+    paywallSel:null, protectKW:[] }
+};
+function detectProfile(d){
+  var main=d.querySelector('main')||d.body;
+  if(main.querySelector('.content-section')) return PROFILES.wrapped; // mw/ai/總經(有容器,內含 section-header)
+  if(main.querySelector('.section-header'))   return PROFILES.flat;   // us/tw(扁平,無容器)
+  return PROFILES.key;                                                 // 關鍵報告/簡報(.sec-*)
+}
+// 收集切段「把手」:import 在 doc 上跑、export 在 clone 上跑,索引與 BLOCKS 平行對齊
+function collectHandles(d, prof){
+  var main=d.querySelector('main')||d.body, handles=[];
+  if(prof.mode==='element'){
+    Array.from(main.querySelectorAll(prof.blockSel)).forEach(function(el){ handles.push({el:el}); });
+  } else { // delimited:每個 header 起一段,吃到下一個 header 前
+    Array.from(main.querySelectorAll(prof.headerSel)).forEach(function(h){
+      var nodes=[], n=h.nextSibling;
+      while(n){ if(n.nodeType===1 && n.matches && n.matches(prof.headerSel)) break; nodes.push(n); n=n.nextSibling; }
+      handles.push({header:h, nodes:nodes});
+    });
+  }
+  return handles;
+}
+function handleMeta(hnd, prof){
+  var titScope=hnd.el||hnd.header;
+  var titEl=titScope.querySelector(prof.titleSel);
+  var title=titEl?titEl.textContent.trim():'(未命名段)';
+  var text;
+  if(hnd.el){ // element:正文＝容器全文扣掉「保留表頭」的文字(section-desc 副標在表頭內,不算正文)
+    var full=(hnd.el.textContent||'').replace(/\s+/g,' ').trim();
+    var keep=prof.headKeepSel?hnd.el.querySelector(prof.headKeepSel):null;
+    var headText=keep?(keep.textContent||'').replace(/\s+/g,' ').trim():'';
+    if(headText && full.indexOf(headText)===0) text=full.slice(headText.length).trim();
+    else if(title && full.indexOf(title)===0) text=full.slice(title.length).trim();
+    else text=full;
+  } else { // delimited:正文＝header 後的兄弟節點(header 本身不算)
+    text=hnd.nodes.map(function(n){return n.textContent||'';}).join(' ').replace(/\s+/g,' ').trim();
+    if(title && text.indexOf(title)===0) text=text.slice(title.length).trim();
+  }
+  return {title:title, text:text};
+}
 
 // ── 匯入 ──
 document.getElementById('btn-import').onclick=function(){document.getElementById('file-input').click();};
@@ -882,37 +941,29 @@ document.getElementById('file-input').onchange=function(e){
   srcName=f.name.replace(/\.html?$/i,'');
   var rd=new FileReader(); rd.onload=function(){ importHTML(rd.result); }; rd.readAsText(f,'utf-8');
 };
-function textOf(node){
-  var titEl=node.querySelector('.sec-title, .track-label, .conclusion-box-title');
-  var title=titEl?titEl.textContent.trim():'(未命名段)';
-  var bodyEl=node.querySelector('.sec-body, .conclusion-box-text');
-  var text=(bodyEl?bodyEl.textContent:node.textContent).replace(/\s+/g,' ').trim();
-  if(!bodyEl && title && text.indexOf(title)===0) text=text.slice(title.length).trim(); // 無 .sec-body 段：去掉開頭標題，text 只留 body（驗證用得到）
-  return {title:title, text:text};
-}
-var PROTECT_KW=['導讀','發生什麼','為什麼','所以我該怎麼想','成績單','track'];
 function importHTML(html){
   doc=new DOMParser().parseFromString(html,'text/html');
-  var main=doc.querySelector('main')||doc.body;
-  var nodes=Array.from(main.querySelectorAll(BLOCK_SEL));
-  if(!nodes.length){ alert('找不到可切的段落（.section／.track-box／.conclusion-box）。請確認是關鍵報告母板產出的檔。'); return; }
-  var paywall=doc.querySelector('.paywall');
-  BLOCKS=nodes.map(function(node){
-    var m=textOf(node);
-    var before = paywall ? (node.compareDocumentPosition(paywall) & Node.DOCUMENT_POSITION_FOLLOWING) : false;
-    var kw = PROTECT_KW.some(function(k){return m.title.indexOf(k)>=0;});
+  PROFILE=detectProfile(doc);
+  var handles=collectHandles(doc,PROFILE);
+  if(!handles.length){ alert('找不到可切的段落。支援母板:關鍵報告/簡報(.section)、市場觀察/AI/總經(.content-section)、美股/台股(.section-header)。'); return; }
+  var paywall=PROFILE.paywallSel?doc.querySelector(PROFILE.paywallSel):null;
+  BLOCKS=handles.map(function(hnd){
+    var m=handleMeta(hnd,PROFILE);
+    var ref=hnd.el||hnd.header;
+    var before = paywall ? (ref.compareDocumentPosition(paywall) & Node.DOCUMENT_POSITION_FOLLOWING) : false;
+    var kw = PROFILE.protectKW.some(function(k){return m.title.indexOf(k)>=0;});
     return {title:m.title, text:m.text, protect:!!(before||kw), maskTitle:false, maskContent:false};
   });
   N=BLOCKS.length;
   minCut=0; BLOCKS.forEach(function(b,i){ if(b.protect) minCut=i+1; });
-  applyCut(minCut); // 預設：保護區外全遮內容
+  applyCut(minCut); // 預設:保護區外全遮內容(無保護區的母板＝全遮,由你拖金軸放行)
   buildEditor();
   document.getElementById('empty').classList.add('hidden');
   document.getElementById('workspace').classList.remove('hidden');
   document.getElementById('ctrls').classList.remove('hidden');
   document.getElementById('btn-free').disabled=false;
   document.getElementById('btn-paid').disabled=false;
-  document.getElementById('tb-status').innerHTML='已匯入 <b>'+srcName+'</b>　共 <b>'+N+'</b> 段（保護 '+minCut+'）';
+  document.getElementById('tb-status').innerHTML='已匯入 <b>'+srcName+'</b> · 判定為 <b>'+PROFILE.label+'</b>　共 <b>'+N+'</b> 段'+(minCut?'（保護 '+minCut+'）':'（無保護區·全交你設斷點）');
 }
 
 // ── 拖曳粗調：線以下整批遮內容，線以上全開 ──
@@ -1033,28 +1084,36 @@ function frostFiller(len){
 }
 
 // ── 匯出：就地 DOM 手術（遮＝刪真內容＋馬賽克填充＋模糊）──
+function frostBody(clone,text){
+  var d=clone.createElement('div');
+  d.setAttribute('class','sec-body paywall-frost'); d.setAttribute('aria-hidden','true');
+  d.setAttribute('style','filter:blur('+blurPx+'px);-webkit-filter:blur('+blurPx+'px);user-select:none;color:var(--text3,#888);letter-spacing:.12em;line-height:2;word-break:break-all;font-family:monospace;margin-top:8px');
+  d.textContent=frostFiller(text.length); return d;
+}
+function lockNote(clone){
+  var lk=clone.createElement('p'); lk.setAttribute('class','paywall-lock');
+  lk.setAttribute('style','margin-top:10px;font-size:.85em;color:var(--accent,#f0a500);font-weight:700');
+  lk.textContent='🔒 完整內容為付費版 → 解鎖完整版'; return lk;
+}
 function buildFreeDoc(){
-  var clone=doc.cloneNode(true), main=clone.querySelector('main')||clone.body;
-  var nodes=Array.from(main.querySelectorAll(BLOCK_SEL));
-  for(var i=0;i<nodes.length;i++){
+  var clone=doc.cloneNode(true);
+  var handles=collectHandles(clone,PROFILE);              // 在 clone 上重收把手,索引與 BLOCKS 對齊
+  for(var i=0;i<handles.length;i++){
     var b=BLOCKS[i]; if(!b||b.protect||!isMasked(b)) continue;
-    var node=nodes[i];
+    var hnd=handles[i];
     if(b.maskContent){
-      var head=node.querySelector('.sec-head');
-      Array.from(node.childNodes).forEach(function(ch){ if(ch!==head) node.removeChild(ch); }); // 掃 childNodes：連純文字節點({{...}})一併刪，不只元素
-      var d=clone.createElement('div');
-      d.setAttribute('class','sec-body');
-      d.setAttribute('aria-hidden','true');
-      d.setAttribute('style','filter:blur('+blurPx+'px);-webkit-filter:blur('+blurPx+'px);user-select:none;color:var(--text3,#888);letter-spacing:.12em;line-height:2;word-break:break-all;font-family:monospace');
-      d.textContent=frostFiller(b.text.length);
-      node.appendChild(d);
-      var lk=clone.createElement('p');
-      lk.setAttribute('style','margin-top:10px;font-size:.85em;color:var(--accent,#f0a500);font-weight:700');
-      lk.textContent='🔒 完整內容為付費版 → 解鎖完整版';
-      node.appendChild(lk);
+      if(hnd.el){ // element:留表頭、清其餘子節點(連文字節點 {{...}} 一併刪)、塞馬賽克
+        var keep=PROFILE.headKeepSel?hnd.el.querySelector(PROFILE.headKeepSel):null;
+        Array.from(hnd.el.childNodes).forEach(function(ch){ if(ch!==keep) hnd.el.removeChild(ch); });
+        hnd.el.appendChild(frostBody(clone,b.text)); hnd.el.appendChild(lockNote(clone));
+      } else {    // delimited:刪 header 後所有兄弟、在 header 後插馬賽克
+        hnd.nodes.forEach(function(n){ if(n.parentNode) n.parentNode.removeChild(n); });
+        var anchor=hnd.header.nextSibling, par=hnd.header.parentNode;
+        par.insertBefore(frostBody(clone,b.text), anchor); par.insertBefore(lockNote(clone), anchor);
+      }
     }
     if(b.maskTitle){
-      var t=node.querySelector('.sec-title');
+      var titScope=hnd.el||hnd.header, t=titScope.querySelector(PROFILE.titleSel);
       if(t){ t.setAttribute('style','filter:blur('+Math.max(3,blurPx)+'px);user-select:none;color:var(--text3,#888);font-family:monospace'); t.textContent=frostFiller(Math.min(b.title.length,12)); }
     }
   }
