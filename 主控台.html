@@ -297,6 +297,7 @@ tr:hover td{background:var(--surface2)}
     <button class="tab" data-v="waitlist">創始搶先 <span class="badge amber" id="vipBadge"></span></button>
     <button class="tab" data-v="traffic">流量</button>
     <button class="tab" data-v="paywall">付費牆</button>
+    <button class="tab" data-v="reports">報告管理</button>
   </div>
 
   <!-- 總覽 -->
@@ -410,6 +411,27 @@ tr:hover td{background:var(--surface2)}
     </div>
   </div>
 
+  <!-- 報告管理 -->
+  <div class="view" id="v-reports">
+    <div class="livebar" style="color:var(--accent);border-color:var(--accent);background:rgba(41,151,255,.1)">
+      軟下架 / 改標題即時寫回 Sheet「<b>ReportOverrides</b>」,報告站前端載入時合併——<b>不動實體檔</b>。免費報告要真的刪檔請找助理 git;付費報告改 Drive。
+    </div>
+    <div class="toolbar">
+      <input class="search" id="repSearch" placeholder="搜尋檔名 / 標題…" oninput="renderReports()">
+      <select class="filter" id="repFilter" onchange="renderReports()"><option value="all">全部類型</option></select>
+      <select class="filter" id="repVis" onchange="renderReports()">
+        <option value="all">全部狀態</option><option value="shown">顯示中</option><option value="hidden">已下架</option>
+      </select>
+      <button class="btn-done" onclick="loadReports()">↻ 重新整理</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>類型</th><th>日期</th><th>檔名</th><th>顯示標題（空＝用檔名）</th><th>狀態</th><th></th></tr></thead>
+        <tbody id="repBody"></tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- 付費牆斷點編輯器 -->
   <div class="view" id="v-paywall">
     <div class="head">
@@ -423,6 +445,7 @@ tr:hover td{background:var(--surface2)}
       <button class="bigbtn primary" id="btn-import"><span class="ic">📥</span>匯入要編輯的檔案</button>
       <button class="bigbtn free" id="btn-free" disabled><span class="ic">⬇</span>匯出免費檔</button>
       <button class="bigbtn paid" id="btn-paid" disabled><span class="ic">🔒</span>匯出付費檔</button>
+      <button class="bigbtn" id="btn-upload" disabled style="background:transparent;color:var(--accent3);border:2px solid var(--accent3)"><span class="ic">☁</span>上傳付費檔到 Drive</button>
       <div class="tb-status" id="tb-status">尚未匯入檔案</div>
     </div>
 
@@ -724,6 +747,7 @@ function switchView(v){
   if(v==='support')loadSupport();
   if(v==='traffic')loadTraffic();
   if(v==='waitlist')loadWaitlist();
+  if(v==='reports')loadReports();
 }
 
 /* ===== 創始搶先名單 ===== */
@@ -866,6 +890,69 @@ function logout(){try{localStorage.removeItem('yoda_admin_key');}catch(e){}locat
 (function(){try{var s=localStorage.getItem('yoda_admin_key');if(s){$('adminKey').value=s;login();}}catch(e){}})();
 
 /* ============================================================
+   報告管理分頁:讀 reports.json(全清單)+ GAS overrides,軟下架/改標題
+   ============================================================ */
+var reportRows=[], reportOv={};
+function loadReports(){
+  var box=$('repBody'); if(box) box.innerHTML='<tr><td colspan="6"><div class="empty">載入中…</div></td></tr>';
+  Promise.all([
+    fetch('reports.json',{cache:'no-store'}).then(function(r){return r.json();}).catch(function(){return null;}),
+    post({action:'adminReportOverrides',key:KEY}).catch(function(){return null;})
+  ]).then(function(res){
+    var rj=res[0], ov=res[1];
+    reportOv=(ov&&ov.ok&&ov.overrides)||{};
+    var hist=(rj&&rj.history)||[];
+    reportRows=hist.slice().sort(function(a,b){return String(b.date).localeCompare(String(a.date));});
+    var cats=[]; reportRows.forEach(function(r){ if(cats.indexOf(r.cat)<0)cats.push(r.cat); }); cats.sort();
+    var sel=$('repFilter'), cur=sel?sel.value:'all';
+    if(sel){ sel.innerHTML='<option value="all">全部類型</option>'+cats.map(function(c){return '<option value="'+escH(c)+'">'+escH(c)+'</option>';}).join(''); sel.value=cur||'all'; }
+    renderReports();
+  });
+}
+function derivedTitle(file){ return String(file).replace(/\.html$/,'').replace(/_/g,' '); }
+function renderReports(){
+  if(!$('repBody'))return;
+  var q=($('repSearch').value||'').trim().toLowerCase(), cf=$('repFilter').value, vf=$('repVis').value;
+  var rows=reportRows.filter(function(r){
+    var ov=reportOv[r.file]||{}, hidden=!!ov.hidden;
+    if(cf!=='all'&&r.cat!==cf)return false;
+    if(vf==='shown'&&hidden)return false;
+    if(vf==='hidden'&&!hidden)return false;
+    if(q){ var t=(ov.title||derivedTitle(r.file)).toLowerCase(); if(t.indexOf(q)<0&&String(r.file).toLowerCase().indexOf(q)<0)return false; }
+    return true;
+  });
+  $('repBody').innerHTML=rows.map(function(r){
+    var i=reportRows.indexOf(r), ov=reportOv[r.file]||{}, hidden=!!ov.hidden, title=ov.title||'';
+    return '<tr>'
+      +'<td><span class="pill '+(r.cat==='關鍵報告'?'plan-f':'plan-n')+'">'+escH(r.cat)+'</span></td>'
+      +'<td>'+escH(r.date)+'</td>'
+      +'<td><span class="email">'+escH(r.file)+'</span></td>'
+      +'<td><input class="search" style="min-width:200px;padding:6px 9px" id="rept_'+i+'" value="'+escH(title)+'" placeholder="'+escH(derivedTitle(r.file))+'"></td>'
+      +'<td>'+(hidden?'<span class="pill late">已下架</span>':'<span class="pill ok">顯示中</span>')+'</td>'
+      +'<td style="white-space:nowrap">'
+        +'<button class="mini-act" onclick="saveReport('+i+')">存標題</button> '
+        +'<button class="mini-act" onclick="toggleHide('+i+')" style="color:'+(hidden?'var(--green)':'#ff6b6b')+'">'+(hidden?'上架':'下架')+'</button>'
+      +'</td></tr>';
+  }).join('')||'<tr><td colspan="6"><div class="empty">沒有符合的報告</div></td></tr>';
+}
+function saveReport(i){
+  var r=reportRows[i]; if(!r)return; var title=$('rept_'+i).value.trim();
+  toast('寫入中…');
+  post({action:'adminSetReportOverride',key:KEY,file:r.file,fields:{title:title}}).then(function(res){
+    if(res&&res.ok){ reportOv[r.file]=reportOv[r.file]||{}; reportOv[r.file].title=title; toast('已更新標題'); }
+    else toast((res&&res.error)||'失敗');
+  }).catch(function(){toast('連線失敗');});
+}
+function toggleHide(i){
+  var r=reportRows[i]; if(!r)return; var ov=reportOv[r.file]||{}, next=!ov.hidden;
+  toast('寫入中…');
+  post({action:'adminSetReportOverride',key:KEY,file:r.file,fields:{hidden:next}}).then(function(res){
+    if(res&&res.ok){ reportOv[r.file]=reportOv[r.file]||{}; reportOv[r.file].hidden=next; renderReports(); toast(next?'已下架':'已上架'); }
+    else toast((res&&res.error)||'失敗');
+  }).catch(function(){toast('連線失敗');});
+}
+
+/* ============================================================
    付費牆斷點編輯器（v3）— 併入主控台「付費牆」分頁
    全部作用在 #v-paywall 內的元素；純前端，不呼叫 GAS。
    ============================================================ */
@@ -963,6 +1050,7 @@ function importHTML(html){
   document.getElementById('ctrls').classList.remove('hidden');
   document.getElementById('btn-free').disabled=false;
   document.getElementById('btn-paid').disabled=false;
+  document.getElementById('btn-upload').disabled=false;
   document.getElementById('tb-status').innerHTML='已匯入 <b>'+srcName+'</b> · 判定為 <b>'+PROFILE.label+'</b>　共 <b>'+N+'</b> 段'+(minCut?'（保護 '+minCut+'）':'（無保護區·全交你設斷點）');
 }
 
@@ -1169,6 +1257,19 @@ document.getElementById('btn-free').onclick=function(){
   download(srcName+'_免費精簡版.html', buildFreeDoc());
 };
 document.getElementById('btn-paid').onclick=function(){ if(!doc) return; download(srcName+'_付費內容.html', buildPaidDoc()); };
+// ── 直接上傳付費檔到私有 Drive（走 GAS adminPutReport;會員以 reportId=付費_<檔名> 讀回）──
+document.getElementById('btn-upload').onclick=function(){
+  if(!doc) return;
+  if(typeof KEY==='undefined'||!KEY){ alert('請先登入主控台(需要管理密碼才能上傳)'); return; }
+  var name='付費_'+srcName;
+  if(!confirm('上傳付費檔到 Drive?\n檔名：'+name+'.html\n會員讀取用 reportId＝'+name+'\n(同名會覆蓋舊檔)')) return;
+  var b=this; b.disabled=true; var old=b.innerHTML; b.innerHTML='<span class="ic">⏳</span>上傳中…';
+  post({action:'adminPutReport',key:KEY,name:name,html:buildPaidDoc()}).then(function(res){
+    b.disabled=false; b.innerHTML=old;
+    if(res&&res.ok){ alert('✅ 已上傳：'+res.reportId+'.html '+(res.updated?'(覆蓋)':'(新增)')+'\n\n會員 reportId＝'+res.reportId+'\n(report-shell 用這個 id 讀回)'); }
+    else alert('上傳失敗：'+((res&&res.error)||'未知錯誤'));
+  }).catch(function(){ b.disabled=false; b.innerHTML=old; alert('連線失敗(可能是本機 file:// CORS,請在線上主控台操作)'); });
+};
 </script>
 <!-- 平板以上提示（手機置中·點擊關閉·記憶）自包含注入片段 -->
 <script>
