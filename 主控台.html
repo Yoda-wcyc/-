@@ -300,7 +300,8 @@ tr:hover td{background:var(--surface2)}
       <button class="tab" data-v="waitlist">創始搶先 <span class="badge amber" id="vipBadge"></span></button>
     </div>
     <div class="tabrow">
-      <button class="tab" data-v="reports">報告管理</button>
+      <button class="tab" data-v="reports">一般報告管理</button>
+      <button class="tab" data-v="paidreports">付費報告管理</button>
       <button class="tab" data-v="paywall">斷點編輯器</button>
       <button class="tab" data-v="traffic">流量</button>
     </div>
@@ -436,16 +437,21 @@ tr:hover td{background:var(--surface2)}
         <tbody id="repBody"></tbody>
       </table>
     </div>
+  </div>
 
-    <div style="margin-top:26px">
-      <div class="panel-h">Drive 付費檔 · 直接寄發布通知</div>
-      <div class="hintbox">這裡列出私有 Drive 內<b>所有</b>付費檔(reportId),不靠 reports.json 比對。每筆可直接寄「新報告上線」email 給 active 會員：退訂者自動跳過、同檔預設只寄一次(可強制重寄)。</div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>reportId（付費檔）</th><th>最後更新</th><th></th></tr></thead>
-          <tbody id="paidBody"><tr><td colspan="3"><div class="empty">按上方「↻ 重新整理」載入</div></td></tr></tbody>
-        </table>
-      </div>
+  <!-- 付費報告管理（Drive 付費檔 · 寄發布通知）-->
+  <div class="view" id="v-paidreports">
+    <div class="livebar" style="color:var(--gold);border-color:var(--gold);background:rgba(240,165,0,.1)">
+      這裡列出私有 Drive 內<b>所有</b>付費檔(reportId),不靠 reports.json 比對。每筆可直接寄「新付費報告上線」email 給 active 會員：<b>退訂者自動跳過、同檔預設只寄一次</b>(可強制重寄)。刪付費檔請到「一般報告管理」對應報告列。
+    </div>
+    <div class="toolbar">
+      <button class="btn-done" onclick="loadPaidReports()">↻ 重新整理</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>reportId（付費檔）</th><th>最後更新</th><th></th></tr></thead>
+        <tbody id="paidBody"><tr><td colspan="3"><div class="empty">按「↻ 重新整理」載入</div></td></tr></tbody>
+      </table>
     </div>
   </div>
 
@@ -765,6 +771,7 @@ function switchView(v){
   if(v==='traffic')loadTraffic();
   if(v==='waitlist')loadWaitlist();
   if(v==='reports')loadReports();
+  if(v==='paidreports')loadPaidReports();
 }
 
 /* ===== 創始搶先名單 ===== */
@@ -912,7 +919,6 @@ function logout(){try{localStorage.removeItem('yoda_admin_key');}catch(e){}locat
 var reportRows=[], reportOv={}, paidSet={}, paidFiles=[];
 function loadReports(){
   var box=$('repBody'); if(box) box.innerHTML='<tr><td colspan="7"><div class="empty">載入中…</div></td></tr>';
-  var pbox=$('paidBody'); if(pbox) pbox.innerHTML='<tr><td colspan="3"><div class="empty">載入中…</div></td></tr>';
   Promise.all([
     fetch('reports.json',{cache:'no-store'}).then(function(r){return r.json();}).catch(function(){return null;}),
     post({action:'adminReportOverrides',key:KEY}).catch(function(){return null;}),
@@ -921,7 +927,6 @@ function loadReports(){
     var rj=res[0], ov=res[1], pd=res[2];
     reportOv=(ov&&ov.ok&&ov.overrides)||{};
     paidSet={}; paidFiles=((pd&&pd.ok&&pd.reports)||[]); paidFiles.forEach(function(x){ paidSet[x.reportId]=true; });
-    renderPaidFiles(pd);
     var hist=(rj&&rj.history)||[];
     reportRows=hist.slice().sort(function(a,b){return String(b.date).localeCompare(String(a.date));});
     var cats=[]; reportRows.forEach(function(r){ if(cats.indexOf(r.cat)<0)cats.push(r.cat); }); cats.sort();
@@ -955,7 +960,6 @@ function renderReports(){
       +'<td style="white-space:nowrap">'
         +'<button class="mini-act" onclick="saveReport('+i+')">存標題</button> '
         +'<button class="mini-act" onclick="toggleHide('+i+')" style="color:'+(hidden?'var(--green)':'#ff6b6b')+'">'+(hidden?'上架':'下架')+'</button>'
-        +(hasPaid?' <button class="mini-act" onclick="notifyPaid('+i+')" style="color:var(--gold)">寄通知</button>':'')
         +(hasPaid?' <button class="mini-act" onclick="deletePaid('+i+')" style="color:#ff6b6b">刪付費檔</button>':'')
       +'</td></tr>';
   }).join('')||'<tr><td colspan="7"><div class="empty">沒有符合的報告</div></td></tr>';
@@ -986,6 +990,14 @@ function deletePaid(i){
     else toast((res&&res.error)||'失敗');
   }).catch(function(){toast('連線失敗');});
 }
+/* 付費報告管理分頁：獨立載入 Drive 付費檔清單 */
+function loadPaidReports(){
+  var box=$('paidBody'); if(box) box.innerHTML='<tr><td colspan="3"><div class="empty">載入中…</div></td></tr>';
+  post({action:'adminListPaid',key:KEY}).then(function(pd){
+    paidFiles=((pd&&pd.ok&&pd.reports)||[]); paidSet={}; paidFiles.forEach(function(x){ paidSet[x.reportId]=true; });
+    renderPaidFiles(pd);
+  }).catch(function(){ renderPaidFiles({ok:false,error:'連線失敗'}); });
+}
 /* Drive 付費檔清單：直接列出所有付費檔，每筆自帶【寄通知】（不靠 reports.json 比對）*/
 function renderPaidFiles(pd){
   var box=$('paidBody'); if(!box)return;
@@ -1003,7 +1015,6 @@ function renderPaidFiles(pd){
 function escJs(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
 
 /* 手動寄「新報告上線」email 給 active 會員（同報告預設只寄一次；已寄過會問是否強制重寄）*/
-function notifyPaid(i){ var r=reportRows[i]; if(!r)return; doNotify('付費_'+String(r.file).replace(/\.html?$/i,'')); }
 function doNotify(paidId){
   if(!confirm('寄「新付費報告上線」email 給所有 active 會員?\n\n報告：'+paidId+'\n(已在會員專區關閉通知的人不寄；同一報告預設只寄一次)'))return;
   toast('寄送中…');
