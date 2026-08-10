@@ -1216,18 +1216,30 @@ function buildFreeDoc(){
   if(head){
     var st=clone.createElement('style');
     st.textContent='@keyframes yodaUnlockPulse{0%,100%{box-shadow:0 4px 14px rgba(240,165,0,.4)}50%{box-shadow:0 6px 26px rgba(240,165,0,.8)}}'
-      +'.yoda-unlock-cta{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:99999;width:33%;min-width:190px;max-width:340px;box-sizing:border-box;text-align:center;background:#f0a500;color:#1a1200;font-weight:700;font-size:15px;font-family:"Noto Sans TC",sans-serif;padding:13px 20px;border-radius:9999px;text-decoration:none;letter-spacing:.03em;animation:yodaUnlockPulse 1.8s ease-in-out infinite}'
+      +'.yoda-unlock-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:99999;display:flex;flex-direction:column;align-items:center;gap:7px;width:33%;min-width:190px;max-width:340px}'
+      +'.yoda-unlock-cta{display:block;width:100%;box-sizing:border-box;text-align:center;background:#f0a500;color:#1a1200;font-weight:700;font-size:15px;font-family:"Noto Sans TC",sans-serif;padding:13px 20px;border-radius:9999px;text-decoration:none;letter-spacing:.03em;animation:yodaUnlockPulse 1.8s ease-in-out infinite}'
       +'.yoda-unlock-cta:hover{background:#ffcb2e}'
-      +'@media(max-width:520px){.yoda-unlock-cta{width:72%;max-width:none}}';
+      +'.yoda-member-link{font-size:12.5px;color:#e8dcc0;text-decoration:none;font-family:"Noto Sans TC",sans-serif;background:rgba(0,0,0,.42);padding:6px 14px;border-radius:9999px;backdrop-filter:blur(4px)}'
+      +'.yoda-member-link:hover{color:#fff;text-decoration:underline}'
+      +'@media(max-width:520px){.yoda-unlock-bar{width:72%;max-width:none}}';
     head.appendChild(st);
   }
+  var bar=clone.createElement('div'); bar.className='yoda-unlock-bar'; bar.setAttribute('data-unlock-cta','');
   var cta=clone.createElement('a');
   cta.className='yoda-unlock-cta';
   cta.setAttribute('href', SUBSCRIBE_URL||'#');
   cta.setAttribute('target','_blank'); cta.setAttribute('rel','noopener');
-  cta.setAttribute('data-unlock-cta','');
   cta.textContent=CTA_LABEL||'🔓 解鎖完整版';
-  (clone.body||main).appendChild(cta);           // 固定定位，掛在 body 尾端即可
+  bar.appendChild(cta);                                                   // 主按鈕：訂閱賣頁(給新客)
+  // 副連結：既有會員直接回「這一篇」的 report-shell(reportId=付費_<檔名>，編輯器自算)
+  var shellUrl=(SUBSCRIBE_URL||'').replace(/[^\/]*$/, 'report-shell.html')+'?id='+encodeURIComponent('付費_'+srcName);
+  var ml=clone.createElement('a');
+  ml.className='yoda-member-link';
+  ml.setAttribute('href', shellUrl);
+  ml.setAttribute('target','_blank'); ml.setAttribute('rel','noopener');
+  ml.textContent='已是會員?讀完整版 →';
+  bar.appendChild(ml);
+  (clone.body||main).appendChild(bar);           // 固定定位，掛在 body 尾端即可
   return '<!DOCTYPE html>\n'+clone.documentElement.outerHTML;
 }
 // 付費檔＝完整整份報告（含 head/CSS，會員看全文，塞進 report-shell iframe 才不會亂）＋浮水印底層
