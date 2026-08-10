@@ -271,7 +271,7 @@ tr:hover td{background:var(--surface2)}
   <div class="login-card">
     <h2>主控台</h2>
     <p>輸入後台管理密碼（Code.gs 裡的 <b>ADMIN_KEY</b>）。資料即時來自你的 Google Sheet。</p>
-    <input id="adminKey" type="password" placeholder="管理密碼" autocomplete="off">
+    <div style="position:relative"><input id="adminKey" type="password" placeholder="管理密碼" autocomplete="off" style="padding-right:40px"><button type="button" aria-label="顯示或隱藏密碼" onclick="(function(b){var p=document.getElementById('adminKey');if(p.type==='password'){p.type='text';b.textContent='🙈';}else{p.type='password';b.textContent='👁';}})(this)" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:auto;background:none;border:none;cursor:pointer;font-size:18px;line-height:1;opacity:.6;padding:4px;color:var(--text)">👁</button></div>
     <button id="loginBtn">登入</button>
     <div class="login-msg" id="loginMsg"></div>
   </div>
