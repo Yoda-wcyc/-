@@ -446,11 +446,12 @@ tr:hover td{background:var(--surface2)}
     </div>
     <div class="toolbar">
       <button class="btn-done" onclick="loadPaidReports()">↻ 重新整理</button>
+      <button class="btn-done" style="color:#ff6b6b" onclick="deleteSelectedPaid()">🗑 刪除勾選</button>
     </div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>reportId（付費檔）</th><th>最後更新</th><th></th></tr></thead>
-        <tbody id="paidBody"><tr><td colspan="3"><div class="empty">按「↻ 重新整理」載入</div></td></tr></tbody>
+        <thead><tr><th>reportId（付費檔）</th><th>最後更新</th><th>已寄出通知</th><th>寄通知</th><th style="width:1%;text-align:center;white-space:nowrap"><input type="checkbox" id="paidChkAll" onclick="toggleAllPaid(this)"> 全選</th></tr></thead>
+        <tbody id="paidBody"><tr><td colspan="5"><div class="empty">按「↻ 重新整理」載入</div></td></tr></tbody>
       </table>
     </div>
   </div>
@@ -992,7 +993,7 @@ function deletePaid(i){
 }
 /* 付費報告管理分頁：獨立載入 Drive 付費檔清單 */
 function loadPaidReports(){
-  var box=$('paidBody'); if(box) box.innerHTML='<tr><td colspan="3"><div class="empty">載入中…</div></td></tr>';
+  var box=$('paidBody'); if(box) box.innerHTML='<tr><td colspan="5"><div class="empty">載入中…</div></td></tr>';
   post({action:'adminListPaid',key:KEY}).then(function(pd){
     paidFiles=((pd&&pd.ok&&pd.reports)||[]); paidSet={}; paidFiles.forEach(function(x){ paidSet[x.reportId]=true; });
     renderPaidFiles(pd);
@@ -1001,18 +1002,34 @@ function loadPaidReports(){
 /* Drive 付費檔清單：直接列出所有付費檔，每筆自帶【寄通知】（不靠 reports.json 比對）*/
 function renderPaidFiles(pd){
   var box=$('paidBody'); if(!box)return;
-  if(pd&&pd.ok===false){ box.innerHTML='<tr><td colspan="3"><div class="empty">讀取失敗：'+escH(pd.error||'unknown action（GAS 可能尚未部署新版本）')+'</div></td></tr>'; return; }
-  if(!paidFiles.length){ box.innerHTML='<tr><td colspan="3"><div class="empty">Drive 目前沒有付費檔</div></td></tr>'; return; }
+  var ca=$('paidChkAll'); if(ca)ca.checked=false;
+  if(pd&&pd.ok===false){ box.innerHTML='<tr><td colspan="5"><div class="empty">讀取失敗：'+escH(pd.error||'unknown action（GAS 可能尚未部署新版本）')+'</div></td></tr>'; return; }
+  if(!paidFiles.length){ box.innerHTML='<tr><td colspan="5"><div class="empty">Drive 目前沒有付費檔</div></td></tr>'; return; }
   box.innerHTML=paidFiles.slice().sort(function(a,b){return String(b.reportId).localeCompare(String(a.reportId));}).map(function(x){
     var up=x.updated?String(x.updated).slice(0,10):'';
+    var notified=x.notified?('<span class="pill plan-f">✓ 已寄'+(x.notifiedAt?(' '+escH(x.notifiedAt)):'')+'</span>'):'<span style="color:var(--dim)">未寄</span>';
     return '<tr>'
       +'<td><span class="email">'+escH(x.reportId)+'</span></td>'
       +'<td>'+escH(up)+'</td>'
+      +'<td>'+notified+'</td>'
       +'<td style="white-space:nowrap"><button class="mini-act" onclick="doNotify(\''+escJs(x.reportId)+'\')" style="color:var(--gold)">寄通知</button></td>'
+      +'<td style="text-align:center"><input type="checkbox" class="paid-chk" data-id="'+escH(x.reportId)+'"></td>'
       +'</tr>';
   }).join('');
 }
 function escJs(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+function toggleAllPaid(cb){document.querySelectorAll('#paidBody .paid-chk').forEach(function(c){c.checked=cb.checked;});}
+function deleteSelectedPaid(){
+  var ids=Array.prototype.slice.call(document.querySelectorAll('#paidBody .paid-chk:checked')).map(function(c){return c.dataset.id;}).filter(Boolean);
+  if(!ids.length){toast('先勾選要刪除的付費檔');return;}
+  if(!confirm('確定刪除勾選的 '+ids.length+' 個付費檔？\n（丟進 Drive 垃圾桶，可救回，不是永久刪除）'))return;
+  toast('刪除中…');
+  (async function(){
+    var ok=0;
+    for(var i=0;i<ids.length;i++){ try{ var res=await post({action:'adminDeleteReport',key:KEY,reportId:ids[i]}); if(res&&res.ok)ok++; }catch(e){} }
+    toast('已刪除 '+ok+' / '+ids.length+' 個');loadPaidReports();
+  })();
+}
 
 /* 手動寄「新報告上線」email 給 active 會員（同報告預設只寄一次；已寄過會問是否強制重寄）*/
 function doNotify(paidId){
