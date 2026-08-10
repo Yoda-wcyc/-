@@ -78,8 +78,13 @@
     else{pw.type='password';this.textContent='👁';}
   });
 
-  // 會員專區登入後把密碼放進 sessionStorage → 這裡自動代入送出(免重複輸入;submit 為函式宣告已提升)
-  (function(){ try{ var saved=sessionStorage.getItem('yoda_mpw'); if(saved && reportId){ pw.value=saved; submit(); } }catch(e){} })();
+  // 會員專區登入後把密碼交棒過來 → 這裡自動代入送出(免重複輸入;submit 為函式宣告已提升)
+  // 先讀本分頁 sessionStorage;新分頁開報告時它是空的,改讀同源共用的 localStorage 交棒鍵(1h 內有效)。
+  (function(){ try{
+    var saved=sessionStorage.getItem('yoda_mpw');
+    if(!saved){ var h=localStorage.getItem('yoda_mpw_h'); if(h){ var o=JSON.parse(h); if(o&&o.p&&o.exp>Date.now()){ saved=o.p; try{sessionStorage.setItem('yoda_mpw',saved);}catch(e){} } } }
+    if(saved && reportId){ pw.value=saved; submit(); }
+  }catch(e){} })();
 
   function submit(){
     var v=pw.value.trim();
