@@ -78,6 +78,9 @@
     else{pw.type='password';this.textContent='👁';}
   });
 
+  // 會員專區登入後把密碼放進 sessionStorage → 這裡自動代入送出(免重複輸入;submit 為函式宣告已提升)
+  (function(){ try{ var saved=sessionStorage.getItem('yoda_mpw'); if(saved && reportId){ pw.value=saved; submit(); } }catch(e){} })();
+
   function submit(){
     var v=pw.value.trim();
     if(!v){msg.textContent='請輸入密碼';return;}
@@ -86,8 +89,9 @@
       .then(function(r){return r.json();})
       .then(function(res){
         go.disabled=false; msg.style.color='#ff6b6b';
-        if(!res.allow){msg.textContent=res.error||'密碼錯誤或訂閱已失效';return;}
+        if(!res.allow){ try{if(sessionStorage.getItem('yoda_mpw')===v)sessionStorage.removeItem('yoda_mpw');}catch(e){} msg.textContent=res.error||'密碼錯誤或訂閱已失效';return;}
         if(res.error){msg.textContent=res.error;return;}      // 例如找不到這份報告
+        try{sessionStorage.setItem('yoda_mpw', v);}catch(e){} // 登入一次記在本次瀏覽階段：逛其他付費文章免再輸(關分頁即清)
         render(res.html, res.watermark);
       })
       .catch(function(){go.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試';});

@@ -432,7 +432,7 @@ tr:hover td{background:var(--surface2)}
     </div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>類型</th><th>日期</th><th>檔名</th><th>顯示標題（空＝用檔名）</th><th>狀態</th><th></th></tr></thead>
+        <thead><tr><th>類型</th><th>日期</th><th>檔名</th><th>顯示標題（空＝用檔名）</th><th>狀態</th><th>付費檔</th><th></th></tr></thead>
         <tbody id="repBody"></tbody>
       </table>
     </div>
@@ -898,15 +898,17 @@ function logout(){try{localStorage.removeItem('yoda_admin_key');}catch(e){}locat
 /* ============================================================
    報告管理分頁:讀 reports.json(全清單)+ GAS overrides,軟下架/改標題
    ============================================================ */
-var reportRows=[], reportOv={};
+var reportRows=[], reportOv={}, paidSet={};
 function loadReports(){
-  var box=$('repBody'); if(box) box.innerHTML='<tr><td colspan="6"><div class="empty">載入中…</div></td></tr>';
+  var box=$('repBody'); if(box) box.innerHTML='<tr><td colspan="7"><div class="empty">載入中…</div></td></tr>';
   Promise.all([
     fetch('reports.json',{cache:'no-store'}).then(function(r){return r.json();}).catch(function(){return null;}),
-    post({action:'adminReportOverrides',key:KEY}).catch(function(){return null;})
+    post({action:'adminReportOverrides',key:KEY}).catch(function(){return null;}),
+    post({action:'adminListPaid',key:KEY}).catch(function(){return null;})
   ]).then(function(res){
-    var rj=res[0], ov=res[1];
+    var rj=res[0], ov=res[1], pd=res[2];
     reportOv=(ov&&ov.ok&&ov.overrides)||{};
+    paidSet={}; ((pd&&pd.ok&&pd.reports)||[]).forEach(function(x){ paidSet[x.reportId]=true; });
     var hist=(rj&&rj.history)||[];
     reportRows=hist.slice().sort(function(a,b){return String(b.date).localeCompare(String(a.date));});
     var cats=[]; reportRows.forEach(function(r){ if(cats.indexOf(r.cat)<0)cats.push(r.cat); }); cats.sort();
@@ -929,17 +931,20 @@ function renderReports(){
   });
   $('repBody').innerHTML=rows.map(function(r){
     var i=reportRows.indexOf(r), ov=reportOv[r.file]||{}, hidden=!!ov.hidden, title=ov.title||'';
+    var paidId='付費_'+String(r.file).replace(/\.html?$/i,''), hasPaid=!!paidSet[paidId];
     return '<tr>'
       +'<td><span class="pill '+(r.cat==='關鍵報告'?'plan-f':'plan-n')+'">'+escH(r.cat)+'</span></td>'
       +'<td>'+escH(r.date)+'</td>'
       +'<td><span class="email">'+escH(r.file)+'</span></td>'
       +'<td><input class="search" style="min-width:200px;padding:6px 9px" id="rept_'+i+'" value="'+escH(title)+'" placeholder="'+escH(derivedTitle(r.file))+'"></td>'
       +'<td>'+(hidden?'<span class="pill late">已下架</span>':'<span class="pill ok">顯示中</span>')+'</td>'
+      +'<td>'+(hasPaid?'<span class="pill ok">有</span>':'<span class="email">無</span>')+'</td>'
       +'<td style="white-space:nowrap">'
         +'<button class="mini-act" onclick="saveReport('+i+')">存標題</button> '
         +'<button class="mini-act" onclick="toggleHide('+i+')" style="color:'+(hidden?'var(--green)':'#ff6b6b')+'">'+(hidden?'上架':'下架')+'</button>'
+        +(hasPaid?' <button class="mini-act" onclick="deletePaid('+i+')" style="color:#ff6b6b">刪付費檔</button>':'')
       +'</td></tr>';
-  }).join('')||'<tr><td colspan="6"><div class="empty">沒有符合的報告</div></td></tr>';
+  }).join('')||'<tr><td colspan="7"><div class="empty">沒有符合的報告</div></td></tr>';
 }
 function saveReport(i){
   var r=reportRows[i]; if(!r)return; var title=$('rept_'+i).value.trim();
@@ -954,6 +959,16 @@ function toggleHide(i){
   toast('寫入中…');
   post({action:'adminSetReportOverride',key:KEY,file:r.file,fields:{hidden:next}}).then(function(res){
     if(res&&res.ok){ reportOv[r.file]=reportOv[r.file]||{}; reportOv[r.file].hidden=next; renderReports(); toast(next?'已下架':'已上架'); }
+    else toast((res&&res.error)||'失敗');
+  }).catch(function(){toast('連線失敗');});
+}
+function deletePaid(i){
+  var r=reportRows[i]; if(!r)return;
+  var paidId='付費_'+String(r.file).replace(/\.html?$/i,'');
+  if(!confirm('刪除付費檔?\n'+paidId+'.html\n(丟進 Drive 垃圾桶,可救回;會員將讀不到這篇完整版)'))return;
+  toast('刪除中…');
+  post({action:'adminDeleteReport',key:KEY,reportId:paidId}).then(function(res){
+    if(res&&res.ok){ delete paidSet[paidId]; renderReports(); toast('已刪付費檔(垃圾桶可救回)'); }
     else toast((res&&res.error)||'失敗');
   }).catch(function(){toast('連線失敗');});
 }
