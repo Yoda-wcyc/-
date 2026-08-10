@@ -52,7 +52,9 @@ html[data-theme="light"] .controls-bar{background:rgba(255,255,255,.82)}
 .livebar{background:rgba(255,159,10,.12);border:1px solid var(--amber);border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--amber);margin-bottom:16px;line-height:1.6}
 
 /* 分頁 */
-.tabs{display:flex;gap:4px;margin:18px 0 20px;border-bottom:1px solid var(--divider)}
+.tabs{display:flex;flex-direction:column;gap:6px;margin:18px 0 20px;border-bottom:1px solid var(--divider);padding-bottom:2px}
+.tabrow{display:flex;gap:4px;flex-wrap:wrap;align-items:flex-end}
+.tabrow+.tabrow{border-top:1px dashed var(--divider);padding-top:6px}
 .tab{font-size:14px;font-weight:600;color:var(--dim);background:none;border:none;padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
 .tab:hover{color:var(--text)}
 .tab.active{color:var(--text);border-bottom-color:var(--accent)}
@@ -289,15 +291,19 @@ tr:hover td{background:var(--surface2)}
   </div>
 
   <div class="tabs" id="tabs">
-    <button class="tab active" data-v="dash">總覽</button>
-    <button class="tab" data-v="members">會員名單</button>
-    <button class="tab" data-v="recon">本月對帳 <span class="badge" id="reconBadge"></span></button>
-    <button class="tab" data-v="rewards">推薦與獎勵 <span class="badge amber" id="rewardBadge"></span></button>
-    <button class="tab" data-v="support">客服工單 <span class="badge" id="supBadge"></span></button>
-    <button class="tab" data-v="waitlist">創始搶先 <span class="badge amber" id="vipBadge"></span></button>
-    <button class="tab" data-v="traffic">流量</button>
-    <button class="tab" data-v="paywall">付費牆</button>
-    <button class="tab" data-v="reports">報告管理</button>
+    <div class="tabrow">
+      <button class="tab active" data-v="dash">總覽</button>
+      <button class="tab" data-v="members">會員名單</button>
+      <button class="tab" data-v="recon">本月對帳 <span class="badge" id="reconBadge"></span></button>
+      <button class="tab" data-v="rewards">推薦與獎勵 <span class="badge amber" id="rewardBadge"></span></button>
+      <button class="tab" data-v="support">客服工單 <span class="badge" id="supBadge"></span></button>
+      <button class="tab" data-v="waitlist">創始搶先 <span class="badge amber" id="vipBadge"></span></button>
+    </div>
+    <div class="tabrow">
+      <button class="tab" data-v="reports">報告管理</button>
+      <button class="tab" data-v="paywall">斷點編輯器</button>
+      <button class="tab" data-v="traffic">流量</button>
+    </div>
   </div>
 
   <!-- 總覽 -->
