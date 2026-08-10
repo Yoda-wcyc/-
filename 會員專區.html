@@ -456,7 +456,7 @@
         if(remember){try{localStorage.setItem(LS_EMAIL,email);localStorage.setItem(LS_PW,pw);}catch(e){}}
         curEmail=email; curPw=pw;
         try{sessionStorage.setItem('yoda_mpw',pw);}catch(e){} // 存本次瀏覽階段 → report-shell 自動登入,逛付費文章免再輸
-        try{localStorage.setItem('yoda_mpw_h',JSON.stringify({p:pw,exp:Date.now()+3600000}));}catch(e){} // 跨分頁交棒：報告用新分頁開,sessionStorage 不共用,靠這個(同源共用,1h 後失效)自動代入
+        try{localStorage.setItem('yoda_mpw_h',JSON.stringify({p:pw}));}catch(e){} // 跨分頁交棒＋這台裝置永久記住(同源共用,直到登出才清;訂閱到期時報告頁驗證失敗也會自動清)
         renderDash(d);
       })
       .catch(function(){btn.disabled=false;if(!silent){msg.className='msg';msg.textContent='連線失敗，請稍後再試';}});

@@ -82,7 +82,7 @@
   // 先讀本分頁 sessionStorage;新分頁開報告時它是空的,改讀同源共用的 localStorage 交棒鍵(1h 內有效)。
   (function(){ try{
     var saved=sessionStorage.getItem('yoda_mpw');
-    if(!saved){ var h=localStorage.getItem('yoda_mpw_h'); if(h){ var o=JSON.parse(h); if(o&&o.p&&o.exp>Date.now()){ saved=o.p; try{sessionStorage.setItem('yoda_mpw',saved);}catch(e){} } } }
+    if(!saved){ var h=localStorage.getItem('yoda_mpw_h'); if(h){ var o=JSON.parse(h); if(o&&o.p&&(!o.exp||o.exp>Date.now())){ saved=o.p; try{sessionStorage.setItem('yoda_mpw',saved);}catch(e){} } } }
     if(saved && reportId){ pw.value=saved; submit(); }
   }catch(e){} })();
 
@@ -99,7 +99,7 @@
           msg.textContent=res.error||'密碼錯誤或訂閱已失效';return;}
         if(res.error){msg.textContent=res.error;return;}      // 例如找不到這份報告
         try{sessionStorage.setItem('yoda_mpw', v);}catch(e){} // 本分頁記住(關分頁即清)
-        try{localStorage.setItem('yoda_mpw_h',JSON.stringify({p:v,exp:Date.now()+3600000}));}catch(e){} // 跨分頁交棒＋滑動續期：從 email 連結首次輸入也算「輸過一次」,之後點別篇(新分頁)免再輸(閒置逾 1h 才失效)
+        try{localStorage.setItem('yoda_mpw_h',JSON.stringify({p:v}));}catch(e){} // 跨分頁交棒＋這台裝置永久記住：從 email 連結首次輸入也算「輸過一次」,之後點別篇(新分頁)免再輸,直到登出
         render(res.html, res.watermark);
       })
       .catch(function(){go.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試';});
