@@ -378,15 +378,15 @@ tr:hover td{background:var(--surface2)}
       </select>
       <button class="btn-done" onclick="loadSupport()">↻ 重新整理</button>
     </div>
-    <!-- 常用回覆常駐面板：新增/複製/刪除；工單回覆框也可下拉選用 -->
-    <div class="panel" style="margin-bottom:14px;padding:14px 16px">
+    <div id="supList"></div>
+    <!-- 常用回覆面板（放清單下方，不佔頁面最上面）：新增/複製/刪除；工單回覆框也可下拉選用 -->
+    <div class="panel" style="margin-top:18px;padding:14px 16px">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
         <b>📌 常用回覆</b>
         <button class="btn-done" onclick="addCannedDirect()">＋ 新增常用回覆</button>
       </div>
       <div id="cannedList"></div>
     </div>
-    <div id="supList"></div>
   </div>
 
   <!-- 創始搶先名單 -->
