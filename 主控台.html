@@ -376,6 +376,14 @@ tr:hover td{background:var(--surface2)}
       </select>
       <button class="btn-done" onclick="loadSupport()">↻ 重新整理</button>
     </div>
+    <!-- 常用回覆常駐面板：新增/複製/刪除；工單回覆框也可下拉選用 -->
+    <div class="panel" style="margin-bottom:14px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+        <b>📌 常用回覆</b>
+        <button class="btn-done" onclick="addCannedDirect()">＋ 新增常用回覆</button>
+      </div>
+      <div id="cannedList"></div>
+    </div>
     <div id="supList"></div>
   </div>
 
@@ -822,7 +830,7 @@ function switchView(v){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('show'));
   $('v-'+v).classList.add('show');
-  if(v==='support')loadSupport();
+  if(v==='support'){renderCannedList();loadSupport();}
   if(v==='traffic')loadTraffic();
   if(v==='waitlist')loadWaitlist();
   if(v==='reports')loadReports();
@@ -983,7 +991,35 @@ function cannedOptionsHtml(){ return getCanned().map(function(c,i){return '<opti
 function applyCanned(id,idx){ if(idx===''||idx==null)return; const c=getCanned()[Number(idx)]; if(!c)return; const ta=$('rep_'+id); if(ta){ ta.value = ta.value.trim() ? (ta.value.replace(/\s+$/,'')+'\n'+c.text) : c.text; ta.focus(); } }
 async function addCanned(id){ const ta=$('rep_'+id); const txt=((ta&&ta.value)||'').trim(); if(!txt){toast('先在回覆框輸入內容，再存為常用');return;} let name=await uiPrompt('這則常用回覆取個名稱（方便之後選）：', txt.slice(0,16)); if(name===null)return; name=(name.trim())||txt.slice(0,16); const a=getCanned(); a.push({name:name,text:txt}); setCanned(a); toast('已存為常用：'+name); renderSupport(); }
 function manageCanned(){ const a=getCanned(); if(!a.length){ openModal('常用回覆','<div style="color:var(--dim);line-height:1.7">還沒有常用回覆。<br>在任一工單的回覆框輸入內容後，按「＋存為常用」就能新增；之後從「常用回覆…」下拉直接選用。</div>',''); return; } const html=a.map(function(c,i){return '<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-weight:700;margin-bottom:2px">'+escH(c.name)+'</div><div style="font-size:12px;color:var(--dim);white-space:pre-wrap;word-break:break-word">'+escH(c.text)+'</div></div><button class="mini-act" style="color:#ff6b6b;border-color:#ff6b6b;flex:0 0 auto" onclick="delCanned('+i+')">刪除</button></div>';}).join(''); openModal('常用回覆（'+a.length+' 則）',html,''); }
-function delCanned(i){ const a=getCanned(); a.splice(i,1); setCanned(a); toast('已刪除'); renderSupport(); manageCanned(); }
+function delCanned(i){ const a=getCanned(); a.splice(i,1); setCanned(a); toast('已刪除'); renderSupport(); renderCannedList(); if(document.getElementById('genModal').classList.contains('show'))manageCanned(); }
+/* 常駐面板：列出所有常用回覆，可複製/刪除 */
+function renderCannedList(){
+  const box=$('cannedList'); if(!box)return;
+  const a=getCanned();
+  if(!a.length){ box.innerHTML='<div style="color:var(--dim);font-size:13px;line-height:1.7">還沒有常用回覆。按右上「＋ 新增常用回覆」建立；建立後這裡可一鍵複製，工單回覆框也能直接下拉選用。</div>'; return; }
+  box.innerHTML=a.map(function(c,i){return '<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--divider)">'
+    +'<div style="flex:1;min-width:0"><div style="font-weight:700;margin-bottom:2px">'+escH(c.name)+'</div><div style="font-size:12px;color:var(--dim);white-space:pre-wrap;word-break:break-word">'+escH(c.text)+'</div></div>'
+    +'<button class="mini-act" onclick="copyCanned('+i+')">複製</button>'
+    +'<button class="mini-act" style="color:#ff6b6b;border-color:#ff6b6b" onclick="delCanned('+i+')">刪除</button>'
+    +'</div>';}).join('');
+}
+function copyCanned(i){ const c=getCanned()[i]; if(!c)return; const done=function(){toast('已複製：'+(c.name||''));}; if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(c.text).then(done,function(){fallbackCopy(c.text,done);}); } else fallbackCopy(c.text,done); }
+function fallbackCopy(text,cb){ try{ const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); cb&&cb(); }catch(e){ toast('複製失敗，請手動選取'); } }
+function addCannedDirect(){
+  const body='<label style="font-size:12px;color:var(--dim)">名稱（方便辨識，可留空）</label>'
+    +'<input id="ncName" placeholder="例：退費說明" style="width:100%;margin:4px 0 10px;padding:9px 11px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);font-family:inherit;font-size:14px">'
+    +'<label style="font-size:12px;color:var(--dim)">回覆內容</label>'
+    +'<textarea id="ncText" placeholder="輸入常用回覆內容…" style="width:100%;margin:4px 0 0;min-height:120px;padding:9px 11px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);font-family:inherit;font-size:14px;resize:vertical"></textarea>';
+  const foot='<button class="btn-primary" onclick="saveCannedDirect()" style="flex:1;padding:11px">儲存</button>';
+  openModal('新增常用回覆',body,foot);
+  setTimeout(function(){const e=$('ncName');if(e)e.focus();},30);
+}
+function saveCannedDirect(){
+  const name=($('ncName')?$('ncName').value:'').trim(), text=($('ncText')?$('ncText').value:'').trim();
+  if(!text){toast('請輸入回覆內容');return;}
+  const a=getCanned(); a.push({name:name||text.slice(0,16),text:text}); setCanned(a);
+  closeModal(); toast('已新增常用回覆'); renderCannedList(); renderSupport();
+}
 function saveSupport(id){
   const st=$('st_'+id).value, sol=$('sol_'+id).value, fix=$('fix_'+id).value;
   post({action:'adminSupportUpdate',key:KEY,ticketId:id,fields:{status:st,solution:sol,fix_plan:fix}}).then(res=>{
