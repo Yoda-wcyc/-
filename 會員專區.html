@@ -227,9 +227,26 @@
       </div>
       <div class="not-yet">
         <div class="ny-big">還不是會員？</div>
-        <a class="btn" href="subscribe.html" target="_blank" rel="noopener" style="width:auto;padding:11px 22px;margin-top:6px;background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">我要註冊會員 →</a>
-        <div class="ny-sm">選方案 → 設定 email 與密碼 → 完成付款，馬上開通。<br>也可往下看免費電子報與方案比較。</div>
+        <button class="btn" onclick="showRegister()" style="width:auto;padding:11px 22px;margin-top:6px;background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">我要註冊會員 →</button>
+        <div class="ny-sm">當場設定 email 與密碼、完成付款即開通。<br>也可往下看免費電子報與方案比較。</div>
       </div>
+    </div>
+
+    <!-- 站內註冊卡：點「我要註冊會員」展開 -->
+    <div class="card gold" id="registerCard" style="display:none;margin-bottom:26px">
+      <h3 class="lc-title">我要註冊會員</h3>
+      <p class="hint" style="margin-top:0">設定你的登入 email 與密碼，完成付款即開通<b>創始會員</b>（早鳥 NT$459／月・信用卡定期定額）。這組 email＋密碼就是你之後登入、讀報告用的。</p>
+      <label>Email（作為帳號）</label>
+      <input id="regEmail" type="email" autocomplete="email" placeholder="you@example.com" />
+      <label>設定密碼（至少 6 字，需含英文與數字）</label>
+      <div class="pw-wrap">
+        <input id="regPw" type="text" autocomplete="new-password" placeholder="設定你的登入密碼" onkeydown="if(event.key==='Enter')doRegister()" />
+        <button type="button" class="pw-eye" onclick="eyeToggle('regPw',this)" aria-label="顯示或隱藏密碼">🙈</button>
+      </div>
+      <label class="remember" style="align-items:flex-start;line-height:1.6"><input id="regAgree" type="checkbox" style="margin-top:3px" /> <span>我已了解本服務為數位內容／線上服務，付款後隨即開通，<b>不適用七日猶豫期（無鑑賞期）</b>，且開通後恕不退費。</span></label>
+      <button class="btn" id="regBtn" onclick="doRegister()" style="background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">註冊並前往付款 →</button>
+      <div class="msg" id="regMsg"></div>
+      <form id="regPayGo" method="POST" action="https://yoda-research-next.vercel.app/api/ecpay-create" style="display:none"><input type="hidden" name="email" id="regPayEmail"></form>
     </div>
 
     <!-- ① Hero：免費電子報引流 -->
@@ -459,6 +476,30 @@
             : (e||'處理失敗，請稍後再試或私訊粉專。'); }
       })
       .catch(function(){btn.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試。';});
+  }
+
+  /* 站內註冊 → 建帳號 → 導去綠界付款（與遊戲同一套流程） */
+  function showRegister(){
+    var c=el('registerCard'); if(!c)return;
+    c.style.display='block';
+    try{ if(!el('regEmail').value)el('regEmail').value=(el('email').value||'').trim(); }catch(e){}
+    try{c.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
+    try{el('regEmail').focus();}catch(e){}
+  }
+  function doRegister(){
+    var email=(el('regEmail').value||'').trim(), pw=el('regPw').value||'', msg=el('regMsg'); msg.className='msg';
+    if(!/.+@.+\..+/.test(email)){msg.style.color='#ff6b6b';msg.textContent='請填一個正確的 email';return;}
+    if(pw.length<6||!/[A-Za-z]/.test(pw)||!/[0-9]/.test(pw)){msg.style.color='#ff6b6b';msg.textContent='密碼至少 6 碼，且要同時包含英文與數字';return;}
+    if(!el('regAgree').checked){msg.style.color='#ff6b6b';msg.textContent='請先勾選同意（數位內容無七日猶豫期）';return;}
+    var btn=el('regBtn'); btn.disabled=true; msg.style.color='var(--dim)'; msg.textContent='建立帳號中…';
+    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'register',email:email,password:pw,plan:'創始'})})
+      .then(function(r){return r.json();})
+      .then(function(res){
+        btn.disabled=false;
+        if(res&&res.ok){ el('regPayEmail').value=email; el('regPayGo').submit(); } // 註冊成功 或 email已註冊且密碼正確 → 去付款
+        else{ msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)||'建立帳號失敗，換一組密碼再試'; }
+      })
+      .catch(function(){btn.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試';});
   }
 
   /* 登入 */
