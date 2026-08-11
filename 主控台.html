@@ -546,9 +546,44 @@ tr:hover td{background:var(--surface2)}
   </div>
 </div>
 
+<!-- 置中確認/提示/輸入彈窗（取代原生 confirm/alert/prompt，一律畫面正中間）-->
+<div class="modal-bg" id="uiModal">
+  <div class="modal" style="max-width:420px">
+    <div id="uiModalMsg" style="white-space:pre-wrap;line-height:1.7;font-size:14px"></div>
+    <input id="uiModalInput" style="display:none;width:100%;margin-top:12px;padding:9px 11px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);font-family:inherit;font-size:14px">
+    <div class="modal-btns">
+      <button class="btn-ghost" id="uiModalCancel" style="flex:1;padding:11px">取消</button>
+      <button class="btn-primary" id="uiModalOk" style="flex:1;padding:11px">確定</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
+/* ===== 置中彈窗：uiConfirm / uiAlert / uiPrompt（皆回傳 Promise，畫面正中間）===== */
+var _uiResolve=null, _uiMode='confirm';
+function _uiOpen(msg,mode,def){
+  return new Promise(function(resolve){
+    _uiResolve=resolve; _uiMode=mode;
+    document.getElementById('uiModalMsg').textContent=msg;
+    var inp=document.getElementById('uiModalInput');
+    if(mode==='prompt'){inp.style.display='block';inp.value=def==null?'':def;}else{inp.style.display='none';}
+    document.getElementById('uiModalCancel').style.display=(mode==='alert')?'none':'';
+    document.getElementById('uiModalOk').textContent=(mode==='alert')?'知道了':'確定';
+    document.getElementById('uiModal').classList.add('show');
+    if(mode==='prompt')setTimeout(function(){inp.focus();inp.select();},30);
+  });
+}
+function uiConfirm(msg){return _uiOpen(String(msg),'confirm');}
+function uiAlert(msg){return _uiOpen(String(msg),'alert');}
+function uiPrompt(msg,def){return _uiOpen(String(msg),'prompt',def);}
+function _uiClose(val){document.getElementById('uiModal').classList.remove('show');if(_uiResolve){var r=_uiResolve;_uiResolve=null;r(val);}}
+document.getElementById('uiModalOk').addEventListener('click',function(){_uiClose(_uiMode==='prompt'?document.getElementById('uiModalInput').value:true);});
+document.getElementById('uiModalCancel').addEventListener('click',function(){_uiClose(_uiMode==='prompt'?null:false);});
+document.getElementById('uiModalInput').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();document.getElementById('uiModalOk').click();}});
+document.getElementById('uiModal').addEventListener('click',function(e){if(e.target===this)_uiClose(_uiMode==='prompt'?null:false);});
+
 /* ===== 後端 ===== */
 var GAS_URL='https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec';
 var KEY='';
@@ -689,9 +724,9 @@ function fbCell(m){
   const v=m.fb?escH(m.fb):'<span style="color:var(--dim)">—</span>';
   return `<span style="cursor:pointer;border-bottom:1px dotted var(--border)" title="點擊編輯臉書名稱" onclick="editFb('${m.id}')">${v}</span>`;
 }
-function editFb(id){
+async function editFb(id){
   const m=mById(id);if(!m)return;
-  const v=prompt('會員 '+id+' 的臉書名稱：',m.fb||'');
+  const v=await uiPrompt('會員 '+id+' 的臉書名稱：',m.fb||'');
   if(v===null)return;
   toast('寫入中…');
   post({action:'adminSetMemberFb',key:KEY,memberId:id,fbName:v.trim()}).then(res=>{
@@ -702,9 +737,9 @@ function planBadge(m){
   const isF=m.plan!=='一般';
   return `<span class="pill ${isF?'plan-f':'plan-n'}" style="cursor:pointer" title="點擊切換方案（會再確認）" onclick="askSetPlan('${m.id}','${isF?'創始':'一般'}')">${isF?'創始':'一般'}</span>`;
 }
-function askSetPlan(id,cur){
+async function askSetPlan(id,cur){
   const to=cur==='創始'?'一般':'創始';
-  if(!confirm('把會員 '+id+' 的方案從「'+cur+'」改成「'+to+'」？'))return;
+  if(!await uiConfirm('把會員 '+id+' 的方案從「'+cur+'」改成「'+to+'」？'))return;
   toast('寫入中…');
   post({action:'adminSetPlan',key:KEY,memberId:id,plan:to}).then(res=>{
     if(res&&res.ok){toast('已改為 '+to);loadFromGAS();}else{toast((res&&res.error)||'失敗');}
@@ -716,8 +751,8 @@ function giftMonth(id){
     if(res&&res.ok){toast('已贈送 1 個月並推進扣款日');loadFromGAS();}else{toast((res&&res.error)||'失敗');}
   }).catch(()=>toast('連線失敗'));
 }
-function deleteMember(id){
-  if(!confirm('確定刪除會員 '+id+'？\n此動作會從 Google Sheet 永久移除該列，無法復原。'))return;
+async function deleteMember(id){
+  if(!await uiConfirm('確定刪除會員 '+id+'？\n此動作會從 Google Sheet 永久移除該列，無法復原。'))return;
   toast('刪除中…');
   post({action:'adminDelete',key:KEY,memberId:id}).then(res=>{
     if(res&&res.ok){toast('已刪除 '+id);loadFromGAS();}else{toast((res&&res.error)||'刪除失敗');}
@@ -826,10 +861,10 @@ function renderWaitlist(){
   }).join('');
 }
 function toggleAllWaitlist(cb){document.querySelectorAll('#wlBody .wl-chk').forEach(c=>{c.checked=cb.checked;});}
-function confirmAllWaitlist(){
+async function confirmAllWaitlist(){
   const emails=waitlist.filter(r=>r.email&&!r.confirmed).map(r=>r.email);
   if(!emails.length){toast('沒有待確認的登記');return;}
-  if(!confirm('把全部 '+emails.length+' 筆未確認的登記送進創始名單？\n\n⚠️ 此確認不可撤銷。'))return;
+  if(!await uiConfirm('把全部 '+emails.length+' 筆未確認的登記送進創始名單？\n\n⚠️ 此確認不可撤銷。'))return;
   toast('確認中…');
   (async()=>{
     let ok=0;
@@ -837,10 +872,10 @@ function confirmAllWaitlist(){
     toast('已確認 '+ok+' / '+emails.length+' 筆');loadWaitlist();
   })();
 }
-function deleteSelectedWaitlist(){
+async function deleteSelectedWaitlist(){
   const emails=Array.from(document.querySelectorAll('#wlBody .wl-chk:checked')).map(c=>c.dataset.email).filter(Boolean);
   if(!emails.length){toast('先勾選要刪除的登記');return;}
-  if(!confirm('確定刪除勾選的 '+emails.length+' 筆登記？\n此動作會從 Waitlist 永久移除，無法復原。'))return;
+  if(!await uiConfirm('確定刪除勾選的 '+emails.length+' 筆登記？\n此動作會從 Waitlist 永久移除，無法復原。'))return;
   toast('刪除中…');
   (async()=>{
     let ok=0;
@@ -848,8 +883,8 @@ function deleteSelectedWaitlist(){
     toast('已刪除 '+ok+' / '+emails.length+' 筆');loadWaitlist();
   })();
 }
-function confirmFounding(email){
-  if(!confirm('確認「'+email+'」已公開分享，送進創始名單？\n\n⚠️ 此動作不可撤銷。'))return;
+async function confirmFounding(email){
+  if(!await uiConfirm('確認「'+email+'」已公開分享，送進創始名單？\n\n⚠️ 此動作不可撤銷。'))return;
   toast('寫入中…');
   post({action:'adminConfirmFounding',key:KEY,email:email}).then(res=>{
     if(res&&res.ok){toast(res.already?'先前已確認過':'已確認創始 '+email);loadWaitlist();}
@@ -930,11 +965,11 @@ function renderSupport(){
       +'</div></div>';
   }).join('');
 }
-function replySupport(id){
+async function replySupport(id){
   const ta=$('rep_'+id), txt=((ta&&ta.value)||'').trim();
   if(!txt){toast('請先輸入回覆內容');return;}
   const t=tickets.find(x=>x.ticket_id===id);
-  if(!confirm('寄出這則回覆到 '+((t&&t.email)||'讀者')+'？\n\n'+txt.slice(0,140)+(txt.length>140?'…':'')))return;
+  if(!await uiConfirm('寄出這則回覆到 '+((t&&t.email)||'讀者')+'？\n\n'+txt.slice(0,140)+(txt.length>140?'…':'')))return;
   toast('寄送中…');
   post({action:'adminSupportReply',key:KEY,ticketId:id,reply:txt}).then(res=>{
     if(res&&res.ok){toast('已回覆並寄出 → '+(res.to||''));loadSupport();}
@@ -946,7 +981,7 @@ function getCanned(){ try{return JSON.parse(localStorage.getItem('yoda_canned')|
 function setCanned(a){ try{localStorage.setItem('yoda_canned',JSON.stringify(a));}catch(e){} }
 function cannedOptionsHtml(){ return getCanned().map(function(c,i){return '<option value="'+i+'">'+escH(c.name)+'</option>';}).join(''); }
 function applyCanned(id,idx){ if(idx===''||idx==null)return; const c=getCanned()[Number(idx)]; if(!c)return; const ta=$('rep_'+id); if(ta){ ta.value = ta.value.trim() ? (ta.value.replace(/\s+$/,'')+'\n'+c.text) : c.text; ta.focus(); } }
-function addCanned(id){ const ta=$('rep_'+id); const txt=((ta&&ta.value)||'').trim(); if(!txt){toast('先在回覆框輸入內容，再存為常用');return;} let name=prompt('這則常用回覆取個名稱（方便之後選）：', txt.slice(0,16)); if(name===null)return; name=(name.trim())||txt.slice(0,16); const a=getCanned(); a.push({name:name,text:txt}); setCanned(a); toast('已存為常用：'+name); renderSupport(); }
+async function addCanned(id){ const ta=$('rep_'+id); const txt=((ta&&ta.value)||'').trim(); if(!txt){toast('先在回覆框輸入內容，再存為常用');return;} let name=await uiPrompt('這則常用回覆取個名稱（方便之後選）：', txt.slice(0,16)); if(name===null)return; name=(name.trim())||txt.slice(0,16); const a=getCanned(); a.push({name:name,text:txt}); setCanned(a); toast('已存為常用：'+name); renderSupport(); }
 function manageCanned(){ const a=getCanned(); if(!a.length){ openModal('常用回覆','<div style="color:var(--dim);line-height:1.7">還沒有常用回覆。<br>在任一工單的回覆框輸入內容後，按「＋存為常用」就能新增；之後從「常用回覆…」下拉直接選用。</div>',''); return; } const html=a.map(function(c,i){return '<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-weight:700;margin-bottom:2px">'+escH(c.name)+'</div><div style="font-size:12px;color:var(--dim);white-space:pre-wrap;word-break:break-word">'+escH(c.text)+'</div></div><button class="mini-act" style="color:#ff6b6b;border-color:#ff6b6b;flex:0 0 auto" onclick="delCanned('+i+')">刪除</button></div>';}).join(''); openModal('常用回覆（'+a.length+' 則）',html,''); }
 function delCanned(i){ const a=getCanned(); a.splice(i,1); setCanned(a); toast('已刪除'); renderSupport(); manageCanned(); }
 function saveSupport(id){
@@ -1032,10 +1067,10 @@ function toggleHide(i){
     else toast((res&&res.error)||'失敗');
   }).catch(function(){toast('連線失敗');});
 }
-function deletePaid(i){
+async function deletePaid(i){
   var r=reportRows[i]; if(!r)return;
   var paidId='付費_'+String(r.file).replace(/\.html?$/i,'');
-  if(!confirm('刪除付費檔?\n'+paidId+'.html\n(丟進 Drive 垃圾桶,可救回;會員將讀不到這篇完整版)'))return;
+  if(!await uiConfirm('刪除付費檔?\n'+paidId+'.html\n(丟進 Drive 垃圾桶,可救回;會員將讀不到這篇完整版)'))return;
   toast('刪除中…');
   post({action:'adminDeleteReport',key:KEY,reportId:paidId}).then(function(res){
     if(res&&res.ok){ delete paidSet[paidId]; renderReports(); toast('已刪付費檔(垃圾桶可救回)'); }
@@ -1079,10 +1114,10 @@ function renderPaidFiles(pd){
 }
 function escJs(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
 function toggleAllPaid(cb){document.querySelectorAll('#paidBody .paid-chk').forEach(function(c){c.checked=cb.checked;});}
-function deleteSelectedPaid(){
+async function deleteSelectedPaid(){
   var ids=Array.prototype.slice.call(document.querySelectorAll('#paidBody .paid-chk:checked')).map(function(c){return c.dataset.id;}).filter(Boolean);
   if(!ids.length){toast('先勾選要刪除的付費檔');return;}
-  if(!confirm('確定刪除勾選的 '+ids.length+' 個付費檔？\n（丟進 Drive 垃圾桶，可救回，不是永久刪除）'))return;
+  if(!await uiConfirm('確定刪除勾選的 '+ids.length+' 個付費檔？\n（丟進 Drive 垃圾桶，可救回，不是永久刪除）'))return;
   toast('刪除中…');
   (async function(){
     var ok=0;
@@ -1092,13 +1127,13 @@ function deleteSelectedPaid(){
 }
 
 /* 逐會員去重：只補寄給「還沒收過這份」的 active 會員。之後有新會員加入，再按一次只補寄他們 */
-function doNotify(paidId){
-  if(!confirm('補寄「新付費報告上線」email 給【還沒收過這份】的 active 會員?\n\n報告：'+paidId+'\n(已收過的人不會再收到；已在會員專區關閉通知的人不寄)'))return;
+async function doNotify(paidId){
+  if(!await uiConfirm('補寄「新付費報告上線」email 給【還沒收過這份】的 active 會員?\n\n報告：'+paidId+'\n(已收過的人不會再收到；已在會員專區關閉通知的人不寄)'))return;
   toast('寄送中…');
-  post({action:'adminNotifyReport',key:KEY,reportId:paidId}).then(function(res){
+  post({action:'adminNotifyReport',key:KEY,reportId:paidId}).then(async function(res){
     if(!res||!res.ok){ toast((res&&res.error)||'寄送失敗'); return; }
     if((res.sent||0)===0 && (res.alreadySent||0)>0){
-      if(confirm('所有 active 會員都已收過這份（'+res.alreadySent+' 位）。\n要「強制重寄」給全部人嗎?（含已收過的人）')) forceNotify(paidId);
+      if(await uiConfirm('所有 active 會員都已收過這份（'+res.alreadySent+' 位）。\n要「強制重寄」給全部人嗎?（含已收過的人）')) forceNotify(paidId);
       else toast('沒有需要補寄的人');
     }else{
       toast('已補寄 '+res.sent+' 位新會員｜先前已寄 '+(res.alreadySent||0)+(res.failed?'（失敗 '+res.failed+'）':'')+(res.skippedQuota?'｜配額略過 '+res.skippedQuota:''));
@@ -1205,11 +1240,11 @@ document.getElementById('file-input').onchange=function(e){
   srcName=f.name.replace(/\.html?$/i,'');
   var rd=new FileReader(); rd.onload=function(){ importHTML(rd.result); }; rd.readAsText(f,'utf-8');
 };
-function importHTML(html){
+async function importHTML(html){
   doc=new DOMParser().parseFromString(html,'text/html');
   PROFILE=detectProfile(doc);
   var handles=collectHandles(doc,PROFILE);
-  if(!handles.length){ alert('找不到可切的段落。支援母板:關鍵報告/簡報(.section)、市場觀察/AI/總經(.content-section)、美股/台股(.section-header)。'); return; }
+  if(!handles.length){ await uiAlert('找不到可切的段落。支援母板:關鍵報告/簡報(.section)、市場觀察/AI/總經(.content-section)、美股/台股(.section-header)。'); return; }
   var paywall=PROFILE.paywallSel?doc.querySelector(PROFILE.paywallSel):null;
   BLOCKS=handles.map(function(hnd){
     var m=handleMeta(hnd,PROFILE);
@@ -1439,25 +1474,25 @@ function verifyFree(){
   return leaks;
 }
 function download(name,txt){var bl=new Blob([txt],{type:'text/html;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},2000);}
-document.getElementById('btn-free').onclick=function(){
+document.getElementById('btn-free').onclick=async function(){
   if(!doc) return;
   var leaks=verifyFree();
-  if(leaks.length){ if(!confirm('⚠ 偵測到被遮內容可能外露：'+leaks.join('、')+'\n仍要匯出嗎？')) return; }
+  if(leaks.length){ if(!await uiConfirm('⚠ 偵測到被遮內容可能外露：'+leaks.join('、')+'\n仍要匯出嗎？')) return; }
   download(srcName+'_免費精簡版.html', buildFreeDoc());
 };
 document.getElementById('btn-paid').onclick=function(){ if(!doc) return; download(srcName+'_付費內容.html', buildPaidDoc()); };
 // ── 直接上傳付費檔到私有 Drive（走 GAS adminPutReport;會員以 reportId=付費_<檔名> 讀回）──
-document.getElementById('btn-upload').onclick=function(){
+document.getElementById('btn-upload').onclick=async function(){
   if(!doc) return;
-  if(typeof KEY==='undefined'||!KEY){ alert('請先登入主控台(需要管理密碼才能上傳)'); return; }
+  if(typeof KEY==='undefined'||!KEY){ await uiAlert('請先登入主控台(需要管理密碼才能上傳)'); return; }
   var name='付費_'+srcName;
-  if(!confirm('上傳付費檔到 Drive?\n檔名：'+name+'.html\n會員讀取用 reportId＝'+name+'\n(同名會覆蓋舊檔)')) return;
+  if(!await uiConfirm('上傳付費檔到 Drive?\n檔名：'+name+'.html\n會員讀取用 reportId＝'+name+'\n(同名會覆蓋舊檔)')) return;
   var b=this; b.disabled=true; var old=b.innerHTML; b.innerHTML='<span class="ic">⏳</span>上傳中…';
-  post({action:'adminPutReport',key:KEY,name:name,html:buildPaidDoc()}).then(function(res){
+  post({action:'adminPutReport',key:KEY,name:name,html:buildPaidDoc()}).then(async function(res){
     b.disabled=false; b.innerHTML=old;
-    if(res&&res.ok){ alert('✅ 已上傳：'+res.reportId+'.html '+(res.updated?'(覆蓋)':'(新增)')+'\n\n會員 reportId＝'+res.reportId+'\n(report-shell 用這個 id 讀回)'); }
-    else alert('上傳失敗：'+((res&&res.error)||'未知錯誤'));
-  }).catch(function(){ b.disabled=false; b.innerHTML=old; alert('連線失敗(可能是本機 file:// CORS,請在線上主控台操作)'); });
+    if(res&&res.ok){ await uiAlert('✅ 已上傳：'+res.reportId+'.html '+(res.updated?'(覆蓋)':'(新增)')+'\n\n會員 reportId＝'+res.reportId+'\n(report-shell 用這個 id 讀回)'); }
+    else await uiAlert('上傳失敗：'+((res&&res.error)||'未知錯誤'));
+  }).catch(async function(){ b.disabled=false; b.innerHTML=old; await uiAlert('連線失敗(可能是本機 file:// CORS,請在線上主控台操作)'); });
 };
 </script>
 <!-- 平板以上提示（手機置中·點擊關閉·記憶）自包含注入片段 -->
