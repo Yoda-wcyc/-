@@ -655,5 +655,7 @@
 </script>
 <script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
 <img alt="Yoda" src="https://yoda-research-next.vercel.app/yoda-logo.png" style="position:fixed;right:14px;bottom:12px;height:52px;width:auto;opacity:.5;z-index:9990;pointer-events:none">
+<script>/* 密碼欄預設顯示（改密碼欄）；會員登入密碼 #pw 維持隱藏 */
+document.addEventListener('DOMContentLoaded',function(){['oldPw','newPw'].forEach(function(id){var p=document.getElementById(id);if(p&&p.type==='password'){p.type='text';var b=p.parentNode&&p.parentNode.querySelector('button');if(b)b.textContent='🙈';}});});</script>
 </body>
 </html>
