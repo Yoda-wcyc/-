@@ -838,7 +838,7 @@ function openBroadcast(){
     +'<input id="bcSubj" placeholder="例：本週報告時程調整通知" style="'+ist+';margin:4px 0 10px">'
     +'<label style="font-size:12px;color:var(--dim)">收件對象</label>'
     +'<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 10px">'
-      +'<select id="bcPlan" onchange="bcCount()" style="'+ist+';width:auto"><option value="all">全部有效會員</option><option value="創始">創始</option><option value="一般">一般</option></select>'
+      +'<select id="bcPlan" onchange="bcCount()" style="'+ist+';width:auto"><option value="all">全部有效會員</option><option value="__never__">只寄給「從未開啟報告」的人</option><option value="創始">創始</option><option value="一般">一般</option></select>'
       +'<label style="font-size:12px;color:var(--dim);display:flex;align-items:center;gap:5px"><input type="checkbox" id="bcOptOut"> 排除已關閉通知的人</label>'
     +'</div>'
     +'<label style="font-size:12px;color:var(--dim)">內容（純文字即可，換行會保留；系統自動套品牌信頭信尾）</label>'
@@ -848,7 +848,11 @@ function openBroadcast(){
   openModal('群發信給會員',body,'<button class="btn-primary" onclick="bcSend()" style="flex:1;padding:11px">確認寄出</button>');
   bcCount();
 }
-function bcCount(){ const plan=($('bcPlan')||{}).value||'all'; const n=members.filter(m=>m.status==='有效'&&(plan==='all'||m.plan===plan)).length; const el=$('bcCount'); if(el)el.textContent=n; }
+function bcCount(){
+  const plan=($('bcPlan')||{}).value||'all', el=$('bcCount'); if(!el)return;
+  if(plan==='__never__'){ el.textContent='計算中…'; post({action:'adminStuckCandidates',key:KEY}).then(res=>{ el.textContent=(res&&res.ok)?(res.members||[]).filter(m=>m.neverOpened).length:'?'; }).catch(()=>{el.textContent='?';}); return; }
+  el.textContent=members.filter(m=>m.status==='有效'&&(plan==='all'||m.plan===plan)).length;
+}
 function bcSendTest(){
   const to=($('bcTest').value||'').trim(), subj=($('bcSubj').value||'').trim(), body=$('bcBody').value||'';
   if(!subj||!body.trim()){toast('先填主旨與內容');return;}
@@ -862,9 +866,11 @@ async function bcSend(){
   const subj=($('bcSubj').value||'').trim(), body=$('bcBody').value||'', plan=$('bcPlan').value, optOut=$('bcOptOut').checked;
   if(!subj||!body.trim()){toast('主旨與內容都要填');return;}
   const n=($('bcCount')||{}).textContent||'?';
-  if(!await uiConfirm('確認群發這封信？\n\n主旨：'+subj+'\n對象：'+(plan==='all'?'全部有效會員':plan)+(optOut?'（排除已關閉通知）':'')+'\n預估 '+n+' 位\n\n寄出後無法收回。'))return;
+  const label=plan==='__never__'?'從未開啟報告的人':(plan==='all'?'全部有效會員':plan);
+  if(!await uiConfirm('確認群發這封信？\n\n主旨：'+subj+'\n對象：'+label+(optOut?'（排除已關閉通知）':'')+'\n預估 '+n+' 位\n\n寄出後無法收回。'))return;
   toast('寄送中…（人多需要一點時間，請勿關閉）');
-  post({action:'adminBroadcast',key:KEY,subject:subj,body:body,opts:{plan:plan,respectOptOut:optOut}}).then(res=>{
+  const opts=plan==='__never__'?{segment:'neverOpened'}:{plan:plan,respectOptOut:optOut};
+  post({action:'adminBroadcast',key:KEY,subject:subj,body:body,opts:opts}).then(res=>{
     if(res&&res.ok){ closeModal(); toast('已寄 '+res.sent+' / '+res.total+(res.failed?'（失敗 '+res.failed+'）':'')+(res.skippedQuota?'｜配額略過 '+res.skippedQuota+'，明天再寄一次補完':'')); }
     else toast((res&&res.error)||'寄送失敗');
   }).catch(()=>toast('連線失敗'));
