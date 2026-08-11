@@ -325,6 +325,7 @@ tr:hover td{background:var(--surface2)}
         <option value="已取消">已取消</option>
       </select>
       <button class="btn-primary" onclick="openAdd()">＋ 新增會員</button>
+      <button class="btn-done" onclick="openBroadcast()">📢 群發信</button>
       <button class="btn-done" onclick="openStuckTool()">🔑 登入排查</button>
       <button class="btn-done" onclick="loadFromGAS()">↻ 重新整理</button>
     </div>
@@ -828,6 +829,45 @@ async function sendResetBulk(){
   let ok=0;
   for(const em of emails){ try{ const r=await post({action:'adminResetAndNotify',key:KEY,email:em}); if(r&&r.ok&&r.sent)ok++; }catch(e){} }
   toast('已補寄 '+ok+' / '+emails.length+' 位');
+}
+
+/* ===== 群發信給會員 ===== */
+function openBroadcast(){
+  const ist='width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);font-family:inherit;font-size:14px;box-sizing:border-box';
+  const body='<label style="font-size:12px;color:var(--dim)">主旨</label>'
+    +'<input id="bcSubj" placeholder="例：本週報告時程調整通知" style="'+ist+';margin:4px 0 10px">'
+    +'<label style="font-size:12px;color:var(--dim)">收件對象</label>'
+    +'<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 10px">'
+      +'<select id="bcPlan" onchange="bcCount()" style="'+ist+';width:auto"><option value="all">全部有效會員</option><option value="創始">創始</option><option value="一般">一般</option></select>'
+      +'<label style="font-size:12px;color:var(--dim);display:flex;align-items:center;gap:5px"><input type="checkbox" id="bcOptOut"> 排除已關閉通知的人</label>'
+    +'</div>'
+    +'<label style="font-size:12px;color:var(--dim)">內容（純文字即可，換行會保留；系統自動套品牌信頭信尾）</label>'
+    +'<textarea id="bcBody" placeholder="在這裡寫信給會員…" style="'+ist+';min-height:180px;margin:4px 0 8px;resize:vertical"></textarea>'
+    +'<div style="font-size:13px;color:var(--dim);margin-bottom:10px">預估收件：<b id="bcCount" style="color:var(--gold,#e0a526)">—</b> 位　<span style="font-size:11px">（Gmail 每日約 100 封上限，超過會自動明天補）</span></div>'
+    +'<div style="border-top:1px solid var(--divider);padding-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span style="font-size:12px;color:var(--dim)">先測試寄到：</span><input id="bcTest" placeholder="你的 email" style="'+ist+';width:auto;flex:1;min-width:150px"><button class="mini-act" onclick="bcSendTest()">寄測試</button></div>';
+  openModal('群發信給會員',body,'<button class="btn-primary" onclick="bcSend()" style="flex:1;padding:11px">確認寄出</button>');
+  bcCount();
+}
+function bcCount(){ const plan=($('bcPlan')||{}).value||'all'; const n=members.filter(m=>m.status==='有效'&&(plan==='all'||m.plan===plan)).length; const el=$('bcCount'); if(el)el.textContent=n; }
+function bcSendTest(){
+  const to=($('bcTest').value||'').trim(), subj=($('bcSubj').value||'').trim(), body=$('bcBody').value||'';
+  if(!subj||!body.trim()){toast('先填主旨與內容');return;}
+  if(!to){toast('填一個測試 email');return;}
+  toast('寄測試中…');
+  post({action:'adminBroadcast',key:KEY,subject:subj,body:body,opts:{testTo:to}}).then(res=>{
+    toast(res&&res.ok?('測試已寄 → '+to+'（去收信確認版面）'):((res&&res.error)||'測試寄失敗'));
+  }).catch(()=>toast('連線失敗'));
+}
+async function bcSend(){
+  const subj=($('bcSubj').value||'').trim(), body=$('bcBody').value||'', plan=$('bcPlan').value, optOut=$('bcOptOut').checked;
+  if(!subj||!body.trim()){toast('主旨與內容都要填');return;}
+  const n=($('bcCount')||{}).textContent||'?';
+  if(!await uiConfirm('確認群發這封信？\n\n主旨：'+subj+'\n對象：'+(plan==='all'?'全部有效會員':plan)+(optOut?'（排除已關閉通知）':'')+'\n預估 '+n+' 位\n\n寄出後無法收回。'))return;
+  toast('寄送中…（人多需要一點時間，請勿關閉）');
+  post({action:'adminBroadcast',key:KEY,subject:subj,body:body,opts:{plan:plan,respectOptOut:optOut}}).then(res=>{
+    if(res&&res.ok){ closeModal(); toast('已寄 '+res.sent+' / '+res.total+(res.failed?'（失敗 '+res.failed+'）':'')+(res.skippedQuota?'｜配額略過 '+res.skippedQuota+'，明天再寄一次補完':'')); }
+    else toast((res&&res.error)||'寄送失敗');
+  }).catch(()=>toast('連線失敗'));
 }
 
 /* ===== 渲染：推薦與獎勵 ===== */
