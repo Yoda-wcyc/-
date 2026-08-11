@@ -448,6 +448,11 @@ body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b
 .dyn-guide .g-use li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
 .dyn-tip{position:fixed;pointer-events:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-family:var(--fb);font-size:calc(var(--fs)*.46);color:var(--text);opacity:0;transition:opacity .1s;z-index:99;box-shadow:0 6px 24px rgba(0,0,0,.4);white-space:nowrap}
 @media(max-width:820px){.dyn-main{flex-direction:column}.dyn-guide{flex:auto}}
+/* 核心邏輯鍊（完整研判開頭·三報告統一 core §C-5 / render §B-19） */
+.core-chains{background:rgba(240,192,64,.06);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:16px;font-family:var(--fb)}
+.core-chains .cc-h{font-size:calc(var(--fs)*.8);letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:8px}
+.core-chains .cc-row{font-size:calc(var(--fs)*.9);color:var(--text);line-height:2;padding:2px 0}
+.core-chains .cc-arw{color:var(--accent);font-weight:700;margin:0 5px}
 /* §05 廣度歷史折線圖 */
 .breadth-charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
 .bch-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
@@ -1805,6 +1810,7 @@ body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b
 
   <div class="rotation-verdict">
     <div class="rv-title">⚡ 板塊強弱對位小結：<strong>多頭回神、資金輪進跌深板塊——換棒不是換方向</strong></div>
+    <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊（先看這裡）</div><div class="cc-row">Dow 創高、cyclical value 領先、megacap 成長暫歇 <span class="cc-arw">&rarr;</span> 三欄全正的軟體/雲/資安/科技證明成長側只喘息未被棄(半導體近一週相對仍+4/+3.7) <span class="cc-arw">&rarr;</span> 沒爆量破位 <span class="cc-arw">&rarr;</span> 換棒不是換方向</div><div class="cc-row">新資金流向金礦/銅礦/金屬(跌最深、由弱轉強·GDX 近一月翻正、近一週+8.9) <span class="cc-arw">&rarr;</span> risk-on 把跌深板塊撿回補漲 <span class="cc-arw">&rarr;</span> 防禦(公用/必需/房地產)落後佐證 <span class="cc-arw">&rarr;</span> 盯輪動會不會失序</div></div>
     <div class="rv-snapshot">強勢＝軟體/雲端/資安/科技（三欄全正，成長沒被棄）｜轉強觀察＝金礦/銅礦/金屬/半導體（跌深加速回補，今日領軍）｜轉弱＝醫療/能源/原材料（短線落後，長線多仍在）｜弱勢＝公用/通訊/必需/房地產（防禦與利率敏感落後）</div>
     <div class="rv-divider"></div>
     <div class="rv-txt">今天 <strong>Dow 創新高</strong>、cyclical value 領先、megacap 成長暫歇——這是多頭回神下的健康換棒。最扎實的是三欄全正的<strong>軟體/雲端/資安/科技</strong>，證明成長那側只是喘息、沒被棄（半導體 SOXX/SMH 近一週相對仍 +4/+3.7 領先，今日回檔是 <strong>Nvidia 甚至收紅</strong>的族群內獲利了結）。真正的新資金流向<strong>金礦、銅礦、金屬</strong>這些過去三個月跌最深、最近由弱轉強的族群——GDX 近一月已翻正、近一週加速 +8.9%。金融、工業等 cyclical 近一週相對雖小回，但中長線仍強、今日領漲 Dow。防禦（公用/必需/房地產）落後，是 risk-on 的佐證。依 §G-7／§G-10，單日與近一週訊號合看：沒有爆量破位、Dow 創高，屬<strong>換棒不是換方向</strong>。</div>
@@ -1919,6 +1925,8 @@ body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b
   <div class="syn">
     <div class="syn-title">完整研判｜2026/08/06（08/06 Close）｜v1</div>
     <div style="font-family:var(--fb);font-size:calc(var(--fs)*1.15);font-weight:800;color:var(--accent);letter-spacing:.12em;margin-bottom:18px;margin-top:-8px;">多頭回神、資金輪進跌深板塊——換棒不是換方向</div>
+
+    <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊（先看這裡）</div><div class="cc-row">Iran 協議降溫、油回落 <span class="cc-arw">&rarr;</span> 降息預期升溫、實質利率下滑 <span class="cc-arw">&rarr;</span> 金礦+7.4%/白銀+3.9%噴、Dow 創高 <span class="cc-arw">&rarr;</span> 『利空鈍化＋降息預期』的多方組合、不是避險</div><div class="cc-row">Dow/cyclical value 領先、megacap 成長暫歇 <span class="cc-arw">&rarr;</span> 資金把跌深板塊撿回補漲 <span class="cc-arw">&rarr;</span> 半導體單日黑K但近一週相對仍領先 <span class="cc-arw">&rarr;</span> 換棒不換方向、盯輪動會不會失序</div><div class="cc-row">US10Y 4.61% 仍在高檔 <span class="cc-arw">&rarr;</span> 估值背景摩擦 <span class="cc-arw">&rarr;</span> 但今日 Dow 創高顯示尚未成約束 <span class="cc-arw">&rarr;</span> 逆風存在未咬人；盯 NFP/8-12 CPI 檢查點</div></div>
 
     <div class="syn-blk">
       <div class="syn-h">一、核心要點</div>

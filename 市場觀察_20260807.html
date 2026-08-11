@@ -440,6 +440,11 @@ body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b
 .dyn-guide .g-use li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
 .dyn-tip{position:fixed;pointer-events:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-family:var(--fb);font-size:calc(var(--fs)*.46);color:var(--text);opacity:0;transition:opacity .1s;z-index:99;box-shadow:0 6px 24px rgba(0,0,0,.4);white-space:nowrap}
 @media(max-width:820px){.dyn-main{flex-direction:column}.dyn-guide{flex:auto}}
+/* 核心邏輯鍊（完整研判開頭·三報告統一 core §C-5 / render §B-19） */
+.core-chains{background:rgba(240,192,64,.06);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:16px;font-family:var(--fb)}
+.core-chains .cc-h{font-size:calc(var(--fs)*.8);letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:8px}
+.core-chains .cc-row{font-size:calc(var(--fs)*.9);color:var(--text);line-height:2;padding:2px 0}
+.core-chains .cc-arw{color:var(--accent);font-weight:700;margin:0 5px}
 /* §05 廣度歷史折線圖 */
 .breadth-charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
 .bch-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
@@ -2105,6 +2110,7 @@ body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b
 
   <div class="rotation-verdict">
     <div class="rv-title">⚡ 板塊強弱對位小結：<strong>主線消化、油單日彈——利率擾動下的健康輪動</strong></div>
+    <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊（先看這裡）</div><div class="cc-row">多數板塊小回、只有能源紅(油+3.5%) <span class="cc-arw">&rarr;</span> 但能源是弱勢後單日彈(近一週相對仍−6.2)、非新趨勢 <span class="cc-arw">&rarr;</span> 中期錢還在軟體/雲/資安/金礦/銅/半導體 <span class="cc-arw">&rarr;</span> 今天只是消化、不是轉弱</div><div class="cc-row">防禦(公用/必需/房地產)墊底、利率敏感承壓 <span class="cc-arw">&rarr;</span> risk-on 結構未變 <span class="cc-arw">&rarr;</span> 利率擾動下的健康輪動、盯利率會不會擴大</div></div>
     <div class="rv-snapshot">強勢＝軟體/雲端/資安/科技（三欄正）｜轉強觀察＝金礦/銅礦/金屬/半導體（中期強、今日消化）｜轉弱＝醫療/能源/原材料（短線落後）｜弱勢＝公用/通訊/必需/房地產（防禦與利率敏感落後）</div>
     <div class="rv-divider"></div>
     <div class="rv-txt">今天多數板塊小回、只有能源紅（油急彈 +3.5%）。但要分清楚：能源是<strong>弱勢後的單日彈</strong>（近一週相對仍 -6.2），不是新趨勢。中期真正在流動的錢還在<strong>軟體/雲/資安</strong>（三欄正）、<strong>金礦/銅礦</strong>（中期相對強、今日消化）、<strong>半導體</strong>（近一週相對站回 +9）這幾條主線上，今天只是消化。防禦（公用/必需/房地產）墊底、利率敏感承壓。<div style="font-family:var(--fm);font-size:calc(var(--fs)*.82);color:var(--text);background:rgba(0,200,240,.06);border-left:2px solid var(--accent);padding:9px 13px;margin-top:12px;line-height:1.95;border-radius:0 4px 4px 0;">油單日 +3.5%，但近一週相對仍 -6.2（超跌反彈） &darr;<br>中期主線（半導體週線+9/金礦近一月+11/軟體三欄正）只是消化、未破 &darr;<br>含意：這是利率擾動下的『健康輪動＋主線消化』，不是資金轉進通膨——別追油這根單日彈</div></div>
@@ -2226,6 +2232,8 @@ body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b
   <div class="syn">
     <div class="syn-title">完整研判｜2026/08/07（08/07 Close）</div>
     <div style="font-family:var(--fb);font-size:calc(var(--fs)*1.15);font-weight:800;color:var(--accent);letter-spacing:.12em;margin-bottom:18px;margin-top:-8px;">避險情緒回來、動能走弱——多頭沒破，戒備升高</div>
+
+    <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊（先看這裡）</div><div class="cc-row">Put/Call 0.5→1.13、油急彈、動能走弱 <span class="cc-arw">&rarr;</span> 避險情緒回來 <span class="cc-arw">&rarr;</span> 但龍頭撐、半導體週線續強、大盤僅小跌 <span class="cc-arw">&rarr;</span> 多頭結構未破的避險擾動、不是變盤</div><div class="cc-row">殖利率大致平穩(2Y 4.25) <span class="cc-arw">&rarr;</span> 這次不是利率驅動、是情緒/避險擾動 <span class="cc-arw">&rarr;</span> 盯利率與避險會不會擴大</div><div class="cc-row">NFP 公布 <span class="cc-arw">&rarr;</span> 不看數字、看市場『怎麼消化』(利多不漲/利空不跌) <span class="cc-arw">&rarr;</span> 價格反應才是天秤指針 <span class="cc-arw">&rarr;</span> 盯反應、別預測數字</div></div>
 
     <div class="syn-blk">
       <div class="syn-h">一、核心要點</div>
