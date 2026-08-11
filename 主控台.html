@@ -1638,6 +1638,6 @@ document.getElementById('btn-upload').onclick=async function(){
 </script>
 <script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
 <script>/* 密碼欄預設顯示（管理密碼、新增會員密碼） */
-document.addEventListener('DOMContentLoaded',function(){['adminKey','f-pw'].forEach(function(id){var p=document.getElementById(id);if(p&&p.type==='password'){p.type='text';var b=p.parentNode&&p.parentNode.querySelector('button');if(b)b.textContent='🙈';}});});</script>
+document.addEventListener('DOMContentLoaded',function(){['f-pw'].forEach(function(id){var p=document.getElementById(id);if(p&&p.type==='password'){p.type='text';var b=p.parentNode&&p.parentNode.querySelector('button');if(b)b.textContent='🙈';}});});</script>
 </body>
 </html>
