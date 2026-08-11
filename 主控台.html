@@ -330,7 +330,7 @@ tr:hover td{background:var(--surface2)}
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th>編號</th><th>會員</th><th>臉書名稱</th><th>方案</th><th>狀態</th><th>連續期數</th>
+          <th>編號</th><th>會員</th><th>臉書名稱</th><th>方案</th><th>狀態</th><th>訂閱起始日</th><th>連續期數</th>
           <th>下次扣款</th><th>推薦人</th><th>帶進付費</th><th>應送月</th><th></th>
         </tr></thead>
         <tbody id="memBody"></tbody>
@@ -579,7 +579,7 @@ function login(){
 function mapMember(g){
   const st=g.status==='active'?'有效':g.status==='cancelled'?'已取消':(g.status==='expired'||g.status==='late')?'逾期':(g.status||'有效');
   return {id:g.member_id, pub:g.pub_id||'', name:(String(g.email||'').split('@')[0]||g.member_id), email:g.email||'',
-    plan:(g.plan==='一般'?'一般':'創始'), fb:g.fb_name||'', next:g.next_charge_date||'', status:st,
+    plan:(g.plan==='一般'?'一般':'創始'), fb:g.fb_name||'', start:g.start_date||'', next:g.next_charge_date||'', status:st,
     streak:Number(g.paid_periods)||0, ref:g.referred_by||'', refCode:g.ref_code||'',
     comp:Number(g.granted)||0, paidRefs:Number(g.referred_paid_count)||0};
 }
@@ -676,13 +676,14 @@ function renderMembers(){
       <td>${fbCell(m)}</td>
       <td>${planBadge(m)}</td>
       <td><span class="pill ${stCls}">${m.status}</span></td>
+      <td>${m.start?'<span class="id">'+m.start+'</span>':'<span class="email">—</span>'}</td>
       <td>${m.status==='已取消'?'—':dots(m.streak)+' <span class="id">'+m.streak+'</span>'}</td>
       <td>${m.status==='已取消'?'—':(m.next||'—')}</td>
       <td>${m.ref?'<span class="id">'+m.ref+'</span>':'<span class="email">—</span>'}</td>
       <td><span class="id">${m.paidRefs}</span></td>
       <td>${m.comp?'<span class="id" style="color:var(--gold)">'+m.comp+'</span>':'<span class="email">0</span>'}</td>
       <td>${m.status==='已取消'?'':`<button class="mini-act" onclick="giftMonth('${m.id}')">贈送月</button> `}<button class="mini-act" style="color:#ff6b6b;border-color:#ff6b6b" onclick="deleteMember('${m.id}')">刪除</button></td>
-    </tr>`;}).join('') || `<tr><td colspan="11"><div class="empty">沒有符合的會員</div></td></tr>`;
+    </tr>`;}).join('') || `<tr><td colspan="12"><div class="empty">沒有符合的會員</div></td></tr>`;
 }
 function fbCell(m){
   const v=m.fb?escH(m.fb):'<span style="color:var(--dim)">—</span>';
