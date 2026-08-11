@@ -932,12 +932,12 @@ document.addEventListener('dragstart',e=>e.preventDefault());
     +'.tablet-hint .th-ico{font-size:34px;margin-bottom:12px}'
     +'.tablet-hint .th-t{font-size:17px;font-weight:700;color:#e8c877;margin-bottom:8px;line-height:1.5}'
     +'.tablet-hint .th-s{font-size:13px;color:#b8b09a;line-height:1.7;margin-bottom:16px}'
-    +'.tablet-hint .th-x{font-family:ui-monospace,monospace;font-size:11px;color:#8a8266;letter-spacing:.08em}';
+    +'.tablet-hint .th-x-btn{margin-top:8px;font-family:inherit;font-size:13px;font-weight:700;color:#1a1200;background:#e8c877;border:none;border-radius:10px;padding:10px 22px;cursor:pointer}.tablet-hint .th-x-btn:active{opacity:.85}';
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var ov=document.createElement('div');ov.className='tablet-hint';
-  ov.innerHTML='<div class="th-card"><div class="th-ico">📱 → 💻</div><div class="th-t">建議使用平板以上</div><div class="th-s">這份報告資訊密度高，用平板或電腦看，版面才展得開、體驗最佳。手機也能看，只是較擠。</div><div class="th-x">點擊任意處關閉</div></div>';
+  ov.innerHTML='<div class="th-card"><div class="th-ico">📱 → 💻</div><div class="th-t">建議使用平板以上</div><div class="th-s">這份報告資訊密度高，用平板或電腦看，版面才展得開、體驗最佳。手機也能看，只是較擠。</div><button class="th-x-btn" type="button">知道了，繼續看</button></div>';
   function close(){try{localStorage.setItem('hideTabletHint','1');}catch(e){}if(ov.parentNode)ov.parentNode.removeChild(ov);}
-  ov.addEventListener('click',close);
+  var _thb=ov.querySelector('.th-x-btn');if(_thb)_thb.addEventListener('click',close);
   if(document.body)document.body.appendChild(ov);else document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(ov);});
 })();
 </script>
