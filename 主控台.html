@@ -457,6 +457,7 @@ tr:hover td{background:var(--surface2)}
     </div>
     <div class="toolbar">
       <button class="btn-done" onclick="loadPaidReports()">↻ 重新整理</button>
+      <button class="btn-done" style="color:var(--gold,#e0a526)" onclick="notifySelectedPaid()">📧 補寄勾選</button>
       <button class="btn-done" style="color:#ff6b6b" onclick="deleteSelectedPaid()">🗑 刪除勾選</button>
     </div>
     <div class="tbl-wrap">
@@ -1245,6 +1246,17 @@ async function deleteSelectedPaid(){
     for(var i=0;i<ids.length;i++){ try{ var res=await post({action:'adminDeleteReport',key:KEY,reportId:ids[i]}); if(res&&res.ok)ok++; }catch(e){} }
     toast('已刪除 '+ok+' / '+ids.length+' 個');loadPaidReports();
   })();
+}
+/* 批次補寄：對勾選的每份報告，各自只補寄給「還沒收過的人」 */
+async function notifySelectedPaid(){
+  var ids=Array.prototype.slice.call(document.querySelectorAll('#paidBody .paid-chk:checked')).map(function(c){return c.dataset.id;}).filter(Boolean);
+  if(!ids.length){toast('先勾選要補寄的報告');return;}
+  if(!await uiConfirm('對勾選的 '+ids.length+' 份報告，各自補寄給「還沒收過這份」的 active 會員？\n\n（已收過的人不會再收到；已在會員專區關閉通知的人不寄）'))return;
+  toast('補寄中…（份數多需要一點時間）');
+  var totalSent=0, done=0, fail=0;
+  for(var i=0;i<ids.length;i++){ try{ var r=await post({action:'adminNotifyReport',key:KEY,reportId:ids[i]}); if(r&&r.ok)totalSent+=(r.sent||0); else fail++; done++; }catch(e){ fail++; } }
+  toast('完成 '+done+' 份｜共補寄 '+totalSent+' 位新會員'+(fail?('｜'+fail+' 份失敗'):''));
+  loadPaidReports();
 }
 
 /* 逐會員去重：只補寄給「還沒收過這份」的 active 會員。之後有新會員加入，再按一次只補寄他們 */
