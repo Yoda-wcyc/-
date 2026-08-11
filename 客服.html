@@ -66,7 +66,7 @@
         <textarea id="message" placeholder="請描述你遇到的狀況,附上報告名稱/日期或截圖說明會更快解決。"></textarea>
         <button id="submitBtn" onclick="submitForm()">送出</button>
         <div class="msg" id="msg"></div>
-        <div class="fallback">或直接寄信到 <a href="mailto:iamtwispin@gmail.com">iamtwispin@gmail.com</a></div>
+        <div class="fallback">送出後我們會把回覆寄到你上面填的 email；請留意收件匣與垃圾信匣。</div>
       </div>
       <div id="okBox" class="ok-box" style="display:none">
         <div class="ic">✅</div>
@@ -91,8 +91,8 @@ function submitForm(){
     category:$('category').value, subject:$('subject').value.trim(), message:message
   })}).then(function(r){return r.json();}).then(function(res){
     if(res&&res.ok){ $('formBox').style.display='none'; $('okBox').style.display='block'; }
-    else{ btn.disabled=false; msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)?res.error:'送出失敗,請稍後再試或直接寄信'; }
-  }).catch(function(){ btn.disabled=false; msg.style.color='#ff6b6b'; msg.textContent='連線失敗,請直接寄信 iamtwispin@gmail.com'; });
+    else{ btn.disabled=false; msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)?res.error:'送出失敗,請稍後再試或私訊粉專'; }
+  }).catch(function(){ btn.disabled=false; msg.style.color='#ff6b6b'; msg.textContent='連線失敗,請稍後再試或私訊粉專'; });
 }
 </script>
 
