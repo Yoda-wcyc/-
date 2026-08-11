@@ -483,7 +483,7 @@
         if(remember){try{localStorage.setItem(LS_EMAIL,email);localStorage.setItem(LS_PW,pw);}catch(e){}}
         curEmail=email; curPw=pw;
         try{sessionStorage.setItem('yoda_mpw',pw);}catch(e){} // 存本次瀏覽階段 → report-shell 自動登入,逛付費文章免再輸
-        try{localStorage.setItem('yoda_mpw_h',JSON.stringify({p:pw}));}catch(e){} // 跨分頁交棒＋這台裝置永久記住(同源共用,直到登出才清;訂閱到期時報告頁驗證失敗也會自動清)
+        try{localStorage.setItem('yoda_mpw_h',JSON.stringify({e:email,p:pw}));}catch(e){} // 跨分頁交棒＋這台裝置記住 email＋密碼(同源共用,直到登出才清)→ report-shell 自動帶入
         renderDash(d);
       })
       .catch(function(){btn.disabled=false;if(!silent){msg.className='msg';msg.textContent='連線失敗，請稍後再試';}});
