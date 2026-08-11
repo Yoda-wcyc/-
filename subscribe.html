@@ -136,6 +136,17 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
 </div>
 
 <div class="wrap">
+  <!-- 訂閱成功橫幅：付款完成(?paid=1)返回時顯示 -->
+  <div id="paidBanner" style="display:none;margin-bottom:calc(22px*var(--scale));padding:20px 22px;border-radius:16px;background:linear-gradient(135deg,rgba(48,209,88,.14),rgba(15,184,133,.07));border:1.5px solid var(--green)">
+    <div style="font-size:calc(19px*var(--scale));font-weight:800;color:var(--green);margin-bottom:10px">✅ 訂閱成功，歡迎加入！</div>
+    <div style="font-size:calc(14px*var(--scale));line-height:1.9">
+      之後每有新的付費報告上線，你<b>設為帳號的 email 就會收到通知信</b>——點信裡的連結、輸入一次密碼，就能直接讀最新付費報告。<br>
+      也可以隨時從首頁登入<b>會員專區</b>，在「<b>我的付費報告</b>」查看你所有可讀的報告。
+    </div>
+    <a href="會員專區.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:11px 22px;border-radius:9999px;background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;font-weight:800;text-decoration:none;font-size:calc(14px*var(--scale))">前往會員專區 · 我的付費報告 →</a>
+    <div style="font-size:calc(12px*var(--scale));color:var(--dim);margin-top:12px">沒收到通知信？先看垃圾信匣；忘記密碼可在會員專區點「忘記密碼」重設，仍有問題來信 iamtwispin@gmail.com。</div>
+  </div>
+
   <!-- 服務簡介（hero）：對外說明賣什麼＋合規定位 -->
   <p class="eyebrow">投資研究 · 訂閱服務</p>
   <h1>Yoda Research —— 不報明牌，帶你練成自己看懂市場的判斷力。</h1>
@@ -288,6 +299,8 @@ function setSize(s){document.documentElement.setAttribute('data-size',s);try{loc
   if(saved){var b=document.getElementById('refBanner'),w=document.getElementById('refWho');
     if(w)w.textContent='（推薦碼 '+saved+'）';
     if(b)b.style.display='block';}
+  // 付款完成返回(?paid=1) → 顯示訂閱成功橫幅並捲到最上面
+  if(new URLSearchParams(location.search).get('paid')){var pb=document.getElementById('paidBanner');if(pb){pb.style.display='block';try{window.scrollTo(0,0);}catch(e){}}}
 }catch(e){}})();
 </script>
 <script>(function(){try{var K='yr_vid',v=localStorage.getItem(K);if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}var seg=location.pathname.split('/').filter(Boolean).pop()||'home';fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',{method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});}catch(e){}})();</script>
