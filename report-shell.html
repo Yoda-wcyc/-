@@ -110,7 +110,7 @@
     // 把防盜 script 也注進報告內文（iframe 內部一起擋右鍵/複製）
     var guard='<scr'+'ipt>["contextmenu","copy","cut","selectstart","dragstart"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});</scr'+'ipt>';
     var f=document.createElement('iframe');
-    f.setAttribute('sandbox','allow-scripts allow-same-origin'); // 讓報告的圖表 JS 能跑
+    f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox'); // allow-scripts:圖表JS；allow-popups(+escape):遊戲鈕/粉專等 target=_blank 能開新分頁(不然沙箱擋掉=點了沒反應)
     f.srcdoc=guard+html;                                          // 正文從後端來，靜態檔裡沒有
     var c=document.getElementById('content');
     c.appendChild(f); c.style.display='block';
