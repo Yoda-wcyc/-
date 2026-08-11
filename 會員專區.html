@@ -232,22 +232,35 @@
       </div>
     </div>
 
-    <!-- 站內註冊卡：點「我要註冊會員」展開 -->
+    <!-- 站內註冊卡：點「我要註冊會員」展開；兩階段（先建帳號 → 再問要不要付費開通） -->
     <div class="card gold" id="registerCard" style="display:none;margin-bottom:26px">
-      <h3 class="lc-title">我要註冊會員</h3>
-      <p class="hint" style="margin-top:0">設定你的登入 email 與密碼，完成付款即開通<b>創始會員</b>（早鳥 NT$459／月・信用卡定期定額）。這組 email＋密碼就是你之後登入、讀報告用的。</p>
-      <label>Email（作為帳號）</label>
-      <input id="regEmail" type="email" autocomplete="email" placeholder="you@example.com" />
-      <label>設定密碼（至少 6 字，需含英文與數字）</label>
-      <div class="pw-wrap">
-        <input id="regPw" type="text" autocomplete="new-password" placeholder="設定你的登入密碼" onkeydown="if(event.key==='Enter')doRegister()" />
-        <button type="button" class="pw-eye" onclick="eyeToggle('regPw',this)" aria-label="顯示或隱藏密碼">🙈</button>
+      <!-- 階段1：建立帳號（免付款） -->
+      <div id="regForm">
+        <h3 class="lc-title">我要註冊會員</h3>
+        <p class="hint" style="margin-top:0">先設定你的登入 email 與密碼建立帳號——<b>這一步不用付款</b>。這組 email＋密碼就是你之後登入、讀報告用的。</p>
+        <label>Email（作為帳號）</label>
+        <input id="regEmail" type="email" autocomplete="email" placeholder="you@example.com" />
+        <label>設定密碼（至少 6 字，需含英文與數字）</label>
+        <div class="pw-wrap">
+          <input id="regPw" type="text" autocomplete="new-password" placeholder="設定你的登入密碼" onkeydown="if(event.key==='Enter')doRegister()" />
+          <button type="button" class="pw-eye" onclick="eyeToggle('regPw',this)" aria-label="顯示或隱藏密碼">🙈</button>
+        </div>
+        <button class="btn" id="regBtn" onclick="doRegister()" style="background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">建立帳號</button>
+        <div class="msg" id="regMsg"></div>
       </div>
-      <label class="remember" style="align-items:flex-start;line-height:1.6"><input id="regAgree" type="checkbox" style="margin-top:3px" /> <span>我已了解本服務為數位內容／線上服務，付款後隨即開通，<b>不適用七日猶豫期（無鑑賞期）</b>，且開通後恕不退費。</span></label>
-      <button class="btn" id="regBtn" onclick="doRegister()" style="background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">註冊並前往付款 →</button>
-      <div class="msg" id="regMsg"></div>
-      <form id="regPayGo" method="POST" action="https://yoda-research-next.vercel.app/api/ecpay-create" style="display:none"><input type="hidden" name="email" id="regPayEmail"></form>
+      <!-- 階段2：帳號建好，詢問要不要付費開通 -->
+      <div id="regDone" style="display:none">
+        <h3 class="lc-title">✅ 帳號建立完成！</h3>
+        <p class="hint" style="margin-top:0">你的帳號 <b id="regDoneEmail" style="color:var(--text)"></b> 已建立。接下來要<b>付費訂閱、開通付費會員</b>（可讀所有付費報告）嗎？還是先回首頁看看？</p>
+        <label class="remember" style="align-items:flex-start;line-height:1.6"><input id="regAgree" type="checkbox" style="margin-top:3px" /> <span>（付款前先確認）我已了解本服務為數位內容，付款後隨即開通，<b>不適用七日猶豫期（無鑑賞期）</b>，開通後恕不退費。</span></label>
+        <button class="btn" onclick="doRegPay()" style="background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">要，前往付費訂閱付款 →</button>
+        <a class="btn" href="https://yoda-research-next.vercel.app/" style="display:block;text-align:center;background:var(--surface2);color:var(--text);border:1px solid var(--border);box-shadow:none;margin-top:10px">先不用，回首頁看報告</a>
+        <div class="msg" id="regMsg2"></div>
+        <p class="hint" style="margin-top:12px">帳號已存好——之後隨時登入會員專區，也能從「待開通」狀態一鍵前往付款。</p>
+      </div>
     </div>
+    <!-- 共用綠界付款表單（註冊後付費／儀表板待開通付款共用） -->
+    <form id="ecpayGo" method="POST" action="https://yoda-research-next.vercel.app/api/ecpay-create" style="display:none"><input type="hidden" name="email" id="ecpayEmail"></form>
 
     <!-- ① Hero：免費電子報引流 -->
     <div class="hero">
@@ -343,6 +356,15 @@
     <div class="dash-head">
       <div class="who">會員 <b id="dMemberId">—</b><span id="dBadge" class="badge active">—</span><br><span id="dEmail"></span></div>
       <button class="btn" style="width:auto;margin:0;padding:8px 18px;font-size:13px;background:linear-gradient(135deg,#3a4356,#5a647a);color:#fff;box-shadow:0 4px 14px rgba(58,67,86,.45)" onclick="logout()">登出</button>
+    </div>
+
+    <!-- 待開通橫幅：帳號已建但尚未付款開通 -->
+    <div id="pendingBanner" style="display:none;margin:4px 0 18px;padding:18px 20px;border-radius:16px;background:linear-gradient(135deg,rgba(224,165,38,.16),rgba(184,134,11,.08));border:1.5px solid var(--sub1)">
+      <div style="font-size:16px;font-weight:800;color:var(--sub1);margin-bottom:6px">⏳ 你的帳號尚未開通</div>
+      <div style="font-size:14px;line-height:1.8">帳號建好了，但還沒完成付款，暫時<b>還不能閱讀付費報告</b>。完成付款即可開通付費會員、閱讀所有付費報告。</div>
+      <label class="remember" style="align-items:flex-start;line-height:1.6;margin-top:10px"><input id="pendAgree" type="checkbox" style="margin-top:3px" /> <span>我已了解本服務為數位內容，付款後隨即開通，<b>不適用七日猶豫期</b>，開通後恕不退費。</span></label>
+      <button class="btn" onclick="doPendPay()" style="width:auto;padding:11px 22px;background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">前往付費訂閱付款 →</button>
+      <div class="msg" id="pendMsg"></div>
     </div>
 
     <!-- 我的付費報告：登入後直接讀完整版（本次登入免再輸密碼；深連結到 report-shell） -->
@@ -478,10 +500,12 @@
       .catch(function(){btn.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試。';});
   }
 
-  /* 站內註冊 → 建帳號 → 導去綠界付款（與遊戲同一套流程） */
+  /* 站內註冊：階段1 建帳號（免付款）→ 階段2 詢問要不要付費開通 */
+  var regEmailVal='';
   function showRegister(){
     var c=el('registerCard'); if(!c)return;
     c.style.display='block';
+    try{el('regForm').style.display='block';el('regDone').style.display='none';}catch(e){}
     try{ if(!el('regEmail').value)el('regEmail').value=(el('email').value||'').trim(); }catch(e){}
     try{c.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
     try{el('regEmail').focus();}catch(e){}
@@ -490,17 +514,26 @@
     var email=(el('regEmail').value||'').trim(), pw=el('regPw').value||'', msg=el('regMsg'); msg.className='msg';
     if(!/.+@.+\..+/.test(email)){msg.style.color='#ff6b6b';msg.textContent='請填一個正確的 email';return;}
     if(pw.length<6||!/[A-Za-z]/.test(pw)||!/[0-9]/.test(pw)){msg.style.color='#ff6b6b';msg.textContent='密碼至少 6 碼，且要同時包含英文與數字';return;}
-    if(!el('regAgree').checked){msg.style.color='#ff6b6b';msg.textContent='請先勾選同意（數位內容無七日猶豫期）';return;}
     var btn=el('regBtn'); btn.disabled=true; msg.style.color='var(--dim)'; msg.textContent='建立帳號中…';
     fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'register',email:email,password:pw,plan:'創始'})})
       .then(function(r){return r.json();})
       .then(function(res){
         btn.disabled=false;
-        if(res&&res.ok){ el('regPayEmail').value=email; el('regPayGo').submit(); } // 註冊成功 或 email已註冊且密碼正確 → 去付款
-        else{ msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)||'建立帳號失敗，換一組密碼再試'; }
+        if(res&&res.ok){ // 建立成功（或 email 已註冊且密碼正確）→ 進階段2，詢問要不要付費
+          regEmailVal=email; el('regDoneEmail').textContent=email;
+          el('regForm').style.display='none'; el('regDone').style.display='block';
+          try{el('registerCard').scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
+        } else { msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)||'建立帳號失敗，換一組密碼再試'; }
       })
       .catch(function(){btn.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試';});
   }
+  function doRegPay(){
+    var msg=el('regMsg2'); msg.className='msg';
+    if(!el('regAgree').checked){msg.style.color='#ff6b6b';msg.textContent='請先勾選同意（數位內容無七日猶豫期），再前往付款';return;}
+    goPayEcpay(regEmailVal||(el('regEmail').value||'').trim());
+  }
+  // 共用：導去綠界付款（帶要開通的 email）
+  function goPayEcpay(email){ if(!email)return; el('ecpayEmail').value=email; el('ecpayGo').submit(); }
 
   /* 登入 */
   function doLogin(){
@@ -563,13 +596,17 @@
       .catch(function(){box.innerHTML='<div style="color:var(--dim);font-size:13px">連線失敗</div>';});
   }
 
+  var dashEmail='';
+  function doPendPay(){ var m=el('pendMsg'); m.className='msg'; if(!el('pendAgree').checked){m.style.color='#ff6b6b';m.textContent='請先勾選同意再前往付款';return;} goPayEcpay(dashEmail); }
   function renderDash(d){
     el('guest').style.display='none'; el('dash').style.display='block';
     el('dMemberId').textContent=d.memberId||'—';
     el('dEmail').textContent=d.email||'';
-    var badge=el('dBadge'), active=(d.status==='active');
+    dashEmail=d.email||'';
+    var badge=el('dBadge'), active=(d.status==='active'), pending=(d.status==='pending'||d.status==='inactive'||d.status==='待開通');
     badge.className='badge '+(active?'active':'expired');
-    badge.textContent=active?'訂閱中':'已到期';
+    badge.textContent=active?'訂閱中':(pending?'待開通':'已到期');
+    var pb=el('pendingBanner'); if(pb)pb.style.display=pending?'block':'none';
     el('dStart').textContent=d.startDate||'—';
     el('dPeriods').textContent=(d.paidPeriods||0)+' 期';
     el('dNext').textContent=d.nextChargeDate||'—';
