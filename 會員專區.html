@@ -402,12 +402,12 @@
       <button class="btn" id="pwBtn" onclick="doChangePw()" style="margin-top:16px;background:linear-gradient(135deg,#30d158,#0fb885);color:#04220f;box-shadow:0 6px 18px rgba(48,209,88,.32)">更新密碼</button>
       <div class="msg" id="pwMsg"></div>
       <div style="border-top:1px solid var(--divider);margin-top:18px;padding-top:16px">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-          <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:0">
             <div style="font-weight:600">新報告 email 通知</div>
             <div style="font-size:13px;color:var(--dim);margin-top:2px">開啟時，每有新付費報告上線會寄信提醒你。關閉不影響訂閱與閱讀權限。</div>
           </div>
-          <button class="btn" id="notifyBtn" onclick="doToggleNotify()" style="flex:0 0 auto;min-width:96px;padding:9px 16px">—</button>
+          <button class="btn" id="notifyBtn" onclick="doToggleNotify()" style="flex:0 0 auto;width:auto;min-width:96px;padding:9px 16px;margin-top:0">—</button>
         </div>
         <div class="msg" id="notifyMsg"></div>
       </div>
