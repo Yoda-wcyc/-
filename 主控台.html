@@ -917,6 +917,13 @@ function renderSupport(){
       +'<div style="border-top:1px solid var(--divider);margin:14px 0 10px"></div>'
       +(t.email
         ? '<label style="font-size:12px;color:var(--dim)">回覆讀者（會 email 寄到 '+escH(t.email)+'）</label>'
+          +'<div style="display:flex;gap:6px;align-items:center;margin:4px 0 6px;flex-wrap:wrap">'
+            +'<select onchange="applyCanned(\''+t.ticket_id+'\',this.value);this.selectedIndex=0" style="'+inSt+';flex:1;min-width:150px;max-width:300px">'
+              +'<option value="">常用回覆…（點選填入）</option>'+cannedOptionsHtml()
+            +'</select>'
+            +'<button class="mini-act" onclick="addCanned(\''+t.ticket_id+'\')">＋存為常用</button>'
+            +'<button class="mini-act" onclick="manageCanned()">管理</button>'
+          +'</div>'
           +'<textarea id="rep_'+t.ticket_id+'" placeholder="輸入要寄給讀者的回覆內容…" style="'+inSt+';min-height:72px;margin:4px 0 10px;resize:vertical"></textarea>'
           +'<button class="btn-primary" style="background:linear-gradient(135deg,#2997ff,#5f8bff)" onclick="replySupport(\''+t.ticket_id+'\')">✉ 回覆並寄出</button>'
         : '<div style="font-size:12px;color:var(--amber)">此工單沒有留 email，無法直接回覆（請改用其他管道）。</div>')
@@ -934,6 +941,14 @@ function replySupport(id){
     else{toast((res&&res.error)||'回覆失敗（GAS 可能尚未部署新版本）');}
   }).catch(()=>toast('連線失敗'));
 }
+/* ===== 常用回覆（罐頭回覆）· 存在本機瀏覽器 localStorage ===== */
+function getCanned(){ try{return JSON.parse(localStorage.getItem('yoda_canned')||'[]');}catch(e){return [];} }
+function setCanned(a){ try{localStorage.setItem('yoda_canned',JSON.stringify(a));}catch(e){} }
+function cannedOptionsHtml(){ return getCanned().map(function(c,i){return '<option value="'+i+'">'+escH(c.name)+'</option>';}).join(''); }
+function applyCanned(id,idx){ if(idx===''||idx==null)return; const c=getCanned()[Number(idx)]; if(!c)return; const ta=$('rep_'+id); if(ta){ ta.value = ta.value.trim() ? (ta.value.replace(/\s+$/,'')+'\n'+c.text) : c.text; ta.focus(); } }
+function addCanned(id){ const ta=$('rep_'+id); const txt=((ta&&ta.value)||'').trim(); if(!txt){toast('先在回覆框輸入內容，再存為常用');return;} let name=prompt('這則常用回覆取個名稱（方便之後選）：', txt.slice(0,16)); if(name===null)return; name=(name.trim())||txt.slice(0,16); const a=getCanned(); a.push({name:name,text:txt}); setCanned(a); toast('已存為常用：'+name); renderSupport(); }
+function manageCanned(){ const a=getCanned(); if(!a.length){ openModal('常用回覆','<div style="color:var(--dim);line-height:1.7">還沒有常用回覆。<br>在任一工單的回覆框輸入內容後，按「＋存為常用」就能新增；之後從「常用回覆…」下拉直接選用。</div>',''); return; } const html=a.map(function(c,i){return '<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-weight:700;margin-bottom:2px">'+escH(c.name)+'</div><div style="font-size:12px;color:var(--dim);white-space:pre-wrap;word-break:break-word">'+escH(c.text)+'</div></div><button class="mini-act" style="color:#ff6b6b;border-color:#ff6b6b;flex:0 0 auto" onclick="delCanned('+i+')">刪除</button></div>';}).join(''); openModal('常用回覆（'+a.length+' 則）',html,''); }
+function delCanned(i){ const a=getCanned(); a.splice(i,1); setCanned(a); toast('已刪除'); renderSupport(); manageCanned(); }
 function saveSupport(id){
   const st=$('st_'+id).value, sol=$('sol_'+id).value, fix=$('fix_'+id).value;
   post({action:'adminSupportUpdate',key:KEY,ticketId:id,fields:{status:st,solution:sol,fix_plan:fix}}).then(res=>{
