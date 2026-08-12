@@ -493,7 +493,9 @@
     if(!/.+@.+\..+/.test(email)){msg.style.color='#ff6b6b';msg.textContent='請填一個正確的 email';return;}
     if(pw.length<6||!/[A-Za-z]/.test(pw)||!/[0-9]/.test(pw)){msg.style.color='#ff6b6b';msg.textContent='密碼至少 6 碼，且要同時包含英文與數字';return;}
     var btn=el('regBtn'); btn.disabled=true; msg.style.color='var(--dim)'; msg.textContent='建立帳號中…';
-    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'register',email:email,password:pw,plan:'創始'})})
+    // 帶入推薦碼：subscribe.html?ref= 存進 localStorage.yoda_ref（同源共用）→ 註冊時回填 referredBy
+    var referredBy='';try{referredBy=(localStorage.getItem('yoda_ref')||'').replace(/[^A-Za-z0-9]/g,'').slice(0,12);}catch(e){}
+    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'register',email:email,password:pw,plan:'創始',referredBy:referredBy})})
       .then(function(r){return r.json();})
       .then(function(res){
         btn.disabled=false;
