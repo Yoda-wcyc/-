@@ -127,7 +127,7 @@
   // GAS 登入發票（拿票存起來）→ 回 token 或 null。
   function doLogin(email, pw){
     go.disabled=true; msg.style.color='var(--dim)'; msg.textContent='驗證中…';
-    return gasFetch({action:'memberLogin',email:email,password:pw}).then(function(res){
+    return fetch(API+'/api/member-login',{method:'POST',body:JSON.stringify({email:email,password:pw})}).then(function(r){return r.json();}).then(function(res){
       go.disabled=false;
       if(!res.allow){
         if(res.reason==='need-email'){ msg.style.color='#ff6b6b'; msg.textContent=res.error||'請一併輸入你的會員 email'; if(em)em.focus(); return null; }
