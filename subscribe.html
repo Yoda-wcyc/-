@@ -139,12 +139,21 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
   <!-- 訂閱成功橫幅：付款完成(?paid=1)返回時顯示 -->
   <div id="paidBanner" style="display:none;margin-bottom:calc(22px*var(--scale));padding:20px 22px;border-radius:16px;background:linear-gradient(135deg,rgba(48,209,88,.14),rgba(15,184,133,.07));border:1.5px solid var(--green)">
     <div style="font-size:calc(19px*var(--scale));font-weight:800;color:var(--green);margin-bottom:10px">✅ 訂閱成功，歡迎加入！</div>
-    <div style="font-size:calc(14px*var(--scale));line-height:1.9">
-      之後每有新的付費報告上線，你<b>設為帳號的 email 就會收到通知信</b>——點信裡的連結、輸入一次密碼，就能直接讀最新付費報告。<br>
-      也可以隨時從首頁登入<b>會員專區</b>，在「<b>我的付費報告</b>」查看你所有可讀的報告。
+    <div style="font-size:calc(14px*var(--scale));line-height:1.9;margin-bottom:6px">
+      要讀你的付費報告，有<b>兩種方式</b>：
+    </div>
+    <div style="display:grid;grid-template-columns:1fr;gap:10px;font-size:calc(14px*var(--scale));line-height:1.85">
+      <div style="padding:12px 15px;border-radius:12px;background:rgba(224,165,38,.08);border-left:3px solid var(--sub1)">
+        <b style="color:var(--sub1)">① 直接進會員專區（最即時，不用等）</b><br>
+        用你剛設定的 email＋密碼登入，在「<b>我的付費報告</b>」就能立刻讀到<b>今天所有付費報告</b>。
+      </div>
+      <div style="padding:12px 15px;border-radius:12px;background:rgba(48,209,88,.06);border-left:3px solid var(--green)">
+        <b style="color:var(--green)">② 收 email 通知</b><br>
+        之後每有新報告上線，會寄通知信到你的帳號 email——點信裡連結、輸入一次密碼即可開啟。
+      </div>
     </div>
     <a href="會員專區.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:11px 22px;border-radius:9999px;background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;font-weight:800;text-decoration:none;font-size:calc(14px*var(--scale))">前往會員專區 · 我的付費報告 →</a>
-    <div style="font-size:calc(12px*var(--scale));color:var(--dim);margin-top:12px">沒收到通知信？先看垃圾信匣；忘記密碼可在會員專區點「忘記密碼」重設，仍有問題來信 iamtwispin@gmail.com。</div>
+    <div style="font-size:calc(12px*var(--scale));color:var(--dim);margin-top:12px">通知信偶爾會晚一點或進垃圾信匣——但只要用①登入會員專區，隨時都讀得到，不必等信。忘記密碼可在會員專區點「忘記密碼」重設，仍有問題來信 iamtwispin@gmail.com。</div>
   </div>
 
   <!-- 服務簡介（hero）：對外說明賣什麼＋合規定位 -->
