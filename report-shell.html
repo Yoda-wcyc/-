@@ -90,12 +90,30 @@
       if(reportId)submit(); }
   }catch(e){} })();
 
+  // 打 GAS：附逾時＋自動重試。免費 GAS 尖峰(多人同時開)易慢/超時，靜默重試讓會員不會看到「連線失敗」。
+  function gasFetch(payload){
+    var attempts=3, timeoutMs=30000;
+    return new Promise(function(resolve,reject){
+      (function run(n){
+        var ctrl=('AbortController' in window)?new AbortController():null;
+        var timer=ctrl?setTimeout(function(){ctrl.abort();},timeoutMs):null;
+        fetch(GAS_URL,{method:'POST',body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
+          .then(function(r){return r.json();})
+          .then(function(res){ if(timer)clearTimeout(timer); resolve(res); })
+          .catch(function(e){
+            if(timer)clearTimeout(timer);
+            if(n<attempts){ try{msg.style.color='var(--dim)';msg.textContent='伺服器忙碌，重試中…（'+n+'/'+(attempts-1)+'）';}catch(_){}
+              setTimeout(function(){run(n+1);}, 1500*n); }
+            else reject(e);
+          });
+      })(1);
+    });
+  }
   function submit(){
     var email=(em.value||'').trim(), v=(pw.value||'').trim();
     if(!v){msg.style.color='#ff6b6b';msg.textContent='請輸入密碼';return;}
     go.disabled=true; msg.style.color='var(--dim)'; msg.textContent='驗證中…';
-    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'getReport',email:email,password:v,reportId:reportId,ip:device,ua:navigator.userAgent})})
-      .then(function(r){return r.json();})
+    gasFetch({action:'getReport',email:email,password:v,reportId:reportId,ip:device,ua:navigator.userAgent})
       .then(function(res){
         go.disabled=false; msg.style.color='#ff6b6b';
         if(!res.allow){
@@ -108,7 +126,7 @@
         try{localStorage.setItem('yoda_mpw_h',JSON.stringify({e:email,p:v}));}catch(e){} // 跨分頁交棒＋這台裝置記住 email＋密碼，之後點別篇免再輸
         render(res.html, res.watermark);
       })
-      .catch(function(){go.disabled=false;msg.style.color='#ff6b6b';msg.textContent='連線失敗，請稍後再試';});
+      .catch(function(){go.disabled=false;msg.style.color='#ff6b6b';msg.textContent='伺服器忙碌，請再按一次「開啟報告」';});
   }
 
   function render(html, watermark){
