@@ -536,12 +536,13 @@
         curEmail=email; curPw=pw;
         try{sessionStorage.setItem('yoda_mpw',pw);}catch(e){} // 存本次瀏覽階段 → report-shell 自動登入,逛付費文章免再輸
         try{localStorage.setItem('yoda_mpw_h',JSON.stringify({e:email,p:pw}));}catch(e){} // 跨分頁交棒＋這台裝置記住 email＋密碼(同源共用,直到登出才清)→ report-shell 自動帶入
+        if(d.token){try{localStorage.setItem('yoda_jwt',d.token);}catch(e){}} // 存票(JWT)→開報告走 Vercel(快·~1秒)；未付費者為空
         renderDash(d);
       })
       .catch(function(){btn.disabled=false;if(!silent){msg.className='msg';msg.textContent='連線失敗，請稍後再試';}});
   }
   function clearRemember(){try{localStorage.removeItem(LS_EMAIL);localStorage.removeItem(LS_PW);}catch(e){}}
-  function logout(){clearRemember();curEmail='';curPw='';try{sessionStorage.removeItem('yoda_mpw');}catch(e){}try{localStorage.removeItem('yoda_mpw_h');}catch(e){}el('dash').style.display='none';el('guest').style.display='block';
+  function logout(){clearRemember();curEmail='';curPw='';try{sessionStorage.removeItem('yoda_mpw');}catch(e){}try{localStorage.removeItem('yoda_mpw_h');}catch(e){}try{localStorage.removeItem('yoda_jwt');}catch(e){}el('dash').style.display='none';el('guest').style.display='block';
     el('pw').value='';el('loginMsg').textContent='';window.scrollTo(0,0);}
 
   // ── 我的付費報告清單（讀 Drive 付費檔 → 深連結 report-shell）──
@@ -556,11 +557,12 @@
   function loadPaidList(){
     var box=el('dPaidList'); if(!box)return;
     box.innerHTML='<div style="color:var(--dim);font-size:13px">載入中…</div>';
-    fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'memberPaidList',email:curEmail,password:curPw})})
+    var tok=''; try{tok=localStorage.getItem('yoda_jwt')||'';}catch(e){}
+    if(!tok){box.innerHTML='<div style="color:var(--dim);font-size:13px">訂閱未生效,無法讀取付費報告</div>';return;}
+    fetch('https://yoda-research-next.vercel.app/api/report-list',{method:'POST',body:JSON.stringify({token:tok})})
       .then(function(r){return r.json();})
       .then(function(d){
-        if(!d||!d.ok||!d.auth){box.innerHTML='<div style="color:var(--dim);font-size:13px">讀取失敗</div>';return;}
-        if(!d.active){box.innerHTML='<div style="color:var(--dim);font-size:13px">訂閱未生效,無法讀取付費報告</div>';return;}
+        if(!d||!d.auth){box.innerHTML='<div style="color:var(--dim);font-size:13px">請重新登入</div>';return;}
         var rs=d.reports||[];
         if(!rs.length){box.innerHTML='<div style="color:var(--dim);font-size:13px">目前沒有已上架的付費報告</div>';return;}
         box.innerHTML=rs.map(function(x){

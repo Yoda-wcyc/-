@@ -80,17 +80,13 @@
     else{pw.type='password';this.textContent='👁';}
   });
 
-  // 會員專區登入後把 email＋密碼交棒過來 → 這裡自動代入送出(免重複輸入;submit 為函式宣告已提升)
-  // 交棒鑰匙 yoda_mpw_h = {e:email, p:密碼}(舊格式只有 p 也相容:憑唯一密碼登入)。
-  (function(){ try{
-    var e='', p=sessionStorage.getItem('yoda_mpw')||'';
-    var h=localStorage.getItem('yoda_mpw_h'); if(h){ var o=JSON.parse(h); if(o&&(!o.exp||o.exp>Date.now())){ if(o.e)e=o.e; if(!p&&o.p)p=o.p; } }
-    if(e)em.value=e;
-    if(p){ pw.value=p; try{sessionStorage.setItem('yoda_mpw',p);}catch(_){}
-      if(reportId)submit(); }
-  }catch(e){} })();
+  // ── 開報告：優先用「票(JWT)」打 Vercel(~1秒)；沒票/票失效才回 GAS 登入發票。──
+  var API='https://yoda-research-next.vercel.app';
+  function getTok(){ try{return localStorage.getItem('yoda_jwt')||'';}catch(e){return '';} }
+  function setTok(t){ try{localStorage.setItem('yoda_jwt',t||'');}catch(e){} }
+  function clearTok(){ try{localStorage.removeItem('yoda_jwt');}catch(e){} }
 
-  // 打 GAS：附逾時＋自動重試。免費 GAS 尖峰(多人同時開)易慢/超時，靜默重試讓會員不會看到「連線失敗」。
+  // 打 GAS(登入發票用·附逾時重試)：GAS 較慢，只在沒有效票時做一次。
   function gasFetch(payload){
     var attempts=3, timeoutMs=30000;
     return new Promise(function(resolve,reject){
@@ -100,34 +96,76 @@
         fetch(GAS_URL,{method:'POST',body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
           .then(function(r){return r.json();})
           .then(function(res){ if(timer)clearTimeout(timer); resolve(res); })
-          .catch(function(e){
-            if(timer)clearTimeout(timer);
-            if(n<attempts){ try{msg.style.color='var(--dim)';msg.textContent='伺服器忙碌，重試中…（'+n+'/'+(attempts-1)+'）';}catch(_){}
-              setTimeout(function(){run(n+1);}, 1500*n); }
-            else reject(e);
-          });
+          .catch(function(e){ if(timer)clearTimeout(timer);
+            if(n<attempts){ try{msg.style.color='var(--dim)';msg.textContent='驗證中…（重試 '+n+'/'+(attempts-1)+'）';}catch(_){}
+              setTimeout(function(){run(n+1);}, 1500*n); } else reject(e); });
       })(1);
     });
   }
+  // 帶票打 Vercel 開報告(附逾時重試)。
+  function vercelReport(token){
+    var attempts=3, timeoutMs=30000;
+    return new Promise(function(resolve,reject){
+      (function run(n){
+        var ctrl=('AbortController' in window)?new AbortController():null;
+        var timer=ctrl?setTimeout(function(){ctrl.abort();},timeoutMs):null;
+        fetch(API+'/api/report',{method:'POST',body:JSON.stringify({token:token,reportId:reportId})})
+          .then(function(r){return r.json();})
+          .then(function(res){ if(timer)clearTimeout(timer); resolve(res); })
+          .catch(function(e){ if(timer)clearTimeout(timer);
+            if(n<attempts){ try{msg.style.color='var(--dim)';msg.textContent='載入中…（'+n+'/'+(attempts-1)+'）';}catch(_){}
+              setTimeout(function(){run(n+1);},1200*n); } else reject(e); });
+      })(1);
+    });
+  }
+  // 處理 Vercel 回應：成功 render→回 true；票失效→回 false 讓外層改走登入。
+  function handleReport(res){
+    if(res && res.allow && res.html){ render(res.html, res.watermark); return true; }
+    if(res && res.allow && res.error){ msg.style.color='#ff6b6b'; msg.textContent=res.error; return true; } // 例:找不到這份報告
+    return false;
+  }
+  // GAS 登入發票（拿票存起來）→ 回 token 或 null。
+  function doLogin(email, pw){
+    go.disabled=true; msg.style.color='var(--dim)'; msg.textContent='驗證中…';
+    return gasFetch({action:'memberLogin',email:email,password:pw}).then(function(res){
+      go.disabled=false;
+      if(!res.allow){
+        if(res.reason==='need-email'){ msg.style.color='#ff6b6b'; msg.textContent=res.error||'請一併輸入你的會員 email'; if(em)em.focus(); return null; }
+        clearTok();
+        try{if(sessionStorage.getItem('yoda_mpw')===pw)sessionStorage.removeItem('yoda_mpw');}catch(e){}
+        try{var hh=JSON.parse(localStorage.getItem('yoda_mpw_h')||'null'); if(hh&&hh.p===pw)localStorage.removeItem('yoda_mpw_h');}catch(e){}
+        msg.style.color='#ff6b6b'; msg.textContent=res.error||'email 或密碼不正確，或訂閱已失效'; return null;
+      }
+      setTok(res.token);
+      try{sessionStorage.setItem('yoda_mpw',pw);}catch(e){}
+      try{localStorage.setItem('yoda_mpw_h',JSON.stringify({e:email,p:pw}));}catch(e){}
+      return res.token;
+    });
+  }
+  // 手動登入送出
   function submit(){
     var email=(em.value||'').trim(), v=(pw.value||'').trim();
     if(!v){msg.style.color='#ff6b6b';msg.textContent='請輸入密碼';return;}
-    go.disabled=true; msg.style.color='var(--dim)'; msg.textContent='驗證中…';
-    gasFetch({action:'getReport',email:email,password:v,reportId:reportId,ip:device,ua:navigator.userAgent})
-      .then(function(res){
-        go.disabled=false; msg.style.color='#ff6b6b';
-        if(!res.allow){
-          if(res.reason==='need-email'){ msg.textContent=res.error||'請一併輸入你的會員 email'; if(em)em.focus(); return; }
-          try{if(sessionStorage.getItem('yoda_mpw')===v)sessionStorage.removeItem('yoda_mpw');}catch(e){}
-          try{var hh=JSON.parse(localStorage.getItem('yoda_mpw_h')||'null'); if(hh&&hh.p===v)localStorage.removeItem('yoda_mpw_h');}catch(e){} // 密碼錯/過期→清掉交棒鑰匙
-          msg.textContent=res.error||'email 或密碼不正確，或訂閱已失效';return;}
-        if(res.error){msg.textContent=res.error;return;}      // 例如找不到這份報告
-        try{sessionStorage.setItem('yoda_mpw', v);}catch(e){} // 本分頁記住(關分頁即清)
-        try{localStorage.setItem('yoda_mpw_h',JSON.stringify({e:email,p:v}));}catch(e){} // 跨分頁交棒＋這台裝置記住 email＋密碼，之後點別篇免再輸
-        render(res.html, res.watermark);
-      })
-      .catch(function(){go.disabled=false;msg.style.color='#ff6b6b';msg.textContent='伺服器忙碌，請再按一次「開啟報告」';});
+    doLogin(email,v).then(function(tok){
+      if(!tok) return;
+      msg.style.color='var(--dim)'; msg.textContent='載入中…';
+      return vercelReport(tok).then(function(res){ if(!handleReport(res)){ clearTok(); msg.style.color='#ff6b6b'; msg.textContent='請重新登入'; } });
+    }).catch(function(){ go.disabled=false; msg.style.color='#ff6b6b'; msg.textContent='伺服器忙碌，請再按一次「開啟報告」'; });
   }
+  // 進頁：有票先用票(快)；票失效/沒票但有交棒密碼→自動登入；再不行→停在登入框。
+  (function(){
+    var tok=getTok();
+    var e='', p=sessionStorage.getItem('yoda_mpw')||'';
+    try{ var h=localStorage.getItem('yoda_mpw_h'); if(h){ var o=JSON.parse(h); if(o){ if(o.e)e=o.e; if(!p&&o.p)p=o.p; } } }catch(_){}
+    if(e)em.value=e; if(p)pw.value=p;
+    if(!reportId) return;
+    function loginThenOpen(){ if(!p) return; doLogin(e,p).then(function(t){ if(t) vercelReport(t).then(function(r){ if(!handleReport(r)){ msg.style.color='#ff6b6b'; msg.textContent='請重新登入'; } }); }); }
+    if(tok){
+      msg.style.color='var(--dim)'; msg.textContent='載入中…';
+      vercelReport(tok).then(function(res){ if(handleReport(res)) return; loginThenOpen(); })
+        .catch(function(){ msg.style.color='#ff6b6b'; msg.textContent='伺服器忙碌，請按「開啟報告」'; });
+    } else { loginThenOpen(); }
+  })();
 
   function render(html, watermark){
     document.getElementById('gate').style.display='none';
