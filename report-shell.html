@@ -120,10 +120,12 @@
   }
   // 處理 Vercel 回應：成功 render→回 true；票失效→回 false 讓外層改走登入。
   function handleReport(res){
-    if(res && res.allow && res.html){ render(res.html, res.watermark); return true; }
+    if(res && res.allow && res.html){ render(res.html, res.watermark); logOpenPing(res.memberId); return true; }
     if(res && res.allow && res.error){ msg.style.color='#ff6b6b'; msg.textContent=res.error; return true; } // 例:找不到這份報告
     return false;
   }
+  // 開報告成功→回寫一筆開啟給 GAS(OpenLog)。fire-and-forget，不拖慢；GAS 端驗 pub 為真會員才記。
+  function logOpenPing(pub){ try{ fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',{method:'POST',body:JSON.stringify({action:'logOpenPub',pub:pub||'',reportId:reportId})}); }catch(e){} }
   // GAS 登入發票（拿票存起來）→ 回 token 或 null。
   function doLogin(email, pw){
     go.disabled=true; msg.style.color='var(--dim)'; msg.textContent='驗證中…';
