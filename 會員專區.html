@@ -174,6 +174,23 @@
   .cert-pill{font-size:13px;font-weight:700;padding:7px 14px;border-radius:9999px;border:1px solid var(--border);color:var(--dim);background:var(--surface2)}
   .cert-pill.on{color:#1a1200;background:linear-gradient(135deg,var(--sub1),var(--sub2));border-color:transparent}
 
+  /* 儀表板頂部雙欄：我的付費報告（左）＋ 付費會員權益（右） */
+  .dash-top{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;margin-bottom:14px}
+  @media(max-width:720px){.dash-top{grid-template-columns:1fr}}
+  .dash-top>.card{margin:0;height:100%}
+  .perk-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;background:linear-gradient(90deg,var(--sub1),var(--sub2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .perk-h{font-size:18px;font-weight:800;letter-spacing:-.01em;margin-bottom:12px;color:var(--text)}
+  .perk-h b{color:var(--sub1)}
+  .perk-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .perk-list li{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:9px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border)}
+  .perk-list li.flag{border-color:var(--sub1);background:rgba(224,165,38,.08)}
+  .perk-list .pf{font-size:13px;color:var(--sub1);font-weight:800;white-space:nowrap}
+  .perk-more{font-size:12px;color:var(--dim);line-height:1.7;margin-top:12px}
+  .perk-more b{color:var(--text)}
+  /* 訪客區的權益卡：整頁寬，桌機把 4 項排成兩欄 */
+  .perk-guest{margin-bottom:26px}
+  @media(min-width:600px){.perk-guest .perk-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.perk-guest .perk-list li.flag{grid-column:1/-1}}
+
   .disc{font-size:12px;color:var(--dim);line-height:1.8;border-top:1px solid var(--divider);margin-top:24px;padding-top:18px}
 </style>
 </head>
@@ -197,6 +214,19 @@
 
   <!-- ============ 訪客區（未登入） ============ -->
   <div id="guest">
+
+    <!-- ⓪ 付費會員權益：一進來最上面就看到 -->
+    <div class="card gold perk-guest">
+      <div class="perk-eyebrow">付費會員權益</div>
+      <div class="perk-h">每週固定 <b>7 份</b>完整報告，一份都不少</div>
+      <ul class="perk-list">
+        <li class="flag"><span><span class="tag-key">旗艦</span>關鍵報告</span><span class="pf">每週 1 份</span></li>
+        <li>市場觀察<span class="pf">每週 2 份</span></li>
+        <li>美股<span class="pf">每週 2 份</span></li>
+        <li>台股<span class="pf">每週 2 份</span></li>
+      </ul>
+      <p class="perk-more">關鍵報告為付費專屬：完整判讀 ＋ 我自己的預期、底線、條件劇本與操作推理。另有 <b>總經</b>月更、<b>AI 泡沫評估</b>月更、<b>專題</b>不定期，大事即時追；含<b>所有教學小遊戲</b>與<b>歷史 archive</b>。</p>
+    </div>
 
     <!-- 登入卡：最上面一進來就看到（左）＋ 還沒訂閱提示（右） -->
     <div class="top-login">
@@ -345,14 +375,29 @@
       <div class="msg" id="pendMsg"></div>
     </div>
 
-    <!-- 我的付費報告：登入後直接讀完整版（本次登入免再輸密碼；深連結到 report-shell） -->
-    <div class="card">
-      <h2>我的付費報告 <span style="font-size:12px;color:var(--dim);font-weight:400">點開即讀完整版 · 本次登入免再輸密碼</span></h2>
-      <div id="dPaidList" style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-        <div style="color:var(--dim);font-size:13px">載入中…</div>
+    <!-- 頂部雙欄：我的付費報告（左）＋ 付費會員權益（右） -->
+    <div class="dash-top">
+      <!-- 左欄：我的付費報告（登入後直接讀完整版；深連結到 report-shell） -->
+      <div class="card">
+        <h2>我的付費報告 <span style="font-size:12px;color:var(--dim);font-weight:400">點開即讀完整版 · 本次登入免再輸密碼</span></h2>
+        <div id="dPaidList" style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <div style="color:var(--dim);font-size:13px">載入中…</div>
+        </div>
+        <a href="https://yoda-research-next.vercel.app/archive?tab=付費版" target="_blank" rel="noopener"
+           style="display:inline-block;margin-top:12px;font-size:13px;color:var(--dim);text-decoration:none">看全部報告總覽（免費預覽）→</a>
       </div>
-      <a href="https://yoda-research-next.vercel.app/archive?tab=付費版" target="_blank" rel="noopener"
-         style="display:inline-block;margin-top:12px;font-size:13px;color:var(--dim);text-decoration:none">看全部報告總覽（免費預覽）→</a>
+      <!-- 右欄：付費會員權益 -->
+      <div class="card gold">
+        <div class="perk-eyebrow">付費會員權益</div>
+        <div class="perk-h">每週固定 <b>7 份</b>完整報告，一份都不少</div>
+        <ul class="perk-list">
+          <li class="flag"><span><span class="tag-key">旗艦</span>關鍵報告</span><span class="pf">每週 1 份</span></li>
+          <li>市場觀察<span class="pf">每週 2 份</span></li>
+          <li>美股<span class="pf">每週 2 份</span></li>
+          <li>台股<span class="pf">每週 2 份</span></li>
+        </ul>
+        <p class="perk-more">關鍵報告為付費專屬：完整判讀 ＋ 我自己的預期、底線、條件劇本與操作推理。另有 <b>總經</b>月更、<b>AI 泡沫評估</b>月更、<b>專題</b>不定期，大事即時追；含<b>所有教學小遊戲</b>與<b>歷史 archive</b>。</p>
+      </div>
     </div>
 
     <div class="card">
