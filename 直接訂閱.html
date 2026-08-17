@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>直接訂閱 · Yoda Research 創始會員</title>
+<meta name="description" content="Yoda Research 創始會員 NT$459／月，早鳥鎖價、限額 50 位。填 email 與密碼即可直接刷卡訂閱。">
+<style>
+  :root{--bg:#0b0e14;--surface:#161a22;--border:rgba(255,255,255,.14);--text:#f5f5f7;--dim:#a1a1a6;--sub1:#e0a526;--sub2:#b8860b;--green:#30d158;--red:#ff6b6b}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",Roboto,"PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;padding:24px 16px}
+  .wrap{max-width:440px;margin:0 auto}
+  .brand{font-size:13px;letter-spacing:.14em;font-weight:800;background:linear-gradient(90deg,var(--sub1),var(--sub2));-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center;margin-bottom:6px}
+  h1{font-size:22px;font-weight:800;text-align:center;letter-spacing:-.01em;margin-bottom:18px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px}
+  .price-row{display:flex;align-items:baseline;justify-content:center;gap:6px;margin-bottom:4px}
+  .price{font-size:40px;font-weight:800;color:var(--sub1);letter-spacing:-.02em}
+  .cur{font-size:17px;font-weight:600;color:var(--dim)} .per{font-size:14px;color:var(--dim)}
+  .plan-note{text-align:center;font-size:13px;color:var(--dim);margin-bottom:18px}
+  .plan-note b{color:var(--text)}
+  #refBanner{display:none;margin-bottom:16px;padding:11px 14px;border-radius:12px;background:rgba(224,165,38,.12);border:1px solid var(--sub1);font-size:13px;line-height:1.6}
+  .fld{margin-bottom:10px}
+  input[type=email],input[type=password]{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:#fff;font-size:15px}
+  input::placeholder{color:#8a8f98}
+  .pw-wrap{position:relative}
+  .pw-wrap input{padding-right:46px}
+  .eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;opacity:.6;color:#fff;padding:6px}
+  .consent{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--dim);line-height:1.6;margin:12px 0;padding:11px 13px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.03);cursor:pointer}
+  .consent input{margin-top:3px;flex:0 0 auto}
+  .consent b{color:var(--text)}
+  .consent.warn{border-color:var(--red)}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .shake{animation:shake .4s}
+  .btn-sub{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;font-weight:800;font-size:16px;cursor:pointer;margin-top:4px}
+  .btn-sub:disabled{opacity:.6;cursor:default}
+  #payMsg{font-size:13px;min-height:18px;margin-top:10px;text-align:center;color:var(--red)}
+  .fine{font-size:12px;color:var(--dim);line-height:1.75;margin-top:16px}
+  .fine a{color:var(--sub1)}
+  .alt{text-align:center;font-size:12.5px;color:var(--dim);margin-top:18px}
+  .alt a{color:var(--sub1)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">YODA RESEARCH</div>
+  <h1>創始會員 · 直接訂閱</h1>
+
+  <div class="card">
+    <div class="price-row"><span class="cur">NT$</span><span class="price">459</span><span class="per">／月</span></div>
+    <div class="plan-note">早鳥鎖價 · 限額 50 位 · <b>只要不中斷，永久維持此價</b></div>
+
+    <div id="refBanner">🎁 你正透過朋友的<b style="color:var(--sub1)">專屬推薦連結</b>而來 <span id="refWho" style="color:var(--dim)"></span></div>
+
+    <div class="fld"><input type="email" id="payEmail" placeholder="你的 email（當會員帳號）" autocomplete="email"></div>
+    <div class="fld pw-wrap">
+      <input type="password" id="payPw" placeholder="設定會員密碼（≥6 碼，含英文與數字）" autocomplete="new-password">
+      <button type="button" class="eye" onclick="pwEye(this)">👁</button>
+    </div>
+
+    <label class="consent" id="consentGate">
+      <input type="checkbox" id="agreeNoCooling">
+      <span>我已了解本服務為數位內容／線上服務，付款後隨即開通，<b>不適用七日猶豫期（無鑑賞期）</b>，且開通後恕不退費。</span>
+    </label>
+
+    <button class="btn-sub act-sub" onclick="startSubscribe()">確認訂閱 · 前往綠界刷卡 →</button>
+    <div id="payMsg"></div>
+
+    <div class="fine">
+      每月由綠界（ECPay）自動續扣，持續至你主動取消為止。可隨時取消——到<a href="客服.html">客服表單</a>或私訊粉專即可，取消後自下一期起不再扣款。<br>
+      刷卡由綠界安全處理，本站不經手你的卡號。
+    </div>
+  </div>
+
+  <div class="alt">想先了解內容？<a href="subscribe.html">看方案與報告介紹</a>　·　已是會員？<a href="會員專區.html">前往會員專區</a></div>
+</div>
+
+<form id="payGo" method="POST" action="https://yoda-research-next.vercel.app/api/ecpay-create" style="display:none"><input type="hidden" name="email" id="payGoEmail"></form>
+
+<script>
+var GAS_URL='https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec';
+function pwEye(b){var i=document.getElementById('payPw');if(i.type==='password'){i.type='text';b.textContent='🙈';}else{i.type='password';b.textContent='👁';}}
+/* 接住推薦碼 ?ref=：存 localStorage.yoda_ref（與 subscribe 同源共用），並顯示提示 */
+(function(){try{
+  var ref=new URLSearchParams(location.search).get('ref');
+  if(ref){ref=ref.replace(/[^A-Za-z0-9]/g,'').slice(0,12);try{localStorage.setItem('yoda_ref',ref);}catch(e){}}
+  var saved=ref||(function(){try{return localStorage.getItem('yoda_ref');}catch(e){return '';}})();
+  if(saved){var b=document.getElementById('refBanner'),w=document.getElementById('refWho');if(w)w.textContent='（推薦碼 '+saved+'）';if(b)b.style.display='block';}
+}catch(e){}})();
+function payGate(){
+  var c=document.getElementById('agreeNoCooling');
+  if(!c||!c.checked){var g=document.getElementById('consentGate');if(g){g.classList.add('shake','warn');setTimeout(function(){g.classList.remove('shake');},450);}return false;}
+  return true;
+}
+/* 先註冊(email+密碼)→ 再前往綠界付款；付款成功後 markPaid 只把已註冊的人標成已付費 */
+function startSubscribe(){
+  var email=(document.getElementById('payEmail').value||'').trim();
+  var pw=document.getElementById('payPw').value||'';
+  var msg=document.getElementById('payMsg'); msg.style.color='#ff6b6b';
+  if(!payGate()){return;}
+  if(!/.+@.+\..+/.test(email)){msg.textContent='請填一個正確的 email';return;}
+  if(pw.length<6||!/[A-Za-z]/.test(pw)||!/[0-9]/.test(pw)){msg.textContent='密碼至少 6 碼，且要同時包含英文與數字';return;}
+  var btn=document.querySelector('.act-sub'); if(btn)btn.disabled=true;
+  msg.style.color='#c9c9c9'; msg.textContent='建立帳號中…';
+  var referredBy='';try{referredBy=(localStorage.getItem('yoda_ref')||'').replace(/[^A-Za-z0-9]/g,'').slice(0,12);}catch(e){}
+  fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'register',email:email,password:pw,plan:'創始',referredBy:referredBy})})
+    .then(function(r){return r.json();})
+    .then(function(res){
+      if(btn)btn.disabled=false;
+      if(res&&res.ok){ document.getElementById('payGoEmail').value=email; document.getElementById('payGo').submit(); }
+      else{ msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)||'建立帳號失敗，換一組密碼再試'; }
+    })
+    .catch(function(){ if(btn)btn.disabled=false; msg.style.color='#ff6b6b'; msg.textContent='連線失敗，請稍後再試'; });
+}
+</script>
+</body>
+</html>
