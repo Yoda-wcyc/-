@@ -172,7 +172,17 @@
   function render(html, watermark){
     document.getElementById('gate').style.display='none';
     // 把防盜 script 也注進報告內文（iframe 內部一起擋右鍵/複製）
-    var guard='<scr'+'ipt>["contextmenu","copy","cut","selectstart","dragstart"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});</scr'+'ipt>';
+    var guard='<scr'+'ipt>["contextmenu","copy","cut","selectstart","dragstart"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});</scr'+'ipt>'
+    // 錨點修復（2026-08-18）：srcdoc iframe 的文件 URL 是 about:srcdoc，
+    // 點 <a href="#sec-x"> 會被解析成 about:srcdoc#sec-x → 瀏覽器直接放棄＝左側 NAV 完全沒反應。
+    // 解法：攔截同頁錨點，改用 scrollIntoView 自己捲。
+      +'<scr'+'ipt>document.addEventListener("click",function(e){'
+      +'var a=e.target&&e.target.closest?e.target.closest(\'a[href^="#"]\'):null;if(!a)return;'
+      +'var id=a.getAttribute("href").slice(1);if(!id)return;'
+      +'var el=document.getElementById(id)||document.querySelector(\'[name="\'+id+\'"]\');'
+      +'if(!el)return;e.preventDefault();'
+      +'try{el.scrollIntoView({behavior:"smooth",block:"start"});}catch(_){el.scrollIntoView();}'
+      +'},true);</scr'+'ipt>';
     var f=document.createElement('iframe');
     f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox'); // allow-scripts:圖表JS；allow-popups(+escape):遊戲鈕/粉專等 target=_blank 能開新分頁(不然沙箱擋掉=點了沒反應)
     f.srcdoc=guard+html;                                          // 正文從後端來，靜態檔裡沒有
