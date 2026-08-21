@@ -230,9 +230,9 @@ h2{font-size:calc(26px*var(--scale));font-weight:600;letter-spacing:-.015em;marg
     <div class="plan founding span2">
       <span class="plan-badge">隨時可取消 · 當期內容不受影響</span>
       <div class="plan-name" style="margin-top:calc(20px*var(--scale))">Yoda Research 會員</div>
-      <div class="plan-price"><span class="cur">NT$</span>589<span class="per"> / 月</span></div>
+      <div class="plan-price"><span class="cur">NT$</span><span data-price="{n}">589</span><span class="per"> / 月</span></div>
       <p class="plan-note">每月自動續扣，<b style="color:var(--text)">隨時可取消，取消後當期已開通的內容仍可看到期末</b>。所有報告、互動遊戲與檢核完整開放，沒有分級。</p>
-      <a class="btn-sub" href="直接訂閱.html" rel="noopener">立即訂閱 · NT$589／月 →</a>
+      <a class="btn-sub" href="直接訂閱.html" rel="noopener"><span data-price="立即訂閱 · NT${n}／月 →">立即訂閱 · NT$589／月 →</span></a>
       <div class="flow"><span class="step">① 填 email＋密碼</span><span class="arr">→</span><span class="step">② 綠界刷卡</span><span class="arr">→</span><span class="step">③ 立即開通</span></div>
       <div style="margin-top:calc(16px*var(--scale));padding-top:calc(14px*var(--scale));border-top:1px solid var(--divider);font-size:calc(13px*var(--scale));line-height:1.85;color:var(--dim)">
         <b style="color:var(--text)">關於創始會員：</b>創始名額已於 <b style="color:var(--text)">2026-08-22</b> 額滿、停止販售。<b style="color:var(--sub1)">當時加入的創始會員維持原本的 NT$459 月費不變</b>，只要不中斷訂閱就會一直是這個價格——這是當初的承諾，不會因為方案調整而改變。
@@ -294,5 +294,27 @@ function setSize(s){document.documentElement.setAttribute('data-size',s);try{loc
 </script>
 <script>(function(){try{var K='yr_vid',v=localStorage.getItem(K);if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}var seg=location.pathname.split('/').filter(Boolean).pop()||'home';fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',{method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});}catch(e){}})();</script>
 <img alt="Yoda" src="https://yoda-research-next.vercel.app/yoda-logo.png" style="position:fixed;right:14px;bottom:12px;height:52px;width:auto;opacity:.5;z-index:9990;pointer-events:none">
+
+<script>
+/* 價目表唯一來源是 Vercel 的 lib/pricing.js。頁面上的數字是內建預設值（退路），
+   載入後向 /api/pricing 取一次；若不同就自動改掉畫面上的價格。
+   這樣就不會出現「網頁寫一個價、實際扣另一個價」——那是直接對客人出錯。
+   取不到就沿用內建值，頁面照常運作。 */
+(function(){
+  var els=document.querySelectorAll('[data-price]');
+  if(!els.length)return;
+  fetch('https://yoda-research-next.vercel.app/api/pricing',{cache:'no-store'})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d||!d.ok||!d.current)return;
+      var n=d.current.monthly;
+      if(!n)return;
+      els.forEach(function(el){
+        var tpl=el.getAttribute('data-price');           // 例："NT${n}／月" 或 "{n}"
+        el.textContent=tpl.split('{n}').join(String(n));
+      });
+    }).catch(function(){});
+})();
+</script>
 </body>
 </html>

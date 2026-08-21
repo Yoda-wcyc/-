@@ -46,7 +46,7 @@
   <h1>直接訂閱</h1>
 
   <div class="card">
-    <div class="price-row"><span class="cur">NT$</span><span class="price">589</span><span class="per">／月</span></div>
+    <div class="price-row"><span class="cur">NT$</span><span class="price" data-price="{n}">589</span><span class="per">／月</span></div>
     <div class="plan-note">每月自動續扣 · <b>隨時可取消，當期已開通的內容仍可看到期末</b></div>
 
     <div id="refBanner">🎁 你正透過朋友的<b style="color:var(--sub1)">專屬推薦連結</b>而來 <span id="refWho" style="color:var(--dim)"></span></div>
@@ -120,6 +120,28 @@ function startSubscribe(){
     })
     .catch(function(){ if(btn)btn.disabled=false; msg.style.color='#ff6b6b'; msg.textContent='連線失敗，請稍後再試'; });
 }
+</script>
+
+<script>
+/* 價目表唯一來源是 Vercel 的 lib/pricing.js。頁面上的數字是內建預設值（退路），
+   載入後向 /api/pricing 取一次；若不同就自動改掉畫面上的價格。
+   這樣就不會出現「網頁寫一個價、實際扣另一個價」——那是直接對客人出錯。
+   取不到就沿用內建值，頁面照常運作。 */
+(function(){
+  var els=document.querySelectorAll('[data-price]');
+  if(!els.length)return;
+  fetch('https://yoda-research-next.vercel.app/api/pricing',{cache:'no-store'})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d||!d.ok||!d.current)return;
+      var n=d.current.monthly;
+      if(!n)return;
+      els.forEach(function(el){
+        var tpl=el.getAttribute('data-price');           // 例："NT${n}／月" 或 "{n}"
+        el.textContent=tpl.split('{n}').join(String(n));
+      });
+    }).catch(function(){});
+})();
 </script>
 </body>
 </html>
