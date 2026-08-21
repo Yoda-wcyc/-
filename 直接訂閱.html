@@ -106,6 +106,15 @@ function startSubscribe(){
     .then(function(r){return r.json();})
     .then(function(res){
       if(btn)btn.disabled=false;
+      // ★已經在訂閱中的人不能再送去刷卡：那會多開一張綠界訂單，從此每月被扣兩筆，
+      //   而且兩張單各自獨立，取消一張不會停掉另一張。
+      if(res&&res.ok&&res.alreadyActive){
+        msg.style.color='#e0a526';
+        msg.innerHTML='你已經是訂閱中的會員了，不需要再付一次。'
+          +(res.accessUntil?('（目前權益到 '+res.accessUntil+'）'):'')
+          +'<br><a href="會員專區.html" style="color:#e0a526;text-decoration:underline">前往會員專區 →</a>';
+        return;
+      }
       if(res&&res.ok){ document.getElementById('payGoEmail').value=email; document.getElementById('payGo').submit(); }
       else{ msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)||'建立帳號失敗，換一組密碼再試'; }
     })
