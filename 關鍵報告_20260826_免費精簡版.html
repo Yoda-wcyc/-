@@ -618,5 +618,38 @@ function shareReport(){var url=location.href,title=document.title;if(navigator.s
   if(document.body)add();else document.addEventListener('DOMContentLoaded',add);
 })();
 </script>
+
+<!-- 限時公開自動關閉（台灣時間 2026-08-26 13:30 ＝ UTC 05:30）
+     這是前端到點關閉，準時但屬呈現層；真正的檔案下架另由排程處理。 -->
+<script id="yoda-selfexpire">
+(function(){
+  var DEADLINE = Date.parse('2026-08-26T05:30:00Z');
+  function closeUp(){
+    try{ document.title = '限時公開已結束 · Yoda Research'; }catch(e){}
+    var css = 'position:fixed;inset:0;z-index:2147483647;background:#0d0b08;color:#d8d2c4;'
+      + 'display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;'
+      + "font-family:-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif;";
+    var box = document.createElement('div');
+    box.setAttribute('style', css);
+    box.innerHTML = '<div style="max-width:520px;line-height:1.85">'
+      + '<div style="font-size:15px;letter-spacing:.18em;color:#f0a500;font-weight:700">YODA 關鍵報告</div>'
+      + '<div style="font-size:26px;font-weight:800;margin:16px 0 10px">限時公開已結束</div>'
+      + '<div style="font-size:15px;opacity:.8">這份 2026-08-26 的關鍵報告已收回付費區。<br>'
+      + '往後每一份都會在發布當下就給訂閱者，不用等開放。</div>'
+      + '<a href="https://yoda-research-next.vercel.app/subscribe" target="_blank" rel="noopener" '
+      + 'style="display:inline-block;margin-top:22px;padding:11px 26px;border-radius:8px;'
+      + 'background:#f0a500;color:#0d0b08;font-weight:800;text-decoration:none">看訂閱方案</a></div>';
+    document.body.innerHTML = '';
+    document.body.appendChild(box);
+    document.body.style.overflow = 'hidden';
+  }
+  var left = DEADLINE - Date.now();
+  if (left <= 0){ if(document.body){closeUp();} else {document.addEventListener('DOMContentLoaded',closeUp);} return; }
+  if (left < 2147483647) setTimeout(closeUp, left);
+  document.addEventListener('visibilitychange', function(){
+    if (!document.hidden && Date.now() >= DEADLINE) closeUp();
+  });
+})();
+</script>
 </body>
 </html>
