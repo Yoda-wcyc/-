@@ -389,7 +389,7 @@ main{max-width:760px;margin:0 auto;padding:86px 26px 116px}
   </div>
 
   <!-- 訂閱 CTA ＋ 付費牆 -->
-  <div class="paywall"><div class="paywall-lock">🔓 限時免費 · 全文公開</div><div class="paywall-text">這是付費版的完整內容——整棵決策樹、十項結構健檢、十五條該盯的線、以及我自己兩條腿的位置與退場訊號，<b>一段都沒有遮</b>。限時開放，之後會收回付費區。</div><a class="paywall-btn" href="https://yoda-research-next.vercel.app/subscribe" target="_blank" rel="noopener">訂閱，下一份不用等開放</a></div>
+  <div class="paywall"><div class="paywall-lock">🔓 限時免費 · 全文公開</div><div class="paywall-text">這是付費版的完整內容——整棵決策樹、十項結構健檢、十五條該盯的線、以及我自己兩條腿的位置與退場訊號，<b>一段都沒有遮</b>。限時開放，之後會收回付費區。</div><a class="paywall-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">立即訂閱</a></div>
 
   <!-- ═══════ 付費遮蔽區起｜免費版不應含以下內容；遮蔽務必伺服器端切或雙檔出，勿只用 CSS/JS（subscribe §8/§9） ═══════ -->
 
@@ -528,7 +528,7 @@ main{max-width:760px;margin:0 auto;padding:86px 26px 116px}
 <span class="t3">  └─ ③ NVDA 指引下修 ─→ 拆部位升級為拆故事 ─→ 金礦／比特幣不跌 ─→ <span class="cc-mid">結論：換主線，不是崩</span></span>
 <span class="t3">                                              └─ 硬資產也跟著跌 ─→ <span class="cc-dn">結論：全面去風險，才輪到看 VIX 與信用利差</span></span></pre><div class="dtree-legend"><i class="l1">路徑①</i><i class="l2">路徑②</i><i class="l3">路徑③</i></div><p class="dtree-hint">※ 樹較寬，可左右滑動</p><div class="dtree-note"><b>①前提</b>：今天的反彈由<b>兩個外部推力</b>撐著——油崩（庫存意外暴增 1,740 萬桶、制裁對供給的立即風險被下修）與殖利率兩端同降（2Y −11bp、10Y −7bp）。兩個都是<b>「利空變小」，不是「需求變好」</b>；所以撐不撐得住，取決於三場考試給不給第二個理由。<br><b>②機制</b>：三件事打在<b>三條不同的軸</b>上——NVDA 是<b>全村的希望</b>、PCE 管<b>通膨</b>、Jackson Hole 管<b>政策</b>。不能當成三個利多利空加總：同樣是 NVDA 上修，配上 PCE 續降或走高，走的是完全不同的岔路。而今天保險已被賣光，<b>好消息被部分定價，容錯空間是自己先花掉的</b>。<br><b>③時間窗</b>：NVDA 在<b>今天盤後</b>、PCE 與 Jackson Hole 在 <b>8/28</b>、距 9/18 選擇權到期還有三週。接下來兩天由<b>消息</b>決定，結算引力還輪不到上場；而三件事<b>擠在同一個 48 小時</b>裡，不會有「一件一件慢慢消化」的機會。<br><b>基準線（明天拿來對照）</b>：那指月線家數 <b>50.0%</b>／半導體近三月相對 <b>−10.91%</b>／金礦近一週相對 <b>+15.71%</b>／等權中線相對 <b>−0.57</b>／QQQ 距 700 <b>1.5%</b>／NQ 距虛線壓力 <b>0.5%</b>（29,284 → 29,430）。</div></div>
 
-  <div class="disclaimer">本段含「我自己的操作與推理」,僅為分享個人思路與研判框架,<strong>非投資建議、僅供參考、投資風險自負</strong>。所有條件劇本均為可證偽的研判假設,不構成任何買賣、目標價或進出場指示。個股僅為篩選與觀察紀錄,不代表推薦。</div>
+  <div class="paywall" style="margin-top:8px"><div class="paywall-lock">📌 每天都想在盤前看到這一份？</div><div class="paywall-text">決策樹、結構健檢、可證偽的觀察點，還有我自己的部位怎麼調——訂閱後每一份發布當下就看得到，不用等開放。</div><a class="paywall-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">立即訂閱</a></div><div class="disclaimer">本段含「我自己的操作與推理」,僅為分享個人思路與研判框架,<strong>非投資建議、僅供參考、投資風險自負</strong>。所有條件劇本均為可證偽的研判假設,不構成任何買賣、目標價或進出場指示。個股僅為篩選與觀察紀錄,不代表推薦。</div>
 
   <div class="footer">
     <span>YODA SYSTEM · KEY REPORT</span>
@@ -620,10 +620,11 @@ function shareReport(){var url=location.href,title=document.title;if(navigator.s
 </script>
 
 <!-- 限時公開自動關閉（台灣時間 2026-08-26 13:30 ＝ UTC 05:30）
-     這是前端到點關閉，準時但屬呈現層；真正的檔案下架另由排程處理。 -->
+     前端到點關閉＝準時但屬呈現層；真正的檔案下架另由排程處理。 -->
 <script id="yoda-selfexpire">
 (function(){
   var DEADLINE = Date.parse('2026-08-26T05:30:00Z');
+  var SUB = 'https://yoda-wcyc.github.io/-/subscribe.html';
   function closeUp(){
     try{ document.title = '限時公開已結束 · Yoda Research'; }catch(e){}
     var css = 'position:fixed;inset:0;z-index:2147483647;background:#0d0b08;color:#d8d2c4;'
@@ -636,15 +637,18 @@ function shareReport(){var url=location.href,title=document.title;if(navigator.s
       + '<div style="font-size:26px;font-weight:800;margin:16px 0 10px">限時公開已結束</div>'
       + '<div style="font-size:15px;opacity:.8">這份 2026-08-26 的關鍵報告已收回付費區。<br>'
       + '往後每一份都會在發布當下就給訂閱者，不用等開放。</div>'
-      + '<a href="https://yoda-research-next.vercel.app/subscribe" target="_blank" rel="noopener" '
-      + 'style="display:inline-block;margin-top:22px;padding:11px 26px;border-radius:8px;'
-      + 'background:#f0a500;color:#0d0b08;font-weight:800;text-decoration:none">看訂閱方案</a></div>';
+      + '<a href="' + SUB + '" target="_blank" rel="noopener" '
+      + 'style="display:inline-block;margin-top:22px;padding:12px 30px;border-radius:8px;'
+      + 'background:#f0a500;color:#0d0b08;font-weight:800;font-size:16px;text-decoration:none">立即訂閱</a></div>';
     document.body.innerHTML = '';
     document.body.appendChild(box);
     document.body.style.overflow = 'hidden';
   }
   var left = DEADLINE - Date.now();
-  if (left <= 0){ if(document.body){closeUp();} else {document.addEventListener('DOMContentLoaded',closeUp);} return; }
+  if (left <= 0){
+    if (document.body) closeUp(); else document.addEventListener('DOMContentLoaded', closeUp);
+    return;
+  }
   if (left < 2147483647) setTimeout(closeUp, left);
   document.addEventListener('visibilitychange', function(){
     if (!document.hidden && Date.now() >= DEADLINE) closeUp();
