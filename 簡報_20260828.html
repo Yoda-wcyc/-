@@ -282,8 +282,9 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
 /* 手機只調間距，字級一律走 --dt-fs（單一來源，勿在此另設 font-size） */
 @media(max-width:640px){.dt-n{padding:0 3px}.dt-kids{gap:2px;padding-top:20px}}
 
-/* === §C-5 核心邏輯鍊 + 相容變數（簡報用 --scale；補 --fs/--fb/--fm 供 dtree-now/core-chains） === */
-:root{--fs:calc(16px*var(--scale));--fb:var(--sans);--fm:var(--mono)}
+/* === §C-5 核心邏輯鍊 ＋ 相容變數（簡報用 --scale） === */
+:root{--fs:calc(16px*var(--scale));--fb:var(--sans);--fm:var(--mono);--red:#ff6b6b;--green:#37b98a;--yellow:#f0c040}
+[data-theme="light"]{--red:#c92a4a;--green:#00866b;--yellow:#a87b00}
 .core-chains{background:rgba(240,192,64,.06);border:1px solid var(--border);border-left:3px solid #e0b64a;border-radius:0 6px 6px 0;padding:14px 17px;margin:4px 0 18px;font-family:var(--fb)}
 .core-chains .cc-h{font-size:calc(13px*var(--scale));letter-spacing:.1em;color:#e0b64a;font-weight:700;margin-bottom:9px}
 .core-chains .cc-item{padding:6px 0}
@@ -293,41 +294,10 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
 .core-chains .cc-g{font-family:var(--fm);color:#e0b64a;white-space:pre;flex:none}
 .core-chains .cc-lab{color:#c9962e;font-weight:700;flex:none;margin-right:8px}
 .core-chains .cc-t{flex:1;min-width:0}
-/* === §B-22 扇形決策樹：純文字＋顏色（往上紅↑、往下綠↓、中性灰） === */
-:root{--red:#ff6b6b;--green:#37b98a;--yellow:#f0c040}
-[data-theme="light"]{--red:#c92a4a;--green:#00866b;--yellow:#a87b00}
-.dtree-pre{font-family:'Sarasa Mono TC','IBM Plex Mono',var(--mono),monospace;font-size:calc(12.5px*var(--scale));line-height:1.55;color:var(--text);margin:0;white-space:pre;overflow-x:auto}
-.dtree-pre b{font-weight:700}
-.dt-num{display:inline-block;font-size:calc(19px*var(--scale));font-weight:900;color:var(--accent);line-height:1}
-.dtree-now{font-size:calc(12.5px*var(--scale));color:var(--text);background:linear-gradient(90deg,rgba(212,175,55,.14),rgba(212,175,55,.03));border:1px solid var(--accent);border-left-width:4px;border-radius:0 6px 6px 0;padding:9px 12px;margin-bottom:13px;line-height:1.8}
+.dtree{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:15px 17px;margin:4px 0 22px}
+.dtree-h{font-size:calc(13px*var(--scale));letter-spacing:.06em;color:var(--accent);font-weight:700;margin-bottom:9px}
+.dtree-now{color:var(--text);background:linear-gradient(90deg,rgba(212,175,55,.14),rgba(212,175,55,.03));border:1px solid var(--accent);border-left-width:4px;border-radius:0 6px 6px 0;padding:9px 12px;margin-bottom:11px}
 .dtree-nowtag{display:inline-block;background:var(--accent);color:var(--bg);font-weight:800;font-size:.86em;border-radius:4px;padding:1px 7px;margin-right:6px}
-/* （舊 CSS 方塊版 vtree 已停用，保留樣式不影響） */
-.vtree{max-width:600px;margin:0 auto}
-.vt-now{position:relative;max-width:430px;margin:0 auto;background:linear-gradient(180deg,rgba(0,200,160,.10),rgba(0,200,160,.02));border:1.5px solid var(--accent);border-radius:12px;padding:13px 16px;text-align:center}
-.vt-nowtag{display:inline-block;background:var(--accent);color:#06231c;font-weight:800;font-size:calc(11px*var(--scale));letter-spacing:.05em;border-radius:5px;padding:2px 9px;margin-bottom:7px}
-.vt-now .vt-title{font-size:calc(17px*var(--scale));font-weight:800;color:var(--header)}
-.vt-now .vt-sub{font-size:calc(12.5px*var(--scale));color:var(--text2);margin-top:4px;line-height:1.6}
-.vt-here{display:inline-block;margin-top:8px;font-size:calc(11.5px*var(--scale));color:var(--accent);font-weight:700}
-.vt-stem{width:2px;height:20px;background:var(--accent);margin:0 auto}
-.vt-q{text-align:center;font-size:calc(13px*var(--scale));color:#e0b64a;font-weight:700;margin:2px 0}
-.vt-stem2{width:2px;height:14px;background:var(--accent);margin:0 auto}
-.vt-branches{display:flex;gap:12px;position:relative;padding-top:20px}
-.vt-branches::before{content:"";position:absolute;top:0;left:16.6%;right:16.6%;height:2px;background:var(--accent)}
-.vt-branch{flex:1;position:relative;display:flex;flex-direction:column;align-items:center}
-.vt-branch::before{content:"";position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:2px;height:20px;background:var(--accent)}
-.vt-dir{font-size:calc(12.5px*var(--scale));font-weight:800;padding:3px 12px;border-radius:9999px;margin-bottom:9px;white-space:nowrap}
-.vt-dir.up{color:#ff8fa3;border:1.5px solid rgba(255,77,109,.55)}
-.vt-dir.stay{color:var(--text2);border:1.5px solid var(--border2)}
-.vt-dir.down{color:#4fd0a0;border:1.5px solid rgba(0,200,160,.55)}
-.vt-cond{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:10px 11px;font-size:calc(12.5px*var(--scale));color:var(--text);text-align:center;width:100%;min-height:84px;display:flex;flex-direction:column;justify-content:center;line-height:1.55}
-.vt-cond .vt-lv{display:block;margin-top:5px;font-size:calc(11px*var(--scale));color:var(--text3);font-family:var(--mono);line-height:1.45}
-.vt-arrow{font-size:calc(15px*var(--scale));margin:7px 0 6px;line-height:1;color:var(--text3)}
-.vt-concl{border-radius:9px;padding:10px 11px;font-size:calc(12.5px*var(--scale));text-align:center;width:100%;min-height:58px;display:flex;align-items:center;justify-content:center;line-height:1.5;color:var(--header)}
-.vt-concl b{font-weight:800}
-.vt-concl.up{background:rgba(255,77,109,.08);border:1px solid rgba(255,77,109,.30)}
-.vt-concl.stay{background:var(--bg3);border:1px dashed var(--border2);color:var(--text)}
-.vt-concl.down{background:rgba(0,200,160,.08);border:1px solid rgba(0,200,160,.30)}
-@media(max-width:560px){.vt-branches{gap:7px}.vt-dir{font-size:11px;padding:3px 8px}.vt-cond,.vt-concl{font-size:11.5px;padding:8px}.vt-cond .vt-lv{font-size:10px}}
 </style>
   <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
 </head>
@@ -362,16 +332,16 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
 
   <div class="hero">
     <div class="hero-tag">YODA 市場簡報</div>
-    <div class="hero-title">利多到齊，漲勢卻在變窄</div>
+    <div class="hero-title">指數創新高的同一天，隊伍卻變短了</div>
     <div class="hero-date">2026-08-28（週五）</div>
   </div>
 
   <!-- 1. 市場天氣 -->
   <div class="weather" style="border-left:3px solid var(--accent2)">
-    <div class="weather-text">續彈，但漲勢在變窄——利多（輝達）和資金都到齊了，價格與參與卻沒跟上，扛盤的股票正在變少。</div>
+    <div class="weather-text">偏多，但漲勢是「集中」不是「全面」——台股錢到齊、價也站上波段高，可是上漲家數只剩 361 家、輸給下跌的 611 家。</div>
   </div>
 
-<div class="dtree"><div class="dtree-h">🌿 先看這張 · 我們現在在哪、接下來往哪走</div><div class="dtree-now"><span class="dtree-nowtag">📍 現在</span>利多（輝達財報財測雙超）與資金都到齊，但價格與參與沒跟上——<b>續彈，可是漲勢在變窄</b>。今天 <b>Warsh 上任後首場演說</b>剛講完，接下來最快的分岔是<b>長端利率（10 年期美債，現在 4.66%）鬆不鬆</b>：鬆了，估值壓力減輕、廣度才有機會跟上；不鬆，就得靠題材自己扛。<br>　<b>三條路各自要看什麼</b>，都寫在下面的樹裡——每一條都給了可以驗證的門檻，不用等誰宣布，看到數字就知道走到哪一格。</div><div class="dt-wrap"><div class="dt-tree"><div class="dt-sub"><div class="dt-n"><b>現在</b><br>利多到齊，但漲勢在變窄<br><span class="dt-lv">QQQ 721（Put 牆 700）·10Y 4.66%</span><br><span class="dt-lv">美股 3個月新高 222 對新低 164</span><br><b class='dt-lead'>◀ 等 Warsh 談話發酵</b></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--red)">1</span><br><b style='color:var(--red)'>長端利率鬆動</b><br><span style='color:var(--red)'><span class="dt-sub2">Warsh 對通膨鬆口，10Y 往下走</span></span><br><span style='color:var(--red)'><span class="dt-lv">觀察：10Y 跌破 4.5%</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">廣度同步回擴<span class="dt-lv">新高/新低比拉開<br>QQQ 站穩 700 之上</span><br><b style='color:var(--red)'>▲ 估值壓力鬆綁·升級全面上攻</b></div></div><div class="dt-sub"><div class="dt-n">只有權值受惠<span class="dt-lv">指數漲但家數沒跟<br>軟體資安獨強</span><br><b style='color:var(--yellow,#f0c040)'>◆ 續彈但仍窄·少數股扛盤</b></div></div></div></div><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--yellow,#f0c040)">2</span><br><b style='color:var(--yellow,#f0c040)'>長端沒動</b><br><span style='color:var(--yellow,#f0c040)'><span class="dt-sub2">利率卡在 4.66%，既沒鬆也沒惡化</span></span><br><span style='color:var(--yellow,#f0c040)'><span class="dt-lv">觀察：10Y 停 4.6~4.7%</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">題材自己扛住<span class="dt-lv">軟體/資安/記憶體<br>輪流接棒不熄火</span><br><b style='color:var(--yellow,#f0c040)'>◆ 變窄續彈延續·題材行情</b></div></div><div class="dt-sub"><div class="dt-n">題材熄火沒人接<span class="dt-lv">領漲股停漲<br>沒有新族群補上</span><br><b style='color:var(--green)'>▼ 漲勢做完·回到區間整理</b></div></div></div></div><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--green)">3</span><br><b style='color:var(--green)'>長端反彈走高</b><br><span style='color:var(--green)'><span class="dt-sub2">通膨態度偏硬，利率再往上</span></span><br><span style='color:var(--green)'><span class="dt-lv">觀察：10Y 站上 4.8%</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">防禦重新被買<span class="dt-lv">公用/必需消費轉強<br>高Beta 走弱</span><br><b style='color:var(--green)'>▼ 估值壓力回來·資金退防禦</b></div></div><div class="dt-sub"><div class="dt-n">QQQ 失守 700<span class="dt-lv">跌破且兩日未收復<br>Put 牆由撐轉壓</span><br><b style='color:var(--green)'>▼ 這波反彈結束·轉為修正</b></div></div></div></div></div></div></div></div></div>
+<div class="dtree"><div class="dtree-h">🌿 先看這張 · 我們現在在哪、接下來往哪走</div><div class="dtree-now"><span class="dtree-nowtag">📍 現在</span><b>錢到齊了，價格也過關了，只差「隊伍」。</b>台股今天量 10,690 億（連二日破門檻）、外資連三買 415.9 億、台幣升破門檻、ETF 月線窗首度三檔同向——錢那一側全部到位；指數也站上 8/13 波段高 46,021。<br>　<b>但同一天，上漲家數只有 361、下跌 611</b>，等權平均還輸大盤 0.82 個百分點。也就是說：<b>指數創這一段新高，參與的股票卻退回四天前的水準</b>。<br>　所以接下來看的不是消息，是<b>隊伍會不會變長</b>。</div><div class="dtree-ev">📅 <b>接下來的變數</b>：<b>今晚 央行年會主席演說</b>（台股下一個交易日 08/31（週一）反應）　·　<b>09/04 美國8月非農</b>（就業降溫牽動降息底氣）　·　<b>09/11 美國8月CPI</b>（通膨續降＝利率壓力鬆）　·　<b>09/16 FOMC＋點陣圖</b>（本月最重的一場）</div><div class="dt-wrap"><div class="dt-tree"><div class="dt-sub"><div class="dt-n"><b>現在</b><br>錢到齊、價過關，隊伍沒跟上<br><span class="dt-lv">加權 46,331（站上波段高 46,021）</span><br><span class="dt-lv">量 10,690 億 · 上漲 361 對下跌 611</span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--red)">1</span><br><b style='color:var(--red)'>隊伍跟上來</b><br><span style='color:var(--red)'><span class="dt-sub2">參與的股票變多</span></span><br><span style='color:var(--red)'><span class="dt-lv">上漲家數回 700，或等權由 −0.05% 轉正</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">吸籌佔比守住 50% 之上<span class="dt-lv">目前 52.2%，已連兩天降</span><br><b style='color:var(--red)'>▲ 回補完成·換成挑戰新高</b></div></div><div class="dt-sub"><div class="dt-n">隊伍變長但龍頭沒帶<span class="dt-lv">台積電量仍只有均量五成五</span><br><b style='color:var(--yellow,#f0c040)'>◆ 漲得動但走不遠·靠輪動撐</b></div></div></div></div><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--yellow,#f0c040)">2</span><br><b style='color:var(--yellow,#f0c040)'>隊伍沒變長，但價守住</b><br><span style='color:var(--yellow,#f0c040)'><span class="dt-sub2">少數族群繼續扛</span></span><br><span style='color:var(--yellow,#f0c040)'><span class="dt-lv">量守門檻第 3 天、指數不破 46,021</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">成熟製程／封測接力<span class="dt-lv">聯電今日買超 117 億居冠</span><br><b style='color:var(--yellow,#f0c040)'>◆ 集中續彈·題材輪流接棒</b></div></div><div class="dt-sub"><div class="dt-n">被動元件那種軋空退潮<span class="dt-lv">漲停但法人沒跟＝不是回補</span><br><b style='color:var(--green)'>▼ 衝高回落·回到區間整理</b></div></div></div></div><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--green)">3</span><br><b style='color:var(--green)'>價也守不住</b><br><span style='color:var(--green)'><span class="dt-sub2">錢那一側先收手</span></span><br><span style='color:var(--green)'><span class="dt-lv">跌破 46,021／台積電破 2,375／外資轉賣</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">外資由連三買轉連三賣<span class="dt-lv">單日逾 400 億</span><br><b style='color:var(--green)'>▼ 回補失敗·重驗季線 44,886</b></div></div><div class="dt-sub"><div class="dt-n">龍頭補跌<span class="dt-lv">台積電跌破 2,375 缺口</span><br><b style='color:var(--green)'>▼ 這一段的支點鬆掉</b></div></div></div></div></div></div></div></div></div>
 
   <!-- 1.5 今日小遊戲（選用） -->
   
@@ -380,12 +350,12 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
   <div class="section">
     <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">本週兩件事</span></div>
     <div class="event-card">
-      <div class="event-title">輝達財報財測雙超，台美一起跳空開高</div>
-      <div class="event-body">輝達上季營收 962 億美元、年增 106%，還把明年（FY2028）的成長展望一口氣拉到約七成，兩個數字都比市場原先預期高。市場最擔心的那件事——「AI 這一波投資會不會停」——暫時被這份財報壓了下來，台股、美股當天都開高。</div>
+      <div class="event-title">台股補上了價格那一腳：量破兆、站上波段高</div>
+      <div class="event-body">加權指數大漲 356 點收 46,331，站上 8/13 那個一直過不去的波段高 46,021。成交量 10,690 億連兩天站上門檻、外資連三買 415.9 億、台幣單日升值 2 角——錢那一側（量、外資、匯率、ETF 月線）今天全部到齊。這是這一波回補以來，第一次「錢和價」同一天到位。</div>
     </div>
     <div class="event-card">
-      <div class="event-title">但「錢進來、價沒上去」——漲勢正在變窄</div>
-      <div class="event-body">台股跳空衝過前一個波段高點，尾盤卻被壓回、台積電更收在當天最低；美股則是靠軟體、資安這些補漲股接棒，防禦股反而被賣，才把指數撐住。白話說：買盤集中在少數幾根，越來越少的股票在扛整個大盤的漲幅。</div>
+      <div class="event-title">但同一天，隊伍反而變短了</div>
+      <div class="event-body">指數創新高的這一天，上漲只有 361 家、下跌卻有 611 家；把每檔股票一視同仁平均是 −0.05%，輸給大盤 0.82 個百分點。也就是說，指數往上，是少數股票扛出來的。近五天指數走了 1,569 點，上漲家數卻從 816 家一路退到 361 家。</div>
     </div>
   </div>
 
@@ -395,19 +365,19 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
     <div class="facet-list">
       <div class="facet-item">
         <span class="facet-label">強勢股</span>
-        <span class="facet-text">美股最兇的是軟體、資安——OKTA、CRM 單日大漲逾兩成，這一群近 5 日相對大盤（是相對強弱、不是漲幅）跑贏約 5%；台股換記憶體領軍，南亞科單日吸走全場最大法人買超 180 億。共同點：錢往「之前落後、現在補漲」那一批集中。</span>
+        <span class="facet-text">今天真正「錢和價站同一邊」的只有成熟製程與封測——聯電漲 9.70% 配上全市場最大買超 117 億，京元電子 +9.09%、精材 +9.97%。反過來，昨天領漲的記憶體被賣（華邦電 −2.42%、被賣 71.8 億為今日最大賣超）。美股則是軟體與資安在漲，OKTA、CRM 單日逾兩成。</span>
       </div>
       <div class="facet-item">
         <span class="facet-label">板塊輪動</span>
-        <span class="facet-text">領漲的棒子從半導體交給了軟體、資安、雲端。半導體自己在修復（近一週、近一月相對大盤都已翻正），但真正被買的是本來就沒落後那批強勢股，不是全新的火種；台股同一天則是記憶體、散熱、塑化輪流亮燈。</span>
+        <span class="facet-text">錢從「最便宜的格子」轉回「有基本面的格子」。前兩天是月線籌碼最空的塑膠、電子零組件在漲；今天換月線籌碼最重的半導體（+1,304.7 億）自己出力，塑膠反而回吐。要留意的是被動元件——三檔都漲停級，法人卻沒跟，這是軋空型上漲，不是資金回補。</span>
       </div>
       <div class="facet-item">
         <span class="facet-label">結構廣度</span>
-        <span class="facet-text">廣度（有多少股票一起漲）在收窄。美股 3 個月新高 222 檔對新低 164 檔還算偏多，但最短天期已經新低多過新高＝短線先弱的早期訊號；台股上漲家數從昨天的八百多，收斂到五百上下，逼近漲跌一比一。</span>
+        <span class="facet-text">廣度（有多少股票一起漲）是今天唯一走反的一格：上漲 361 對下跌 611，吸籌佔比從 55.9% 降到 52.2%、連兩天下滑。美股是同一個形狀——短天期（近 5 日）的新低已經多於新高，等權與中小型仍在惡化。</span>
       </div>
       <div class="facet-item">
         <span class="facet-label">泡沫·總經</span>
-        <span class="facet-text">投機溫度偏高、但還沒到瘋狂（台股漲停 24 檔、跌停掛零，算換手不算全面狂熱）；總經端，10 年期美債殖利率卡在 4.66% 沒鬆，科技大漲的同一天長端利率沒讓步＝折現率壓力還在，這波漲勢得靠題材自己扛。</span>
+        <span class="facet-text">投機溫度沒有失控：漲停 19 對跌停 1，量放大但參與家數縮，是「集中」不是「狂熱」。總經端，10 年期美債殖利率仍在 4.67%、科技大漲的同一天長端沒讓步；今晚的央行年會主席演說，是這週唯一能讓長端動起來的變數——台股週五已收盤，要等下一個交易日（08/31 週一）才反應。</span>
       </div>
     </div>
   </div>
@@ -416,8 +386,8 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
   <div class="section">
     <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">關鍵價位</span></div>
     <div class="key-level">
-      <div class="key-level-num">QQQ 700</div>
-      <div class="key-level-text">美股科技的多空地板。那斯達克 100 ETF（QQQ）下方 700 這一檔，是選擇權市場最厚的一道「買方防線」（Put 牆），目前價 721、拉開約 3%。守得住，回檔就只算換手；一旦有效跌破，才需要重新看待這一波反彈。（台股 46,021 波段高、台積電 2,445、費半籌碼峰等完整價位，看當日各報告。）</div>
+      <div class="key-level-num">46,021</div>
+      <div class="key-level-text">台股加權的多空分水嶺。這是 8/13 的波段高，之前兩次碰壁都沒過，今天終於收在它之上（46,331）。守得住，它就從壓力變成支撐；跌回它之下，今天這根就變成假突破。（台積電 2,445、QQQ 700 等其餘價位，看當日完整報告。）</div>
     </div>
   </div>
 
@@ -426,8 +396,8 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
     <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">未來一個月看什麼</span></div>
     <div class="cal-list">
       <div class="cal-item">
-        <span class="cal-date">08/28 今天</span>
-        <span class="cal-text"><b>Warsh 首場 Fed 主席演說（Jackson Hole）</b>——他 5 月接任後第一次公開談大方向（AI 與去全球化下的貨幣政策新框架）。市場想聽他對通膨的態度有多硬；關鍵看長端利率（10 年、30 年期美債殖利率）會不會因此鬆動。</span>
+        <span class="cal-date">今晚</span>
+        <span class="cal-text"><b>央行年會主席演說</b>（美東今日 10:00＝台北今晚 22:00）——本週唯一能讓長端利率動起來的變數。台股週五已收盤，下一個交易日 08/31（週一）才反應。</span>
       </div>
       <div class="cal-item">
         <span class="cal-date">09/04</span>
@@ -439,7 +409,7 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
       </div>
       <div class="cal-item">
         <span class="cal-date">09/16</span>
-        <span class="cal-text"><b>9 月 FOMC 利率決策 ＋ 利率點陣圖</b>——這個月最重的一場，Fed 對後面幾次會議的態度會攤在點陣圖上。</span>
+        <span class="cal-text"><b>9 月 FOMC ＋ 利率點陣圖</b>——這個月最重的一場，Fed 對後面幾次會議的態度會攤在點陣圖上。</span>
       </div>
     </div>
   </div>
@@ -449,14 +419,14 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
   <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">內容判讀</span><button class="tts-btn" id="tts-btn"><span class="tts-icon">🔊</span>&nbsp;<span id="tts-label">朗讀</span></button></div>
 <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊</div>
   <div class="cc-item">
-    <div class="cc-node"><span class="cc-num">①</span>現象：利多到齊、資金也到位，但價格與參與沒跟上</div>
+    <div class="cc-node"><span class="cc-num">①</span>現象：指數創這一段新高，上漲家數卻退到 361 家（下跌 611）</div>
     <div class="cc-br"><span class="cc-g">   │  </span></div>
-    <div class="cc-br"><span class="cc-g">   ├─ </span><span class="cc-lab">機制</span><span class="cc-t">買盤集中在少數補漲股，防禦股被賣才撐住風險胃納、上漲家數同步收斂</span></div>
+    <div class="cc-br"><span class="cc-g">   ├─ </span><span class="cc-lab">機制</span><span class="cc-t">錢集中往「有基本面又有月線籌碼」的格子回走（成熟製程、封測），最空的格子昨天漲今天就回吐</span></div>
     <div class="cc-br"><span class="cc-g">   │  </span></div>
-    <div class="cc-br"><span class="cc-g">   └─ </span><span class="cc-lab">含意</span><span class="cc-t">指數再漲，也是越來越少的股票在扛——參與面止穩前，續彈可以、但別當全面反攻</span></div>
+    <div class="cc-br"><span class="cc-g">   └─ </span><span class="cc-lab">含意</span><span class="cc-t">這是集中，不是狂熱——指數再往上，扛的股票數要先變多才走得遠</span></div>
   </div>
 </div>
-  <div class="reading-body" id="reading-text">一句話：這是一場「地基還沒跟上」的反彈。利多（輝達財報財測雙超）和資金（美股防禦轉出、台股外資連買＋成交量站上門檻）都到位了，卡住的是價格和廣度——台股跳空衝過前波高又被壓回、台積電收在當天最低，美股靠軟體資安這些補漲股撐盤。<br><br>所以現在該怎麼看大盤：方向仍偏多，但把它當「續彈、不是全面反攻」來讀。真正要盯的一件事，是參與面（有多少股票一起漲）會不會停止惡化——它一天沒止穩，指數每往上一段，你就得理解成更少的股票在扛。<br><br>至於「什麼條件成立算升級、什麼發生算退回」的完整劇本、每一條退場線，還有 Yoda 自己怎麼看這批補漲股——都收在當日的完整報告裡。</div>
+  <div class="reading-body" id="reading-text">一句話：<b>錢到齊了、價格也過關了，只剩隊伍沒跟上。</b>台股今天量破兆連二日、外資連三買、台幣升、ETF 月線窗首度三檔同向，指數站上 8/13 波段高——該補的錢全補上了。但同一天上漲家數只有 361、下跌 611，等權平均輸大盤 0.82 個百分點。<br><br>所以現在該怎麼看：<b>方向仍偏多，但這是「集中」不是「全面」</b>。今天真正錢價同邊的只有成熟製程與封測（聯電買超 117 億居冠），昨天領漲的記憶體反而被賣；被動元件漲停但法人沒跟，那是軋空不是回補。龍頭台積電也只是錢在、量沒出來——今天的指數不是龍頭帶的。<br><br>美股那邊是同一個形狀：漲的是軟體與資安，等權與中小型仍在惡化，短天期新低已多於新高。<b>兩邊都在說同一句話：價格更高，參與更少。</b><br><br>要盯的就一件事——隊伍會不會變長。完整的門檻、退場線與 Yoda 自己怎麼看，都收在當日的完整報告裡。</div>
 </div>
 
 <!-- 5. 深入閱讀 -->
