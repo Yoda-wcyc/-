@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark" data-size="md">
+<head>
+<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-DFFP3JL6EY"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DFFP3JL6EY');</script>
+<!--
+本報告（Yoda 市場簡報）所有控制列按鈕、元件樣式、連結、視覺規範皆以
+Skill-總控-merged.md 為唯一正本。
+「Yoda Research」按鈕文字、連結、樣式，以及「粉專」按鈕樣式，必須完全遵守總控 B-3 定義。
+任何修改必須先更新總控，再同步至本檔案。
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Yoda 市場簡報 2026-08-28</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--serif:'Noto Serif TC',serif;--mono:'IBM Plex Mono',monospace;--sans:'Noto Sans TC',sans-serif}
+
+/* ═══ THEME VARIABLES ═══ */
+[data-theme="dark"]{
+  --bg:#080b10;--bg2:#0d1117;--bg3:#131920;--bg4:#1a2230;
+  --border:#1e2d3d;--border2:#243444;
+  --accent:#00c8a0;--accent2:#f0a500;--accent3:#4d9fff;--danger:#ff4d6d;--muted:#4a6174;
+  --text:#c8d8e8;--text2:#8fa8bc;--text3:#5a7a90;--header:#e8f2ff;
+  --ctrl-bg:rgba(13,17,23,.93);--ctrl-border:#243444;--ctrl-hover:#1a2230;
+  --ctrl-act-bg:#00c8a0;--ctrl-act-txt:#080b10;
+  --hero-grad:linear-gradient(160deg,#0a1520 0%,#080b10 60%);
+  --note-bg:#131920;--scroll-thumb:#243444;
+  --conc-bg:rgba(0,200,160,.04);--conc-b:rgba(0,200,160,.2);--conc-title:#00c8a0;
+  --green-bg:rgba(0,200,160,.07);--green-b:rgba(0,200,160,.25);--green-c:#00c8a0;
+  --red-bg:rgba(255,77,109,.07);--red-b:rgba(255,77,109,.25);--red-c:#ff4d6d;
+  --yellow-bg:rgba(240,165,0,.07);--yellow-b:rgba(240,165,0,.25);--yellow-c:#f0a500;
+}
+[data-theme="light"]{
+  --bg:#f4f6f8;--bg2:#ffffff;--bg3:#eef1f4;--bg4:#e4e9ee;
+  --border:#dbe2e8;--border2:#c7d1da;
+  --accent:#00866b;--accent2:#a05800;--accent3:#1f5fbf;--danger:#c92a4a;--muted:#7a8a96;
+  --text:#1c2733;--text2:#465a6a;--text3:#7e8fa0;--header:#0e1620;
+  --ctrl-bg:rgba(255,255,255,.93);--ctrl-border:#dbe2e8;--ctrl-hover:#eef1f4;
+  --ctrl-act-bg:#00866b;--ctrl-act-txt:#ffffff;
+  --hero-grad:linear-gradient(160deg,#eef3f6 0%,#f4f6f8 60%);
+  --note-bg:#eef1f4;--scroll-thumb:#c7d1da;
+  --conc-bg:rgba(0,134,107,.05);--conc-b:rgba(0,134,107,.2);--conc-title:#00866b;
+  --green-bg:rgba(0,134,107,.08);--green-b:rgba(0,134,107,.25);--green-c:#00866b;
+  --red-bg:rgba(201,42,74,.08);--red-b:rgba(201,42,74,.25);--red-c:#c92a4a;
+  --yellow-bg:rgba(160,88,0,.08);--yellow-b:rgba(160,88,0,.25);--yellow-c:#a05800;
+}
+
+/* ═══ SIZE SCALE ═══ */
+html[data-size="sm"]{--scale:.875}
+html[data-size="md"]{--scale:1}
+html[data-size="lg"]{--scale:1.125}
+
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:calc(24px*var(--scale));line-height:1.6;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+}
+
+/* ═══ CONTROLS ═══ */
+.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
+.fb{padding:4px 10px;font-size:11px;font-family:var(--mono);background:transparent;border:none;color:var(--muted);cursor:pointer;border-radius:3px;transition:all .15s;}
+.fb:hover{color:var(--text);background:var(--bg3);}
+.fb.on{color:#00c8f0;background:rgba(0,200,240,.15);}
+@keyframes fan-breathe {
+  0%,100% { background:#b8960a; box-shadow:0 0 4px 1px rgba(255,215,0,.35); color:#1a1200; }
+  50%      { background:#ffd700; box-shadow:0 0 10px 3px rgba(255,215,0,.75); color:#000; }
+}
+
+/* 粉專按鈕（低調版） */
+.ctrl-fan {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: 'SF Mono','Consolas','Monaco','Courier New',monospace;
+  color: #e8f2ff;
+  text-decoration: none;
+  background: #1a3a5c;
+  border: 1px solid #2a4a6c;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.ctrl-fan svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.ctrl-fan:hover {
+  background: #2a4a6c;
+  border-color: #3a5a7c;
+  transform: scale(1.02);
+}
+
+/* Yoda Research / 免費訂閱簡報 按鈕（金色呼吸動畫版） */
+.ctrl-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: 'SF Mono','Consolas','Monaco','Courier New',monospace;
+  color: #1a1200;
+  font-weight: 700;
+  text-decoration: none;
+  background: #b8960a;
+  border-radius: 9999px;
+  animation: fan-breathe 1.8s ease-in-out infinite;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.ctrl-home:hover {
+  background: #ffd700;
+  color: #000;
+  box-shadow: 0 0 10px 3px rgba(255, 215, 0, .75);
+  animation: none;
+}
+
+/* ═══ LAYOUT ═══ */
+main{max-width:720px;margin:0 auto;padding:86px 26px 70px}
+
+/* ═══ HERO ═══ */
+.hero{background:var(--hero-grad);border:1px solid var(--border);border-radius:14px;padding:30px 32px;margin-bottom:26px}
+.hero-tag{font-family:var(--mono);font-size:calc(10.5px*var(--scale));letter-spacing:.18em;color:var(--accent2);margin-bottom:12px}
+.hero-title{font-family:var(--serif);font-weight:700;font-size:calc(27px*var(--scale));color:var(--header);line-height:1.4;margin-bottom:10px}
+.hero-date{font-family:var(--mono);font-size:calc(12px*var(--scale));color:var(--text3)}
+
+/* ═══ 市場天氣 ═══ */
+.weather{display:flex;align-items:center;gap:14px;border-radius:12px;padding:18px 22px;margin-bottom:30px;border:1px solid var(--border)}
+.weather.w-green{background:var(--green-bg);border-color:var(--green-b)}
+.weather.w-yellow{background:var(--yellow-bg);border-color:var(--yellow-b)}
+.weather.w-red{background:var(--red-bg);border-color:var(--red-b)}
+.weather-light{font-size:calc(26px*var(--scale));line-height:1}
+.weather-text{font-size:calc(17px*var(--scale));color:var(--header);font-weight:600;line-height:1.6}
+
+/* ═══ SECTION ═══ */
+.section{margin-bottom:32px}
+.sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--border)}
+.sec-num{font-family:var(--mono);font-size:calc(11px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.1);border-radius:4px;padding:2px 7px}
+[data-theme="light"] .sec-num{background:rgba(160,88,0,.1)}
+.sec-title{font-family:var(--serif);font-weight:700;font-size:calc(19px*var(--scale));color:var(--header)}
+.sec-body{font-size:calc(16px*var(--scale));color:var(--text2);line-height:1.85}
+.sec-body p{margin-bottom:11px}
+.sec-body strong{color:var(--header)}
+
+/* ═══ 今日小遊戲 ═══ */
+@keyframes game-breathe{
+  0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}
+  50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}
+}
+.game-banner{display:flex;justify-content:center;margin-bottom:30px}
+.game-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:calc(13px*var(--scale)) calc(28px*var(--scale));
+  border-radius:8px;text-decoration:none;font-weight:700;
+  font-size:calc(16px*var(--scale));font-family:var(--sans);letter-spacing:.5px;
+  animation:game-breathe 1.8s ease-in-out infinite;
+}
+/* ═══ 今日兩件事 ═══ */
+.event-card{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 9px 9px 0;padding:16px 20px;margin-bottom:12px}
+.event-card:last-child{margin-bottom:0}
+.event-title{font-size:calc(16px*var(--scale));font-weight:700;color:var(--header);margin-bottom:7px}
+.event-body{font-size:calc(15px*var(--scale));color:var(--text2);line-height:1.8}
+
+/* ═══ 五面向速覽 ═══ */
+.facet-list{display:flex;flex-direction:column;gap:9px}
+.facet-item{display:flex;gap:13px;align-items:flex-start;padding:13px 16px;background:var(--note-bg);border:1px solid var(--border);border-radius:8px}
+.facet-label{font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--accent2);background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:4px;padding:3px 9px;white-space:nowrap;margin-top:2px}
+[data-theme="light"] .facet-label{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.2)}
+.facet-text{font-size:calc(15px*var(--scale));color:var(--text);line-height:1.75}
+.facet-stale{font-family:var(--mono);font-size:calc(10px*var(--scale));color:var(--text3);margin-left:6px}
+
+/* ═══ 關鍵價位 ═══ */
+.key-level{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:20px 24px;text-align:center}
+.key-level-num{font-family:var(--mono);font-size:calc(30px*var(--scale));font-weight:600;color:var(--header);letter-spacing:.02em;margin-bottom:8px}
+.key-level-text{font-size:calc(15px*var(--scale));color:var(--text2);line-height:1.7}
+
+/* ═══ 未來一個月 ═══ */
+.cal-list{display:flex;flex-direction:column;gap:8px}
+.cal-item{display:flex;gap:13px;align-items:flex-start;padding:12px 15px;background:var(--note-bg);border:1px solid var(--border);border-radius:7px}
+.cal-date{font-family:var(--mono);font-size:calc(12px*var(--scale));font-weight:600;color:var(--accent3);white-space:nowrap;margin-top:2px}
+.cal-text{font-size:calc(15px*var(--scale));color:var(--text);line-height:1.7}
+.cal-text b{color:var(--header)}
+
+/* ═══ 一句底線 ═══ */
+.conclusion-box{background:var(--conc-bg);border:1px solid var(--conc-b);border-radius:10px;padding:20px 24px}
+.conclusion-box-title{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.14em;text-transform:uppercase;color:var(--conc-title);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.conclusion-box-title::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--conc-title)}
+.conclusion-box-text{font-size:calc(16px*var(--scale));color:var(--text);line-height:1.85}
+.conclusion-box-text strong{color:var(--conc-title);font-weight:700}
+
+/* ═══ 深入閱讀 ═══ */
+.reports-section{margin-bottom:20px}
+.reports-label{font-family:var(--mono);font-size:calc(10px*var(--scale));letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.reports-grid{display:flex;flex-wrap:wrap;gap:9px}
+.report-card{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;background:var(--note-bg);border:1px solid var(--border);border-radius:8px;text-decoration:none;flex:1 1 180px;min-width:160px;transition:.15s;cursor:pointer}
+.report-card:hover{border-color:var(--accent2);background:var(--bg4)}
+.report-card-info{display:flex;flex-direction:column;gap:3px}
+.report-card-name{font-size:calc(14.5px*var(--scale));font-weight:600;color:var(--header)}
+.report-card-date{font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text3)}
+.report-card-arrow{font-size:calc(15px*var(--scale));color:var(--accent2);flex-shrink:0}
+
+/* ═══ 免責聲明 / FOOTER ═══ */
+.dtree{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:15px 17px;margin:26px 0;font-family:var(--sans,inherit)}
+.dtree-h{font-size:calc(13px*var(--scale));letter-spacing:.06em;color:var(--accent);font-weight:700;margin-bottom:9px}
+.dtree-pre{font-family:var(--mono);font-size:calc(10.5px*var(--scale));line-height:1.6;color:var(--text);background:var(--bg2,var(--bg3));border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin:0;overflow-x:auto;white-space:pre}
+.dtree-pre b{color:var(--accent)}
+.dtree-note{font-size:calc(12.5px*var(--scale));color:var(--text);line-height:1.85;margin-top:10px;background:rgba(127,159,198,.07);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;padding:10px 13px}.dtree-now{font-size:calc(var(--fs)*.66);color:var(--text);line-height:1.75;margin:0 0 9px;background:linear-gradient(90deg,rgba(212,175,55,.16),rgba(212,175,55,.03));border:1px solid var(--accent);border-left-width:4px;border-radius:0 6px 6px 0;padding:9px 12px}.dtree-now b{color:var(--accent)}.dtree-nowtag{display:inline-block;background:var(--accent);color:var(--bg,#11151c);font-weight:800;font-size:.88em;letter-spacing:.04em;border-radius:4px;padding:1px 7px;margin-right:7px}
+@media(max-width:640px){.dtree-pre{font-size:calc(8.5px*var(--scale))}}
+.disclaimer{margin-top:36px;padding:14px 18px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;font-size:calc(12.5px*var(--scale));color:var(--text3);line-height:1.7}
+.footer{margin-top:22px;padding-top:16px;border-top:1px solid var(--border);font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text3);display:flex;justify-content:space-between}
+
+@media(max-width:520px){
+  main{padding:80px 16px 56px}
+  .hero{padding:24px 22px}
+}
+
+/* ═══ 框架快照 Hook ═══ */
+.hook-section{margin-bottom:20px}
+.hook-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.hook-item{background:var(--card-bg,rgba(255,255,255,.04));border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:10px 14px}
+.hook-label{display:block;font-size:calc(11px*var(--fs-scale,1));color:var(--text3,#6e6e73);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.hook-val{font-size:calc(13px*var(--fs-scale,1));font-weight:600;color:var(--text,#f5f5f7)}
+.hook-cta{font-size:calc(13px*var(--fs-scale,1));color:var(--text3,#6e6e73);margin:12px 0 6px;line-height:1.6}
+.hook-link{font-size:calc(13px*var(--fs-scale,1));color:var(--gold,#e0a526);font-weight:600;text-decoration:none}
+.hook-link:hover{text-decoration:underline}
+
+/* ═══ 內容判讀區 ═══ */
+.reading-section .sec-head{display:flex;align-items:center;gap:10px}
+.tts-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border,rgba(255,255,255,.15));border-radius:9999px;padding:3px 10px;font-size:calc(12px*var(--fs-scale,1));color:var(--text3,#a1a1a6);cursor:pointer;transition:border-color .15s,color .15s;font-family:inherit}
+.tts-btn:hover{border-color:var(--gold,#e0a526);color:var(--gold,#e0a526)}
+.reading-body{font-size:calc(15px*var(--fs-scale,1));line-height:1.85;color:var(--text,#f5f5f7);margin-top:14px;white-space:pre-wrap}
+.dtree-fit{overflow:hidden;width:100%;text-align:center}.dtree-fit>.dtree-pre{display:inline-block;text-align:left;transform-origin:left top;overflow:visible;width:max-content}.dtree-zoomhint{font-size:11.5px;color:var(--dim,#8a95a4);margin-top:6px;text-align:center}
+
+
+
+
+
+
+
+
+
+/* === §B-22 情境決策樹（CSS 排版·字型無關對齊） ===
+   字級一律由 --dt-fs 一處管理：五種報告（mw/us/tw/key/brief）共用同一組規格，
+   不得在個別報告另外覆寫 .dt-n / .dt-num 字級（Yoda 2026-08-28：這種東西要統一管理）。 */
+.dtree{--dt-fs:11.5px}
+html[data-size="sm"] .dtree{--dt-fs:10.5px}
+html[data-size="lg"] .dtree{--dt-fs:13px}
+@media(max-width:640px){.dtree{--dt-fs:10.5px}}
+.dt-wrap{overflow-x:auto;padding:6px 0 2px}
+.dt-tree{display:flex;justify-content:center;min-width:100%}
+.dt-sub{display:flex;flex-direction:column;align-items:center;flex:1 1 0;min-width:0;position:relative}
+.dt-n{text-align:center;line-height:1.7;padding:0 6px;font-family:var(--fm,monospace);font-size:var(--dt-fs)}
+.dt-n .dt-sub2{opacity:.82;font-size:.94em}                 /* 條件的補充說明行 */
+.dt-n .dt-lv{display:block;opacity:.72;font-size:.9em;letter-spacing:.02em}  /* 具體數字/門檻 */
+.dt-n .dt-num,.dt-num{display:block;font-weight:900;line-height:1.15;margin-bottom:1px;
+  font-size:calc(var(--dt-fs)*1.75);letter-spacing:0}
+.dt-kids{display:flex;align-items:flex-start;justify-content:center;width:100%;position:relative;padding-top:24px;gap:4px}
+/* 父節點 → 匯流排 的垂直線 */
+.dt-kids::before{content:'';position:absolute;top:0;left:50%;width:1px;height:12px;background:var(--accent);transform:translateX(-50%)}
+/* ⚠ 連接線一律畫在 .dt-kids 的 padding-top 保留區內（子節點框的「上方」）。
+   .dt-sub 的座標原點已在 padding 之後，故必須用**負值** top；用正值會把線畫進文字裡（踩過）。 */
+/* 匯流排（水平線）：由各子節點的 ::after 拼接，首尾只畫一半 */
+.dt-kids>.dt-sub::after{content:'';position:absolute;top:-12px;left:0;right:0;height:1px;background:var(--accent)}
+.dt-kids>.dt-sub:first-child::after{left:50%}
+.dt-kids>.dt-sub:last-child::after{right:50%}
+.dt-kids>.dt-sub:only-child::after{display:none}
+/* 匯流排 → 子節點 的垂直線 */
+.dt-kids>.dt-sub::before{content:'';position:absolute;top:-12px;left:50%;width:1px;height:12px;background:var(--accent);transform:translateX(-50%)}
+.dt-lead{color:var(--accent);font-weight:700}
+/* 「先看這張」整段（標題／定位框／事件列）字級也同源，避免各報告大小不一。
+   踩過：brief 未定義 --fs，template 的 .dtree-now{font-size:calc(var(--fs)*.66)} 整條 calc 失效
+   → 繼承 body 24px 變超大；.dtree-ev 則從來沒有樣式。故一律在此以 --dt-fs 收斂。 */
+.dtree-h{font-size:calc(var(--dt-fs)*1.2)}
+.dtree-now{font-size:calc(var(--dt-fs)*1.05);line-height:1.85}
+.dtree-ev{font-size:var(--dt-fs);line-height:1.75;color:var(--text);
+  background:var(--surface2,rgba(127,159,198,.06));border:1px solid var(--border);
+  border-radius:6px;padding:7px 11px;margin:0 0 10px}
+/* 手機只調間距，字級一律走 --dt-fs（單一來源，勿在此另設 font-size） */
+@media(max-width:640px){.dt-n{padding:0 3px}.dt-kids{gap:2px;padding-top:20px}}
+
+/* === §C-5 核心邏輯鍊 + 相容變數（簡報用 --scale；補 --fs/--fb/--fm 供 dtree-now/core-chains） === */
+:root{--fs:calc(16px*var(--scale));--fb:var(--sans);--fm:var(--mono)}
+.core-chains{background:rgba(240,192,64,.06);border:1px solid var(--border);border-left:3px solid #e0b64a;border-radius:0 6px 6px 0;padding:14px 17px;margin:4px 0 18px;font-family:var(--fb)}
+.core-chains .cc-h{font-size:calc(13px*var(--scale));letter-spacing:.1em;color:#e0b64a;font-weight:700;margin-bottom:9px}
+.core-chains .cc-item{padding:6px 0}
+.core-chains .cc-node{font-size:calc(15px*var(--scale));color:var(--text);line-height:1.85;font-weight:600}
+.core-chains .cc-num{color:#e0b64a;font-family:var(--fm);margin-right:6px}
+.core-chains .cc-br{display:flex;gap:0;font-size:calc(14px*var(--scale));color:var(--text);line-height:1.85}
+.core-chains .cc-g{font-family:var(--fm);color:#e0b64a;white-space:pre;flex:none}
+.core-chains .cc-lab{color:#c9962e;font-weight:700;flex:none;margin-right:8px}
+.core-chains .cc-t{flex:1;min-width:0}
+/* === §B-22 扇形決策樹：純文字＋顏色（往上紅↑、往下綠↓、中性灰） === */
+:root{--red:#ff6b6b;--green:#37b98a;--yellow:#f0c040}
+[data-theme="light"]{--red:#c92a4a;--green:#00866b;--yellow:#a87b00}
+.dtree-pre{font-family:'Sarasa Mono TC','IBM Plex Mono',var(--mono),monospace;font-size:calc(12.5px*var(--scale));line-height:1.55;color:var(--text);margin:0;white-space:pre;overflow-x:auto}
+.dtree-pre b{font-weight:700}
+.dt-num{display:inline-block;font-size:calc(19px*var(--scale));font-weight:900;color:var(--accent);line-height:1}
+.dtree-now{font-size:calc(12.5px*var(--scale));color:var(--text);background:linear-gradient(90deg,rgba(212,175,55,.14),rgba(212,175,55,.03));border:1px solid var(--accent);border-left-width:4px;border-radius:0 6px 6px 0;padding:9px 12px;margin-bottom:13px;line-height:1.8}
+.dtree-nowtag{display:inline-block;background:var(--accent);color:var(--bg);font-weight:800;font-size:.86em;border-radius:4px;padding:1px 7px;margin-right:6px}
+/* （舊 CSS 方塊版 vtree 已停用，保留樣式不影響） */
+.vtree{max-width:600px;margin:0 auto}
+.vt-now{position:relative;max-width:430px;margin:0 auto;background:linear-gradient(180deg,rgba(0,200,160,.10),rgba(0,200,160,.02));border:1.5px solid var(--accent);border-radius:12px;padding:13px 16px;text-align:center}
+.vt-nowtag{display:inline-block;background:var(--accent);color:#06231c;font-weight:800;font-size:calc(11px*var(--scale));letter-spacing:.05em;border-radius:5px;padding:2px 9px;margin-bottom:7px}
+.vt-now .vt-title{font-size:calc(17px*var(--scale));font-weight:800;color:var(--header)}
+.vt-now .vt-sub{font-size:calc(12.5px*var(--scale));color:var(--text2);margin-top:4px;line-height:1.6}
+.vt-here{display:inline-block;margin-top:8px;font-size:calc(11.5px*var(--scale));color:var(--accent);font-weight:700}
+.vt-stem{width:2px;height:20px;background:var(--accent);margin:0 auto}
+.vt-q{text-align:center;font-size:calc(13px*var(--scale));color:#e0b64a;font-weight:700;margin:2px 0}
+.vt-stem2{width:2px;height:14px;background:var(--accent);margin:0 auto}
+.vt-branches{display:flex;gap:12px;position:relative;padding-top:20px}
+.vt-branches::before{content:"";position:absolute;top:0;left:16.6%;right:16.6%;height:2px;background:var(--accent)}
+.vt-branch{flex:1;position:relative;display:flex;flex-direction:column;align-items:center}
+.vt-branch::before{content:"";position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:2px;height:20px;background:var(--accent)}
+.vt-dir{font-size:calc(12.5px*var(--scale));font-weight:800;padding:3px 12px;border-radius:9999px;margin-bottom:9px;white-space:nowrap}
+.vt-dir.up{color:#ff8fa3;border:1.5px solid rgba(255,77,109,.55)}
+.vt-dir.stay{color:var(--text2);border:1.5px solid var(--border2)}
+.vt-dir.down{color:#4fd0a0;border:1.5px solid rgba(0,200,160,.55)}
+.vt-cond{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:10px 11px;font-size:calc(12.5px*var(--scale));color:var(--text);text-align:center;width:100%;min-height:84px;display:flex;flex-direction:column;justify-content:center;line-height:1.55}
+.vt-cond .vt-lv{display:block;margin-top:5px;font-size:calc(11px*var(--scale));color:var(--text3);font-family:var(--mono);line-height:1.45}
+.vt-arrow{font-size:calc(15px*var(--scale));margin:7px 0 6px;line-height:1;color:var(--text3)}
+.vt-concl{border-radius:9px;padding:10px 11px;font-size:calc(12.5px*var(--scale));text-align:center;width:100%;min-height:58px;display:flex;align-items:center;justify-content:center;line-height:1.5;color:var(--header)}
+.vt-concl b{font-weight:800}
+.vt-concl.up{background:rgba(255,77,109,.08);border:1px solid rgba(255,77,109,.30)}
+.vt-concl.stay{background:var(--bg3);border:1px dashed var(--border2);color:var(--text)}
+.vt-concl.down{background:rgba(0,200,160,.08);border:1px solid rgba(0,200,160,.30)}
+@media(max-width:560px){.vt-branches{gap:7px}.vt-dir{font-size:11px;padding:3px 8px}.vt-cond,.vt-concl{font-size:11.5px;padding:8px}.vt-cond .vt-lv{font-size:10px}}
+</style>
+  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
+</head>
+<body>
+
+<!-- 頂部控制列 -->
+<div class="fc">
+  <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" class="ctrl-fan" title="Facebook粉專">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>粉專
+  </a>
+  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Research">Yoda Research</a>
+  <button class="fb" id="fs-small" onclick="setSize('sm')">小</button>
+  <button class="fb on" id="fs-normal" onclick="setSize('md')">中</button>
+  <button class="fb" id="fs-large" onclick="setSize('lg')">大</button>
+  <button class="fb" style="margin-left:4px;border-left:1px solid var(--border);padding-left:10px;" onclick="setTheme('dark')" id="btn-dark">深</button>
+  <button class="fb" onclick="setTheme('light')" id="btn-light">淺</button>
+</div>
+
+<!-- 看懂簡報 遊戲 ＋ 免費訂閱簡報（置底中央 fixed，並列，規格一致） -->
+<div style="position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:center;gap:12px;padding-bottom:16px;pointer-events:none;">
+  <a href="https://yoda-wcyc.github.io/game/%E7%9C%8B%E6%87%82%E7%B0%A1%E5%A0%B1.html" target="_blank" rel="noopener"
+     style="pointer-events:auto;display:inline-flex;align-items:center;padding:8px 22px;font-size:13px;font-family:var(--sans);font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite;box-shadow:0 2px 12px rgba(184,150,10,.4);white-space:nowrap;">
+    🎮 看懂簡報
+  </a>
+  <a href="https://yoda-research-next.vercel.app/#subscribe"
+     style="pointer-events:auto;display:inline-flex;align-items:center;padding:8px 22px;font-size:13px;font-family:var(--sans);font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite;box-shadow:0 2px 12px rgba(184,150,10,.4);white-space:nowrap;">
+    免費訂閱簡報
+  </a>
+</div>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-tag">YODA 市場簡報</div>
+    <div class="hero-title">利多到齊，漲勢卻在變窄</div>
+    <div class="hero-date">2026-08-28（週五）</div>
+  </div>
+
+  <!-- 1. 市場天氣 -->
+  <div class="weather" style="border-left:3px solid var(--accent2)">
+    <div class="weather-text">續彈，但漲勢在變窄——利多（輝達）和資金都到齊了，價格與參與卻沒跟上，扛盤的股票正在變少。</div>
+  </div>
+
+<div class="dtree"><div class="dtree-h">🌿 先看這張 · 我們現在在哪、接下來往哪走</div><div class="dtree-now"><span class="dtree-nowtag">📍 現在</span>利多（輝達財報財測雙超）與資金都到齊，但價格與參與沒跟上——<b>續彈，可是漲勢在變窄</b>。今天 <b>Warsh 上任後首場演說</b>剛講完，接下來最快的分岔是<b>長端利率（10 年期美債，現在 4.66%）鬆不鬆</b>：鬆了，估值壓力減輕、廣度才有機會跟上；不鬆，就得靠題材自己扛。<br>　<b>三條路各自要看什麼</b>，都寫在下面的樹裡——每一條都給了可以驗證的門檻，不用等誰宣布，看到數字就知道走到哪一格。</div><div class="dt-wrap"><div class="dt-tree"><div class="dt-sub"><div class="dt-n"><b>現在</b><br>利多到齊，但漲勢在變窄<br><span class="dt-lv">QQQ 721（Put 牆 700）·10Y 4.66%</span><br><span class="dt-lv">美股 3個月新高 222 對新低 164</span><br><b class='dt-lead'>◀ 等 Warsh 談話發酵</b></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--red)">1</span><br><b style='color:var(--red)'>長端利率鬆動</b><br><span style='color:var(--red)'><span class="dt-sub2">Warsh 對通膨鬆口，10Y 往下走</span></span><br><span style='color:var(--red)'><span class="dt-lv">觀察：10Y 跌破 4.5%</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">廣度同步回擴<span class="dt-lv">新高/新低比拉開<br>QQQ 站穩 700 之上</span><br><b style='color:var(--red)'>▲ 估值壓力鬆綁·升級全面上攻</b></div></div><div class="dt-sub"><div class="dt-n">只有權值受惠<span class="dt-lv">指數漲但家數沒跟<br>軟體資安獨強</span><br><b style='color:var(--yellow,#f0c040)'>◆ 續彈但仍窄·少數股扛盤</b></div></div></div></div><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--yellow,#f0c040)">2</span><br><b style='color:var(--yellow,#f0c040)'>長端沒動</b><br><span style='color:var(--yellow,#f0c040)'><span class="dt-sub2">利率卡在 4.66%，既沒鬆也沒惡化</span></span><br><span style='color:var(--yellow,#f0c040)'><span class="dt-lv">觀察：10Y 停 4.6~4.7%</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">題材自己扛住<span class="dt-lv">軟體/資安/記憶體<br>輪流接棒不熄火</span><br><b style='color:var(--yellow,#f0c040)'>◆ 變窄續彈延續·題材行情</b></div></div><div class="dt-sub"><div class="dt-n">題材熄火沒人接<span class="dt-lv">領漲股停漲<br>沒有新族群補上</span><br><b style='color:var(--green)'>▼ 漲勢做完·回到區間整理</b></div></div></div></div><div class="dt-sub"><div class="dt-n"><span class="dt-num" style="color:var(--green)">3</span><br><b style='color:var(--green)'>長端反彈走高</b><br><span style='color:var(--green)'><span class="dt-sub2">通膨態度偏硬，利率再往上</span></span><br><span style='color:var(--green)'><span class="dt-lv">觀察：10Y 站上 4.8%</span></span></div><div class="dt-kids"><div class="dt-sub"><div class="dt-n">防禦重新被買<span class="dt-lv">公用/必需消費轉強<br>高Beta 走弱</span><br><b style='color:var(--green)'>▼ 估值壓力回來·資金退防禦</b></div></div><div class="dt-sub"><div class="dt-n">QQQ 失守 700<span class="dt-lv">跌破且兩日未收復<br>Put 牆由撐轉壓</span><br><b style='color:var(--green)'>▼ 這波反彈結束·轉為修正</b></div></div></div></div></div></div></div></div></div>
+
+  <!-- 1.5 今日小遊戲（選用） -->
+  
+
+  <!-- 2. 今日兩件事 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">本週兩件事</span></div>
+    <div class="event-card">
+      <div class="event-title">輝達財報財測雙超，台美一起跳空開高</div>
+      <div class="event-body">輝達上季營收 962 億美元、年增 106%，還把明年（FY2028）的成長展望一口氣拉到約七成，兩個數字都比市場原先預期高。市場最擔心的那件事——「AI 這一波投資會不會停」——暫時被這份財報壓了下來，台股、美股當天都開高。</div>
+    </div>
+    <div class="event-card">
+      <div class="event-title">但「錢進來、價沒上去」——漲勢正在變窄</div>
+      <div class="event-body">台股跳空衝過前一個波段高點，尾盤卻被壓回、台積電更收在當天最低；美股則是靠軟體、資安這些補漲股接棒，防禦股反而被賣，才把指數撐住。白話說：買盤集中在少數幾根，越來越少的股票在扛整個大盤的漲幅。</div>
+    </div>
+  </div>
+
+  <!-- 3. 面向速覽（乙·中修：五面向收成三＋併一句，2026-08-05） -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">面向速覽</span></div>
+    <div class="facet-list">
+      <div class="facet-item">
+        <span class="facet-label">強勢股</span>
+        <span class="facet-text">美股最兇的是軟體、資安——OKTA、CRM 單日大漲逾兩成，這一群近 5 日相對大盤（是相對強弱、不是漲幅）跑贏約 5%；台股換記憶體領軍，南亞科單日吸走全場最大法人買超 180 億。共同點：錢往「之前落後、現在補漲」那一批集中。</span>
+      </div>
+      <div class="facet-item">
+        <span class="facet-label">板塊輪動</span>
+        <span class="facet-text">領漲的棒子從半導體交給了軟體、資安、雲端。半導體自己在修復（近一週、近一月相對大盤都已翻正），但真正被買的是本來就沒落後那批強勢股，不是全新的火種；台股同一天則是記憶體、散熱、塑化輪流亮燈。</span>
+      </div>
+      <div class="facet-item">
+        <span class="facet-label">結構廣度</span>
+        <span class="facet-text">廣度（有多少股票一起漲）在收窄。美股 3 個月新高 222 檔對新低 164 檔還算偏多，但最短天期已經新低多過新高＝短線先弱的早期訊號；台股上漲家數從昨天的八百多，收斂到五百上下，逼近漲跌一比一。</span>
+      </div>
+      <div class="facet-item">
+        <span class="facet-label">泡沫·總經</span>
+        <span class="facet-text">投機溫度偏高、但還沒到瘋狂（台股漲停 24 檔、跌停掛零，算換手不算全面狂熱）；總經端，10 年期美債殖利率卡在 4.66% 沒鬆，科技大漲的同一天長端利率沒讓步＝折現率壓力還在，這波漲勢得靠題材自己扛。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 關鍵價位 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">關鍵價位</span></div>
+    <div class="key-level">
+      <div class="key-level-num">QQQ 700</div>
+      <div class="key-level-text">美股科技的多空地板。那斯達克 100 ETF（QQQ）下方 700 這一檔，是選擇權市場最厚的一道「買方防線」（Put 牆），目前價 721、拉開約 3%。守得住，回檔就只算換手；一旦有效跌破，才需要重新看待這一波反彈。（台股 46,021 波段高、台積電 2,445、費半籌碼峰等完整價位，看當日各報告。）</div>
+    </div>
+  </div>
+
+  <!-- 4. 未來一個月 -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">未來一個月看什麼</span></div>
+    <div class="cal-list">
+      <div class="cal-item">
+        <span class="cal-date">08/28 今天</span>
+        <span class="cal-text"><b>Warsh 首場 Fed 主席演說（Jackson Hole）</b>——他 5 月接任後第一次公開談大方向（AI 與去全球化下的貨幣政策新框架）。市場想聽他對通膨的態度有多硬；關鍵看長端利率（10 年、30 年期美債殖利率）會不會因此鬆動。</span>
+      </div>
+      <div class="cal-item">
+        <span class="cal-date">09/04</span>
+        <span class="cal-text"><b>美國 8 月非農就業</b>——就業降溫到什麼程度，直接牽動 Fed 降不降息的底氣。</span>
+      </div>
+      <div class="cal-item">
+        <span class="cal-date">09/11</span>
+        <span class="cal-text"><b>美國 8 月 CPI</b>——通膨有沒有繼續降，決定這波「利率壓力」是鬆還是緊。</span>
+      </div>
+      <div class="cal-item">
+        <span class="cal-date">09/16</span>
+        <span class="cal-text"><b>9 月 FOMC 利率決策 ＋ 利率點陣圖</b>——這個月最重的一場，Fed 對後面幾次會議的態度會攤在點陣圖上。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 結論 -->
+  <div class="section reading-section">
+  <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">內容判讀</span><button class="tts-btn" id="tts-btn"><span class="tts-icon">🔊</span>&nbsp;<span id="tts-label">朗讀</span></button></div>
+<div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊</div>
+  <div class="cc-item">
+    <div class="cc-node"><span class="cc-num">①</span>現象：利多到齊、資金也到位，但價格與參與沒跟上</div>
+    <div class="cc-br"><span class="cc-g">   │  </span></div>
+    <div class="cc-br"><span class="cc-g">   ├─ </span><span class="cc-lab">機制</span><span class="cc-t">買盤集中在少數補漲股，防禦股被賣才撐住風險胃納、上漲家數同步收斂</span></div>
+    <div class="cc-br"><span class="cc-g">   │  </span></div>
+    <div class="cc-br"><span class="cc-g">   └─ </span><span class="cc-lab">含意</span><span class="cc-t">指數再漲，也是越來越少的股票在扛——參與面止穩前，續彈可以、但別當全面反攻</span></div>
+  </div>
+</div>
+  <div class="reading-body" id="reading-text">一句話：這是一場「地基還沒跟上」的反彈。利多（輝達財報財測雙超）和資金（美股防禦轉出、台股外資連買＋成交量站上門檻）都到位了，卡住的是價格和廣度——台股跳空衝過前波高又被壓回、台積電收在當天最低，美股靠軟體資安這些補漲股撐盤。<br><br>所以現在該怎麼看大盤：方向仍偏多，但把它當「續彈、不是全面反攻」來讀。真正要盯的一件事，是參與面（有多少股票一起漲）會不會停止惡化——它一天沒止穩，指數每往上一段，你就得理解成更少的股票在扛。<br><br>至於「什麼條件成立算升級、什麼發生算退回」的完整劇本、每一條退場線，還有 Yoda 自己怎麼看這批補漲股——都收在當日的完整報告裡。</div>
+</div>
+
+<!-- 5. 深入閱讀 -->
+  <div class="section reports-section">
+    <div class="sec-head"><span class="sec-num">06</span><span class="sec-title">深入閱讀</span></div>
+    <p style="font-size:calc(13.5px*var(--scale));color:var(--text3);margin-bottom:12px;line-height:1.6">簡報只呈現今日重點摘要，完整數據、歷史走勢與深度分析請見各份正式報告，並且使用平板或 PC 閱讀。</p>
+    <div class="reports-grid">
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/%E5%B8%82%E5%A0%B4%E8%A7%80%E5%AF%9F_20260813_%E5%85%8D%E8%B2%BB%E7%B2%BE%E7%B0%A1%E7%89%88.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">市場觀察</div><div class="report-card-date">2026-08-13</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/%E7%BE%8E%E8%82%A1%E5%88%86%E6%9E%90_20260808.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">美股分析</div><div class="report-card-date">2026-08-08</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/%E5%8F%B0%E8%82%A1%E5%88%86%E6%9E%90_20260827.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">台股分析</div><div class="report-card-date">2026-08-27</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/AI%E6%B3%A1%E6%B2%AB%E8%A9%95%E4%BC%B0%E8%A1%A8_20260803.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">AI 泡沫評估</div><div class="report-card-date">2026-08-03</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+      <a class="report-card" href="https://yoda-wcyc.github.io/-/%E7%B8%BD%E7%B6%93_20260802.html" target="_blank">
+        <div class="report-card-info"><div class="report-card-name">總經</div><div class="report-card-date">2026-08-02</div></div>
+        <div class="report-card-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 免責聲明 -->
+  
+
+  <div class="disclaimer">本文為市場觀察筆記，非投資建議；個股僅為篩選結果紀錄，不代表買賣推薦。</div>
+
+  <div class="footer">
+    <span>YODA SYSTEM · DAILY BRIEF</span>
+    <span>2026-08-28</span>
+  </div>
+
+</main>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&['c','a','u','s','p','v'].includes(e.key.toLowerCase())){e.preventDefault();}
+  if(e.key==='F12'){e.preventDefault();}
+});
+document.addEventListener('copy',function(e){e.preventDefault();return false;});
+document.addEventListener('cut',function(e){e.preventDefault();return false;});
+document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+
+function setSize(sz){
+  var map={sm:'small', md:'normal', lg:'large'};
+  var sizeKey=map[sz]||'normal';
+  document.documentElement.setAttribute('data-size',sz);
+  ['fs-small','fs-normal','fs-large'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.classList.remove('on');
+  });
+  var btn=document.getElementById('fs-'+sizeKey);
+  if(btn) btn.classList.add('on');
+  localStorage.setItem('brief-20260828-size',sz);
+}
+function setTheme(th){
+  var r=document.documentElement;
+  if(th==='light'){
+    r.style.setProperty('--bg','#f7f9fc');
+    r.style.setProperty('--bg2','#ffffff');
+    r.style.setProperty('--bg3','#f0f4f8');
+    r.style.setProperty('--bg4','#e8eef5');
+    r.style.setProperty('--border','#dde3ea');
+    r.style.setProperty('--border2','#c7d1da');
+    r.style.setProperty('--text','#1a2433');
+    r.style.setProperty('--text2','#465a6a');
+    r.style.setProperty('--text3','#7e8fa0');
+    r.style.setProperty('--header','#0e1620');
+    r.style.setProperty('--muted','#7a8a96');
+    r.style.setProperty('--accent','#00866b');
+    r.style.setProperty('--accent2','#a05800');
+    r.style.setProperty('--accent3','#1f5fbf');
+    r.style.setProperty('--danger','#c92a4a');
+    r.style.setProperty('--surface','#ffffff');
+    r.style.setProperty('--surface2','#f0f4f8');
+    document.body.classList.add('light');
+  } else {
+    r.style.setProperty('--bg','#080b10');
+    r.style.setProperty('--bg2','#0d1117');
+    r.style.setProperty('--bg3','#131920');
+    r.style.setProperty('--bg4','#1a2230');
+    r.style.setProperty('--border','#1e2d3d');
+    r.style.setProperty('--border2','#243444');
+    r.style.setProperty('--text','#c8d8e8');
+    r.style.setProperty('--text2','#8fa8bc');
+    r.style.setProperty('--text3','#5a7a90');
+    r.style.setProperty('--header','#e8f2ff');
+    r.style.setProperty('--muted','#4a6174');
+    r.style.setProperty('--accent','#00c8a0');
+    r.style.setProperty('--accent2','#f0a500');
+    r.style.setProperty('--accent3','#4d9fff');
+    r.style.setProperty('--danger','#ff4d6d');
+    r.style.setProperty('--surface','#0d1118');
+    r.style.setProperty('--surface2','#121820');
+    document.body.classList.remove('light');
+  }
+  var bd=document.getElementById('btn-dark');
+  var bl=document.getElementById('btn-light');
+  if(bd) bd.classList.toggle('on', th==='dark');
+  if(bl) bl.classList.toggle('on', th==='light');
+  localStorage.setItem('brief-20260828-theme',th);
+}
+(function(){
+  var sz=localStorage.getItem('brief-20260828-size')||'md';
+  var th=localStorage.getItem('brief-20260828-theme')||'dark';
+  document.documentElement.setAttribute('data-size',sz);
+  setTheme(th);
+  var map={sm:'small', md:'normal', lg:'large'};
+  var sizeKey=map[sz]||'normal';
+  ['fs-small','fs-normal','fs-large'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.classList.remove('on');
+  });
+  var btn=document.getElementById('fs-'+sizeKey);
+  if(btn) btn.classList.add('on');
+})();
+
+(function(){
+  var btn=document.getElementById('tts-btn');
+  var lbl=document.getElementById('tts-label');
+  var icon=btn?btn.querySelector('.tts-icon'):null;
+  if(!btn||!window.SpeechSynthesisUtterance){if(btn)btn.style.display='none';return;}
+  var speaking=false;
+  function stop(){
+    window.speechSynthesis.cancel();
+    speaking=false;
+    if(icon)icon.textContent='🔊';
+    if(lbl)lbl.textContent='朗讀';
+  }
+  function speak(text){
+    var utter=new SpeechSynthesisUtterance(text);
+    utter.lang='zh-TW';utter.rate=0.95;
+    function tryVoice(){
+      var vs=window.speechSynthesis.getVoices();
+      var v=vs.find(function(x){return x.lang==='zh-TW';})||vs.find(function(x){return x.lang.startsWith('zh');});
+      if(v)utter.voice=v;
+    }
+    tryVoice();
+    if('onvoiceschanged' in window.speechSynthesis)window.speechSynthesis.onvoiceschanged=tryVoice;
+    utter.onstart=function(){speaking=true;if(icon)icon.textContent='⏹';if(lbl)lbl.textContent='停止';};
+    utter.onend=utter.onerror=stop;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.resume();
+    window.speechSynthesis.speak(utter);
+    var t=setInterval(function(){if(!speaking){clearInterval(t);return;}window.speechSynthesis.pause();window.speechSynthesis.resume();},10000);
+  }
+  btn.addEventListener('click',function(){
+    if(speaking){stop();return;}
+    var el=document.getElementById('reading-text');
+    var text=el?el.innerText.trim():'';
+    if(!text)return;
+    speak(text);
+  });
+})();
+</script>
+<!-- ═══ 分享列（固定畫面最下方、永遠可見、不閃爍）自包含注入片段；未來每份報告標配。正本規格見 SKILL-core-render ═══ -->
+<script>
+(function(){
+  if(document.querySelector('.share-bar'))return;
+  var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
+    +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8860b;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
+    +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
+    +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
+    +"body{padding-bottom:64px !important}";
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  var bar=document.createElement('div');bar.className='share-bar';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
+  function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
+  if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
+  function showToast(){toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1800);}
+  bar.querySelector('.share-btn').addEventListener('click',function(){
+    var url=location.href,title=document.title;
+    if(navigator.share){navigator.share({title:title,url:url}).catch(function(){});}
+    else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(showToast).catch(showToast);}
+    else{showToast();}
+  });
+})();
+</script>
+
+<!-- 流量 beacon（自包含 · 打點到 GAS Traffic）— 正本見 SKILL-core-render §B-10c -->
+<script>
+(function(){try{
+  var K='yr_vid',v=localStorage.getItem(K);
+  if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}
+  var seg=location.pathname.split('/').filter(Boolean).pop()||'home';
+  fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',
+    {method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});
+}catch(e){}})();
+</script>
+<script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
+
+<!-- yoda-logo-sig -->
+<img alt="Yoda" src="https://yoda-research-next.vercel.app/yoda-logo.png" style="position:fixed;right:14px;bottom:12px;height:52px;width:auto;opacity:.5;z-index:9990;pointer-events:none">
+<!-- 商標浮水印【Yoda Research】由 yoda-install.js 注入 yoda-wm.js(全站共用正本·濃淡/大小改該支即同步) — 見 SKILL-core-render §B-10e -->
+<script>
+/* §B-22 決策樹自動縮放：全寬顯示，放不下就等比縮小（讀者可自行放大）。自包含。 */
+(function(){
+  function fit(){
+    /* 整段維持原欄寬（不做 full-bleed）；只在樹放不下時等比縮小 */
+    document.querySelectorAll('.dtree-pre').forEach(function(pre){
+      var box=pre.parentNode;
+      if(!box.classList.contains('dtree-fit')){
+        var w=document.createElement('div'); w.className='dtree-fit';
+        pre.parentNode.insertBefore(w,pre); w.appendChild(pre);
+        box=w;
+      }
+      pre.style.transform='none'; box.style.height='';
+      var avail=box.clientWidth, need=pre.scrollWidth;
+      if(!avail||!need) return;
+      var k=avail/need;
+      if(k>=1){ pre.style.transform='none'; box.style.height=''; box.style.overflowX='visible'; return; }
+      if(k<0.45){ k=0.45; box.style.overflowX='auto'; } else { box.style.overflowX='hidden'; }
+      pre.style.transform='scale('+k.toFixed(4)+')';
+      box.style.height=Math.ceil(pre.scrollHeight*k)+'px';
+      var d=box.parentNode.querySelector('.dtree-zoomhint');
+      if(!d){ d=document.createElement('div'); d.className='dtree-zoomhint';
+              d.textContent='※ 圖已縮小以完整顯示，可放大閱讀'; box.parentNode.appendChild(d); }
+    });
+  }
+  var t; function go(){ clearTimeout(t); t=setTimeout(fit,120); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',fit); else fit();
+  window.addEventListener('resize',go);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script></body>
+</html>
