@@ -331,19 +331,6 @@ canvas.rot{width:100%;height:96px;}
 .spark-cv{display:block;border-radius:1px;}
 
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-*::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
-/* 隱藏 scrollbar 視覺，保留捲動功能 */
-html { overflow-y: scroll; }
-html::-webkit-scrollbar { width: 0; background: transparent; }
-html { scrollbar-width: none; }
-
 @keyframes fan-breathe{0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200;}50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000;}}
 .ctrl-fan{display:flex;align-items:center;gap:5px;padding:3px 10px;font-family:var(--mono);font-size:calc(11px*var(--scale));color:#1a1200;text-decoration:none;border-right:1px solid var(--border);white-space:nowrap;background:#b8960a;border-radius:3px 0 0 3px;animation:fan-breathe 1.8s ease-in-out infinite;font-weight:700;}
 @keyframes breathe{0%,100%{opacity:1;filter:drop-shadow(0 0 5px currentColor);}50%{opacity:.18;filter:none;}}
@@ -559,6 +546,20 @@ canvas.rot{width:100%;height:96px;}
  .izy-section{display:none!important;}
 }
 </style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
+<style>
+/* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
+   規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
+   任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
+html{overflow-y:scroll;scrollbar-width:auto;scrollbar-color:rgba(140,162,186,.62) transparent}
+html::-webkit-scrollbar,body::-webkit-scrollbar{width:13px;height:13px;display:block}
+html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:rgba(128,150,175,.10)}
+html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:rgba(140,162,186,.62);border-radius:8px;border:3px solid transparent;background-clip:content-box}
+html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:rgba(175,196,218,.88);background-clip:content-box}
+*::-webkit-scrollbar{width:8px;height:8px;display:block}
+*::-webkit-scrollbar-thumb{background:rgba(140,162,186,.5);border-radius:5px}
+*::-webkit-scrollbar-thumb:hover{background:rgba(175,196,218,.8)}
+nav{scrollbar-width:thin}
+</style>
 </head>
 <body>
 <div id="report-root">
