@@ -185,6 +185,26 @@
       +'},true);</scr'+'ipt>';
     var f=document.createElement('iframe');
     f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox'); // allow-scripts:圖表JS；allow-popups(+escape):遊戲鈕/粉專等 target=_blank 能開新分頁(不然沙箱擋掉=點了沒反應)
+    // ── 右側捲軸：注進 iframe（2026-08-29 讀者反映 · core-render §B-32）──────────────
+    // 為什麼要在殼層做，而不是只修母板：付費報告的正文是從後端（Drive／Blob）拿的，
+    // 已經上傳的舊檔裡帶著 `::-webkit-scrollbar{display:none!important}`——
+    // 修母板只對「之後新產的」有效，救不了雲端上那幾十份舊的。
+    // 在這裡注入＝不管報告是哪一版、存在哪裡，捲軸都一定看得見（用 !important 蓋過舊規則）。
+    f.addEventListener('load', function(){
+      try{
+        var d=f.contentDocument; if(!d) return;
+        var st=d.createElement('style');
+        st.textContent=
+          'html{overflow-y:scroll!important;scrollbar-width:auto!important;scrollbar-color:rgba(140,162,186,.62) transparent!important}'
+         +'*::-webkit-scrollbar{display:block!important;width:8px!important;height:8px!important}'
+         +'html::-webkit-scrollbar,body::-webkit-scrollbar{display:block!important;width:13px!important;height:13px!important}'
+         +'html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:rgba(128,150,175,.10)!important}'
+         +'html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:rgba(140,162,186,.62)!important;border-radius:8px!important;border:3px solid transparent!important;background-clip:content-box!important}'
+         +'html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:rgba(175,196,218,.88)!important;background-clip:content-box!important}'
+         +'*::-webkit-scrollbar-thumb{background:rgba(140,162,186,.5)!important;border-radius:5px!important}';
+        (d.head||d.documentElement).appendChild(st);
+      }catch(e){}
+    });
     f.srcdoc=guard+html;                                          // 正文從後端來，靜態檔裡沒有
     var c=document.getElementById('content');
     c.appendChild(f); c.style.display='block';
