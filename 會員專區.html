@@ -178,6 +178,50 @@
   .dash-top{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;margin-bottom:14px}
   @media(max-width:720px){.dash-top{grid-template-columns:1fr}}
   .dash-top>.card{margin:0;height:100%}
+
+  /* ── 我的付費報告：類型／月份篩選 ＋ 日期分組（雙欄下欄寬約 385px，故走緊湊版）── */
+  .pl-filters{border-bottom:1px solid var(--divider);padding-bottom:10px;margin:10px 0 9px}
+  .pl-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .pl-row+.pl-row{margin-top:8px}
+  .pl-lb{font-size:11px;color:var(--dim);font-weight:700;letter-spacing:.06em;flex-shrink:0}
+  .pl-chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:9999px;cursor:pointer;line-height:1.5;
+    border:1px solid var(--border);background:var(--surface2);color:var(--dim);white-space:nowrap;
+    transition:background .15s,color .15s,border-color .15s;font-family:inherit}
+  .pl-chip:hover{color:var(--text);border-color:var(--sub1)}
+  .pl-chip.on{background:var(--sub1);border-color:var(--sub1);color:#1a1200}
+  .pl-chip .n{opacity:.6;font-weight:500;margin-left:2px;font-size:11px}
+  .pl-chip.on .n{opacity:.8}
+  .pl-sel{font-size:12px;font-weight:600;padding:4px 8px;border-radius:7px;background:var(--surface2);
+    color:var(--text);border:1px solid var(--border);cursor:pointer;font-family:inherit}
+  .pl-clear{font-size:11px;color:var(--accent);background:none;border:none;cursor:pointer;
+    font-family:inherit;text-decoration:underline;padding:2px}
+  .pl-count{font-size:11.5px;color:var(--dim);margin-bottom:8px;min-height:14px}
+  .pl-count b{color:var(--text)}
+  .pl-scroll{max-height:520px;overflow-y:auto;padding-right:4px}
+  .pl-day{margin-bottom:12px}
+  .pl-dayhead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .pl-daydate{font-size:12px;font-weight:700;color:var(--text)}
+  .pl-dayweek{font-size:10.5px;color:var(--dim)}
+  .pl-dayline{flex:1;height:1px;background:var(--divider)}
+  .pl-list{display:flex;flex-direction:column;gap:6px}
+  .pl-item{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--border);
+    border-radius:10px;text-decoration:none;color:var(--text);transition:border-color .15s}
+  .pl-item:hover{border-color:var(--sub1)}
+  .pl-badge{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:9999px;white-space:nowrap;
+    flex-shrink:0;min-width:56px;text-align:center}
+  .pl-b-mw{background:rgba(41,151,255,.14);color:#4d9fff}
+  .pl-b-tw{background:rgba(48,209,88,.16);color:var(--green)}
+  .pl-b-us{background:rgba(175,82,222,.16);color:#c07fe8}
+  .pl-b-pro{background:rgba(255,159,10,.16);color:#ff9f0a}
+  .pl-b-man{background:rgba(224,165,38,.2);color:var(--sub1)}
+  .pl-b-key{background:rgba(255,69,58,.14);color:#ff6b6b}
+  .pl-b-oth{background:var(--surface2);color:var(--dim)}
+  .pl-title{font-size:13.5px;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pl-arrow{color:var(--dim);font-size:12px;flex-shrink:0}
+  /* 使用手冊＝工具書，常駐置頂，不隨日期沉下去 */
+  .pl-pin{border:1px dashed var(--sub1);border-radius:10px;padding:9px 10px;margin-bottom:12px;background:rgba(224,165,38,.06)}
+  .pl-pinhead{font-size:10.5px;font-weight:700;color:var(--sub1);letter-spacing:.06em;margin-bottom:6px}
+  .pl-empty{text-align:center;color:var(--dim);font-size:12.5px;padding:20px 0}
   .perk-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;background:linear-gradient(90deg,var(--sub1),var(--sub2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .perk-h{font-size:18px;font-weight:800;letter-spacing:-.01em;margin-bottom:12px;color:var(--text)}
   .perk-h b{color:var(--sub1)}
@@ -394,7 +438,16 @@ nav{scrollbar-width:thin}
       <!-- 左欄：我的付費報告（登入後直接讀完整版；深連結到 report-shell） -->
       <div class="card">
         <h2>我的付費報告 <span style="font-size:12px;color:var(--dim);font-weight:400">點開即讀完整版 · 本次登入免再輸密碼</span></h2>
-        <div id="dPaidList" style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+        <!-- 類型／月份篩選（純前端，資料由 /api/report-list 一次撈回；載入成功且有資料才顯示） -->
+        <div class="pl-filters" id="plFilters" style="display:none">
+          <div class="pl-row"><span class="pl-lb">類型</span><span id="plCats" style="display:flex;gap:5px;flex-wrap:wrap"></span></div>
+          <div class="pl-row"><span class="pl-lb">月份</span>
+            <select class="pl-sel" id="plYm" onchange="applyPaidFilter()"></select>
+            <button class="pl-clear" id="plClear" onclick="clearPaidFilter()" style="display:none">清除篩選</button>
+          </div>
+        </div>
+        <div class="pl-count" id="plCount"></div>
+        <div id="dPaidList" class="pl-scroll" style="margin-top:2px">
           <div style="color:var(--dim);font-size:13px">載入中…</div>
         </div>
         <a href="https://yoda-research-next.vercel.app/archive?tab=付費版" target="_blank" rel="noopener"
@@ -609,14 +662,112 @@ nav{scrollbar-width:thin}
   // ── 我的付費報告清單（讀 Drive 付費檔 → 深連結 report-shell）──
   var curEmail='', curPw='';
   function escP(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  function paidMeta(reportId){
-    var base=String(reportId).replace(/^付費_/,'');
-    var m=base.match(/_(\d{8})$/);
-    var date=m?m[1].replace(/(\d{4})(\d{2})(\d{2})/,'$1-$2-$3'):'';
-    return {title:base.replace(/_/g,' '), date:date};
+  /* ── 分類規則：由 reportId 推導（含「使用手冊」，線上 public-paid-list 目前缺這條會誤歸關鍵報告）── */
+  var PAID_CATS=[
+    [/^市場觀察/,        '市場觀察', 'pl-b-mw'],
+    [/^台股/,            '台股',     'pl-b-tw'],
+    [/^美股/,            '美股',     'pl-b-us'],
+    [/^關鍵報告|^關鍵/,  '關鍵報告', 'pl-b-key'],
+    [/^專題/,            '專題',     'pl-b-pro'],
+    [/使用手冊/,          '使用手冊', 'pl-b-man'],
+    [/^總經/,            '總經',     'pl-b-oth'],
+    [/AI泡沫/,           'AI泡沫',   'pl-b-oth'],
+    [/^簡報/,            '簡報',     'pl-b-oth']
+  ];
+  var PAID_ALL=[], plCat='全部', plYm='all';
+  function plStrip(id){ return String(id).replace(/\.html?$/i,'').replace(/^(付費|免費)[_-]?/,''); }
+  function plCatOf(id){ var s=plStrip(id); for(var i=0;i<PAID_CATS.length;i++) if(PAID_CATS[i][0].test(s)) return PAID_CATS[i][1]; return '其他'; }
+  function plBadgeOf(c){ for(var i=0;i<PAID_CATS.length;i++) if(PAID_CATS[i][1]===c) return PAID_CATS[i][2]; return 'pl-b-oth'; }
+  function plYmd(id){ var m=String(id).match(/(\d{4})(\d{2})(\d{2})/); return m?{y:m[1],m:m[2],d:m[3]}:null; }
+  function plYmOf(id){ var v=plYmd(id); return v?(v.y+'-'+v.m):''; }
+  function plDateOf(id){ var v=plYmd(id); return v?(v.y+'-'+v.m+'-'+v.d):''; }
+  /* 標題：去前綴、去尾端日期（_ 或 - 皆可）、底線轉空白 */
+  function plTitleOf(id){ return plStrip(id).replace(/[_-]\d{8}$/,'').replace(/_/g,' ').trim(); }
+  function plWeek(ds){ if(!ds)return ''; var p=ds.split('-'); var dt=new Date(Number(p[0]),Number(p[1])-1,Number(p[2])); return '週'+'日一二三四五六'.charAt(dt.getDay()); }
+  function plIsManual(id){ return /使用手冊/.test(plStrip(id)); }
+
+  function buildPaidFilters(){
+    var cc={}, yy={};
+    PAID_ALL.forEach(function(r){
+      var c=plCatOf(r.reportId); cc[c]=(cc[c]||0)+1;
+      var y=plYmOf(r.reportId); if(y) yy[y]=(yy[y]||0)+1;
+    });
+    var order=PAID_CATS.map(function(x){return x[1];}).concat(['其他']);
+    var html='<button class="pl-chip'+(plCat==='全部'?' on':'')+'" onclick="setPaidCat(\'全部\')">全部<span class="n">'+PAID_ALL.length+'</span></button>';
+    html+=order.filter(function(c){return cc[c];}).map(function(c){
+      return '<button class="pl-chip'+(plCat===c?' on':'')+'" onclick="setPaidCat(\''+c+'\')">'+escP(c)+'<span class="n">'+cc[c]+'</span></button>';
+    }).join('');
+    el('plCats').innerHTML=html;
+    var keys=Object.keys(yy).sort().reverse(), sel=el('plYm');
+    sel.innerHTML='<option value="all">全部月份</option>'+keys.map(function(k){
+      var p=k.split('-'); return '<option value="'+k+'">'+p[0]+'/'+Number(p[1])+'（'+yy[k]+'）</option>';
+    }).join('');
+    sel.value=plYm;
   }
+  function setPaidCat(c){ plCat=c; buildPaidFilters(); applyPaidFilter(); }
+  function clearPaidFilter(){ plCat='全部'; plYm='all'; buildPaidFilters(); applyPaidFilter(); }
+
+  function plItemHtml(r){
+    var c=plCatOf(r.reportId);
+    return '<a class="pl-item" href="report-shell.html?id='+encodeURIComponent(r.reportId)+'" target="_blank" rel="noopener">'
+      +'<span class="pl-badge '+plBadgeOf(c)+'">'+escP(c)+'</span>'
+      +'<span class="pl-title">'+escP(plTitleOf(r.reportId))+'</span>'
+      +'<span class="pl-arrow">→</span></a>';
+  }
+
+  function applyPaidFilter(){
+    plYm=el('plYm').value;
+    var noFilter=(plCat==='全部'&&plYm==='all');
+    var rows=PAID_ALL.filter(function(r){
+      if(plCat!=='全部'&&plCatOf(r.reportId)!==plCat) return false;
+      if(plYm!=='all'&&plYmOf(r.reportId)!==plYm) return false;
+      return true;
+    });
+    // 使用手冊＝工具書，未篩選時常駐置頂，且不重複出現在日期分組
+    var pinned=[], dated=rows;
+    if(noFilter){
+      pinned=rows.filter(function(r){return plIsManual(r.reportId);});
+      dated=rows.filter(function(r){return !plIsManual(r.reportId);});
+    }
+    dated=dated.slice().sort(function(a,b){
+      var da=plDateOf(a.reportId), db=plDateOf(b.reportId);
+      if(da!==db) return db.localeCompare(da);
+      return String(a.reportId).localeCompare(String(b.reportId));
+    });
+
+    el('plClear').style.display=noFilter?'none':'inline';
+    el('plCount').innerHTML=noFilter?('共 <b>'+PAID_ALL.length+'</b> 篇')
+      :('篩選出 <b>'+rows.length+'</b> 篇（共 '+PAID_ALL.length+' 篇）');
+
+    var box=el('dPaidList');
+    if(!rows.length){
+      box.innerHTML='<div class="pl-empty">這個條件下沒有報告<br><button class="pl-chip" style="margin-top:8px" onclick="clearPaidFilter()">清除篩選</button></div>';
+      return;
+    }
+    var html='';
+    if(pinned.length){
+      html+='<div class="pl-pin"><div class="pl-pinhead">📘 使用手冊 · 隨時可查</div><div class="pl-list">'
+        +pinned.map(plItemHtml).join('')+'</div></div>';
+    }
+    var groups=[], gmap={};
+    dated.forEach(function(r){
+      var d=plDateOf(r.reportId)||'其他';
+      if(!gmap[d]){ gmap[d]={date:d,items:[]}; groups.push(gmap[d]); }
+      gmap[d].items.push(r);
+    });
+    html+=groups.map(function(g){
+      var p=String(g.date).split('-'), head=(p.length===3)?(Number(p[1])+'/'+Number(p[2])):g.date;
+      return '<div class="pl-day"><div class="pl-dayhead"><span class="pl-daydate">'+escP(head)+'</span>'
+        +'<span class="pl-dayweek">'+plWeek(g.date)+'</span><span class="pl-dayline"></span></div>'
+        +'<div class="pl-list">'+g.items.map(plItemHtml).join('')+'</div></div>';
+    }).join('');
+    box.innerHTML=html;
+  }
+
   function loadPaidList(){
     var box=el('dPaidList'); if(!box)return;
+    var fw=el('plFilters'); if(fw)fw.style.display='none';
+    var cl=el('plCount'); if(cl)cl.innerHTML='';
     box.innerHTML='<div style="color:var(--dim);font-size:13px">載入中…</div>';
     var tok=''; try{tok=localStorage.getItem('yoda_jwt')||'';}catch(e){}
     if(!tok){box.innerHTML='<div style="color:var(--dim);font-size:13px">訂閱未生效,無法讀取付費報告</div>';return;}
@@ -624,15 +775,11 @@ nav{scrollbar-width:thin}
       .then(function(r){return r.json();})
       .then(function(d){
         if(!d||!d.auth){box.innerHTML='<div style="color:var(--dim);font-size:13px">請重新登入</div>';return;}
-        var rs=d.reports||[];
-        if(!rs.length){box.innerHTML='<div style="color:var(--dim);font-size:13px">目前沒有已上架的付費報告</div>';return;}
-        box.innerHTML=rs.map(function(x){
-          var mt=paidMeta(x.reportId);
-          return '<a href="report-shell.html?id='+encodeURIComponent(x.reportId)+'" target="_blank" rel="noopener" '
-            +'style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text)">'
-            +'<b style="font-size:14px;font-weight:600">'+escP(mt.title)+'</b>'
-            +'<span style="color:var(--dim);font-size:12px;white-space:nowrap">'+escP(mt.date)+' →</span></a>';
-        }).join('');
+        PAID_ALL=(d.reports||[]).filter(function(x){return x&&x.reportId;});
+        if(!PAID_ALL.length){box.innerHTML='<div style="color:var(--dim);font-size:13px">目前沒有已上架的付費報告</div>';return;}
+        plCat='全部'; plYm='all';
+        if(fw)fw.style.display='block';
+        buildPaidFilters(); applyPaidFilter();
       })
       .catch(function(){box.innerHTML='<div style="color:var(--dim);font-size:13px">連線失敗</div>';});
   }
