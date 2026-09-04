@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DFFP3JL6EY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DFFP3JL6EY');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 榮景的鍊條 · 八環相扣 · Yoda Research</title>
+<!--
+  免費報告「空殼」範本（2026-08-30 · 由 Skill\free_shell.py 依本檔產生）
+  比照付費 report-shell：這個檔本身【不含正文】——只有載入畫面與 JS。
+  打開時打 Vercel /api/report（reportId=免費_×××，免驗票分支）→ 私有 Blob 讀正文
+  → 烤「免費版」浮水印 → 載進 iframe。
+  好處：公開 repo（含 git 歷史）不再存整份資料；撤下＝刪 Blob 一檔，所有連結同時失效。
+  界線（誠實）：內容渲染後仍可被有心人複製，擋的是整檔下載與 git 歷史留存。
+-->
+<style>
+  :root{--bg:#000;--surface:#1d1d1f;--border:rgba(255,255,255,.14);--text:#f5f5f7;--dim:#a1a1a6;--gold:#e0a526;--gold-d:#b8860b;--sans:-apple-system,BlinkMacSystemFont,'PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none}
+  /* 載入畫面 */
+  #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .gate-card{width:100%;max-width:400px;border:1.5px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,var(--gold),var(--gold-d)) border-box;border-radius:16px;padding:32px;text-align:center}
+  .gate-card h1{font-size:18px;margin:14px 0 8px;line-height:1.5}
+  .gate-card p{font-size:13px;color:var(--dim);line-height:1.65}
+  .spin{width:34px;height:34px;margin:0 auto;border-radius:50%;border:3px solid rgba(224,165,38,.25);border-top-color:var(--gold);animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .gate-msg{font-size:13px;color:#ff6b6b;margin-top:12px;min-height:18px}
+  #retry{display:none;margin-top:14px;padding:11px 26px;font-size:15px;font-weight:700;color:#1a1200;background:linear-gradient(135deg,var(--gold),var(--gold-d));border:none;border-radius:9999px;cursor:pointer;font-family:inherit}
+  /* 正文容器 + 浮水印 */
+  #content{display:none}
+  #content iframe{width:100%;border:none;display:block;min-height:100vh;background:#000}
+  #wm{display:none;position:fixed;inset:0;z-index:9998;pointer-events:none;background-repeat:repeat}
+
+/* 安裝到桌面鈕停用（Yoda 2026-08-31 定 · 全站）*/
+.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}
+/* 圖說「怎麼看」統一規格（core-render §B-39④ · 2026-09-04 Yoda：行高與列距一律統一）
+   ——行高與列距只在這裡定義；任何圖說都用 .fig-note + <p>，不要各自寫 line-height、不要靠數 <br> 排列距 */
+.fig-note{font-size:calc(var(--fs)*.55);color:var(--text2,#9fb0c4);line-height:1.8}
+.fig-note p{margin:0 0 .85em}
+.fig-note p:last-child{margin-bottom:0}
+.ascii-fig .af-foot p{margin:0 0 .85em}
+.ascii-fig .af-foot p:last-child{margin-bottom:0}
+</style>
+</head>
+<body>
+  <div id="gate">
+    <div class="gate-card">
+      <div class="spin" id="spin"></div>
+      <h1>AI 榮景的鍊條 · 八環相扣 · Yoda Research</h1>
+      <p id="sub">免費報告載入中，約 1–2 秒…</p>
+      <div class="gate-msg" id="msg"></div>
+      <button id="retry" type="button">重新載入</button>
+    </div>
+  </div>
+
+  <div id="wm"></div>
+  <div id="content"></div>
+
+<script>
+  var API='https://yoda-research-next.vercel.app';
+  var reportId='免費_AI榮景的鍊條_20260901';
+  var msg=document.getElementById('msg'), retryBtn=document.getElementById('retry');
+
+  // 打 /api/report（免費檔免驗票·附逾時重試）
+  function fetchReport(){
+    var attempts=3, timeoutMs=30000;
+    return new Promise(function(resolve,reject){
+      (function run(n){
+        var ctrl=('AbortController' in window)?new AbortController():null;
+        var timer=ctrl?setTimeout(function(){ctrl.abort();},timeoutMs):null;
+        fetch(API+'/api/report',{method:'POST',body:JSON.stringify({reportId:reportId})})
+          .then(function(r){return r.json();})
+          .then(function(res){ if(timer)clearTimeout(timer); resolve(res); })
+          .catch(function(e){ if(timer)clearTimeout(timer);
+            if(n<attempts){ msg.style.color='var(--dim)'; msg.textContent='載入中…（重試 '+n+'/'+(attempts-1)+'）';
+              setTimeout(function(){run(n+1);},1200*n); } else reject(e); });
+      })(1);
+    });
+  }
+  function fail(t){
+    document.getElementById('spin').style.display='none';
+    document.getElementById('sub').textContent='';
+    msg.style.color='#ff6b6b'; msg.textContent=t;
+    retryBtn.style.display='inline-block';
+  }
+  function boot(){
+    document.getElementById('spin').style.display='block';
+    document.getElementById('sub').textContent='免費報告載入中，約 1–2 秒…';
+    retryBtn.style.display='none'; msg.textContent='';
+    fetchReport().then(function(res){
+      if(res && res.allow && res.html){ render(res.html, res.watermark); return; }
+      if(res && res.reason==='need-login'){ fail('報告服務更新中，請稍後再試。'); return; } // 免費頁不該叫讀者登入
+      fail((res && res.error) || '這份報告目前無法開啟，可能已下架。');
+    }).catch(function(){ fail('伺服器忙碌，請按「重新載入」。'); });
+  }
+  retryBtn.onclick=boot;
+  boot();
+
+  function render(html, watermark){
+    document.getElementById('gate').style.display='none';
+    // 防盜 script 注進 iframe（右鍵/複製）＋ srcdoc 錨點修復（同 report-shell）
+    var guard='<scr'+'ipt>["contextmenu","copy","cut","selectstart","dragstart"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});</scr'+'ipt>'
+      +'<scr'+'ipt>document.addEventListener("click",function(e){'
+      +'var a=e.target&&e.target.closest?e.target.closest(\'a[href^="#"]\'):null;if(!a)return;'
+      +'var id=a.getAttribute("href").slice(1);if(!id)return;'
+      +'var el=document.getElementById(id)||document.querySelector(\'[name="\'+id+\'"]\');'
+      +'if(!el)return;e.preventDefault();'
+      +'try{el.scrollIntoView({behavior:"smooth",block:"start"});}catch(_){el.scrollIntoView();}'
+      +'},true);</scr'+'ipt>';
+    var f=document.createElement('iframe');
+    f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+    // 右側捲軸注入（core-render §B-32，同 report-shell：蓋過舊檔藏捲軸的規則）
+    f.addEventListener('load', function(){
+      try{
+        var d=f.contentDocument; if(!d) return;
+        var st=d.createElement('style');
+        st.textContent=
+          'html{overflow-y:scroll!important;scrollbar-width:auto!important;scrollbar-color:rgba(140,162,186,.62) transparent!important}'
+         +'*::-webkit-scrollbar{display:block!important;width:8px!important;height:8px!important}'
+         +'html::-webkit-scrollbar,body::-webkit-scrollbar{display:block!important;width:13px!important;height:13px!important}'
+         +'html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:rgba(128,150,175,.10)!important}'
+         +'html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:rgba(140,162,186,.62)!important;border-radius:8px!important;border:3px solid transparent!important;background-clip:content-box!important}'
+         +'html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:rgba(175,196,218,.88)!important;background-clip:content-box!important}'
+         +'*::-webkit-scrollbar-thumb{background:rgba(140,162,186,.5)!important;border-radius:5px!important}';
+        (d.head||d.documentElement).appendChild(st);
+      }catch(e){}
+    });
+    f.srcdoc=guard+html;                       // 正文從後端來，這個靜態檔裡沒有
+    var c=document.getElementById('content');
+    c.appendChild(f); c.style.display='block';
+    setWatermark(watermark||'免費版 · Yoda Research');
+  }
+
+  function setWatermark(text){
+    var t=String(text).replace(/[<>&]/g,'');
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="278" height="180">'
+      +'<text x="14" y="98" fill="rgba(255,255,255,0.05)" font-size="14" font-family="sans-serif" transform="rotate(-28 139 90)">'+t+'</text></svg>';
+    var wm=document.getElementById('wm');
+    wm.style.backgroundImage='url("data:image/svg+xml;utf8,'+encodeURIComponent(svg)+'")';
+    wm.style.display='block';
+  }
+
+  // 空殼本身也擋右鍵/複製
+  ['contextmenu','copy','cut','selectstart','dragstart'].forEach(function(ev){
+    document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});
+  });
+</script>
+<script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
+<script>(function(){try{var K='yr_vid',v=localStorage.getItem(K);if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}var seg=location.pathname.split('/').filter(Boolean).pop()||'home';fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',{method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});}catch(e){}})();</script>
+<img alt="Yoda" src="https://yoda-research-next.vercel.app/yoda-logo.png" style="position:fixed;right:14px;bottom:12px;height:52px;width:auto;opacity:.5;z-index:9990;pointer-events:none">
+</body>
+</html>
