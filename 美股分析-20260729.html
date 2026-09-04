@@ -42,7 +42,7 @@ body.light .controls-bar{background:rgba(255,255,255,.82)}
 .ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-size:calc(var(--fs)*.5);font-family:var(--fm);color:var(--dim);text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:9999px;transition:all .15s;white-space:nowrap;font-weight:700}
 .ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0}
 .ctrl-fan:hover{background:var(--surface);color:var(--text);border-color:var(--accent)}
-.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-family:var(--fb);font-size:calc(var(--fs)*.5);font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;animation:fan-breathe 1.8s ease-in-out infinite;white-space:nowrap;margin-left:1px;transition:all .15s}
+.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-family:var(--fb);font-size:calc(var(--fs)*.5);font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;white-space:nowrap;margin-left:1px;transition:all .15s}
 .ctrl-home:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none}
 .ctrl-group{display:flex;gap:2px}
 .ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
@@ -471,7 +471,7 @@ th.sortable.desc::after{content:"▼";opacity:1;color:var(--accent);}
   text-decoration: none;
   background: #b8960a;
   border-radius: 9999px;
-  animation: fan-breathe 1.8s ease-in-out infinite;
+  
   white-space: nowrap;
   margin-left: 1px;
   transition: all 0.15s ease;
