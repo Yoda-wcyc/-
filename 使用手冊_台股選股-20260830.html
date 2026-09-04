@@ -38,8 +38,17 @@
   #content{display:none}
   #content iframe{width:100%;border:none;display:block;min-height:100vh;background:#000}
   #wm{display:none;position:fixed;inset:0;z-index:9998;pointer-events:none;background-repeat:repeat}
+
+/* 安裝到桌面鈕停用（Yoda 2026-08-31 定 · 全站）*/
+.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}
+/* 圖說「怎麼看」統一規格（core-render §B-39④ · 2026-09-04 Yoda：行高與列距一律統一）
+   ——行高與列距只在這裡定義；任何圖說都用 .fig-note + <p>，不要各自寫 line-height、不要靠數 <br> 排列距 */
+.fig-note{font-size:calc(var(--fs)*.55);color:var(--text2,#9fb0c4);line-height:1.8}
+.fig-note p{margin:0 0 .85em}
+.fig-note p:last-child{margin-bottom:0}
+.ascii-fig .af-foot p{margin:0 0 .85em}
+.ascii-fig .af-foot p:last-child{margin-bottom:0}
 </style>
-<style data-yoda-nobtn>/* 報告端安裝鈕停用（Yoda 定）；yoda-install.js 仍載入，浮水印/控制列覆蓋照常生效 */.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}</style>
 </head>
 <body>
   <div id="gate">
@@ -57,7 +66,7 @@
 
 <script>
   var API='https://yoda-research-next.vercel.app';
-  var reportId='免費_使用手冊_選股-20260830';
+  var reportId='免費_使用手冊_台股選股-20260830';
   var msg=document.getElementById('msg'), retryBtn=document.getElementById('retry');
 
   // 打 /api/report（免費檔免驗票·附逾時重試）
