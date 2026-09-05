@@ -186,6 +186,9 @@
       +'},true);</scr'+'ipt>';
     var f=document.createElement('iframe');
     f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox'); // allow-scripts:圖表JS；allow-popups(+escape):遊戲鈕/粉專等 target=_blank 能開新分頁(不然沙箱擋掉=點了沒反應)
+    // 分享鈕（Yoda 2026-09-05）：報告裡的 navigator.share 在 sandbox srcdoc iframe 內預設拿不到
+    // web-share 權限 → 只會退回「複製連結」。這裡明講允許，原生分享匣才會出現。
+    f.setAttribute('allow','web-share; clipboard-write; clipboard-read');
     // ── 右側捲軸：注進 iframe（2026-08-29 讀者反映 · core-render §B-32）──────────────
     // 為什麼要在殼層做，而不是只修母板：付費報告的正文是從後端（Drive／Blob）拿的，
     // 已經上傳的舊檔裡帶著 `::-webkit-scrollbar{display:none!important}`——

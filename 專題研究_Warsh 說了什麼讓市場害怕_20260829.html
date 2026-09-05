@@ -618,12 +618,14 @@ function setTheme(th){document.documentElement.setAttribute('data-theme',th);doc
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
-  function showToast(){toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1800);}
+  function showToast(_m){if(_m)toast.textContent=_m;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1800);}
   bar.querySelector('.share-btn').addEventListener('click',function(){
-    var url=location.href,title=document.title;
-    if(navigator.share){navigator.share({title:title,url:url}).catch(function(){});}
-    else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(showToast).catch(showToast);}
-    else{showToast();}
+    var url=(function(){var c=document.querySelector('link[rel=canonical]');var u=(c&&c.href)||((window.top!==window.self&&document.referrer)||location.href);try{var o=new URL(u,location.href);['token','t','k','sig','key','ticket','jwt'].forEach(function(p){o.searchParams.delete(p);});return o.href;}catch(e){return u;}})(),title=document.title;
+    var _cp=function(u){try{var ta=document.createElement('textarea');ta.value=u;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:-9999px;opacity:0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,99999);var ok=document.execCommand('copy');document.body.removeChild(ta);return ok;}catch(e){return false;}};
+    var _dn=function(ok){showToast(ok?'已複製連結 ✓':'複製失敗，請手動複製網址列');};
+    var _cy=function(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){_dn(true);},function(){_dn(_cp(url));});}else{_dn(_cp(url));}};
+    if(navigator.share){navigator.share({title:title,url:url}).catch(function(e){if(e&&e.name==='AbortError')return;_cy();});}
+    else{_cy();}
   });
 })();
 </script>

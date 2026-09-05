@@ -395,8 +395,13 @@ document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&['c',
 document.addEventListener('copy',function(e){e.preventDefault();return false;});
 function setSize(sz){document.documentElement.setAttribute('data-size',sz);document.querySelectorAll('[onclick*="setSize"]').forEach(function(b){b.classList.toggle('on',b.textContent==={sm:'小',md:'中',lg:'大'}[sz]);});localStorage.setItem('key-20260806-size',sz);}
 function setTheme(th){document.documentElement.setAttribute('data-theme',th);document.querySelectorAll('[onclick*="setTheme"]').forEach(function(b){b.classList.toggle('on',b.textContent==={dark:'深',light:'淺'}[th]);});localStorage.setItem('key-20260806-theme',th);}
-function showShareToast(){var t=document.getElementById('shareToast');if(!t)return;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1800);}
-function shareReport(){var url=location.href,title=document.title;if(navigator.share){navigator.share({title:title,url:url}).catch(function(){});}else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(showShareToast).catch(function(){showShareToast();});}else{showShareToast();}}
+function showShareToast(_m){var t=document.getElementById('shareToast');if(!t)return;if(_m)t.textContent=_m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1800);}
+function shareReport(){var url=(function(){var c=document.querySelector('link[rel=canonical]');var u=(c&&c.href)||((window.top!==window.self&&document.referrer)||location.href);try{var o=new URL(u,location.href);['token','t','k','sig','key','ticket','jwt'].forEach(function(p){o.searchParams.delete(p);});return o.href;}catch(e){return u;}})(),title=document.title;
+    var _cp=function(u){try{var ta=document.createElement('textarea');ta.value=u;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:-9999px;opacity:0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,99999);var ok=document.execCommand('copy');document.body.removeChild(ta);return ok;}catch(e){return false;}};
+    var _dn=function(ok){showShareToast(ok?'已複製連結 ✓':'複製失敗，請手動複製網址列');};
+    var _cy=function(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){_dn(true);},function(){_dn(_cp(url));});}else{_dn(_cp(url));}};
+    if(navigator.share){navigator.share({title:title,url:url}).catch(function(e){if(e&&e.name==='AbortError')return;_cy();});}
+    else{_cy();}}
 (function(){var sz=localStorage.getItem('key-20260806-size')||'md';var th=localStorage.getItem('key-20260806-theme')||'dark';setSize(sz);setTheme(th);})();
 </script>
 
