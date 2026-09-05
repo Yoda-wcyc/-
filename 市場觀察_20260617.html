@@ -1152,11 +1152,13 @@ const REL_HISTORY = {"DRAM": [{"date": "06/03", "rel5": 14.28, "rel20": 40.42, "
     var url=(function(){var c=document.querySelector('link[rel=canonical]');var u=(c&&c.href)||((window.top!==window.self&&document.referrer)||location.href);try{var o=new URL(u,location.href);['token','t','k','sig','key','ticket','jwt'].forEach(function(p){o.searchParams.delete(p);});return o.href;}catch(e){return u;}})(),title=document.title;
     var _cp=function(u){try{var ta=document.createElement('textarea');ta.value=u;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:-9999px;opacity:0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,99999);var ok=document.execCommand('copy');document.body.removeChild(ta);return ok;}catch(e){return false;}};
     var _dn=function(ok,why){showToast(ok?((why?why+'·':'')+'已複製連結 ✓'):'複製失敗，請手動複製網址列');};
-    var _cy=function(why){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){_dn(true,why);},function(){_dn(_cp(url),why);});}else{_dn(_cp(url),why);}};
+    var _cy=function(why,u){u=u||url;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(function(){_dn(true,why);},function(){_dn(_cp(u),why);});}else{_dn(_cp(u),why);}};
+    var _http=function(u){return /^https?:/i.test(u||'');};
     var _inF=window.top!==window.self;
-    var _viaParent=function(why){var done=false;var h=function(ev){var d=ev.data;if(!d||d.type!=='yoda-share-result')return;done=true;window.removeEventListener('message',h);if(!d.ok)_cy(why);};window.addEventListener('message',h);try{window.parent.postMessage({type:'yoda-share',title:title,url:url},'*');}catch(x){}setTimeout(function(){if(!done){window.removeEventListener('message',h);_cy(why);}},1500);};
-    if(navigator.share){navigator.share({title:title,url:url}).catch(function(e){if(e&&e.name==='AbortError')return;var why='分享被擋('+((e&&e.name)||'?')+')';if(_inF)_viaParent(why);else _cy(why);});}
-    else if(_inF){_viaParent('此框架無原生分享');}
+    var _local=function(why){var u=_http(url)?url:(_http(document.referrer)?document.referrer:'');if(navigator.share&&u){navigator.share({title:title,url:u}).catch(function(e){if(e&&e.name==='AbortError')return;_cy(why+'·框架內分享被擋('+((e&&e.name)||'?')+')',u);});}else{_cy(why+(u?'':'·框架內無網址'),u||url);}};
+    var _viaParent=function(){var done=false;var h=function(ev){var d=ev.data;if(!d||d.type!=='yoda-share-result')return;done=true;window.removeEventListener('message',h);if(!d.ok)_cy('殼分享被擋('+(d.err||'?')+')',_http(d.url)?d.url:undefined);};window.addEventListener('message',h);try{window.parent.postMessage({type:'yoda-share',title:title,url:url},'*');}catch(x){}setTimeout(function(){if(!done){window.removeEventListener('message',h);_local('殼未回應');}},1500);};
+    if(_inF){_viaParent();}
+    else if(navigator.share){navigator.share({title:title,url:url}).catch(function(e){if(e&&e.name==='AbortError')return;_cy('分享被擋('+((e&&e.name)||'?')+')');});}
     else{_cy('此瀏覽器無原生分享');}
   });
 })();

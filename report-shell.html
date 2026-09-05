@@ -232,10 +232,12 @@
   window.addEventListener('message',function(ev){
     var d=ev.data; if(!d||d.type!=='yoda-share')return;
     var src=ev.source;
-    var reply=function(ok){try{src.postMessage({type:'yoda-share-result',ok:ok},'*');}catch(x){}};
-    if(!navigator.share){reply(false);return;}
+    // 回覆一律帶 url（殼自己的深連結）：子框架的 location 是 about:srcdoc，複製它沒意義；
+    // 失敗也帶 err，子框架 toast 會寫「殼分享被擋(XXX)」，下次一眼看出卡在殼這層。
+    var reply=function(ok,err){try{src.postMessage({type:'yoda-share-result',ok:ok,err:err||'',url:location.href},'*');}catch(x){}};
+    if(!navigator.share){reply(false,'NoShareAPI');return;}
     navigator.share({title:d.title||document.title,url:location.href})
-      .then(function(){reply(true);},function(e){reply(!!(e&&e.name==='AbortError'));});
+      .then(function(){reply(true);},function(e){var ab=!!(e&&e.name==='AbortError');reply(ab,ab?'':((e&&e.name)||'?'));});
   });
 
   // 空殼本身也擋右鍵/複製
