@@ -692,6 +692,10 @@ nav{scrollbar-width:thin}
   function plCatOf(id){ var s=plStrip(id); for(var i=0;i<PAID_CATS.length;i++) if(PAID_CATS[i][0].test(s)) return PAID_CATS[i][1]; return '其他'; }
   function plBadgeOf(c){ for(var i=0;i<PAID_CATS.length;i++) if(PAID_CATS[i][1]===c) return PAID_CATS[i][2]; return 'pl-b-oth'; }
   function plYmd(id){ var m=String(id).match(/(\d{4})(\d{2})(\d{2})/); return m?{y:m[1],m:m[2],d:m[3]}:null; }
+  /* 檔名沒有日期時，改用上傳時間當日期：否則不管哪天上傳都會沉到清單最後一名（2026-09-06 修） */
+  function plUp(r){ var u=String((r&&r.uploadedAt)||'').slice(0,10); return /^\d{4}-\d{2}-\d{2}$/.test(u)?u:''; }
+  function plDateOfRow(r){ return plDateOf(r.reportId) || plUp(r); }
+  function plYmOfRow(r){ var d=plDateOfRow(r); return d?d.slice(0,7):''; }
   function plYmOf(id){ var v=plYmd(id); return v?(v.y+'-'+v.m):''; }
   function plDateOf(id){ var v=plYmd(id); return v?(v.y+'-'+v.m+'-'+v.d):''; }
   /* 標題：去前綴、去尾端日期（_ 或 - 皆可）、底線轉空白 */
@@ -702,7 +706,7 @@ nav{scrollbar-width:thin}
     var cc={}, yy={};
     PAID_ALL.forEach(function(r){
       var c=plCatOf(r.reportId); cc[c]=(cc[c]||0)+1;
-      var y=plYmOf(r.reportId); if(y) yy[y]=(yy[y]||0)+1;
+      var y=plYmOfRow(r); if(y) yy[y]=(yy[y]||0)+1;   /* 月份下拉也吃上傳日期，沒日期的報告才進得了正確月份 */
     });
     var order=PAID_CATS.map(function(x){return x[1];}).concat(['其他']);
     var html='<button class="pl-chip'+(plCat==='全部'?' on':'')+'" onclick="setPaidCat(\'全部\')">全部<span class="n">'+PAID_ALL.length+'</span></button>';
@@ -735,11 +739,11 @@ nav{scrollbar-width:thin}
     var noFilter=(plCat==='全部'&&plYm==='all');
     var rows=PAID_ALL.filter(function(r){
       if(plCat!=='全部'&&plCatOf(r.reportId)!==plCat) return false;
-      if(plYm!=='all'&&plYmOf(r.reportId)!==plYm) return false;
+      if(plYm!=='all'&&plYmOfRow(r)!==plYm) return false;
       return true;
     });
     var dated=rows.slice().sort(function(a,b){
-      var da=plDateOf(a.reportId), db=plDateOf(b.reportId);
+      var da=plDateOfRow(a), db=plDateOfRow(b);
       if(da!==db) return db.localeCompare(da);
       return String(a.reportId).localeCompare(String(b.reportId));
     });
