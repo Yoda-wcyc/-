@@ -61,8 +61,9 @@ h2.sec{font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:800;margi
 .foot{text-align:center;font-size:11px;color:var(--dim);margin-top:26px;line-height:1.7}
 .err{text-align:center;color:var(--dim);padding:40px 16px}
 </style>
+<meta name="robots" content="noindex,nofollow">
 <header>
-  <div class="eyebrow">Yoda Research · 判斷力學校 · 分析層（隱藏頁）</div>
+  <div class="eyebrow">Yoda Research · 判斷力學校 · 分析層 · 研究紀錄</div>
   <h1>轉折雷達 · Radar</h1>
   <div class="sub">每份報告自動累積的頂底判讀史 · 風向球 × 訊號疊加 × 領頭羊演變</div>
 </header>
@@ -105,7 +106,7 @@ function render(data){
   var cards='<h2 class="sec">每期快照（新 → 舊）</h2>'+snaps.map(function(s){
     var post=s.date>=anchor; // 低點後＝最強；低點前＝震央
     var leadTitle=post?('領頭羊 · 自 '+anchor+' 低點起最強'):'領頭羊 · 下殺期震央';
-    var kC=post?'最強國家':'震央國家',kS=post?'最強類股':'弱勢/避風',kK=post?'最強個股':'指標個股';
+    var kC=post?'最強國家':'震央國家',kS=post?'最強類股':'弱勢/避風',kK=post?'當期相對強度最高（事後資料紀錄，非推介）':'下殺期指標個股（事後資料紀錄，非推介）';
     return '<div class="card"><div class="chd"><span class="dt">'+esc(s.date)+'</span><span class="src">'+esc(s.src.toUpperCase())+'</span><span class="cyc-tag">'+esc(s.cycle)+'</span></div>'+
       '<div class="lights"><span class="top-n">頂訊 <b>'+(s.top_lit||0)+'</b></span><span class="bot-n">底訊 <b>'+(s.bottom_lit||0)+'</b></span></div>'+
       '<div class="flags">'+chips(s.top_flags,'top')+chips(s.bottom_flags,'bot')+'</div>'+
@@ -114,7 +115,7 @@ function render(data){
       '<div class="lead">'+leadRow(kC,s.leaders&&s.leaders.country)+leadRow(kS,s.leaders&&s.leaders.sector)+leadRow(kK,s.leaders&&s.leaders.stock)+'</div>'+
       '<div class="one">'+esc(s.oneliner)+'</div></div>';
   }).join('');
-  document.getElementById('app').innerHTML=now+basket+strip+cards+'<div class="foot">頂訊＝頂部訊號疊加亮幾個｜底訊＝底部訊號｜▲頂 ▼底<br>領頭羊自 '+esc(anchor)+' 低點起算＝最強國家／最強類股／最強個股（引擎；先漲不動＝頂部預警）<br>資料源：各期市場研判報告【轉折雷達】· 帳本 radar-data.json（core §G-11b）<br>判斷中立：只研判循環位置與訊號，不喊買賣。</div>';
+  document.getElementById('app').innerHTML=now+basket+strip+cards+'<div class="foot">頂訊＝頂部訊號疊加亮幾個｜底訊＝底部訊號｜▲頂 ▼底<br>領頭羊自 '+esc(anchor)+' 低點起算＝當期相對強度最高的國家／類股／個股（事後資料紀錄，非推介；這幾個先漲不動＝頂部預警）<br>資料源：各期市場研判報告【轉折雷達】· 帳本 radar-data.json（core §G-11b）<br>本站非證券投資顧問事業，所有內容均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議；撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證。投資均有風險，決策與盈虧由用戶自行判斷並承擔。<br>判斷中立：只研判循環位置與訊號，不喊買賣。<br>© 2026 Yoda Research · 獨立研究者，個人觀點與市場資料整理分享</div>';
 }
 /* 帳本內嵌（每次 append 後由 radar-data.json 重生；不靠 fetch，file:// 也能開） */
 const RADAR_DATA = {"meta": {"name": "轉折雷達帳本", "spec": "core §G-11b", "note": "每份市場研判報告產出時 append 一筆；同一本、src 區分市場；去重同日、真 append。前 2 筆(6/10、7/30)為《檢討_2026-8》研究回填的頂底錨點。", "windvane_basket": [{"g": "加密槓桿股", "t": "MSTR · RIOT · MARA · COIN · CLSK · GLXY", "d": "槓桿比特幣金庫／礦商，beta 4+，情緒最純的一塊"}, {"g": "散戶情緒", "t": "HOOD · RDDT", "d": "散戶交易活躍度、迷因情緒——風險胃納溫度計"}, {"g": "投機籃子", "t": "DXYZ · MEME · ARKK · IBIT(BTC)", "d": "未上市創投／迷因／破壞式成長／比特幣"}], "windvane_readrule": "投機相對強度＝情緒溫度計：爆衝到極端＝末升段狂熱、頂部前哨；回升慢／拒絕爆衝＝恐懼未消、底部健康（未過熱）。", "leaders_anchor": "2026-07-31", "leaders_rule": "領頭羊自 7/31 低點起算：記錄最強國家／最強類股／最強個股（漲最多最兇者）。用途＝這些是引擎；一旦它們先漲不動、甚至先跌＝頂部預警。7/31 之前的快照，此欄記的是下殺期的『震央』（韓國），非最強。"}, "snapshots": [{"date": "2026-06-10", "src": "mw", "cycle": "榮景末 · 出貨", "top_lit": 4, "bottom_lit": 0, "top_flags": ["情緒極端：P/C 0.23🔴🔴🔴 歷史極端裸奔", "廣度背離：NQ 45.5% vs SP 63.2%，分歧17.7%創新高", "防禦領先：SPLV > SPHB（Risk-off）", "反彈屬技術性、非趨勢性"], "bottom_flags": [], "windvane": {"temp": "🔴 過熱 → 轉弱", "note": "投機相對強度 5/23 爆衝到極端後、於此背離轉弱＝末升段狂熱、頂部確認", "items": ["DXYZ：5/23 REL5 −25%→+39% 連兩日爆衝(過熱)；6/10 REL20 −26.68% 崩(背離轉弱)", "MEME：5/23 REL20 +27.28%(過熱)", "投機退潮自 6/4 起、DXYZ 6/13 −25% 崩"]}, "leaders": {"country": ["韓 KOSPI 漲最猛（震央）"], "sector": ["記憶體", "AI 硬體"], "stock": ["三星", "SK 海力士"]}, "oneliner": "多重頂部訊號同時亮、風險從邊緣先退——頂部就在眼前"}, {"date": "2026-07-30", "src": "mw", "cycle": "下殺 · 投降式低點醞釀", "top_lit": 0, "bottom_lit": 1, "top_flags": [], "bottom_flags": ["半導體崩到極端（SOXX 中線相對 −25%）", "廣度警戒『逼近未破』（SP20 63>60、NQ20 47.6>40）", "情緒分歧（VIX/VXN 怕 vs P/C 0.37 追買）＝方向未定"], "windvane": {"temp": "🩸 崩／恐懼", "note": "最投機的兩塊已倒（投機籃子續崩、BTC 領先破低）", "items": ["BTC／IBIT：領先破低(最弱端)", "DXYZ／投機籃子：續崩"]}, "leaders": {"country": ["韓 KOSPI 崩（震央·去槓桿熔斷）"], "sector": ["半導體崩", "資金轉防禦/能源/中國"], "stock": []}, "oneliner": "投降式低點醞釀、極端＋警戒線未破，是底的長相"}, {"date": "2026-08-04", "src": "us", "cycle": "復甦初升", "top_lit": 0, "bottom_lit": 3, "top_flags": [], "bottom_flags": ["高 Beta 回升（三訊號到齊）", "廣度健康（3月新高 416 > 新低 145，2.87x）", "risk-on 回歸"], "windvane": {"temp": "🌤 回溫中（籃子未取樣）", "note": "美股報告未直接取樣加密/投機籃子；此期風險胃納以『高Beta回升』代理（見底訊③）。", "items": []}, "leaders": {"country": ["美股 broad 回升"], "sector": ["平台/軟體(Mega Cap)", "非必需消費/醫療/工業 啟動→主升", "AI硬體三圈(0/7·0/16·0/25)未回=尚未領軍"], "stock": ["GOOGL 領頭"]}, "oneliner": "risk-on 回歸、廣度健康、輪漲擴編"}, {"date": "2026-08-07", "src": "mw", "cycle": "復甦初升 · 戒備升高", "top_lit": 1, "bottom_lit": 0, "top_flags": ["情緒：P/C 0.5→1.13 避險升溫（『無腦樂觀那段結束、該提高警覺』）"], "bottom_flags": [], "windvane": {"temp": "🧊 未過熱(恐懼未消)", "note": "投機回升慢＝恐懼未消、未過熱——離頂還遠", "items": ["ARKK：REL −1.58 回落", "DXYZ：回升偏慢(散戶還在 7 月爆倉恐懼)"]}, "leaders": {"country": ["台 +9", "韓 +8", "新興 +1"], "sector": ["軟體/雲/資安(三欄正)", "半導體(週線 +9)", "金礦(近一月 +11)"], "stock": []}, "oneliner": "破底翻後復甦初升、結構健康但戒備升高、群眾未跟"}]};

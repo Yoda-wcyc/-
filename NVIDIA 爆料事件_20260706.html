@@ -172,6 +172,9 @@ tbody tr.active-row{background:var(--active-row)}
 .conclusion-sub{margin-top:14px;padding-top:14px;border-top:1px solid var(--conc-b)}
 
 /* ═══ FOOTER ═══ */
+/* 法遵警語區塊（2026-09-14 Yoda 核定，全站統一版） */
+.legal-note{margin:14px 0 0;padding:11px 14px;border-left:3px solid var(--accent2);background:var(--bg2);font-family:var(--sans);font-size:calc(11.5px*var(--scale));line-height:1.85;color:var(--text2)}
+.legal-disc{margin-top:30px;padding:16px 18px;border:1px solid var(--border);border-radius:10px;background:var(--bg2);font-family:var(--sans);font-size:calc(11.5px*var(--scale));line-height:1.9;color:var(--text3)}
 .footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-family:var(--mono);font-size:calc(10.5px*var(--scale));color:var(--text3);display:flex;justify-content:space-between}
 
 @media(max-width:760px){
@@ -215,7 +218,7 @@ nav{scrollbar-width:thin}
   <a href="#s2"><span class="nav-num">02</span>Rubin Ultra：有機基板的物理牆</a>
   <a href="#s3"><span class="nav-num">03</span>Kyber NVL144：製造工藝的邊界</a>
   <a href="#s4"><span class="nav-num">04</span>競爭格局：冰與火並存</a>
-  <a href="#s5"><span class="nav-num">05</span>玻璃基板核心標的</a>
+  <a href="#s5"><span class="nav-num">05</span>玻璃基板產業鏈</a>
 
 </nav>
 
@@ -234,6 +237,8 @@ nav{scrollbar-width:thin}
 
     </div>
   </div>
+
+  <div class="legal-note">本文為市場結構與產業供應鏈的一般性資訊整理與研究心得，非證券投資顧問事業，不提供個別有價證券之推介、買賣建議或價位判斷。文中提及之公司僅為說明產業鏈環節之舉例，不代表任何買賣意見。</div>
 
 
   <div class="section" id="s1">
@@ -375,10 +380,10 @@ nav{scrollbar-width:thin}
     </div>
 
     <div class="conclusion-box" style="margin-top:20px">
-      <div class="conclusion-box-title">操作含義</div>
+      <div class="conclusion-box-title">這件事會改變什麼判斷</div>
       <div class="conclusion-box-text">
         <p>這次事件屬於<strong>「利空確認但基本面仍在」</strong>的結構，類似 2024 年 Blackwell 延遲後的格局。</p>
-        <p>真正的敘事轉折點，是觀察 CSP 業者是否因 Kyber 延遲而加速轉向自研 ASIC 投入——那才是護城河侵蝕從邊際走向主流的訊號。在此之前，不追空、不搶反彈，等待止跌訊號確認。</p>
+        <p>真正的敘事轉折點，是觀察 CSP 業者是否因 Kyber 延遲而加速轉向自研 ASIC 投入——那才是護城河侵蝕從邊際走向主流的訊號。在 CSP 轉向自研 ASIC 出現實際資本支出證據之前，「護城河侵蝕已走向主流」這個說法只能算候選假設，本篇不調整此判斷；反過來說，若 2027 年 CSP 的 NVIDIA 採購量仍維持，本篇的路線圖風險論述就要下修。</p>
       </div>
     </div>
   </div>
@@ -386,33 +391,34 @@ nav{scrollbar-width:thin}
   <div class="section" id="s5">
     <div class="sec-head">
       <span class="sec-num">05</span>
-      <span class="sec-title">玻璃基板美股核心標的</span>
+      <span class="sec-title">玻璃基板產業鏈：卡在哪幾關、誰在那一關</span>
     </div>
     <div class="sec-body">
-      <p>問題確立，解法方向就清晰了：有機基板正在多個層次撞牆，玻璃基板從「未來選項」升格為「迫切需求」。以下按供應鏈上中下游排列，聚焦名稱、專長與前景。</p>
+      <p>問題確立，解法方向就清晰了：有機基板正在多個層次撞牆，玻璃基板從「未來選項」升格為「迫切需求」。以下按供應鏈上中下游排列，只拆解技術瓶頸落在哪一段、誰在那一關有量產紀錄，以及這一關要看什麼公開指標才知道有沒有真的動起來。<strong>本節不評估任何公司的股價或持有方式</strong>，提及之公司僅為說明產業鏈環節之舉例。</p>
     </div>
 
     <div class="context-box" style="margin:16px 0 20px">
       <div class="context-box-title">上游：特殊玻璃材料</div>
       <div class="context-box-text">材料端含金量最高、專利壁壘最深。</div>
+      <div class="context-box-text" style="margin-top:8px;color:var(--text3)">本節為公開資訊之產業鏈整理，非證券投資顧問事業，不提供個別有價證券之推介、買賣建議或價位判斷；文中提及公司僅為供應鏈環節舉例。資料來源與截止日：SemiAnalysis 等公開資訊，2026-06-30 與 2026-07-06。</div>
     </div>
 
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>標的</th>
-            <th>專長</th>
-            <th>前景評估</th>
-            <th>主要風險</th>
+            <th>環節</th>
+            <th>這一關的技術瓶頸</th>
+            <th>誰在這一關有量產紀錄</th>
+            <th>這一關要看什麼公開指標</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="td-strong">GLW<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Corning</span></td>
-            <td class="td-interpret">熔融溢流法，全球唯一能穩定量產原子級平整、低 CTE 半導體級玻璃的材料廠。所有玻璃基板廠的原料供應來源。</td>
-            <td class="td-interpret"><span class="sig-ok">●</span> 2026–2028 年砸 50 億美元擴產；Glass Bridge 架構押注 CPO 市場；AI 基建材料核心受益。</td>
-            <td class="td-interpret"><span class="sig-danger">●</span> 兩項核心專利 2026 年 Q4 依序到期；中國廠商市場份額已超 30%，競爭壓力被市場低估。</td>
+            <td class="td-strong">基板玻璃材料</td>
+            <td class="td-interpret">要在大尺寸玻璃上同時做到原子級平整與低熱膨脹係數（低 CTE），目前只有熔融溢流法能穩定量產。</td>
+            <td class="td-interpret">Corning（GLW）——全球唯一能穩定量產半導體級玻璃的材料廠，是所有玻璃基板廠的原料供應來源。</td>
+            <td class="td-interpret">2026–2028 年 50 億美元擴產案的實際進度、Glass Bridge 架構在 CPO 市場的客戶採用公告。已公開揭露的風險：兩項核心專利 2026 年 Q4 依序到期、中國廠商市場份額已超過 30%。</td>
           </tr>
         </tbody>
       </table>
@@ -427,42 +433,42 @@ nav{scrollbar-width:thin}
       <table>
         <thead>
           <tr>
-            <th>標的</th>
-            <th>專長</th>
-            <th>前景評估</th>
-            <th>波動特性</th>
+            <th>環節</th>
+            <th>這一關的技術瓶頸</th>
+            <th>誰在這一關有量產紀錄</th>
+            <th>這一關要看什麼公開指標</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="td-strong">AMAT<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Applied Materials</span></td>
-            <td class="td-interpret">PVD（物理氣相沉積）與金屬化製程，負責將銅填入玻璃通孔（TGV），玻璃基板量產不可跳過的設備環節。</td>
-            <td class="td-interpret"><span class="sig-ok">●</span> 現有半導體業務以外的純增量市場，與整體 AI CapEx 高度連動，能見度高。</td>
-            <td class="td-interpret"><span class="sig-ok">●</span> 穩健成長型，波動最低。</td>
+            <td class="td-strong">TGV 銅填充與金屬化</td>
+            <td class="td-interpret">玻璃通孔（TGV）內壁要均勻鎮上銅，傳統 PCB 製程做不到，必須用半導體級 PVD（物理氣相沉積）設備。</td>
+            <td class="td-interpret">Applied Materials（AMAT）——PVD 與金屬化製程設備，是玻璃基板量產不可跳過的一關。</td>
+            <td class="td-interpret">整體 AI 資本支出的增減，以及該公司財報是否開始單獨揭露玻璃基板相關設備出貨。</td>
           </tr>
           <tr>
-            <td class="td-strong">COHR<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Coherent</span></td>
-            <td class="td-interpret">超快雷射系統，在脆性玻璃上鑽出微米級 TGV 通孔的核心前段設備商，同時受益 AI 光通訊與 CPO 雙重需求。</td>
-            <td class="td-interpret"><span class="sig-ok">●</span> 玻璃基板量產若如期推進，多點共振下上行彈性最強。</td>
-            <td class="td-interpret"><span class="sig-warn">●</span> 高波動黑馬，風報比最高。</td>
+            <td class="td-strong">TGV 雷射鑽孔（前段）</td>
+            <td class="td-interpret">要在脆性玻璃上鑽出微米級通孔而不產生裂紋，需要超快雷射系統。</td>
+            <td class="td-interpret">Coherent（COHR）——超快雷射系統的核心前段設備商，同一批設備也用在 AI 光通訊與 CPO。</td>
+            <td class="td-interpret">超快雷射設備的訂單公告，以及玻璃基板客戶的量產時程更新。這一關同時吃 AI 光通訊與 CPO 兩條需求，讀數容易混在一起，要分開看。</td>
           </tr>
           <tr>
-            <td class="td-strong">LRCX<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Lam Research</span></td>
-            <td class="td-interpret">玻璃基板表面蝕刻、TGV 填充後的化學清洗與平坦化製程設備。</td>
-            <td class="td-interpret"><span class="sig-warn">●</span> 隱性受益型，玻璃基板貢獻是現有業務以外的增量。</td>
-            <td class="td-interpret"><span class="sig-neutral">●</span> 適合已持有、等待量產驗證的投資人。</td>
+            <td class="td-strong">表面蝕刻與平坦化</td>
+            <td class="td-interpret">TGV 填充後必須做化學清洗與平坦化，否則後段對位做不出來。</td>
+            <td class="td-interpret">Lam Research（LRCX）——蝕刻與平坦化製程設備。</td>
+            <td class="td-interpret">玻璃基板相關營收是否被單獨揭露；目前仍併在既有業務裡，從財報看不出這一關的進度。</td>
           </tr>
           <tr>
-            <td class="td-strong">KLAC<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">KLA Corporation</span></td>
-            <td class="td-interpret">半導體量測與缺陷檢測絕對龍頭，為玻璃基板開發專用光學檢測方案，任何人量產玻璃基板都必須採購。</td>
-            <td class="td-interpret"><span class="sig-ok">●</span> 壟斷型高利潤結構，確定性最高。防禦與成長兼具。</td>
-            <td class="td-interpret"><span class="sig-ok">●</span> 波動最小，適合作為核心持倉。</td>
+            <td class="td-strong">缺陷檢測</td>
+            <td class="td-interpret">玻璃基板需要專用光學檢測方案，既有 PCB 檢測設備不適用；任何人要量產都得先過這一關。</td>
+            <td class="td-interpret">KLA（KLAC）——半導體量測與缺陷檢測龍頭，已為玻璃基板開發專用光學檢測方案。</td>
+            <td class="td-interpret">玻璃基板專用檢測方案的客戶採用公告——這一關過不了，後面的量產時程都要往後推。</td>
           </tr>
           <tr>
-            <td class="td-strong">ONTO<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Onto Innovation</span></td>
-            <td class="td-interpret">玻璃基板 TGV 幾何精度與層間對位量測，比 KLA 更純的玻璃基板曝險，市值較小。</td>
-            <td class="td-interpret"><span class="sig-warn">●</span> 量產驗證階段的先行觀察指標，彈性大。</td>
-            <td class="td-interpret"><span class="sig-warn">●</span> 高波動，適合能承受較大幅度震盪的投資人。</td>
+            <td class="td-strong">幾何精度與層間對位量測</td>
+            <td class="td-interpret">TGV 的幾何精度與多層對位公差，是玻璃基板從試產走到量產最常卡住的地方。</td>
+            <td class="td-interpret">Onto Innovation（ONTO）——TGV 幾何精度與層間對位量測，業務組合裡玻璃基板的占比比 KLA 高。</td>
+            <td class="td-interpret">量產驗證階段的設備出貨——這一關的訂單通常最早反映真實的導入時程，適合當先行觀察點。</td>
           </tr>
         </tbody>
       </table>
@@ -477,18 +483,18 @@ nav{scrollbar-width:thin}
       <table>
         <thead>
           <tr>
-            <th>標的</th>
-            <th>專長</th>
-            <th>前景評估</th>
-            <th>主要風險</th>
+            <th>環節</th>
+            <th>這一關的技術瓶頸</th>
+            <th>誰在這一關有量產紀錄</th>
+            <th>這一關要看什麼公開指標</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="td-strong">INTC<br><span style="font-size:calc(11px*var(--scale));color:var(--text3)">Intel</span></td>
-            <td class="td-interpret">持有 600 項以上玻璃基板相關專利；Arizona Chandler 廠已進入 HVM 支援階段，整合 EMIB 技術；策略已從自製自用轉向專利授權，有機會以標準制定者角色獲益。</td>
-            <td class="td-interpret"><span class="sig-warn">●</span> 股價歷史低位；若授權收入具體化，估值修復彈性最大；與晶圓代工業務是獨立的故事線。</td>
-            <td class="td-interpret"><span class="sig-danger">●</span> 執行風險最高，整體業務轉型仍在進行，不確定性最大。</td>
+            <td class="td-strong">IDM 整合與標準制定</td>
+            <td class="td-interpret">要把玻璃基板真正導入 AI 晶片，並在標準上取得話語權；技術能做出來不等於產業會照你的規格走。</td>
+            <td class="td-interpret">Intel（INTC）——持有 600 項以上玻璃基板相關專利，Arizona Chandler 廠已進入 HVM 支援階段並整合 EMIB 技術；策略已從自製自用轉向專利授權。</td>
+            <td class="td-interpret">授權收入是否在財報中具體化、Chandler 廠 HVM 的進度公告。已公開揭露的風險：整體業務轉型仍在進行中，這一關的時程不確定性高。</td>
           </tr>
         </tbody>
       </table>
@@ -500,6 +506,12 @@ nav{scrollbar-width:thin}
     </div>
   </div>
 
+
+  <div class="legal-disc">
+    本頁所有報告、數據與內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中提及之公司僅為說明產業鏈環節之舉例，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。<br>
+    資料來源與截止日：SemiAnalysis 等公開資訊，2026-06-30 與 2026-07-06。<br>
+    © 2026 Yoda Research · 獨立研究者，個人觀點與市場資料整理分享
+  </div>
 
   <div class="footer">
     <span>YODA SYSTEM · EVENT ANALYSIS</span>
