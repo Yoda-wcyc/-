@@ -329,7 +329,7 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
 .dt-kids{display:flex;align-items:flex-start;justify-content:center;width:100%;position:relative;padding-top:24px;gap:4px}
 /* 父節點 → 匯流排 的垂直線 */
 .dt-kids::before{content:'';position:absolute;top:0;left:50%;width:1px;height:12px;background:var(--accent);transform:translateX(-50%)}
-/* ⚠ 連接線一律畫在 .dt-kids 的 padding-top 保留區內（子節點框的「上方」）。
+/* 連接線一律畫在 .dt-kids 的 padding-top 保留區內（子節點框的「上方」）。
    .dt-sub 的座標原點已在 padding 之後，故必須用**負值** top；用正值會把線畫進文字裡（踩過）。 */
 /* 匯流排（水平線）：由各子節點的 ::after 拼接，首尾只畫一半 */
 .dt-kids>.dt-sub::after{content:'';position:absolute;top:-12px;left:0;right:0;height:1px;background:var(--accent)}
@@ -360,7 +360,7 @@ html[data-size="lg"] .dtree{--dt-fs:13px}
 .ascii-fig .af-foot{display:block;font-family:var(--fb,-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif);font-size:calc(var(--af-fs,15px)*.94);color:var(--afc-dim);line-height:1.8;margin-top:13px;padding-top:10px;border-top:1px dashed var(--border);white-space:normal}.af-sum{display:block;white-space:normal;line-height:1.8;margin-top:4px}
 /* 校稿用修改標記（2026-09-04 Yoda 定 · 正本 core-render §B-41）：
    Yoda 提出修正後，改動處放一個大紅慢閃標記讓他一眼找到。
-   ⚠ 全站按鈕禁閃爍的規則不適用於這裡——這是校稿用、交付前會整批關掉（Yoda 2026-09-04 指定閃爍）。 */
+   全站按鈕禁閃爍的規則不適用於這裡——這是校稿用、交付前會整批關掉（Yoda 2026-09-04 指定閃爍）。 */
 .edit-flag{display:flex;align-items:center;gap:10px;margin:14px 0 8px;padding:10px 16px;
 border-radius:10px;background:linear-gradient(90deg,rgba(255,45,45,.26),rgba(255,45,45,.07));
 border:2px solid #ff2d2d;border-left-width:9px;color:#ffe3e3;
@@ -768,7 +768,7 @@ function sortTbl(th){
   ths.forEach(function(t){t.classList.remove('asc','desc');});
   th.classList.add(asc?'asc':'desc');
   var val=function(tr){return tr.cells[col]?tr.cells[col].textContent.trim():'';};
-  /* ⚠ 只有「整串都是數字」才走數值比較。用 parseFloat 直接判會出事：
+  /* 只有「整串都是數字」才走數值比較。用 parseFloat 直接判會出事：
      日期 25/03/04 會被解析成 25，整欄只按年份排（2026-09-03 抓到）。 */
   var toNum=function(s){var c=s.replace(/[+,%x檔\s]/g,'');return /^-?\d+(\.\d+)?$/.test(c)?parseFloat(c):null;};
   rows.sort(function(a,b){
