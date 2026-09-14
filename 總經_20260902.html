@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW" data-theme="dark" data-size="md">
+<html lang="zh-Hant" data-theme="dark">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DFFP3JL6EY"></script>
@@ -11,961 +11,150 @@
 </script>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1200">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>專題研究｜景氣溫度計與雙引擎（完整報告 1/5）</title>
+<!--
+  免費報告「空殼」範本（2026-08-30 · 由 Skill\free_shell.py 依本檔產生）
+  比照付費 report-shell：這個檔本身【不含正文】——只有載入畫面與 JS。
+  打開時打 Vercel /api/report（reportId=免費_×××，免驗票分支）→ 私有 Blob 讀正文
+  → 烤「免費版」浮水印 → 載進 iframe。
+  好處：公開 repo（含 git 歷史）不再存整份資料；撤下＝刪 Blob 一檔，所有連結同時失效。
+  界線（誠實）：內容渲染後仍可被有心人複製，擋的是整檔下載與 git 歷史留存。
+-->
 <style>
-:root{--sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display','PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;--serif:var(--sans);--mono:var(--sans);}
-[data-theme="dark"]{
-  --bg:#000000;--bg2:#1d1d1f;--bg3:#272729;--bg4:#2a2a2c;
-  --border:rgba(255,255,255,.14);--border2:rgba(255,255,255,.22);
-  --accent:#2997ff;--accent2:#ff9f0a;--accent3:#2997ff;--danger:#ff453a;--muted:#a1a1a6;
-  --text:#f5f5f7;--text2:#a1a1a6;--text3:#6e6e73;--header:#ffffff;
-  --ctrl-bg:rgba(29,29,31,.72);--ctrl-border:rgba(255,255,255,.22);--ctrl-hover:#2a2a2c;
-  --ctrl-act-bg:#0071e3;--ctrl-act-txt:#ffffff;
-  --hero-grad:#000000;
-  --thead-bg:#272729;--row-hover:rgba(255,255,255,.04);
-  --note-bg:#272729;--chk-bg:#272729;--formula-bg:#272729;
-  --sig-bg:rgba(255,69,58,.05);--sig-b:rgba(255,69,58,.22);
-  --warn-bg:rgba(255,69,58,.04);--warn-lb:#ff453a;
-  --izy-g1-bg:rgba(48,209,88,.05);--izy-g1-b:rgba(48,209,88,.25);
-  --izy-g2-bg:rgba(41,151,255,.05);--izy-g2-b:rgba(41,151,255,.22);
-  --izy-g3-bg:rgba(255,159,10,.05);--izy-g3-b:rgba(255,159,10,.22);
-  --izy-g4-bg:rgba(255,69,58,.05);--izy-g4-b:rgba(255,69,58,.22);
-  --nav-bg:#1d1d1f;--scroll-thumb:rgba(255,255,255,.22);
-  --badge-bg:#272729;--badge-b:rgba(48,209,88,.35);
-  --scen-hold-bg:rgba(41,151,255,.05);--scen-hold-b:rgba(41,151,255,.22);--scen-hold-c:#2997ff;
-  --scen-hike-bg:rgba(255,159,10,.05);--scen-hike-b:rgba(255,159,10,.22);--scen-hike-c:#ff9f0a;
-  --scen-cut-bg:rgba(48,209,88,.05);--scen-cut-b:rgba(48,209,88,.22);--scen-cut-c:#30d158;
-}
-[data-theme="light"]{
-  --bg:#f5f5f7;--bg2:#ffffff;--bg3:#fafafc;--bg4:#f0f0f0;
-  --border:#e0e0e0;--border2:#d1d1d6;
-  --accent:#0066cc;--accent2:#c93400;--accent3:#0071e3;--danger:#d70015;--muted:#7a7a7a;
-  --text:#1d1d1f;--text2:#515154;--text3:#7a7a7a;--header:#1d1d1f;
-  --ctrl-bg:rgba(245,245,247,.8);--ctrl-border:#e0e0e0;--ctrl-hover:#fafafc;
-  --ctrl-act-bg:#0066cc;--ctrl-act-txt:#ffffff;
-  --hero-grad:#ffffff;
-  --thead-bg:#fafafc;--row-hover:rgba(0,0,0,.025);
-  --note-bg:#fafafc;--chk-bg:#fafafc;--formula-bg:#fafafc;
-  --sig-bg:rgba(215,0,21,.04);--sig-b:rgba(215,0,21,.20);
-  --warn-bg:rgba(215,0,21,.04);--warn-lb:#d70015;
-  --izy-g1-bg:rgba(36,138,61,.06);--izy-g1-b:rgba(36,138,61,.25);
-  --izy-g2-bg:rgba(0,102,204,.06);--izy-g2-b:rgba(0,102,204,.22);
-  --izy-g3-bg:rgba(201,52,0,.06);--izy-g3-b:rgba(201,52,0,.22);
-  --izy-g4-bg:rgba(215,0,21,.06);--izy-g4-b:rgba(215,0,21,.22);
-  --nav-bg:#ffffff;--scroll-thumb:#d1d1d6;
-  --badge-bg:#fafafc;--badge-b:rgba(36,138,61,.35);
-  --scen-hold-bg:rgba(0,102,204,.05);--scen-hold-b:rgba(0,102,204,.22);--scen-hold-c:#0071e3;
-  --scen-hike-bg:rgba(201,52,0,.05);--scen-hike-b:rgba(201,52,0,.22);--scen-hike-c:#c93400;
-  --scen-cut-bg:rgba(36,138,61,.05);--scen-cut-b:rgba(36,138,61,.22);--scen-cut-c:#248a3d;
-}
-[data-size="lg"] body{font-size:27px}[data-size="md"] body{font-size:24px}[data-size="sm"] body{font-size:21px}
-[data-size="lg"] table{font-size:24px}[data-size="md"] table{font-size:21px}[data-size="sm"] table{font-size:19px}
-[data-size="lg"] .section-title{font-size:39px}[data-size="md"] .section-title{font-size:33px}[data-size="sm"] .section-title{font-size:29px}
-[data-size="lg"] .hero-title{font-size:64px}[data-size="md"] .hero-title{font-size:55px}[data-size="sm"] .hero-title{font-size:45px}
-:root{--fs-scale:1}
-[data-size="sm"]{--fs-scale:1}
-[data-size="md"]{--fs-scale:1.16667}
-[data-size="lg"]{--fs-scale:1.33333}
-body{-webkit-user-select:none;-moz-user-select:none;user-select:none}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;display:flex;min-height:100vh;transition:background .25s,color .25s}
+  :root{--bg:#000;--surface:#1d1d1f;--border:rgba(255,255,255,.14);--text:#f5f5f7;--dim:#a1a1a6;--gold:#e0a526;--gold-d:#b8860b;--sans:-apple-system,BlinkMacSystemFont,'PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none}
+  /* 載入畫面 */
+  #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .gate-card{width:100%;max-width:400px;border:1.5px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,var(--gold),var(--gold-d)) border-box;border-radius:16px;padding:32px;text-align:center}
+  .gate-card h1{font-size:18px;margin:14px 0 8px;line-height:1.5}
+  .gate-card p{font-size:13px;color:var(--dim);line-height:1.65}
+  .spin{width:34px;height:34px;margin:0 auto;border-radius:50%;border:3px solid rgba(224,165,38,.25);border-top-color:var(--gold);animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .gate-msg{font-size:13px;color:#ff6b6b;margin-top:12px;min-height:18px}
+  #retry{display:none;margin-top:14px;padding:11px 26px;font-size:15px;font-weight:700;color:#1a1200;background:linear-gradient(135deg,var(--gold),var(--gold-d));border:none;border-radius:9999px;cursor:pointer;font-family:inherit}
+  /* 正文容器 + 浮水印 */
+  #content{display:none}
+  #content iframe{width:100%;border:none;display:block;min-height:100vh;background:#000}
+  #wm{display:none;position:fixed;inset:0;z-index:9998;pointer-events:none;background-repeat:repeat}
 
-
-
-.ctrl-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
-@keyframes fan-breathe{
-  0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200}
-  50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000}
-}
-.ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-family:var(--mono);font-size:calc(11px * var(--fs-scale));font-weight:600;color:#e8f2ff;text-decoration:none;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;transition:all 0.15s ease;white-space:nowrap;line-height:1}
-.ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;transform:scale(1.02)}.plain-fan{animation:none!important;background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
-.plain-fan:hover{background:var(--bg4);color:var(--header);border-color:var(--border2)}
-.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-family:var(--sans);font-size:calc(12px * var(--fs-scale));font-weight:700;color:#1a1200;text-decoration:none;background:#b8960a;border-radius:9999px;white-space:nowrap;margin-left:1px;transition:all .15s}
-.ctrl-home:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none}
-.ctrl-fan:hover{animation:none;background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75)}
-nav{width:230px;min-width:230px;background:var(--nav-bg);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 0 40px;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent;transition:background .25s,border-color .25s}
-.nav-brand{padding:0 18px 22px;border-bottom:1px solid var(--border);margin-bottom:14px}
-.nav-brand-title{font-family:var(--serif);font-size:calc(14px * var(--fs-scale));font-weight:600;color:var(--header);line-height:1.35;letter-spacing:.02em}
-/* AI泡沫評估表標題樣式 - 與 macro-dashboard 一致 */
-.subsection-title, 
-.td-id-inline,  
-.nav-brand-title {
-    font-size: calc(24px * var(--fs-scale)) !important;
-    color: #ff9f0a;
-    font-weight: 600;
-}
-.nav-brand-sub{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:var(--accent);letter-spacing:.1em;margin-top:6px;text-transform:uppercase}
-.nav-section-label{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--text3);padding:12px 18px 5px}
-nav a{display:flex;align-items:center;gap:9px;padding:7px 18px;color:var(--text2);text-decoration:none;font-size:calc(12.5px * var(--fs-scale));transition:all .14s;border-left:2px solid transparent}
-nav a:hover{color:var(--header);background:var(--bg3);border-left-color:var(--accent)}
-.nav-num{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:var(--text3);min-width:16px}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--border2);min-width:5px}
-.izy-section{margin-top:auto;padding:10px;border-top:1px solid var(--border)}
-.izy-badge{background:var(--badge-bg);border:1px solid var(--badge-b);border-radius:7px;padding:8px 10px}
-.izy-badge-label{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
-.izy-badge-text{font-size:calc(9px * var(--fs-scale));color:var(--text2);line-height:1.5}
-main{flex:1;overflow-x:hidden;padding-bottom:80px}
-.hero{background:var(--hero-grad);border-bottom:1px solid var(--border);padding:46px 48px 38px;position:relative;overflow:hidden;transition:background .25s}
-.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,159,10,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.hero-tag{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--accent2);margin-bottom:13px;display:flex;align-items:center;gap:8px}
-.hero-tag::before{content:'';width:22px;height:1px;background:var(--accent2)}
-.hero-title{font-family:var(--serif);font-size:calc(34px * var(--fs-scale));font-weight:600;color:var(--header);line-height:1.2;margin-bottom:11px;letter-spacing:-.01em}
-.hero-sub{color:var(--text2);font-size:.9em;max-width:560px;line-height:1.65}
-.hero-meta{margin-top:22px;display:flex;gap:20px;flex-wrap:wrap}
-.meta-chip{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:calc(10.5px * var(--fs-scale));color:var(--text3);background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:4px 10px}
-.meta-chip-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
-.content-section{padding:38px 48px;border-bottom:1px solid var(--border)}
-.section-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--border)}
-.section-num{font-family:var(--mono);font-size:calc(10.5px * var(--fs-scale));color:var(--accent);background:rgba(48,209,88,.08);border:1px solid rgba(48,209,88,.22);border-radius:4px;padding:4px 10px;white-space:nowrap;margin-top:4px}
-[data-theme="light"] .section-num{background:rgba(36,138,61,.08);border-color:rgba(36,138,61,.22)}
-.section-title{font-family:var(--serif);font-size:calc(21px * var(--fs-scale));font-weight:600;color:var(--header);line-height:1.3}
-.section-desc{font-size:calc(11px * var(--fs-scale));color:var(--text3);margin-top:4px;font-family:var(--mono);letter-spacing:.05em}
-.subsection{margin-bottom:30px}
-.subsection-title{font-family:var(--mono);font-size:calc(10px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--accent2);margin-bottom:13px;display:flex;align-items:center;gap:10px}
-.subsection-title::after{content:'';flex:1;height:1px;background:var(--border);max-width:100px}
-.table-wrap{overflow-x:auto;border-radius:7px;border:1px solid var(--border);margin-bottom:16px}
-table{width:100%;border-collapse:collapse}
-thead tr{background:var(--thead-bg);border-bottom:1px solid var(--border2)}
-thead th{padding:9px 13px;text-align:left;font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));letter-spacing:.1em;text-transform:uppercase;color:var(--text3);font-weight:500;white-space:nowrap}
-tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
-tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:var(--row-hover)}
-tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
-.td-name{font-weight:500;color:var(--header);white-space:nowrap}
-.td-val{font-family:var(--mono);font-size:calc(12px * var(--fs-scale));font-weight:600}
-.td-base{font-family:var(--mono);font-size:calc(10.5px * var(--fs-scale));color:var(--text3)}
-.td-interpret{font-size:.81em;color:var(--text2);line-height:1.55;max-width:280px}
-.td-signal{font-family:var(--mono);font-size:calc(11px * var(--fs-scale));white-space:nowrap}
-.sig-ok{color:var(--accent)}.sig-warn{color:var(--accent2)}.sig-danger{color:var(--danger)}.sig-neutral{color:var(--text3)}
-.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}
-.note-card{background:var(--note-bg);border:1px solid var(--border);border-radius:7px;padding:13px 15px}
-.note-card-label{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:6px}
-.note-card-label.leading{color:var(--accent)}.note-card-label.warning{color:var(--danger)}.note-card-label.key{color:var(--accent2)}
-.note-card-body{font-size:.86em;color:var(--text2);line-height:1.6}
-.checkpoint-list{display:flex;flex-direction:column;gap:7px}
-.checkpoint-item{display:flex;gap:11px;align-items:flex-start;padding:9px 13px;background:var(--chk-bg);border:1px solid var(--border);border-radius:6px}
-.checkpoint-marker{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:var(--accent2);background:rgba(255,159,10,.08);border:1px solid rgba(255,159,10,.2);border-radius:3px;padding:2px 7px;white-space:nowrap;margin-top:1px}
-[data-theme="light"] .checkpoint-marker{background:rgba(160,88,0,.08);border-color:rgba(160,88,0,.2)}
-.checkpoint-text{font-size:.87em;color:var(--text);line-height:1.6}
-.signal-block{background:var(--sig-bg);border:1px solid var(--sig-b);border-radius:7px;padding:15px 18px;margin:14px 0}
-.signal-block-title{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--danger);margin-bottom:7px}
-.warning-box{background:var(--warn-bg);border:1px solid var(--sig-b);border-left:3px solid var(--warn-lb);border-radius:0 7px 7px 0;padding:13px 16px;margin:10px 0}
-.warning-box-title{font-family:var(--mono);font-size:calc(9px * var(--fs-scale));color:var(--danger);letter-spacing:.02em;text-transform:uppercase;margin-bottom:5px}
-.warning-box-text{font-size:.86em;color:var(--text2);line-height:1.7}
-.context-box{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0}
-.context-box-title{font-family:var(--mono);font-size:calc(9px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--accent3);margin-bottom:8px}
-.context-box-text{font-size:.87em;color:var(--text2);line-height:1.7}
-.conclusion-box{background:rgba(48,209,88,.04);border:1px solid rgba(48,209,88,.2);border-radius:8px;padding:16px 20px;margin-top:16px}
-[data-theme="light"] .conclusion-box{background:rgba(36,138,61,.04);border-color:rgba(36,138,61,.2)}
-.conclusion-box-title{font-family:var(--mono);font-size:calc(9px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-.conclusion-box-text{font-size:.87em;color:var(--text2);line-height:1.75}
-.izy-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:22px}
-.izy-card{border-radius:9px;padding:16px 18px;border:1px solid;position:relative;overflow:hidden}
-.izy-card::before{content:'';position:absolute;top:0;right:0;width:70px;height:70px;border-radius:50%;opacity:.06;pointer-events:none}
-.izy-card-g1{background:var(--izy-g1-bg);border-color:var(--izy-g1-b)}.izy-card-g1::before{background:var(--accent)}
-.izy-card-g2{background:var(--izy-g2-bg);border-color:var(--izy-g2-b)}.izy-card-g2::before{background:var(--accent3)}
-.izy-card-g3{background:var(--izy-g3-bg);border-color:var(--izy-g3-b)}.izy-card-g3::before{background:var(--accent2)}
-.izy-card-g4{background:var(--izy-g4-bg);border-color:var(--izy-g4-b)}.izy-card-g4::before{background:var(--danger)}
-.izy-card-num{font-family:var(--serif);font-size:calc(26px * var(--fs-scale));font-weight:600;line-height:1;margin-bottom:7px}
-.izy-card-g1 .izy-card-num{color:var(--accent)}.izy-card-g2 .izy-card-num{color:var(--accent3)}
-.izy-card-g3 .izy-card-num{color:var(--accent2)}.izy-card-g4 .izy-card-num{color:var(--danger)}
-.izy-card-risk{font-family:var(--mono);font-size:calc(10.5px * var(--fs-scale));margin-bottom:9px;color:var(--text2)}
-.izy-card-stages{font-size:.82em;color:var(--text3);line-height:1.55}
-/* SCORE BAR */
-.score-bar-wrap{width:100%;background:var(--bg2);border-bottom:1px solid var(--border);padding:18px 0 15px;position:sticky;top:0;z-index:900;backdrop-filter:blur(12px)}
-.score-bar-inner{padding:0 48px}
-.score-bar-label-row{display:flex;justify-content:space-between;margin-bottom:6px}
-.score-bar-label{font-family:var(--mono);font-size:calc(9px * var(--fs-scale));letter-spacing:.1em;text-transform:uppercase;font-weight:600}
-.sbl-safe{color:#30d158}.sbl-caution{color:#2997ff}.sbl-warn{color:#ff9f0a}.sbl-bubble{color:#ff453a}
-.score-bar-track{position:relative;height:14px;border-radius:8px;background:linear-gradient(90deg,#30d158 0%,#2997ff 35%,#ff9f0a 65%,#ff453a 100%);box-shadow:0 2px 12px rgba(0,0,0,.25)}
-.score-zone-div{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.2)}
-.score-pointer{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:10}
-.score-pointer-dot{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid #ff9f0a;box-shadow:0 0 0 3px rgba(255,159,10,.3);animation:scp 2s ease-in-out infinite}
-@keyframes scp{0%,100%{box-shadow:0 0 0 3px rgba(255,159,10,.2)}50%{box-shadow:0 0 0 7px rgba(255,159,10,.5)}}
-.score-pointer-label{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:calc(9px * var(--fs-scale));background:#ff9f0a;color:#000000;padding:2px 8px;border-radius:3px;white-space:nowrap;font-weight:600}
-.score-pointer-label::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#ff9f0a}
-.score-bar-footer{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--mono);font-size:calc(8px * var(--fs-scale));color:var(--text3)}
-.score-note{font-family:var(--mono);font-size:calc(9px * var(--fs-scale));color:var(--accent2);margin-top:6px;line-height:1.6}
-/* SCENARIO */
-.scen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
-@media(max-width:1000px){.scen-grid{grid-template-columns:1fr}}
-.scen-card{border-radius:10px;border:1px solid;overflow:hidden}
-.scen-card-hold{background:var(--scen-hold-bg);border-color:var(--scen-hold-b)}
-.scen-card-hike{background:var(--scen-hike-bg);border-color:var(--scen-hike-b)}
-.scen-card-cut{background:var(--scen-cut-bg);border-color:var(--scen-cut-b)}
-.scen-summary{padding:16px 18px;cursor:pointer}
-.scen-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.scen-prob{font-family:var(--mono);font-size:calc(13px * var(--fs-scale));font-weight:600}
-.prob-hold{color:var(--scen-hold-c)}.prob-hike{color:var(--scen-hike-c)}.prob-cut{color:var(--scen-cut-c)}
-.scen-badge{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));letter-spacing:.02em;padding:2px 8px;border-radius:20px;white-space:nowrap}
-.sbadge-hold{background:rgba(41,151,255,.15);color:var(--scen-hold-c);border:1px solid var(--scen-hold-b)}
-.sbadge-hike{background:rgba(255,159,10,.15);color:var(--scen-hike-c);border:1px solid var(--scen-hike-b)}
-.sbadge-cut{background:rgba(48,209,88,.15);color:var(--scen-cut-c);border:1px solid var(--scen-cut-b)}
-.scen-title{font-family:var(--serif);font-size:calc(13.5px * var(--fs-scale));font-weight:600;color:var(--header);margin:8px 0 6px}
-.scen-desc{font-size:.81em;color:var(--text2);line-height:1.6}
-.scen-tag{font-family:var(--mono);font-size:calc(9px * var(--fs-scale));padding:2px 8px;border-radius:20px;margin-top:8px;display:inline-block}
-.stag-hold{background:rgba(41,151,255,.14);color:var(--scen-hold-c)}
-.stag-hike{background:rgba(255,159,10,.14);color:var(--scen-hike-c)}
-.stag-cut{background:rgba(48,209,88,.14);color:var(--scen-cut-c)}
-.scen-detail{display:none;border-top:1px solid var(--border);padding:14px 18px}
-.scen-detail.open{display:block;animation:fd .2s ease}
-@keyframes fd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-.scen-col-title{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:7px;margin-top:10px}
-.scen-col-title:first-child{margin-top:0}
-.scen-list{list-style:none;padding:0}
-.scen-list li{padding:4px 0 4px 13px;position:relative;font-size:.82em;color:var(--text2);border-bottom:1px solid var(--border)}
-.scen-list li:last-child{border-bottom:none}
-.scen-list li::before{content:'▸';position:absolute;left:0;font-size:calc(8px * var(--fs-scale));top:6px;color:var(--text3)}
-.fire-item{color:var(--danger)!important}
-.fire-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--danger);animation:scp 1.2s ease-in-out infinite;margin-right:4px;vertical-align:middle}
-/* HIST CARDS */
-.hist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-@media(max-width:900px){.hist-grid{grid-template-columns:1fr}}
-.hist-card{background:var(--note-bg);border:1px solid var(--border);border-radius:9px;padding:16px 18px}
-.hist-card-era{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--accent2);margin-bottom:6px}
-.hist-card-title{font-family:var(--serif);font-size:calc(14px * var(--fs-scale));font-weight:600;color:var(--header);margin-bottom:8px}
-.hist-card-row{display:flex;justify-content:space-between;font-size:.8em;padding:4px 0;border-bottom:1px solid var(--border);color:var(--text2)}
-.hist-card-row:last-child{border-bottom:none}
-.hv{font-family:var(--mono);font-size:calc(10.5px * var(--fs-scale))}.hv.red{color:var(--danger)}.hv.green{color:var(--accent)}
-/* METER */
-.meter-wrap{display:flex;flex-direction:column;gap:9px;margin:14px 0}
-.meter-item{display:flex;align-items:center;gap:10px}
-.meter-label{font-family:var(--mono);font-size:calc(10px * var(--fs-scale));color:var(--text2);min-width:150px;white-space:nowrap}
-.meter-track{flex:1;height:9px;border-radius:5px;background:var(--bg4);overflow:hidden}
-.meter-fill{height:100%;border-radius:5px;transition:width .6s}
-.mf-safe{background:linear-gradient(90deg,#30d158,#1ab8b0)}
-.mf-warn{background:linear-gradient(90deg,#ff9f0a,#e08800)}
-.mf-danger{background:linear-gradient(90deg,#ff453a,#d03050)}
-.meter-val{font-family:var(--mono);font-size:calc(10px * var(--fs-scale));min-width:44px;text-align:right}
-/* TOGGLE BTN */
-.toggle-btn{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:4px;cursor:pointer;border:none;background:transparent;padding:0;margin-left:auto;transition:transform .2s;flex-shrink:0}
-.toggle-btn.open{transform:rotate(180deg)}
-.toggle-arrow{font-size:calc(10px * var(--fs-scale));color:var(--text3)}
-/* ═══ DIAGRAM CARD (collapsible static diagrams) ═══ */
-.diagram-card{border-radius:10px;border:1px solid var(--border);background:var(--note-bg);overflow:hidden;margin:14px 0}
-.diagram-summary{padding:13px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;user-select:none}
-.diagram-summary-left{display:flex;align-items:center;gap:9px}
-.diagram-summary-title{font-family:var(--serif);font-weight:600;color:var(--header);font-size:calc(13.5px * var(--fs-scale))}
-.diagram-summary-sub{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:var(--text3);margin-top:2px}
-.diagram-body{display:none;padding:8px 18px 20px;border-top:1px solid var(--border)}
-.diagram-body.open{display:block;animation:fd .2s ease}
-.diagram-body svg{width:100%;display:block;margin:0 auto}
-.diagram-link{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.02em;color:var(--text3);text-transform:uppercase}
-/* ═══ SIMILARITY CALCULATOR WIDGET ═══ */
-.sim-calc-wrap{background:var(--note-bg);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin:14px 0}
-.sim-calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:14px}
-@media(max-width:800px){.sim-calc-grid{grid-template-columns:1fr}}
-.sim-slider-row{display:flex;align-items:center;gap:10px;margin-bottom:11px}
-.sim-slider-label{font-family:var(--mono);font-size:calc(10px * var(--fs-scale));color:var(--text2);min-width:175px;line-height:1.3}
-.sim-slider-row input[type=range]{flex:1;height:4px;border-radius:2px;background:var(--bg4);outline:none;-webkit-appearance:none;cursor:pointer}
-.sim-slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--accent3);border:2px solid var(--bg2);cursor:pointer;box-shadow:0 0 0 1px var(--accent3)}
-.sim-slider-row input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--accent3);border:2px solid var(--bg2);cursor:pointer}
-.sim-slider-val{font-family:var(--mono);font-size:calc(11px * var(--fs-scale));font-weight:600;color:var(--accent3);min-width:24px;text-align:right}
-.sim-ref-table{width:100%;border-collapse:collapse;font-size:calc(11px * var(--fs-scale))}
-.sim-ref-table th{font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));color:var(--text3);text-align:left;padding:5px 6px;border-bottom:1px solid var(--border2);letter-spacing:.05em;text-transform:uppercase}
-.sim-ref-table td{padding:5px 6px;border-bottom:1px solid var(--border);color:var(--text2)}
-.sim-ref-table td:first-child{color:var(--header);white-space:nowrap}
-.sim-ref-fixed{font-family:var(--mono);color:var(--text3)}
-.sim-result-row{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap}
-.sim-result-card{flex:1;min-width:200px;border-radius:8px;padding:14px 16px;border:1px solid}
-.sim-result-card.tel{background:rgba(255,69,58,.05);border-color:rgba(255,69,58,.22)}
-.sim-result-card.semi{background:rgba(255,159,10,.05);border-color:rgba(255,159,10,.22)}
-.sim-result-label{font-family:var(--mono);font-size:calc(9px * var(--fs-scale));letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
-.sim-result-val{font-family:var(--serif);font-size:calc(26px * var(--fs-scale));font-weight:600}
-.sim-result-card.tel .sim-result-val{color:var(--danger)}
-.sim-result-card.semi .sim-result-val{color:var(--accent2)}
-.sim-result-tier{font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));margin-top:4px;color:var(--text2)}
-.sim-reset-btn{font-family:var(--mono);font-size:calc(10px * var(--fs-scale));color:var(--accent3);background:transparent;border:1px solid var(--accent3);border-radius:5px;padding:4px 12px;cursor:pointer;margin-top:12px}
-.sim-reset-btn:hover{background:rgba(41,151,255,.1)}
-.sim-update-log{font-family:var(--mono);font-size:calc(9px * var(--fs-scale));color:var(--text3);margin-top:10px;line-height:1.6}
-.cite-link{color:var(--accent3);text-decoration:none;border-bottom:1px dotted var(--accent3)}
-.cite-link:hover{color:var(--header);border-bottom-color:var(--header)}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:3px}
-@media(max-width:900px){nav{display:none}.hero,.content-section{padding:26px 18px}.izy-grid,.scen-grid{grid-template-columns:1fr}}
-/* 容器 */
-.fc{position:fixed;top:14px;right:14px;z-index:999;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px;}
-
-/* 字體/主題按鈕 */
-.fb{padding:4px 10px;font-size:11px;font-family:'SF Mono','Consolas','Monaco','Courier New',monospace;background:transparent;border:none;color:var(--dim);cursor:pointer;border-radius:3px;transition:all .15s;}
-.fb:hover{color:var(--text);background:var(--surface2);}
-.fb.on{color:#00c8f0;background:rgba(0,200,240,.15);}
-
-/* 粉專按鈕 */
-.ctrl-fan{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-size:11px;font-family:'SF Mono','Consolas','Monaco','Courier New',monospace;color:#e8f2ff;text-decoration:none;background:#1a3a5c;border:1px solid #2a4a6c;border-radius:9999px;transition:all 0.15s ease;white-space:nowrap;}
-.ctrl-fan svg{width:12px;height:12px;fill:currentColor;flex-shrink:0;}
-.ctrl-fan:hover{background:#2a4a6c;border-color:#3a5a7c;transform:scale(1.02);}
-
-/* Yoda Research 按鈕 */
-.ctrl-home{display:inline-flex;align-items:center;padding:4px 12px;font-size:11px;font-family:'SF Mono','Consolas','Monaco','Courier New',monospace;color:#1a1200;font-weight:700;text-decoration:none;background:#b8960a;border-radius:9999px;white-space:nowrap;transition:all 0.15s ease;}
-.ctrl-home:hover{background:#ffd700;color:#000;box-shadow:0 0 10px 3px rgba(255,215,0,.75);animation:none;}
-
-/* 呼吸動畫 */
-@keyframes fan-breathe{0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200;}50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000;}}
-
-/* === §B-22 情境決策樹（CSS 排版·字型無關對齊） ===
-   字級一律由 --dt-fs 一處管理：五種報告（mw/us/tw/key/brief）共用同一組規格，
-   不得在個別報告另外覆寫 .dt-n / .dt-num 字級（Yoda 2026-08-28：這種東西要統一管理）。 */
-.dtree{--dt-fs:11.5px}
-html[data-size="sm"] .dtree{--dt-fs:10.5px}
-html[data-size="lg"] .dtree{--dt-fs:13px}
-@media(max-width:640px){.dtree{--dt-fs:10.5px}}
-.dt-wrap{overflow-x:auto;padding:6px 0 2px}
-.dt-tree{display:flex;justify-content:center;min-width:100%}
-.dt-sub{display:flex;flex-direction:column;align-items:center;flex:1 1 0;min-width:0;position:relative}
-.dt-n{text-align:center;line-height:1.7;padding:0 6px;font-family:var(--fm,monospace);font-size:var(--dt-fs)}
-.dt-n .dt-sub2{opacity:.82;font-size:.94em}                 /* 條件的補充說明行 */
-.dt-n .dt-lv{display:block;opacity:.72;font-size:.9em;letter-spacing:.02em}  /* 具體數字/門檻 */
-.dt-n .dt-num,.dt-num{display:block;font-weight:900;line-height:1.15;margin-bottom:1px;
-  font-size:calc(var(--dt-fs)*1.75);letter-spacing:0}
-.dt-kids{display:flex;align-items:flex-start;justify-content:center;width:100%;position:relative;padding-top:24px;gap:4px}
-/* 父節點 → 匯流排 的垂直線 */
-.dt-kids::before{content:'';position:absolute;top:0;left:50%;width:1px;height:12px;background:var(--accent);transform:translateX(-50%)}
-/* ⚠ 連接線一律畫在 .dt-kids 的 padding-top 保留區內（子節點框的「上方」）。
-   .dt-sub 的座標原點已在 padding 之後，故必須用**負值** top；用正值會把線畫進文字裡（踩過）。 */
-/* 匯流排（水平線）：由各子節點的 ::after 拼接，首尾只畫一半 */
-.dt-kids>.dt-sub::after{content:'';position:absolute;top:-12px;left:0;right:0;height:1px;background:var(--accent)}
-.dt-kids>.dt-sub:first-child::after{left:50%}
-.dt-kids>.dt-sub:last-child::after{right:50%}
-.dt-kids>.dt-sub:only-child::after{display:none}
-/* 匯流排 → 子節點 的垂直線 */
-.dt-kids>.dt-sub::before{content:'';position:absolute;top:-12px;left:50%;width:1px;height:12px;background:var(--accent);transform:translateX(-50%)}
-.dt-lead{color:var(--accent);font-weight:700}
-/* 「先看這張」整段（標題／定位框／事件列）字級也同源，避免各報告大小不一。
-   踩過：brief 未定義 --fs，template 的 .dtree-now{font-size:calc(var(--fs)*.66)} 整條 calc 失效
-   → 繼承 body 24px 變超大；.dtree-ev 則從來沒有樣式。故一律在此以 --dt-fs 收斂。 */
-.dtree-h{font-size:calc(var(--dt-fs)*1.2)}
-.dtree-now{font-size:calc(var(--dt-fs)*1.05);line-height:1.85}
-.dtree-ev{font-size:var(--dt-fs);line-height:1.75;color:var(--text);
-  background:var(--surface2,rgba(127,159,198,.06));border:1px solid var(--border);
-  border-radius:6px;padding:7px 11px;margin:0 0 10px}
-/* 手機只調間距，字級一律走 --dt-fs（單一來源，勿在此另設 font-size） */
-@media(max-width:640px){.dt-n{padding:0 3px}.dt-kids{gap:2px;padding-top:20px}}
-.ascii-fig{--afc-up:var(--afc-red,var(--red,#cf6f72));--afc-dn:var(--afc-green,var(--green,#5cae88));--afc-dim:var(--afc-dim2,var(--dim,#8b8578));font-family:var(--fm,ui-monospace,'SF Mono',Menlo,Consolas,'DejaVu Sans Mono','Noto Sans Mono',monospace);font-size:var(--af-fs,15px);line-height:1.62;white-space:pre;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 16px 15px;margin:14px 0 18px;color:var(--text);tab-size:2}
-.ascii-fig .af-h{display:block;font-family:var(--fb,-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif);font-size:calc(var(--af-fs,15px)*1.18);font-weight:800;color:var(--accent);letter-spacing:.06em;margin-bottom:11px;white-space:normal;line-height:1.5}
-.ascii-fig .af-c{display:inline-block;white-space:pre;vertical-align:top;overflow:hidden}/* va:top 不可改回 baseline：inline-block 的基線取自「內部最後一行框」，中文 fallback 字型的 ascent 較高會把整格往上推 7px，同一列的欄位與尺身就對不齊（2026-08-29 Yoda 指出）*/
-.ascii-fig .af-up{color:var(--afc-up)}
-.ascii-fig .af-dn{color:var(--afc-dn)}
-.ascii-fig .af-key{color:var(--accent);font-weight:700}
-.ascii-fig .af-warn{color:#c6a45c}
-.ascii-fig .af-dim{color:var(--afc-dim)}
-.ascii-fig .af-foot{display:block;font-family:var(--fb,-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif);font-size:calc(var(--af-fs,15px)*.94);color:var(--afc-dim);line-height:1.78;margin-top:13px;padding-top:10px;border-top:1px dashed var(--border);white-space:normal}
-.ascii-fig .af-foot b{color:var(--text)}
-.ascii-fig{--af-fs:calc(13px * var(--fs-scale));background:var(--bg3);border-left-color:var(--accent3)}
-.ascii-fig .af-h{color:var(--accent3)}
-/* === 決策樹：對接本母板的顏色變數（配色鐵則 紅#ff3d5a 黃#f0c040 綠#5cae88）=== */
-:root{--red:#ff3d5a;--green:#5cae88;--yellow:#f0c040;--fm:var(--mono);--fb:var(--sans);
---surface:var(--note-bg);--surface2:var(--bg3);--dim:var(--text3);--fs:1em}
-.dtree{background:var(--note-bg);border:1px solid var(--border);border-left:3px solid var(--accent3);
-border-radius:0 8px 8px 0;padding:15px 18px;margin:14px 0}
-.dtree{--dt-fs:calc(11.5px * var(--fs-scale))}
-@media(max-width:640px){.dtree{--dt-fs:calc(10.5px * var(--fs-scale))}}
-.dtree-h{letter-spacing:.02em;color:var(--accent3);font-weight:700;margin-bottom:9px;text-transform:uppercase;font-family:var(--mono)}
-.dtree-now{color:var(--text2);margin:0 0 10px;background:var(--bg3);
-border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;padding:11px 14px}
-.dtree-now b{color:var(--accent2)}
-.dtree-nowtag{display:inline-block;background:var(--accent2);color:#1a1200;font-weight:800;
-font-size:.85em;letter-spacing:.02em;border-radius:4px;padding:1px 8px;margin-right:8px}
-.dt-lg{margin-top:11px;padding-top:10px;border-top:1px dashed var(--border);
-font-size:calc(var(--dt-fs)*.95);color:var(--text3);text-align:center;font-family:var(--mono)}
-.dt-lg i{display:inline-block;width:9px;height:9px;border-radius:2px;vertical-align:middle;margin:0 4px 0 12px}
-/* === 兩年 PCE 對照圖 === */
-.pce-wrap{background:var(--note-bg);border:1px solid var(--border);border-radius:8px;padding:18px 20px 12px;margin:14px 0}
-svg.pce{width:100%;height:auto;display:block}
-svg.pce .g{stroke:var(--border);stroke-width:1}
-svg.pce .base{stroke:var(--border2);stroke-width:1;stroke-dasharray:4 3}
-svg.pce .gl,svg.pce .xl{fill:var(--text3);font-family:var(--mono);font-size:9.5px}
-svg.pce .gl{text-anchor:end}svg.pce .xl{text-anchor:middle}
-svg.pce .ph{font-family:var(--mono);font-size:11.5px;font-weight:700}
-svg.pce .lb{font-size:11.5px;font-weight:700;text-anchor:end;font-family:var(--mono)}
-svg.pce .c12{fill:var(--accent)}svg.pce .c6{fill:var(--accent2)}
-svg.pce .l12{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linejoin:round}
-svg.pce .l6{fill:none;stroke:var(--accent2);stroke-width:2.6;stroke-linejoin:round}
-svg.pce .d12{fill:var(--accent)}svg.pce .d6{fill:var(--accent2)}
-.pce-cap{font-size:.82em;color:var(--text3);line-height:1.7;border-top:1px dashed var(--border);margin-top:10px;padding-top:10px}
-.pce-cap b{color:var(--text)}
-/* === 分路條件（危險色 context-box）=== */
-.context-box.danger{border-left-color:var(--danger);background:var(--warn-bg)}
-.context-box.danger .context-box-title{color:var(--danger)}
-.ck{color:var(--text)}
-
-/* §H4-7 每個區塊開頭告訴讀者「這一段你會拿到什麼」（全報告通用元件） */
-.section-gain{font-size:calc(var(--fs,16px)*.82);color:var(--text2,var(--dim,#8b949e));line-height:1.7;margin-top:6px;max-width:820px}
-.section-gain b{color:var(--text,#fff)}
-</style>
-<style>
-/* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
-   前科：us 母板曾用 `scrollbar-width:none` ＋ `::-webkit-scrollbar{display:none!important}`
-   把整條捲軸藏掉；付費報告又是塞在 report-shell 的 iframe 裡捲動，
-   於是外層沒有捲軸、內層捲軸被藏起來 ⇒ 讀者桌機開起來「右邊沒有 bar 可以拉」。
-   規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
-   任何情況都不得把捲軸整條隱藏。 */
-html{overflow-y:scroll;scrollbar-width:auto;scrollbar-color:rgba(140,162,186,.62) transparent}
-html::-webkit-scrollbar,body::-webkit-scrollbar{width:13px;height:13px;display:block}
-/* body:: 也要寫：Chrome 的 viewport 捲軸有時取 body 的樣式而不是 html 的 */
-html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:rgba(128,150,175,.10)}
-html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:rgba(140,162,186,.62);border-radius:8px;border:3px solid transparent;background-clip:content-box}
-html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:rgba(175,196,218,.88);background-clip:content-box}
-*::-webkit-scrollbar{width:8px;height:8px;display:block}
-*::-webkit-scrollbar-thumb{background:rgba(140,162,186,.5);border-radius:5px}
-*::-webkit-scrollbar-thumb:hover{background:rgba(175,196,218,.8)}
-nav{scrollbar-width:thin}
-
-/* ── 讀完分界（§H4-1b）＋ 免費節錄導流 CTA（專題母板標配 · 2026-09-02） ── */
-.read-cut{margin:30px 0 8px}
-.sl-fin{display:flex;align-items:center;gap:16px;color:var(--text3,var(--dim));font-size:calc(13px * var(--fs-scale,1))}
-.sl-fin::before,.sl-fin::after{content:'';flex:1;height:1px;background:var(--border)}
-.sl-fin b{color:var(--accent);font-weight:800;letter-spacing:.06em;white-space:nowrap}
-.rc-sub{text-align:center;color:var(--text3,var(--dim));font-size:calc(12.5px * var(--fs-scale,1));margin:8px 0 0}
-.cta-wrap{text-align:center;margin:22px 0 6px}
-.cta-sub{display:inline-block;padding:12px 26px;border-radius:9999px;background:linear-gradient(135deg,#d4af37,#f0d488);color:#1a1200;font-weight:800;font-size:calc(14.5px * var(--fs-scale,1));text-decoration:none;letter-spacing:.03em;animation:ctaBreathe 2.2s ease-in-out infinite}
-.cta-sub:hover{animation:none;box-shadow:0 0 14px 4px rgba(212,175,55,.55)}
-@keyframes ctaBreathe{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.45)}50%{box-shadow:0 0 12px 4px rgba(212,175,55,.35)}}
-.cta-note{color:var(--text3,var(--dim));font-size:calc(12px * var(--fs-scale,1));margin-top:9px}
-
-/* ── 免費節錄付費牆：把細項列模糊到看不清＋鎖頭標籤（2026-09-02 Yoda 定） ── */
-.af-blurwrap{position:relative;display:inline-block}
-.af-blur{display:inline-block;filter:blur(7px);-webkit-filter:blur(7px);user-select:none;pointer-events:none;opacity:.85}
-.af-lock{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;font-family:var(--sans);font-size:calc(13px * var(--fs-scale,1));font-weight:800;color:#1a1200;background:linear-gradient(135deg,#d4af37,#f0d488);border-radius:9999px;padding:8px 18px;box-shadow:0 4px 18px rgba(0,0,0,.45);letter-spacing:.04em}
-
-/* ── 免費節錄付費牆（區塊版）：整塊模糊＋鎖頭，搭 .af-lock ── */
-.pw-head{font-size:calc(13.5px * var(--fs-scale,1));color:var(--text2);margin:18px 0 8px}
-.pw-head b{color:var(--accent)}
-.pw-wrap{position:relative;margin:0 0 22px}
-.pw-blur{filter:blur(7px);-webkit-filter:blur(7px);user-select:none;pointer-events:none;opacity:.85;max-height:520px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
-</style>
-<style>
-/* ── 自總經_20260901 抽出：溫度條／波浪圖／dc／sl 元件 ── */
-.phase-temp{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px 0 10px}
-.phase-temp-title{font-family:var(--mono);font-size:calc(12px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--text3);padding:0 18px 8px;border-bottom:1px solid var(--border);margin-bottom:0}
-.mfg-temp-wrap{padding-top:4px}
-.mfg-dot-pulse{animation:tempPulse 1.8s ease-in-out infinite}
-.mw-dot-mfg{background:#2997ff;box-shadow:none;border:2px solid #fff}
-.market-wave-wrap{margin-top:22px;padding:0}
-.market-wave-title-row{display:flex;align-items:baseline;gap:16px;margin-bottom:10px;font-family:var(--mono)}
-.market-wave-title-row>span:first-child{font-size:calc(10px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;color:var(--text2);font-weight:600}
-.market-wave-sub{font-size:calc(12px * var(--fs-scale));color:var(--text3);letter-spacing:.06em}
-.market-wave-svg{width:100%;height:auto;display:block;overflow:visible;border-radius:6px}
-.market-wave-notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.mw-note-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:3px;animation:tempPulse 2s ease-in-out infinite}
-.mw-dot-biz{background:#ff9f0a;box-shadow:none;border:2px solid #fff}
-.biz-dot-pulse{transform-box:fill-box;transform-origin:center center;animation:svgBizPulse 2.2s ease-in-out infinite}
-.mfg-dot-pulse{transform-box:fill-box;transform-origin:center center;animation:svgMfgPulse 1.8s ease-in-out infinite}
-.temp-bar-wrap{
-  width:100%;background:var(--bg2);border-bottom:1px solid var(--border);
-  padding:18px 0 16px;position:sticky;top:0;z-index:900;
-  backdrop-filter:blur(12px);transition:background .25s;
-}
-.temp-bar-inner{max-width:100%;padding:0 48px}
-.temp-bar-label-row{display:flex;justify-content:space-between;margin-bottom:6px}
-.temp-bar-label{font-family:var(--mono);font-size:calc(12px * var(--fs-scale));letter-spacing:.02em;text-transform:uppercase;font-weight:600}
-.tbl-recovery{color:#30d158}
-.tbl-growth{color:#2997ff}
-.tbl-boom{color:#ff9f0a}
-.tbl-recession{color:#ff453a}
-.temp-bar-track{
-  position:relative;height:14px;border-radius:8px;overflow:visible;
-  background:linear-gradient(90deg,
-    #30d158 0%,
-    #1ac8b0 10%,
-    #35b8c8 20%,
-    #4da8e0 28%,
-    #2997ff 38%,
-    #78a8f0 48%,
-    #c0a040 58%,
-    #ff9f0a 65%,
-    #f07828 72%,
-    #e84060 82%,
-    #ff453a 100%
-  );
-  box-shadow:0 2px 12px rgba(0,0,0,.25);
-}
-.temp-zone-divider{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18)}
-.temp-pointer{
-  position:absolute;top:50%;transform:translate(-50%,-50%);
-  width:22px;height:22px;
-  cursor:default;z-index:10;
-}
-.temp-pointer-dot{
-  width:22px;height:22px;border-radius:50%;
-  background:#fff;border:3px solid #ff9f0a;
-  box-shadow:0 0 4px 2px rgba(255,159,10,.2);
-  animation:tempPulse 2s ease-in-out infinite;
-}
-.temp-pointer-label{
-  position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);
-  font-family:var(--mono);font-size:calc(12px * var(--fs-scale));letter-spacing:.06em;
-  background:#ff9f0a;color:#000000;padding:2px 8px;border-radius:3px;white-space:nowrap;
-  font-weight:600;
-}
-.temp-pointer-label::after{
-  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
-  border:4px solid transparent;border-top-color:#ff9f0a;
-}
-.temp-bar-footer{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--mono);font-size:calc(12px * var(--fs-scale));color:var(--text3)}
-.temp-pointer-prev{width:14px;height:14px;z-index:8}
-.temp-pointer-prev .temp-pointer-dot{width:14px;height:14px;border-width:2px;animation:none!important;opacity:.4;box-shadow:none}
-.temp-trail{position:absolute;top:50%;transform:translateY(-50%);height:0;border-top:1.5px dashed #ff9f0a;opacity:.3;z-index:7}
-.sec-group{margin-bottom:16px}
-.sec-tab-bar{display:grid;gap:10px}
-.sec-tab-bar.cols-1{grid-template-columns:1fr}
-.sec-tab-bar.cols-2{grid-template-columns:repeat(2,1fr)}
-.sec-tab-bar.cols-3{grid-template-columns:repeat(3,1fr)}
-.sec-tab{background:var(--bg2);border:1px solid var(--border);border-radius:10px;
-  cursor:pointer;transition:border-color .18s,box-shadow .18s;overflow:hidden;
-  user-select:none}
-.sec-tab:hover{border-color:var(--accent3);box-shadow:0 2px 14px rgba(0,0,0,.18)}
-.sec-tab.active{border-color:var(--accent3);
-  box-shadow:0 0 0 2px rgba(41,151,255,.2),0 2px 14px rgba(0,0,0,.18)}
-.sec-tab-header{display:flex;align-items:center;gap:10px;padding:14px 16px 10px}
-.sec-tab-num{font-family:var(--mono);font-size:calc(12px * var(--fs-scale));color:var(--text3);
-  background:var(--bg3);border:1px solid var(--border);border-radius:4px;
-  padding:3px 8px;white-space:nowrap;transition:all .18s}
-.sec-tab.active .sec-tab-num{color:var(--accent3);
-  background:rgba(41,151,255,.1);border-color:rgba(41,151,255,.3)}
-.sec-tab-title{font-family:var(--serif);font-size:calc(15px * var(--fs-scale));font-weight:600;
-  color:var(--header);flex:1}
-.sec-tab-arrow{font-size:calc(11px * var(--fs-scale));color:var(--text3);transition:transform .2s,color .18s}
-.sec-tab.active .sec-tab-arrow{transform:rotate(180deg);color:var(--accent3)}
-.sec-tab-indicators{padding:0 16px 14px;display:flex;flex-wrap:wrap;gap:5px}
-.sec-tab.active .sec-ind-chip{color:var(--accent3);
-  background:rgba(41,151,255,.05);border-color:rgba(41,151,255,.18)}
-.phase-tab{padding:0}
-.phase-tab .phase-temp{margin:0;border:none;background:transparent;padding-top:0}
-.phase-tab-header{display:flex;align-items:center;gap:10px;padding:14px 16px 10px}
-.phase-tab-title{font-family:var(--serif);font-size:calc(15px * var(--fs-scale));font-weight:600;color:var(--header);flex:1}
-.phase-tab .phase-temp-title{padding:0 16px 8px;border-bottom:1px solid var(--border);margin-bottom:0}
-.phase-tab .mfg-temp-wrap,.phase-tab .temp-bar-inner{padding:10px 16px 14px}
-.phase-tab:hover{border-color:var(--accent3);box-shadow:0 2px 14px rgba(0,0,0,.18)}
-.phase-tab.active{border-color:var(--accent3);box-shadow:0 0 0 2px rgba(41,151,255,.2)}
-.phase-tab.active .sec-tab-arrow{transform:rotate(180deg);color:var(--accent3)}
-.sec-tab-arrow{animation:arrowBreathe 2s ease-in-out infinite}
-.sec-tab.active .sec-tab-arrow{animation:none;opacity:1;color:var(--accent3)}
-.sl-p{font-size:calc(14.5px * var(--fs-scale));line-height:1.95;color:var(--text);margin:0 0 15px}
-.sl-p b{color:#d4af37}
-.sl-p strong{color:var(--header);font-weight:700}
-.sl-h{font-family:var(--serif);font-size:calc(17px * var(--fs-scale));font-weight:700;color:var(--header);line-height:1.5;margin:26px 0 12px;padding-left:11px;border-left:3px solid #d4af37}
-.sl-lead{font-size:calc(15.5px * var(--fs-scale));line-height:1.9;color:var(--text);font-weight:600;background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.28);border-radius:9px;padding:13px 16px;margin:0 0 20px}
-.sl-lead b{color:#d4af37}
-.sl-end{font-size:calc(13.5px * var(--fs-scale));line-height:1.85;color:var(--text);background:rgba(0,0,0,.2);border-radius:8px;padding:11px 14px;margin:0 0 20px}
-.sl-end b{color:#d4af37}
-.sl-tbl{width:100%;border-collapse:collapse;margin:6px 0 18px;font-size:calc(13px * var(--fs-scale))}
-.sl-tbl th{background:var(--bg3);color:var(--accent);font-weight:700;text-align:left;padding:9px 11px;border-bottom:1px solid var(--border);white-space:nowrap}
-.sl-tbl td{padding:9px 11px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.7;vertical-align:top}
-.sl-tbl tr:last-child td{border-bottom:none}
-.sl-tbl td b{color:#d4af37}
-.sl-list{display:grid;grid-template-columns:max-content 1fr;column-gap:13px;row-gap:4px;margin:0 0 15px;background:rgba(0,0,0,.16);border:1px solid var(--border);border-radius:9px;padding:11px 15px;font-size:calc(13.5px * var(--fs-scale));line-height:1.7}
-.sl-list.sl-risk{border-left:3px solid #ff9f0a;border-radius:0 9px 9px 0}
-.sl-list.sl-risk .li b{color:#ff9f0a}
-.sl-list .li{display:contents}
-.sl-list .li b{color:#d4af37;white-space:nowrap;font-weight:700}
-.sl-list .li span{color:var(--text)}
-.sl-list .li span strong{color:var(--header)}
-.sl-bridge{text-align:center;font-size:calc(14.5px * var(--fs-scale));color:#d4af37;font-weight:700;margin:22px 0 2px;letter-spacing:.02em}
-.sl-bridge i{font-style:normal;color:var(--text3);font-weight:400;margin:0 8px}
-.sl-c4{font-size:calc(13px * var(--fs-scale));line-height:1.95;color:var(--text2);background:rgba(240,192,64,.05);border-left:3px solid rgba(224,182,74,.55);border-radius:0 7px 7px 0;padding:9px 13px;margin:0 0 15px}
-.sl-c4 i{font-style:normal;color:#d4af37;font-weight:800;margin:0 7px}
-.sl-fin{display:flex;align-items:center;gap:16px;margin:30px 0 10px;color:var(--text3);font-size:calc(13px * var(--fs-scale))}
-.sl-fin::before,.sl-fin::after{content:'';flex:1;height:1px;background:var(--border)}
-.sl-fin b{color:#d4af37;font-weight:800;letter-spacing:.06em;white-space:nowrap}
-.dc-t{font-size:calc(14px * var(--fs-scale));font-weight:800;color:var(--accent);letter-spacing:.04em;margin-bottom:10px}
-.dc-w{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.dc-w svg{min-width:640px}
-.dc-src{font-family:var(--mono);font-size:calc(10.5px * var(--fs-scale));color:var(--text3);margin-top:8px}
-.dc-note{font-size:calc(13px * var(--fs-scale));color:var(--text2);line-height:1.8;margin-top:9px;padding-top:9px;border-top:1px dashed var(--border)}
-.dc-note b{color:var(--text)}
-.dc-pulse{animation:dcPulse 2.4s ease-in-out infinite}
-.ascii-fig .af-row{display:block}
-.ascii-fig.af-anim .af-row{opacity:0;transform:translateY(5px);animation:afRowIn .48s ease forwards;animation-delay:calc(var(--d,0)*110ms)}
-.ascii-fig.af-anim .af-key{animation:afGlow 2.4s ease-in-out 1.2s infinite}
-.ascii-fig.af-anim .af-flowline{background:linear-gradient(100deg,transparent 30%,rgba(212,175,55,.14) 50%,transparent 70%);background-size:220% 100%;animation:afRowIn .48s ease forwards,afFlow 2.8s linear 1s infinite;animation-delay:calc(var(--d,0)*110ms),calc(1s + var(--d,0)*110ms)}
-@media(max-width:700px){.market-wave-notes{grid-template-columns:1fr}}
-@media(max-width:900px){.temp-bar-inner{padding:0 18px}}
-@media(max-width:900px){.sec-tab-bar.cols-2,.sec-tab-bar.cols-3{grid-template-columns:1fr}}
-@media(max-width:900px){.sl-tbl{font-size:calc(12px * var(--fs-scale))}.sl-tbl th,.sl-tbl td{padding:7px 8px}}
-@media(prefers-reduced-motion:reduce){.dc-pulse{animation:none}}
-@media(prefers-reduced-motion:reduce){.ascii-fig.af-anim .af-row,.ascii-fig.af-anim .af-flowline{animation:none;opacity:1;transform:none}.ascii-fig.af-anim .af-key{animation:none}}
-@keyframes svgBizPulse{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.75;transform:scale(1.8)}}
-@keyframes svgMfgPulse{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.7;transform:scale(1.9)}}
-@keyframes tempPulse{
-  0%,100%{box-shadow:0 0 4px 2px rgba(255,159,10,.2);opacity:.7;transform:scale(.88)}
-  50%{box-shadow:0 0 14px 6px rgba(255,159,10,.7);opacity:1;transform:scale(1)}
-}
-@keyframes arrowBreathe{
-  0%,100%{opacity:.3;filter:none}
-  50%{opacity:1;filter:drop-shadow(0 0 4px var(--accent3))}
-}
-@keyframes dcPulse{0%,100%{opacity:1}50%{opacity:.55}}
-@keyframes afRowIn{to{opacity:1;transform:none}}
-@keyframes afGlow{0%,100%{text-shadow:none}50%{text-shadow:0 0 9px rgba(212,175,55,.55)}}
-.pw-head{font-size:calc(13.5px * var(--fs-scale,1));color:var(--text2);margin:18px 0 8px}
-.pw-head b{color:var(--accent)}
-.pw-wrap{position:relative;margin:0 0 22px}
-.pw-blur{filter:blur(7px);-webkit-filter:blur(7px);user-select:none;pointer-events:none;opacity:.85;max-height:520px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
-.sec-tab-bar.cols-2{cursor:default}
-.sec-tab.phase-tab:hover{transform:none}
-
+/* 安裝到桌面鈕停用（Yoda 2026-08-31 定 · 全站）*/
+.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}
+/* 圖說「怎麼看」統一規格（core-render §B-39④ · 2026-09-04 Yoda：行高與列距一律統一）
+   ——行高與列距只在這裡定義；任何圖說都用 .fig-note + <p>，不要各自寫 line-height、不要靠數 <br> 排列距 */
+.fig-note{font-size:calc(var(--fs)*.55);color:var(--text2,#9fb0c4);line-height:1.8}
+.fig-note p{margin:0 0 .85em}
+.fig-note p:last-child{margin-bottom:0}
+.ascii-fig .af-foot p{margin:0 0 .85em}
+.ascii-fig .af-foot p:last-child{margin-bottom:0}
 </style>
 </head>
 <body>
-<!-- CONTROLS -->
-<div class="fc">
-  <a class="ctrl-fan" href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" title="Facebook粉專">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
-    </svg>粉專
-  </a>
-  <a href="https://yoda-research-next.vercel.app/" class="ctrl-home" title="Yoda Research">Yoda Research</a>
-  <button class="fb" id="fs-small" onclick="setSize('sm')">小</button>
-  <button class="fb on" id="fs-normal" onclick="setSize('md')">中</button>
-  <button class="fb" id="fs-large" onclick="setSize('lg')">大</button>
-  <button class="fb" style="margin-left:4px;border-left:1px solid var(--border);padding-left:10px;" onclick="setTheme('dark')" id="btn-dark">深</button>
-  <button class="fb" onclick="setTheme('light')" id="btn-light">淺</button>
-</div>
+  <div id="gate">
+    <div class="gate-card">
+      <div class="spin" id="spin"></div>
+      <h1>專題研究｜景氣溫度計與雙引擎（完整報告 1/5）</h1>
+      <p id="sub">免費報告載入中，約 1–2 秒…</p>
+      <div class="gate-msg" id="msg"></div>
+      <button id="retry" type="button">重新載入</button>
+    </div>
+  </div>
 
-<nav>
-  <div class="nav-brand">
-    <div class="nav-brand-title"><span style="display:inline-flex;align-items:center;gap:6px;line-height:1">Yoda <img src="https://yoda-research-next.vercel.app/yoda-logo.png" alt="" style="height:1.5em;width:auto;opacity:.9;vertical-align:middle"></span><br>景氣溫度計與雙引擎</div>
-    <div class="nav-brand-sub">▸ 2026 · SEPTEMBER</div>
-  </div>
-  <div class="nav-section-label">一、結論</div>
-  <a href="#sec-verdict"><span class="nav-num">一</span><div class="nav-dot"></div>先講結論</a>
-  <div class="nav-section-label">二、兩支溫度計</div>
-  <a href="#sec-thermo"><span class="nav-num">二</span><div class="nav-dot"></div>各在哪一格</a>
-  <a href="#sec-wave"><span class="nav-num">三</span><div class="nav-dot"></div>放在一起看</a>
-  <div class="nav-section-label">三、雙引擎</div>
-  <a href="#sec-engines"><span class="nav-num">四</span><div class="nav-dot"></div>製造 × 服務</a>
-  <div class="nav-section-label">四、完整報告與總結</div>
-  <a href="#sec-full"><span class="nav-num">五</span><div class="nav-dot"></div>這只是 1/5</a>
-  <a href="#sec-sum"><span class="nav-num">六</span><div class="nav-dot"></div>總結</a>
-</nav>
-
-<main>
-<div class="hero">
-  <div class="hero-tag">THERMOMETERS & TWO ENGINES · 1/5 OF THE FULL MACRO REPORT</div>
-  <div class="hero-title">景氣溫度計與雙引擎</div>
-  <div class="hero-sub">結論：目前順風，循環在延長——製造業守住突破、服務業穩在線上、兩支溫度計釘在榮景期與錯配前緣。這是完整總經報告的 1/5；細項讀數、通膨、就業、最新服務業數據，以及「下一個階段會是什麼模樣」，後天在完整報告。</div>
-  <div class="hero-meta"><div class="meta-chip"><div class="meta-chip-dot"></div>2026-09-02 · ISM 製造 8 月＝9/1 發布；服務 8 月＝9/3 開牌</div><div class="meta-chip"><div class="meta-chip-dot"></div>溫度計口徑：總經_20260901（8/30 覆核）· PMI 來源 ISM Report On Business</div></div>
-</div>
-<div class="content-section" id="sec-verdict">
-  <div class="section-header"><div class="section-num">一</div><div><h2 class="section-title">先講結論：兩支溫度計都指向「循環在延長」</h2><div class="section-desc">VERDICT FIRST · 1/5 OF THE FULL REPORT</div></div></div>
-<div class="context-box"><div class="context-box-title">先講清楚：這份看的是什麼尺度</div><div class="context-box-text">這份講的是 <b>7 年一輪的景氣循環波段</b>（一個月以上的大波段判斷）。我要賺的，是從現在起到明年（或後年）<b>景氣的最後一段</b>——不是今天，不是這週，不是這個月。<br><b>為什麼要看這麼長？</b>因為不論你做的是指數、個股還是商品，先弄清楚大環境是不是順風，判斷的基礎就已經對了一半——<b>風向對了，什麼船都跑得快；風向錯了，再好的船也只是在原地打轉。</b><br>如果今天漲你就開心、明天跌你就懷疑、下禮拜漲你追、下個月跌你砍——你不是在投資，你是<b>被市場牽著走</b>：心情跟著 K 線起伏、脾氣越來越暴躁、對前景失去信心、一天到晚想找人問「現在該怎麼辦」。那這份不適合你，<b>請你去看別人的</b>。<br>這裡只回答一個問題：<b>這一段順風，還在不在。</b></div></div><div class="sl-list"><div class="li"><b>① 發生什麼</b><span>製造業上個月跳上突破區、這個月<b>守住</b>；服務業整段穩在線上；兩支溫度計位置<b>都沒有移動</b></span></div><div class="li"><b>② 嚴重嗎</b><span>是順風不是警報——突破的主體（生產）完好、擴張面寬不變；只有一格記半盞燈</span></div><div class="li"><b>③ 位階</b><span>大循環站在<b>榮景期</b>：循環在延長不在收尾；製造業站在<b>錯配前緣</b>：客戶庫存太低、交期拉長、物價高懸</span></div><div class="li"><b>④ 下一步</b><span>服務業本週開牌＝第二張牌；後天出版的完整報告把通膨、就業、細項一次攤開</span></div><div class="li"><b>⑤ 條件</b><span>製造業連兩月回落並跌破榮枯線之上的守區／服務業跌到榮枯線之下——任一亮燈，溫度計位置重評（門檻讀數在下面那一區）</span></div></div><div class="context-box key"><div class="context-box-title">這份只是完整報告的 1/5——細項讀數與細項判讀，只在付費完整版</div><div class="context-box-text">你現在看的是<b>總經完整報告的其中一塊</b>：製造業與服務業的<b>總指數</b>、景氣大循環溫度計、製造業溫度計——<br><b>這份不放細項</b>：製造業<b>每一個分項</b>（新訂單／生產／僱用／物價／客戶庫存⋯）的逐格讀數與判讀、半盞燈是哪一格、離翻案還有多遠——這些<b>只在付費完整報告</b>。同樣只在完整版的還有：最新的 <b>8 月服務業數據</b>（9/3 開牌）、<b>通膨</b>（三把尺＋房租深挖與機率推演）、<b>就業</b>（非農證人）、九月升息開票儀表板、海水與船的整套判讀、<b>整組驗證點</b>的開牌總表，以及<b>下一個階段會是什麼模樣</b>：通膨、就業、消費、訂單、庫存、利率、信用、氣氛八個面向逐一畫出下一段的長相。</div></div>
-</div><div class="read-cut"><div class="sl-fin"><b>—— 結論到這裡講完，以下是證據與細項 ——</b></div><p class="rc-sub">想知道兩支溫度計怎麼釘、引擎怎麼讀，往下。</p></div>
-<div class="content-section" id="sec-thermo">
-  <div class="section-header"><div class="section-num">二</div><div><h2 class="section-title">兩支溫度計：大循環與小週期各在哪一格</h2><div class="section-desc">TWO THERMOMETERS · WHERE WE ARE</div></div></div>
-<div class="section-gain">看完你會拿到：景氣大循環與製造業循環各在哪一格、指針為什麼釘在那裡、什麼情況會移動。</div><p style="color:var(--text2);font-size:.88em;line-height:1.78;margin-bottom:4px">把景氣位置畫成兩條 0–100 的尺：上面是 7–10 年的<b style="color:var(--header)">景氣大循環</b>，下面是 2–4 年的<b style="color:var(--header)">製造業小週期</b>——兩支同時看，才知道循環走到哪一格。</p><div class="sec-tab-bar cols-2">
-  <div class="sec-tab phase-tab" id="sec-tab-sec-phase-biz">
-    <div class="phase-tab-header">
-      <div class="mw-note-dot mw-dot-biz"></div>
-      <span class="phase-tab-title">景氣大循環位階</span>
-      
-    </div>
-    <div class="phase-temp">
-        <div class="phase-temp-title">景氣大循環溫度條</div>
-        <div class="temp-bar-inner">
-          <div class="temp-bar-label-row">
-            <span class="temp-bar-label tbl-recovery">🌱 復甦期</span>
-            <span class="temp-bar-label tbl-growth">📈 成長期</span>
-            <span class="temp-bar-label tbl-boom">🔥 榮景期</span>
-            <span class="temp-bar-label tbl-recession">衰退期</span>
-          </div>
-          <div class="temp-bar-track">
-            <div class="temp-zone-divider" style="left:25%"></div>
-            <div class="temp-zone-divider" style="left:50%"></div>
-            <div class="temp-zone-divider" style="left:75%"></div>
-            <!-- 前次殘影（總經_20260802：74%）＋移動軌跡虛線（74%→76%） -->
-            <!-- 8/30 更新：維持 74%（榮景／過熱加速段）。兩引擎（服務+製造）同步加速、庫存回補在前——循環在延長不在收尾；末升判定條件（全面爆量/資金緊）未觸發，故不上推 -->
-            <div class="temp-trail" style="left:74%;width:2%"></div>
-            <div class="temp-pointer temp-pointer-prev" style="left:76%"><div class="temp-pointer-dot"></div></div>
-            <div class="temp-pointer" style="left:74%">
-              <div class="temp-pointer-label">當前位置（8/30 更新）</div>
-              <div class="temp-pointer-dot"></div>
-            </div>
-          </div>
-          <div class="temp-bar-footer">
-            <span>景氣低谷</span><span>溫和擴張</span><span>過熱加速</span><span>衰退收縮</span>
-          </div>
-        </div>
-      </div>
-  </div>
-  <div class="sec-tab phase-tab" id="sec-tab-sec-phase-mfg">
-    <div class="phase-tab-header">
-      <div class="mw-note-dot mw-dot-mfg"></div>
-      <span class="phase-tab-title">製造業週期位階</span>
-      
-    </div>
-    <div class="phase-temp">
-        <div class="phase-temp-title">製造業循環溫度條</div>
-        <div class="mfg-temp-wrap">
-      <div class="temp-bar-inner">
-        <div class="temp-bar-label-row">
-          <span class="temp-bar-label" style="color:#2997ff">⬇ 衰退（去庫存）</span>
-          <span class="temp-bar-label" style="color:#30d158">↑ 復甦（補庫存）</span>
-          <span class="temp-bar-label" style="color:#ff9f0a">↑↑ 擴張（擴產）</span>
-          <span class="temp-bar-label" style="color:#ff453a">△ 過熱（錯配）</span>
-        </div>
-        <div class="temp-bar-track" style="background:linear-gradient(90deg,#2997ff 0%,#30d158 25%,#ff9f0a 50%,#ff453a 100%)">
-          <div class="temp-zone-divider" style="left:25%"></div>
-          <div class="temp-zone-divider" style="left:50%"></div>
-          <div class="temp-zone-divider" style="left:75%"></div>
-          <!-- 前次殘影（總經_20260802：70%）＋移動軌跡虛線（70%→73%，藍） -->
-          <!-- 8/30 更新：前次 75% → 本期 76%。生產指數創 2021 年底以來新高＋僱用轉正＋客戶庫存「太低」＝供不應求的錯配前緣——這在製造業循環裡是動能不是訊號 -->
-          <div class="temp-trail" style="left:75%;width:1%;border-top-color:#2997ff"></div>
-          <div class="temp-pointer temp-pointer-prev" style="left:75%"><div class="temp-pointer-dot" style="border-color:#2997ff"></div></div>
-          <div class="temp-pointer" style="left:76%">
-            <div class="temp-pointer-label" style="background:#2997ff">當前位置（8/30 更新）</div>
-            <div class="temp-pointer-dot" style="border-color:#2997ff;box-shadow:0 0 4px 2px rgba(41,151,255,.2);animation-name:mfgTempPulse"></div>
-          </div>
-        </div>
-        <div class="temp-bar-footer">
-          <span>庫存過高·砍CAPEX</span>
-          <span>庫存偏低·補庫存</span>
-          <span>訂單強勁·擴產線</span>
-          <span>需求降速·缺工</span>
-        </div>
-      </div>
-    </div>
-      </div>
-  </div>
-</div><div class="notes-grid"><div class="note-card"><div class="note-card-label key">景氣大循環 74%</div><div class="note-card-body">延續上一份的位置（74%→74%）：釘在<b>榮景期、過熱加速段</b>。理由：服務與製造兩具引擎同步加速、庫存回補還在前面——循環在<b>延長</b>、不在收尾；「末升警戒」要看到全面爆量＋資金變緊才算，這些條件都沒觸發，所以不上推。</div></div><div class="note-card"><div class="note-card-label leading">製造業 76%</div><div class="note-card-body">上期 75 → 本期 76，推進到<b>擴張／過熱的邊界＝錯配前緣</b>。8 月 ISM 把證據補足了：客戶庫存仍「太低」、供應商交貨變慢、物價高懸——<b>供不應求的錯配剛開始</b>，在製造業循環裡這是動能不是訊號。（三格的讀數與判讀在完整版細項儀表）</div></div><div class="note-card"><div class="note-card-label warning">什麼會讓指針動</div><div class="note-card-body">大循環往右：投機溫度飆＋資金轉緊；往左：需求端連兩月同向轉弱。<br>製造業往右：物價與交期繼續惡化；往左：總指數連兩月回落且客戶庫存回到「適當」。</div></div></div>
-</div>
-<div class="content-section" id="sec-wave">
-  <div class="section-header"><div class="section-num">三</div><div><h2 class="section-title">放在一起看：大循環裡的小週期</h2><div class="section-desc">THE TWO CYCLES · ONE CHART</div></div></div>
-<div class="section-gain">看完你會拿到：大循環（黃線）與製造業小週期（藍線）疊在同一張圖上——兩個標記各在哪個相位、往哪走。</div><p style="color:var(--text2);font-size:.88em;line-height:1.78;margin-bottom:4px">黃線＝景氣大循環（7–10 年），藍線＝製造業週期（2–4 年，每一個大循環階段裡各走一個小週期）。兩個標記都在<b style="color:var(--header)">榮景段的上坡</b>：大循環標記貼近波峰、製造業標記正往小週期的峰走。</p><div class="market-wave-wrap">
-    <div class="market-wave-title-row">
-      <span>放在一起看</span>
-      <span class="market-wave-sub">黃線 = 景氣大循環（7-10Y）　·　藍線 = 製造業週期（2-4Y，每一個景氣階段各一個小週期）</span>
-    </div>
-    <svg class="market-wave-svg" viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <rect x="0" y="0" width="120" height="200" fill="rgba(255,69,58,.09)"/>
-      <rect x="120" y="0" width="190" height="200" fill="rgba(48,209,88,.09)"/>
-      <rect x="310" y="0" width="180" height="200" fill="rgba(41,151,255,.09)"/>
-      <rect x="490" y="0" width="190" height="200" fill="rgba(255,159,10,.09)"/>
-      <rect x="680" y="0" width="220" height="200" fill="rgba(255,69,58,.09)"/>
-      <line x1="120" y1="0" x2="120" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="310" y1="0" x2="310" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="490" y1="0" x2="490" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="680" y1="0" x2="680" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="100" x2="900" y2="100" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4,4"/><text x="60.0" y="15" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#ff453a" font-weight="600" font-size="12">衰退期</text>
-      <text x="215.0" y="15" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#30d158" font-weight="600" font-size="12">🌱 復甦期</text>
-      <text x="400.0" y="15" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#2997ff" font-weight="600" font-size="12">📈 成長期</text>
-      <text x="585.0" y="15" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#ff9f0a" font-weight="600" font-size="12">🔥 榮景期</text>
-      <text x="790.0" y="15" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#ff453a" font-weight="600" font-size="12">衰退期</text>
-      
-      <defs><linearGradient id="lgGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,.05)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient></defs>
-      <path d="M 0,150.8 L 2,151.3 L 4,151.7 L 6,152.2 L 8,152.6 L 10,153.0 L 12,153.4 L 14,153.8 L 16,154.2 L 18,154.6 L 20,155.0 L 22,155.4 L 24,155.8 L 26,156.2 L 28,156.5 L 30,156.9 L 32,157.2 L 34,157.6 L 36,157.9 L 38,158.2 L 40,158.6 L 42,158.9 L 44,159.2 L 46,159.5 L 48,159.8 L 50,160.1 L 52,160.3 L 54,160.6 L 56,160.9 L 58,161.1 L 60,161.4 L 62,161.6 L 64,161.8 L 66,162.0 L 68,162.3 L 70,162.5 L 72,162.7 L 74,162.8 L 76,163.0 L 78,163.2 L 80,163.4 L 82,163.5 L 84,163.7 L 86,163.8 L 88,164.0 L 90,164.1 L 92,164.2 L 94,164.3 L 96,164.4 L 98,164.5 L 100,164.6 L 102,164.7 L 104,164.7 L 106,164.8 L 108,164.9 L 110,164.9 L 112,164.9 L 114,165.0 L 116,165.0 L 118,165.0 L 120,165.0 L 122,165.0 L 124,165.0 L 126,165.0 L 128,164.9 L 130,164.9 L 132,164.9 L 134,164.8 L 136,164.7 L 138,164.7 L 140,164.6 L 142,164.5 L 144,164.4 L 146,164.3 L 148,164.2 L 150,164.1 L 152,164.0 L 154,163.8 L 156,163.7 L 158,163.5 L 160,163.4 L 162,163.2 L 164,163.0 L 166,162.8 L 168,162.7 L 170,162.5 L 172,162.3 L 174,162.0 L 176,161.8 L 178,161.6 L 180,161.4 L 182,161.1 L 184,160.9 L 186,160.6 L 188,160.3 L 190,160.1 L 192,159.8 L 194,159.5 L 196,159.2 L 198,158.9 L 200,158.6 L 202,158.2 L 204,157.9 L 206,157.6 L 208,157.2 L 210,156.9 L 212,156.5 L 214,156.2 L 216,155.8 L 218,155.4 L 220,155.0 L 222,154.6 L 224,154.2 L 226,153.8 L 228,153.4 L 230,153.0 L 232,152.6 L 234,152.2 L 236,151.7 L 238,151.3 L 240,150.8 L 242,150.4 L 244,149.9 L 246,149.4 L 248,148.9 L 250,148.5 L 252,148.0 L 254,147.5 L 256,147.0 L 258,146.5 L 260,146.0 L 262,145.4 L 264,144.9 L 266,144.4 L 268,143.9 L 270,143.3 L 272,142.8 L 274,142.2 L 276,141.7 L 278,141.1 L 280,140.5 L 282,140.0 L 284,139.4 L 286,138.8 L 288,138.2 L 290,137.6 L 292,137.0 L 294,136.4 L 296,135.8 L 298,135.2 L 300,134.6 L 302,134.0 L 304,133.3 L 306,132.7 L 308,132.1 L 310,131.4 L 312,130.8 L 314,130.2 L 316,129.5 L 318,128.9 L 320,128.2 L 322,127.5 L 324,126.9 L 326,126.2 L 328,125.5 L 330,124.9 L 332,124.2 L 334,123.5 L 336,122.8 L 338,122.2 L 340,121.5 L 342,120.8 L 344,120.1 L 346,119.4 L 348,118.7 L 350,118.0 L 352,117.3 L 354,116.6 L 356,115.9 L 358,115.2 L 360,114.5 L 362,113.8 L 364,113.0 L 366,112.3 L 368,111.6 L 370,110.9 L 372,110.2 L 374,109.4 L 376,108.7 L 378,108.0 L 380,107.3 L 382,106.6 L 384,105.8 L 386,105.1 L 388,104.4 L 390,103.6 L 392,102.9 L 394,102.2 L 396,101.5 L 398,100.7 L 400,100.0 L 402,99.3 L 404,98.5 L 406,97.8 L 408,97.1 L 410,96.4 L 412,95.6 L 414,94.9 L 416,94.2 L 418,93.4 L 420,92.7 L 422,92.0 L 424,91.3 L 426,90.6 L 428,89.8 L 430,89.1 L 432,88.4 L 434,87.7 L 436,87.0 L 438,86.2 L 440,85.5 L 442,84.8 L 444,84.1 L 446,83.4 L 448,82.7 L 450,82.0 L 452,81.3 L 454,80.6 L 456,79.9 L 458,79.2 L 460,78.5 L 462,77.8 L 464,77.2 L 466,76.5 L 468,75.8 L 470,75.1 L 472,74.5 L 474,73.8 L 476,73.1 L 478,72.5 L 480,71.8 L 482,71.1 L 484,70.5 L 486,69.8 L 488,69.2 L 490,68.6 L 492,67.9 L 494,67.3 L 496,66.7 L 498,66.0 L 500,65.4 L 502,64.8 L 504,64.2 L 506,63.6 L 508,63.0 L 510,62.4 L 512,61.8 L 514,61.2 L 516,60.6 L 518,60.0 L 520,59.5 L 522,58.9 L 524,58.3 L 526,57.8 L 528,57.2 L 530,56.7 L 532,56.1 L 534,55.6 L 536,55.1 L 538,54.6 L 540,54.0 L 542,53.5 L 544,53.0 L 546,52.5 L 548,52.0 L 550,51.5 L 552,51.1 L 554,50.6 L 556,50.1 L 558,49.6 L 560,49.2 L 562,48.7 L 564,48.3 L 566,47.8 L 568,47.4 L 570,47.0 L 572,46.6 L 574,46.2 L 576,45.8 L 578,45.4 L 580,45.0 L 582,44.6 L 584,44.2 L 586,43.8 L 588,43.5 L 590,43.1 L 592,42.8 L 594,42.4 L 596,42.1 L 598,41.8 L 600,41.4 L 602,41.1 L 604,40.8 L 606,40.5 L 608,40.2 L 610,39.9 L 612,39.7 L 614,39.4 L 616,39.1 L 618,38.9 L 620,38.6 L 622,38.4 L 624,38.2 L 626,38.0 L 628,37.7 L 630,37.5 L 632,37.3 L 634,37.2 L 636,37.0 L 638,36.8 L 640,36.6 L 642,36.5 L 644,36.3 L 646,36.2 L 648,36.0 L 650,35.9 L 652,35.8 L 654,35.7 L 656,35.6 L 658,35.5 L 660,35.4 L 662,35.3 L 664,35.3 L 666,35.2 L 668,35.1 L 670,35.1 L 672,35.1 L 674,35.0 L 676,35.0 L 678,35.0 L 680,35.0 L 682,35.0 L 684,35.0 L 686,35.0 L 688,35.1 L 690,35.1 L 692,35.1 L 694,35.2 L 696,35.3 L 698,35.3 L 700,35.4 L 702,35.5 L 704,35.6 L 706,35.7 L 708,35.8 L 710,35.9 L 712,36.0 L 714,36.2 L 716,36.3 L 718,36.5 L 720,36.6 L 722,36.8 L 724,37.0 L 726,37.2 L 728,37.3 L 730,37.5 L 732,37.7 L 734,38.0 L 736,38.2 L 738,38.4 L 740,38.6 L 742,38.9 L 744,39.1 L 746,39.4 L 748,39.7 L 750,39.9 L 752,40.2 L 754,40.5 L 756,40.8 L 758,41.1 L 760,41.4 L 762,41.8 L 764,42.1 L 766,42.4 L 768,42.8 L 770,43.1 L 772,43.5 L 774,43.8 L 776,44.2 L 778,44.6 L 780,45.0 L 782,45.4 L 784,45.8 L 786,46.2 L 788,46.6 L 790,47.0 L 792,47.4 L 794,47.8 L 796,48.3 L 798,48.7 L 800,49.2 L 802,49.6 L 804,50.1 L 806,50.6 L 808,51.1 L 810,51.5 L 812,52.0 L 814,52.5 L 816,53.0 L 818,53.5 L 820,54.0 L 822,54.6 L 824,55.1 L 826,55.6 L 828,56.1 L 830,56.7 L 832,57.2 L 834,57.8 L 836,58.3 L 838,58.9 L 840,59.5 L 842,60.0 L 844,60.6 L 846,61.2 L 848,61.8 L 850,62.4 L 852,63.0 L 854,63.6 L 856,64.2 L 858,64.8 L 860,65.4 L 862,66.0 L 864,66.7 L 866,67.3 L 868,67.9 L 870,68.6 L 872,69.2 L 874,69.8 L 876,70.5 L 878,71.1 L 880,71.8 L 882,72.5 L 884,73.1 L 886,73.8 L 888,74.5 L 890,75.1 L 892,75.8 L 894,76.5 L 896,77.2 L 898,77.8 L 900,78.5 L 900,200 L 0,200 Z" fill="url(#lgGrad)"/>
-      <path d="M 0,150.8 L 2,151.3 L 4,151.7 L 6,152.2 L 8,152.6 L 10,153.0 L 12,153.4 L 14,153.8 L 16,154.2 L 18,154.6 L 20,155.0 L 22,155.4 L 24,155.8 L 26,156.2 L 28,156.5 L 30,156.9 L 32,157.2 L 34,157.6 L 36,157.9 L 38,158.2 L 40,158.6 L 42,158.9 L 44,159.2 L 46,159.5 L 48,159.8 L 50,160.1 L 52,160.3 L 54,160.6 L 56,160.9 L 58,161.1 L 60,161.4 L 62,161.6 L 64,161.8 L 66,162.0 L 68,162.3 L 70,162.5 L 72,162.7 L 74,162.8 L 76,163.0 L 78,163.2 L 80,163.4 L 82,163.5 L 84,163.7 L 86,163.8 L 88,164.0 L 90,164.1 L 92,164.2 L 94,164.3 L 96,164.4 L 98,164.5 L 100,164.6 L 102,164.7 L 104,164.7 L 106,164.8 L 108,164.9 L 110,164.9 L 112,164.9 L 114,165.0 L 116,165.0 L 118,165.0 L 120,165.0 L 122,165.0 L 124,165.0 L 126,165.0 L 128,164.9 L 130,164.9 L 132,164.9 L 134,164.8 L 136,164.7 L 138,164.7 L 140,164.6 L 142,164.5 L 144,164.4 L 146,164.3 L 148,164.2 L 150,164.1 L 152,164.0 L 154,163.8 L 156,163.7 L 158,163.5 L 160,163.4 L 162,163.2 L 164,163.0 L 166,162.8 L 168,162.7 L 170,162.5 L 172,162.3 L 174,162.0 L 176,161.8 L 178,161.6 L 180,161.4 L 182,161.1 L 184,160.9 L 186,160.6 L 188,160.3 L 190,160.1 L 192,159.8 L 194,159.5 L 196,159.2 L 198,158.9 L 200,158.6 L 202,158.2 L 204,157.9 L 206,157.6 L 208,157.2 L 210,156.9 L 212,156.5 L 214,156.2 L 216,155.8 L 218,155.4 L 220,155.0 L 222,154.6 L 224,154.2 L 226,153.8 L 228,153.4 L 230,153.0 L 232,152.6 L 234,152.2 L 236,151.7 L 238,151.3 L 240,150.8 L 242,150.4 L 244,149.9 L 246,149.4 L 248,148.9 L 250,148.5 L 252,148.0 L 254,147.5 L 256,147.0 L 258,146.5 L 260,146.0 L 262,145.4 L 264,144.9 L 266,144.4 L 268,143.9 L 270,143.3 L 272,142.8 L 274,142.2 L 276,141.7 L 278,141.1 L 280,140.5 L 282,140.0 L 284,139.4 L 286,138.8 L 288,138.2 L 290,137.6 L 292,137.0 L 294,136.4 L 296,135.8 L 298,135.2 L 300,134.6 L 302,134.0 L 304,133.3 L 306,132.7 L 308,132.1 L 310,131.4 L 312,130.8 L 314,130.2 L 316,129.5 L 318,128.9 L 320,128.2 L 322,127.5 L 324,126.9 L 326,126.2 L 328,125.5 L 330,124.9 L 332,124.2 L 334,123.5 L 336,122.8 L 338,122.2 L 340,121.5 L 342,120.8 L 344,120.1 L 346,119.4 L 348,118.7 L 350,118.0 L 352,117.3 L 354,116.6 L 356,115.9 L 358,115.2 L 360,114.5 L 362,113.8 L 364,113.0 L 366,112.3 L 368,111.6 L 370,110.9 L 372,110.2 L 374,109.4 L 376,108.7 L 378,108.0 L 380,107.3 L 382,106.6 L 384,105.8 L 386,105.1 L 388,104.4 L 390,103.6 L 392,102.9 L 394,102.2 L 396,101.5 L 398,100.7 L 400,100.0 L 402,99.3 L 404,98.5 L 406,97.8 L 408,97.1 L 410,96.4 L 412,95.6 L 414,94.9 L 416,94.2 L 418,93.4 L 420,92.7 L 422,92.0 L 424,91.3 L 426,90.6 L 428,89.8 L 430,89.1 L 432,88.4 L 434,87.7 L 436,87.0 L 438,86.2 L 440,85.5 L 442,84.8 L 444,84.1 L 446,83.4 L 448,82.7 L 450,82.0 L 452,81.3 L 454,80.6 L 456,79.9 L 458,79.2 L 460,78.5 L 462,77.8 L 464,77.2 L 466,76.5 L 468,75.8 L 470,75.1 L 472,74.5 L 474,73.8 L 476,73.1 L 478,72.5 L 480,71.8 L 482,71.1 L 484,70.5 L 486,69.8 L 488,69.2 L 490,68.6 L 492,67.9 L 494,67.3 L 496,66.7 L 498,66.0 L 500,65.4 L 502,64.8 L 504,64.2 L 506,63.6 L 508,63.0 L 510,62.4 L 512,61.8 L 514,61.2 L 516,60.6 L 518,60.0 L 520,59.5 L 522,58.9 L 524,58.3 L 526,57.8 L 528,57.2 L 530,56.7 L 532,56.1 L 534,55.6 L 536,55.1 L 538,54.6 L 540,54.0 L 542,53.5 L 544,53.0 L 546,52.5 L 548,52.0 L 550,51.5 L 552,51.1 L 554,50.6 L 556,50.1 L 558,49.6 L 560,49.2 L 562,48.7 L 564,48.3 L 566,47.8 L 568,47.4 L 570,47.0 L 572,46.6 L 574,46.2 L 576,45.8 L 578,45.4 L 580,45.0 L 582,44.6 L 584,44.2 L 586,43.8 L 588,43.5 L 590,43.1 L 592,42.8 L 594,42.4 L 596,42.1 L 598,41.8 L 600,41.4 L 602,41.1 L 604,40.8 L 606,40.5 L 608,40.2 L 610,39.9 L 612,39.7 L 614,39.4 L 616,39.1 L 618,38.9 L 620,38.6 L 622,38.4 L 624,38.2 L 626,38.0 L 628,37.7 L 630,37.5 L 632,37.3 L 634,37.2 L 636,37.0 L 638,36.8 L 640,36.6 L 642,36.5 L 644,36.3 L 646,36.2 L 648,36.0 L 650,35.9 L 652,35.8 L 654,35.7 L 656,35.6 L 658,35.5 L 660,35.4 L 662,35.3 L 664,35.3 L 666,35.2 L 668,35.1 L 670,35.1 L 672,35.1 L 674,35.0 L 676,35.0 L 678,35.0 L 680,35.0 L 682,35.0 L 684,35.0 L 686,35.0 L 688,35.1 L 690,35.1 L 692,35.1 L 694,35.2 L 696,35.3 L 698,35.3 L 700,35.4 L 702,35.5 L 704,35.6 L 706,35.7 L 708,35.8 L 710,35.9 L 712,36.0 L 714,36.2 L 716,36.3 L 718,36.5 L 720,36.6 L 722,36.8 L 724,37.0 L 726,37.2 L 728,37.3 L 730,37.5 L 732,37.7 L 734,38.0 L 736,38.2 L 738,38.4 L 740,38.6 L 742,38.9 L 744,39.1 L 746,39.4 L 748,39.7 L 750,39.9 L 752,40.2 L 754,40.5 L 756,40.8 L 758,41.1 L 760,41.4 L 762,41.8 L 764,42.1 L 766,42.4 L 768,42.8 L 770,43.1 L 772,43.5 L 774,43.8 L 776,44.2 L 778,44.6 L 780,45.0 L 782,45.4 L 784,45.8 L 786,46.2 L 788,46.6 L 790,47.0 L 792,47.4 L 794,47.8 L 796,48.3 L 798,48.7 L 800,49.2 L 802,49.6 L 804,50.1 L 806,50.6 L 808,51.1 L 810,51.5 L 812,52.0 L 814,52.5 L 816,53.0 L 818,53.5 L 820,54.0 L 822,54.6 L 824,55.1 L 826,55.6 L 828,56.1 L 830,56.7 L 832,57.2 L 834,57.8 L 836,58.3 L 838,58.9 L 840,59.5 L 842,60.0 L 844,60.6 L 846,61.2 L 848,61.8 L 850,62.4 L 852,63.0 L 854,63.6 L 856,64.2 L 858,64.8 L 860,65.4 L 862,66.0 L 864,66.7 L 866,67.3 L 868,67.9 L 870,68.6 L 872,69.2 L 874,69.8 L 876,70.5 L 878,71.1 L 880,71.8 L 882,72.5 L 884,73.1 L 886,73.8 L 888,74.5 L 890,75.1 L 892,75.8 L 894,76.5 L 896,77.2 L 898,77.8 L 900,78.5" fill="none" stroke="#ff9f0a" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M 0,170.8 L 2,171.2 L 4,171.3 L 6,171.2 L 8,170.9 L 10,170.3 L 12,169.6 L 14,168.7 L 16,167.6 L 18,166.4 L 20,165.0 L 22,163.6 L 24,162.0 L 26,160.3 L 28,158.6 L 30,156.9 L 32,155.1 L 34,153.4 L 36,151.7 L 38,150.1 L 40,148.6 L 42,147.1 L 44,145.8 L 46,144.6 L 48,143.6 L 50,142.7 L 52,142.1 L 54,141.6 L 56,141.3 L 58,141.2 L 60,141.4 L 62,141.7 L 64,142.3 L 66,143.0 L 68,144.0 L 70,145.1 L 72,146.5 L 74,148.0 L 76,149.6 L 78,151.4 L 80,153.4 L 82,155.4 L 84,157.5 L 86,159.7 L 88,161.9 L 90,164.1 L 92,166.3 L 94,168.5 L 96,170.6 L 98,172.6 L 100,174.6 L 102,176.4 L 104,178.1 L 106,179.7 L 108,181.0 L 110,182.2 L 112,183.2 L 114,184.0 L 116,184.5 L 118,184.9 L 120,185.0 L 122,185.0 L 124,184.8 L 126,184.6 L 128,184.2 L 130,183.8 L 132,183.3 L 134,182.7 L 136,182.0 L 138,181.2 L 140,180.4 L 142,179.4 L 144,178.4 L 146,177.4 L 148,176.2 L 150,175.0 L 152,173.8 L 154,172.5 L 156,171.1 L 158,169.7 L 160,168.3 L 162,166.8 L 164,165.3 L 166,163.8 L 168,162.3 L 170,160.8 L 172,159.3 L 174,157.8 L 176,156.3 L 178,154.8 L 180,153.3 L 182,151.9 L 184,150.5 L 186,149.1 L 188,147.8 L 190,146.5 L 192,145.3 L 194,144.1 L 196,143.0 L 198,142.0 L 200,141.0 L 202,140.1 L 204,139.2 L 206,138.5 L 208,137.8 L 210,137.2 L 212,136.6 L 214,136.2 L 216,135.8 L 218,135.5 L 220,135.3 L 222,135.2 L 224,135.1 L 226,135.2 L 228,135.3 L 230,135.4 L 232,135.7 L 234,136.0 L 236,136.3 L 238,136.8 L 240,137.3 L 242,137.8 L 244,138.4 L 246,139.0 L 248,139.7 L 250,140.4 L 252,141.2 L 254,141.9 L 256,142.7 L 258,143.5 L 260,144.3 L 262,145.1 L 264,145.9 L 266,146.7 L 268,147.5 L 270,148.2 L 272,148.9 L 274,149.6 L 276,150.3 L 278,150.9 L 280,151.5 L 282,152.0 L 284,152.4 L 286,152.8 L 288,153.1 L 290,153.4 L 292,153.6 L 294,153.7 L 296,153.7 L 298,153.6 L 300,153.5 L 302,153.3 L 304,152.9 L 306,152.5 L 308,152.0 L 310,151.4 L 312,150.8 L 314,150.0 L 316,149.1 L 318,148.1 L 320,147.0 L 322,145.8 L 324,144.5 L 326,143.2 L 328,141.7 L 330,140.2 L 332,138.6 L 334,136.9 L 336,135.2 L 338,133.3 L 340,131.5 L 342,129.5 L 344,127.6 L 346,125.6 L 348,123.5 L 350,121.5 L 352,119.4 L 354,117.3 L 356,115.2 L 358,113.1 L 360,111.0 L 362,108.9 L 364,106.9 L 366,104.8 L 368,102.8 L 370,100.9 L 372,99.0 L 374,97.1 L 376,95.3 L 378,93.6 L 380,92.0 L 382,90.4 L 384,88.9 L 386,87.4 L 388,86.1 L 390,84.9 L 392,83.7 L 394,82.6 L 396,81.7 L 398,80.8 L 400,80.0 L 402,79.3 L 404,78.7 L 406,78.2 L 408,77.9 L 410,77.6 L 412,77.4 L 414,77.2 L 416,77.2 L 418,77.3 L 420,77.4 L 422,77.6 L 424,77.9 L 426,78.2 L 428,78.6 L 430,79.1 L 432,79.6 L 434,80.2 L 436,80.8 L 438,81.4 L 440,82.1 L 442,82.7 L 444,83.4 L 446,84.1 L 448,84.8 L 450,85.5 L 452,86.1 L 454,86.8 L 456,87.4 L 458,88.0 L 460,88.5 L 462,89.0 L 464,89.5 L 466,89.9 L 468,90.2 L 470,90.4 L 472,90.6 L 474,90.7 L 476,90.8 L 478,90.7 L 480,90.6 L 482,90.4 L 484,90.1 L 486,89.6 L 488,89.1 L 490,88.6 L 492,87.9 L 494,87.1 L 496,86.3 L 498,85.3 L 500,84.3 L 502,83.2 L 504,82.1 L 506,80.9 L 508,79.5 L 510,78.2 L 512,76.7 L 514,75.2 L 516,73.7 L 518,72.1 L 520,70.4 L 522,68.7 L 524,67.0 L 526,65.2 L 528,63.4 L 530,61.6 L 532,59.8 L 534,57.9 L 536,56.1 L 538,54.2 L 540,52.4 L 542,50.6 L 544,48.8 L 546,47.0 L 548,45.2 L 550,43.5 L 552,41.8 L 554,40.2 L 556,38.6 L 558,37.1 L 560,35.6 L 562,34.2 L 564,32.9 L 566,31.7 L 568,30.5 L 570,29.4 L 572,28.4 L 574,27.5 L 576,26.6 L 578,25.9 L 580,25.2 L 582,24.7 L 584,24.2 L 586,23.8 L 588,23.6 L 590,23.4 L 592,23.3 L 594,23.3 L 596,23.4 L 598,23.6 L 600,23.8 L 602,24.2 L 604,24.6 L 606,25.2 L 608,25.7 L 610,26.4 L 612,27.1 L 614,27.9 L 616,28.8 L 618,29.7 L 620,30.6 L 622,31.6 L 624,32.6 L 626,33.7 L 628,34.8 L 630,35.9 L 632,37.0 L 634,38.1 L 636,39.3 L 638,40.4 L 640,41.5 L 642,42.7 L 644,43.7 L 646,44.8 L 648,45.9 L 650,46.9 L 652,47.8 L 654,48.7 L 656,49.6 L 658,50.4 L 660,51.2 L 662,51.9 L 664,52.5 L 666,53.1 L 668,53.6 L 670,54.0 L 672,54.4 L 674,54.6 L 676,54.8 L 678,55.0 L 680,55.0 L 682,55.0 L 684,54.9 L 686,54.7 L 688,54.5 L 690,54.3 L 692,54.0 L 694,53.6 L 696,53.2 L 698,52.7 L 700,52.2 L 702,51.7 L 704,51.1 L 706,50.4 L 708,49.7 L 710,49.0 L 712,48.3 L 714,47.5 L 716,46.6 L 718,45.8 L 720,44.9 L 722,44.1 L 724,43.2 L 726,42.2 L 728,41.3 L 730,40.4 L 732,39.5 L 734,38.5 L 736,37.6 L 738,36.7 L 740,35.8 L 742,34.9 L 744,34.1 L 746,33.2 L 748,32.4 L 750,31.6 L 752,30.9 L 754,30.2 L 756,29.5 L 758,28.9 L 760,28.3 L 762,27.8 L 764,27.3 L 766,26.9 L 768,26.6 L 770,26.3 L 772,26.1 L 774,25.9 L 776,25.8 L 778,25.7 L 780,25.8 L 782,25.9 L 784,26.0 L 786,26.3 L 788,26.6 L 790,27.0 L 792,27.4 L 794,28.0 L 796,28.6 L 798,29.2 L 800,30.0 L 802,30.8 L 804,31.7 L 806,32.6 L 808,33.6 L 810,34.7 L 812,35.8 L 814,37.0 L 816,38.3 L 818,39.6 L 820,40.9 L 822,42.3 L 824,43.8 L 826,45.3 L 828,46.8 L 830,48.4 L 832,50.0 L 834,51.6 L 836,53.3 L 838,54.9 L 840,56.6 L 842,58.3 L 844,60.1 L 846,61.8 L 848,63.5 L 850,65.2 L 852,67.0 L 854,68.7 L 856,70.4 L 858,72.1 L 860,73.7 L 862,75.4 L 864,77.0 L 866,78.6 L 868,80.1 L 870,81.7 L 872,83.1 L 874,84.6 L 876,86.0 L 878,87.3 L 880,88.6 L 882,89.9 L 884,91.1 L 886,92.2 L 888,93.3 L 890,94.3 L 892,95.3 L 894,96.2 L 896,97.0 L 898,97.8 L 900,98.5" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linejoin="round" opacity=".8"/>
-      
-      <!-- 8/30 重算：本期維持 74%（672,35.1 就在黃線峰頂 674 旁）。上期同為 74%＝持平，故不畫殘影軌跡；兩引擎加速＋庫存回補在前＝循環在延長 -->
-      <g transform="translate(672,35.1)">
-        <circle class="biz-dot-pulse" r="9" fill="rgba(255,159,10,.25)"/>
-        <circle r="5" fill="#fff" stroke="#ff9f0a" stroke-width="2.5"/>
-        <rect x="-54" y="12" width="108" height="18" rx="3" fill="#ff9f0a"/>
-        <text x="0" y="25" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#000000" font-weight="700" font-size="12">景氣大循環位階</text>
-        <line x1="0" y1="5" x2="0" y2="12" stroke="#ff9f0a" stroke-width="1.5"/>
-      </g>
-      <!-- 8/30 重算：上期 562,34.2（75%）→ 本期 570,29.4（76%，沿藍線推進、逼近小週期峰 592）；生產創高＋僱用轉正＋客戶庫存太低＝錯配前緣 -->
-      <path class="wave-trail" d="M 562,34.2 Q 566,31.6 570,29.4" fill="none" stroke="#2997ff" stroke-width="1" stroke-dasharray="3 3" opacity=".35"/>
-      <circle class="wave-prev" cx="562" cy="34.2" r="3" fill="#fff" stroke="#2997ff" stroke-width="1.4" opacity=".4"/>
-      <g transform="translate(570,29.4)">
-        <circle class="mfg-dot-pulse" r="7" fill="rgba(41,151,255,.25)"/>
-        <circle r="4.5" fill="#fff" stroke="#2997ff" stroke-width="2"/>
-        <rect x="-54" y="10" width="108" height="18" rx="3" fill="#2997ff"/>
-        <text x="0" y="23" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#000000" font-weight="700" font-size="12">製造業週期位階</text>
-        <line x1="0" y1="5" x2="0" y2="10" stroke="#2997ff" stroke-width="1.5"/>
-      </g>
-      <rect x="690" y="145" width="205" height="50" fill="rgba(0,0,0,.28)" rx="4"/>
-      <line x1="698" y1="159" x2="728" y2="159" stroke="#ff9f0a" stroke-width="2.5"/>
-      <text x="734" y="163" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#ff9f0a" font-size="12">景氣大循環（7-10Y）</text>
-      <line x1="698" y1="178" x2="728" y2="178" stroke="#2997ff" stroke-width="1.8"/>
-      <text x="734" y="182" font-family="-apple-system,BlinkMacSystemFont,PingFang TC,sans-serif"   fill="#2997ff" font-size="12">製造業週期（2-4Y）</text>
-    </svg>
-  </div><div class="context-box"><div class="context-box-title">怎麼讀這張圖</div><div class="context-box-text">大循環標記<b>持平</b>（上期也是 74%）——不是沒東西動，是兩具引擎加速＋庫存回補把這一段<b>拉長</b>了；製造業標記<b>推進一格</b>（75→76），沿藍線往小週期的峰靠近。兩個標記的相對位置在說一件事：<b>小週期正在大循環的上坡裡再衝一次</b>——這是榮景期常見的長相，也是「還有一段沒走」的視覺版。</div></div>
-</div>
-<div class="content-section" id="sec-engines">
-  <div class="section-header"><div class="section-num">四</div><div><h2 class="section-title">製造業 × 服務業：兩具引擎同時在線上</h2><div class="section-desc">TWO ENGINES · ISM 2026</div></div></div>
-<div class="section-gain">看完你會拿到：紅線製造、藍線服務、金線加權經濟體溫——三條線今年怎麼走、8 月製造開牌開出什麼。</div><div class="sl-list">
-    <div class="li"><b>服務引擎</b><span>新訂單持續擴張、而且在加快；更靈敏的另一套調查，八月綜合讀數衝上<strong>二十個月新高</strong></span></div>
-    <div class="li"><b>製造引擎</b><span>7 月跳上 55.6、<strong>8 月 54.6 守住突破</strong>；生產分項 58.3 續留 <strong>2021 年底以來最高附近</strong>；新訂單 53.7 由高擴張區回落、仍連八個月擴張（半盞燈，下月盯）</span></div>
-    <div class="li"><b>擴張的廣度</b><span>十八個產業裡<strong>十五個在擴張</strong>（7、8 月同）；僱用翻正後 8 月續守擴張區（51.2）</span></div>
-  </div>
-<div class="dc"><div class="dc-t">ISM 採購經理人指數 · 製造 × 服務 × 加權經濟體溫（2026 逐月）</div><div class="dc-w"><svg viewBox="0 0 960 260" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block"><line x1="58" y1="197.6" x2="946" y2="197.6" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,4"/><text x="50" y="201.6" font-size="11.5" fill="var(--text3)" text-anchor="end" font-family="var(--mono)">50</text><line x1="58" y1="152.9" x2="946" y2="152.9" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,4"/><text x="50" y="156.9" font-size="11.5" fill="var(--text3)" text-anchor="end" font-family="var(--mono)">52</text><line x1="58" y1="108.2" x2="946" y2="108.2" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,4"/><text x="50" y="112.2" font-size="11.5" fill="var(--text3)" text-anchor="end" font-family="var(--mono)">54</text><line x1="58" y1="63.5" x2="946" y2="63.5" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,4"/><text x="50" y="67.5" font-size="11.5" fill="var(--text3)" text-anchor="end" font-family="var(--mono)">56</text><line x1="58" y1="197.6" x2="946" y2="197.6" stroke="var(--text3)" stroke-width="1.4" stroke-dasharray="6,4"/><text x="854" y="191.6" font-size="11.5" fill="var(--text3)">50＝榮枯線</text><path d="M113.5 139.5 L224.5 144.0 L335.5 137.3 L446.5 137.3 L557.5 108.2 L668.5 123.9 L779.5 72.5 L890.5 94.8" fill="none" stroke="#ff453a" stroke-width="2.2" stroke-linejoin="round" opacity=".9"/><path d="M113.5 112.7 L224.5 61.3 L335.5 108.2 L446.5 117.2 L557.5 97.1 L668.5 108.2 L779.5 106.0" fill="none" stroke="#2997ff" stroke-width="2.2" stroke-linejoin="round" opacity=".9"/><path class="dc-pulse" d="M113.5 120.8 L224.5 86.1 L335.5 117.0 L446.5 123.2 L557.5 100.4 L668.5 112.9 L779.5 95.9" fill="none" stroke="#d4af37" stroke-width="3" stroke-linejoin="round"/><circle cx="113.5" cy="139.5" r="3.2" fill="#ff453a" opacity=".9"/><circle cx="224.5" cy="144.0" r="3.2" fill="#ff453a" opacity=".9"/><circle cx="335.5" cy="137.3" r="3.2" fill="#ff453a" opacity=".9"/><circle cx="446.5" cy="137.3" r="3.2" fill="#ff453a" opacity=".9"/><circle cx="557.5" cy="108.2" r="3.2" fill="#ff453a" opacity=".9"/><circle cx="668.5" cy="123.9" r="3.2" fill="#ff453a" opacity=".9"/><circle cx="779.5" cy="72.5" r="3.2" fill="#ff453a" opacity=".9"/><circle cx="890.5" cy="94.8" r="3.2" fill="#ff453a" opacity=".9"/><circle cx="113.5" cy="112.7" r="3.2" fill="#2997ff" opacity=".9"/><circle cx="224.5" cy="61.3" r="3.2" fill="#2997ff" opacity=".9"/><circle cx="335.5" cy="108.2" r="3.2" fill="#2997ff" opacity=".9"/><circle cx="446.5" cy="117.2" r="3.2" fill="#2997ff" opacity=".9"/><circle cx="557.5" cy="97.1" r="3.2" fill="#2997ff" opacity=".9"/><circle cx="668.5" cy="108.2" r="3.2" fill="#2997ff" opacity=".9"/><circle cx="779.5" cy="106.0" r="3.2" fill="#2997ff" opacity=".9"/><circle class="dc-pulse" cx="113.5" cy="120.8" r="3.8" fill="#d4af37"/><circle class="dc-pulse" cx="224.5" cy="86.1" r="3.8" fill="#d4af37"/><circle class="dc-pulse" cx="335.5" cy="117.0" r="3.8" fill="#d4af37"/><circle class="dc-pulse" cx="446.5" cy="123.2" r="3.8" fill="#d4af37"/><circle class="dc-pulse" cx="557.5" cy="100.4" r="3.8" fill="#d4af37"/><circle class="dc-pulse" cx="668.5" cy="112.9" r="3.8" fill="#d4af37"/><circle class="dc-pulse" cx="779.5" cy="95.9" r="3.8" fill="#d4af37"/><text x="779.5" y="61.5" font-size="12" fill="#ff453a" text-anchor="middle" font-family="var(--mono)" font-weight="700">55.6</text><text x="890.5" y="82.8" font-size="12.5" fill="#ff453a" text-anchor="middle" font-family="var(--mono)" font-weight="800">54.6</text><text x="779.5" y="127.0" font-size="12" fill="#2997ff" text-anchor="middle" font-family="var(--mono)">54.1</text><text x="789.5" y="111.9" font-size="12" fill="#d4af37" text-anchor="start" font-family="var(--mono)" font-weight="800">54.55</text><text x="224.5" y="50.3" font-size="12" fill="#2997ff" text-anchor="middle" font-family="var(--mono)">56.1</text><text x="113.5" y="248" font-size="12" fill="var(--text3)" text-anchor="middle" font-family="var(--mono)">1月</text><text x="224.5" y="248" font-size="12" fill="var(--text3)" text-anchor="middle" font-family="var(--mono)">2月</text><text x="335.5" y="248" font-size="12" fill="var(--text3)" text-anchor="middle" font-family="var(--mono)">3月</text><text x="446.5" y="248" font-size="12" fill="var(--text3)" text-anchor="middle" font-family="var(--mono)">4月</text><text x="557.5" y="248" font-size="12" fill="var(--text3)" text-anchor="middle" font-family="var(--mono)">5月</text><text x="668.5" y="248" font-size="12" fill="var(--text3)" text-anchor="middle" font-family="var(--mono)">6月</text><text x="779.5" y="248" font-size="12" fill="var(--text3)" text-anchor="middle" font-family="var(--mono)">7月</text><text x="890.5" y="248" font-size="12" fill="var(--text3)" text-anchor="middle" font-family="var(--mono)">8月</text><text x="894.5" y="43.4" font-size="12.5" fill="#ff453a" text-anchor="end" font-weight="700">8月 54.6＝突破後守住（驗證點 ✓ 守 54 之上）</text><text x="890.5" y="122.0" font-size="11.5" fill="var(--text3)" text-anchor="middle">服務業 8 月</text><text x="890.5" y="137.0" font-size="11.5" fill="var(--text3)" text-anchor="middle">9/3 開牌</text><line x1="58" y1="13" x2="80" y2="13" stroke="#ff453a" stroke-width="2.2"/><text x="86" y="17" font-size="12" fill="var(--text3)">製造業（佔 3 成）</text><line x1="218" y1="13" x2="240" y2="13" stroke="#2997ff" stroke-width="2.2"/><text x="246" y="17" font-size="12" fill="var(--text3)">服務業（佔 7 成）</text><line x1="378" y1="13" x2="400" y2="13" stroke="#d4af37" stroke-width="3"/><text x="406" y="17" font-size="12" fill="var(--text3)">加權＝製造×0.3＋服務×0.7</text></svg></div><div class="dc-src">資料：Institute for Supply Management · 製造 2026-01～08（8 月＝9/1 發布）·服務 2026-01～07（8 月 9/3 發布）· 加權＝製造 30%＋服務 70%</div><div class="dc-note"><b>怎麼看：</b><span style="color:#ff453a;font-weight:700">紅線（製造，佔經濟三成）</span>橫盤半年、7 月跳上 55.6，<b>8 月 54.6 回吐一格但守住 54＝突破成立</b>（驗證點總表第一張牌 ✓）；生產分項 58.3 幾乎持平在 2021 年底以來最高，新訂單 53.7 失守 55 記半盞燈。<span style="color:#2997ff;font-weight:700">藍線（服務，佔七成）</span>整段穩在線上，8 月 9/3 開牌；<span style="color:#d4af37;font-weight:700">金粗線（微光呼吸）＝加權經濟體溫</span>，7 月 54.55 為今年最高——8 月的加權點等服務業開牌後補上。</div></div>
-<pre class="ascii-fig"><span class="af-h">量的鏈條 · 從需求一路傳到獲利</span><span class="af-row" style="--d:0">  <span class="af-key"><span class="af-c" style="width:8.00ch;text-align:left">終端需求</span></span>  <span class="af-c" style="width:38.00ch;text-align:left">零售連五個月往上（單月回檔是活動移月）</span>  <span class="af-up">✓ 還在走</span></span><span class="af-row" style="--d:1">  <span class="af-key">      ↓</span></span><span class="af-row" style="--d:2">  <span class="af-key"><span class="af-c" style="width:8.00ch;text-align:left">新 訂 單</span></span>  <span class="af-c" style="width:38.00ch;text-align:left">服務與製造雙雙站上榮枯線之上再加速</span>  <span class="af-up">✓ 在加速</span></span><span class="af-row" style="--d:3">  <span class="af-key">      ↓</span></span><span class="af-row" style="--d:4">  <span class="af-key"><span class="af-c" style="width:8.00ch;text-align:left">生　　產</span></span>  <span class="af-c" style="width:38.00ch;text-align:left">製造業生產指數創 2021 年底以來新高</span>  <span class="af-up">✓ 創新高</span></span><span class="af-row" style="--d:5">  <span class="af-key">      ↓</span></span><span class="af-row" style="--d:6">  <span class="af-key"><span class="af-c" style="width:8.00ch;text-align:left">庫　　存</span></span>  <span class="af-c" style="width:38.00ch;text-align:left">三層同時壓在多年低位——只等補</span>  <span class="af-warn">▸ 等回補</span></span><span class="af-row" style="--d:7">  <span class="af-key">      ↓</span></span><span class="af-row" style="--d:8">  <span class="af-key"><span class="af-c" style="width:8.00ch;text-align:left">企業獲利</span></span>  <span class="af-c" style="width:38.00ch;text-align:left">連七個季度雙位數增長、幾乎全面</span>  <span class="af-up">✓ 已兌現</span></span><span class="af-foot"><b>怎麼看：</b>這五格不是五個獨立指標，是<b>同一條鏈的五個環節</b>——訂單是需求的影子，生產追著訂單，庫存墊在生產後面，獲利收在最尾端。五個環節同向，比任何單一數字都有說服力；反過來說，鏈條斷在哪一環，收縮也會從那一環開始。各環節的完整讀數見下方對應分頁。</span></pre>
-  <div class="sl-end"><b>小結</b>｜服務與製造<b>同時</b>加速，這在這一輪循環裡是第一次。單引擎的擴張可以懷疑是雜訊，雙引擎同向就是趨勢——「蓄勢待發」不是形容詞，是這兩排讀數的直譯。</div>
-  <div class="context-box"><div class="context-box-title">加權經濟體溫</div><div class="context-box-text">製造業佔美國經濟約三成、服務業約七成，把兩條線按佔比併成一條（製造×0.3＋服務×0.7）：7 月 <b>54.55</b> 是今年最高。8 月的加權點要等 9/3 服務業開牌後才能算——製造 54.6 已知，服務只要守在 54 上下，加權就會落在 54.2–54.4，<b>仍是今年次高區</b>。</div></div><div class="context-box"><div class="context-box-title">昨天那張牌：守住了，記半盞燈</div><div class="context-box-text">昨天（9/1）開的第一張牌，判準是上一份完整報告的驗證點總表事先寫好的：<b>守 54 之上＝突破成立</b>。結果 54.6 守住；11 個分項裡有一格記半盞燈、有兩格反而把「錯配前緣」的證據補足——<b>是哪幾格、離翻案還有多遠，細項判讀在付費完整版</b>。</div></div>
-</div>
-<div class="content-section" id="sec-full">
-  <div class="section-header"><div class="section-num">五</div><div><h2 class="section-title">這只是 1/5：完整報告的每一塊，各自替你解決什麼</h2><div class="section-desc">THE OTHER 4/5 · WHAT EACH PIECE DOES FOR YOU</div></div></div>
-<div class="section-gain">看完你會拿到：完整報告的每一塊各自回答那個你自己算不出來的問題——不是資料清單，是用途清單。</div><p style="color:var(--text2);font-size:.88em;line-height:1.78;margin-bottom:4px">完整報告多出來的不是資料量，是<b style="color:var(--header)">八個你自己算不出來、但決定你抱不抱得住的答案</b>——後天出版：</p><div class="sl-list sl-risk"><div class="li"><b>★ 下一個階段會是什麼模樣</b><span>通膨、就業、消費、訂單、庫存、利率、信用、氣氛——八個面向逐一畫出下一段的長相。<b>替你解決的事：</b>變化發生時，你一眼分得出「這是預期中的下一段」還是「要重評」——不用等新聞告訴你該不該慌。</span></div><div class="li"><b>8 月服務業開牌</b><span>決定「雙引擎」這個前提還在不在。<b>替你解決的事：</b>一張牌就知道這整套判讀的地基有沒有裂，而不是猜。</span></div><div class="li"><b>通膨與房租深挖</b><span>兩把尺＋房租三情境機率推演＋基期反向助攻。<b>替你解決的事：</b>提前知道九月升息機率往哪邊移，單月 CPI 標題嚇不到你——因為你知道它在哪條路徑上。</span></div><div class="li"><b>就業證人</b><span>非農月增與初領對「升不升息」投的是哪一票。<b>替你解決的事：</b>看懂 Fed 的手被誰綁住——就業弱到什麼程度才對長端有幫助，小幅轉弱為什麼反而兩邊不討好。</span></div><div class="li"><b>PMI 細項儀表</b><span>11 個分項逐格判讀＋台灣、半導體上游前哨。<b>替你解決的事：</b>半盞燈是哪一格、離翻案還有幾步，不用自己拆 ISM 報告、也不會被單一分項的標題帶走。</span></div><div class="li"><b>九月開票儀表板</b><span>通膨、就業、市場定價三位證人＋估值旁聽席。<b>替你解決的事：</b>開票前就知道每種結果對部位的意義——升了摔多重、不升誰先彈。</span></div><div class="li"><b>海水與船</b><span>Fed 流動性（水位）× 量的鏈條（船）× 估值（吃水深）一張圖。<b>替你解決的事：</b>記住一個骨架，之後每一份數據你自己就能歸位，知道它動的是水、是船、還是吃水深。</span></div><div class="li"><b>驗證點總表</b><span>12 個足以影響主趨勢的開牌時點、六欄雙向判定。<b>替你解決的事：</b>每張牌開牌前就知道怎麼讀；亮幾盞燈該重評、亮零盞就繼續抱——把「續抱」變成有依據的決定，而不是憑感覺。</span></div></div><div class="cta-wrap"><a class="cta-sub" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">訂閱 · 後天收到完整報告 →</a><div class="cta-note">完整報告＝付費會員專屬；本專題為免費節錄，判讀以完整報告為準。</div></div>
-</div>
-<div class="content-section" id="sec-sum"><div class="section-header"><div class="section-num">六</div><div><h2 class="section-title">總結</h2><div class="section-desc">CLOSING · WHICH ONE MOVES FIRST</div></div></div><pre class="ascii-fig"><span class="af-h">兩支溫度計 · 哪一條會先動</span>  <span class="af-c" style="width:17.00ch;text-align:left">門檻</span> <span class="af-c" style="width:36.00ch;text-align:left">離觸發還有多遠</span> <span class="af-c" style="width:9.00ch;text-align:left">現在</span> <span class="af-c" style="width:12.00ch;text-align:left">要到</span>
-  <span class="af-c" style="width:17.00ch;text-align:left"></span> <span class="af-dim">├─────┼─────┼────┼─────┼─────┤</span>
-  <span class="af-c" style="width:17.00ch;text-align:left"></span> <span class="af-dim">0%    20    40   60    80 100%</span>
-<span class="af-blurwrap"><span class="af-blur">  <span class="af-c" style="width:17.00ch;text-align:left"></span> <span class="af-warn">↑ 已觸發</span>                      <span class="af-dim">還很遠 ↑</span>
-  <span class="af-c" style="width:17.00ch;text-align:left">新訂單 失守 52</span> <span class="af-dn">─────────</span><span class="af-dn">●</span>                    <span class="af-dim">  30%</span>  <span class="af-c" style="width:9.00ch;text-align:left">8月 53.7</span> <span class="af-c" style="width:12.00ch;text-align:left">52</span><span class="af-key">  ← 最先動</span>
-  <span class="af-c" style="width:17.00ch;text-align:left">製造業 跌回 53 下</span> <span class="af-dn">──────────</span><span class="af-dn">●</span>                   <span class="af-dim">  35%</span>  <span class="af-c" style="width:9.00ch;text-align:left">8月 54.6</span> <span class="af-c" style="width:12.00ch;text-align:left">53</span>
-  <span class="af-c" style="width:17.00ch;text-align:left">物價分項 續衝</span> <span class="af-up">─────────────</span><span class="af-up">●</span>                <span class="af-dim">  45%</span>  <span class="af-c" style="width:9.00ch;text-align:left">71.1 持平</span> <span class="af-c" style="width:12.00ch;text-align:left">75＝壓力升級</span>
-  <span class="af-c" style="width:17.00ch;text-align:left">生產 跌破 55</span> <span class="af-dn">────────────────</span><span class="af-dn">●</span>             <span class="af-dim">  55%</span>  <span class="af-c" style="width:9.00ch;text-align:left">8月 58.3</span> <span class="af-c" style="width:12.00ch;text-align:left">55</span>
-  <span class="af-c" style="width:17.00ch;text-align:left">客戶庫存 回到適當</span> <span class="af-dn">────────────────────</span><span class="af-dn">●</span>         <span class="af-dim">  70%</span>  <span class="af-c" style="width:9.00ch;text-align:left">42.8 太低</span> <span class="af-c" style="width:12.00ch;text-align:left">50</span>
-  <span class="af-c" style="width:17.00ch;text-align:left">服務業 跌破 50</span> <span class="af-dn">────────────────────────</span><span class="af-dn">●</span>     <span class="af-dim">  82%</span>  <span class="af-c" style="width:9.00ch;text-align:left">7月 54.1</span> <span class="af-c" style="width:12.00ch;text-align:left">50</span></span><span class="af-lock">🔒 細項門檻 · 付費完整版解鎖</span></span><span class="af-foot"><b>怎麼看：</b>六條放在同一把尺上，位置＝離觸發還有多遠，排的是<b>距離</b>不是重要性。門檻列只在付費完整版看得清——<b>哪一格離翻案最近、離幾步、要盯什麼</b>，是細項層級的判讀，在完整版的驗證點總表。免費版只給你這件事：六條裡<b>有一條已經很近</b>，而唯一能一次改寫兩支溫度計的牌，是 9/3 的服務業。</span></pre><p style="color:var(--text2);font-size:.88em;line-height:1.78;margin:12px 0 0">把距離尺跟兩支溫度計擺在一起，會看到一件<b style="color:var(--header)">前面沒講過的事</b>：兩支溫度計的位置不是靠「讀數高」釘的，是靠<b style="color:var(--header)">兩具引擎同時在線上</b>釘的——製造業一具引擎的突破可以回吐（8 月已經回吐一格），只要服務業那具還在線上，位置就不動。所以 9/3 那張牌決定的不是一個數字，是<b style="color:var(--header)">「雙引擎」這個前提還在不在</b>。</p><div class="pw-head"><b>完整報告的驗證點總表</b>——12 個足以影響主趨勢的開牌時點，六欄雙向判定，主軸牌加粗</div><div class="pw-wrap"><div class="pw-blur"><div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-  <table class="sl-tbl">
-    <thead><tr>
-      <th>開牌日</th>
-      <th>驗證點</th>
-      <th>現值基準</th>
-      <th>✓ 順風確認</th>
-      <th>✗ 翻案訊號</th>
-      <th>牽動哪一環</th>
-    </tr></thead>
-    <tbody>
-      <tr style="background:rgba(48,209,88,.06)"><td><b>9/1 已開</b></td><td>ISM 製造業（8月）</td><td>7月 55.6＝突破</td><td><b>✓ 開出 54.6 守住＝突破成立</b>；生產 58.3 續高、15/18 產業擴張</td><td>◐ 新訂單 53.7 失守 55（單條不觸發，記半盞燈）</td><td>訂單與生產（節二）</td></tr>
-      <tr><td><b>9/3</b></td><td>ISM 服務業（8月）</td><td>7月 54.1</td><td>續站線上＝雙輪健康</td><td>跌破 50＝一具引擎熄火</td><td>訂單與生產（節二）</td></tr>
-      <tr><td><b>9/4</b></td><td>非農就業（8月）</td><td>7月 −2.3萬·凍結</td><td>回正＝凍結解凍</td><td>初領四週均連四週上行、逼近 22 萬</td><td>就業證人（節五）</td></tr>
-      <tr><td><b>9/9 前後</b></td><td>批發庫存年增（7月終值）</td><td>+4.4%·遠低於銷售</td><td><b>開始回升＝回補啟動</b>——本篇最大伏筆的確認訊號</td><td>遲遲不回升＝回補劇本落空</td><td>庫存（節三）</td></tr>
-      <tr><td><b>9/11</b></td><td>CPI（8月）</td><td>核心年增 3.3 卡住</td><td>房租月增守 +0.25% 下、六個月年化回落</td><td>房租月增衝 +0.3% 上＋六個月年化再爬</td><td>通膨與房租（節五）</td></tr>
-      <tr><td><b>9月上旬起</b></td><td>財政部長債買回執行</td><td>規模加倍·首次執行</td><td>執行週標售接單回穩、長端不再測前高</td><td>買回照做、長端仍創高＝供給病加重</td><td>海水（外層·§12）</td></tr>
-      <tr><td><b>9/12</b></td><td>密大長期通膨預期（9月初值）</td><td>5–10年 3.3%·連三月穩</td><td>續守 3.3%＝錨在，一切只是「貴」</td><td><b>鬆離 3.3%＝所有門檻重排</b></td><td>整份報告的前提</td></tr>
-      <tr><td><b>9/16</b></td><td>零售銷售（8月）</td><td>7月 −0.6%＝促銷移月的坑</td><td>回正＝「單月失真」說法開票兌現</td><td>連兩月負＝需求判讀要重評</td><td>內需（節一）</td></tr>
-      <tr><td><b>9/16–17</b></td><td>FOMC＋點陣圖</td><td>市場定價約一半一半</td><td>不升＋點陣圖平和＝價的手續懸</td><td><b>升息＝抽水，折現率重估一輪</b></td><td>價的手（節五）</td></tr>
-      <tr><td><b>每月中</b></td><td>Zillow 新簽要價租金</td><td>7月 +2.3%＝一年來最快</td><td>增速放緩＝房租回升溫和可控</td><td>連月加速＝「再回升」情境升主檔</td><td>房租領先端（節五）</td></tr>
-      <tr><td><b>10月起</b></td><td>Q3 財報季獲利面寬</td><td>Q2＝11 部門 10 增長</td><td>面寬守過半＝鏈條尾端續背書</td><td>收窄到一半以下＝鏈條從尾端斷</td><td>獲利（節六）</td></tr>
-      <tr><td><b>2027 H1</b></td><td>高基期窗（遠期鬧鐘）</td><td>今年下半年高成長墊高基期</td><td>——時點已知，先寫進行事曆</td><td>年增回落疊上通膨黏＋政策緊＝最易被誤讀的修正窗</td><td>結論（節七）</td></tr>
-    </tbody>
-  </table>
-  </div>
-  <div class="sl-end"><b>用法</b>｜這張表不是叫你猜每一張牌，是讓你<b>開牌前就知道怎麼讀它</b>：✓ 欄兌現越多，鏈條的判讀越扎實；✗ 欄亮燈時，回到對應的那一節重讀。最重的三張牌加粗了——<b>庫存年增回升（伏筆兌現）、長期通膨錨（前提）、FOMC（抽水與否）</b>；其餘的牌決定細節，這三張決定主軸。</div></div><span class="af-lock">🔒 12 個驗證點 · 付費完整版解鎖</span></div><div class="conclusion-box"><div class="conclusion-box-title">核心結論</div><div class="conclusion-box-text">兩支溫度計都指向<b>循環在延長、不在收尾</b>：景氣大循環 74%（榮景期）、製造業 76%（錯配前緣）。製造業 8 月 54.6 守住突破、服務業穩在線上；錯配前緣的證據在 8 月被補足，半盞燈只有一格。<br><br>這只是完整報告的 1/5——「位置」講完了；「接下來怎麼走」要看通膨、就業、細項儀表與九月開票儀表板，還有<b>下一個階段會是什麼模樣</b>（通膨、就業、消費、訂單、庫存、利率、信用、氣氛八個面向）——<b>後天出版的完整報告一次攤開</b>。</div></div></div>
-</main>
+  <div id="wm"></div>
+  <div id="content"></div>
 
 <script>
-document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
-document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&['c','a','u','s','p'].includes(e.key.toLowerCase())){e.preventDefault();}if(e.key==='F12'){e.preventDefault();}});
-document.addEventListener('copy',function(e){e.preventDefault();return false;});
-document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
-function toggleScen(el){var card=el.closest('.scen-card');var det=card.querySelector('.scen-detail');var btn=card.querySelector('.toggle-btn');det.classList.toggle('open');if(btn)btn.classList.toggle('open',det.classList.contains('open'));}
-function toggleCard(el){var card=el.closest('.diagram-card');var body=card.querySelector('.diagram-body');var btn=card.querySelector('.toggle-btn');body.classList.toggle('open');if(btn)btn.classList.toggle('open',body.classList.contains('open'));}
+  var API='https://yoda-research-next.vercel.app';
+  var reportId='免費_總經_20260902';
+  var msg=document.getElementById('msg'), retryBtn=document.getElementById('retry');
 
-/* ═══ 5-3 動態相似度計算器 ═══ */
-var SIM_DEFAULTS = [6,5,8,6,5,3,4,8];
-var SIM_TELECOM  = [8,9,7,9,10,6,9,8];
-var SIM_SEMI     = [7,4,8,3,9,8,3,4];
-var SIM_WEIGHTS  = [1,8,1,1.3,1,1,8,1];
+  // 打 /api/report（免費檔免驗票·附逾時重試）
+  function fetchReport(){
+    var attempts=3, timeoutMs=30000;
+    return new Promise(function(resolve,reject){
+      (function run(n){
+        var ctrl=('AbortController' in window)?new AbortController():null;
+        var timer=ctrl?setTimeout(function(){ctrl.abort();},timeoutMs):null;
+        fetch(API+'/api/report',{method:'POST',body:JSON.stringify({reportId:reportId})})
+          .then(function(r){return r.json();})
+          .then(function(res){ if(timer)clearTimeout(timer); resolve(res); })
+          .catch(function(e){ if(timer)clearTimeout(timer);
+            if(n<attempts){ msg.style.color='var(--dim)'; msg.textContent='載入中…（重試 '+n+'/'+(attempts-1)+'）';
+              setTimeout(function(){run(n+1);},1200*n); } else reject(e); });
+      })(1);
+    });
+  }
+  function fail(t){
+    document.getElementById('spin').style.display='none';
+    document.getElementById('sub').textContent='';
+    msg.style.color='#ff6b6b'; msg.textContent=t;
+    retryBtn.style.display='inline-block';
+  }
+  function boot(){
+    document.getElementById('spin').style.display='block';
+    document.getElementById('sub').textContent='免費報告載入中，約 1–2 秒…';
+    retryBtn.style.display='none'; msg.textContent='';
+    fetchReport().then(function(res){
+      if(res && res.allow && res.html){ render(res.html, res.watermark); return; }
+      if(res && res.reason==='need-login'){ fail('報告服務更新中，請稍後再試。'); return; } // 免費頁不該叫讀者登入
+      fail((res && res.error) || '這份報告目前無法開啟，可能已下架。');
+    }).catch(function(){ fail('伺服器忙碌，請按「重新載入」。'); });
+  }
+  retryBtn.onclick=boot;
+  boot();
 
-function simWeightedCos(a,b,w){
-  var dot=0, na=0, nb=0;
-  for(var i=0;i<8;i++){
-    var aw=a[i]*Math.sqrt(w[i]), bw=b[i]*Math.sqrt(w[i]);
-    dot+=aw*bw; na+=aw*aw; nb+=bw*bw;
+  function render(html, watermark){
+    document.getElementById('gate').style.display='none';
+    // 防盜 script 注進 iframe（右鍵/複製）＋ srcdoc 錨點修復（同 report-shell）
+    var guard='<scr'+'ipt>["contextmenu","copy","cut","selectstart","dragstart"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});</scr'+'ipt>'
+      +'<scr'+'ipt>document.addEventListener("click",function(e){'
+      +'var a=e.target&&e.target.closest?e.target.closest(\'a[href^="#"]\'):null;if(!a)return;'
+      +'var id=a.getAttribute("href").slice(1);if(!id)return;'
+      +'var el=document.getElementById(id)||document.querySelector(\'[name="\'+id+\'"]\');'
+      +'if(!el)return;e.preventDefault();'
+      +'try{el.scrollIntoView({behavior:"smooth",block:"start"});}catch(_){el.scrollIntoView();}'
+      +'},true);</scr'+'ipt>';
+    var f=document.createElement('iframe');
+    f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+    // 右側捲軸注入（core-render §B-32，同 report-shell：蓋過舊檔藏捲軸的規則）
+    f.addEventListener('load', function(){
+      try{
+        var d=f.contentDocument; if(!d) return;
+        var st=d.createElement('style');
+        st.textContent=
+          'html{overflow-y:scroll!important;scrollbar-width:auto!important;scrollbar-color:rgba(140,162,186,.62) transparent!important}'
+         +'*::-webkit-scrollbar{display:block!important;width:8px!important;height:8px!important}'
+         +'html::-webkit-scrollbar,body::-webkit-scrollbar{display:block!important;width:13px!important;height:13px!important}'
+         +'html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:rgba(128,150,175,.10)!important}'
+         +'html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:rgba(140,162,186,.62)!important;border-radius:8px!important;border:3px solid transparent!important;background-clip:content-box!important}'
+         +'html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:rgba(175,196,218,.88)!important;background-clip:content-box!important}'
+         +'*::-webkit-scrollbar-thumb{background:rgba(140,162,186,.5)!important;border-radius:5px!important}';
+        (d.head||d.documentElement).appendChild(st);
+      }catch(e){}
+    });
+    f.srcdoc=guard+html;                       // 正文從後端來，這個靜態檔裡沒有
+    var c=document.getElementById('content');
+    c.appendChild(f); c.style.display='block';
+    setWatermark(watermark||'免費版 · Yoda Research');
   }
-  return dot/(Math.sqrt(na)*Math.sqrt(nb));
-}
-function simTier(v){
-  if(v>=0.85) return '極高相似 → 雙重風險特徵已非常明確';
-  if(v>=0.7)  return '＞0.7門檻 → 具顯著結構相似特徵';
-  if(v>=0.5)  return '中度相似 → 部分特徵重疊，需持續觀察';
-  return '低相似 → 結構性差異仍是主導因素';
-}
-function simRecalc(){
-  var ai=[];
-  for(var i=0;i<8;i++){
-    var el=document.getElementById('sv'+i);
-    var v=parseFloat(el.value);
-    ai.push(v);
-    document.getElementById('sv'+i+'val').textContent=v.toFixed(1);
+
+  function setWatermark(text){
+    var t=String(text).replace(/[<>&]/g,'');
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="278" height="180">'
+      +'<text x="14" y="98" fill="rgba(255,255,255,0.05)" font-size="14" font-family="sans-serif" transform="rotate(-28 139 90)">'+t+'</text></svg>';
+    var wm=document.getElementById('wm');
+    wm.style.backgroundImage='url("data:image/svg+xml;utf8,'+encodeURIComponent(svg)+'")';
+    wm.style.display='block';
   }
-  var tel=simWeightedCos(ai,SIM_TELECOM,SIM_WEIGHTS);
-  var semi=simWeightedCos(ai,SIM_SEMI,SIM_WEIGHTS);
-  document.getElementById('simTel').textContent=tel.toFixed(2);
-  document.getElementById('simSemi').textContent=semi.toFixed(2);
-  document.getElementById('simTelTier').textContent=simTier(tel);
-  document.getElementById('simSemiTier').textContent=simTier(semi);
-}
-function simReset(){
-  for(var i=0;i<8;i++){
-    document.getElementById('sv'+i).value=SIM_DEFAULTS[i];
-  }
-  simRecalc();
-}
-document.addEventListener('DOMContentLoaded', function(){
-  if(document.getElementById('sv0')) simRecalc();
-});
-function setSize(sz){document.documentElement.setAttribute('data-size',sz);document.querySelectorAll('[onclick*="setSize"]').forEach(b=>{b.classList.toggle('active',b.textContent=={sm:'小',md:'中',lg:'大'}[sz]);});localStorage.setItem('bubble-size',sz);}
-function setTheme(th){document.documentElement.setAttribute('data-theme',th);document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>{b.classList.toggle('active',b.textContent=={dark:'深',light:'淺'}[th]);});localStorage.setItem('bubble-theme',th);}
-(function(){var sz=localStorage.getItem('bubble-size')||'md';var th=localStorage.getItem('bubble-theme')||'dark';document.documentElement.setAttribute('data-size',sz);document.documentElement.setAttribute('data-theme',th);document.querySelectorAll('[onclick*="setSize"]').forEach(b=>{b.classList.toggle('active',b.textContent=={sm:'小',md:'中',lg:'大'}[sz])});document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>{b.classList.toggle('active',b.textContent=={dark:'深',light:'淺'}[th])});})();
-</script>
-<!-- 平板以上提示（手機置中·點擊關閉·記憶）自包含注入片段 -->
-<script>
-(function(){
-  try{if(localStorage.getItem('hideTabletHint')==='1')return;}catch(e){}
-  if(document.querySelector('.tablet-hint'))return;
-  var css='@media(min-width:768px){.tablet-hint{display:none!important}}'
-    +'.tablet-hint{position:fixed;inset:0;z-index:99998;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,6,10,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}'
-    +'.tablet-hint .th-card{max-width:320px;width:100%;background:#12100a;border:1px solid #3a3320;border-radius:16px;padding:26px 24px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.55)}'
-    +'.tablet-hint .th-ico{font-size:34px;margin-bottom:12px}'
-    +'.tablet-hint .th-t{font-size:17px;font-weight:700;color:#e8c877;margin-bottom:8px;line-height:1.5}'
-    +'.tablet-hint .th-s{font-size:13px;color:#b8b09a;line-height:1.7;margin-bottom:16px}'
-    +'.tablet-hint .th-x-btn{margin-top:8px;font-family:inherit;font-size:13px;font-weight:700;color:#1a1200;background:#e8c877;border:none;border-radius:10px;padding:10px 22px;cursor:pointer}.tablet-hint .th-x-btn:active{opacity:.85}';
-  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
-  var ov=document.createElement('div');ov.className='tablet-hint';
-  ov.innerHTML='<div class="th-card"><div class="th-ico">📱 → 💻</div><div class="th-t">建議使用平板以上</div><div class="th-s">這份報告資訊密度高，用平板或電腦看，版面才展得開、體驗最佳。手機也能看，只是較擠。</div><button class="th-x-btn" type="button">知道了，繼續看</button></div>';
-  function close(){try{localStorage.setItem('hideTabletHint','1');}catch(e){}if(ov.parentNode)ov.parentNode.removeChild(ov);}
-  var _thb=ov.querySelector('.th-x-btn');if(_thb)_thb.addEventListener('click',close);
-  if(document.body)document.body.appendChild(ov);else document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(ov);});
-})();
+
+  // 空殼本身也擋右鍵/複製
+  ['contextmenu','copy','cut','selectstart','dragstart'].forEach(function(ev){
+    document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});
+  });
 </script>
 <script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
-<script>
-(function(){
-  if(document.querySelector('.share-bar'))return;
-  var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
-/* 分享列不放「安裝到桌面」鈕：隱藏 yoda-install.js 注入的 .yoda-btn（該 js 仍載入，浮水印/控制列覆蓋照常生效）— 2026-08-29 Yoda 定 */
-+".yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}"
-    +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
-    +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
-    +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
-    +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
-    +"body{padding-bottom:64px !important}";
-  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
-  var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
-  var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
-  function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
-  if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
-  function showToast(_m){if(_m)toast.textContent=_m;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1800);}
-  bar.querySelector('.share-btn').addEventListener('click',function(){
-    var url=(function(){var c=document.querySelector('link[rel=canonical]');var u=(c&&c.href)||((window.top!==window.self&&document.referrer)||location.href);try{var o=new URL(u,location.href);['token','t','k','sig','key','ticket','jwt'].forEach(function(p){o.searchParams.delete(p);});return o.href;}catch(e){return u;}})(),title=document.title;
-    var _cp=function(u){try{var ta=document.createElement('textarea');ta.value=u;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:-9999px;opacity:0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,99999);var ok=document.execCommand('copy');document.body.removeChild(ta);return ok;}catch(e){return false;}};
-    var _dn=function(ok,why){showToast(ok?((why?why+'·':'')+'已複製連結 ✓'):'複製失敗，請手動複製網址列');};
-    var _cy=function(why,u){u=u||url;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(function(){_dn(true,why);},function(){_dn(_cp(u),why);});}else{_dn(_cp(u),why);}};
-    var _http=function(u){return /^https?:/i.test(u||'');};
-    var _inF=window.top!==window.self;
-    var _local=function(why){var u=_http(url)?url:(_http(document.referrer)?document.referrer:'');if(navigator.share&&u){navigator.share({title:title,url:u}).catch(function(e){if(e&&e.name==='AbortError')return;_cy(why+'·框架內分享被擋('+((e&&e.name)||'?')+')',u);});}else{_cy(why+(u?'':'·框架內無網址'),u||url);}};
-    var _viaParent=function(){var done=false;var h=function(ev){var d=ev.data;if(!d||d.type!=='yoda-share-result')return;done=true;window.removeEventListener('message',h);if(!d.ok)_cy('殼分享被擋('+(d.err||'?')+')',_http(d.url)?d.url:undefined);};window.addEventListener('message',h);try{window.parent.postMessage({type:'yoda-share',title:title,url:url},'*');}catch(x){}setTimeout(function(){if(!done){window.removeEventListener('message',h);_local('殼未回應');}},1500);};
-    if(_inF){_viaParent();}
-    else if(navigator.share){navigator.share({title:title,url:url}).catch(function(e){if(e&&e.name==='AbortError')return;_cy('分享被擋('+((e&&e.name)||'?')+')');});}
-    else{_cy('此瀏覽器無原生分享');}
-  });
-})();
-</script>
 <script>(function(){try{var K='yr_vid',v=localStorage.getItem(K);if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}var seg=location.pathname.split('/').filter(Boolean).pop()||'home';fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',{method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});}catch(e){}})();</script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  var figs=[].slice.call(document.querySelectorAll('.ascii-fig'));
-  figs=figs.filter(function(f){return f.querySelector('.af-row');});
-  if(!figs.length)return;
-  function chk(){for(var i=figs.length-1;i>=0;i--){var r=figs[i].getBoundingClientRect();
-    if(r.top<innerHeight*0.85&&r.bottom>0){figs[i].classList.add('af-anim');figs.splice(i,1);}}
-    if(!figs.length)removeEventListener('scroll',onS,true);}
-  var tick=false;
-  function onS(){if(tick)return;tick=true;setTimeout(function(){tick=false;chk();},120);}
-  addEventListener('scroll',onS,true);
-  chk();
-});
-</script>
-<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
+<img alt="Yoda" src="https://yoda-research-next.vercel.app/yoda-logo.png" style="position:fixed;right:14px;bottom:12px;height:52px;width:auto;opacity:.5;z-index:9990;pointer-events:none">
 </body>
 </html>
