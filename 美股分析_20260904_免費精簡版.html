@@ -1828,7 +1828,7 @@ function togChip(id){
 ②廣度背離(%均線)：站上20/50/200日均線 45/50/57%；短線參與回升、廣度轉厚
 ③漲跌動能：—
 ④產業聚集：Biotechnology 4檔；Banks - Regional 3檔；Capital Markets 2檔；Restaurants 1檔；Marine Shipping 1檔（3個月新高池按產業家數集中度）
-⑤動能加速度(5D×3M)：同時5D+3M新高(全窗強勢續強) 54檔[EDRY, DELL, GORO, BLTE, HSHP]；僅5D新高(剛加速/補漲) 146檔[BIAF, AEHL, SWVL, SORA, RNXT]；僅3M新高(高位歇/獲利了結) 125檔[DRTS, BFRI, ECO, MRX, SHIP]
+⑤動能加速度(5D×3M)：同時5D+3M新高(主升續強) 54檔[EDRY, DELL, GORO, BLTE, HSHP]；僅5D新高(剛加速/補漲) 146檔[BIAF, AEHL, SWVL, SORA, RNXT]；僅3M新高(高位歇/獲利了結) 125檔[DRTS, BFRI, ECO, MRX, SHIP]
 ⑥熱點主題供應鏈(最強層/最弱層)：CPO［光纖／連接／被動 +2.2 領跑／光收發／光模組 -19.6 落後］；HBM［HBM 記憶體 +8.8 領跑／記憶體介面／控制 -7.3 落後］；液冷［電力／發電 +6.4 領跑／電源／功率 -3.5 落後］；ASIC［HBM／記憶體 +8.8 領跑／IP／EDA -10.6 落後］；AI 軟體變現［行銷／廣告變現 +6.1 領跑／開發工具／EDA -15.3 落後］
 強勢股：PARA(+60.6%), FMC(+21.8%), DE(+11.5%), HOOD(+11.4%), HPQ(+10.3%)
 板塊主線：Internet / Streaming（均REL5 +4.6%）；Refining / Services / Midstream（均REL5 +3.2%）；Retail / Distribution Staples（均REL5 +2.0%）
@@ -1850,7 +1850,7 @@ function sortTable(th){
   if(!tb) return;
   var rows=[].slice.call(tb.rows);
   var hdr=th.textContent.replace(/[▲▼⇅\s]/g,'').trim();
-  var so={'🔥主升期':5,'🚀啟動期':4,'🌱萌芽期':3,'➡整理期':2,'📉退燒期':1,'❄全面弱勢':0,'🔥領先':4,'🌱回升':3,'⚠️衰退':2,'❄️落後':1};
+  var so={'5日贏大盤15%以上':5,'5日贏大盤5~15%':4,'5日贏大盤0~5%':3,'5日輸·20日仍贏':2,'5日輸大盤8%內':1,'5日輸大盤8%以上':0,'🔥領先':4,'🌱回升':3,'⚠️衰退':2,'❄️落後':1};
   rows.sort(function(a,b){
     var at=a.cells[colIdx]?a.cells[colIdx].textContent.trim():'';
     var bt=b.cells[colIdx]?b.cells[colIdx].textContent.trim():'';
