@@ -427,8 +427,7 @@ nav a:hover{color:var(--text);background:var(--surface2);border-left-color:var(-
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -502,7 +501,7 @@ nav{scrollbar-width:thin}
   <div class="temp-bar-wrap">
     <div class="temp-bar-header">
       <span class="temp-bar-name">資金流判定</span>
-      <span class="temp-bar-label" style="color:#4da8e0;">⚠ 警戒</span>
+      <span class="temp-bar-label" style="color:#4da8e0;">警戒</span>
     </div>
     <div class="temp-bar-scale">
       <span>全面空方</span><span>中性</span><span>全面多方</span>
@@ -602,7 +601,7 @@ nav{scrollbar-width:thin}
 
       <div class="card clk" id="cSit" onclick="tog('dSit','cSit')">
         <div class="c-lbl">資金流判定 <span class="arr">▼</span></div>
-        <div class="sit sit-wn" style="margin-bottom:10px;">⚠ 警戒（BAR1=40）</div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">警戒（BAR1=40）</div>
         <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">油價今天從「觀察項」升格為「主動警報」——USO +3.91%、短線 +14.83%，美伊衝突直接定價進 WTI。第一道防線正式轉🔴，通膨二次壓力的來源找到了。SOFR−IORB −3bp 即時流動性正常，但領先指標 Excess Liquidity 持續惡化，中長期壓力未解。</div>
         <div class="irow-list"><div class="irow"><span class="irow-name">US2Y</span><span class="irow-val y">4.16%（延用）</span></div>
 <div class="irow"><span class="irow-name">US10Y</span><span class="irow-val r">4.57%（延用）</span></div>
@@ -667,7 +666,7 @@ nav{scrollbar-width:thin}
       <div class="lyr-hdr" style="margin-top:10px;">🟡 短期情緒警示（即時行為）</div>
       <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🔴</span><div><strong>P/C Ratio 0.31</strong>（極度裸奔）——VIX 往 20 走的同時大量買 Call，情緒指標與波動率指標嚴重背離。兩天內 0.42→1.47→0.31，大幅擺盪代表多空雙方同時重押，方向尚未確立</div></div>
 <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🔴</span><div><strong>VXN 29.03</strong>（往 30 走）——NDX 科技恐慌持續累積，SOXX 繼續深跌是主因；VXN 突破 30 是觀察門檻</div></div>
-<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">⚠️</span><div><strong>VIX 18.76</strong>（逼近 20 關口）——從 7/15 的 15.66 連續上升，20 是心理關口；突破後做市商風控行為改變，波動率可能加速放大</div></div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;"></span><div><strong>VIX 18.76</strong>（逼近 20 關口）——從 7/15 的 15.66 連續上升，20 是心理關口；突破後做市商風控行為改變，波動率可能加速放大</div></div>
       <div style="font-size:calc(var(--fs)*.8);padding:10px;background:rgba(239,68,68,.07);border-radius:5px;border-left:3px solid var(--red);line-height:1.6;margin-top:10px;">本期 TQQQ/SPXL 槓桿 ETF 成交量數據缺失，投機溫度計三標的加權分數無法完整計算。P/C 0.31 的 Call 堆積若配合 QQQ 收復 700，理論上存在軋空反彈動能，但需要週一開盤確認。</div>
     </div>
 
@@ -819,7 +818,7 @@ nav{scrollbar-width:thin}
   <div>短線轉負，從主線降為觀察。今日 +0.51% 勉強正，但短線已破。中長線結構仍強，等短線回收再升回主線梯隊。</div>
 </div>
 <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
-  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">⚠轉弱</span>IYT 運輸</span>
+  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">中短窗轉弱·長強</span>IYT 運輸</span>
   <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank84</span><span class="sc-arr">▼</span></span>
 </div>
 <div class="sc-det">
@@ -832,7 +831,7 @@ nav{scrollbar-width:thin}
     </div>
 
     <div class="sc x">
-      <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+      <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
       <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
   <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴退出</span>SOXX 半導體</span>
   <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk cr">Rank5↓↓</span><span class="sc-arr">▼</span></span>
@@ -984,7 +983,7 @@ nav{scrollbar-width:thin}
   </div>
 
   <div id="gammaDet" class="gamma-det">
-    <div class="gamma-det-note">到期日：Sep 18, 2026 ｜ 數據來源：ChartExchange ｜ QQQ 695（NQ 28,773）｜ ⚠ 已跌破 700 Gamma Flip</div>
+    <div class="gamma-det-note">到期日：Sep 18, 2026 ｜ 數據來源：ChartExchange ｜ QQQ 695（NQ 28,773）｜ 已跌破 700 Gamma Flip</div>
     <table class="gtbl" style="margin-bottom:14px">
       <thead>
         <tr><th>層級</th><th>QQQ</th><th style="color:var(--orange)">NQ! 等效</th><th>判讀</th><th>OI依據</th></tr>
@@ -992,13 +991,13 @@ nav{scrollbar-width:thin}
       <tbody><tr><td><span class="dot d-r"></span>Call 牆</td><td>$790–$805</td><td>~31,100–31,700</td><td>距現價 +13.7%，遠在天邊；800C OI 36,491、790C OI 38,893</td><td>Call OI 最大群</td></tr>
 <tr><td><span class="dot d-o"></span>近價 Call</td><td>$660C</td><td>~26,000</td><td>OI 23,988，近價最大 Call 阻力；現價 +5% 附近</td><td>660C OI</td></tr>
 <tr><td><span class="dot d-b"></span>Max Pain</td><td>$680</td><td>~26,700</td><td>現價高於 Max Pain +2.2%，引力明顯增強（上週 +5.8%）</td><td>Sep 18 Max Pain</td></tr>
-<tr><td><span class="dot d-r"></span>⚠ Gamma Flip</td><td>$700（已跌破）</td><td>~27,500</td><td>700P OI 64,135 最大近價 Put；現價已跌破，做市商轉 Net Short Delta，機械性加速賣出啟動</td><td>700P OI</td></tr>
+<tr><td><span class="dot d-r"></span>Gamma Flip</td><td>$700（已跌破）</td><td>~27,500</td><td>700P OI 64,135 最大近價 Put；現價已跌破，做市商轉 Net Short Delta，機械性加速賣出中短窗轉強·長弱</td><td>700P OI</td></tr>
 <tr><td><span class="dot d-g"></span>第一支撐</td><td>$660P</td><td>~25,900</td><td>OI 42,434，破 700 後第一加速目標，距現價 −5.0%</td><td>660P OI</td></tr>
 <tr><td><span class="dot d-w"></span>深度保險</td><td>$600P</td><td>~23,500</td><td>OI 56,070，深度機構保險層，距現價 −13.7%</td><td>600P OI</td></tr></tbody>
     </table>
     <div class="g-mech" style="margin-bottom:10px">
       <div class="g-mech-title">做市商行為機制（多空情境）</div>
-      <div class="g-mech-txt"><strong>⚠ Gamma Flip 已觸發（7/18 收盤確認）。</strong>QQQ 695 跌破 700，做市商由 Net Long Delta 轉為 Net Short Delta，每跌一分需賣出更多對沖，形成機械性加速下跌結構。下一個密集支撐 660P（OI 42,434），距現價 −5.0%。收復 700 是多方劇本的最低條件——站回去後做市商對沖方向反轉，形成助漲。</div>
+      <div class="g-mech-txt"><strong>Gamma Flip 已觸發（7/18 收盤確認）。</strong>QQQ 695 跌破 700，做市商由 Net Long Delta 轉為 Net Short Delta，每跌一分需賣出更多對沖，形成機械性加速下跌結構。660P（OI 42,434）一帶是市場上停損單與程式單容易觸發的位置，距現價 −5.0%；跌破這一帶＝我對這檔結構的判讀不成立。收復 700 是多方劇本的最低條件——站回去後做市商對沖方向反轉，形成助漲。</div>
     </div>
     <div class="g-mech yel" style="margin-bottom:0">
       <div class="g-mech-title">Max Pain 重力場機制</div>
@@ -1030,7 +1029,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev01">
     <div class="ev-bull">📈 多方條件：衝突緩和 → 油價回落 → 科技估值喘息，QQQ 收復 700 軋空反彈</div>
     <div class="ev-bear">📉 空方條件：衝突升級 → WTI 突破 $90 → 週一跳空低開直接看 660</div>
-    <div class="ev-rule">⚠ 操作紀律：週一開盤前不押方向，等開盤確認再行動</div>
+    <div class="ev-rule">操作紀律：週一開盤前不押方向，等開盤確認再行動</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1041,7 +1040,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev02">
     <div class="ev-bull">📈 多方條件：AMD 展示新晶片路線圖，市場重新相信 AI 資本週期 → 半導體敘事修復，SOXX 短線反彈</div>
     <div class="ev-bear">📉 空方條件：AI 大會無驚喜，TSMC 利多出盡情緒持續 → 半導體繼續承壓</div>
-    <div class="ev-rule">⚠ 操作紀律：大會期間可觀察 SOXX 短線反應，不提前押注</div>
+    <div class="ev-rule">操作紀律：大會期間可觀察 SOXX 短線反應，不提前押注</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1052,7 +1051,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev03">
     <div class="ev-bull">📈 多方條件：財報優於預期且市場反應正面（不重演 TSMC 模式）→ AI 資本週期確認，QQQ 看 730–740</div>
     <div class="ev-bear">📉 空方條件：好財報壞反應複製 TSMC → 系統性對 AI 重新定價，QQQ 破 660 看 600</div>
-    <div class="ev-rule">⚠ 操作紀律：每個財報日當天不追價，等隔日確認；財報週不加碼</div>
+    <div class="ev-rule">操作紀律：每個財報日當天不追價，等隔日確認；財報週是事件風險集中期</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1063,7 +1062,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev04">
     <div class="ev-bull">📈 多方條件：按兵不動且語氣偏中性 → 降息預期維持，科技估值壓力不加重</div>
     <div class="ev-bear">📉 空方條件：油價通膨壓力發酵，Warsh 鷹派語氣超預期 → US10Y 衝破 4.62%，多方劇本失效</div>
-    <div class="ev-rule">⚠ 操作紀律：決議當天不追價，等隔日確認方向</div>
+    <div class="ev-rule">操作紀律：決議當天不追價，等隔日確認方向</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1074,7 +1073,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev05">
     <div class="ev-bull">📈 多方條件：GDP 穩健 + PCE 溫和 → 軟著陸敘事強化，市場風險偏好回升</div>
     <div class="ev-bear">📉 空方條件：GDP 偏熱或 PCE 偏高 → 通膨黏性確認，升息預期捲土重來</div>
-    <div class="ev-rule">⚠ 操作紀律：歷史上同日雙彈最易過度反應，當天不追價，這是本月最需要克制的一天</div>
+    <div class="ev-rule">操作紀律：歷史上同日雙彈最易過度反應，當天不追價，這是本月最需要克制的一天</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1085,11 +1084,11 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev06">
     <div class="ev-bull">📈 多方條件：就業偏軟 → 鴿派窗口打開，降息預期重燃</div>
     <div class="ev-bear">📉 空方條件：就業強勁 → 升息預期捲土重來，科技繼續承壓</div>
-    <div class="ev-rule">⚠ 操作紀律：非農當天等數字出來再說，不預設方向</div>
+    <div class="ev-rule">操作紀律：非農當天等數字出來再說，不預設方向</div>
   </div>
 </div></div>
 
-  <div class="ev-note">下週最緊的功課是美伊局勢跟 QQQ 能不能站回 700，這兩件事週一就會給答案。之後的 AMD 大會（7/22–23）是半導體能不能找回敘事的觀察窗。真正的大關是 7/27–30 這個超級週——Big Tech 財報＋FOMC＋GDP＋PCE 全擠在四個交易日，任何一個超出預期都可能放大其他的反應。現在 QQQ 已跌破 700 Gamma Flip，進入超級週的起點很低，要特別小心財報當天的追價衝動——TSMC 已示範過好財報可以是賣點。</div>
+  <div class="ev-note">下週最緊的功課是美伊局勢跟 QQQ 能不能站回 700，這兩件事週一就會給答案。之後的 AMD 大會（7/22–23）是半導體能不能找回敘事的觀察窗。真正的大關是 7/27–30 這個超級週——Big Tech 財報＋FOMC＋GDP＋PCE 全擠在四個交易日，任何一個超出預期都可能放大其他的反應。現在 QQQ 已跌破 700 Gamma Flip，進入超級週的起點很低；TSMC 已示範過「好財報、壞反應」＝利多不漲仍是逆風。</div>
 </div>
 </div><!-- /未來一個月事件 -->
 
@@ -1112,12 +1111,12 @@ nav{scrollbar-width:thin}
       <div class="syn-txt"><p style="margin:0 0 14px;"><strong>📌 利率與宏觀：</strong>油價今天從觀察項升格為主動警報，USO 短線 +14.83%，美伊衝突直接定價進 WTI。這件事的重要性在於：它讓通膨二次壓力有了具體的來源，而這個來源跟 AI 需求或企業獲利無關，純粹是地緣政治。FOMC 前若 WTI 持續高位，Warsh 的語氣可能比市場預期更硬。</p>
 <p style="margin:0 0 14px;"><strong>📌 板塊與輪動：</strong>HACK 今日逆市 +0.85%，是全表唯一正向的科技板塊，主線地位本週強化而非削弱。SOXX 短線中線雙負深化，Rank 跌至 5，半導體這條線已經不在討論範圍內。醫療、保險、高息股提供防禦緩衝，能源是事件驅動買盤，不是趨勢輪動。</p>
 <p style="margin:0 0 14px;"><strong>📌 結構與廣度：</strong>7/17 廣度修復的訊號，今天一天就全吐回來——SP20 從 64.6% 跌回 58.1%，NQ20 跌破 50% 進入弱勢區，NQ50 同步跌破 50%。廣度切換需要至少三天，今天是第二天就反轉，行情型態不明，重回觀察模式。</p>
-<p style="margin:0;"><strong>📌 選擇權與風險：</strong>QQQ 695 跌破 700 Gamma Flip，做市商加速賣出結構已啟動。660P（OI 42,434）是下一個支撐，距現價 −5%。同時 P/C 0.31 顯示大量 Call 買盤堆積——若週一能收復 700，這些 Call OI 就是軋空燃料。這是一個雙向都有引爆點的局面，週末美伊局勢是最大的不可控變數。</p></div>
+<p style="margin:0;"><strong>📌 選擇權與風險：</strong>QQQ 695 跌破 700 Gamma Flip，做市商加速賣出結構已中短窗轉強·長弱。660P（OI 42,434）一帶是市場上停損單與程式單容易觸發的位置，距現價 −5%；跌破這一帶＝我對這檔結構的判讀不成立。同時 P/C 0.31 顯示大量 Call 買盤堆積——若週一能收復 700，這些 Call OI 就是軋空燃料。這是一個雙向都有引爆點的局面，週末美伊局勢是最大的不可控變數。</p></div>
     </div>
 
     <div class="syn-blk">
       <div class="syn-h">二、大盤驅動力分解｜MAGS × 廣度 × 主線聚焦</div>
-      <div class="syn-txt"><p style="margin:0 0 14px;"><strong>【MAGS 驅動力】</strong>今日 −1.78%，短線 +1.34% 尚正但快到邊界，中線 +2.71% 偏弱，長線 −3.80%。連續兩日下跌，若下週一再跌，五日翻負最優先規則啟動，大盤短線必然承壓。</p>
+      <div class="syn-txt"><p style="margin:0 0 14px;"><strong>【MAGS 驅動力】</strong>今日 −1.78%，短線 +1.34% 尚正但快到邊界，中線 +2.71% 偏弱，長線 −3.80%。連續兩日下跌，若下週一再跌，五日翻負最優先規則中短窗轉強·長弱，大盤短線必然承壓。</p>
 <p style="margin:0 0 14px;"><strong>【RSP 廣度代理】</strong>今日 −0.79%（負），SP20 從 64.6% 跌回 58.1%。廣度修復訊號一天吐回，切換論重新進入觀察模式。廣度指標這週劇烈震盪（51.9→64.6→58.1），說明市場還沒找到方向。</p>
 <p style="margin:0 0 14px;"><strong>【本期主線聚焦】</strong>HACK 今日逆市 +0.85%，Rank100，全表唯一正向科技，主線地位強化。CIBR 短線轉負降為觀察，等短線回收。SOXX Rank 跌至 5，正式脫離主線範疇。能源 XLE/XOP 是事件驅動型黑馬，不算系統性主線。</p>
 <p style="margin:0;"><strong>【綜合行情型態】</strong>觀察模式——MAGS 弱、RSP 弱、主線剩 HACK 一條腿，廣度切換訊號一天打回。沒有主線的狀態下最安全的做法是守紀律，不預設方向，等 Big Tech 財報週給出答案。</p></div>
@@ -1154,8 +1153,8 @@ nav{scrollbar-width:thin}
             <span class="trig-num trig-bear">①</span> <span class="trigger">週末美伊衝突升級，WTI 突破 $90</span><br>
 → 通膨壓力二次壓頂，US10Y 衝破 4.62%，科技估值再承壓<br>
 → QQQ 週一跳空低開直接看 660<br><br>
-<span class="trig-num">②</span> <span class="trigger">MAGS 五日翻負（週一再跌即觸發）</span> ⚠ 警戒中<br>
-→ 最優先規則啟動，大盤短線必然承壓；當前短線 +1.34% 邊緣<br><br>
+<span class="trig-num">②</span> <span class="trigger">MAGS 五日翻負（週一再跌即觸發）</span> 警戒中<br>
+→ 最優先規則中短窗轉強·長弱，大盤短線必然承壓；當前短線 +1.34% 邊緣<br><br>
 <span class="trig-num">③</span> <span class="trigger">Big Tech 財報週複製 TSMC「好財報壞反應」</span> ❌ 待觸發<br>
 → 市場系統性對 AI 資本支出重新定價，QQQ 破 660 後看 600P（OI 56,070）<br>
 目標：QQQ 660（−4.7%），破則看 600（−13.7%）<br><br>
@@ -1168,7 +1167,7 @@ nav{scrollbar-width:thin}
 
       <div style="background:rgba(0,200,240,.04);border:1px solid rgba(0,200,240,.2);border-radius:3px;padding:14px 16px;margin-top:16px;">
         <div style="font-size:calc(var(--fs)*.77);letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">當前多空拉鋸焦點</div>
-        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.85;">這週的核心問題變了——不再是「TSMC 財報定向」，而是「QQQ 700 能不能守住」。已跌破 Gamma Flip，做市商加速賣出結構啟動；同時 P/C 0.31 的 Call 堆積代表大量賭反彈的資金在等。週一開盤是關鍵：收復 700 就有軋空反彈，守不回去就直接看 660。週末美伊局勢是唯一決定週一基調的變數，無法預測，不預設方向。MAGS 五日翻負是最優先規則，週一一開盤就確認。</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.92);color:var(--text);line-height:1.85;">這週的核心問題變了——不再是「TSMC 財報定向」，而是「QQQ 700 能不能守住」。已跌破 Gamma Flip，做市商加速賣出結構中短窗轉強·長弱；同時 P/C 0.31 的 Call 堆積代表大量賭反彈的資金在等。週一開盤是關鍵：收復 700 就有軋空反彈，守不回去就直接看 660。週末美伊局勢是唯一決定週一基調的變數，無法預測，不預設方向。MAGS 五日翻負是最優先規則，週一一開盤就確認。</div>
       </div>
     </div>
   </div>
@@ -1353,7 +1352,7 @@ function setTheme(t){
 【主線聚焦】唯一主線：HACK（Rank100，今日 +0.85% 逆市）🟢 / 觀察：CIBR（短線轉負）🟡 / 退出：SOXX 🔴（Rank5）/ 事件驅動：XLE/XOP 能源
 【MAGS驅動力】觀察模式——MAGS −1.78%（弱），RSP −0.79%（弱），廣度修復一天吐回，行情型態不明
 【關鍵價位】QQQ $700（已跌破 Gamma Flip）；空方第一目標 $660 / 收復 $700 才有反彈討論空間
-【多空方向】多方：P/C 0.31 Call 堆積 + 週末衝突緩和 → 週一軋空反彈可能 / 空方：Gamma Flip 啟動做市商加速賣，660 是關鍵支撐 / 紀律：週一確認方向前不押注
+【多空方向】多方：P/C 0.31 Call 堆積 + 週末衝突緩和 → 週一軋空反彈可能 / 空方：Gamma Flip 中短窗轉強·長弱做市商加速賣，660 是關鍵支撐 / 紀律：週一確認方向前不押注
 【未來事件】7/21 美伊局勢（最近）/ 7/22–23 AMD AI 大會 / 7/27–30 Big Tech 財報＋FOMC 超級週 / 7/30 GDP+PCE / 8/7 NFP
 【判斷登錄】① QQQ 週一能否收復 700 ② MAGS 五日翻負（1–2日內） ③ HACK Rank 守 100 至 7/23 ④ XOP 事件驅動方向（1–2日） ⑤ NQ20 維持 50% 以下至 7/25
 -->
@@ -1364,10 +1363,10 @@ function setTheme(t){
 
 【領頭者更新】
 - HACK（網路安全）：👑 在位強化。今日逆市 +0.85%，Rank100，全表唯一正向科技板塊
-- CIBR（網路安全）：⚠ 動搖。短線轉負，從主線降為觀察
+- CIBR（網路安全）：動搖。短線轉負，從主線降為觀察
 - SOXX（半導體）：💥 倒下深化。Rank 5，短線 −9.18%、中線 −17.94%，弱勢加速
 - KIE（保險）：👑 在位。今日逆市 +1.10%，三欄全正，金融子板最強
-- KRE/KBE（銀行）：⚠ 動搖。今日回吐，中長線仍正
+- KRE/KBE（銀行）：動搖。今日回吐，中長線仍正
 - XOP（油氣）：🔄 事件型候選。美伊衝突驅動，非系統性輪動
 
 【微結構訊號】
@@ -1377,7 +1376,7 @@ function setTheme(t){
 - R4（利空不跌）：❌ 未觸發
 
 【序列位置初判】
-多頭序列：中後段偏末（R2+R3 雙觸發持續，QQQ 跌破 700 Gamma Flip，加速下跌結構啟動）
+多頭序列：中後段偏末（R2+R3 雙觸發持續，QQQ 跌破 700 Gamma Flip，加速下跌結構中短窗轉強·長弱）
 分岔判定：領頭者繼續倒（SOXX Rank 5）＋有條件接替（HACK 韌性最強，KIE 保險穩）→ 輪動延續或資金離場待 Big Tech 財報週定案
 否定條件：若 Big Tech 財報週（7/27–30）HACK 也破位，升級為「資金離場，短波段結束」
 
@@ -1424,13 +1423,13 @@ VIX 18.76 同步上升與 P/C 0.31 背離，是轉折前常見狀態，方向由
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -1450,5 +1449,6 @@ VIX 18.76 同步上升與 P/C 0.31 背離，是轉折前常見狀態，方向由
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

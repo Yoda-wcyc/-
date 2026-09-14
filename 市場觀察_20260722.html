@@ -437,8 +437,7 @@ nav a:hover{color:var(--text);background:var(--surface2);border-left-color:var(-
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -533,7 +532,7 @@ nav{scrollbar-width:thin}
   <div class="temp-bar-wrap">
     <div class="temp-bar-header">
       <span class="temp-bar-name">資金流判定</span>
-      <span class="temp-bar-label" style="color:#4da8e0;">⚠ 警戒</span>
+      <span class="temp-bar-label" style="color:#4da8e0;">警戒</span>
     </div>
     <div class="temp-bar-scale">
       <span>全面空方</span><span>中性</span><span>全面多方</span>
@@ -633,8 +632,8 @@ nav{scrollbar-width:thin}
 
       <div class="card clk" id="cSit" onclick="tog('dSit','cSit')">
         <div class="c-lbl">資金流判定 <span class="arr">▼</span></div>
-        <div class="sit sit-wn" style="margin-bottom:10px;">⚠ 警戒（BAR1=37）</div>
-        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">US10Y 今日回升至 4.60%，突破 7/18 的 4.57%——上週 CPI/PPI 雙冷的降溫效果已被油價通膨完全抵銷。美伊衝突連十天，WTI 繼續高位。FOMC 下週，在這個利率位置進場風險偏高。</div>
+        <div class="sit sit-wn" style="margin-bottom:10px;">警戒（BAR1=37）</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">US10Y 今日回升至 4.60%，突破 7/18 的 4.57%——上週 CPI/PPI 雙冷的降溫效果已被油價通膨完全抵銷。美伊衝突連十天，WTI 繼續高位。FOMC 下週，在這個利率位置是逆風。</div>
         <div class="irow-list"><div class="irow"><span class="irow-name">US2Y</span><span class="irow-val y">4.16%（延用）</span></div>
 <div class="irow"><span class="irow-name">US10Y</span><span class="irow-val r">4.60%（↑突破前高）</span></div>
 <div class="irow"><span class="irow-name">10Y−2Y</span><span class="irow-val g">+39bp（7/20）</span></div>
@@ -660,7 +659,7 @@ nav{scrollbar-width:thin}
       <div class="card clk" id="cRsk" onclick="tog('dRsk','cRsk')">
         <div class="c-lbl">Risk-on / Risk-off <span class="arr">▼</span></div>
         <div class="sit sit-wn" style="margin-bottom:10px;">🟢 強烈進攻（BAR3=72）</div>
-        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">動能、高 Beta、品質因子全部跑贏——但今日進攻是半導體補漲帶動，非 MAGS 驅動（MAGS +0.03%）。風格因子進攻訊號有效，解讀為「板塊輪動補漲」而非「系統性多頭啟動」。</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">動能、高 Beta、品質因子全部跑贏——但今日進攻是半導體補漲帶動，非 MAGS 驅動（MAGS +0.03%）。風格因子進攻訊號有效，解讀為「板塊輪動補漲」而非「系統性多頭中短窗轉強·長弱」。</div>
         <div class="irow-list"><div class="irow"><span class="irow-name">SPMO</span><span class="irow-val g">+3.58%（跑贏 +2.75%）</span></div>
 <div class="irow"><span class="irow-name">SPHB</span><span class="irow-val g">+3.12%（跑贏 +2.29%）</span></div>
 <div class="irow"><span class="irow-name">SPHQ</span><span class="irow-val g">+1.40%（跑贏）</span></div>
@@ -698,7 +697,7 @@ nav{scrollbar-width:thin}
       <div class="lyr-hdr" style="margin-top:10px;">🟡 短期情緒警示（即時行為）</div>
       <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🟡</span><div><strong>P/C Ratio 0.67</strong>（中性回歸）——從 0.31 極端裸奔→0.67 中性，情緒擺盪收斂，軋空動能已消散</div></div>
 <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">🟢</span><div><strong>VIX 17.04 / VXN 26.66</strong>——雙雙回落，SOXX +5.45% 帶動科技恐慌降溫。VX1/VX2 正價差 +1.0，期限結構正常</div></div>
-<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;">⚠️</span><div><strong>MEME +10.33%</strong>——投機情緒回溫訊號，R1（弱勢股補漲）極端體現；也是短線修復後情緒超賣解除的典型表現</div></div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:calc(var(--fs)*.88);"><span style="font-size:1.2em;flex-shrink:0;"></span><div><strong>MEME +10.33%</strong>——投機情緒回溫訊號，R1（弱勢股補漲）極端體現；也是短線修復後情緒超賣解除的典型表現</div></div>
       <div style="font-size:calc(var(--fs)*.8);padding:10px;background:rgba(239,68,68,.07);border-radius:5px;border-left:3px solid var(--red);line-height:1.6;margin-top:10px;">NAAIM 數據為 7/15 週讀數，本週三（7/22）更新後需確認是否持續 >90。</div>
     </div>
 
@@ -760,7 +759,7 @@ nav{scrollbar-width:thin}
     <div class="mini-chart-legend"><span><span class="dot-r"></span>短線</span><span><span class="dot-y"></span>中線</span><span><span class="dot-b"></span>長線</span></div>
     <canvas class="mini-chart-canvas" data-r5="-1.14" data-r20="13.32" data-r60="32.38"></canvas>
   </div>
-  <div>三欄全正，中線長線雙強。今日 −1.98% 連兩天回吐，短線轉負 −1.14%⚠——明日是關鍵觀察點，連三日翻負就要警戒。Rank100 穩守，主線地位不變。</div>
+  <div>三欄全正，中線長線雙強。今日 −1.98% 連兩天回吐，短線轉負 −1.14%——明日是關鍵觀察點，連三日翻負就要警戒。Rank100 穩守，主線地位不變。</div>
 </div>
 <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
   <span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">🔥主線</span>CIBR</span>
@@ -848,7 +847,7 @@ nav{scrollbar-width:thin}
     <div class="sc tw">
       <div class="sc-hdr">△ 轉弱（REL5惡化，投機退潮）</div>
       <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
-  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">⚠觀察</span>HACK 短線連吐</span>
+  <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">觀察</span>HACK 短線連吐</span>
   <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank100</span><span class="sc-arr">▼</span></span>
 </div>
 <div class="sc-det">
@@ -872,7 +871,7 @@ nav{scrollbar-width:thin}
     </div>
 
     <div class="sc x">
-      <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+      <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
       <div class="sc-item" onclick="this.nextElementSibling.classList.toggle('open');this.classList.toggle('open')">
   <span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">🔴弱勢</span>DRAM 記憶體</span>
   <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk cr">Rank22</span><span class="sc-arr">▼</span></span>
@@ -911,7 +910,7 @@ nav{scrollbar-width:thin}
 
   <div class="rotation-verdict">
     <div class="rv-title">⚡ 板塊強弱對位小結：<strong>板塊輪動補漲：半導體修復、醫療金融穩走、HACK 回吐觀察</strong></div>
-    <div class="rv-snapshot"><div class="snap-row"><span class="snap-etf">HACK</span><span class="snap-tag snap-tag-warn">⚠ 短線連吐第二天</span><span class="snap-desc">Rank100 未動，三欄全正；今日 −1.98%，短線 −1.14%，明日是連三日翻負的觀察關鍵</span></div>
+    <div class="rv-snapshot"><div class="snap-row"><span class="snap-etf">HACK</span><span class="snap-tag snap-tag-warn">短線連吐第二天</span><span class="snap-desc">Rank100 未動，三欄全正；今日 −1.98%，短線 −1.14%，明日是連三日翻負的觀察關鍵</span></div>
 <div class="snap-row"><span class="snap-etf">SOXX</span><span class="snap-tag snap-tag-warn">🟠 補漲未解除</span><span class="snap-desc">今日 +5.45% 大反彈，但短線 −0.05% 仍負，🟠 動能衰竭狀態未轉</span></div>
 <div class="snap-row"><span class="snap-etf">IHF/XPH</span><span class="snap-tag snap-tag-ok">🟢 三欄全正穩走</span><span class="snap-desc">補漲日繼續上漲，中線長線最強醫療子板，是本週最穩的多方板塊</span></div>
 <div class="snap-row"><span class="snap-etf">KRE/KBE</span><span class="snap-tag snap-tag-ok">🟢 安靜走強</span><span class="snap-desc">三欄全正，今日持穩，本週最踏實的主線之一，沒有補漲日的大起大落</span></div>
@@ -971,7 +970,7 @@ nav{scrollbar-width:thin}
     </div>
 
     <div class="bc-det" id="dSP20">
-      <div class="bc-sum">SP20 48.9%，低於 50%，週末廣度繼續惡化。今日 RSP 僅 +0.16%，廣度修復尚未啟動。</div>
+      <div class="bc-sum">SP20 48.9%，低於 50%，週末廣度繼續惡化。今日 RSP 僅 +0.16%，廣度修復尚未中短窗轉強·長弱。</div>
       <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 20MA%</th><th>狀態判讀</th></tr></thead>
       <tbody><tr><td>07/02</td><td class="c cg">67.7%</td><td>🟢 近期高點</td></tr>
 <tr><td>07/15</td><td class="c cy">51.9%</td><td>🟡 收縮</td></tr>
@@ -999,7 +998,7 @@ nav{scrollbar-width:thin}
     </div>
   </div>
 
-  <div class="breadth-verdict"><strong>廣度框架：S≈0（等權幾乎持平）/ M→±（中線分歧）/ L+（長線正向）</strong>——三項廣度低於 50%，SOXX 大漲對廣度拉抬有限，補漲集中在少數大型半導體股，不是廣泛擴散。SP50 59.2% 是唯一守住健康區的，但趨勢向下。廣度修復尚未啟動。</div>
+  <div class="breadth-verdict"><strong>廣度框架：S≈0（等權幾乎持平）/ M→±（中線分歧）/ L+（長線正向）</strong>——三項廣度低於 50%，SOXX 大漲對廣度拉抬有限，補漲集中在少數大型半導體股，不是廣泛擴散。SP50 59.2% 是唯一守住健康區的，但趨勢向下。廣度修復尚未中短窗轉強·長弱。</div>
 </div>
 </div><!-- /content-section -->
 <!-- /市場廣度 -->
@@ -1072,7 +1071,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev01">
     <div class="ev-bull">📈 多方條件：衝突階段性緩和，WTI 回落，US10Y 隨之下降，科技估值壓力減輕</div>
     <div class="ev-bear">📉 空方條件：衝突升級至霍姆茲海峽或伊朗封鎖，WTI 突破 $90，通膨預期急升</div>
-    <div class="ev-rule">⚠ 操作紀律：每天盤前確認油價方向，是超級週前最重要的宏觀背景變數</div>
+    <div class="ev-rule">操作紀律：每天盤前確認油價方向，是超級週前最重要的宏觀背景變數</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1082,8 +1081,8 @@ nav{scrollbar-width:thin}
   </div>
   <div class="ev-det" id="ev02">
     <div class="ev-bull">📈 多方條件：財報優且市場反應正面，不重演 TSMC「好財報壞反應」→ MAGS 站穩，廣度擴散，QQQ 挑戰 730–740</div>
-    <div class="ev-bear">📉 空方條件：好財報壞反應複製 TSMC → NAAIM 95.64 高倉位被迫減碼，QQQ 重破 700 看 660</div>
-    <div class="ev-rule">⚠ 操作紀律：每個財報日當天不追價，等隔日確認；財報週不加碼</div>
+    <div class="ev-bear">📉 空方條件：好財報壞反應複製 TSMC → NAAIM 95.64 高曝險被迫下降，QQQ 重破 700 一帶</div>
+    <div class="ev-rule">操作紀律：每個財報日當天不追價，等隔日確認；財報週是事件風險集中期</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1094,7 +1093,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev03">
     <div class="ev-bull">📈 多方條件：按兵不動且語氣偏中性，降息預期維持 → 科技估值壓力不加重</div>
     <div class="ev-bear">📉 空方條件：9月升息強烈暗示，Warsh 鷹派超預期 → US10Y 突破 4.65%，多方劇本失效</div>
-    <div class="ev-rule">⚠ 操作紀律：決議當天不追價，等隔日確認；US10Y 4.60% 今日已突破前高，FOMC 前升息壓力偏高</div>
+    <div class="ev-rule">操作紀律：決議當天不追價，等隔日確認；US10Y 4.60% 今日已突破前高，FOMC 前升息壓力偏高</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1105,7 +1104,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev04">
     <div class="ev-bull">📈 多方條件：GDP 穩健 + PCE 溫和 → 軟著陸敘事強化</div>
     <div class="ev-bear">📉 空方條件：GDP 偏熱或 PCE 偏高 → 通膨黏性確認，升息確定性上升</div>
-    <div class="ev-rule">⚠ 操作紀律：歷史最易過度反應的一天，當天先看不動，這是超級週最需要克制追價衝動的時刻</div>
+    <div class="ev-rule">操作紀律：歷史最易過度反應的一天，當天先看不動，這是超級週最需要克制追價衝動的時刻</div>
   </div>
 </div>
 <div class="ev-item">
@@ -1116,7 +1115,7 @@ nav{scrollbar-width:thin}
   <div class="ev-det" id="ev05">
     <div class="ev-bull">📈 多方條件：就業偏軟 → 鴿派窗口打開，降息預期重燃</div>
     <div class="ev-bear">📉 空方條件：就業強勁 → 升息確定性捲土重來</div>
-    <div class="ev-rule">⚠ 操作紀律：非農當天等數字出來再說，不預設方向</div>
+    <div class="ev-rule">操作紀律：非農當天等數字出來再說，不預設方向</div>
   </div>
 </div></div>
 
@@ -1142,7 +1141,7 @@ nav{scrollbar-width:thin}
       <div class="syn-h">一、核心要點</div>
       <div class="syn-txt"><p style="margin:0 0 14px;"><strong>📌 利率與宏觀：</strong>US10Y 回升至 4.60%，突破 7/18 的 4.57%，上週 CPI/PPI 雙冷的降溫效果已被美伊油價完全抵銷。SOFR 降至 3.57%，短端流動性最寬鬆，但這改變不了 FOMC 下週的升息壓力。MOVE 74.67 升溫，債市已在為超級週定價。</p>
 <p style="margin:0 0 14px;"><strong>📌 補漲不是多頭：</strong>SOXX +5.45%、EWY +6.16%、DRAM +8.03%，漲最多的是上週跌最慘的。SOXX 短線 −0.05%，一天補漲沒有讓任何結構改變。這是修正尾聲的技術反彈，R1（弱勢股補漲）強觸發，不是新多頭的起點。MAGS +0.03%、RSP +0.16%，廣度三項低於 50%——今日大漲的背後，市場並沒有全面轉向。</p>
-<p style="margin:0 0 14px;"><strong>📌 廣度仍弱：</strong>NQ20 47.6%、SP20 48.9%、NQ50 43.7%，三項低於 50%。SOXX 漲了 5.45% 但 NQ 廣度幾乎沒動，說明今天是少數大型晶片股帶動，科技股沒有全面回升。廣度修復尚未啟動。</p>
+<p style="margin:0 0 14px;"><strong>📌 廣度仍弱：</strong>NQ20 47.6%、SP20 48.9%、NQ50 43.7%，三項低於 50%。SOXX 漲了 5.45% 但 NQ 廣度幾乎沒動，說明今天是少數大型晶片股帶動，科技股沒有全面回升。廣度修復尚未中短窗轉強·長弱。</p>
 <p style="margin:0;"><strong>📌 超級週前的位置：</strong>QQQ 708.97 收復 700，做市商助漲重啟；但 NAAIM 95.64 高倉位＋US10Y 4.60%＋FOMC 下週，容錯空間薄。HACK/CIBR 連兩日回吐，明日短線能否止跌是最短線的觀察點。MAGS 五日 +0.06% 再度貼近翻負邊界，每天確認。</p></div>
     </div>
 
@@ -1198,7 +1197,7 @@ nav{scrollbar-width:thin}
             <span class="trig-num trig-bear">①</span> <span class="trigger">Big Tech 財報重演「好財報壞反應」</span><br>
 → NAAIM 95.64 高倉位被迫賣出，QQQ 重新跌破 700 Gamma Flip<br>
 目標：QQQ 測試 660（−6.9%）<br><br>
-<span class="trig-num">②</span> <span class="trigger">MAGS 五日翻負（目前 +0.06% 邊緣）</span> ⚠ 警戒<br>
+<span class="trig-num">②</span> <span class="trigger">MAGS 五日翻負（目前 +0.06% 邊緣）</span> 警戒<br>
 → 最優先規則，今日 +0.03% 再次貼近邊界<br><br>
 <span class="trig-num">③</span> <span class="trigger">US10Y 突破 4.65%（目前 4.60%，差 5bp）</span><br>
 → 加上 VIX 衝破 20，多方劇本失效<br><br>
@@ -1415,7 +1414,7 @@ function setTheme(t){
 
 【微結構訊號】
 - R1（弱勢股補漲）：✅ 強觸發。SOXX +5.45%、EWY +6.16%、DRAM +8.03%、MEME +10.33%
-- R2（強勢股補跌）：⚠ 持續但轉弱。HACK/CIBR 繼續小回吐，非爆量型
+- R2（強勢股補跌）：持續但轉弱。HACK/CIBR 繼續小回吐，非爆量型
 - R3（利多不漲）：❌ 未觸發
 - R4（利空不跌）：❌ 未觸發
 
@@ -1465,13 +1464,13 @@ function setTheme(t){
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -1491,5 +1490,6 @@ function setTheme(t){
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

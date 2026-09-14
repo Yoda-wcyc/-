@@ -12,7 +12,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1200">
-<title>六月風暴 | 時間軸分析 2026</title>
+<title>六月風暴 | 四體事件時間軸分析 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -187,6 +187,7 @@ footer{text-align:center;padding-top:48px;font-family:var(--mono);font-size:9.5p
 }
 .ctrl-btn:hover{border-color:rgba(0,212,170,.5);color:#00d4aa}
 .ctrl-btn.active{background:rgba(0,212,170,.15);border-color:rgba(0,212,170,.45);color:#00d4aa}
+.ctrl-home{text-decoration:none;display:inline-flex;align-items:center;gap:3px}
 
 /* ── LIGHT MODE ── */
 body.light{
@@ -340,6 +341,8 @@ nav{scrollbar-width:thin}
 <body>
 
 <div class="controls" id="ctrl">
+  <a class="ctrl-btn ctrl-home" href="https://yoda-wcyc.github.io/-/" target="_blank">⌂ 首頁</a>
+  <div class="ctrl-sep"></div>
   <button class="ctrl-btn" id="fs-s" onclick="setFs(18)">小</button>
   <button class="ctrl-btn active" id="fs-m" onclick="setFs(21)">中</button>
   <button class="ctrl-btn" id="fs-l" onclick="setFs(24)">大</button>
@@ -352,9 +355,10 @@ nav{scrollbar-width:thin}
 <!-- HEADER -->
 <header>
   <div class="htag">Yoda &times; Claude</div>
-  <h1>六月 <em>風暴</em> <span>×</span> 時間軸分析</h1>
-  <div class="hsub">SpaceX IPO &nbsp;×&nbsp; FOMC + SEP點陣圖 &nbsp;×&nbsp; 四巫日　三體事件因果解構</div>
-  <div class="badges">
+  <h1>六月 <em>風暴</em> <span>×</span> 四體事件分析</h1>
+  <div class="hsub">FOMC × SpaceX IPO × 日銀升息 × 四巫日 ｜ SpaceX IPO &nbsp;×&nbsp; FOMC + SEP點陣圖 &nbsp;×&nbsp; 四巫日　三體事件因果解構</div>
+  <div style="font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.1em;margin-bottom:8px;text-align:center;">2026-05-28 更新：日銀升息整合｜四體事件分析版</div>
+<div class="badges">
     <span class="badge br">🔴 極高風險窗口 6/16–6/18</span>
     <span class="badge bg">⚡ FOMC × 四巫日 同週</span>
     <span class="badge bt">分析日：2026 / 05 / 22</span>
@@ -363,7 +367,7 @@ nav{scrollbar-width:thin}
 
 <!-- ══ FISHBONE ══ -->
 <div class="fb-wrap">
-  <div class="fb-label">◈ 時間軸分析 — 六月極端波動的四大根源</div>
+  <div class="fb-label">◈ 時間軸與因果圖 — 六月四體事件的根源與連鎖</div>
   <!-- viewBox has extra left margin for labels -->
   <svg class="fb-svg" viewBox="-30 0 1220 430" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -415,6 +419,10 @@ nav{scrollbar-width:thin}
       <line x1="148" y1="97" x2="260" y2="97" stroke="#f59e0b" stroke-width="1.2" opacity=".38"/>
       <circle cx="260" cy="97" r="3.5" fill="#f59e0b" opacity=".75" class="bdot"/>
       <text x="144" y="101" text-anchor="end" fill="#ca8a04" font-family="IBM Plex Mono" font-size="9.5">新主席Warsh立場未定</text>
+      <!-- BOJ sub-branch extra -->
+      <line x1="128" y1="78" x2="240" y2="78" stroke="#ef4444" stroke-width="1.2" opacity=".55"/>
+      <circle cx="240" cy="78" r="3.5" fill="#ef4444" opacity=".85" class="bdot"/>
+      <text x="124" y="82" text-anchor="end" fill="#ef4444" font-family="IBM Plex Mono" font-size="9.5">日銀6/16升息 71% → JPY急升</text>
       <!-- category label -->
       <text x="235" y="55" text-anchor="middle" fill="#f59e0b" font-family="Noto Sans TC" font-size="14" font-weight="700">利率環境</text>
       <text x="235" y="70" text-anchor="middle" fill="#78350f" font-family="IBM Plex Mono" font-size="8">RATE ENVIRONMENT</text>
@@ -532,7 +540,7 @@ nav{scrollbar-width:thin}
 </div>
 
 <!-- ══ BONE DETAIL CARDS ══ -->
-<div class="sec-hd">◈ 四大風險骨 詳細因子</div>
+<div class="sec-hd">◈ 四大風險因子 詳細拆解</div>
 <div class="bone-grid">
 
   <!-- CARD 1: 利率環境 -->
@@ -547,6 +555,7 @@ nav{scrollbar-width:thin}
         <li class="fitem"><span class="fnum">②</span><span class="ftxt"><strong>6/10 CPI</strong>——FOMC前最後通膨數據。若 &gt;3.5%，升息定價從50%急跳至70%+</span><span class="fval cy">⚡待定</span></li>
         <li class="fitem"><span class="fnum">③</span><span class="ftxt"><strong>升息隱含機率 50%</strong>——市場五五波，點陣圖是本輪最大轉捩點</span><span class="fval cy">🟡</span></li>
         <li class="fitem"><span class="fnum">④</span><span class="ftxt"><strong>新主席 Warsh</strong>——Powell任期已結束，確認前立場與溝通風格未知</span><span class="fval cy">🟡</span></li>
+        <li class="fitem"><span class="fnum">⑤</span><span class="ftxt"><strong>日銀 6/16 升息（FOMC前一日）</strong>——6:3 投票升息至 1.0% 概率 71%。若升息，日圓升值 → Carry Trade 解倉 → 全球流動性同步收縮，FOMC 決策前市場已承壓</span><span class="fval cr">🔴新增</span></li>
       </ul>
     </div>
   </div>
@@ -564,7 +573,7 @@ nav{scrollbar-width:thin}
         <li class="fitem"><span class="fnum">③</span><span class="ftxt"><strong>NDX 納入機制（~7/3）</strong>——Nasdaq Fast Entry（5/1生效）：掛牌後第15交易日強制納入。SpaceX 預計權重 ~0.44%，觸發 NDX 生態系 <em>單日 MOC 買單 $60–70B</em>（包含 QQQ $385B × 0.44% ≈ $17億 + 全生態）。這是 NDX 史上最大單日被動換倉事件，規模是 Tesla 2020年 S&P 納入的 3–5 倍</span><span class="fval cr">🔴7/3觸發</span></li>
         <li class="fitem"><span class="fnum">④</span><span class="ftxt"><strong>現有成分股遭比例賣出</strong>——NDX 現有 100+ 檔成分股全部按比例縮減。權重最高的受衝擊最大：NVDA（~6.5%）→ 被賣出約 $390M（QQQ層面）；AAPL、MSFT、AMZN 各遭 $200–300M 賣出。<em>這不是暴力砍倉，而是確定發生的結構性稀釋。</em></span><span class="fval cy">🟡稀釋</span></li>
         <li class="fitem"><span class="fnum">⑤</span><span class="ftxt"><strong>解禁瀑布效應（180天內）</strong>——SpaceX 分批解禁設計：浮動股每增加 → NDX 權重按 3× 公式上調 → 追蹤基金再次被動加碼 SPCX → 再次賣出現有成分股。9/21 定期重組是第二波高峰</span><span class="fval cy">⚡滾動</span></li>
-        <li class="fitem"><span class="fnum">⑥</span><span class="ftxt"><strong>OpenAI（$750–830B）+ Anthropic（~$350B）連鎖</strong>——若 OpenAI Q3 掛牌，第二輪 NDX 換倉啟動。Anthropic 年底前若跟進，第三輪開啟。三家合計 ~$2.85T+，現有成分股在 12 個月內面臨 <em>累計 2–4% 的結構性稀釋</em>，是近 20 年 NDX 最大成分權重重組</span><span class="fval cr">🔴連環</span></li>
+        <li class="fitem"><span class="fnum">⑥</span><span class="ftxt"><strong>OpenAI（$750–830B）+ Anthropic（~$350B）連鎖</strong>——若 OpenAI Q3 掛牌，第二輪 NDX 換倉中短窗轉強·長弱。Anthropic 年底前若跟進，第三輪開啟。三家合計 ~$2.85T+，現有成分股在 12 個月內面臨 <em>累計 2–4% 的結構性稀釋</em>，是近 20 年 NDX 最大成分權重重組</span><span class="fval cr">🔴連環</span></li>
       </ul>
     </div>
   </div>
@@ -673,7 +682,7 @@ nav{scrollbar-width:thin}
         <div class="cmp-row"><span class="cl">關鍵差異</span><span class="cv cr">公司虧損中，基本面支撐弱於Tesla</span></div>
       </div>
     </div>
-    <div class="impact-note">⚠ 關鍵洞察：Tesla 納入時公司已高度盈利（FY2020淨利潤 $7億）。SpaceX Q1 淨虧損 $43億。若市場情緒轉向，下行空間不對稱放大。</div>
+    <div class="impact-note">關鍵洞察：Tesla 納入時公司已高度盈利（FY2020淨利潤 $7億）。SpaceX Q1 淨虧損 $43億。若市場情緒轉向，下行空間不對稱放大。</div>
   </div>
 
   <!-- 受衝擊板塊分級表 -->
@@ -721,7 +730,90 @@ nav{scrollbar-width:thin}
     </div>
   </div>
 
-</div>
+
+
+
+  <!-- CARD 5: 日銀升息 BOJ -->
+  <div class="bcard dn" id="card-boj">
+    <div class="bcard-title" onclick="toggleCard('card-boj')">
+      <div class="bcard-title-inner"><span style="color:var(--red)">━</span> 日銀升息 <span class="ctag">新增風險骨 05</span><span style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:8px">BOJ 6/16 RATE DECISION</span></div>
+      <span class="bcard-arrow">▶</span>
+    </div>
+    <div class="bcard-body">
+
+      <!-- 事實查核 -->
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--teal);text-transform:uppercase;margin-bottom:10px;">◈ 事實查核總覽</div>
+      <ul class="flist">
+        <li class="fitem"><span class="fnum">①</span><span class="ftxt"><strong>4/28 投票 6:3 史上最大分歧</strong>——植田任內最大，應為「2016年來最大」，非史無前例</span><span class="fval cg">✅確認</span></li>
+        <li class="fitem"><span class="fnum">②</span><span class="ftxt"><strong>高田、田村、中川三位反對票</strong>——三人均主張立即升息至 1.0%；中川投反對票尤為意外（原被視為鴿派）</span><span class="fval cg">✅確認</span></li>
+        <li class="fitem"><span class="fnum">③</span><span class="ftxt"><strong>6月升息機率 75–80%</strong>——略高估。Barclays / OIS 互換市場實際定價約 68–74%。方向正確，數字略有高估</span><span class="fval cy">略高</span></li>
+        <li class="fitem"><span class="fnum">④</span><span class="ftxt"><strong>JGB 帳面損失 45.44兆日圓</strong>——FY2025 財年，5/27 公布，創歷史新高；ETF 帳面盈利 57.07兆日圓（官方 57.066，完全吻合）</span><span class="fval cg">✅精確</span></li>
+        <li class="fitem"><span class="fnum">⑤</span><span class="ftxt"><strong>中川順子 6/29 任期屆滿</strong>——原文未提及的關鍵。6/16 是她最後一次投票機會，繼任者佐藤綾野立場明顯更鴿，這對 6/16 升息概率形成支撐</span><span class="fval cr">🔴關鍵漏項</span></li>
+      </ul>
+
+      <!-- 情境分析 -->
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--teal);text-transform:uppercase;margin:16px 0 10px;">◈ 6/16 升息情境 × 市場衝擊</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+
+        <!-- 情境A: 升息 -->
+        <div style="background:var(--bg3);border-radius:8px;padding:16px;border-top:2px solid var(--red)">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--red);margin-bottom:10px;">情境 A｜升息至 1.0%（概率 ~71%）</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span>USD/JPY</span><span style="color:var(--red);font-family:var(--mono)">140–145（即時–1週）</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span>日經225</span><span style="color:var(--red);font-family:var(--mono)">−5 ~ −10%（1–2週）</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span>Nasdaq / NQ</span><span style="color:var(--red);font-family:var(--mono)">−2 ~ −5%（1–3週）</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span>新興市場</span><span style="color:var(--red);font-family:var(--mono)">−3 ~ −7%（2–4週）</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0"><span>BTC</span><span style="color:var(--red);font-family:var(--mono)">−15 ~ −25%（1–2週）</span></div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)">
+            <strong style="color:var(--text)">放大因素：</strong>若同步宣布縮減購債（QT），日本10Y殖利率挑戰2.5%；全球未平倉 Carry Trade 估計 ~$500億美元待解除<br><br>
+            <strong style="color:var(--text)">緩衝因素：</strong>升息已有71%定價（非2024/7的意外等級）；若Fed同期維持或降息，抵銷部分流動性收縮
+          </div>
+        </div>
+
+        <!-- 情境B: 維持 -->
+        <div style="background:var(--bg3);border-radius:8px;padding:16px;border-top:2px solid var(--teal)">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--teal);margin-bottom:10px;">情境 B｜維持不變（概率 ~29%）</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span>USD/JPY</span><span style="color:var(--teal);font-family:var(--mono)">150–155（日圓貶值）</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span>日經225</span><span style="color:var(--teal);font-family:var(--mono)">+2 ~ +3%（出口商受益）</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)"><span>Nasdaq / NQ</span><span style="color:var(--teal);font-family:var(--mono)">中性偏正</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0"><span>後續風險</span><span style="color:var(--gold);font-family:var(--mono)">7月更激進升息</span></div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)">
+            <strong style="color:var(--text)">後續風險：</strong>升息預期推後至7月，不確定性延續；6/29中川離任後鴿派增加，若7月再維持，通膨累積風險更大，未來升息可能更為激進
+          </div>
+        </div>
+      </div>
+
+      <!-- 歷史案例 -->
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--teal);text-transform:uppercase;margin:4px 0 10px;">◈ 歷史升息衝擊對照</div>
+      <table class="impact-tbl">
+        <thead><tr><th>時間</th><th>利率變動</th><th>日經225</th><th>Nasdaq</th><th>USD/JPY</th><th>備註</th></tr></thead>
+        <tbody>
+          <tr><td>2024/7/31</td><td style="font-family:var(--mono)">0 → 0.25%</td><td><span style="color:var(--red)">−12%（1週）</span></td><td><span style="color:var(--red)">−3~5%</span></td><td>160 → 140</td><td style="color:var(--muted)">未充分定價，衝擊最大</td></tr>
+          <tr><td>2025/1/24</td><td style="font-family:var(--mono)">0.25 → 0.50%</td><td><span style="color:var(--gold)">−3~5%（2週）</span></td><td><span style="color:var(--gold)">−1~2%</span></td><td>155 → 152</td><td style="color:var(--muted)">部分定價，衝擊溫和</td></tr>
+          <tr><td>2025/12/19</td><td style="font-family:var(--mono)">0.50 → 0.75%</td><td><span style="color:var(--teal)">+0.8%</span></td><td><span style="color:var(--teal)">小幅震盪</span></td><td>155 → 152</td><td style="color:var(--muted)">充分定價，平靜消化</td></tr>
+          <tr style="background:rgba(239,68,68,.06)"><td><strong>2026/6/16（預測）</strong></td><td style="font-family:var(--mono)">0.75 → 1.0%</td><td><span style="color:var(--red)">−5~10%（1–2週）</span></td><td><span style="color:var(--red)">−2~5%（1–3週）</span></td><td>預估 140–145</td><td style="color:var(--red)">FOMC前一日 × 四巫日前兩日</td></tr>
+        </tbody>
+      </table>
+      <div class="impact-note">核心規律：衝擊幅度 ∝ 市場意外程度。當升息已充分定價（概率>70%），市場往往平靜消化。6/16 概率71%，但 FOMC 前一日的時機點使意外程度放大。</div>
+
+      <!-- 關鍵觀察點 -->
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--teal);text-transform:uppercase;margin:14px 0 10px;">◈ 6/16 決策日關鍵觀察點</div>
+      <ul class="flist">
+        <li class="fitem"><span class="fnum">①</span><span class="ftxt"><strong>QT 購債縮減規模</strong>——比升息本身對長端殖利率衝擊更大；若同步宣布縮減，日本10Y有機會挑戰2.5%</span><span class="fval cr">🔴最重要</span></li>
+        <li class="fitem"><span class="fnum">②</span><span class="ftxt"><strong>植田措辭</strong>——是否出現「不落後於形勢」、「若通膨持續將毫不猶豫」等鷹派用語</span><span class="fval cy">🟡</span></li>
+        <li class="fitem"><span class="fnum">③</span><span class="ftxt"><strong>投票結果</strong>——中川順子最後一票；若仍6:3甚至更分歧，後續路徑更明確</span><span class="fval cy">🟡</span></li>
+        <li class="fitem"><span class="fnum">④</span><span class="ftxt"><strong>通膨預測更新</strong>——FY2026核心CPI已從1.9%上調至2.8%；若再度上調，強化後續升息路徑</span><span class="fval cy">🟡</span></li>
+        <li class="fitem"><span class="fnum">⑤</span><span class="ftxt"><strong>荷莫茲局勢</strong>——若油價在會議前急劇變動，可能臨時改變決策方向</span><span class="fval cy">🟡</span></li>
+      </ul>
+
+    </div>
+  </div>
+
+
+</div><!-- /bone-grid -->
 
 
 <!-- ══ TIMELINE ══ -->
@@ -756,7 +848,14 @@ nav{scrollbar-width:thin}
       <div class="evdot rl"></div>
       <div class="evdate">6/13 FRI</div>
       <div class="evname" style="color:var(--teal)">FOMC 前夕</div>
-      <div class="evsub">最後低風險減倉視窗</div>
+      <div class="evsub">事件風險前的最後平靜窗口</div>
+    </div>
+    <!-- BOJ 6/16 below -->
+    <div class="ev bl" style="left:58%">
+      <div class="evdot rh"></div>
+      <div class="evdate">6/16 MON</div>
+      <div class="evname" style="color:var(--red)">🇯🇵 日銀決策</div>
+      <div class="evsub">升息至1.0%？概率71%</div>
     </div>
     <!-- FOMC 6/16-17 above -->
     <div class="ev ab" style="left:65%">
@@ -788,6 +887,7 @@ nav{scrollbar-width:thin}
   <!-- A 鷹派 -->
   <div class="scrd" style="border-top-color:var(--red)">
     <div class="sc-head2"><div class="sc-dot2" style="background:var(--red)"></div><div class="sc-title2" style="color:var(--red)">情境 A ｜ 鷹派意外</div></div>
+    <div class="sc-row"><span style="color:var(--red)">前情：日銀6/16已升息（概率71%）→ Carry Trade正在解倉</span></div>
     <div class="sc-row">點陣圖新增升息選項 or 措辭強硬</div>
     <div class="sc-row">US10Y 突破 <strong>4.75%</strong></div>
     <div class="sc-row">NQ 單日 <strong>−2.5% → −4%</strong></div>
@@ -801,6 +901,7 @@ nav{scrollbar-width:thin}
   <!-- B 鴿派 -->
   <div class="scrd" style="border-top-color:var(--green)">
     <div class="sc-head2"><div class="sc-dot2" style="background:var(--green)"></div><div class="sc-title2" style="color:var(--green)">情境 B ｜ 鴿派</div></div>
+    <div class="sc-row"><span style="color:var(--teal)">前情：日銀6/16可能已升息，但若維持則NQ受壓減輕</span></div>
     <div class="sc-row">點陣圖暗示年內降息</div>
     <div class="sc-row">US10Y 急跌，NQ 跳升</div>
     <div class="sc-row">測試 <strong>$750 Call牆（NQ ~30,712）</strong></div>
@@ -814,6 +915,7 @@ nav{scrollbar-width:thin}
   <!-- C 按兵不動 -->
   <div class="scrd" style="border-top-color:var(--teal)">
     <div class="sc-head2"><div class="sc-dot2" style="background:var(--teal)"></div><div class="sc-title2" style="color:var(--teal)">情境 C ｜ 按兵不動</div></div>
+    <div class="sc-row"><span style="color:var(--gold)">前情：日銀6/16升息概率71%，若升息則本情境仍有壓力</span></div>
     <div class="sc-row">利率維持 3.50–3.75%（基準情境）</div>
     <div class="sc-row">NQ 先上後下，震盪 <strong>±1.5%</strong></div>
     <div class="sc-row">Max Pain $655 引力主導四巫日結算</div>
@@ -821,10 +923,86 @@ nav{scrollbar-width:thin}
     <div class="sc-row">6/22 起為真正的方向確認視窗</div>
     <div class="sc-op">
       <div class="sc-op-label" style="color:var(--teal)">▶ NQ 操作</div>
-      <div class="sc-op-txt">持多單但停損收緊至盈虧平衡。四巫日 <strong>盤中急跌 NQ &lt;28,500</strong> 為逢低加碼窗口，停損 28,000</div>
+      <div class="sc-op-txt">多方結構仍在，但風險報酬已轉差＝逆風。四巫日 <strong>盤中急跌 NQ &lt;28,500</strong> 為回檔整理段；28,000 一帶是停損單與程式單容易觸發的位置，跌破＝此判讀不成立</div>
     </div>
   </div>
 </div>
+
+<!-- ══ BOJ × FOMC 雙事件疊加 ══ -->
+<div class="sec-hd">◈ 日銀 × FOMC 雙事件疊加矩陣（6/16 + 6/17）</div>
+<div style="background:var(--bg2);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:24px;margin-bottom:36px;">
+
+  <div style="font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:16px;">
+    <strong style="color:var(--red)">本輪六月風暴的最大結構性風險：</strong>日銀 6/16 升息決策在 FOMC 前一日，六月份最大風險日。<br>
+    若日銀升息引發日圓升值 + Carry Trade 解倉，市場在疲憊狀態下迎接 6/17 FOMC，雙重衝擊可能同步發生。
+  </div>
+
+  <table class="impact-tbl">
+    <thead>
+      <tr>
+        <th>組合</th>
+        <th>日銀 6/16 升息</th>
+        <th>FOMC 6/17 鷹派</th>
+        <th>NQ 預估影響</th>
+        <th>概率</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:rgba(239,68,68,.08)">
+        <td><strong style="color:var(--red)">最差</strong></td>
+        <td><span style="color:var(--red)">升息至1.0%</span></td>
+        <td><span style="color:var(--red)">鷹派暗示</span></td>
+        <td><span style="color:var(--red);font-family:var(--mono)">−5 ~ −8%（2日內）</span></td>
+        <td style="font-family:var(--mono)">~20%</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--gold)">中等壞</strong></td>
+        <td><span style="color:var(--red)">升息至1.0%</span></td>
+        <td><span style="color:var(--gold)">按兵不動</span></td>
+        <td><span style="color:var(--gold);font-family:var(--mono)">−2 ~ −4%（1–3週）</span></td>
+        <td style="font-family:var(--mono)">~51%</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--teal)">相對好</strong></td>
+        <td><span style="color:var(--teal)">維持不變</span></td>
+        <td><span style="color:var(--gold)">按兵不動</span></td>
+        <td><span style="color:var(--teal);font-family:var(--mono)">±1.5% 震盪</span></td>
+        <td style="font-family:var(--mono)">~21%</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--green)">最好</strong></td>
+        <td><span style="color:var(--teal)">維持不變</span></td>
+        <td><span style="color:var(--green)">鴿派</span></td>
+        <td><span style="color:var(--green);font-family:var(--mono)">+1 ~ +2%（但受$750壓制）</span></td>
+        <td style="font-family:var(--mono)">~8%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;">
+    <div style="background:var(--bg3);border-radius:8px;padding:14px;">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--red);margin-bottom:8px;">日銀財報背景（5/27公布）</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+        JGB 未實現損失：<strong style="color:var(--red)">45.44兆日圓</strong>（史上最高）<br>
+        ETF 未實現盈利：<strong style="color:var(--green)">57.07兆日圓</strong><br>
+        ETF 出清需要：<strong style="color:var(--muted)">~112年（每年3,300億）</strong><br>
+        → 短期對市場幾乎無影響，中期視條件而定
+      </div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:14px;">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--gold);margin-bottom:8px;">短窗轉弱·長強性通膨雙重壓力</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+        FY2026 核心通膨預測：<strong style="color:var(--red)">1.9% → 2.8% ↑</strong><br>
+        FY2026 GDP 成長預測：<strong style="color:var(--red)">1.0% → 0.5% ↓</strong><br>
+        Rengo 春鬥薪資漲幅：<strong style="color:var(--gold)">5.25%</strong><br>
+        → 升息＋短窗轉弱·長強雛型，政策困境
+      </div>
+    </div>
+  </div>
+
+  <div class="impact-note" style="margin-top:14px;">📌 操作提醒：6/15（週日）FOMC前夕，6/16（週一）日銀決策日開盤即為高波動——若日銀升息，NQ 開盤跳空下跌；建議 6/13（週五）收盤前完成倉位調整，此後進入靜默期。</div>
+</div>
+
 
 <!-- ══ NQ OPERATION ══ -->
 <div class="nq-wrap">
@@ -836,10 +1014,10 @@ nav{scrollbar-width:thin}
       <div class="nqp-body">
         這段市場仍在吃 SpaceX 路演的情緒紅利，多頭動能尚在。任務是<strong>在還有得賺的時候，主動把風險敞口縮小</strong>，而不是等風暴來了再被動應對。<br><br>
         <div class="nqp-sub">具體動作</div>
-        把多單降至<strong>正常倉位 60%</strong>，停損上移至<strong>盈虧平衡附近</strong>（幾乎保本就跑）。<strong>截止 6/9（週五）</strong>前完成——下週 SPCX 掛牌前夕情緒開始混沌，屆時縮倉成本會更高。<br><br>
+        把多單降至<strong>正常倉位 60%</strong>，停損單與程式單容易觸發的位置上移至<strong>盈虧平衡附近</strong>（幾乎保本就跑）。<strong>截止 6/9（週五）</strong>前完成——下週 SPCX 掛牌前夕情緒開始混沌，屆時縮倉成本會更高。<br><br>
         <div class="nqp-sub">例外條款</div>
         <em>若市場廣度連續 3 日改善、SP_20MA% 站上 50%，代表多頭意外強健，可小幅回補至 70%。</em><br><br>
-        <div class="nqp-alert"><strong>⚠ 最常見的錯誤：</strong>覺得「現在還好好的」就不動，拖到 SPCX 掛牌後才想縮，情緒最混亂的時候反而倉位最重。</div>
+        <div class="nqp-alert"><strong>最常見的錯誤：</strong>覺得「現在還好好的」就不動，拖到 SPCX 掛牌後才想縮，情緒最混亂的時候反而倉位最重。</div>
       </div>
     </div>
     <div class="nqp nqp-1">
@@ -847,10 +1025,11 @@ nav{scrollbar-width:thin}
       <div class="nqp-title">觀察為主<br>準備對沖</div>
       <div class="nqp-body">
         同時有 SPCX 掛牌和 FOMC，任何方向都可能發生。這段的任務是<strong>保持靈活，不預設立場</strong>。<br><br>
+        <div class="nqp-alert" style="margin-bottom:12px"><strong>🇯🇵 日銀 6/16 升息 71%：FOMC 前一日。</strong>若日銀升息，日圓急升 → Carry Trade 解倉 → NQ 開盤跳空壓力。<strong style="color:var(--red)">6/13（週五）是事件風險的分界日，週末留倉遇上日銀的風險特別高。</strong></div>
         <div class="nqp-sub">6/12 SPCX 掛牌 — 絕不追多</div>
         高開是大概率事件——情緒沸騰的那一刻，正是<strong>做市商報價最貴</strong>的時刻，路演熱度已全部反映在價格裡，買進就是在最高成本上車。<br><br>
         <div class="nqp-sub">FOMC 前（6/12–6/16）</div>
-        多單繼續降至 <strong>50% 以下</strong>。不是預測鷹派，而是「雙邊都可能時，先讓自己站在中性位置」。<strong>6/13（週五）是最後低風險減倉視窗</strong>，之後進入 FOMC 靜默期，情緒更敏感。<br><br>
+        多單繼續降至 <strong>50% 以下</strong>。不是預測鷹派，而是「雙邊都可能時，先讓自己站在中性位置」。<strong>6/13（週五）是事件風險前的最後平靜窗口</strong>，之後進入 FOMC 靜默期，情緒更敏感。<br><br>
         <div class="nqp-sub">FOMC 結果（6/17）× 三種劇本</div>
         <table class="fomc-tbl">
           <thead><tr><th>情境</th><th>市場反應</th><th>操作動作</th></tr></thead>
@@ -868,7 +1047,7 @@ nav{scrollbar-width:thin}
             <tr>
               <td><span style="color:var(--teal)">按兵</span><br>維持不變</td>
               <td>先上後下<br>震盪 ±1.5%</td>
-              <td>停損收緊至<br>盈虧平衡，備戰四巫日</td>
+              <td>停損單與程式單容易觸發的位置收斂至<br>盈虧平衡，備戰四巫日</td>
             </tr>
           </tbody>
         </table>
@@ -880,14 +1059,14 @@ nav{scrollbar-width:thin}
       <div class="nqp-title">等待盤中<br>非理性低點</div>
       <div class="nqp-body">
         四巫日（股指期貨、指數期權、個股期貨、個股期權四種商品同時到期結算）是全年流動性最混亂的幾天之一。方向不明，但<strong>盤中會出現誇張的短暫下殺</strong>——這才是機會所在。<br><br>
-        <div class="nqp-sub">核心策略：開盤不做任何方向押注</div>
+        <div class="nqp-sub">核心狀態：方向未定，等當日結構確認</div>
         等這兩個條件<strong>同時成立</strong>再出手：<br>
         ① NQ 盤中跌破 <strong>28,500</strong>（QQQ ≈ $695）<br>
         ② K 棒紅柱開始縮短（賣壓在衰竭中）<br><br>
-        ✦ 觸發後：建立<strong>小倉多單，停損設 28,000</strong><br><br>
+        ✦ 觸發後：建立<strong>多方結構仍在；28,000 一帶是停損單與程式單容易觸發的位置，跌破＝多方結構判讀不成立</strong><br><br>
         <div class="nqp-sub">為什麼等跌破才買？</div>
         四巫日的下殺多半是<strong>機械性結算拋壓</strong>，不是基本面惡化。紅柱縮短代表拋壓快結束，這種低點通常在結算後快速反彈。<br><br>
-        <div class="nqp-alert"><strong>⚠ 結算後雙向風險最大：</strong>大量 Gamma 對沖部位瞬間消失，市場重新「找方向」，任何方向都可能被反轉打臉。只建小倉，絕不重押。</div>
+        <div class="nqp-alert"><strong>結算後雙向風險最大：</strong>大量 Gamma 對沖部位瞬間消失，市場重新「找方向」，任何方向都可能被反轉打臉。只建小倉，絕不重押。</div>
       </div>
     </div>
   </div>
@@ -911,7 +1090,7 @@ nav{scrollbar-width:thin}
 
 </div>
 
-<footer style="line-height:1.9">© Yoda × Claude &nbsp;·&nbsp; 六月風暴魚骨分析 &nbsp;·&nbsp; 2026-05-22<br>本站所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。<br>© 2026 Yoda Research · 獨立研究者，個人觀點與市場資料整理分享</footer>
+<footer>© Yoda × Claude &nbsp;·&nbsp; 六月風暴四體事件時間軸分析 &nbsp;·&nbsp; 2026-05-24 原版 ／ 2026-05-28 更新（日銀升息整合）&nbsp;·&nbsp; 僅供教育用途，不構成任何投資建議</footer>
 </div>
 
 <script>
@@ -1032,5 +1211,6 @@ document.addEventListener('keydown',e=>{
 })();
 </script>
 <script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

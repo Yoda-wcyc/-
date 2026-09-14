@@ -259,8 +259,7 @@ body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -397,7 +396,7 @@ nav{scrollbar-width:thin}
         <div class="temp-dot temp-pulse" style="border-color:#a855f7;box-shadow:0 0 10px rgba(168,85,247,.6);"></div>
       </div>
     </div>
-    <div class="temp-note">▸ NQ20MA%=44.6／SP20MA%=60.2／NQ50MA%=56.4／SP50MA%=62.7——⚠️與昨日數字完全相同，已請Yoda核對是否手誤，暫按提供數字處理</div>
+    <div class="temp-note">▸ NQ20MA%=44.6／SP20MA%=60.2／NQ50MA%=56.4／SP50MA%=62.7——與昨日數字完全相同，已請Yoda核對是否手誤，暫按提供數字處理</div>
   </div>
 
 </div>
@@ -644,7 +643,7 @@ nav{scrollbar-width:thin}
 </div>
 <div id="w1" class="sc-det">
   <div class="chart-canvas" id="chart-w1" data-ticker="DRAM"></div>
-  <div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);">⚠️數據缺口：今日1D%在CSV中缺失，無法計算「今日相對SPY」表現。REL5/REL20維持正值，REL60仍負（較昨日−16.02%收斂）。在補齊1D%數據前，無法確認今天是否真的落後於半導體大宗，不宜直接假設分歧持續。</div>
+  <div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);">數據缺口：今日1D%在CSV中缺失，無法計算「今日相對SPY」表現。REL5/REL20維持正值，REL60仍負（較昨日−16.02%收斂）。在補齊1D%數據前，無法確認今天是否真的落後於半導體大宗，不宜直接假設分歧持續。</div>
 </div>
 
 <div class="sc-item" onclick="togSC('w2',this)">
@@ -663,7 +662,7 @@ nav{scrollbar-width:thin}
 
   <!-- 弱勢欄 -->
   <div class="sc x">
-    <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+    <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
     <div class="sc-item" onclick="togSC('x1',this)">
   <span class="sc-tk">GDX</span>
   <span style="display:flex;align-items:center;gap:5px;">
@@ -673,7 +672,7 @@ nav{scrollbar-width:thin}
 </div>
 <div id="x1" class="sc-det">
   <div class="chart-canvas" id="chart-x1" data-ticker="GDX"></div>
-  <div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);">⚠️重要：今日1D%實際為+1.45%（今日相對SPY+1.31%），止穩反彈；REL5/20/60的負值是過去4天累積的傷害，不是「今天又崩了」，需後續1-2日確認止穩是否延續。</div>
+  <div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);">重要：今日1D%實際為+1.45%（今日相對SPY+1.31%），止穩反彈；REL5/20/60的負值是過去4天累積的傷害，不是「今天又崩了」，需後續1-2日確認止穩是否延續。</div>
 </div>
 
 <div class="sc-item" onclick="togSC('x2',this)">
@@ -745,7 +744,7 @@ nav{scrollbar-width:thin}
   <div class="snap-row"><span class="snap-etf">GDX／SIL／COPX／SLV／GLD</span><span class="snap-tag snap-tag-ok">今日止穩✅</span><span class="snap-desc">1D%與今日相對SPY皆為正，過去幾日的崩跌在今日出現止穩反彈，REL5累積仍弱但方向已轉正，需1-2日確認延續性</span></div>
   <div class="snap-row"><span class="snap-etf">SOXX</span><span class="snap-tag snap-tag-ok">今日驗證✅</span><span class="snap-desc">今日相對SPY+3.80%為全表最強，驗證美光財報外溢效應；REL60高位為既有結構非今日新增</span></div>
   <div class="snap-row"><span class="snap-etf">EWY</span><span class="snap-tag snap-tag-ok">今日強勢✅</span><span class="snap-desc">今日相對SPY+3.78%，被REL5(5日累積)的平淡數字掩蓋，今天本身是強的</span></div>
-  <div class="snap-row"><span class="snap-etf">DRAM</span><span class="snap-tag snap-tag-warn">數據缺口⚠</span><span class="snap-desc">今日1D%缺失，無法確認今日相對表現，待補齊後再核實是否落後半導體大宗</span></div>
+  <div class="snap-row"><span class="snap-etf">DRAM</span><span class="snap-tag snap-tag-warn">數據缺口</span><span class="snap-desc">今日1D%缺失，無法確認今日相對表現，待補齊後再核實是否落後半導體大宗</span></div>
 </div>
 
 <!-- 板塊小結 -->
@@ -766,28 +765,28 @@ nav{scrollbar-width:thin}
   <div class="bc" id="bNQ20" onclick="togBC('dNQ20','bNQ20')">
     <div class="bc-lbl">NQ 20MA 以上 % <span class="arr" id="aNQ20">▼</span></div>
     <div class="bc-val ye">44.6%</div>
-    <div class="bc-tr fl">與昨日相同(44.6%)，⚠️已請Yoda核對是否手誤</div>
+    <div class="bc-tr fl">與昨日相同(44.6%)，已請Yoda核對是否手誤</div>
   </div>
 
   <!-- SP 20MA% -->
   <div class="bc" id="bSP20" onclick="togBC('dSP20','bSP20')">
     <div class="bc-lbl">SP 20MA 以上 % <span class="arr" id="aSP20">▼</span></div>
     <div class="bc-val gr">60.2%</div>
-    <div class="bc-tr fl">與昨日相同(60.2%)，⚠️已請Yoda核對是否手誤</div>
+    <div class="bc-tr fl">與昨日相同(60.2%)，已請Yoda核對是否手誤</div>
   </div>
 
   <!-- NQ 50MA% -->
   <div class="bc" id="bNQ50" onclick="togBC('dNQ50','bNQ50')">
     <div class="bc-lbl">NQ 50MA 以上 % <span class="arr" id="aNQ50">▼</span></div>
     <div class="bc-val ye">56.4%</div>
-    <div class="bc-tr fl">與昨日相同(56.4%)，⚠️已請Yoda核對是否手誤</div>
+    <div class="bc-tr fl">與昨日相同(56.4%)，已請Yoda核對是否手誤</div>
   </div>
 
   <!-- SP 50MA% -->
   <div class="bc" id="bSP50" onclick="togBC('dSP50','bSP50')">
     <div class="bc-lbl">SP 50MA 以上 % <span class="arr" id="aSP50">▼</span></div>
     <div class="bc-val gr">62.7%</div>
-    <div class="bc-tr fl">與昨日相同(62.7%)，⚠️已請Yoda核對是否手誤</div>
+    <div class="bc-tr fl">與昨日相同(62.7%)，已請Yoda核對是否手誤</div>
   </div>
 
   <!-- 展開：NQ20 -->
@@ -796,7 +795,7 @@ nav{scrollbar-width:thin}
     <table class="tbl"><thead><tr><th>日期</th><th class="c">NQ 20MA%</th><th>狀態判讀</th></tr></thead>
     <tbody><tr><td>06/24</td><td class="c">38.6%</td><td>偏弱</td></tr>
 <tr><td>06/25</td><td class="c">44.6%</td><td>脫離偏弱區間</td></tr>
-<tr><td>06/26</td><td class="c">44.6%</td><td>⚠️與昨日完全相同，待核對</td></tr></tbody></table>
+<tr><td>06/26</td><td class="c">44.6%</td><td>與昨日完全相同，待核對</td></tr></tbody></table>
   </div>
 
   <!-- 展開：SP20 -->
@@ -805,7 +804,7 @@ nav{scrollbar-width:thin}
     <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 20MA%</th><th>狀態判讀</th></tr></thead>
     <tbody><tr><td>06/24</td><td class="c">53.7%</td><td>健康</td></tr>
 <tr><td>06/25</td><td class="c">60.2%</td><td>健康區間</td></tr>
-<tr><td>06/26</td><td class="c">60.2%</td><td>⚠️與昨日完全相同，待核對</td></tr></tbody></table>
+<tr><td>06/26</td><td class="c">60.2%</td><td>與昨日完全相同，待核對</td></tr></tbody></table>
   </div>
 
   <!-- 展開：NQ50 -->
@@ -814,7 +813,7 @@ nav{scrollbar-width:thin}
     <table class="tbl"><thead><tr><th>日期</th><th class="c">NQ 50MA%</th><th>狀態判讀</th></tr></thead>
     <tbody><tr><td>06/24</td><td class="c">59.4%</td><td>大幅躍升</td></tr>
 <tr><td>06/25</td><td class="c">56.4%</td><td>回落，仍中性偏健康</td></tr>
-<tr><td>06/26</td><td class="c">56.4%</td><td>⚠️與昨日完全相同，待核對</td></tr></tbody></table>
+<tr><td>06/26</td><td class="c">56.4%</td><td>與昨日完全相同，待核對</td></tr></tbody></table>
   </div>
 
   <!-- 展開：SP50 -->
@@ -823,7 +822,7 @@ nav{scrollbar-width:thin}
     <table class="tbl"><thead><tr><th>日期</th><th class="c">SP 50MA%</th><th>狀態判讀</th></tr></thead>
     <tbody><tr><td>06/24</td><td class="c">57.3%</td><td>健康</td></tr>
 <tr><td>06/25</td><td class="c">62.7%</td><td>近期最佳</td></tr>
-<tr><td>06/26</td><td class="c">62.7%</td><td>⚠️與昨日完全相同，待核對</td></tr></tbody></table>
+<tr><td>06/26</td><td class="c">62.7%</td><td>與昨日完全相同，待核對</td></tr></tbody></table>
   </div>
 </div>
 
@@ -849,7 +848,7 @@ nav{scrollbar-width:thin}
 
 <!-- 展開區 -->
 <div id="gammaDet" class="gamma-det">
-  <div class="gamma-det-note">⚠️ 仍為Sep18(2026)長期合約，OI已隨價格更新；建議下次提供近月合約截圖以獲得有意義的近期Gamma分析</div>
+  <div class="gamma-det-note">仍為Sep18(2026)長期合約，OI已隨價格更新；建議下次提供近月合約截圖以獲得有意義的近期Gamma分析</div>
   <table class="gtbl" style="margin-bottom:14px">
     <thead>
       <tr><th>層級</th><th>QQQ</th><th style="color:var(--orange)">NQ! 等效</th><th>判讀</th><th>OI依據</th></tr>
@@ -1132,13 +1131,13 @@ const REL_HISTORY = {"DRAM":[{"date":"06/03","rel5":14.28,"rel20":40.42,"rel60":
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -1158,5 +1157,6 @@ const REL_HISTORY = {"DRAM":[{"date":"06/03","rel5":14.28,"rel20":40.42,"rel60":
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

@@ -277,8 +277,7 @@ body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -446,8 +445,8 @@ nav{scrollbar-width:thin}
       <div class="card clk" id="cTrg" onclick="tog('dTrg','cTrg')">
         <div class="c-lbl">情緒過熱觸發 <span class="arr">▼</span></div>
         <div class="sit sit-wn" style="margin-bottom:10px;">嚴重過熱(BAR2=85)</div>
-        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">NAAIM大幅上升至98.59（從上次79.27），ISABELNET評論「主動型經理人幾乎全倉做多，出現自滿跡象」；P/C Ratio 0.37仍接近常態下緣（0.4）。兩項合計構成本系列最明顯的情緒過熱警示——歷史上NAAIM達極端高位後，市場往往需要消化。樂活通道^NDX位階沿用「逼近上緣/貪婪」。投機客期貨淨持倉沿用負向極端（潛在軋空動能）。</div>
-        <div class="irow-list"><div class="irow"><span class="irow-name">NAAIM Exposure Index</span><span class="irow-val r">98.59（⚠️接近極端，自滿訊號）</span></div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">NAAIM大幅上升至98.59（從上次79.27），ISABELNET評論「主動型經理人曝險幾乎到頂，出現自滿跡象」；P/C Ratio 0.37仍接近常態下緣（0.4）。兩項合計構成本系列最明顯的情緒過熱警示——歷史上NAAIM達極端高位後，市場往往需要消化。樂活通道^NDX位階沿用「逼近上緣/貪婪」。投機客期貨淨持倉沿用負向極端（潛在軋空動能）。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">NAAIM Exposure Index</span><span class="irow-val r">98.59（接近極端，自滿訊號）</span></div>
 <div class="irow"><span class="irow-name">P/C Ratio</span><span class="irow-val y">0.37（接近常態下緣0.4，略高於昨日0.26）</span></div>
 <div class="irow"><span class="irow-name">VXN</span><span class="irow-val g">27.11（警戒/偏高區間25-35，降溫中）</span></div>
 <div class="irow"><span class="irow-name">VIX</span><span class="irow-val g">16.46（常態12-20，低位）</span></div>
@@ -491,7 +490,7 @@ nav{scrollbar-width:thin}
     <div class="det" id="dTrg">
       <div class="sumbox sumbox-r">NAAIM飆升至98.59（接近極端），P/C Ratio 0.37仍低，兩項合計構成本系列最明顯的情緒過熱警示；VXN/VIX繼續降溫，短線平靜但中長期情緒偏熱的矛盾需要留意。</div>
       <div class="lyr-hdr">🔴 結構情緒警示（中長期）</div>
-      <div class="sig-row"><span class="sig-dot">🔴</span><span class="sig-name">NAAIM Exposure Index</span><span class="sig-val" style="color:var(--red)">98.59（⚠️接近全倉做多/自滿極端）</span></div>
+      <div class="sig-row"><span class="sig-dot">🔴</span><span class="sig-name">NAAIM Exposure Index</span><span class="sig-val" style="color:var(--red)">98.59（接近曝險到頂／自滿極端）</span></div>
 <div class="sig-row"><span class="sig-dot">🟡</span><span class="sig-name">P/C Ratio</span><span class="sig-val" style="color:var(--yellow)">0.37（接近常態下緣0.4）</span></div>
 <div class="sig-row"><span class="sig-dot">🟢</span><span class="sig-name">HY_OAS（信用利差）</span><span class="sig-val" style="color:var(--green)">2.80%（常態2.6-3.2%）</span></div>
 <div class="sig-row"><span class="sig-dot">🔴</span><span class="sig-name">投機客期貨淨持倉（Bloomberg）</span><span class="sig-val" style="color:var(--red)">≈−15%（沿用，負向極端）</span></div>
@@ -501,7 +500,7 @@ nav{scrollbar-width:thin}
 <div class="sig-row"><span class="sig-dot">🟡</span><span class="sig-name">VXN</span><span class="sig-val" style="color:var(--yellow)">27.11（警戒/偏高區間25-35，降溫中）</span></div>
 <div class="sig-row"><span class="sig-dot">🟢</span><span class="sig-name">MOVE</span><span class="sig-val" style="color:var(--green)">71.9（常態55-90）</span></div>
 <div class="sig-row"><span class="sig-dot">🟢</span><span class="sig-name">VX1／VX2期限結構</span><span class="sig-val" style="color:var(--green)">17.95／18.85（正價差）</span></div>
-      <div style="font-size:calc(var(--fs)*.8);padding:10px;background:rgba(239,68,68,.07);border-radius:5px;border-left:3px solid var(--red);line-height:1.6;margin-top:10px;">NAAIM今日大幅更新至98.59，從上次79.27跳升近20點，顯示主動型經理人幾乎全倉做多、進入「自滿」邊緣。歷史上NAAIM達極端高位（尤其>95）後，市場往往需要短線消化。配合P/C Ratio仍低、樂活通道逼近上緣，這是情緒面迄今最集中的過熱警示組合。</div>
+      <div style="font-size:calc(var(--fs)*.8);padding:10px;background:rgba(239,68,68,.07);border-radius:5px;border-left:3px solid var(--red);line-height:1.6;margin-top:10px;">NAAIM今日大幅更新至98.59，從上次79.27跳升近20點，顯示主動型經理人曝險幾乎到頂、進入「自滿」邊緣。歷史上NAAIM達極端高位（尤其>95）後，市場往往需要短線消化。配合P/C Ratio仍低、樂活通道逼近上緣，這是情緒面迄今最集中的過熱警示組合。</div>
     </div>
 
     <!-- 展開③：Risk-on/off 細節 -->
@@ -529,7 +528,7 @@ nav{scrollbar-width:thin}
       <table class="tbl">
         <thead><tr><th>事件</th><th class="c">影響層級</th><th>說明</th></tr></thead>
         <tbody><tr><td>DRAM今日強彈終結短線分歧</td><td class="c cg">🟢 反轉觀察</td><td>今日相對SPY+5.12%（全表最強），對昨日−4.53%形成完全反轉；REL60仍負（−13.33%），結構性弱勢未改，需觀察明日是否持續</td></tr>
-<tr><td>NAAIM飆升至98.59</td><td class="c cr">🔴 情緒警示</td><td>從上次79.27大幅跳升，接近「全倉做多/自滿」極端區域；ISABELNET評論「early signs of complacency」</td></tr>
+<tr><td>NAAIM飆升至98.59</td><td class="c cr">🔴 情緒警示</td><td>從上次79.27大幅跳升，接近「曝險到頂／自滿」極端區域；ISABELNET評論「early signs of complacency」</td></tr>
 <tr><td>Q2最佳季報收官／半導體最佳單季</td><td class="c cg">🟢 歷史里程碑</td><td>S&P Q2+9.6%，那指+12.8%，Russell 2000 H1+22%；半導體指數創史上最佳單季，Micron/Intel/AMD合計增加$2兆市值</td></tr>
 <tr><td>US10Y回升至4.459%</td><td class="c cy">🟡 留意</td><td>與前日4.38%相比上升，方向值得留意；§6-2b底線：突破前高4.527%且VIX破25則多方劇本失效</td></tr></tbody>
       </table>
@@ -644,7 +643,7 @@ nav{scrollbar-width:thin}
 
   <!-- 弱勢欄 -->
   <div class="sc x">
-    <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+    <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
     <div class="sc-item" onclick="togSC('x1',this)">
   <span class="sc-tk">GDX</span>
   <span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank4</span><span class="sc-arr">▼</span></span>
@@ -697,7 +696,7 @@ nav{scrollbar-width:thin}
 <div class="snap-override">
   <div class="snap-override-title">歷史快照覆寫標注（§7-4規則套用）</div>
   <div class="snap-row"><span class="snap-etf">DRAM</span><span class="snap-tag snap-tag-ok">強彈反轉觀察🔄</span><span class="snap-desc">今日+5.12% vs SPY，完全反轉昨日−4.53%；REL60仍負，結構未改，明日是否持續為關鍵</span></div>
-  <div class="snap-row"><span class="snap-etf">NAAIM</span><span class="snap-tag snap-tag-warn">情緒極端警示🔴</span><span class="snap-desc">98.59（從79.27飆升），接近「全倉做多/自滿」極端，配合P/C Ratio 0.37、樂活通道逼近上緣，本系列最集中的情緒過熱警示</span></div>
+  <div class="snap-row"><span class="snap-etf">NAAIM</span><span class="snap-tag snap-tag-warn">情緒極端警示🔴</span><span class="snap-desc">98.59（從79.27飆升），接近「曝險到頂／自滿」極端，配合P/C Ratio 0.37、樂活通道逼近上緣，本系列最集中的情緒過熱警示</span></div>
   <div class="snap-row"><span class="snap-etf">GDX／SIL</span><span class="snap-tag snap-tag-warn">止穩失敗延續❌</span><span class="snap-desc">連4日大盤上漲日逆勢走弱，前3日止穩反彈確認為技術性回彈，結構性弱勢延續</span></div>
   <div class="snap-row"><span class="snap-etf">SPLV／SPHD</span><span class="snap-tag snap-tag-ok">機構效應驗證完成✅</span><span class="snap-desc">連三日走弱，確認上週五防禦輪動是Russell重組/季末效應雜訊，§6-2b窗口判斷獲完整驗證</span></div>
 </div>
@@ -705,7 +704,7 @@ nav{scrollbar-width:thin}
 <!-- 板塊小結 -->
 <div class="rotation-verdict">
   <div class="rv-title">⚡ 板塊強弱對位小結：<strong>DRAM強彈終結兩日分歧，但REL60結構未改；NAAIM飆至98.59為本系列最強情緒警示</strong></div>
-  <div class="rv-txt">今日最矚目的發展是DRAM大幅反彈（今日相對SPY+5.12%，全表最強），完全反轉了昨日因三星/SK海力士5,180億美元擴產計畫引發的-4.53%急跌——市場可能在一日內完成對供給過剩疑慮的完整定價，之後以反向急漲修正過度悲觀。但需要特別謹慎：DRAM的REL60仍負（-13.33%），結構性弱勢並未因一日大漲而改變，明日是否延續才是真正的方向訊號。<br><br>同時，SOXX/SMH/CHAT今日繼續走強，半導體大宗以Q2最強季報收官，但情緒面的訊號卻在同一天發出最強的警示——NAAIM飆升至98.59，接近「全倉做多/自滿」的極端區域，ISABELNET明確評論「early signs of complacency」。歷史上NAAIM達到接近100的極端水準後，市場往往需要短線消化，這不代表立即看空，但是一個值得嚴肅對待的警示，尤其疊加P/C Ratio仍低（0.37）和樂活通道逼近上緣的背景。</div>
+  <div class="rv-txt">今日最矚目的發展是DRAM大幅反彈（今日相對SPY+5.12%，全表最強），完全反轉了昨日因三星/SK海力士5,180億美元擴產計畫引發的-4.53%急跌——市場可能在一日內完成對供給過剩疑慮的完整定價，之後以反向急漲修正過度悲觀。但需要特別謹慎：DRAM的REL60仍負（-13.33%），結構性弱勢並未因一日大漲而改變，明日是否延續才是真正的方向訊號。<br><br>同時，SOXX/SMH/CHAT今日繼續走強，半導體大宗以Q2最強季報收官，但情緒面的訊號卻在同一天發出最強的警示——NAAIM飆升至98.59，接近「曝險到頂／自滿」的極端區域，ISABELNET明確評論「early signs of complacency」。歷史上NAAIM達到接近100的極端水準後，市場往往需要短線消化，這不代表立即看空，但是一個值得嚴肅對待的警示，尤其疊加P/C Ratio仍低（0.37）和樂活通道逼近上緣的背景。</div>
 </div>
 <!-- /板塊強弱對位 -->
 
@@ -803,7 +802,7 @@ nav{scrollbar-width:thin}
 
 <!-- 展開區 -->
 <div id="gammaDet" class="gamma-det">
-  <div class="gamma-det-note">⚠️ 仍為Sep18(2026)長期合約；今次截圖顯示Call方OI規模顯著擴大（433.50K vs 前次27.50K），Put方維持29.48B；現價$736.10已遠離Max Pain $670，Call方動能明顯強化</div>
+  <div class="gamma-det-note">仍為Sep18(2026)長期合約；今次截圖顯示Call方OI規模顯著擴大（433.50K vs 前次27.50K），Put方維持29.48B；現價$736.10已遠離Max Pain $670，Call方動能明顯強化</div>
   <table class="gtbl" style="margin-bottom:14px">
     <thead>
       <tr><th>層級</th><th>QQQ</th><th style="color:var(--orange)">NQ! 等效</th><th>判讀</th><th>OI依據</th></tr>
@@ -838,7 +837,7 @@ nav{scrollbar-width:thin}
   <!-- 核心要點 -->
   <div class="syn-blk">
     <div class="syn-h">一、核心要點</div>
-    <div class="syn-txt"><p style="margin:0 0 14px;"><strong>📌 情緒面（本系列最強警示）：</strong>NAAIM飆升至98.59（從79.27跳升），接近「全倉做多/自滿」極端；P/C Ratio 0.37仍低；樂活通道逼近上緣——三項合計是本系列追蹤以來最集中的情緒過熱警示組合。歷史上NAAIM>95後，市場往往需要短線消化。</p>
+    <div class="syn-txt"><p style="margin:0 0 14px;"><strong>📌 情緒面（本系列最強警示）：</strong>NAAIM飆升至98.59（從79.27跳升），接近「曝險到頂／自滿」極端；P/C Ratio 0.37仍低；樂活通道逼近上緣——三項合計是本系列追蹤以來最集中的情緒過熱警示組合。歷史上NAAIM>95後，市場往往需要短線消化。</p>
 <p style="margin:0 0 14px;"><strong>📌 DRAM今日強彈：</strong>今日相對SPY+5.12%完全反轉昨日−4.53%，市場可能一日內完成對三星/SK海力士擴產疑慮的完整定價；但REL60仍負（−13.33%），明日是否持續才是真訊號。</p>
 <p style="margin:0 0 14px;"><strong>📌 Q2最佳季報收官：</strong>半導體創史上最佳單季；US10Y回升至4.459%（上升方向值得留意，前高4.527%是§6-2b多方劇本的關鍵底線）。</p>
 <p style="margin:0;"><strong>📌 本週關鍵節點：</strong>7/1 ADP+ISM（明日），7/3非農（週四，§6-2b最後驗證節點），7/4國慶日休市。</p></div>
@@ -1086,13 +1085,13 @@ const REL_HISTORY = {"DRAM":[{"date":"06/03","rel5":14.28,"rel20":40.42,"rel60":
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -1112,5 +1111,6 @@ const REL_HISTORY = {"DRAM":[{"date":"06/03","rel5":14.28,"rel20":40.42,"rel60":
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

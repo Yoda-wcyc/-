@@ -249,8 +249,7 @@ main{max-width:760px;margin:0 auto;padding:86px 26px 116px}
 .nav-game-btn:hover{filter:brightness(1.08)}
 .nav-game-btn small{display:block;font-weight:400;opacity:.9;margin-top:3px;font-size:calc(11px*var(--scale))}
 </style>
-<style>@keyframes yodaUnlockPulse{0%,100%{box-shadow:0 4px 14px rgba(240,165,0,.4)}50%{box-shadow:0 6px 26px rgba(240,165,0,.8)}}.yoda-unlock-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:99999;display:flex;flex-direction:column;align-items:center;gap:7px;width:33%;min-width:190px;max-width:340px}.yoda-unlock-cta{display:block;width:100%;box-sizing:border-box;text-align:center;background:#f0a500;color:#1a1200;font-weight:700;font-size:15px;font-family:"Noto Sans TC",sans-serif;padding:13px 20px;border-radius:9999px;text-decoration:none;letter-spacing:.03em;animation:yodaUnlockPulse 1.8s ease-in-out infinite}.yoda-unlock-cta:hover{background:#ffcb2e}.yoda-member-link{font-size:12.5px;color:#e8dcc0;text-decoration:none;font-family:"Noto Sans TC",sans-serif;background:rgba(0,0,0,.42);padding:6px 14px;border-radius:9999px;backdrop-filter:blur(4px)}.yoda-member-link:hover{color:#fff;text-decoration:underline}@media(max-width:520px){.yoda-unlock-bar{width:72%;max-width:none}}</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+<style>@keyframes yodaUnlockPulse{0%,100%{box-shadow:0 4px 14px rgba(240,165,0,.4)}50%{box-shadow:0 6px 26px rgba(240,165,0,.8)}}.yoda-unlock-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:99999;display:flex;flex-direction:column;align-items:center;gap:7px;width:33%;min-width:190px;max-width:340px}.yoda-unlock-cta{display:block;width:100%;box-sizing:border-box;text-align:center;background:#f0a500;color:#1a1200;font-weight:700;font-size:15px;font-family:"Noto Sans TC",sans-serif;padding:13px 20px;border-radius:9999px;text-decoration:none;letter-spacing:.03em;animation:yodaUnlockPulse 1.8s ease-in-out infinite}.yoda-unlock-cta:hover{background:#ffcb2e}.yoda-member-link{font-size:12.5px;color:#e8dcc0;text-decoration:none;font-family:"Noto Sans TC",sans-serif;background:rgba(0,0,0,.42);padding:6px 14px;border-radius:9999px;backdrop-filter:blur(4px)}.yoda-member-link:hover{color:#fff;text-decoration:underline}@media(max-width:520px){.yoda-unlock-bar{width:72%;max-width:none}}</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -264,7 +263,9 @@ html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{backgrou
 *::-webkit-scrollbar-thumb:hover{background:rgba(175,196,218,.8)}
 nav{scrollbar-width:thin}
 </style>
-<style data-yoda-nobtn>/* 報告端安裝鈕停用（Yoda 定）；yoda-install.js 仍載入，浮水印/控制列覆蓋照常生效 */.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}</style>
+<style data-yoda-nobtn>/* 報告端安裝鈕停用（Yoda 定）；yoda-install.js 仍載入，浮水印/控制列覆蓋照常生效 */.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}
+.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}
+</style>
 </head>
 <body>
 
@@ -349,6 +350,7 @@ nav{scrollbar-width:thin}
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"></path></svg>
     分享這份報告給朋友
   </button>
+  <a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>
 </div>
 <div class="share-toast" id="shareToast">已複製連結 ✓</div>
 
@@ -436,4 +438,5 @@ function shareReport(){var url=(function(){var c=document.querySelector('link[re
 </script>
 
 
-<div class="yoda-unlock-bar" data-unlock-cta=""><a class="yoda-unlock-cta" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">🔓 解鎖完整版</a><a class="yoda-member-link" href="https://yoda-wcyc.github.io/-/report-shell.html?id=%E4%BB%98%E8%B2%BB_%E9%97%9C%E9%8D%B5%E5%A0%B1%E5%91%8A_20260812" target="_blank" rel="noopener">已是會員?讀完整版 →</a></div></body></html>
+<div class="yoda-unlock-bar" data-unlock-cta=""><a class="yoda-unlock-cta" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">🔓 解鎖完整版</a><a class="yoda-member-link" href="https://yoda-wcyc.github.io/-/report-shell.html?id=%E4%BB%98%E8%B2%BB_%E9%97%9C%E9%8D%B5%E5%A0%B1%E5%91%8A_20260812" target="_blank" rel="noopener">已是會員?讀完整版 →</a></div><div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
+</body></html>

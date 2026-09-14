@@ -461,8 +461,7 @@ body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -477,7 +476,10 @@ html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{backgrou
 nav{scrollbar-width:thin}
 </style>
 <style data-yoda-nobtn>/* 報告端安裝鈕停用（Yoda 定）；yoda-install.js 仍載入，浮水印/控制列覆蓋照常生效 */.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}</style>
-</head>
+<style id='yb-light-fix'>/* core-render §B-40 泡泡圖淺色可讀性 */
+body.light .yb{fill-opacity:.72!important;opacity:.88!important;stroke:rgba(15,30,48,.55)!important;stroke-width:1.1!important}
+body.light .qlab{filter:brightness(.62) saturate(1.35)}
+</style></head>
 <body>
 
 <!-- NAV - 修正重複項目 -->
@@ -776,7 +778,7 @@ nav{scrollbar-width:thin}
         <div class="g-q"><div class="qn qn-lag">落後</div><div class="qd">弱且續弱</div></div>
         <div class="g-q"><div class="qn qn-wk">轉弱</div><div class="qd">強但減速</div></div>
       </div>
-      <div class="g-flow">資金輪動多半順時針：轉強 → 領先 → 轉弱 → 落後 → 再回轉強。</div>
+      <div class="g-flow">資金輪動多半順時針：轉強 → 領先 中短窗轉弱·長強 → 落後 → 再回轉強。</div>
       <div class="g-div"></div>
       <div class="g-k" style="color:var(--text);font-weight:700;margin-bottom:5px">能幫你判斷</div>
       <ul class="g-use">
@@ -820,7 +822,7 @@ nav{scrollbar-width:thin}
     </div>
 
     <div class="sc x">
-      <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+      <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
       <div class="sc-item"><span class="sc-tk">XLU 公用</span><span class="sc-rk">REL5 −6.48</span></div><div class="sc-item"><span class="sc-tk">SPLV 低波</span><span class="sc-rk">REL5 −3.81</span></div><div class="sc-item"><span class="sc-tk">XLE 能源</span><span class="sc-rk">1D −1.28</span></div>
     </div>
   </div>
@@ -1186,7 +1188,7 @@ function setTheme(t){
   L2 強勢板塊：軟體/雲(IGV+8.19/SKYY+9.60)>通訊(XLC)>可選消費(XLY REL5+5.54)；半導體(SOXX−6.20)殿後
   L3 強勢個股：MW為ETF層，個股層見美股報告（軟體SKYY/資安HACK/軟體IGV）
 市場型態：Leader Driving（mega-cap集中；SPMO/SPHB REL5落後＝動能unwind、廣度窄）
-板塊生命週期遷移：SOXX REL5轉負（👑→⚠）；MAGS REL5獨強（👑）；動能因子SPMO/SPHB ⚠unwind中
+板塊生命週期遷移：SOXX REL5轉負（👑→）；MAGS REL5獨強（👑）；動能因子SPMO/SPHB unwind中
 微結構五掃描：強勢股補跌 無｜弱勢股止跌 —（ETF層）｜高Beta 否（SPHB REL5−0.93週線落後、僅當日反彈）｜防禦 否（SPLV REL5−3.81亦落後）｜LeaderRotation 有（動能unwind、mega-cap與軟體接棒）
 爆量轉弱名單：無（當日mega-cap普漲；USO −5.46%屬商品；油因伊朗談判跌）
 -->
@@ -1234,10 +1236,10 @@ function setTheme(t){
   function mkMarker(g,ty,cx,cy,r,fill){
     // 玻璃/水質感泡泡：彩色柔光暈 → 半透明球體 → 彩色亮邊 → 白色玻璃反光罩 → 水珠高光
     g.appendChild(el('circle',{cx:cx,cy:cy,r:r+2,fill:fill,opacity:.22,filter:'url(#dyn-glow)'}));
-    g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:fill,'fill-opacity':.30}));
+    g.appendChild(el('circle',{'class':'yb',cx:cx,cy:cy,r:r,fill:fill,'fill-opacity':.30}));
     g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'none',stroke:fill,'stroke-width':1.5,opacity:.92}));
     g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'url(#dyn-gloss)'}));
-    g.appendChild(el('ellipse',{cx:cx-r*0.30,cy:cy-r*0.40,rx:r*0.34,ry:r*0.22,fill:'#ffffff',opacity:.55}));
+    var _lt=document.body.classList.contains('light');g.appendChild(el('ellipse',{cx:cx-r*0.30,cy:cy-r*0.40,rx:r*0.34,ry:r*0.22,fill:'#ffffff',opacity:(_lt?.18:.55)}));
   }
   // ── 頁籤（相容 mw 靜態 data-tab 與 us/tw 動態建立）＋ 反應速度／歷史天數按鈕 ──
   var tabseg=document.getElementById('dyn-tabseg');
@@ -1379,13 +1381,13 @@ function setTheme(t){
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -1438,5 +1440,6 @@ function setTheme(t){
 }catch(e){}})();
 </script>
 <script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

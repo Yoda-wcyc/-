@@ -259,8 +259,7 @@ body.light .tbl tr.hl td{background:rgba(0,130,100,.08);}
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -331,7 +330,7 @@ nav{scrollbar-width:thin}
         <div class="temp-dot temp-pulse" style="border-color:#4da8e0;box-shadow:0 0 10px rgba(77,168,224,.6);"></div>
       </div>
     </div>
-    <div class="temp-note">▸ 三道防線維持兩綠一黃，US10Y自FOMC高點回穩，WTI繼續破底；半導體主線REL5/20/60全面加速創高</div>
+    <div class="temp-note">▸ 三道防線維持兩綠一黃，US10Y自FOMC高點短窗轉強·長強，WTI繼續破底；半導體主線REL5/20/60全面加速創高</div>
   </div>
 
   <!-- 溫度條②：情緒過熱觸發（琥珀針） -->
@@ -416,8 +415,8 @@ nav{scrollbar-width:thin}
       <div class="card clk" id="cSit" onclick="tog('dSit','cSit')">
         <div class="c-lbl">資金流判定 <span class="arr">▼</span></div>
         <div class="sit sit-ok" style="margin-bottom:10px;">偏多</div>
-        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">三道防線維持兩綠一黃；US10Y自FOMC衝擊高點回穩至4.45%，WTI在美伊和談今日正式簽署下繼續破底至約$74–76，三個月來新低。</div>
-        <div class="irow-list"><div class="irow"><span class="irow-name">US10Y</span><span class="irow-val y">4.45%（較昨日−2bp，回穩）</span></div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">三道防線維持兩綠一黃；US10Y自FOMC衝擊高點短窗轉強·長強至4.45%，WTI在美伊和談今日正式簽署下繼續破底至約$74–76，三個月來新低。</div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">US10Y</span><span class="irow-val y">4.45%（較昨日−2bp，短窗轉強·長強）</span></div>
 <div class="irow"><span class="irow-name">US2Y</span><span class="irow-val y">4.18%（持平）</span></div>
 <div class="irow"><span class="irow-name">Fed Funds上限</span><span class="irow-val d">3.75%（不變）</span></div>
 <div class="irow"><span class="irow-name">WTI原油</span><span class="irow-val g">≈$74–76（續創3月來新低）</span></div></div>
@@ -448,12 +447,12 @@ nav{scrollbar-width:thin}
 
     <!-- 展開①：資金流細節 -->
     <div class="det" id="dSit">
-      <div class="sumbox sumbox-g">三道防線維持兩綠一黃；US10Y自FOMC高點回穩，WTI繼續破底，整體風險環境較昨日改善。</div>
+      <div class="sumbox sumbox-g">三道防線維持兩綠一黃；US10Y自FOMC高點短窗轉強·長強，WTI繼續破底，整體風險環境較昨日改善。</div>
       <div class="det-sub">三道防線</div>
       <table class="tbl">
         <thead><tr><th>防線</th><th>指標</th><th class="c">狀態</th><th>說明</th></tr></thead>
         <tbody><tr><td><strong>第一道</strong></td><td>油價（WTI）</td><td class="c cg">🟢 正常</td><td>美伊和談今日正式簽署，WTI續跌至約$74–76，三個月來新低，通膨來源端壓力持續緩解</td></tr>
-<tr><td><strong>第二道</strong></td><td>US10Y</td><td class="c cy">🟡 留意（改善中）</td><td>4.45%，較昨日峰值回落2bp，FOMC衝擊後初步回穩，仍高於衝擊前水準</td></tr>
+<tr><td><strong>第二道</strong></td><td>US10Y</td><td class="c cy">🟡 留意（改善中）</td><td>4.45%，較昨日峰值回落2bp，FOMC衝擊後初步短窗轉強·長強，仍高於衝擊前水準</td></tr>
 <tr><td><strong>第三道</strong></td><td>流動性</td><td class="c cg">🟢 正常</td><td>SOFR(3.63)與IORB(3.65)價差維持2bp，無緊張訊號</td></tr></tbody>
       </table>
       <div class="det-sub">利率細項</div>
@@ -489,7 +488,7 @@ nav{scrollbar-width:thin}
         <tbody><tr><td>SPMO</td><td>動量</td><td class="c">95</td><td class="c cg">+4.97%</td><td class="c cg">+9.97%</td><td class="c cg">+27.86%</td><td>動量因子持續強勢</td></tr>
 <tr><td>SPHB</td><td>高Beta</td><td class="c">92</td><td class="c cg">+4.58%</td><td class="c cg">+10.20%</td><td class="c cg">+17.97%</td><td>進攻姿態維持高位</td></tr>
 <tr><td>SPHQ</td><td>品質</td><td class="c">79</td><td class="c cg">+2.16%</td><td class="c cg">+6.22%</td><td class="c cg">+3.47%</td><td>溫和正向</td></tr>
-<tr class="wr"><td>SPLV</td><td>低波動</td><td class="c">20</td><td class="c cr">−2.23%</td><td class="c cr">−1.36%</td><td class="c cr">−15.12%</td><td>REL5連續4日為負，防禦持續未啟動</td></tr>
+<tr class="wr"><td>SPLV</td><td>低波動</td><td class="c">20</td><td class="c cr">−2.23%</td><td class="c cr">−1.36%</td><td class="c cr">−15.12%</td><td>REL5連續4日為負，防禦持續未中短窗轉強·長弱</td></tr>
 <tr class="wr"><td>SPHD</td><td>高息低波</td><td class="c">23</td><td class="c cr">−3.33%</td><td class="c cr">−1.00%</td><td class="c cr">−14.23%</td><td>防禦資產持續落後</td></tr></tbody>
       </table>
       <div class="det-sub">廣度因子（寬基指數 REL 對比）</div>
@@ -608,7 +607,7 @@ nav{scrollbar-width:thin}
 </div>
 
 <div class="sc-item" onclick="togSC('d8',this)">
-  <span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">⚠減速觀察</span>COPX</span>
+  <span class="sc-tk"><span class="tag tag-y" style="margin-right:5px;">減速觀察</span>COPX</span>
   <span style="display:flex;align-items:center;gap:5px;">
     <span class="sc-rk">Rank68</span>
     <span class="sc-arr">▼</span>
@@ -682,7 +681,7 @@ nav{scrollbar-width:thin}
 
   <!-- 弱勢欄 -->
   <div class="sc x">
-    <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+    <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
     <div class="sc-item" onclick="togSC('x1',this)">
   <span class="sc-tk">XLE</span>
   <span style="display:flex;align-items:center;gap:5px;">
@@ -750,7 +749,7 @@ nav{scrollbar-width:thin}
 <div class="snap-override">
   <div class="snap-override-title">歷史快照覆寫標注（§7-4規則套用）</div>
   <div class="snap-row"><span class="snap-etf">GDX／SIL</span><span class="snap-tag snap-tag-warn">轉強失敗❌</span><span class="snap-desc">REL5反彈但REL20/REL60較昨日進一步惡化，左側試探未獲確認，覆寫為轉強失敗</span></div>
-  <div class="snap-row"><span class="snap-etf">CIBR</span><span class="snap-tag snap-tag-warn">動能轉弱⚠（連三日）</span><span class="snap-desc">REL5連續三個交易日為負，趨勢持續加深，非單日波動</span></div>
+  <div class="snap-row"><span class="snap-etf">CIBR</span><span class="snap-tag snap-tag-warn">動能轉弱（連三日）</span><span class="snap-desc">REL5連續三個交易日為負，趨勢持續加深，非單日波動</span></div>
   <div class="snap-row"><span class="snap-etf">DRAM/SOXX/CHAT/SMH</span><span class="snap-tag snap-tag-ok">單日衝擊解除✅</span><span class="snap-desc">REL5/20/60三欄全面較昨日走高，驗證FOMC衝擊為單日噪音，非趨勢轉折</span></div>
   <div class="snap-row"><span class="snap-etf">COPX</span><span class="snap-tag snap-tag-warn">動能降溫觀察</span><span class="snap-desc">三欄仍全正但REL5/REL20較昨日大幅收斂，需觀察是否延續</span></div>
 </div>
@@ -852,7 +851,7 @@ nav{scrollbar-width:thin}
 
 <!-- 展開區 -->
 <div id="gammaDet" class="gamma-det">
-  <div class="gamma-det-note">⚠️ 本次截圖為Sep18(2026)到期合約（距今約3個月），非近期到期的Gamma Pin風險結構，OI為長期累積的避險/投機倉位，僅供長期情緒結構參考，不適用於近期Gamma翻轉判讀</div>
+  <div class="gamma-det-note">本次截圖為Sep18(2026)到期合約（距今約3個月），非近期到期的Gamma Pin風險結構，OI為長期累積的避險/投機倉位，僅供長期情緒結構參考，不適用於近期Gamma翻轉判讀</div>
   <table class="gtbl" style="margin-bottom:14px">
     <thead>
       <tr><th>層級</th><th>QQQ</th><th style="color:var(--orange)">NQ! 等效</th><th>判讀</th><th>OI依據</th></tr>
@@ -893,7 +892,7 @@ nav{scrollbar-width:thin}
   <!-- 市場結構快照 -->
   <div class="syn-blk">
     <div class="syn-h">二、市場結構快照｜廣度拉鋸動態分析</div>
-    <div class="syn-txt">Top-Down三層更新：第一層全球資金持續加碼韓國(EWY REL60+66.92%)與台灣(EWT REL5由+2.48%躥升至+6.14%)，半導體供應鏈主題加速；第二層美股「槓鈴型」結構延續，QQQ反彈領跑但RSP REL5/REL60同步走弱，與IWM的改善方向背離；第三層風格因子進攻姿態較昨日更強，SPLV REL5已連續4個交易日為負。三層廣度框架更新為<strong>S±（分歧加深）/ M+（確立加強）/ L+（緩衝重建）</strong>——昨日「長線邊緣偏薄」的擔憂今日已透過IWM/IWC REL60同步回升而獲得實質修復，四項市場廣度指標三升一降，整體呈現修復格局。</div>
+    <div class="syn-txt">Top-Down三層更新：第一層全球資金持續增量韓國(EWY REL60+66.92%)與台灣(EWT REL5由+2.48%躥升至+6.14%)，半導體供應鏈主題加速；第二層美股「槓鈴型」結構延續，QQQ反彈領跑但RSP REL5/REL60同步走弱，與IWM的改善方向背離；第三層風格因子進攻姿態較昨日更強，SPLV REL5已連續4個交易日為負。三層廣度框架更新為<strong>S±（分歧加深）/ M+（確立加強）/ L+（緩衝重建）</strong>——昨日「長線邊緣偏薄」的擔憂今日已透過IWM/IWC REL60同步回升而獲得實質修復，四項市場廣度指標三升一降，整體呈現修復格局。</div>
   </div>
 
   <!-- 預期 vs 底線 -->
@@ -909,7 +908,7 @@ nav{scrollbar-width:thin}
           <span class="trig-num trig-bull">①</span> <span class="trigger">DRAM/SOXX/CHAT明日REL5維持正值</span> ✅ 觸發<br>
 → 半導體主線REL5/20/60三欄全面較昨日走高，FOMC衝擊已完全消化<br><br>
 <span class="trig-num trig-bull">②</span> <span class="trigger">US10Y未進一步突破近期高點</span> ✅ 觸發<br>
-→ US10Y回落至4.45%，較FOMC後高點回穩<br><br>
+→ US10Y回落至4.45%，較FOMC後高點短窗轉強·長強<br><br>
 <span class="trig-num">③</span> <span class="trigger">RSP/MDY短線REL5重新翻正</span> ❌ 未觸發<br>
 → RSP/MDY的REL5較昨日進一步走弱，與IWM改善方向背離，短線分歧加深<br><br>
 <span class="trig-num trig-bull">④</span> <span class="trigger">市場廣度指標（NQ/SP 20/50MA%）回升</span> ✅ 觸發<br>
@@ -1112,13 +1111,13 @@ const REL_HISTORY = {"DRAM":[{"date":"06/03","rel5":14.28,"rel20":40.42,"rel60":
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -1138,5 +1137,6 @@ const REL_HISTORY = {"DRAM":[{"date":"06/03","rel5":14.28,"rel20":40.42,"rel60":
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

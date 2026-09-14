@@ -591,7 +591,6 @@ tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
 @media(max-width:900px){nav{display:none}.hero,.content-section{padding:26px 18px}.izy-grid{grid-template-columns:1fr 1fr}.cycle-block-body{grid-template-columns:1fr}.bond-cycle{grid-template-columns:1fr 1fr}.scenario-body{grid-template-columns:1fr}}
 @media(max-width:600px){.izy-grid{grid-template-columns:1fr}.bond-cycle{grid-template-columns:1fr}.fc{top:8px;right:8px}.scenario-header{flex-wrap:wrap}}
 </style>
-  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
 <style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
@@ -670,7 +669,7 @@ nav{scrollbar-width:thin}
             <span class="temp-bar-label tbl-recovery">🌱 復甦期</span>
             <span class="temp-bar-label tbl-growth">📈 成長期</span>
             <span class="temp-bar-label tbl-boom">🔥 榮景期</span>
-            <span class="temp-bar-label tbl-recession">⚠ 衰退期</span>
+            <span class="temp-bar-label tbl-recession">衰退期</span>
           </div>
           <div class="temp-bar-track">
             <div class="temp-zone-divider" style="left:25%"></div>
@@ -739,10 +738,10 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">FedWatch 升息機率</td><td class="td-link"><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME FedWatch ↗</a></td><td>12月升息機率36.0%（6/18，4月時僅5.4%）；7月會議仍88.8%不變</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">機率上升趨勢明確但遠未到「已定價」程度；近月會議仍維持高機率不變，自建CPI/PCE模型顯示通膨持平緩升，不支持連續升息</td></tr>
+        <tr><td class="td-name">FedWatch 升息機率</td><td class="td-link"><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME FedWatch ↗</a></td><td>12月升息機率36.0%（6/18，4月時僅5.4%）；7月會議仍88.8%不變</td><td class="td-interpret sig-warn">觀察中</td><td class="td-purpose">機率上升趨勢明確但遠未到「已定價」程度；近月會議仍維持高機率不變，自建CPI/PCE模型顯示通膨持平緩升，不支持連續升息</td></tr>
         <tr><td class="td-name">ERP 股票風險溢價</td><td class="td-link"><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>+0.21%</td><td class="td-interpret sig-danger">🔴 已接近</td><td class="td-purpose">近乎於零，當前最大隱患</td></tr>
         
-        <tr><td class="td-name">2Y-10Y 利差</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">FRED T10Y2Y ↗</a></td><td>41bp</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">仍正值未倒掛，需觀察是否轉為熊陡</td></tr>
+        <tr><td class="td-name">2Y-10Y 利差</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">FRED T10Y2Y ↗</a></td><td>41bp</td><td class="td-interpret sig-warn">觀察中</td><td class="td-purpose">仍正值未倒掛，需觀察是否轉為熊陡</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -764,10 +763,10 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">單位勞動成本 ULC</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/ULCNFB" target="_blank">FRED ULCNFB ↗</a></td><td>季增2.3%/年增1.2%</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">開始加速但仍可控</td></tr>
+        <tr><td class="td-name">單位勞動成本 ULC</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/ULCNFB" target="_blank">FRED ULCNFB ↗</a></td><td>季增2.3%/年增1.2%</td><td class="td-interpret sig-warn">觀察中</td><td class="td-purpose">開始加速但仍可控</td></tr>
         <tr><td class="td-name">實質薪資（AHE-CPI）</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/CES0500000003" target="_blank">FRED ↗</a></td><td>約+0.3%</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">仍正值，購買力未被吃掉</td></tr>
         <tr><td class="td-name">Forward EPS 修正方向</td><td class="td-link"><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>持續上修</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">2026E $321→2027E $379，趨勢向上</td></tr>
-        <tr><td class="td-name">毛利率趨勢</td><td class="td-link"><a href="https://insight.factset.com" target="_blank">FactSet ↗</a></td><td>仍高位</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">需追蹤PPI是否傳導壓縮毛利</td></tr>
+        <tr><td class="td-name">毛利率趨勢</td><td class="td-link"><a href="https://insight.factset.com" target="_blank">FactSet ↗</a></td><td>仍高位</td><td class="td-interpret sig-warn">觀察中</td><td class="td-purpose">需追蹤PPI是否傳導壓縮毛利</td></tr>
         <tr><td class="td-name">製造業 PMI</td><td class="td-link"><a href="https://www.ismworld.org" target="_blank">ISM ↗</a></td><td>54.0</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">過熱期通常PMI衝高後反轉向下，目前尚在擴張</td></tr>
         <tr><td class="td-name">非製造業 PMI</td><td class="td-link"><a href="https://www.ismworld.org" target="_blank">ISM ↗</a></td><td>維持&gt;50</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">服務業降溫是末端訊號之一，目前穩定</td></tr>
       </tbody>
@@ -781,7 +780,7 @@ nav{scrollbar-width:thin}
       <tbody>
         <tr><td class="td-name">產能利用率</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/CAPUTLG2211S" target="_blank">FRED CAPUTLG2211S ↗</a></td><td>75.8%</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">距82-83%門檻仍差6-7%</td></tr>
         <tr><td class="td-name">Quits Rate 自願離職率</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/JTSQUR" target="_blank">FRED JTSQUR ↗</a></td><td>2.0%（3月）</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">持平於2015低點，未見從高位驟降的反轉訊號</td></tr>
-        <tr><td class="td-name">JOLTS 職缺/失業比</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/JTSJOL" target="_blank">FRED JTSJOL ↗</a></td><td>略&gt;1.0</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">偏緊但持續降溫</td></tr>
+        <tr><td class="td-name">JOLTS 職缺/失業比</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/JTSJOL" target="_blank">FRED JTSJOL ↗</a></td><td>略&gt;1.0</td><td class="td-interpret sig-warn">觀察中</td><td class="td-purpose">偏緊但持續降溫</td></tr>
         <tr><td class="td-name">初領失業金</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/ICSA" target="_blank">FRED ICSA ↗</a></td><td>歷史低位</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">未見連續4週以上回升</td></tr>
       </tbody>
     </table></div>
@@ -792,11 +791,11 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>數據</th><th>來源／連結</th><th>目前數值</th><th>狀態</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">核心 CPI</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/CPILFESL" target="_blank">FRED CPILFESL ↗</a></td><td>2.9% YoY（5月）</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">高於Fed目標，房租貢獻仍大</td></tr>
-        <tr><td class="td-name">核心 PCE</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED PCEPILFE ↗</a></td><td>3.3% YoY（4月）</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">月增已達升息壓力門檻</td></tr>
+        <tr><td class="td-name">核心 CPI</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/CPILFESL" target="_blank">FRED CPILFESL ↗</a></td><td>2.9% YoY（5月）</td><td class="td-interpret sig-warn">觀察中</td><td class="td-purpose">高於Fed目標，房租貢獻仍大</td></tr>
+        <tr><td class="td-name">核心 PCE</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED PCEPILFE ↗</a></td><td>3.3% YoY（4月）</td><td class="td-interpret sig-warn">觀察中</td><td class="td-purpose">月增已達升息壓力門檻</td></tr>
         <tr><td class="td-name">PPI</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/PPIACO" target="_blank">FRED PPIACO ↗</a></td><td>6.0% YoY</td><td class="td-interpret sig-danger">🔴 已觸發</td><td class="td-purpose">傳導至CPI倒計時</td></tr>
         <tr><td class="td-name">5Y5Y 遠期通膨預期</td><td class="td-link"><a href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">FRED T5YIFR ↗</a></td><td>2.23%</td><td class="td-interpret sig-ok">✅ 未觸發</td><td class="td-purpose">仍貼近Fed隱含目標</td></tr>
-        <tr><td class="td-name">Cleveland Fed Nowcast</td><td class="td-link"><a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting" target="_blank">Cleveland Fed ↗</a></td><td>headline 0.07%/Core 0.23%（MoM）</td><td class="td-interpret sig-warn">⚠ 觀察中</td><td class="td-purpose">headline受油價降溫掩蓋，Core PCE仍頑固</td></tr>
+        <tr><td class="td-name">Cleveland Fed Nowcast</td><td class="td-link"><a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting" target="_blank">Cleveland Fed ↗</a></td><td>headline 0.07%/Core 0.23%（MoM）</td><td class="td-interpret sig-warn">觀察中</td><td class="td-purpose">headline受油價降溫掩蓋，Core PCE仍頑固</td></tr>
       </tbody>
     </table></div>
     <div class="warning-box">
@@ -881,7 +880,7 @@ nav{scrollbar-width:thin}
           <td>2026年guidance $725B，較2025實際$410B年增77%</td>
           <td>不適用（年度guidance非月度數據）</td>
           <td class="td-purpose"><strong>2025本身已是歷史新高基期（非低基期），2026在此高基期上仍年增77%，代表真實加速擴張而非基期幻象</strong>；但guidance常於年中上修（如Meta從$135B上修至$145B），需追蹤Q2/Q3財報是否持續上修或反轉</td>
-          <td class="td-interpret sig-warn">⚠ 觀察中</td>
+          <td class="td-interpret sig-warn">觀察中</td>
         </tr>
       </tbody>
     </table></div>
@@ -918,11 +917,11 @@ nav{scrollbar-width:thin}
       <line x1="310" y1="0" x2="310" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
       <line x1="490" y1="0" x2="490" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
       <line x1="680" y1="0" x2="680" y2="200" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="100" x2="900" y2="100" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4,4"/><text x="60.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#ff4d6d" font-weight="600" font-size="12">⚠ 衰退期</text>
+      <line x1="0" y1="100" x2="900" y2="100" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4,4"/><text x="60.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#ff4d6d" font-weight="600" font-size="12">衰退期</text>
       <text x="215.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#00c8a0" font-weight="600" font-size="12">🌱 復甦期</text>
       <text x="400.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#4d9fff" font-weight="600" font-size="12">📈 成長期</text>
       <text x="585.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#f0a500" font-weight="600" font-size="12">🔥 榮景期</text>
-      <text x="790.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#ff4d6d" font-weight="600" font-size="12">⚠ 衰退期</text>
+      <text x="790.0" y="15" text-anchor="middle" font-family="IBM Plex Mono,monospace"   fill="#ff4d6d" font-weight="600" font-size="12">衰退期</text>
       
       <defs><linearGradient id="lgGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,.05)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient></defs>
       <path d="M 0,150.8 L 2,151.3 L 4,151.7 L 6,152.2 L 8,152.6 L 10,153.0 L 12,153.4 L 14,153.8 L 16,154.2 L 18,154.6 L 20,155.0 L 22,155.4 L 24,155.8 L 26,156.2 L 28,156.5 L 30,156.9 L 32,157.2 L 34,157.6 L 36,157.9 L 38,158.2 L 40,158.6 L 42,158.9 L 44,159.2 L 46,159.5 L 48,159.8 L 50,160.1 L 52,160.3 L 54,160.6 L 56,160.9 L 58,161.1 L 60,161.4 L 62,161.6 L 64,161.8 L 66,162.0 L 68,162.3 L 70,162.5 L 72,162.7 L 74,162.8 L 76,163.0 L 78,163.2 L 80,163.4 L 82,163.5 L 84,163.7 L 86,163.8 L 88,164.0 L 90,164.1 L 92,164.2 L 94,164.3 L 96,164.4 L 98,164.5 L 100,164.6 L 102,164.7 L 104,164.7 L 106,164.8 L 108,164.9 L 110,164.9 L 112,164.9 L 114,165.0 L 116,165.0 L 118,165.0 L 120,165.0 L 122,165.0 L 124,165.0 L 126,165.0 L 128,164.9 L 130,164.9 L 132,164.9 L 134,164.8 L 136,164.7 L 138,164.7 L 140,164.6 L 142,164.5 L 144,164.4 L 146,164.3 L 148,164.2 L 150,164.1 L 152,164.0 L 154,163.8 L 156,163.7 L 158,163.5 L 160,163.4 L 162,163.2 L 164,163.0 L 166,162.8 L 168,162.7 L 170,162.5 L 172,162.3 L 174,162.0 L 176,161.8 L 178,161.6 L 180,161.4 L 182,161.1 L 184,160.9 L 186,160.6 L 188,160.3 L 190,160.1 L 192,159.8 L 194,159.5 L 196,159.2 L 198,158.9 L 200,158.6 L 202,158.2 L 204,157.9 L 206,157.6 L 208,157.2 L 210,156.9 L 212,156.5 L 214,156.2 L 216,155.8 L 218,155.4 L 220,155.0 L 222,154.6 L 224,154.2 L 226,153.8 L 228,153.4 L 230,153.0 L 232,152.6 L 234,152.2 L 236,151.7 L 238,151.3 L 240,150.8 L 242,150.4 L 244,149.9 L 246,149.4 L 248,148.9 L 250,148.5 L 252,148.0 L 254,147.5 L 256,147.0 L 258,146.5 L 260,146.0 L 262,145.4 L 264,144.9 L 266,144.4 L 268,143.9 L 270,143.3 L 272,142.8 L 274,142.2 L 276,141.7 L 278,141.1 L 280,140.5 L 282,140.0 L 284,139.4 L 286,138.8 L 288,138.2 L 290,137.6 L 292,137.0 L 294,136.4 L 296,135.8 L 298,135.2 L 300,134.6 L 302,134.0 L 304,133.3 L 306,132.7 L 308,132.1 L 310,131.4 L 312,130.8 L 314,130.2 L 316,129.5 L 318,128.9 L 320,128.2 L 322,127.5 L 324,126.9 L 326,126.2 L 328,125.5 L 330,124.9 L 332,124.2 L 334,123.5 L 336,122.8 L 338,122.2 L 340,121.5 L 342,120.8 L 344,120.1 L 346,119.4 L 348,118.7 L 350,118.0 L 352,117.3 L 354,116.6 L 356,115.9 L 358,115.2 L 360,114.5 L 362,113.8 L 364,113.0 L 366,112.3 L 368,111.6 L 370,110.9 L 372,110.2 L 374,109.4 L 376,108.7 L 378,108.0 L 380,107.3 L 382,106.6 L 384,105.8 L 386,105.1 L 388,104.4 L 390,103.6 L 392,102.9 L 394,102.2 L 396,101.5 L 398,100.7 L 400,100.0 L 402,99.3 L 404,98.5 L 406,97.8 L 408,97.1 L 410,96.4 L 412,95.6 L 414,94.9 L 416,94.2 L 418,93.4 L 420,92.7 L 422,92.0 L 424,91.3 L 426,90.6 L 428,89.8 L 430,89.1 L 432,88.4 L 434,87.7 L 436,87.0 L 438,86.2 L 440,85.5 L 442,84.8 L 444,84.1 L 446,83.4 L 448,82.7 L 450,82.0 L 452,81.3 L 454,80.6 L 456,79.9 L 458,79.2 L 460,78.5 L 462,77.8 L 464,77.2 L 466,76.5 L 468,75.8 L 470,75.1 L 472,74.5 L 474,73.8 L 476,73.1 L 478,72.5 L 480,71.8 L 482,71.1 L 484,70.5 L 486,69.8 L 488,69.2 L 490,68.6 L 492,67.9 L 494,67.3 L 496,66.7 L 498,66.0 L 500,65.4 L 502,64.8 L 504,64.2 L 506,63.6 L 508,63.0 L 510,62.4 L 512,61.8 L 514,61.2 L 516,60.6 L 518,60.0 L 520,59.5 L 522,58.9 L 524,58.3 L 526,57.8 L 528,57.2 L 530,56.7 L 532,56.1 L 534,55.6 L 536,55.1 L 538,54.6 L 540,54.0 L 542,53.5 L 544,53.0 L 546,52.5 L 548,52.0 L 550,51.5 L 552,51.1 L 554,50.6 L 556,50.1 L 558,49.6 L 560,49.2 L 562,48.7 L 564,48.3 L 566,47.8 L 568,47.4 L 570,47.0 L 572,46.6 L 574,46.2 L 576,45.8 L 578,45.4 L 580,45.0 L 582,44.6 L 584,44.2 L 586,43.8 L 588,43.5 L 590,43.1 L 592,42.8 L 594,42.4 L 596,42.1 L 598,41.8 L 600,41.4 L 602,41.1 L 604,40.8 L 606,40.5 L 608,40.2 L 610,39.9 L 612,39.7 L 614,39.4 L 616,39.1 L 618,38.9 L 620,38.6 L 622,38.4 L 624,38.2 L 626,38.0 L 628,37.7 L 630,37.5 L 632,37.3 L 634,37.2 L 636,37.0 L 638,36.8 L 640,36.6 L 642,36.5 L 644,36.3 L 646,36.2 L 648,36.0 L 650,35.9 L 652,35.8 L 654,35.7 L 656,35.6 L 658,35.5 L 660,35.4 L 662,35.3 L 664,35.3 L 666,35.2 L 668,35.1 L 670,35.1 L 672,35.1 L 674,35.0 L 676,35.0 L 678,35.0 L 680,35.0 L 682,35.0 L 684,35.0 L 686,35.0 L 688,35.1 L 690,35.1 L 692,35.1 L 694,35.2 L 696,35.3 L 698,35.3 L 700,35.4 L 702,35.5 L 704,35.6 L 706,35.7 L 708,35.8 L 710,35.9 L 712,36.0 L 714,36.2 L 716,36.3 L 718,36.5 L 720,36.6 L 722,36.8 L 724,37.0 L 726,37.2 L 728,37.3 L 730,37.5 L 732,37.7 L 734,38.0 L 736,38.2 L 738,38.4 L 740,38.6 L 742,38.9 L 744,39.1 L 746,39.4 L 748,39.7 L 750,39.9 L 752,40.2 L 754,40.5 L 756,40.8 L 758,41.1 L 760,41.4 L 762,41.8 L 764,42.1 L 766,42.4 L 768,42.8 L 770,43.1 L 772,43.5 L 774,43.8 L 776,44.2 L 778,44.6 L 780,45.0 L 782,45.4 L 784,45.8 L 786,46.2 L 788,46.6 L 790,47.0 L 792,47.4 L 794,47.8 L 796,48.3 L 798,48.7 L 800,49.2 L 802,49.6 L 804,50.1 L 806,50.6 L 808,51.1 L 810,51.5 L 812,52.0 L 814,52.5 L 816,53.0 L 818,53.5 L 820,54.0 L 822,54.6 L 824,55.1 L 826,55.6 L 828,56.1 L 830,56.7 L 832,57.2 L 834,57.8 L 836,58.3 L 838,58.9 L 840,59.5 L 842,60.0 L 844,60.6 L 846,61.2 L 848,61.8 L 850,62.4 L 852,63.0 L 854,63.6 L 856,64.2 L 858,64.8 L 860,65.4 L 862,66.0 L 864,66.7 L 866,67.3 L 868,67.9 L 870,68.6 L 872,69.2 L 874,69.8 L 876,70.5 L 878,71.1 L 880,71.8 L 882,72.5 L 884,73.1 L 886,73.8 L 888,74.5 L 890,75.1 L 892,75.8 L 894,76.5 L 896,77.2 L 898,77.8 L 900,78.5 L 900,200 L 0,200 Z" fill="url(#lgGrad)"/>
@@ -1071,8 +1070,8 @@ nav{scrollbar-width:thin}
           <div>
             <div class="cycle-list-title">投資策略</div>
             <ul class="cycle-list">
-              <li>現金不可為王，勇敢進場股市</li>
-              <li>加碼股市、高收益債</li>
+              <li>現金報酬最低、股票順風的一段</li>
+              <li>股市、高收益債順風</li>
               <li>黃金此時應賣出</li>
               <li>無風險債券僅剩低息，避開</li>
             </ul>
@@ -1083,7 +1082,7 @@ nav{scrollbar-width:thin}
               <span class="invest-pill pill-sell">賣出 黃金</span>
               <span class="invest-pill pill-sell">避開 美債</span>
             </div>
-            <div class="warning-box" style="margin-top:13px;border-left-color:var(--accent)"><div class="warning-box-title" style="color:var(--accent)">操盤法則</div><div class="warning-box-text">別在復甦期恐慌。二次衰退的傳言通常只是高基期數據造成的幻象，應持續加碼。</div></div>
+            <div class="warning-box" style="margin-top:13px;border-left-color:var(--accent)"><div class="warning-box-title" style="color:var(--accent)">操盤法則</div><div class="warning-box-text">別在復甦期恐慌。二次衰退的傳言通常只是高基期數據造成的幻象，結構上仍屬順風。</div></div>
           </div>
         </div>
       </div>
@@ -1103,7 +1102,7 @@ nav{scrollbar-width:thin}
           <div>
             <div class="cycle-list-title">投資策略</div>
             <ul class="cycle-list">
-              <li>持續買進與持有風險資產</li>
+              <li>持法人月買超·週買超進與持有風險資產</li>
               <li>股市最佳標的，獲利增長支撐高估值</li>
               <li>美債大跌期，避開無風險債券</li>
               <li>原物料初期上揚，後期應避開</li>
@@ -1141,7 +1140,7 @@ nav{scrollbar-width:thin}
             </ul>
             <div class="cycle-list-title" style="margin-top:13px">資產配置</div>
             <div class="invest-pills">
-              <span class="invest-pill pill-sell">減碼 股市</span>
+              <span class="invest-pill pill-sell">股市逆風</span>
               <span class="invest-pill pill-buy">佈局 長債 TLT</span>
               <span class="invest-pill pill-sell">避開 高收益債</span>
             </div>
@@ -1154,7 +1153,7 @@ nav{scrollbar-width:thin}
   
       <div class="cycle-block" style="background:rgba(255,77,109,.04);border:1px solid rgba(255,77,109,.2);border-radius:9px;overflow:hidden;margin-bottom:22px">
         <div class="cycle-block-header">
-          <div class="cycle-icon" style="background:rgba(255,77,109,.12)">⚠</div>
+          <div class="cycle-icon" style="background:rgba(255,77,109,.12)"></div>
           <div><div class="cycle-block-title">衰退期 · Recession</div>
           <div class="cycle-block-sub">最艱難的時期 · 保存實力 · 等待轉機</div></div>
         </div>
@@ -1192,7 +1191,7 @@ nav{scrollbar-width:thin}
     <div class="bond-cycle">
       <div class="bond-stage"><div class="bond-stage-label">第一段</div><div class="bond-stage-name">主跌段</div><div class="bond-stage-desc">成長期至榮景期，通膨與增速升溫</div></div>
       <div class="bond-stage"><div class="bond-stage-label">第二段</div><div class="bond-stage-name">反彈段</div><div class="bond-stage-desc">榮景期中期，升息走到盡頭</div></div>
-      <div class="bond-stage bond-best"><div class="bond-stage-label">第三段 ★ 最佳買點</div><div class="bond-stage-name">再修正</div><div class="bond-stage-desc">榮景期末期，利率暫緩後最後衝刺</div></div>
+      <div class="bond-stage bond-best"><div class="bond-stage-label">第三段 ★ 評價最低段</div><div class="bond-stage-name">再修正</div><div class="bond-stage-desc">榮景期末期，利率暫緩後最後衝刺</div></div>
       <div class="bond-stage bond-main"><div class="bond-stage-label">第四段</div><div class="bond-stage-name">長多段</div><div class="bond-stage-desc">進入衰退期，債價大漲</div></div>
     </div>
   </div>
@@ -1226,21 +1225,21 @@ nav{scrollbar-width:thin}
           <td class="td-name">非金融企業負債佔 GDP</td>
           <td class="td-link"><span class="td-id-inline">BCNSDODNS / GDP</span><br><a href="https://fred.stlouisfed.org/series/BCNSDODNS" target="_blank">FRED ↗</a></td>
           <td><strong>~48.9%</strong>（Q4 2025）<br><small>企業負債 $14.2T ÷ GDP ~$29T</small></td>
-          <td class="td-interpret sig-warn">⚠ 略高於疫前水準，槓桿倍數偏高，升息放大效應仍在</td>
+          <td class="td-interpret sig-warn">略高於疫前水準，槓桿倍數偏高，升息放大效應仍在</td>
           <td class="td-purpose">觀察企業整體槓桿。比率持續攀升→企業依賴舉債，升息緊縮效應被放大</td>
         </tr>
         <tr>
           <td class="td-name">企業淨利息支出佔獲利比（利息覆蓋率）</td>
           <td class="td-link"><span class="td-id-inline">ICR = EBIT / Interest</span><br><a href="https://www.spglobal.com" target="_blank">S&amp;P Global ↗</a></td>
           <td><strong>IG：6.38x</strong>（Q1 2025）<br><strong>Non-IG：2.89x</strong><br><small>2022高峰 IG 8.97x</small></td>
-          <td class="td-interpret sig-warn">⚠ IG健康但已較高峰壓縮；Non-IG 2.89x 接近歷史警戒，利息已吃掉35%獲利</td>
+          <td class="td-interpret sig-warn">IG健康但已較高峰壓縮；Non-IG 2.89x 接近歷史警戒，利息已吃掉35%獲利</td>
           <td class="td-purpose">直接衡量利息吃掉多少獲利。比例越高企業體質越弱，抗壓能力下降</td>
         </tr>
       </tbody>
     </table></div>
     <div class="warning-box">
       <div class="warning-box-title">升息預警邏輯</div>
-      <div class="warning-box-text">若升息2碼後「淨利息支出佔獲利比」沒有明顯抬頭，代表企業營收能力足以消化。反之，若「高收益債利差」出現跳空擴張，即市場發出「這2碼已超出企業負荷」的警訊。即便持有Alphabet或NVIDIA，市場整體估值也會因風險溢價提高而遭到下修。</div>
+      <div class="warning-box-text">若升息2碼後「淨利息支出佔獲利比」沒有明顯抬頭，代表企業營收能力足以消化。反之，若「高收益債利差」出現跳空擴張，即市場發出「這2碼已超出企業負荷」的訊號。即便持有Alphabet或NVIDIA，市場整體估值也會因風險溢價提高而遭到下修。</div>
     </div>
   </div>
 
@@ -1261,14 +1260,14 @@ nav{scrollbar-width:thin}
           <td class="td-name">② 槓桿意願<br>消費者信用總額</td>
           <td class="td-link"><span class="td-id-inline">TOTALSL</span><br><a href="https://fred.stlouisfed.org/series/TOTALSL" target="_blank">FRED ↗</a></td>
           <td><strong>$5.11T</strong>（Jan 2026）<br><small>月增 +$8B（Dec +$25B）</small></td>
-          <td class="td-interpret sig-warn">⚠ 增速明顯放緩，高利率正壓制借貸意願，消費去槓桿開始</td>
+          <td class="td-interpret sig-warn">增速明顯放緩，高利率正壓制借貸意願，消費去槓桿開始</td>
           <td class="td-purpose">觀察消費者是否因成本高而開始減少借貸</td>
         </tr>
         <tr>
           <td class="td-name">③ 實際體感<br>實質個人消費支出</td>
           <td class="td-link"><span class="td-id-inline">PCECC96</span><br><a href="https://fred.stlouisfed.org/series/PCECC96" target="_blank">FRED ↗</a></td>
           <td><strong>+2.5% YoY</strong>（2026 Q1 估）<br><small>三線收斂穩定擴張</small></td>
-          <td class="td-interpret sig-ok">✅ 仍正成長，消費支撐在，但需追蹤是否趨緩</td>
+          <td class="td-interpret sig-ok">✅ 仍正成長，消費支撐在，但需追蹤是否全窗強勢·放緩</td>
           <td class="td-purpose">最關鍵結果指標：民眾口袋裡的錢真的變少花了嗎</td>
         </tr>
         <tr>
@@ -1299,10 +1298,10 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">S&amp;P 500 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni/FactSet</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>20.1-20.9x</td><td class="td-interpret sig-warn">⚠ 高於5Y均值19.9、10Y均值19.0，估值偏高</td></tr>
+        <tr><td class="td-name">S&amp;P 500 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni/FactSet</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>20.1-20.9x</td><td class="td-interpret sig-warn">高於5Y均值19.9、10Y均值19.0，估值偏高</td></tr>
         <tr><td class="td-name">S&amp;P 500 Forward EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>$375（年底預估）/$349（反推）</td><td class="td-interpret sig-ok">✅ 持續上修，盈餘驅動牛市核心</td></tr>
-        <tr><td class="td-name">Nasdaq 100 Forward P/E &amp; EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>~29x／$1,030</td><td class="td-interpret sig-warn">⚠ 略高於均值但有真實獲利支撐</td></tr>
-        <tr><td class="td-name">S&amp;P 500 各板塊 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span><br><a href="https://www.factset.com/earningsinsight" target="_blank">FactSet ↗</a></td><td>最高：消費非必需25.3x／最低：能源13.5x、金融14.7x</td><td class="td-interpret sig-warn">⚠ 板塊分歧明顯，AI/消費相關估值溢價最大</td></tr>
+        <tr><td class="td-name">Nasdaq 100 Forward P/E &amp; EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>~29x／$1,030</td><td class="td-interpret sig-warn">略高於均值但有真實獲利支撐</td></tr>
+        <tr><td class="td-name">S&amp;P 500 各板塊 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span><br><a href="https://www.factset.com/earningsinsight" target="_blank">FactSet ↗</a></td><td>最高：消費非必需25.3x／最低：能源13.5x、金融14.7x</td><td class="td-interpret sig-warn">板塊分歧明顯，AI/消費相關估值溢價最大</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1312,10 +1311,10 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">S&amp;P 500 盈餘收益率 Earnings Yield <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>4.78%（=1/20.9）</td><td class="td-interpret sig-warn">⚠ 與10Y殖利率4.57%相近，吸引力持平</td></tr>
+        <tr><td class="td-name">S&amp;P 500 盈餘收益率 Earnings Yield <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>4.78%（=1/20.9）</td><td class="td-interpret sig-warn">與10Y殖利率4.57%相近，吸引力持平</td></tr>
         <tr><td class="td-name">股票風險溢價 ERP / Fed Model <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>+0.21%</td><td class="td-interpret sig-danger">🔴 近乎於零，當前最大隱患</td></tr>
         
-        <tr><td class="td-name">Misery Index <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni/FRED</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>~8.4%（CPI4.2%+失業率4.2%）</td><td class="td-interpret sig-warn">⚠ 偏高，消費者痛苦指數上升</td></tr>
+        <tr><td class="td-name">Misery Index <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni/FRED</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>~8.4%（CPI4.2%+失業率4.2%）</td><td class="td-interpret sig-warn">偏高，消費者痛苦指數上升</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1339,7 +1338,7 @@ nav{scrollbar-width:thin}
     </table></div>
     <div class="conclusion-box" style="margin-top:14px">
       <div class="conclusion-box-title">綜合估值判讀</div>
-      <div class="conclusion-box-text">本期估值定位：<strong>盈餘驅動消化中的高估值</strong>，非泡沫化。三大訊號同時支撐此判讀：（1）Forward P/E從年初22.0x降至20.4x，是EPS上修速度超過股價漲幅的結果（見3-4）；（2）PEG 0.97 &lt;1，EPS成長仍能支撐當前估值；（3）板塊估值分歧健康（AI/消費最貴、能源金融最便宜），非全面性泡沫。最大隱患是ERP僅+0.21%——股票對債券吸引力近零，10Y殖利率若上升1碼將觸發元件58預估的10-14%修正。當前策略：<strong>估值容忍空間仍在（S&amp;P離輕度泡沫尚有17.7%），但風險/報酬比正在惡化</strong>，應開始留意ERP動向與Fed政策轉折訊號。</div>
+      <div class="conclusion-box-text">本期估值定位：<strong>盈餘驅動消化中的高估值</strong>，非泡沫化。三大訊號同時支撐此判讀：（1）Forward P/E從年初22.0x降至20.4x，是EPS上修速度超過股價漲幅的結果（見3-4）；（2）PEG 0.97 &lt;1，EPS成長仍能支撐當前估值；（3）板塊估值分歧健康（AI/消費最貴、能源金融最便宜），非全面性泡沫。最大隱患是ERP僅+0.21%——股票對債券吸引力近零，10Y殖利率若上升1碼將觸發元件58預估的10-14%修正。當前狀態：<strong>估值容忍空間仍在（S&amp;P離輕度泡沫尚有17.7%），但風險/報酬比正在惡化</strong>，應開始留意ERP動向與Fed政策轉折訊號。</div>
     </div>
   </div>
   <div class="subsection">
@@ -1492,7 +1491,7 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">實質 GDP</td><td class="td-link"><span class="td-id-inline">BEA</span><br><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank">BEA ↗</a></td><td>Q1 2026 +1.6%（終值）</td><td class="td-interpret sig-warn">⚠ 終值不如預期（初值2.0%），因投資/消費下修</td></tr>
+        <tr><td class="td-name">實質 GDP</td><td class="td-link"><span class="td-id-inline">BEA</span><br><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank">BEA ↗</a></td><td>Q1 2026 +1.6%（終值）</td><td class="td-interpret sig-warn">終值不如預期（初值2.0%），因投資/消費下修</td></tr>
         <tr><td class="td-name">GDPNow 即時預估</td><td class="td-link"><span class="td-id-inline">GDPNOW</span><br><a href="https://fred.stlouisfed.org/series/GDPNOW" target="_blank">FRED ↗</a></td><td>Q2 2026 +3.0%（6/17）</td><td class="td-interpret sig-ok">✅ Q2動能顯著回升，較6/16的2.8%上修</td></tr>
         <tr><td class="td-name">每週經濟指數 WEI</td><td class="td-link"><span class="td-id-inline">WEI</span><br><a href="https://www.dallasfed.org/research/wei" target="_blank">Dallas Fed ↗</a></td><td>2.90%（6/6當週，13週均值2.82%）</td><td class="td-interpret sig-ok">✅ 高於Q1實際2.57%，即時動能改善</td></tr>
       </tbody>
@@ -1508,7 +1507,7 @@ nav{scrollbar-width:thin}
         <tr><td class="td-name">零售銷售（名目 vs 實質）</td><td class="td-link"><span class="td-id-inline">RSXFS / RRSFS</span><br><a href="https://fred.stlouisfed.org/series/RSXFS" target="_blank">FRED名目↗</a> · <a href="https://fred.stlouisfed.org/series/RRSFS" target="_blank">FRED實質↗</a></td><td>5月YoY 名目+7.5%，實質+2.6%（創一年新高）</td><td class="td-interpret sig-ok">✅ 名目遠高於實質，代表戰爭推升的油氣價格貢獻不小，但剔除物價後「量」本身仍創一年新高，消費不是漲價的幻覺</td></tr>
         <tr><td class="td-name">實質可支配所得</td><td class="td-link"><span class="td-id-inline">DSPIC96</span><br><a href="https://fred.stlouisfed.org/series/DSPIC96" target="_blank">FRED ↗</a></td><td>終於從負值低點回升至正成長（5月）</td><td class="td-interpret sig-ok">✅ 本期最關鍵的轉折：消費的「燃料來源」本身在改善，而非靠透支先前儲蓄硬撐</td></tr>
         <tr><td class="td-name">儲蓄率</td><td class="td-link"><span class="td-id-inline">PSAVERT</span><br><a href="https://fred.stlouisfed.org/series/PSAVERT" target="_blank">FRED ↗</a></td><td>3.0%（5月，止穩未再下探）</td><td class="td-interpret sig-ok">✅ 止穩本身即是訊號——若消費靠提款支撐，儲蓄率理應持續破底</td></tr>
-        <tr><td class="td-name">核心 PCE 物價指數</td><td class="td-link"><span class="td-id-inline">PCEPILFE</span><br><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED ↗</a></td><td>3.3% YoY</td><td class="td-interpret sig-warn">⚠ 持續高於Fed目標，是消費動能加速下仍需留意的燃料成本</td></tr>
+        <tr><td class="td-name">核心 PCE 物價指數</td><td class="td-link"><span class="td-id-inline">PCEPILFE</span><br><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED ↗</a></td><td>3.3% YoY</td><td class="td-interpret sig-warn">持續高於Fed目標，是消費動能加速下仍需留意的燃料成本</td></tr>
       </tbody>
     </table></div>
     <div class="warning-box">
@@ -1525,7 +1524,7 @@ nav{scrollbar-width:thin}
         <tr><td class="td-name">實質民間投資總額</td><td class="td-link"><span class="td-id-inline">BEA</span><br><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank">BEA ↗</a></td><td>Q1+7%（終值）</td><td class="td-interpret sig-ok">✅ 設備投資+17.2%強勁</td></tr>
         <tr><td class="td-name">庫存銷售比</td><td class="td-link"><span class="td-id-inline">ISRATIO</span><br><a href="https://fred.stlouisfed.org/series/ISRATIO" target="_blank">FRED ↗</a></td><td>1.32（3月）</td><td class="td-interpret sig-ok">✅ 健康偏低，無過剩庫存壓力</td></tr>
         <tr><td class="td-name">新屋開工</td><td class="td-link"><span class="td-id-inline">Census</span><br><a href="https://www.census.gov/construction/nrc/index.html" target="_blank">Census ↗</a></td><td>5月117.7萬戶，MoM-15.4%</td><td class="td-interpret sig-danger">🔴 創2020年5月以來新低，高房貸利率壓制</td></tr>
-        <tr><td class="td-name">製造業建築支出</td><td class="td-link"><span class="td-id-inline">Census</span><br><a href="https://www.census.gov/construction/c30/c30index.html" target="_blank">Census ↗</a></td><td>4月MoM-1.2%（整體建築支出+0.4%至$2,172.4B）</td><td class="td-interpret sig-warn">⚠ 製造業類別逆勢下滑，與住宅/商用走勢分歧</td></tr>
+        <tr><td class="td-name">製造業建築支出</td><td class="td-link"><span class="td-id-inline">Census</span><br><a href="https://www.census.gov/construction/c30/c30index.html" target="_blank">Census ↗</a></td><td>4月MoM-1.2%（整體建築支出+0.4%至$2,172.4B）</td><td class="td-interpret sig-warn">製造業類別逆勢下滑，與住宅/商用走勢分歧</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1537,9 +1536,9 @@ nav{scrollbar-width:thin}
       <tbody>
         <tr><td class="td-name">總體耐久財新訂單</td><td class="td-link"><span class="td-id-inline">DGORDER</span><br><a href="https://fred.stlouisfed.org/series/DGORDER" target="_blank">FRED ↗</a></td><td>絕對值已翻倍遠高於90年代水準</td><td class="td-interpret sig-ok">✅「再工業化」熱潮的直接證據，圍繞AI、自動化、能源、國防、航太的新一輪產業回流</td></tr>
         <tr><td class="td-name">核心耐久財（不含運輸）</td><td class="td-link"><span class="td-id-inline">ADXTNO</span><br><a href="https://fred.stlouisfed.org/series/ADXTNO" target="_blank">FRED ↗</a></td><td>同樣翻倍遠高於90年代水準</td><td class="td-interpret sig-ok">✅ 排除運輸業波動後仍同步走強，代表擴張具有廣度，非單一類別撐場</td></tr>
-        <tr><td class="td-name">電腦與電子產品訂單</td><td class="td-link"><span class="td-id-inline">A34SNO</span><br><a href="https://fred.stlouisfed.org/series/A34SNO" target="_blank">FRED ↗</a></td><td>絕對值才剛回到1998年左右水準</td><td class="td-interpret sig-neutral">⚠ 反直覺卻是反駁「科技泡沫論」最強證據——這一類別的「30年通縮」都還沒走完，未來兩年至少要在當前水準上再增長40%才追得上2000年水準</td></tr>
+        <tr><td class="td-name">電腦與電子產品訂單</td><td class="td-link"><span class="td-id-inline">A34SNO</span><br><a href="https://fred.stlouisfed.org/series/A34SNO" target="_blank">FRED ↗</a></td><td>絕對值才剛回到1998年左右水準</td><td class="td-interpret sig-neutral">反直覺卻是反駁「科技泡沫論」最強證據——這一類別的「30年通縮」都還沒走完，未來兩年至少要在當前水準上再增長40%才追得上2000年水準</td></tr>
         <tr><td class="td-name">工業生產指數</td><td class="td-link"><span class="td-id-inline">INDPRO</span><br><a href="https://fred.stlouisfed.org/series/INDPRO" target="_blank">FRED ↗</a></td><td>5月YoY+1.67%</td><td class="td-interpret sig-ok">✅ 自2025年1月起長期處於穩定擴張區間，非單月反彈</td></tr>
-        <tr><td class="td-name">產能利用率</td><td class="td-link"><span class="td-id-inline">TCU</span><br><a href="https://fred.stlouisfed.org/series/TCU" target="_blank">FRED ↗</a></td><td>76.17%（5月）</td><td class="td-interpret sig-ok">✅ 維持健康水位（80%以上才是過熱警訊），擴張仍有餘裕，非加班硬撐出來的產出</td></tr>
+        <tr><td class="td-name">產能利用率</td><td class="td-link"><span class="td-id-inline">TCU</span><br><a href="https://fred.stlouisfed.org/series/TCU" target="_blank">FRED ↗</a></td><td>76.17%（5月）</td><td class="td-interpret sig-ok">✅ 維持健康水位（80%以上才是過熱訊號），擴張仍有餘裕，非加班硬撐出來的產出</td></tr>
       </tbody>
     </table></div>
     <div class="warning-box">
@@ -1557,7 +1556,7 @@ nav{scrollbar-width:thin}
         <tr><td class="td-name">商品出口</td><td class="td-link"><span class="td-id-inline">BOPGEXP</span><br><a href="https://fred.stlouisfed.org/series/BOPGEXP" target="_blank">FRED ↗</a></td><td>5月YoY+14.7%（較4月12.56%加快）</td><td class="td-interpret sig-ok">✅ 出口不是衰退，是加速——貿易逆差擴大的鍋不能算在出口頭上</td></tr>
         <tr><td class="td-name">商品進口</td><td class="td-link"><span class="td-id-inline">BOPGIMP</span><br><a href="https://fred.stlouisfed.org/series/BOPGIMP" target="_blank">FRED ↗</a></td><td>5月YoY+15%（較4月9.13%明顯加快）</td><td class="td-interpret sig-ok">✅ 進口增速大於出口，是本月逆差擴大的真正原因，需再拆解進口內容才能判斷好壞</td></tr>
         <tr><td class="td-name">資本財進口</td><td class="td-link"><span class="td-id-inline">AITGICS</span><br><a href="https://fred.stlouisfed.org/series/AITGICS" target="_blank">FRED ↗</a></td><td>YoY+42%（工業原料進口僅+11.7%）</td><td class="td-interpret sig-ok">✅ 進口加速的主力不是原物料，是資本財——民間投資的領先指標，未來季度投資貢獻度可望進一步加快</td></tr>
-        <tr><td class="td-name">貿易逆差</td><td class="td-link"><span class="td-id-inline">BOPGSTB</span><br><a href="https://fred.stlouisfed.org/series/BOPGSTB" target="_blank">FRED ↗</a></td><td>1058億美元（去年3月以來新高）</td><td class="td-interpret sig-warn">⚠ 表面數字最容易被誤讀為利空，需搭配上面三項一起看</td></tr>
+        <tr><td class="td-name">貿易逆差</td><td class="td-link"><span class="td-id-inline">BOPGSTB</span><br><a href="https://fred.stlouisfed.org/series/BOPGSTB" target="_blank">FRED ↗</a></td><td>1058億美元（去年3月以來新高）</td><td class="td-interpret sig-warn">表面數字最容易被誤讀為利空，需搭配上面三項一起看</td></tr>
       </tbody>
     </table></div>
     <div class="warning-box">
@@ -1591,7 +1590,7 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">JOLTS 職位空缺</td><td class="td-link"><span class="td-id-inline">JTSJOL</span><br><a href="https://fred.stlouisfed.org/series/JTSJOL" target="_blank">FRED ↗</a></td><td>761.8萬（4月，+73.1萬，創2024/11以來新高）</td><td class="td-interpret sig-warn">⚠ 職缺/失業比回升，但與初領申請數矛盾，需觀察是否一次性回升</td></tr>
+        <tr><td class="td-name">JOLTS 職位空缺</td><td class="td-link"><span class="td-id-inline">JTSJOL</span><br><a href="https://fred.stlouisfed.org/series/JTSJOL" target="_blank">FRED ↗</a></td><td>761.8萬（4月，+73.1萬，創2024/11以來新高）</td><td class="td-interpret sig-warn">職缺/失業比回升，但與初領申請數矛盾，需觀察是否一次性回升</td></tr>
         <tr><td class="td-name">勞動參與率</td><td class="td-link"><span class="td-id-inline">CIVPART</span><br><a href="https://fred.stlouisfed.org/series/CIVPART" target="_blank">FRED ↗</a></td><td><strong>61.5%</strong>（6月，較5月61.8%驟降0.3pt，為2021年3月以來新低）</td><td class="td-interpret sig-danger">🔴 參與率崩跌是6月失業率下降的主因，非真正勞動需求改善</td></tr>
       </tbody>
     </table></div>
@@ -1603,8 +1602,8 @@ nav{scrollbar-width:thin}
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
         <tr><td class="td-name">每小時薪資年增率</td><td class="td-link"><span class="td-id-inline">CES0500000003</span><br><a href="https://fred.stlouisfed.org/series/CES0500000003" target="_blank">FRED ↗</a></td><td><strong>3.5% YoY</strong>（6月，MoM+0.3%至$37.64）</td><td class="td-interpret sig-ok">✅ 薪資年增穩定在3.5%附近，未加速也未失速，不構成通膨螺旋壓力</td></tr>
-        <tr><td class="td-name">單位勞動成本</td><td class="td-link"><span class="td-id-inline">ULCNFB</span><br><a href="https://fred.stlouisfed.org/series/ULCNFB" target="_blank">FRED ↗</a></td><td>Q1季增1.8%（年增0.5%）</td><td class="td-interpret sig-warn">⚠ 季增加速，時薪增2.1%但生產力僅增0.3%</td></tr>
-        <tr><td class="td-name">非農勞動生產力</td><td class="td-link"><span class="td-id-inline">BLS</span><br><a href="https://www.bls.gov/productivity/" target="_blank">BLS ↗</a></td><td>Q1季增0.3%（年增2.8%）</td><td class="td-interpret sig-warn">⚠ 季增明顯放緩</td></tr>
+        <tr><td class="td-name">單位勞動成本</td><td class="td-link"><span class="td-id-inline">ULCNFB</span><br><a href="https://fred.stlouisfed.org/series/ULCNFB" target="_blank">FRED ↗</a></td><td>Q1季增1.8%（年增0.5%）</td><td class="td-interpret sig-warn">季增加速，時薪增2.1%但生產力僅增0.3%</td></tr>
+        <tr><td class="td-name">非農勞動生產力</td><td class="td-link"><span class="td-id-inline">BLS</span><br><a href="https://www.bls.gov/productivity/" target="_blank">BLS ↗</a></td><td>Q1季增0.3%（年增2.8%）</td><td class="td-interpret sig-warn">季增明顯放緩</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1615,10 +1614,10 @@ nav{scrollbar-width:thin}
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
         <tr><td class="td-name">非農就業</td><td class="td-link"><span class="td-id-inline">PAYEMS</span><br><a href="https://fred.stlouisfed.org/series/PAYEMS" target="_blank">FRED ↗</a></td><td><strong>+57K</strong>（6月，遠低於預期115K；4月下修31K至148K，5月下修43K至129K，兩月合計下修74K）</td><td class="td-interpret sig-danger">🔴 6月大幅miss預期，且前兩月同步下修，過去12個月平均月增僅+36K，就業引擎明顯降速</td></tr>
-        <tr><td class="td-name">失業率</td><td class="td-link"><span class="td-id-inline">UNRATE</span><br><a href="https://fred.stlouisfed.org/series/UNRATE" target="_blank">FRED ↗</a></td><td><strong>4.2%</strong>（6月，較5月4.3%降0.1pt）</td><td class="td-interpret sig-warn">⚠ 表面下降但屬「假利多」——不是就業改善，是勞動力參與率驟降0.3pt至61.5%所致（家庭調查就業人數月減50.7萬）</td></tr>
-        <tr><td class="td-name">初領失業救濟金</td><td class="td-link"><span class="td-id-inline">ICSA</span><br><a href="https://fred.stlouisfed.org/series/ICSA" target="_blank">FRED ↗</a></td><td>22.6萬（6/13週，4週均值升至22.3萬，創近期新高）</td><td class="td-interpret sig-warn">⚠ 緩步走高，方向轉變</td></tr>
-        <tr><td class="td-name">持續領取失業金</td><td class="td-link"><span class="td-id-inline">CCSA</span><br><a href="https://fred.stlouisfed.org/series/CCSA" target="_blank">FRED ↗</a></td><td>181萬（6/6週，較循環低點176.6萬回升）</td><td class="td-interpret sig-warn">⚠ 續領上升代表再就業變慢</td></tr>
-        <tr><td class="td-name">非農就業擴散指數</td><td class="td-link"><span class="td-id-inline">BLS</span><br><a href="https://www.bls.gov/news.release/empsit.htm" target="_blank">BLS ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">失業率</td><td class="td-link"><span class="td-id-inline">UNRATE</span><br><a href="https://fred.stlouisfed.org/series/UNRATE" target="_blank">FRED ↗</a></td><td><strong>4.2%</strong>（6月，較5月4.3%降0.1pt）</td><td class="td-interpret sig-warn">表面下降但屬「假利多」——不是就業改善，是勞動力參與率驟降0.3pt至61.5%所致（家庭調查就業人數月減50.7萬）</td></tr>
+        <tr><td class="td-name">初領失業救濟金</td><td class="td-link"><span class="td-id-inline">ICSA</span><br><a href="https://fred.stlouisfed.org/series/ICSA" target="_blank">FRED ↗</a></td><td>22.6萬（6/13週，4週均值升至22.3萬，創近期新高）</td><td class="td-interpret sig-warn">緩步走高，方向轉變</td></tr>
+        <tr><td class="td-name">持續領取失業金</td><td class="td-link"><span class="td-id-inline">CCSA</span><br><a href="https://fred.stlouisfed.org/series/CCSA" target="_blank">FRED ↗</a></td><td>181萬（6/6週，較循環低點176.6萬回升）</td><td class="td-interpret sig-warn">續領上升代表再就業變慢</td></tr>
+        <tr><td class="td-name">非農就業擴散指數</td><td class="td-link"><span class="td-id-inline">BLS</span><br><a href="https://www.bls.gov/news.release/empsit.htm" target="_blank">BLS ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">資料受限</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1628,14 +1627,14 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">製造業聘僱人數</td><td class="td-link"><span class="td-id-inline">ISM Employment</span><br><a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/june/" target="_blank">ISM ↗</a></td><td><strong>49.7</strong>（6月，較5月48.6上升1.1pt，但仍<50）</td><td class="td-interpret sig-warn">⚠ 收縮幅度收斂中，接近轉正臨界，但尚未進入擴張。與服務業就業47.9同時<50，形成雙輪擴張中唯一的共同軟斑</td></tr>
-        <tr><td class="td-name">製造業建築支出</td><td class="td-link"><span class="td-id-inline">Census</span><br><a href="https://www.census.gov/construction/c30/c30index.html" target="_blank">Census ↗</a></td><td>4月MoM-1.2%</td><td class="td-interpret sig-warn">⚠ 與4-3重複指標，逆勢下滑</td></tr>
+        <tr><td class="td-name">製造業聘僱人數</td><td class="td-link"><span class="td-id-inline">ISM Employment</span><br><a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/june/" target="_blank">ISM ↗</a></td><td><strong>49.7</strong>（6月，較5月48.6上升1.1pt，但仍<50）</td><td class="td-interpret sig-warn">收縮幅度收斂中，接近轉正臨界，但尚未進入擴張。與服務業就業47.9同時<50，形成雙輪擴張中唯一的共同軟斑</td></tr>
+        <tr><td class="td-name">製造業建築支出</td><td class="td-link"><span class="td-id-inline">Census</span><br><a href="https://www.census.gov/construction/c30/c30index.html" target="_blank">Census ↗</a></td><td>4月MoM-1.2%</td><td class="td-interpret sig-warn">與4-3重複指標，逆勢下滑</td></tr>
       </tbody>
     </table></div>
   </div>
   <div class="subsection">
     <div class="subsection-title">5-5 組合觀察</div>
-    <div class="subsection-summary">四組交叉觀察本期定位：（1）供需平衡組——JOLTS+勞動參與率61.5%創新低，代表Fed緊縮效果同時作用於「降空缺」與「壓參與率」，混合訊號；（2）硬著陸監控組——初領/續領同步緩升但未突破，失業率4.2%仍在4字頭區間，未進入倒數；（3）薪資通膨螺旋——時薪YoY 3.5%平穩、生產力年增2.8%抵消，螺旋未啟動；（4）調查對齊校正——6月企業調查+57K vs 家庭調查-50.7萬明顯分歧，是本期最需持續追蹤的訊號組合。</div>
+    <div class="subsection-summary">四組交叉觀察本期定位：（1）供需平衡組——JOLTS+勞動參與率61.5%創新低，代表Fed緊縮效果同時作用於「降空缺」與「壓參與率」，混合訊號；（2）硬著陸監控組——初領/續領同步緩升但未突破，失業率4.2%仍在4字頭區間，未進入倒數；（3）薪資通膨螺旋——時薪YoY 3.5%平穩、生產力年增2.8%抵消，螺旋未中短窗轉強·長弱；（4）調查對齊校正——6月企業調查+57K vs 家庭調查-50.7萬明顯分歧，是本期最需持續追蹤的訊號組合。</div>
     <div class="table-wrap"><table class="combo-table">
       <thead><tr><th>組合名稱</th><th>包含指標</th><th>邏輯</th></tr></thead>
       <tbody>
@@ -1652,7 +1651,7 @@ nav{scrollbar-width:thin}
       <div class="note-card"><div class="note-card-label leading">▲ 先行指標</div><div class="note-card-body">JOLTS 職位空缺、初領失業金、製造業建築支出</div></div>
       <div class="note-card"><div class="note-card-label lagging">▼ 滯後指標</div><div class="note-card-body">失業率、長期失業人口</div></div>
       <div class="note-card"><div class="note-card-label key">◈ 落底信號</div><div class="note-card-body">數據持續下修但市場不再恐慌大跌，為「情緒出清」的落底信號</div></div>
-      <div class="note-card"><div class="note-card-label warning">⚠ 2026年重點</div><div class="note-card-body">「製造業聘僱」與「時薪年增」共振。若薪資高企但聘僱停滯，即為「成本擠壓」模式，對企業獲利極端不利</div></div>
+      <div class="note-card"><div class="note-card-label warning">2026年重點</div><div class="note-card-body">「製造業聘僱」與「時薪年增」共振。若薪資高企但聘僱短窗轉弱·長強，即為「成本擠壓」模式，對企業獲利極端不利</div></div>
     </div>
   </div>
 </div>
@@ -1763,7 +1762,7 @@ nav{scrollbar-width:thin}
         <tr><td class="td-name">7月</td><td>0.3%（偏高）</td><td>~0.3%（偏高）</td><td class="td-interpret sig-ok">✅ 基期較高，兩指標YoY皆有望小幅下降</td></tr>
         <tr><td class="td-name">8月</td><td>0.3%（偏高）</td><td>0.2-0.23%（中性）</td><td class="td-interpret sig-ok">✅ CPI基期高/PCE中性，CPI改善幅度可能更明顯</td></tr>
         <tr><td class="td-name">9月</td><td>0.23%（中性）</td><td>待確認（估0.25%）</td><td class="td-interpret sig-neutral">中性，YoY變化有限</td></tr>
-        <tr><td class="td-name">10月</td><td>數據品質存疑（停擺影響）</td><td>待確認（估0.25%）</td><td class="td-interpret sig-warn">⚠ CPI數據品質需留意修正風險</td></tr>
+        <tr><td class="td-name">10月</td><td>數據品質存疑（停擺影響）</td><td>待確認（估0.25%）</td><td class="td-interpret sig-warn">CPI數據品質需留意修正風險</td></tr>
         <tr><td class="td-name">11月</td><td><strong>0.16%（全年最低）</strong></td><td>待確認（估0.25%，無極端值）</td><td class="td-interpret sig-danger">🔴 CPI基期陷阱月，YoY可能明顯反彈，需排除基期效應誤判</td></tr>
         <tr><td class="td-name">12月</td><td>0.2%（中性）</td><td>待確認（估0.25%）</td><td class="td-interpret sig-neutral">中性</td></tr>
       </tbody>
@@ -1780,10 +1779,10 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">核心 PCE 物價指數</td><td class="td-link"><span class="td-id-inline">PCEPILFE</span><br><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED ↗</a></td><td>3.3% YoY（4月），MoM+0.2%</td><td class="td-interpret sig-warn">⚠ 持續高於Fed目標</td></tr>
+        <tr><td class="td-name">核心 PCE 物價指數</td><td class="td-link"><span class="td-id-inline">PCEPILFE</span><br><a href="https://fred.stlouisfed.org/series/PCEPILFE" target="_blank">FRED ↗</a></td><td>3.3% YoY（4月），MoM+0.2%</td><td class="td-interpret sig-warn">持續高於Fed目標</td></tr>
         <tr><td class="td-name">消費者物價指數 CPI</td><td class="td-link"><span class="td-id-inline">CPIAUCSL</span><br><a href="https://fred.stlouisfed.org/series/CPIAUCSL" target="_blank">FRED ↗</a></td><td>4.2% YoY（5月），MoM+0.5%（能源貢獻&gt;60%）</td><td class="td-interpret sig-danger">🔴 創3年新高，能源是主因</td></tr>
-        <tr><td class="td-name">核心 CPI</td><td class="td-link"><span class="td-id-inline">CPILFESL</span><br><a href="https://fred.stlouisfed.org/series/CPILFESL" target="_blank">FRED ↗</a></td><td>2.9% YoY（5月，較4月2.8%微升），MoM+0.25%</td><td class="td-interpret sig-warn">⚠ 較4月加速，但仍是溫和節奏</td></tr>
-        <tr><td class="td-name">Trimmed Mean PCE（達拉斯版）</td><td class="td-link"><span class="td-id-inline">Dallas Fed</span><br><a href="https://www.dallasfed.org/research/pce" target="_blank">Dallas Fed ↗</a></td><td>2.3%（4月，較核心PCE 3.3%低約1個百分點）</td><td class="td-interpret sig-warn">⚠ Warsh主席偏好此指標，但達拉斯聯儲主席Logan親自警告不應過度信賴目前的低讀數，存在技術性失真風險</td></tr>
+        <tr><td class="td-name">核心 CPI</td><td class="td-link"><span class="td-id-inline">CPILFESL</span><br><a href="https://fred.stlouisfed.org/series/CPILFESL" target="_blank">FRED ↗</a></td><td>2.9% YoY（5月，較4月2.8%微升），MoM+0.25%</td><td class="td-interpret sig-warn">較4月加速，但仍是溫和節奏</td></tr>
+        <tr><td class="td-name">Trimmed Mean PCE（達拉斯版）</td><td class="td-link"><span class="td-id-inline">Dallas Fed</span><br><a href="https://www.dallasfed.org/research/pce" target="_blank">Dallas Fed ↗</a></td><td>2.3%（4月，較核心PCE 3.3%低約1個百分點）</td><td class="td-interpret sig-warn">Warsh主席偏好此指標，但達拉斯聯儲主席Logan親自警告不應過度信賴目前的低讀數，存在技術性失真風險</td></tr>
       </tbody>
     </table></div>
     <div class="warning-box">
@@ -1797,8 +1796,8 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">租金 CPI</td><td class="td-link"><span class="td-id-inline">CUSR0000SEHA</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SEHA" target="_blank">FRED ↗</a></td><td>5月MoM+0.4%，南區YoY+2.7%（區域樣本）</td><td class="td-interpret sig-warn">⚠ 月增略加速</td></tr>
-        <tr><td class="td-name">屋主等值租金 OER</td><td class="td-link"><span class="td-id-inline">CUSR0000SEHC</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SEHC" target="_blank">FRED ↗</a></td><td>5月MoM+0.3%，南區YoY+2.8%</td><td class="td-interpret sig-warn">⚠ 核心通膨最大貢獻項，年增穩定在2.7-2.8%</td></tr>
+        <tr><td class="td-name">租金 CPI</td><td class="td-link"><span class="td-id-inline">CUSR0000SEHA</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SEHA" target="_blank">FRED ↗</a></td><td>5月MoM+0.4%，南區YoY+2.7%（區域樣本）</td><td class="td-interpret sig-warn">月增略加速</td></tr>
+        <tr><td class="td-name">屋主等值租金 OER</td><td class="td-link"><span class="td-id-inline">CUSR0000SEHC</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SEHC" target="_blank">FRED ↗</a></td><td>5月MoM+0.3%，南區YoY+2.8%</td><td class="td-interpret sig-warn">核心通膨最大貢獻項，年增穩定在2.7-2.8%</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1809,7 +1808,7 @@ nav{scrollbar-width:thin}
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
         <tr><td class="td-name">能源 CPI</td><td class="td-link"><span class="td-id-inline">CPIENGSL</span><br><a href="https://fred.stlouisfed.org/series/CPIENGSL" target="_blank">FRED ↗</a></td><td>23.5% YoY（5月），汽油+40.5% YoY</td><td class="td-interpret sig-danger">🔴 主要由伊朗衝突推升，佔月增60%以上</td></tr>
-        <tr><td class="td-name">二手車價格 CPI</td><td class="td-link"><span class="td-id-inline">CUSR0000SETA02</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SETA02" target="_blank">FRED ↗</a></td><td>資料受限：僅有區域數據（南區+1.6%、東北區-2.5%，5月MoM）</td><td class="td-interpret sig-neutral">⚠ 區域差異大，全國統一數值未查得</td></tr>
+        <tr><td class="td-name">二手車價格 CPI</td><td class="td-link"><span class="td-id-inline">CUSR0000SETA02</span><br><a href="https://fred.stlouisfed.org/series/CUSR0000SETA02" target="_blank">FRED ↗</a></td><td>資料受限：僅有區域數據（南區+1.6%、東北區-2.5%，5月MoM）</td><td class="td-interpret sig-neutral">區域差異大，全國統一數值未查得</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1820,7 +1819,7 @@ nav{scrollbar-width:thin}
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
         <tr><td class="td-name">密西根大學 1 年期通膨預期</td><td class="td-link"><span class="td-id-inline">MICH</span><br><a href="https://fred.stlouisfed.org/series/MICH" target="_blank">FRED ↗</a></td><td>4.6%（6月，較5月4.8%略降，遠高於2月3.4%）</td><td class="td-interpret sig-danger">🔴 仍顯著受伊朗衝突影響，未回到衝突前水準</td></tr>
-        <tr><td class="td-name">克里夫蘭 Fed Inflation Nowcasting</td><td class="td-link"><span class="td-id-inline">Cleveland Fed</span><br><a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting" target="_blank">Cleveland Fed ↗</a></td><td>headline 0.07%／Core 0.23%（6月MoM）</td><td class="td-interpret sig-warn">⚠ Headline受油價降溫掩蓋，Core仍頑固</td></tr>
+        <tr><td class="td-name">克里夫蘭 Fed Inflation Nowcasting</td><td class="td-link"><span class="td-id-inline">Cleveland Fed</span><br><a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting" target="_blank">Cleveland Fed ↗</a></td><td>headline 0.07%／Core 0.23%（6月MoM）</td><td class="td-interpret sig-warn">Headline受油價降溫掩蓋，Core仍頑固</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -1898,7 +1897,7 @@ nav{scrollbar-width:thin}
       </tbody>
     </table></div>
     <div class="warning-box" style="margin-top:14px">
-      <div class="warning-box-title">當前製造業循環位階：擴張中段，主動補庫存已啟動</div>
+      <div class="warning-box-title">當前製造業循環位階：擴張中段，主動補庫存已中短窗轉強·長弱</div>
       <div class="warning-box-text">6月ISM製造業PMI 53.3，雖較5月54.0略降，但連續6個月站在50上，五個直接構成PMI的子項有四項擴張（僅就業49.7偏弱），整體訊號結構明確落在<strong>元件33的「擴張中段」</strong>。三個最關鍵訊號：<br><br>
       （1）<strong>客戶存貨續深度偏低42.3</strong>——這是典型擴張中期特徵，意味未來訂單有補庫存支撐，不是週期尾端；<br>
       （2）<strong>自有存貨從49.9躍升至51.4重回擴張</strong>——正對應元件60「主動補庫存」第二階段，廠商開始預先備料，而非被動囤積；<br>
@@ -1994,23 +1993,23 @@ nav{scrollbar-width:thin}
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
         <tr><td class="td-name">企業稅後獲利</td><td class="td-link"><span class="td-id-inline">CP</span><br><a href="https://fred.stlouisfed.org/series/CP" target="_blank">FRED ↗</a></td><td>與S&amp;P500 EPS同步上升趨勢（無單一精確值）</td><td class="td-interpret sig-ok">✅ NIPA口徑獲利同步走高</td></tr>
-        <tr><td class="td-name">花旗驚奇盈餘指數 <span class="yardeni-badge">Citi</span></td><td class="td-link"><span class="td-id-inline">Citi</span></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">花旗驚奇盈餘指數 <span class="yardeni-badge">Citi</span></td><td class="td-link"><span class="td-id-inline">Citi</span></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">資料受限</td></tr>
         <tr><td class="td-name">S&amp;P 500 Forward EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>$375（年底預估）/$349（反推）</td><td class="td-interpret sig-ok">✅ 持續上修</td></tr>
         <tr><td class="td-name">S&amp;P 500 Forward Revenue per Share <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span><br><a href="https://www.yardeni.com" target="_blank">Yardeni ↗</a></td><td>Q1實際營收成長+10.3%</td><td class="td-interpret sig-ok">✅ 創2022Q3以來最高營收成長</td></tr>
-        <tr><td class="td-name">板塊前瞻 EPS &amp; 盈餘增速 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">⚠ 僅能定性：科技/工業/金融領漲</td></tr>
+        <tr><td class="td-name">板塊前瞻 EPS &amp; 盈餘增速 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">僅能定性：科技/工業/金融領漲</td></tr>
         <tr><td class="td-name">Earnings Season Monitor <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span><br><a href="https://insight.factset.com" target="_blank">FactSet ↗</a></td><td>Q1實際EPS超預期84%（5年均78%），平均超出20.7%（5年均7.3%）</td><td class="td-interpret sig-ok">✅ 創2021Q2以來最高比例</td></tr>
       </tbody>
     </table></div>
   </div>
   <div class="subsection">
     <div class="subsection-title">8-2 營收、利潤率與資本回報（Yardeni 完整）</div>
-    <div class="subsection-summary">S&amp;P 500 Q1淨利潤率13.4%創2009年FactSet追蹤以來新高，Q2-Q4預估14.1%/14.6%/14.6%持續擴張——利潤率擴張是本輪多頭最堅實基石。LTEG從1月+14.3%大幅上修至4月+18.6%，STRG Q2-Q4預估+20.6%/+22.7%/+20.4%持續加速，代表AI CapEx投資已開始轉化為實質獲利。唯一警訊：6個板塊Q1利潤率QoQ下降（能源/工業領跌），需觀察是類別再平衡或普遍轉弱。</div>
+    <div class="subsection-summary">S&amp;P 500 Q1淨利潤率13.4%創2009年FactSet追蹤以來新高，Q2-Q4預估14.1%/14.6%/14.6%持續擴張——利潤率擴張是本輪多頭最堅實基石。LTEG從1月+14.3%大幅上修至4月+18.6%，STRG Q2-Q4預估+20.6%/+22.7%/+20.4%持續加速，代表AI CapEx投資已開始轉化為實質獲利。唯一訊號：6個板塊Q1利潤率QoQ下降（能源/工業領跌），需觀察是類別再平衡或普遍轉弱。</div>
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
         <tr><td class="td-name">S&amp;P 500 淨利潤率 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span><br><a href="https://insight.factset.com" target="_blank">FactSet ↗</a></td><td>13.4%（Q1，創2009年FactSet追蹤以來新高）</td><td class="td-interpret sig-ok">✅ Q2-Q4預估14.1%/14.6%/14.6%持續擴張</td></tr>
-        <tr><td class="td-name">S&amp;P 500 各板塊前瞻利潤率 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span></td><td>6個板塊Q1利潤率QoQ下降，能源(6.6%vs7.9%)、工業(11.1%vs12.3%)領跌</td><td class="td-interpret sig-warn">⚠ 部分板塊利潤率承壓</td></tr>
-        <tr><td class="td-name">S&amp;P 500 回購 &amp; 股息收益率 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">S&amp;P 500 各板塊前瞻利潤率 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span></td><td>6個板塊Q1利潤率QoQ下降，能源(6.6%vs7.9%)、工業(11.1%vs12.3%)領跌</td><td class="td-interpret sig-warn">部分板塊利潤率承壓</td></tr>
+        <tr><td class="td-name">S&amp;P 500 回購 &amp; 股息收益率 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">資料受限</td></tr>
         <tr><td class="td-name">NIPA 企業利潤 vs S&amp;P 500 EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FRED/Yardeni</span></td><td>兩者同步上升趨勢</td><td class="td-interpret sig-ok">✅ 無顯著背離</td></tr>
         <tr><td class="td-name">LTEG 長期盈餘增速預期 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span></td><td>CY2026分析師預估+14.3%（1月）→+18.6%（4月，大幅上修）</td><td class="td-interpret sig-ok">✅ 持續上修</td></tr>
         <tr><td class="td-name">STRG / STEG 短期盈餘增速 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet</span></td><td>Q2-Q4 2026預估+20.6%/+22.7%/+20.4%</td><td class="td-interpret sig-ok">✅ 加速成長</td></tr>
@@ -2023,15 +2022,15 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">S&amp;P 500/400/600 Forward EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
-        <tr><td class="td-name">S&amp;P 500/400/600 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>S&amp;P 500：20.9x；中小型股未查得</td><td class="td-interpret sig-neutral">⚠ 中小型股數據未查得</td></tr>
-        <tr><td class="td-name">成長 vs 價值 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
-        <tr><td class="td-name">Magnificent-7 前瞻指標 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet/JPM</span></td><td>市值佔比33.8%（6月），Q1 EPS成長最大貢獻者：Alphabet/Amazon/Meta；Goldman預估貢獻2026 EPS成長46%</td><td class="td-interpret sig-warn">⚠ 集中度風險仍高，但貢獻度較2025年50%略降</td></tr>
+        <tr><td class="td-name">S&amp;P 500/400/600 Forward EPS <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">資料受限</td></tr>
+        <tr><td class="td-name">S&amp;P 500/400/600 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>S&amp;P 500：20.9x；中小型股未查得</td><td class="td-interpret sig-neutral">中小型股數據未查得</td></tr>
+        <tr><td class="td-name">成長 vs 價值 Forward P/E <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">Yardeni</span></td><td>資料受限：圖表為付費牆</td><td class="td-interpret sig-neutral">資料受限</td></tr>
+        <tr><td class="td-name">Magnificent-7 前瞻指標 <span class="yardeni-badge">Yardeni</span></td><td class="td-link"><span class="td-id-inline">FactSet/JPM</span></td><td>市值佔比33.8%（6月），Q1 EPS成長最大貢獻者：Alphabet/Amazon/Meta；Goldman預估貢獻2026 EPS成長46%</td><td class="td-interpret sig-warn">集中度風險仍高，但貢獻度較2025年50%略降</td></tr>
       </tbody>
     </table></div>
   </div>
   <div class="subsection">
-    <div class="subsection-title">8-4 估值建模：指數目標價回推</div>
+    <div class="subsection-title">8-4 估值建模：指數評價區間回推</div>
     <div class="subsection-summary">用EPS $367（7月最新反推）× 5Y均值P/E 19.9x → 目標$7,303；當前S&amp;P 500 7,483略高於基準情境1.9%，代表估值處於「合理略偏高」區間而非泡沫化。若EPS續上修至Yardeni預估$375，基準目標可上探$7,463；輕度泡沫（24x）情境目標$8,808（+17.7%空間）、中度泡沫（28x）目標$10,276（+37.3%空間）——空間仍在，但需觀察EPS上修節奏是否能追上股價漲幅（見3-4分析）。</div>
     <div class="formula-block">
       <div class="formula-label">核心公式</div>
@@ -2060,11 +2059,11 @@ nav{scrollbar-width:thin}
   </div>
   <div class="subsection">
     <div class="subsection-title">9-1 美元流動性</div>
-    <div class="subsection-summary">Fed資產負債表$6.725兆，Warsh接任首週QT步調明顯放緩並啟動規模審查——這是本輪政策轉折最直接的訊號。TGA $874億在Treasury目標區間內、ON RRP接近零——資金管路運作正常，無異常抽注水。整體流動性環境「不是逆風」，Fed政策轉向鴿派時股市不會有流動性瓶頸限制估值擴張。</div>
+    <div class="subsection-summary">Fed資產負債表$6.725兆，Warsh接任首週QT步調明顯放緩並中短窗轉強·長弱規模審查——這是本輪政策轉折最直接的訊號。TGA $874億在Treasury目標區間內、ON RRP接近零——資金管路運作正常，無異常抽注水。整體流動性環境「不是逆風」，Fed政策轉向鴿派時股市不會有流動性瓶頸限制估值擴張。</div>
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">Fed資產負債表</td><td class="td-link"><span class="td-id-inline">WALCL</span><br><a href="https://fred.stlouisfed.org/series/WALCL" target="_blank">FRED ↗</a></td><td>$6.725兆（6/17週，週增$13.9億，年增$48億）</td><td class="td-interpret sig-warn">⚠ Warsh接任首週，QT步調明顯放緩，已啟動資產負債表規模審查</td></tr>
+        <tr><td class="td-name">Fed資產負債表</td><td class="td-link"><span class="td-id-inline">WALCL</span><br><a href="https://fred.stlouisfed.org/series/WALCL" target="_blank">FRED ↗</a></td><td>$6.725兆（6/17週，週增$13.9億，年增$48億）</td><td class="td-interpret sig-warn">Warsh接任首週，QT步調明顯放緩，已中短窗轉強·長弱資產負債表規模審查</td></tr>
         <tr><td class="td-name">財政部現金帳戶 TGA</td><td class="td-link"><span class="td-id-inline">WTGANN</span><br><a href="https://fred.stlouisfed.org/series/WTGANN" target="_blank">FRED ↗</a></td><td>$874.1億（在Treasury目標區間$700-900億內）</td><td class="td-interpret sig-ok">✅ 處於正常範圍，無異常抽水/注水</td></tr>
         <tr><td class="td-name">隔夜附買回 ON RRP</td><td class="td-link"><span class="td-id-inline">RRPONTSYD</span><br><a href="https://fred.stlouisfed.org/series/RRPONTSYD" target="_blank">FRED ↗</a></td><td>接近零（近零使用量）</td><td class="td-interpret sig-ok">✅ 市場資金充裕，無需大量停泊避險</td></tr>
       </tbody>
@@ -2082,7 +2081,7 @@ nav{scrollbar-width:thin}
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
         <tr><td class="td-name">聖路易聯邦金融壓力指數</td><td class="td-link"><span class="td-id-inline">STLFSI4</span><br><a href="https://fred.stlouisfed.org/series/STLFSI4" target="_blank">FRED ↗</a></td><td>-0.18（3月27日最新確認值，較2月-0.49持續走低）</td><td class="td-interpret sig-ok">✅ 低於零，市場壓力低於歷史均值，趨勢持續健康化</td></tr>
-        <tr><td class="td-name">TED 利差</td><td class="td-link"><span class="td-id-inline">TEDRATE</span><br><a href="https://fred.stlouisfed.org/series/TEDRATE" target="_blank">FRED ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">TED 利差</td><td class="td-link"><span class="td-id-inline">TEDRATE</span><br><a href="https://fred.stlouisfed.org/series/TEDRATE" target="_blank">FRED ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">資料受限</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -2092,11 +2091,11 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>當前數值</th><th>判讀</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">商業與工業貸款違約率</td><td class="td-link"><span class="td-id-inline">SLOOS</span><br><a href="https://www.federalreserve.gov/data/sloos" target="_blank">Fed SLOOS ↗</a></td><td>資料受限：無精確違約率，SLOOS質化顯示Q1溫和淨緊縮</td><td class="td-interpret sig-warn">⚠ 質化趨勢偏緊</td></tr>
-        <tr><td class="td-name">消費者貸款違約率</td><td class="td-link"><span class="td-id-inline">SLOOS</span><br><a href="https://www.federalreserve.gov/data/sloos" target="_blank">Fed SLOOS ↗</a></td><td>信用卡/車貸標準大致不變，其他消費貸溫和緊縮</td><td class="td-interpret sig-neutral">⚠ 中性偏緊</td></tr>
-        <tr><td class="td-name">銀行貸款緊縮比率</td><td class="td-link"><span class="td-id-inline">DRTSCILM</span><br><a href="https://fred.stlouisfed.org/series/DRTSCILM" target="_blank">FRED ↗</a></td><td>Q1溫和淨緊縮（各規模企業一致）</td><td class="td-interpret sig-warn">⚠ 連續緊縮但幅度溫和</td></tr>
-        <tr><td class="td-name">債務還本付息佔收入比</td><td class="td-link"><span class="td-id-inline">FRED</span></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
-        <tr><td class="td-name">FINRA 融資餘額</td><td class="td-link"><span class="td-id-inline">FINRA</span><br><a href="https://www.finra.org/investors/learn-to-invest/advanced-investing/margin-statistics" target="_blank">FINRA ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">⚠ 資料受限</td></tr>
+        <tr><td class="td-name">商業與工業貸款違約率</td><td class="td-link"><span class="td-id-inline">SLOOS</span><br><a href="https://www.federalreserve.gov/data/sloos" target="_blank">Fed SLOOS ↗</a></td><td>資料受限：無精確違約率，SLOOS質化顯示Q1溫和淨緊縮</td><td class="td-interpret sig-warn">質化趨勢偏緊</td></tr>
+        <tr><td class="td-name">消費者貸款違約率</td><td class="td-link"><span class="td-id-inline">SLOOS</span><br><a href="https://www.federalreserve.gov/data/sloos" target="_blank">Fed SLOOS ↗</a></td><td>信用卡/車貸標準大致不變，其他消費貸溫和緊縮</td><td class="td-interpret sig-neutral">中性偏緊</td></tr>
+        <tr><td class="td-name">銀行貸款緊縮比率</td><td class="td-link"><span class="td-id-inline">DRTSCILM</span><br><a href="https://fred.stlouisfed.org/series/DRTSCILM" target="_blank">FRED ↗</a></td><td>Q1溫和淨緊縮（各規模企業一致）</td><td class="td-interpret sig-warn">連續緊縮但幅度溫和</td></tr>
+        <tr><td class="td-name">債務還本付息佔收入比</td><td class="td-link"><span class="td-id-inline">FRED</span></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">資料受限</td></tr>
+        <tr><td class="td-name">FINRA 融資餘額</td><td class="td-link"><span class="td-id-inline">FINRA</span><br><a href="https://www.finra.org/investors/learn-to-invest/advanced-investing/margin-statistics" target="_blank">FINRA ↗</a></td><td>資料受限，未查得最新精確值</td><td class="td-interpret sig-neutral">資料受限</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -2104,7 +2103,7 @@ nav{scrollbar-width:thin}
     <div class="subsection-title">9-4 泡沫破滅「死亡交叉」模式</div>
     <div class="subsection-summary">當前尚未觸發：S&amp;P 500/流通中貨幣確實處於歷史高位，但FINRA融資餘額尚未從高點顯著下滑——「兩條件同時」的觸發訊號並未出現。這正是9-4作為極端警戒指標的價值：只有當融資餘額從高峰急墜（代表槓桿被迫平倉）且指數估值同步鬆動時，才是系統性風險確認訊號。目前不在此區間。</div>
     <div class="signal-block">
-      <div class="signal-block-title">⚠ 系統性警示公式</div>
+      <div class="signal-block-title">系統性警示公式</div>
       <div style="font-family:var(--mono);font-size:.87em;color:var(--text);line-height:2.2">
         S&amp;P 500 / 流通中貨幣 <span style="color:var(--danger)">身處歷史高位</span>
         <span style="color:var(--text3)"> ＋ </span>
@@ -2171,7 +2170,7 @@ nav{scrollbar-width:thin}
         <tr>
           <td class="td-name">SOFR 期貨曲線形態（遠近端利差）</td>
           <td class="td-link"><span class="td-id-inline">CME SOFR Futures</span><br><a href="https://www.cmegroup.com/markets/interest-rates/secured-overnight-financing-rate.html" target="_blank">CME ↗</a></td>
-          <td class="td-interpret sig-danger">🔴 已轉正傾斜（推估）：市場已完全定價10月前升息</td><td class="td-purpose">遠端 &gt; 近端 = 升息預期；遠端 &lt; 近端 = 降息預期。曲線從倒掛轉走平 = 降息預期消除；走平轉正傾斜 = 升息定價啟動</td>
+          <td class="td-interpret sig-danger">🔴 已轉正傾斜（推估）：市場已完全定價10月前升息</td><td class="td-purpose">遠端 &gt; 近端 = 升息預期；遠端 &lt; 近端 = 降息預期。曲線從倒掛轉走平 = 降息預期消除；走平轉正傾斜 = 升息定價中短窗轉強·長弱</td>
         </tr>
         <tr>
           <td class="td-name" style="color:var(--accent2)">Term SOFR 利差（12M − 1M）⚡</td>
@@ -2190,7 +2189,7 @@ nav{scrollbar-width:thin}
     <div class="table-wrap"><table>
       <thead><tr><th>指標名稱</th><th>來源／連結</th><th>判讀</th><th>用途</th></tr></thead>
       <tbody>
-        <tr><td class="td-name">CME FedWatch Tool</td><td class="td-link"><span class="td-id-inline">CME Group</span><br><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME ↗</a></td><td class="td-interpret sig-warn">⚠ 12月升息機率36.0%（6/18，4月時5.4%），趨勢上升但7月會議仍88.8%不變，遠未到「已定價」</td><td class="td-purpose">30天聯邦基金期貨隱含的升/降/不動機率，最廣泛引用的市場共識指標</td></tr>
+        <tr><td class="td-name">CME FedWatch Tool</td><td class="td-link"><span class="td-id-inline">CME Group</span><br><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME ↗</a></td><td class="td-interpret sig-warn">12月升息機率36.0%（6/18，4月時5.4%），趨勢上升但7月會議仍88.8%不變，遠未到「已定價」</td><td class="td-purpose">30天聯邦基金期貨隱含的升/降/不動機率，最廣泛引用的市場共識指標</td></tr>
         <tr><td class="td-name">2 年期美債殖利率</td><td class="td-link"><span class="td-id-inline">DGS2 · FRED</span><br><a href="https://fred.stlouisfed.org/series/DGS2" target="_blank">FRED ↗</a></td><td class="td-interpret sig-warn">先前4.13%，6月最新值未查得</td><td class="td-purpose">對 Fed 路徑最敏感的市場指標，升息預期升溫時立刻跳升，比任何官方聲明都快</td></tr>
         <tr><td class="td-name">2Y − 10Y 殖利率利差</td><td class="td-link"><span class="td-id-inline">T10Y2Y · FRED</span><br><a href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">FRED ↗</a></td><td class="td-interpret sig-warn">41bp（6/2），仍正值未倒掛</td><td class="td-purpose">倒掛加深 = 市場預期短期緊縮但長期看衰；倒掛收窄或轉正 = 升息預期重燃</td></tr>
         <tr><td class="td-name">5 年期盈虧平衡通膨率</td><td class="td-link"><span class="td-id-inline">T5YIE · FRED</span><br><a href="https://fred.stlouisfed.org/series/T5YIE" target="_blank">FRED ↗</a></td><td class="td-interpret sig-warn">2.61%（3/13，6月待更新）</td><td class="td-purpose">TIPS 隱含通膨預期，持續走高代表市場認為通膨未被馴服，Fed 升息壓力累積</td></tr>
@@ -2329,13 +2328,13 @@ function setTheme(th){
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -2355,5 +2354,6 @@ function setTheme(th){
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

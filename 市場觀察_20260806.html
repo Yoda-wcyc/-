@@ -480,8 +480,7 @@ body.light{--dyn-imp:#b45309;--dyn-led:#be185d;--dyn-lag:#6d28d9;--dyn-wk:#0891b
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -496,7 +495,10 @@ html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{backgrou
 nav{scrollbar-width:thin}
 </style>
 <style data-yoda-nobtn>/* 報告端安裝鈕停用（Yoda 定）；yoda-install.js 仍載入，浮水印/控制列覆蓋照常生效 */.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}</style>
-</head>
+<style id='yb-light-fix'>/* core-render §B-40 泡泡圖淺色可讀性 */
+body.light .yb{fill-opacity:.72!important;opacity:.88!important;stroke:rgba(15,30,48,.55)!important;stroke-width:1.1!important}
+body.light .qlab{filter:brightness(.62) saturate(1.35)}
+</style></head>
 <body>
 
 <!-- NAV - 修正重複項目 -->
@@ -630,7 +632,7 @@ nav{scrollbar-width:thin}
 
     <div class="gl-gh">板塊輪動與動態圖</div>
     <div class="gl-row"><div class="gl-term">REL5 / REL20</div><div class="gl-def">板塊近 5／20 日相對大盤的強弱（報酬減掉大盤）。正＝跑贏、負＝跑輸。</div></div>
-    <div class="gl-row"><div class="gl-term">板塊生命週期</div><div class="gl-def">👑主升（成熟領漲）／⚠出貨（動能見頂、退出警戒）／💥崩解（主線結束）／🔄加速（新資金剛進場）。</div></div>
+    <div class="gl-row"><div class="gl-term">板塊生命週期</div><div class="gl-def">👑全窗強勢（成熟領漲）／出貨（動能見頂、退出警戒）／💥崩解（主線結束）／🔄加速（新資金剛流入）。</div></div>
     <div class="gl-row"><div class="gl-term">動態圖象限 / 尾巴</div><div class="gl-def">右＝比大盤強、左＝弱；上＝動能加速、下＝減速。尾巴（半透明點）＝前幾天的位置，看往哪移動。</div></div>
   </div>
 </details>
@@ -769,7 +771,7 @@ nav{scrollbar-width:thin}
         <div class="c-lbl">情緒過熱觸發 <span class="arr">▼</span></div>
         <div class="sit sit-wn" style="margin-bottom:10px;">正常 · 偏樂觀</div>
         <div style="font-family:var(--fb);font-size:calc(var(--fs)*.9);color:var(--text);line-height:1.75;margin-bottom:10px;">恐慌指標全綠（VIX 15.8、MOVE 73.5、信用利差 2.73%）；選擇權 Put/Call 0.5 偏低＝沒人避險的自滿，是唯一要留意的尾端風險。動能因子近一週相對已翻正回升。</div>
-        <div class="irow-list"><div class="irow"><span class="irow-name">VIX</span><span class="irow-val g">15.8 平靜</span></div><div class="irow"><span class="irow-name">VXN</span><span class="irow-val d">24.15 中段</span></div><div class="irow"><span class="irow-name">MOVE</span><span class="irow-val g">73.5 低</span></div><div class="irow"><span class="irow-name">P/C Ratio</span><span class="irow-val y">0.5 偏低⚠</span></div><div class="irow"><span class="irow-name">HY_OAS</span><span class="irow-val g">2.73% 緊</span></div></div>
+        <div class="irow-list"><div class="irow"><span class="irow-name">VIX</span><span class="irow-val g">15.8 平靜</span></div><div class="irow"><span class="irow-name">VXN</span><span class="irow-val d">24.15 中段</span></div><div class="irow"><span class="irow-name">MOVE</span><span class="irow-val g">73.5 低</span></div><div class="irow"><span class="irow-name">P/C Ratio</span><span class="irow-val y">0.5 偏低</span></div><div class="irow"><span class="irow-name">HY_OAS</span><span class="irow-val g">2.73% 緊</span></div></div>
       </div>
 
       <div class="card clk" id="cRsk" onclick="tog('dRsk','cRsk')">
@@ -858,7 +860,7 @@ nav{scrollbar-width:thin}
         <div class="g-q"><div class="qn qn-lag">落後</div><div class="qd">弱且續弱</div></div>
         <div class="g-q"><div class="qn qn-wk">轉弱</div><div class="qd">強但減速</div></div>
       </div>
-      <div class="g-flow">資金輪動多半順時針：轉強 → 領先 → 轉弱 → 落後 → 再回轉強。</div>
+      <div class="g-flow">資金輪動多半順時針：轉強 → 領先 中短窗轉弱·長強 → 落後 → 再回轉強。</div>
       <div class="g-div"></div>
       <div class="g-k" style="color:var(--text);font-weight:700;margin-bottom:5px">能幫你判斷</div>
       <ul class="g-use">
@@ -1514,7 +1516,7 @@ nav{scrollbar-width:thin}
     <div class="sc s">
       <div class="sc-hdr">▲ 強勢（三欄同向確立）</div>
       <div class="sc-item" onclick="togSC('s1',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>XLK 科技</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank71</span><span class="sc-arr">&#9660;</span></span></div><div id="s1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLK"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">三尺度全正，成長沒被棄、今日領漲科技側</div></div>
-<div class="sc-item" onclick="togSC('s2',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>IGV 軟體</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">&#9660;</span></span></div><div id="s2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="IGV"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">軟體短中長皆領先大盤，主升續強</div></div>
+<div class="sc-item" onclick="togSC('s2',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>IGV 軟體</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">&#9660;</span></span></div><div id="s2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="IGV"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">軟體短中長皆領先大盤，全窗強勢續強</div></div>
 <div class="sc-item" onclick="togSC('s3',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>SKYY 雲端</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank96</span><span class="sc-arr">&#9660;</span></span></div><div id="s3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="SKYY"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">雲端最強，三尺度全領先</div></div>
 <div class="sc-item" onclick="togSC('s4',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>CIBR 資安</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank94</span><span class="sc-arr">&#9660;</span></span></div><div id="s4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="CIBR"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">資安長線主線，REL60 +25</div></div>
 <div class="sc-item" onclick="togSC('s5',this)"><span class="sc-tk"><span class="tag tag-g" style="margin-right:5px;">🌱三欄全正</span>HACK 資安</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank88</span><span class="sc-arr">&#9660;</span></span></div><div id="s5" class="sc-det"><canvas class="mini-chart-canvas" data-tk="HACK"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">資安雙 ETF 同強，REL60 +30</div></div>
@@ -1539,11 +1541,11 @@ nav{scrollbar-width:thin}
     </div>
 
     <div class="sc x">
-      <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
-      <div class="sc-item" onclick="togSC('w1',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLU 公用</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank17</span><span class="sc-arr">&#9660;</span></span></div><div id="w1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLU"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">防禦退位，三欄轉弱（risk-on 佐證）</div></div>
-<div class="sc-item" onclick="togSC('w2',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLC 通訊</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank10</span><span class="sc-arr">&#9660;</span></span></div><div id="w2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLC"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">通訊三欄全負，落後</div></div>
-<div class="sc-item" onclick="togSC('w3',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLP 必需消費</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank26</span><span class="sc-arr">&#9660;</span></span></div><div id="w3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLP"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">必需消費落後，risk-on 佐證</div></div>
-<div class="sc-item" onclick="togSC('w4',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">▼弱勢</span>XLRE 房地產</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank32</span><span class="sc-arr">&#9660;</span></span></div><div id="w4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLRE"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">利率敏感，三欄承壓</div></div>
+      <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
+      <div class="sc-item" onclick="togSC('w1',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">全窗弱勢</span>XLU 公用</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank17</span><span class="sc-arr">&#9660;</span></span></div><div id="w1" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLU"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">防禦退位，三欄轉弱（risk-on 佐證）</div></div>
+<div class="sc-item" onclick="togSC('w2',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">全窗弱勢</span>XLC 通訊</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank10</span><span class="sc-arr">&#9660;</span></span></div><div id="w2" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLC"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">通訊三欄全負，落後</div></div>
+<div class="sc-item" onclick="togSC('w3',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">全窗弱勢</span>XLP 必需消費</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank26</span><span class="sc-arr">&#9660;</span></span></div><div id="w3" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLP"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">必需消費落後，risk-on 佐證</div></div>
+<div class="sc-item" onclick="togSC('w4',this)"><span class="sc-tk"><span class="tag tag-r" style="margin-right:5px;">全窗弱勢</span>XLRE 房地產</span><span style="display:flex;align-items:center;gap:5px;"><span class="sc-rk">Rank32</span><span class="sc-arr">&#9660;</span></span></div><div id="w4" class="sc-det"><canvas class="mini-chart-canvas" data-tk="XLRE"></canvas><div style="font-size:calc(var(--fs)*.85);padding:6px 0;color:var(--dim);line-height:1.6;">利率敏感，三欄承壓</div></div>
     </div>
   </div>
   <script id="sc-hist" type="application/json">{
@@ -1826,7 +1828,7 @@ nav{scrollbar-width:thin}
 
   <div class="rotation-verdict">
     <div class="rv-title">⚡ 板塊強弱對位小結：<strong>多頭回神、資金輪進跌深板塊——換棒不是換方向</strong></div>
-    <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊（先看這裡）</div><div class="cc-row">Dow 創高、cyclical value 領先、megacap 成長暫歇 <span class="cc-arw">&rarr;</span> 三欄全正的軟體/雲/資安/科技證明成長側只喘息未被棄(半導體近一週相對仍+4/+3.7) <span class="cc-arw">&rarr;</span> 沒爆量破位 <span class="cc-arw">&rarr;</span> 換棒不是換方向</div><div class="cc-row">新資金流向金礦/銅礦/金屬(跌最深、由弱轉強·GDX 近一月翻正、近一週+8.9) <span class="cc-arw">&rarr;</span> risk-on 把跌深板塊撿回補漲 <span class="cc-arw">&rarr;</span> 防禦(公用/必需/房地產)落後佐證 <span class="cc-arw">&rarr;</span> 盯輪動會不會失序</div></div>
+    <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊</div><div class="cc-row">Dow 創高、cyclical value 領先、megacap 成長暫歇 <span class="cc-arw">&rarr;</span> 三欄全正的軟體/雲/資安/科技證明成長側只喘息未被棄(半導體近一週相對仍+4/+3.7) <span class="cc-arw">&rarr;</span> 沒爆量破位 <span class="cc-arw">&rarr;</span> 換棒不是換方向</div><div class="cc-row">新資金流向金礦/銅礦/金屬(跌最深、由弱轉強·GDX 近一月翻正、近一週+8.9) <span class="cc-arw">&rarr;</span> risk-on 把跌深板塊撿回補漲 <span class="cc-arw">&rarr;</span> 防禦(公用/必需/房地產)落後佐證 <span class="cc-arw">&rarr;</span> 盯輪動會不會失序</div></div>
     <div class="rv-snapshot">強勢＝軟體/雲端/資安/科技（三欄全正，成長沒被棄）｜轉強觀察＝金礦/銅礦/金屬/半導體（跌深加速回補，今日領軍）｜轉弱＝醫療/能源/原材料（短線落後，長線多仍在）｜弱勢＝公用/通訊/必需/房地產（防禦與利率敏感落後）</div>
     <div class="rv-divider"></div>
     <div class="rv-txt">今天 <strong>Dow 創新高</strong>、cyclical value 領先、megacap 成長暫歇——這是多頭回神下的健康換棒。最扎實的是三欄全正的<strong>軟體/雲端/資安/科技</strong>，證明成長那側只是喘息、沒被棄（半導體 SOXX/SMH 近一週相對仍 +4/+3.7 領先，今日回檔是 <strong>Nvidia 甚至收紅</strong>的族群內獲利了結）。真正的新資金流向<strong>金礦、銅礦、金屬</strong>這些過去三個月跌最深、最近由弱轉強的族群——GDX 近一月已翻正、近一週加速 +8.9%。金融、工業等 cyclical 近一週相對雖小回，但中長線仍強、今日領漲 Dow。防禦（公用/必需/房地產）落後，是 risk-on 的佐證。依 §G-7／§G-10，單日與近一週訊號合看：沒有爆量破位、Dow 創高，屬<strong>換棒不是換方向</strong>。</div>
@@ -1942,7 +1944,7 @@ nav{scrollbar-width:thin}
     <div class="syn-title">完整研判｜2026/08/06（08/06 Close）｜v1</div>
     <div style="font-family:var(--fb);font-size:calc(var(--fs)*1.15);font-weight:800;color:var(--accent);letter-spacing:.12em;margin-bottom:18px;margin-top:-8px;">多頭回神、資金輪進跌深板塊——換棒不是換方向</div>
 
-    <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊（先看這裡）</div><div class="cc-row">Iran 協議降溫、油回落 <span class="cc-arw">&rarr;</span> 降息預期升溫、實質利率下滑 <span class="cc-arw">&rarr;</span> 金礦+7.4%/白銀+3.9%噴、Dow 創高 <span class="cc-arw">&rarr;</span> 『利空鈍化＋降息預期』的多方組合、不是避險</div><div class="cc-row">Dow/cyclical value 領先、megacap 成長暫歇 <span class="cc-arw">&rarr;</span> 資金把跌深板塊撿回補漲 <span class="cc-arw">&rarr;</span> 半導體單日黑K但近一週相對仍領先 <span class="cc-arw">&rarr;</span> 換棒不換方向、盯輪動會不會失序</div><div class="cc-row">US10Y 4.61% 仍在高檔 <span class="cc-arw">&rarr;</span> 估值背景摩擦 <span class="cc-arw">&rarr;</span> 但今日 Dow 創高顯示尚未成約束 <span class="cc-arw">&rarr;</span> 逆風存在未咬人；盯 NFP/8-12 CPI 檢查點</div></div>
+    <div class="core-chains"><div class="cc-h">🔗 核心邏輯鍊</div><div class="cc-row">Iran 協議降溫、油回落 <span class="cc-arw">&rarr;</span> 降息預期升溫、實質利率下滑 <span class="cc-arw">&rarr;</span> 金礦+7.4%/白銀+3.9%噴、Dow 創高 <span class="cc-arw">&rarr;</span> 『利空鈍化＋降息預期』的多方組合、不是避險</div><div class="cc-row">Dow/cyclical value 領先、megacap 成長暫歇 <span class="cc-arw">&rarr;</span> 資金把跌深板塊撿回補漲 <span class="cc-arw">&rarr;</span> 半導體單日黑K但近一週相對仍領先 <span class="cc-arw">&rarr;</span> 換棒不換方向、盯輪動會不會失序</div><div class="cc-row">US10Y 4.61% 仍在高檔 <span class="cc-arw">&rarr;</span> 估值背景摩擦 <span class="cc-arw">&rarr;</span> 但今日 Dow 創高顯示尚未成約束 <span class="cc-arw">&rarr;</span> 逆風存在未咬人；盯 NFP/8-12 CPI 檢查點</div></div>
 
     <div class="syn-blk">
       <div class="syn-h">一、核心要點</div>
@@ -2176,10 +2178,10 @@ function setTheme(t){
   function mkMarker(g,ty,cx,cy,r,fill){
     // 玻璃/水質感泡泡：彩色柔光暈 → 半透明球體 → 彩色亮邊 → 白色玻璃反光罩 → 水珠高光
     g.appendChild(el('circle',{cx:cx,cy:cy,r:r+2,fill:fill,opacity:.22,filter:'url(#dyn-glow)'}));
-    g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:fill,'fill-opacity':.30}));
+    g.appendChild(el('circle',{'class':'yb',cx:cx,cy:cy,r:r,fill:fill,'fill-opacity':.30}));
     g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'none',stroke:fill,'stroke-width':1.5,opacity:.92}));
     g.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'url(#dyn-gloss)'}));
-    g.appendChild(el('ellipse',{cx:cx-r*0.30,cy:cy-r*0.40,rx:r*0.34,ry:r*0.22,fill:'#ffffff',opacity:.55}));
+    var _lt=document.body.classList.contains('light');g.appendChild(el('ellipse',{cx:cx-r*0.30,cy:cy-r*0.40,rx:r*0.34,ry:r*0.22,fill:'#ffffff',opacity:(_lt?.18:.55)}));
   }
   // ── 頁籤（相容 mw 靜態 data-tab 與 us/tw 動態建立）＋ 反應速度／歷史天數按鈕 ──
   var tabseg=document.getElementById('dyn-tabseg');
@@ -2321,13 +2323,13 @@ function setTheme(t){
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -2381,5 +2383,6 @@ function setTheme(t){
 }catch(e){}})();
 </script>
 <script src="https://yoda-research-next.vercel.app/yoda-install.js" defer></script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

@@ -12,7 +12,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1200">
-<title>專題研究  動能因子時鐘</title>
+<title>AI 泡沫評估表 · 2026</title>
 <style>
 :root{--sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display','PingFang TC','Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif;--serif:var(--sans);--mono:var(--sans);}
 [data-theme="dark"]{
@@ -306,7 +306,6 @@ tbody td{padding:9px 13px;color:var(--text);vertical-align:top}
 /* 呼吸動畫 */
 @keyframes fan-breathe{0%,100%{background:#b8960a;box-shadow:0 0 4px 1px rgba(255,215,0,.35);color:#1a1200;}50%{background:#ffd700;box-shadow:0 0 10px 3px rgba(255,215,0,.75);color:#000;}}
 </style>
-  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
 <style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
@@ -417,12 +416,12 @@ nav{scrollbar-width:thin}
 </svg>
     <div style="font-size:calc(10.5px * var(--fs-scale));color:var(--dim);margin-top:8px;">Source: Goldman Sachs Global Investment Research</div>
   </div>
-  <div class="table-wrap"><table><thead><tr><th>時間位置</th><th>劇本描述</th><th>市場狀態含意</th></tr></thead><tbody>
+  <div class="table-wrap"><table><thead><tr><th>時間位置</th><th>劇本描述</th><th>操作含義</th></tr></thead><tbody>
     <tr><td class="td-name">t = 0</td><td>動能暴漲結束點</td><td class="td-base">劇本開始播放</td></tr>
-    <tr><td class="td-name">t+1 ~ t+2</td><td>動能股繼續衝，斜率放緩</td><td class="td-signal sig-warn">位置落在歷史高點附近，往上的空間在統計上最小</td></tr>
-    <tr><td class="td-name">t+2 ~ t+3</td><td>開始回落修正，跌勢有慣性</td><td class="td-signal sig-warn">回落段的慣性還在，統計上跌勢通常還沒走完</td></tr>
+    <tr><td class="td-name">t+1 ~ t+2</td><td>動能股繼續衝，斜率放緩</td><td class="td-signal sig-warn">高點附近，不宜追買</td></tr>
+    <tr><td class="td-name">t+2 ~ t+3</td><td>開始回落修正，跌勢有慣性</td><td class="td-signal sig-warn">不要急著接刀</td></tr>
     <tr><td class="td-name">t+3</td><td>歷史平均谷底</td><td class="td-signal sig-ok">修復窗口開始</td></tr>
-    <tr><td class="td-name">t+4 ~ t+6</td><td>緩慢爬升，分散度大</td><td class="td-base">爬升但分散度大，統計上的重複性最低</td></tr>
+    <tr><td class="td-name">t+4 ~ t+6</td><td>緩慢爬升，分散度大</td><td class="td-base">觀察，不保證</td></tr>
   </tbody></table></div>
   <p style="margin-top:14px;line-height:1.8;color:var(--dim);">這不是預測，是 45 年來 11 次的<strong style="color:var(--text);">統計慣性</strong>。分散度大，方向重複出現到足以作為座標參考。</p>
 </div>
@@ -437,7 +436,7 @@ nav{scrollbar-width:thin}
     <div class="context-box-text">沒有這張地圖的人，只看到「強勢股在跌，好可怕」。有這張地圖的人知道「這段跌勢在歷史上平均持續到 t+3，現在在哪個位置，應該怎麼對應」。同樣是動能股在跌，意義完全不同。</div>
   </div>
   <div class="notes-grid">
-    <div class="note-card"><div class="note-card-label" style="color:var(--danger);">剛暴漲完就開始跌（t+2 附近）</div><div class="note-card-body">劇本裡的正常回落段，統計上還沒跌完。</div></div>
+    <div class="note-card"><div class="note-card-label" style="color:var(--danger);">剛暴漲完就開始跌（t+2 附近）</div><div class="note-card-body">劇本裡的正常回落段，還沒跌完，不要急著接刀。</div></div>
     <div class="note-card"><div class="note-card-label" style="color:var(--accent);">已跌至歷史平均谷底附近（t+3 前後）</div><div class="note-card-body">修復窗口快到了，反而不該再追空。用實際天數計算 t 值，不目測位置。</div></div>
   </div>
 </div>
@@ -453,7 +452,7 @@ nav{scrollbar-width:thin}
     <tr><td class="td-name">REL60（3個月）</td><td>暴漲事件是否觸發</td><td class="td-base">超過 +8% 劇本開始（t=0）</td></tr>
   </tbody></table></div>
   <div class="context-box" style="margin-top:16px;border-left-color:var(--accent2);">
-    <div class="context-box-title" style="color:var(--accent2);">⚠️ 警示觸發條件（2026-07-21 更新）</div>
+    <div class="context-box-title" style="color:var(--accent2);">警示觸發條件（2026-07-21 更新）</div>
     <div class="context-box-text"><strong>REL5 &gt; +10% 且 REL20 &gt; +8%（SPMO 或 QQQA 任一同時滿足兩條件）</strong><br><br>兩條件必須同時成立才觸發——REL20 偏高可能是緩慢累積的溢價；要求 REL5 同步急升超過 +10%，才是「擁擠交易正在觸頂」的較強訊號。SPMO 與 QQQA 同時觸發時，警示升級為「雙動能同步過熱」。</div>
   </div>
   <div class="context-box" style="margin-top:10px;">
@@ -510,7 +509,7 @@ nav{scrollbar-width:thin}
   </div></div>
   <div class="checkpoint-list">
     <div class="checkpoint-item"><span class="checkpoint-marker">CHECK 1</span><span class="checkpoint-text">SPMO 或 QQQA <strong>REL5 站上 +10% 且 REL20 同步站上 +8%</strong>——動能擁擠警示觸發，在市場觀察報告中標注🟠</span></div>
-    <div class="checkpoint-item"><span class="checkpoint-marker">CHECK 2</span><span class="checkpoint-text">t+3 時間窗口（<strong>2026-09-22 前後</strong>）：SPMO REL20 是否止跌回穩？若仍深度負值，代表劇本往低百分位延伸</span></div>
+    <div class="checkpoint-item"><span class="checkpoint-marker">CHECK 2</span><span class="checkpoint-text">t+3 時間窗口（<strong>2026-09-22 前後</strong>）：SPMO REL20 是否止跌短窗轉強·長強？若仍深度負值，代表劇本往低百分位延伸</span></div>
     <div class="checkpoint-item"><span class="checkpoint-marker">CHECK 3</span><span class="checkpoint-text">SPMO 與 QQQA <strong>雙動能同步觸發</strong>（兩者均滿足 REL5 &gt;+10% 且 REL20 &gt;+8%）——作為最高警示等級登錄時間軸</span></div>
   </div>
 </div>
@@ -522,12 +521,6 @@ nav{scrollbar-width:thin}
   </div>
 </div>
 
-
-<!-- 法遵統一免責（2026-09-14 Yoda 核定；正本＝subscribe.html 頁尾） -->
-<div class="yoda-legal" style="max-width:1200px;margin:30px auto 10px;padding:15px 18px;border:1px solid rgba(128,128,128,.32);border-radius:10px;font-size:12.5px;line-height:1.9;color:#8d8d99;font-family:inherit;">
-  本站所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。<br>
-  © 2026 Yoda Research · 獨立研究者，個人觀點與市場資料整理分享
-</div>
 </main>
 
 <script>
@@ -613,13 +606,13 @@ function setTheme(th){document.documentElement.setAttribute('data-theme',th);doc
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -640,5 +633,6 @@ function setTheme(th){document.documentElement.setAttribute('data-theme',th);doc
 })();
 </script>
 <script>(function(){try{var K='yr_vid',v=localStorage.getItem(K);if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}var seg=location.pathname.split('/').filter(Boolean).pop()||'home';fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',{method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});}catch(e){}})();</script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

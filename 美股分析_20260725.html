@@ -601,8 +601,7 @@ canvas.rot{width:100%;height:96px;}
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -665,7 +664,7 @@ nav{scrollbar-width:thin}
 <div class="rv-row" style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
   <div class="rv-chip" style="background:rgba(255,61,90,.1);border:1px solid var(--red);border-radius:6px;padding:6px 12px;font-size:calc(var(--fs)*.8);">🔴 廣度倒掛 0.52x</div>
   <div class="rv-chip" style="background:rgba(255,61,90,.1);border:1px solid var(--red);border-radius:6px;padding:6px 12px;font-size:calc(var(--fs)*.8);">❄ AI三圈 0/48</div>
-  <div class="rv-chip" style="background:rgba(255,140,64,.1);border:1px solid var(--orange);border-radius:6px;padding:6px 12px;font-size:calc(var(--fs)*.8);">⚠️ 輪動警訊成立</div>
+  <div class="rv-chip" style="background:rgba(255,140,64,.1);border:1px solid var(--orange);border-radius:6px;padding:6px 12px;font-size:calc(var(--fs)*.8);">輪動訊號成立</div>
   <div class="rv-chip" style="background:rgba(0,200,150,.1);border:1px solid var(--green);border-radius:6px;padding:6px 12px;font-size:calc(var(--fs)*.8);">🚀 油服航運 A級 6支</div>
   <div class="rv-chip" style="background:rgba(0,200,150,.1);border:1px solid var(--green);border-radius:6px;padding:6px 12px;font-size:calc(var(--fs)*.8);">💊 生技 LQDA/CORT WA強</div>
 </div>
@@ -748,7 +747,7 @@ nav{scrollbar-width:thin}
   </div>
 
   <div class="sc x">
-    <div class="sc-hdr" onclick="tog('us-x')"><span>▼ 弱勢觀察（low清單空，顯示REL5<-3%個股）</span><span class="bl">▼</span></div>
+    <div class="sc-hdr" onclick="tog('us-x')"><span>全窗弱勢觀察（low清單空，顯示REL5<-3%個股）</span><span class="bl">▼</span></div>
 <div class="sc-item"><span class="sc-tk">BE <span style="font-size:calc(var(--fs)*.72);color:var(--dim)">能源</span></span><span class="sc-rk" style="color:var(--accent)">-14.0%</span></div>
 <div class="sc-item"><span class="sc-tk">RUBI <span style="font-size:calc(var(--fs)*.72);color:var(--dim)">媒體</span></span><span class="sc-rk" style="color:var(--accent)">-15.3%</span></div>
 <div class="sc-item"><span class="sc-tk">GLW <span style="font-size:calc(var(--fs)*.72);color:var(--dim)">光通訊</span></span><span class="sc-rk" style="color:var(--accent)">-5.1%</span></div>
@@ -819,7 +818,7 @@ nav{scrollbar-width:thin}
 <tr><td><strong>VCIG</strong><br><span style="font-size:calc(var(--fs)*.78);color:var(--dim)">VCI Global</span></td><td>其他</td><td class="r">-100</td><td class="r" style="color:var(--red)">-44.0%</td><td class="r">-88.6%</td></tr>
 </tbody>
       </table>
-      <div class="det-note">▲ 弱勢清單：3個月新低 428 支（含 low sheet）｜顯示代表性標的供參考</div>
+      <div class="det-note">全窗弱勢清單：3個月新低 428 支（含 low sheet）｜顯示代表性標的供參考</div>
     </div>
 </div>
 
@@ -839,16 +838,16 @@ nav{scrollbar-width:thin}
   <th>生命週期</th>
 </tr></thead>
 <tbody>
-<tr><td><strong>油服/航運</strong></td><td>🚀啟動期</td><td style="color:var(--green)">🔥領先</td><td>—</td><td style="color:var(--green)">+9.8%</td><td>100%</td><td>6</td><td>OII/SB/NMM/INSW</td><td>🔄 加速</td></tr>
-<tr><td><strong>金融</strong></td><td>🚀啟動期</td><td style="color:var(--green)">🌱回升</td><td>38</td><td style="color:var(--green)">+7.4%</td><td>100%</td><td>1</td><td>MUFG</td><td>🔄 加速</td></tr>
-<tr><td><strong>生技</strong></td><td>🌱萌芽期</td><td style="color:var(--yellow)">🌱回升</td><td>36</td><td style="color:var(--green)">+3.1%</td><td>33%</td><td>3</td><td>LQDA/DYN/MBX</td><td>🔄 加速</td></tr>
-<tr><td><strong>酒店REIT</strong></td><td>🌱萌芽期</td><td style="color:var(--dim)">⚠️衰退</td><td>14</td><td style="color:var(--green)">+3.7%</td><td>33%</td><td>3</td><td>RHP/RLJ/XHR</td><td>➡ 整理</td></tr>
-<tr><td><strong>銀行</strong></td><td>🌱萌芽期</td><td style="color:var(--dim)">⚠️衰退</td><td>8</td><td style="color:var(--green)">+3.2%</td><td>0%</td><td>4</td><td>TRST/FISI</td><td>➡ 整理</td></tr>
+<tr><td><strong>油服/航運</strong></td><td>🚀中短窗轉強·長弱期</td><td style="color:var(--green)">🔥領先</td><td>—</td><td style="color:var(--green)">+9.8%</td><td>100%</td><td>6</td><td>OII/SB/NMM/INSW</td><td>🔄 加速</td></tr>
+<tr><td><strong>金融</strong></td><td>🚀中短窗轉強·長弱期</td><td style="color:var(--green)">🌱回升</td><td>38</td><td style="color:var(--green)">+7.4%</td><td>100%</td><td>1</td><td>MUFG</td><td>🔄 加速</td></tr>
+<tr><td><strong>生技</strong></td><td>短窗轉強·長弱期</td><td style="color:var(--yellow)">🌱回升</td><td>36</td><td style="color:var(--green)">+3.1%</td><td>33%</td><td>3</td><td>LQDA/DYN/MBX</td><td>🔄 加速</td></tr>
+<tr><td><strong>酒店REIT</strong></td><td>短窗轉強·長弱期</td><td style="color:var(--dim)">衰退</td><td>14</td><td style="color:var(--green)">+3.7%</td><td>33%</td><td>3</td><td>RHP/RLJ/XHR</td><td>➡ 整理</td></tr>
+<tr><td><strong>銀行</strong></td><td>短窗轉強·長弱期</td><td style="color:var(--dim)">衰退</td><td>8</td><td style="color:var(--green)">+3.2%</td><td>0%</td><td>4</td><td>TRST/FISI</td><td>➡ 整理</td></tr>
 <tr style="opacity:.6"><td><strong>AI硬體全鏈</strong></td><td>❄全面弱勢</td><td style="color:var(--red)">❄️落後</td><td>0</td><td style="color:var(--red)">N/A</td><td>0%</td><td>0</td><td>—</td><td>💥 崩解</td></tr>
 </tbody>
 </table>
 <div style="margin-top:10px;padding:8px 12px;background:rgba(255,61,90,.07);border-radius:5px;font-size:calc(var(--fs)*.8);color:var(--dim);">
-⚠️ <strong>輪動警訊成立</strong>：A級清單無成長型板塊（科技/半導體/AI），防禦/資源型主導。Money Flow：AI硬體全熄 → 航運油服（地緣政治）+ 生技（防禦成長）= 資金避險撤退後的碎片化擴散
+<strong>輪動訊號成立</strong>：A級清單無成長型板塊（科技/半導體/AI），防禦/資源型主導。Money Flow：AI硬體全熄 → 航運油服（地緣政治）+ 生技（防禦成長）= 資金避險撤退後的碎片化擴散
 </div>
 <div style="margin-top:8px;padding:8px 12px;background:rgba(255,200,0,.07);border-radius:5px;font-size:calc(var(--fs)*.8);color:var(--dim);">
 📊 市場結構：🔴 廣度倒掛（高低比 0.52x，新低是新高兩倍）——切換 3個月清單為主觀察基準
@@ -1238,7 +1237,7 @@ function sortTable(th){
 【美股摘要】2026-07-25
 廣度：3個月新高 221 支／新低 428 支；高低比 0.52x；廣度嚴重倒掛，新低幾乎是新高兩倍，市場結構處於本輪觀察期最弱讀數
 強勢股：OII（油服）5D=+24.7% WA=144；LQDA（生技）5D=+7.9% WA=305；CORT（生技）5D=+5.3% WA=175；ECO（航運）5D=+7.4% WA=130；FTI（油服）5D=+6.5% WA=109
-板塊主線：油服/航運，6支A級，Brent $100地緣政治事件驅動爆發；生技萌芽（LQDA/CORT）具備長線籌碼結構；AI硬體全鏈崩解，三圈0/48為本輪最弱
+板塊主線：油服/航運，6支A級，Brent $100地緣政治事件驅動爆發；生技短窗轉強·長弱（LQDA/CORT）具備長線籌碼結構；AI硬體全鏈崩解，三圈0/48為本輪最弱
 AI三圈：C1算力 0/7支；C2傳輸記憶體 0/16支；C3設備 0/25支；8個信號流階段全部熄火，AI硬體供應鏈資金退潮已獲個股截面直接確認
 信號流：全8階段熄火，為本輪觀察最弱讀數；操作含意：不追油服航運（事件驅動追高風險），等FOMC（7/29）方向確認後再評估擴倉
 -->
@@ -1291,13 +1290,13 @@ A級新進：OII/SB/FOCL/NMM/LQDA/ECO/CIB/FTI/INSW/DAO/CORT
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -1317,5 +1316,6 @@ A級新進：OII/SB/FOCL/NMM/LQDA/ECO/CIB/FTI/INSW/DAO/CORT
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>

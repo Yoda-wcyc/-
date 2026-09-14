@@ -149,8 +149,7 @@ body.light .def-box{background:rgba(0,130,100,.06);border-color:rgba(0,130,100,.
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -190,7 +189,7 @@ nav{scrollbar-width:thin}
 
 <!-- ALERT 主警示 -->
 <div class="alert">
-  <div class="alert-tag">⚠ 雙重警示</div>
+  <div class="alert-tag">雙重警示</div>
   <div class="alert-txt">
     <strong>P/C Ratio 暴跌至 0.17，歷史極端低位，市場幾乎零保護。</strong>
     TQQQ 1月流向 −$3.79B、3月 −$5.71B 持續流出，槓桿資金悄悄撤退與指數創高形成嚴重背離。
@@ -201,7 +200,7 @@ nav{scrollbar-width:thin}
 
 <!-- NVDA 財報警示 -->
 <div class="alert-nvda">
-  <div class="alert-tag" style="color:var(--yellow)">⚠ 選擇權結構警示</div>
+  <div class="alert-tag" style="color:var(--yellow)">選擇權結構警示</div>
   <div class="alert-txt">
     <strong>QQQ Jun 18 到期：Max Pain $655，現價 $714.51，溢價 +8.7%（+$59.51）。</strong>
     做市商在此區間偏 Short Gamma，下跌時對沖賣壓加速。Put Wall 集中於 $600 以下，Call Wall 在 $750–$860。
@@ -256,7 +255,7 @@ nav{scrollbar-width:thin}
     <div class="det" id="dSit">
       <div class="det-sub">利率環境詳細數據</div>
       <div class="rate-box">
-        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.85);color:var(--yellow);margin-bottom:8px;font-weight:600;">⚠ 利率高位震盪，FOMC minutes 偏鷹，6/17 為下一考驗</div>
+        <div style="font-family:var(--fb);font-size:calc(var(--fs)*.85);color:var(--yellow);margin-bottom:8px;font-weight:600;">利率高位震盪，FOMC minutes 偏鷹，6/17 為下一考驗</div>
         <div class="r-row"><span class="r-lbl">聯準會目標區間</span><span class="r-val" style="color:var(--accent)">3.50%–3.75%（下次 6/17 FOMC）</span></div>
         <div class="r-row"><span class="r-lbl">目標上限</span><span class="r-val" style="color:var(--accent)">3.75%</span></div>
         <div class="r-row"><span class="r-lbl">US2Y</span><span class="r-val" style="color:var(--yellow)">4.10%（盤中 CNBC）</span></div>
@@ -281,7 +280,7 @@ nav{scrollbar-width:thin}
         <tbody>
           <tr><td>VIX</td><td class="c cg">16.75</td><td class="c cg">低位平靜</td><td>低波動，市場情緒安逸；VX1/VX2 未取得即時數據</td></tr>
           <tr><td>MOVE</td><td class="c cg">79.71</td><td class="c cg">收斂</td><td>債券波動率進一步收斂，利率不確定性短線降溫</td></tr>
-          <tr><td>P/C Ratio</td><td class="c cr">0.17</td><td class="c cr">⚠ 歷史極端</td><td>正常值 0.6–0.9；0.17 幾乎是史上極低，市場裸奔無保護；通常出現在短線頂部附近</td></tr>
+          <tr><td>P/C Ratio</td><td class="c cr">0.17</td><td class="c cr">歷史極端</td><td>正常值 0.6–0.9；0.17 幾乎是史上極低，市場裸奔無保護；通常出現在短線頂部附近</td></tr>
           <tr><td>HY OAS</td><td class="c cg">2.80%</td><td class="c cr">極窄</td><td>信用利差歷史低位，風險偏好極高，市場幾乎不定價尾部風險</td></tr>
         </tbody>
       </table>
@@ -304,7 +303,7 @@ nav{scrollbar-width:thin}
         <thead><tr><th>ETF</th><th class="c">5日流向</th><th class="c">月流向</th><th>判讀</th></tr></thead>
         <tbody>
           <tr class="wr"><td>TQQQ</td><td class="c cg">+$335.87M</td><td class="c cr">−$5.21B</td><td>5日短暫回流但月線持續大額流出；指數上漲 vs 資金出走 = 背離信號</td></tr>
-          <tr class="wr"><td>UPRO</td><td class="c cr">−$62.66M</td><td class="c cr">−$342M</td><td>S&P槓桿持續減碼，月線流出未止</td></tr>
+          <tr class="wr"><td>UPRO</td><td class="c cr">−$62.66M</td><td class="c cr">−$342M</td><td>S&P槓桿資金持續流出，月線流出未止</td></tr>
           <tr><td>VX1</td><td class="c cd">20.15</td><td class="c cd">—</td><td>前月VIX期貨，與VIX差+2.72，期貨市場對近期仍有保留</td></tr>
           <tr class="hl"><td>VX2</td><td class="c cd">21.53</td><td class="c cd">—</td><td>VX2−VX1 = +1.38，正價差Contango，市場整體平靜</td></tr>
         </tbody>
@@ -341,7 +340,7 @@ nav{scrollbar-width:thin}
   </div>
   <div class="sc w">
     <div class="sc-hdr">◎ 轉強觀察（REL5回補，REL20待確認）</div>
-    <div class="sc-item"><span class="sc-tk">RSP ⚠廣度關鍵觀察</span><span class="sc-rk">Rank41 ｜ REL5 +1.24%↑（翻正）/ REL20 −3.72% / REL60 −7.76%（改善中）</span></div>
+    <div class="sc-item"><span class="sc-tk">RSP 廣度關鍵觀察</span><span class="sc-rk">Rank41 ｜ REL5 +1.24%↑（翻正）/ REL20 −3.72% / REL60 −7.76%（改善中）</span></div>
     <div class="sc-item"><span class="sc-tk">MDY（中型股）</span><span class="sc-rk">Rank48 ｜ REL5 ≈0 / REL20 −4.50% / REL60 −6.67%（緩步修復）</span></div>
     <div class="sc-item"><span class="sc-tk">ICLN / QCLN / TAN（清潔能源）</span><span class="sc-rk">Rank80/83/80 ｜ REL5/20/60 均轉正 → 趨勢翻轉確認 🟢</span></div>
     <div class="sc-item"><span class="sc-tk">XLE（能源）短線企穩</span><span class="sc-rk">Rank76 ｜ REL5 +2.55%↑ / REL20 −1.06% / REL60 −0.34%（5日反彈）</span></div>
@@ -353,7 +352,7 @@ nav{scrollbar-width:thin}
     <div class="sc-item"><span class="sc-tk">GDX / SIL（金礦/銀礦）</span><span class="sc-rk">Rank18/28 ｜ REL5 −7.74% / −9.06%（三欄持續惡化）</span></div>
   </div>
   <div class="sc x">
-    <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+    <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
     <div class="sc-item"><span class="sc-tk">RSPD（等權消費）</span><span class="sc-rk">Rank0 ｜ REL20 −9.94% / REL60 −17.51% 結構性最弱</span></div>
     <div class="sc-item"><span class="sc-tk">IHI（醫療設備）</span><span class="sc-rk">Rank3 ｜ REL20 −9.50% / REL60 −23.96%（三欄全面惡化）</span></div>
     <div class="sc-item"><span class="sc-tk">ITB / XHB（房建）</span><span class="sc-rk">Rank5/7 ｜ REL60 −23.06% / −21.41%（高利率壓制最重）</span></div>
@@ -473,7 +472,7 @@ nav{scrollbar-width:thin}
       </tr>
     </thead>
     <tbody>
-      <tr><td><span class="dot d-r"></span>Call 天花板</td><td class="gq">$750 / $805 / $860</td><td class="nq-val">30,712 / 32,965 / 35,217</td><td class="cr">Call牆密集，突破需強催化劑</td><td class="go">$750 近端主壓力</td></tr>
+      <tr><td><span class="dot d-r"></span>Call 天花板</td><td class="gq">$750 / $805 / $860</td><td class="nq-val">30,712 / 32,965 / 35,217</td><td class="cr">Call牆密集，突破需強催化劑</td><td class="go">$750 一帶（停損單與程式單易觸發）</td></tr>
       <tr><td><span class="dot d-b"></span>QQQ 現價</td><td class="gq cw">$714.51</td><td class="nq-val cw">29,556</td><td class="cy">Max Pain上方 +$59.51（+8.7%）｜P/C 0.17 裸奔，Short Gamma 區</td><td class="go">距$750 Call牆 −$35.49</td></tr>
       <tr><td><span class="dot d-o"></span>Put 主力支撐帶</td><td class="gq">$695–$700</td><td class="nq-val" style="color:var(--yellow)">28,460–28,665</td><td class="cy">密集保護性Put，跌至此處做市商自然承接</td><td class="go">Put OI 密集區</td></tr>
       <tr><td><span class="dot d-w"></span>Max Pain 重力中心</td><td class="gq">$655</td><td class="nq-val">26,822</td><td class="cy">現價溢價 +8.9%，到期前28天引力存在</td><td class="go">Jun 18 到期</td></tr>
@@ -509,7 +508,7 @@ nav{scrollbar-width:thin}
     <div class="syn-txt">
       <strong>事實一：科技/半導體多頭動能完整，DRAM/SOXX/XLK 三欄持續同向強勢。</strong>DRAM Rank98 REL60 +88%，SOXX Rank96 REL20 +14.14%，科技板塊無疲態；RSPT 等權科技 Rank96 REL20 +9.26%，科技內部廣度同步擴散。清潔能源（ICLN/QCLN/TAN）三個時間維度全面轉正，是本週最清晰的趨勢翻轉案例。<br><br>
       <strong>事實二：廣度在 5 日維度出現改善，SP_20MA% 突破 50% 臨界，但 REL20 尚未確認。</strong>RSP REL5 +1.24% 翻正，REL60 −7.76% → REL20 −3.72% → REL5 +1.24% 逐步縮窄。SP_20MA% 50.2%、SP_50MA% 54.0% 同步改善。核心確認標準：RSP REL20 翻正方能定性廣度真正修復，目前仍在觀察期。<br><br>
-      <strong>事實三：P/C 0.17 歷史極端警訊 × DXYZ +26.87% 投機爆衝 × 槓桿資金持續流出。</strong>P/C 0.17 幾近史上極端，市場裸奔無保護；DXYZ 今日+26.87%、REL5 +36%，MEME Rank95，投機泡沫警戒。TQQQ 1M −$3.79B、3M −$5.71B 與指數創高形成嚴重背離；三道防線同步黃燈，引爆門檻已降低。
+      <strong>事實三：P/C 0.17 歷史極端訊號 × DXYZ +26.87% 投機爆衝 × 槓桿資金持續流出。</strong>P/C 0.17 幾近史上極端，市場裸奔無保護；DXYZ 今日+26.87%、REL5 +36%，MEME Rank95，投機泡沫警戒。TQQQ 1M −$3.79B、3M −$5.71B 與指數創高形成嚴重背離；三道防線同步黃燈，引爆門檻已降低。
     </div>
   </div>
 
@@ -552,7 +551,7 @@ nav{scrollbar-width:thin}
       <div class="sc-bear">
         <div class="sc-s-title">📉 底線：波段空方情境</div>
         <div class="sc-s-txt">
-          <strong>觸發條件（任1項觸發即啟動）：</strong><br><br>
+          <strong>觸發條件（任1項觸發即中短窗轉強·長弱）：</strong><br><br>
 
           <strong style="color:var(--dim);font-size:calc(var(--fs)*.82);letter-spacing:.15em;">▸ 總經 / 利率</strong><br>
           <span class="trig-num">①</span> <span class="trigger">US30Y 突破 5.5%，且 US10Y 同步突破 4.80%</span><br>→ 系統性利率衝擊，高估值科技估值全面重定價，NQ! 目標 <span class="target">26,000–26,500</span><br><br>
@@ -652,13 +651,13 @@ document.addEventListener('dragstart',e=>e.preventDefault());
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -678,6 +677,7 @@ document.addEventListener('dragstart',e=>e.preventDefault());
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>
 

@@ -149,8 +149,7 @@ body.light .def-box{background:rgba(0,130,100,.06);border-color:rgba(0,130,100,.
  .nav-game-gold{margin:6px 0 0!important;}
  .izy-section{display:none!important;}
 }
-</style>  <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
-<style>
+</style><style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
    規則：頁面捲軸一律可見且夠寬（13px）；卡片／表格等內層捲動區用細版（8px）。
    任何情況都不得把捲軸整條隱藏。此區塊由 Skill\fix_scrollbar.py 補進歷史報告。 */
@@ -201,7 +200,7 @@ nav{scrollbar-width:thin}
 
 <!-- NVDA 財報警示 -->
 <div class="alert-nvda">
-  <div class="alert-tag" style="color:var(--yellow)">⚠ 選擇權結構警示</div>
+  <div class="alert-tag" style="color:var(--yellow)">選擇權結構警示</div>
   <div class="alert-txt">
     <strong>QQQ Jun 18 到期：Max Pain $655，現價 $717.54，溢價 +9.5%（+$62.54）較昨日擴大。</strong>
     P/C 0.50（昨 0.17），保護買盤部分回歸，做市商 Delta 裸奔風險緩解；Put Wall $600 以下，Call Wall $750–$860。
@@ -353,7 +352,7 @@ nav{scrollbar-width:thin}
     <div class="sc-item"><span class="sc-tk">GDX / SIL（金礦/銀礦）</span><span class="sc-rk">Rank16/27 ｜ REL5 −3.54% / −4.69% / REL20 −14.32% / −11.57%（加速崩跌）</span></div>
   </div>
   <div class="sc x">
-    <div class="sc-hdr">▼ 弱勢（三欄全負，出清區）</div>
+    <div class="sc-hdr">全窗弱勢（三欄全負，出清區）</div>
     <div class="sc-item"><span class="sc-tk">RSPD（等權消費）</span><span class="sc-rk">Rank1 ｜ REL20 −8.58% / REL60 −17.26% 結構性最弱</span></div>
     <div class="sc-item"><span class="sc-tk">IHI（醫療設備）</span><span class="sc-rk">Rank4 ｜ REL20 −8.68% / REL60 −24.69%（三欄全面惡化加速）</span></div>
     <div class="sc-item"><span class="sc-tk">ITB / XHB（房建）</span><span class="sc-rk">Rank6/8 ｜ REL20 −13.01% / −12.22% / REL60 −24.09% / −21.99%</span></div>
@@ -473,7 +472,7 @@ nav{scrollbar-width:thin}
       </tr>
     </thead>
     <tbody>
-      <tr><td><span class="dot d-r"></span>Call 天花板</td><td class="gq">$750 / $805 / $860</td><td class="nq-val">30,712 / 32,965 / 35,217</td><td class="cr">Call牆密集，突破需強催化劑</td><td class="go">$750 近端主壓力</td></tr>
+      <tr><td><span class="dot d-r"></span>Call 天花板</td><td class="gq">$750 / $805 / $860</td><td class="nq-val">30,712 / 32,965 / 35,217</td><td class="cr">Call牆密集，突破需強催化劑</td><td class="go">$750 一帶（停損單與程式單易觸發）</td></tr>
       <tr><td><span class="dot d-b"></span>QQQ 現價</td><td class="gq cw">$717.54</td><td class="nq-val cw">~29,580</td><td class="cy">Max Pain上方 +$62.54（+9.5%）｜P/C 0.50 修復中，Short Gamma 區</td><td class="go">距$750 Call牆 −$32.46</td></tr>
       <tr><td><span class="dot d-o"></span>Put 主力支撐帶</td><td class="gq">$695–$700</td><td class="nq-val" style="color:var(--yellow)">28,460–28,665</td><td class="cy">密集保護性Put，跌至此處做市商自然承接</td><td class="go">Put OI 密集區</td></tr>
       <tr><td><span class="dot d-w"></span>Max Pain 重力中心</td><td class="gq">$655</td><td class="nq-val">26,822</td><td class="cy">現價溢價 +8.9%，到期前28天引力存在</td><td class="go">Jun 18 到期</td></tr>
@@ -552,7 +551,7 @@ nav{scrollbar-width:thin}
       <div class="sc-bear">
         <div class="sc-s-title">📉 底線：波段空方情境</div>
         <div class="sc-s-txt">
-          <strong>觸發條件（任1項觸發即啟動）：</strong><br><br>
+          <strong>觸發條件（任1項觸發即中短窗轉強·長弱）：</strong><br><br>
 
           <strong style="color:var(--dim);font-size:calc(var(--fs)*.82);letter-spacing:.15em;">▸ 總經 / 利率</strong><br>
           <span class="trig-num">①</span> <span class="trigger">US30Y 突破 5.5%，且 US10Y 同步突破 4.80%</span><br>→ 系統性利率衝擊，高估值科技估值全面重定價，NQ! 目標 <span class="target">26,000–26,500</span><br><br>
@@ -652,13 +651,13 @@ document.addEventListener('dragstart',e=>e.preventDefault());
   var css=".share-bar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;background:rgba(13,13,17,.9);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-top:1px solid var(--border2,#33333f);box-shadow:0 -6px 20px rgba(0,0,0,.4)}"
     +".share-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:9999px;background:#b8960a;color:#1a1200;font-weight:700;font-size:14px;font-family:inherit;line-height:1.2;border:none;cursor:pointer;box-shadow:0 0 8px 1px rgba(240,165,0,.25);transition:background .15s ease,box-shadow .15s ease}"
     +".share-btn:hover{background:#ffcb2e;box-shadow:0 0 12px 3px rgba(240,165,0,.5)}"
-    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}"
+    +".share-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}.sub-btn{position:relative;z-index:0;overflow:hidden;background:#111116;color:#e8c877;border:none;box-shadow:none;text-decoration:none}.sub-btn::before{content:'';position:absolute;z-index:-2;left:-50%;top:-50%;width:200%;height:200%;background:conic-gradient(rgba(184,134,11,.32) 0 68%,#ffd700 80%,#fff3c4 85%,#ffd700 90%,rgba(184,134,11,.32) 100%);animation:sbFlow 2.6s linear infinite}.sub-btn::after{content:'';position:absolute;z-index:-1;inset:1.5px;border-radius:inherit;background:#111116;transition:background .15s ease}.sub-btn:hover{color:#1a1200;box-shadow:0 0 12px 3px rgba(240,165,0,.45)}.sub-btn:hover::after{background:#b8860b}@keyframes sbFlow{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sub-btn::before{animation:none}}"
     +".share-toast{position:fixed;left:50%;bottom:66px;transform:translateX(-50%) translateY(8px);background:#151519;border:1px solid #b8860b;color:#f5efe2;padding:8px 18px;border-radius:9999px;font-size:12.5px;font-family:inherit;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:901}"
     +".share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}"
     +"body{padding-bottom:64px !important}";
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var bar=document.createElement('div');bar.className='share-bar';
-  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button>';
+  bar.innerHTML='<button class="share-btn" type="button" aria-label="分享這份報告給朋友"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>分享這份報告給朋友</button><a class="share-btn sub-btn" href="https://yoda-wcyc.github.io/-/subscribe.html" target="_blank" rel="noopener">付費訂閱</a>';
   var toast=document.createElement('div');toast.className='share-toast';toast.textContent='已複製連結 ✓';
   function add(){document.body.appendChild(bar);document.body.appendChild(toast);}
   if(document.body){add();}else{document.addEventListener('DOMContentLoaded',add);}
@@ -678,6 +677,7 @@ document.addEventListener('dragstart',e=>e.preventDefault());
   });
 })();
 </script>
+<div class="legal-disc" style="max-width:1100px;margin:28px auto 40px;padding:14px 16px;border:1px solid rgba(128,128,128,.28);border-radius:10px;font-size:12px;line-height:1.9;color:#8a8f98">本服務提供之所有報告、數據與遊戲內容，均屬財經資訊與投資教育，僅供研究學習參考，不構成投資建議、要約或個別有價證券之買賣推介，亦不構成任何買賣、進出場或部位建議。本服務非證券投資顧問事業，撰稿者未具證券投資分析人員資格，不提供代客操作或獲利保證；文中個股僅為篩選與觀察紀錄，不代表推薦。投資均有風險，決策與盈虧由用戶自行判斷並承擔。方案內容與價格以官方公告為準。</div>
 </body>
 </html>
 
