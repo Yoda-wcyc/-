@@ -122,6 +122,12 @@ html[data-theme="light"] .faq-a{color:#596069} /* FAQ 含免責句，淺色對�
 .disc{font-size:calc(12px*var(--scale));color:var(--dim);line-height:1.8;border-top:1px solid var(--divider);margin-top:calc(40px*var(--scale));padding-top:calc(24px*var(--scale))}
 html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Yoda 09-26 同意全站調深） */
 .back{display:inline-block;margin-top:calc(24px*var(--scale));font-size:calc(15px*var(--scale));color:var(--dim)}
+/* 金句引文：古文用作者色＋左側細線，白話放下面 */
+.verse{margin:calc(18px*var(--scale)) 0 calc(4px*var(--scale));padding:calc(4px*var(--scale)) 0 calc(4px*var(--scale)) calc(16px*var(--scale));border-left:2px solid var(--sub1)}
+.verse-q{font-size:calc(21px*var(--scale));font-weight:700;letter-spacing:.12em;color:var(--sub1);line-height:1.45;margin-bottom:calc(8px*var(--scale))}
+.verse-p{font-size:calc(14.5px*var(--scale));line-height:1.85;color:var(--dim)}
+.verse-p b{color:var(--text);font-weight:700}
+@media(max-width:560px){.verse-q{font-size:calc(19px*var(--scale));letter-spacing:.08em}}
 .tag-key{display:inline-block;font-size:calc(11px*var(--scale));font-weight:700;color:var(--sub2);border:1px solid var(--sub1);border-radius:6px;padding:2px 8px;margin-right:8px}
 </style>
 </head>
@@ -225,6 +231,10 @@ html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Y
 
   </div>
   <p style="font-size:calc(15px*var(--scale));line-height:1.85;color:var(--text);margin:calc(18px*var(--scale)) 0 calc(4px*var(--scale))"><b>三種人，一個共通點：</b>這裡不報明牌，給的是「怎麼判斷」的框架，加上每一期把判斷需要的讀數放到你面前。你操作的市場不同，需要的資訊就不同——而每一類，我都幫你對上了。</p>
+  <div class="verse">
+    <div class="verse-q">天雨雖寬，不潤無根之草</div>
+    <p class="verse-p">新聞下給所有人，誰都淋得到；真正接得住、留得下來的，是手上有一套規則的人。這份訂閱，就是那套規則每一期的更新——<b>訂了，你就是接得住的那一個。</b></p>
+  </div>
 
   <!-- 方案（創始已關閉：單一方案，不再有早鳥價與加碼階梯） -->
   <h2>訂閱方案</h2>
@@ -234,6 +244,10 @@ html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Y
       <div class="plan-name" style="margin-top:calc(20px*var(--scale))">Yoda Research 會員</div>
       <div class="plan-price"><span class="cur">NT$</span><span data-price="{n}">589</span><span class="per"> / 月</span></div>
       <p class="plan-note">每月自動續扣，<b style="color:var(--text)">隨時可取消，取消後當期已開通的內容仍可看到期末</b>。所有報告、互動遊戲與檢核完整開放，沒有分級。</p>
+      <div class="verse" style="margin-bottom:calc(20px*var(--scale))">
+        <div class="verse-q">法不輕傳，道不賤賣</div>
+        <p class="verse-p">方法不隨便給，好東西不賤價賣。每一期的判讀，都要花真的時間和紀律去做——所以價格就定在這裡：<b>不打折，完整內容也不做長期免費。</b></p>
+      </div>
       <a class="btn-sub" href="直接訂閱.html" rel="noopener"><span data-price="立即訂閱 · NT${n}／月 →">立即訂閱 · NT$589／月 →</span></a>
       <div class="flow"><span class="step">① 填 email＋密碼</span><span class="arr">→</span><span class="step">② 綠界刷卡</span><span class="arr">→</span><span class="step">③ 立即開通</span></div>
       <div style="margin-top:calc(16px*var(--scale));padding-top:calc(14px*var(--scale));border-top:1px solid var(--divider);font-size:calc(13px*var(--scale));line-height:1.85;color:var(--dim)">
