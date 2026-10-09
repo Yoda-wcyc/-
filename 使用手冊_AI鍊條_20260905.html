@@ -49,6 +49,8 @@
 .ascii-fig .af-foot p{margin:0 0 .85em}
 .ascii-fig .af-foot p:last-child{margin-bottom:0}
 </style>
+<script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
+<script src="https://yoda-wcyc.github.io/-/yoda-lang.js" data-mode="relay"></script>
 </head>
 <body>
   <div id="gate">
@@ -133,7 +135,9 @@
         (d.head||d.documentElement).appendChild(st);
       }catch(e){}
     });
-    f.srcdoc=guard+html;                       // 正文從後端來，這個靜態檔裡沒有
+    // 語言切換（§B-48 · 2026-10-09）：舊報告沒有「繁體中文｜English」→ 組 srcdoc 時補載共用腳本；報告自帶切換的（新母板或 10-03 後的內嵌版）就跳過，不出現兩顆鈕
+    var langTag=/lang-toggle:start|yoda-lang\.js/.test(html)?'':'<scr'+'ipt src="https://yoda-wcyc.github.io/-/yoda-lang.js"></scr'+'ipt>';
+    f.srcdoc=guard+html+langTag;                       // 正文從後端來，這個靜態檔裡沒有
     var c=document.getElementById('content');
     c.appendChild(f); c.style.display='block';
     setWatermark(watermark||'免費版 · Yoda Research');

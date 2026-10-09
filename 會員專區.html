@@ -266,6 +266,8 @@ html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{backgrou
 nav{scrollbar-width:thin}
 </style>
 <style data-yoda-nobtn>/* 報告端安裝鈕停用（Yoda 定）；yoda-install.js 仍載入，浮水印/控制列覆蓋照常生效 */.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}</style>
+<script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
+<script src="https://yoda-wcyc.github.io/-/yoda-lang.js" defer></script>
 </head>
 <body>
 
@@ -579,11 +581,10 @@ nav{scrollbar-width:thin}
   var el=function(id){return document.getElementById(id);};
 
   /* 主題 */
-  function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('member-theme',t);}catch(e){}
+  function setTheme(t){document.documentElement.setAttribute('data-theme',t);
     el('thD').classList.toggle('on',t==='dark');el('thL').classList.toggle('on',t==='light');}
   /* 字級（zoom 縮放 .wrap 內容，工具列不動，與全站一致） */
-  function setSize(s){var z={sm:.9,md:1,lg:1.12}[s]||1;var w=document.querySelector('.wrap');if(w)w.style.zoom=z;try{localStorage.setItem('member-size',s);}catch(e){}var ids={sm:'szS',md:'szM',lg:'szL'};['szS','szM','szL'].forEach(function(id){var b=el(id);if(b)b.classList.toggle('on',id===ids[s]);});}
-  (function(){try{var t=localStorage.getItem('member-theme');if(t)setTheme(t);var s=localStorage.getItem('member-size');if(s)setSize(s);}catch(e){}})();
+  function setSize(s){var z={sm:.9,md:1,lg:1.12}[s]||1;var w=document.querySelector('.wrap');if(w)w.style.zoom=z;var ids={sm:'szS',md:'szM',lg:'szL'};['szS','szM','szL'].forEach(function(id){var b=el(id);if(b)b.classList.toggle('on',id===ids[s]);});}
 
   function eyeToggle(id,btn){var p=el(id);if(p.type==='password'){p.type='text';btn.textContent='🙈';}else{p.type='password';btn.textContent='👁';}}
   function showForgot(){var b=el('forgotBox');b.style.display=b.style.display==='none'?'block':'none';if(b.style.display==='block'){var fe=el('forgotEmail'); if(fe&&!fe.value)fe.value=(el('email').value||'').trim();}}

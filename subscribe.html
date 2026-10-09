@@ -130,6 +130,8 @@ html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Y
 @media(max-width:560px){.verse-q{font-size:calc(19px*var(--scale));letter-spacing:.08em}}
 .tag-key{display:inline-block;font-size:calc(11px*var(--scale));font-weight:700;color:var(--sub2);border:1px solid var(--sub1);border-radius:6px;padding:2px 8px;margin-right:8px}
 </style>
+<script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
+<script src="https://yoda-wcyc.github.io/-/yoda-lang.js" defer></script>
 </head>
 <body>
 
@@ -290,9 +292,8 @@ html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Y
 </div>
 
 <script>
-function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('sub-theme',t)}catch(e){}document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>b.classList.toggle('active',b.textContent===({dark:'深',light:'淺'})[t]))}
-function setSize(s){document.documentElement.setAttribute('data-size',s);try{localStorage.setItem('sub-size',s)}catch(e){}document.querySelectorAll('[onclick*="setSize"]').forEach(b=>b.classList.toggle('active',b.textContent===({sm:'小',md:'中',lg:'大'})[s]))}
-(function(){try{var t=localStorage.getItem('sub-theme');if(t)setTheme(t);var s=localStorage.getItem('sub-size');if(s)setSize(s)}catch(e){}})();
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('[onclick*="setTheme"]').forEach(b=>b.classList.toggle('active',b.textContent===({dark:'深',light:'淺'})[t]))}
+function setSize(s){document.documentElement.setAttribute('data-size',s);document.querySelectorAll('[onclick*="setSize"]').forEach(b=>b.classList.toggle('active',b.textContent===({sm:'小',md:'中',lg:'大'})[s]))}
 /* 防盜：禁用右鍵選單與複製／剪下／拖曳 */
 ['contextmenu','copy','cut','selectstart','dragstart'].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();return false;},{passive:false});});
 /* 接住推薦碼 ?ref=：清洗後記住(localStorage yoda_ref)，供未來確認頁註冊帶入 referredBy；並顯示提示 banner */

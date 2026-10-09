@@ -45,6 +45,8 @@
   #wm{display:none;position:fixed;inset:0;z-index:9998;pointer-events:none;background-repeat:repeat}
 </style>
 <style data-yoda-nobtn>/* 報告端安裝鈕停用（Yoda 定）；yoda-install.js 仍載入，浮水印/控制列覆蓋照常生效 */.yoda-btn,.yoda-btn-inbar,.yoda-btn-row,.yoda-btn-fix{display:none!important}</style>
+<script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
+<script src="https://yoda-wcyc.github.io/-/yoda-lang.js" data-mode="relay"></script>
 </head>
 <body>
   <div id="gate">
@@ -209,7 +211,9 @@
         (d.head||d.documentElement).appendChild(st);
       }catch(e){}
     });
-    f.srcdoc=guard+html;                                          // 正文從後端來，靜態檔裡沒有
+    // 語言切換（§B-48 · 2026-10-09）：舊報告沒有「繁體中文｜English」→ 組 srcdoc 時補載共用腳本；報告自帶切換的（新母板或 10-03 後的內嵌版）就跳過，不出現兩顆鈕
+    var langTag=/lang-toggle:start|yoda-lang\.js/.test(html)?'':'<scr'+'ipt src="https://yoda-wcyc.github.io/-/yoda-lang.js"></scr'+'ipt>';
+    f.srcdoc=guard+html+langTag;                                          // 正文從後端來，靜態檔裡沒有
     var c=document.getElementById('content');
     c.appendChild(f); c.style.display='block';
     setWatermark(watermark||'Yoda Research');
