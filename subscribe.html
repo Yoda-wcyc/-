@@ -129,6 +129,27 @@ html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Y
 .verse-p b{color:var(--text);font-weight:700}
 @media(max-width:560px){.verse-q{font-size:calc(19px*var(--scale));letter-spacing:.08em}}
 .tag-key{display:inline-block;font-size:calc(11px*var(--scale));font-weight:700;color:var(--sub2);border:1px solid var(--sub1);border-radius:6px;padding:2px 8px;margin-right:8px}
+/* PayPal 一次付清（2026-10-19）：綠界信用卡為主選項，這塊是給海外信用卡／不想綁自動扣款的人 */
+.pp{margin-top:calc(18px*var(--scale));padding:calc(16px*var(--scale));border-radius:14px;border:1px solid var(--border);background:var(--surface2)}
+.pp-h{font-size:calc(15px*var(--scale));font-weight:800;line-height:1.5;margin-bottom:4px}
+.pp-sub{font-size:calc(12.5px*var(--scale));color:var(--dim);line-height:1.65;margin-bottom:10px}
+.pp-consent{display:flex;gap:8px;align-items:flex-start;font-size:calc(12.5px*var(--scale));color:var(--dim);line-height:1.6;margin:0 0 10px;padding:9px 11px;border-radius:10px;border:1px solid var(--border);cursor:pointer}
+.pp-consent input{margin-top:3px;flex:0 0 auto}
+.pp-consent b{color:var(--text)}
+.pp-consent.warn{border-color:var(--red)}
+@keyframes ppshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pp-consent.shake{animation:ppshake .4s}
+.pp-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pp-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 4px;border-radius:12px;border:1px solid rgba(41,151,255,.55);background:rgba(41,151,255,.08);color:var(--text);text-decoration:none;font-weight:700;font-size:calc(13.5px*var(--scale));line-height:1.3;text-align:center;transition:opacity .15s,transform .12s}
+.pp-btn:hover{transform:translateY(-1px)}
+.pp-btn .amt{font-size:calc(15px*var(--scale));font-weight:800;color:var(--accent)}
+.pp-save{display:inline-block;font-size:calc(10.5px*var(--scale));font-weight:800;color:#1a1200;background:linear-gradient(90deg,var(--sub1),var(--sub2));border-radius:9999px;padding:1px 7px;margin-top:2px;white-space:nowrap}
+.pp.locked .pp-btn{opacity:.5}
+.pp-save .pp-en{display:none} html.lt-en .pp-save .pp-zh{display:none} html.lt-en .pp-save .pp-en{display:inline}   /* 英文模式用人工字（機翻會把「省」翻成 Province）*/
+.pp-msg{font-size:calc(12.5px*var(--scale));color:var(--red);min-height:1em;margin-top:6px}
+.pp-steps{list-style:none;margin:10px 0 0;font-size:calc(12.5px*var(--scale));color:var(--dim);line-height:1.75}
+.pp-steps b{color:var(--text)}
+.pp-steps a{color:var(--sub1);text-decoration:underline;text-underline-offset:2px}
 </style>
 <script src="https://yoda-wcyc.github.io/-/yoda-prefs.js"></script>
 <script src="https://yoda-wcyc.github.io/-/yoda-lang.js" defer></script>
@@ -252,6 +273,23 @@ html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Y
       </div>
       <a class="btn-sub" href="直接訂閱.html" rel="noopener"><span data-price="立即訂閱 · NT${n}／月 →">立即訂閱 · NT$589／月 →</span></a>
       <div class="flow"><span class="step">① 填 email＋密碼</span><span class="arr">→</span><span class="step">② 綠界刷卡</span><span class="arr">→</span><span class="step">③ 立即開通</span></div>
+      <!-- PayPal 一次付清（2026-10-19）：連結為 PayPal 付款頁，付款後由 Yoda 在主控台手動開通 -->
+      <div class="pp locked" id="paypal">
+        <div class="pp-h">或用 PayPal 付款（海外信用卡／不想綁定自動扣款）</div>
+        <div class="pp-sub">一次付清，到期不會自動扣款。</div>
+        <label class="pp-consent" id="ppGate"><input type="checkbox" id="ppAgree"><span>我已了解本服務為數位內容／線上服務，<b>不適用七日猶豫期（無鑑賞期）</b>，開通後恕不退費。</span></label>
+        <div class="pp-btns">
+          <a class="pp-btn" href="https://www.paypal.com/ncp/payment/7V7DQBNFA8RXN" target="_blank" rel="noopener"><span>1 個月</span><span class="amt notranslate" translate="no">US$18</span></a>
+          <a class="pp-btn" href="https://www.paypal.com/ncp/payment/ZBPPX38A9ZED4" target="_blank" rel="noopener"><span>3 個月</span><span class="amt notranslate" translate="no">US$54</span></a>
+          <a class="pp-btn" href="https://www.paypal.com/ncp/payment/FQWMNXJ5XTPVQ" target="_blank" rel="noopener"><span>1 年</span><span class="amt notranslate" translate="no">US$200</span><span class="pp-save notranslate" translate="no"><span class="pp-zh">省</span><span class="pp-en">Save</span> US$16</span></a>
+        </div>
+        <div class="pp-msg" id="ppMsg"></div>
+        <ol class="pp-steps">
+          <li>① 先到<a href="會員專區.html">會員專區</a>註冊帳號（email＋密碼）</li>
+          <li>② 用 PayPal 付款，<b>付款備註填寫你註冊的 email</b></li>
+          <li>③ 付款後約 1 個工作天內手動開通（到<a href="客服.html">客服表單</a>通知可加快）。PayPal 為一次付清、到期不會自動扣款，到期前可再購買續訂。</li>
+        </ol>
+      </div>
       <div style="margin-top:calc(16px*var(--scale));padding-top:calc(14px*var(--scale));border-top:1px solid var(--divider);font-size:calc(13px*var(--scale));line-height:1.85;color:var(--dim)">
         <b style="color:var(--text)">關於創始會員：</b>創始名額已於 <b style="color:var(--text)">2026-08-22</b> 額滿、停止販售。<b style="color:var(--sub1)">當時加入的創始會員維持原本的 NT$459 月費不變</b>，只要不中斷訂閱就會一直是這個價格——這是當初的承諾，不會因為方案調整而改變。
       </div>
@@ -278,10 +316,11 @@ html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Y
   <h2>訂閱與付款須知</h2>
   <div class="card" style="font-size:calc(13.5px*var(--scale));line-height:1.95;color:var(--dim)">
     <b style="color:var(--text)">自動續扣（定期定額）</b>：訂閱採每月定期定額，綠界（ECPay）會於每月固定日向你綁定的信用卡收取當期費用，持續至你主動取消為止。<br>
+    <b style="color:var(--text)">PayPal 一次付清</b>：選 PayPal 付款為一次付清所選期間（1 個月／3 個月／1 年），<b>不綁定、不自動續扣</b>，到期即停止；要繼續使用請在到期前再購買。付款後約 1 個工作天內人工開通。<br>
     <b style="color:var(--text)">取消方式</b>：可隨時取消——到 <a href="客服.html">客服表單</a> 或私訊粉專即可；取消後自<b>下一期</b>起不再扣款。<br>
     <b style="color:var(--text)">退費政策</b>：本服務為數位內容／線上服務，並經您於購買前同意後隨即提供，依「通訊交易解除權合理例外情事適用準則」不適用七日猶豫期（無鑑賞期）；當期開通後不另退費，取消僅停止下一期扣款，當期服務仍提供至期末。如遇重複扣款或系統錯誤，請於 5 日內到 <a href="客服.html">客服表單</a>（分類選「訂閱 / 付費」）申訴，經確認後退還。<br>
     <b style="color:var(--text)">客服聯絡</b>：<a href="客服.html">客服表單</a>（送出後回覆寄到你填的 email）　·　<a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">Facebook 粉專</a><br>
-    <b style="color:var(--text)">發票</b>：本服務由個人提供，暫不開立統一發票；收款以綠界交易紀錄與信用卡帳單為憑。
+    <b style="color:var(--text)">發票</b>：本服務由個人提供，暫不開立統一發票；收款以綠界交易紀錄與信用卡帳單（PayPal 付款則以 PayPal 交易紀錄）為憑。
   </div>
 
   <a class="back" href="https://yoda-research-next.vercel.app/">← 回 Yoda Research</a>
@@ -307,6 +346,19 @@ function setSize(s){document.documentElement.setAttribute('data-size',s);documen
     if(b)b.style.display='block';}
   // 付款完成返回(?paid=1) → 顯示訂閱成功橫幅並捲到最上面
   if(new URLSearchParams(location.search).get('paid')){var pb=document.getElementById('paidBanner');if(pb){pb.style.display='block';try{window.scrollTo(0,0);}catch(e){}}}
+}catch(e){}})();
+/* PayPal 按鈕受「無鑑賞期」勾選約束：沒勾就不放行（按鈕半透明＋提示＋抖動），勾了才開 PayPal 付款頁 */
+(function(){try{
+  var box=document.getElementById('paypal'),ag=document.getElementById('ppAgree'),gate=document.getElementById('ppGate'),msg=document.getElementById('ppMsg');
+  if(!box||!ag)return;
+  function sync(){box.classList.toggle('locked',!ag.checked);if(ag.checked){if(msg)msg.textContent='';if(gate)gate.classList.remove('warn');}}
+  ag.addEventListener('change',sync);sync();
+  box.querySelectorAll('a.pp-btn').forEach(function(a){a.addEventListener('click',function(e){
+    if(ag.checked)return;
+    e.preventDefault();
+    if(msg)msg.textContent='請先勾選上方聲明（數位內容不適用七日猶豫期），再前往 PayPal 付款';
+    if(gate){gate.classList.add('warn','shake');setTimeout(function(){gate.classList.remove('shake');},450);}
+  });});
 }catch(e){}})();
 </script>
 <script>(function(){try{var K='yr_vid',v=localStorage.getItem(K);if(!v){v=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem(K,v);}var seg=location.pathname.split('/').filter(Boolean).pop()||'home';fetch('https://script.google.com/macros/s/AKfycbwQQ02EzseXtzvHxH3yegvgvQKncv7ReoGaqqsVxzco6cdagOCW13Tr7KlwX2UJtPc7/exec',{method:'POST',body:JSON.stringify({action:'hit',page:decodeURIComponent(seg),path:location.pathname,host:location.hostname,ref:document.referrer,vid:v})});}catch(e){}})();</script>

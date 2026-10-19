@@ -251,6 +251,19 @@
 
   .disc{font-size:12px;color:var(--dim);line-height:1.8;border-top:1px solid var(--divider);margin-top:24px;padding-top:18px}
   html[data-theme="light"] .disc{color:#596069} /* 免責灰字淺色對比 AA（Yoda 09-26 同意全站調深） */
+  /* PayPal 一次付清（2026-10-19）：綠界刷卡為主選項，這塊給海外信用卡／不想綁自動扣款的人 */
+  .pp{margin-top:16px;padding-top:14px;border-top:1px solid var(--divider)}
+  .pp-h{font-size:14.5px;font-weight:800;line-height:1.5;margin-bottom:2px;color:var(--text)}
+  .pp-sub{font-size:12.5px;color:var(--dim);line-height:1.65;margin-bottom:10px}
+  .pp-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:460px}
+  .pp-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 4px;border-radius:12px;border:1px solid rgba(41,151,255,.55);background:rgba(41,151,255,.08);color:var(--text);text-decoration:none;font-weight:700;font-size:13.5px;line-height:1.3;text-align:center;transition:opacity .15s}
+  .pp-btn .amt{font-size:15px;font-weight:800;color:var(--accent)}
+  .pp-save{display:inline-block;font-size:10.5px;font-weight:800;color:#1a1200;background:linear-gradient(90deg,var(--sub1),var(--sub2));border-radius:9999px;padding:1px 7px;margin-top:2px;white-space:nowrap}
+  .pp.locked .pp-btn{opacity:.5}
+  .pp-save .pp-en{display:none} html.lt-en .pp-save .pp-zh{display:none} html.lt-en .pp-save .pp-en{display:inline}   /* 英文模式用人工字（機翻會把「省」翻成 Province）*/
+  .pp-steps{list-style:none;margin:8px 0 0;font-size:12.5px;color:var(--dim);line-height:1.75}
+  .pp-steps b{color:var(--text)}
+  .pp-steps a{color:var(--sub1)}
 </style>
 <style>
 /* ── 右側捲軸：一定要看得見、抓得住（2026-08-29 讀者反映 · core-render §B-32）────────
@@ -363,6 +376,21 @@ nav{scrollbar-width:thin}
         <button class="btn" onclick="doRegPay()" style="background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">要，前往付費訂閱付款 →</button>
         <a class="btn" href="https://yoda-research-next.vercel.app/" style="display:block;text-align:center;background:var(--surface2);color:var(--text);border:1px solid var(--border);box-shadow:none;margin-top:10px">先不用，回首頁看報告</a>
         <div class="msg" id="regMsg2"></div>
+        <!-- PayPal 一次付清（2026-10-19）：受上方同一個勾選約束；付款後由 Yoda 手動開通 -->
+        <div class="pp locked" id="ppReg">
+          <div class="pp-h">或用 PayPal 付款（海外信用卡／不想綁定自動扣款）</div>
+          <div class="pp-sub">一次付清，到期不會自動扣款；同樣適用上方聲明，請先勾選。</div>
+          <div class="pp-btns">
+            <a class="pp-btn" href="https://www.paypal.com/ncp/payment/7V7DQBNFA8RXN" target="_blank" rel="noopener"><span>1 個月</span><span class="amt notranslate" translate="no">US$18</span></a>
+            <a class="pp-btn" href="https://www.paypal.com/ncp/payment/ZBPPX38A9ZED4" target="_blank" rel="noopener"><span>3 個月</span><span class="amt notranslate" translate="no">US$54</span></a>
+            <a class="pp-btn" href="https://www.paypal.com/ncp/payment/FQWMNXJ5XTPVQ" target="_blank" rel="noopener"><span>1 年</span><span class="amt notranslate" translate="no">US$200</span><span class="pp-save notranslate" translate="no"><span class="pp-zh">省</span><span class="pp-en">Save</span> US$16</span></a>
+          </div>
+          <ol class="pp-steps">
+            <li>① 註冊帳號 ✓（已完成）</li>
+            <li>② 用 PayPal 付款，<b>付款備註填寫你註冊的 email</b>（<b class="pp-email notranslate" translate="no"></b>）</li>
+            <li>③ 付款後約 1 個工作天內手動開通（到<a href="客服.html">客服表單</a>通知可加快）。PayPal 為一次付清、到期不會自動扣款，到期前可再購買續訂。</li>
+          </ol>
+        </div>
         <p class="hint" style="margin-top:12px">帳號已存好——之後隨時登入會員專區，也能從「待開通」狀態一鍵前往付款。</p>
       </div>
     </div>
@@ -427,6 +455,7 @@ nav{scrollbar-width:thin}
     <h2 class="sec-h">訂閱與付款須知</h2>
     <div class="card" style="font-size:13.5px;line-height:1.95;color:var(--dim)">
       <b style="color:var(--text)">自動續扣（定期定額）</b>：訂閱採每月定期定額，綠界（ECPay）於每月固定日向你綁定的信用卡收取當期費用，持續至你主動取消為止。<br>
+      <b style="color:var(--text)">PayPal 一次付清</b>：選 PayPal 付款為一次付清所選期間（1 個月／3 個月／1 年），<b>不綁定、不自動續扣</b>，到期即停止；要繼續使用請在到期前再購買。付款後約 1 個工作天內人工開通。<br>
       <b style="color:var(--text)">取消方式</b>：可隨時取消——到 <a href="客服.html">客服表單</a> 或私訊粉專即可；取消後自<b>下一期</b>起不再扣款。<br>
       <b style="color:var(--text)">退費政策</b>：數位內容於當期開通後不另退費；取消僅停止下一期扣款，當期服務仍提供至期末。<br>
       <b style="color:var(--text)">客服聯絡</b>：<a href="客服.html">客服表單</a> · <a href="https://www.facebook.com/profile.php?id=100069223220386" target="_blank" rel="noopener">Facebook 粉專</a><br>
@@ -450,6 +479,21 @@ nav{scrollbar-width:thin}
       <label class="remember" style="align-items:flex-start;line-height:1.6;margin-top:10px"><input id="pendAgree" type="checkbox" style="margin-top:3px" /> <span>我已了解本服務為數位內容，付款後隨即開通，<b>不適用七日猶豫期</b>，開通後恕不退費。</span></label>
       <button class="btn" onclick="doPendPay()" style="width:auto;padding:11px 22px;background:linear-gradient(135deg,var(--sub1),var(--sub2));color:#1a1200;box-shadow:0 6px 18px rgba(224,165,38,.3)">前往付費訂閱付款 →</button>
       <div class="msg" id="pendMsg"></div>
+      <!-- PayPal 一次付清（2026-10-19）：受上方同一個勾選約束；付款後由 Yoda 手動開通 -->
+      <div class="pp locked" id="ppPend">
+        <div class="pp-h">或用 PayPal 付款（海外信用卡／不想綁定自動扣款）</div>
+        <div class="pp-sub">一次付清，到期不會自動扣款；同樣適用上方聲明，請先勾選。</div>
+        <div class="pp-btns">
+          <a class="pp-btn" href="https://www.paypal.com/ncp/payment/7V7DQBNFA8RXN" target="_blank" rel="noopener"><span>1 個月</span><span class="amt notranslate" translate="no">US$18</span></a>
+          <a class="pp-btn" href="https://www.paypal.com/ncp/payment/ZBPPX38A9ZED4" target="_blank" rel="noopener"><span>3 個月</span><span class="amt notranslate" translate="no">US$54</span></a>
+          <a class="pp-btn" href="https://www.paypal.com/ncp/payment/FQWMNXJ5XTPVQ" target="_blank" rel="noopener"><span>1 年</span><span class="amt notranslate" translate="no">US$200</span><span class="pp-save notranslate" translate="no"><span class="pp-zh">省</span><span class="pp-en">Save</span> US$16</span></a>
+        </div>
+        <ol class="pp-steps">
+          <li>① 註冊帳號 ✓（已完成）</li>
+          <li>② 用 PayPal 付款，<b>付款備註填寫你的帳號 email</b>（<b class="pp-email notranslate" translate="no"></b>）</li>
+          <li>③ 付款後約 1 個工作天內手動開通（到<a href="客服.html">客服表單</a>通知可加快）。PayPal 為一次付清、到期不會自動扣款，到期前可再購買續訂。</li>
+        </ol>
+      </div>
     </div>
 
     <!-- 頂部雙欄：我的付費報告（左）＋ 付費會員權益（右） -->
@@ -494,6 +538,8 @@ nav{scrollbar-width:thin}
         <div class="r"><span class="k">已連續訂閱</span><span class="v big" id="dPeriods">—</span></div>
         <div class="r"><span class="k" id="dNextK">訂閱有效至 / 下次扣款日</span><span class="v" id="dNext">—</span></div>
       </div>
+      <!-- PayPal 一次付清的會員才顯示（d.payMethod==='paypal'）：到期不會自動扣款，提醒續訂 -->
+      <p class="hint" id="dPayPalNote" style="display:none;font-size:12.5px;margin-top:12px">付款方式：PayPal 一次付清，<b style="color:var(--text)">到期不會自動扣款</b>。到期前可到 <a href="subscribe.html#paypal">訂閱方案頁</a> 再購買續訂（付款備註填你的帳號 email），開通後會接在原到期日之後，不會少算天數。</p>
     </div>
 
     <div class="card gold">
@@ -631,7 +677,7 @@ nav{scrollbar-width:thin}
       .then(function(res){
         btn.disabled=false;
         if(res&&res.ok){ // 建立成功（或 email 已註冊且密碼正確）→ 進階段2，詢問要不要付費
-          regEmailVal=email; el('regDoneEmail').textContent=email;
+          regEmailVal=email; el('regDoneEmail').textContent=email; ppFillEmail('ppReg',email);
           el('regForm').style.display='none'; el('regDone').style.display='block';
           try{el('registerCard').scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
         } else { msg.style.color='#ff6b6b'; msg.textContent=(res&&res.error)||'建立帳號失敗，換一組密碼再試'; }
@@ -645,6 +691,20 @@ nav{scrollbar-width:thin}
   }
   // 共用：導去綠界付款（帶要開通的 email）
   function goPayEcpay(email){ if(!email)return; el('ecpayEmail').value=email; el('ecpayGo').submit(); }
+  // PayPal 按鈕（2026-10-19）：跟綠界共用同一個「無鑑賞期」勾選；沒勾就擋下、在同一個訊息列提示
+  function ppWire(boxId, agreeId, msgId){
+    var box=el(boxId), ag=el(agreeId); if(!box||!ag)return;
+    function sync(){ box.classList.toggle('locked',!ag.checked);
+      var m=el(msgId); if(ag.checked&&m&&/^請先勾選/.test(m.textContent||''))m.textContent=''; }
+    ag.addEventListener('change',sync); sync();
+    box.querySelectorAll('a.pp-btn').forEach(function(a){ a.addEventListener('click',function(e){
+      if(ag.checked)return;
+      e.preventDefault();
+      var m=el(msgId); if(m){ m.className='msg'; m.style.color='#ff6b6b'; m.textContent='請先勾選上方同意（數位內容無七日猶豫期），再前往 PayPal 付款'; }
+    }); });
+  }
+  function ppFillEmail(boxId, email){ var b=el(boxId); if(!b)return; b.querySelectorAll('.pp-email').forEach(function(x){ x.textContent=email||''; }); }
+  try{ ppWire('ppReg','regAgree','regMsg2'); ppWire('ppPend','pendAgree','pendMsg'); }catch(e){}
 
   /* 登入 */
   function doLogin(){
@@ -818,6 +878,16 @@ nav{scrollbar-width:thin}
     el('dPeriods').textContent=(d.paidPeriods||0)+' 期';
     el('dNext').textContent=d.nextChargeDate||'—';
     el('dNextK').textContent=active?'訂閱有效至 / 下次扣款日':'已到期（可來信續訂）';
+    ppFillEmail('ppPend',dashEmail);
+    // PayPal 一次付清（2026-10-19）：沒有「下次扣款」，只有「有效至」；過了到期日就顯示已到期（status 仍是 active，等他再買）
+    var isPP=(d.payMethod==='paypal'), ppNote=el('dPayPalNote');
+    if(ppNote) ppNote.style.display=isPP?'block':'none';
+    if(isPP&&active){
+      var tpe=new Date(Date.now()+8*3600*1000).toISOString().slice(0,10);   // 台北今天
+      var ppExpired=!!(d.nextChargeDate&&d.nextChargeDate<tpe);
+      if(ppExpired){ badge.className='badge expired'; badge.textContent='已到期'; }
+      el('dNextK').textContent=ppExpired?'PayPal 方案已於此日到期（可再購買續訂）':'PayPal 方案有效至（到期不自動扣款）';
+    }
     el('dRefLink').value=d.shareLink||'';
     el('dRefTotal').textContent=d.referredTotal||0;
     el('dRefPaid').textContent=d.referredPaid||0;
