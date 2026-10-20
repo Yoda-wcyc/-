@@ -757,6 +757,7 @@ nav{scrollbar-width:thin}
   var PAID_ALL=[], plCat='全部', plYm='all';
   function plStrip(id){ return String(id).replace(/\.html?$/i,'').replace(/^(付費|免費)[_-]?/,''); }
   function plCatOf(id){ var s=plStrip(id); for(var i=0;i<PAID_CATS.length;i++) if(PAID_CATS[i][0].test(s)) return PAID_CATS[i][1]; return '其他'; }
+  function plDayRank(id){ var c=plCatOf(id); return c==='關鍵報告'?0:(c==='綜合'?1:2); }
   function plBadgeOf(c){ for(var i=0;i<PAID_CATS.length;i++) if(PAID_CATS[i][1]===c) return PAID_CATS[i][2]; return 'pl-b-oth'; }
   function plYmd(id){ var m=String(id).match(/(\d{4})(\d{2})(\d{2})/); return m?{y:m[1],m:m[2],d:m[3]}:null; }
   /* 檔名沒有日期時，改用上傳時間當日期：否則不管哪天上傳都會沉到清單最後一名（2026-09-06 修） */
@@ -767,7 +768,7 @@ nav{scrollbar-width:thin}
   function plDateOf(id){ var v=plYmd(id); return v?(v.y+'-'+v.m+'-'+v.d):''; }
   /* 標題：去前綴、去尾端日期（_ 或 - 皆可）、底線轉空白 */
   function plTitleOf(id){ return plStrip(id).replace(/[_-]\d{8}$/,'').replace(/_/g,' ').trim(); }
-  function plWeek(ds){ if(!ds)return ''; var p=ds.split('-'); var dt=new Date(Number(p[0]),Number(p[1])-1,Number(p[2])); return '週'+'日一二三四五六'.charAt(dt.getDay()); }
+  function plWeek(ds){ if(!/^\d{4}-\d{2}-\d{2}$/.test(ds||''))return ''; var p=ds.split('-'); var dt=new Date(Number(p[0]),Number(p[1])-1,Number(p[2])); return '週'+'日一二三四五六'.charAt(dt.getDay()); }
 
   function buildPaidFilters(){
     var cc={}, yy={};
@@ -809,9 +810,12 @@ nav{scrollbar-width:thin}
       if(plYm!=='all'&&plYmOfRow(r)!==plYm) return false;
       return true;
     });
+    /* 排序：日期新→舊；同一天內 關鍵報告 → 綜合 → 其他（其他之間維持 reportId 字序）（2026-10-20 Yoda 定） */
     var dated=rows.slice().sort(function(a,b){
       var da=plDateOfRow(a), db=plDateOfRow(b);
       if(da!==db) return db.localeCompare(da);
+      var ra=plDayRank(a.reportId), rb=plDayRank(b.reportId);
+      if(ra!==rb) return ra-rb;
       return String(a.reportId).localeCompare(String(b.reportId));
     });
 
@@ -827,7 +831,7 @@ nav{scrollbar-width:thin}
     var html='';
     var groups=[], gmap={};
     dated.forEach(function(r){
-      var d=plDateOf(r.reportId)||'其他';
+      var d=plDateOfRow(r)||'其他';   /* 分組與排序同吃上傳日期，檔名無日期者歸入當天而不是另成「其他」組 */
       if(!gmap[d]){ gmap[d]={date:d,items:[]}; groups.push(gmap[d]); }
       gmap[d].items.push(r);
     });
